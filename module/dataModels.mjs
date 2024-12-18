@@ -32,7 +32,8 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                 }),
                 ap: new SchemaField ({ // action points
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 4}), // current ap amount
-                    max: new NumberField({ required: true, integer: true, min: 4, initial: 4}), // max ap amount
+                    max: new NumberField({ required: true, integer: true, min: 4, initial: 6}), // max ap amount
+                    start: new NumberField({ required: true, integer: true, min: 4, initial: 4}), // starting ap amount
                 }),
                 jiriki: new SchemaField ({ // jiriki points
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // current ap amount
@@ -42,6 +43,8 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
             attributes: new SchemaField ({
                 crit_chance: new NumberField({ required: true, integer: false, min:0, initial: 0.05}), // chance to land a crit, expressed as a percentage
                 crit_bonus : new NumberField({ required: true, integer: false, min:0, initial: 0   }), // damage increase (on top of base) on crit (as percent)
+                accuracy : new NumberField({ required: true, integer: false, min:0, initial: 0.95}), // base chance to hit (can go above 1)
+                evasion : new NumberField({ required: true, integer: false, min:0, initial: 0.0}), // chance to dodge an attack (expressed as a percent)
                 resistance: new SchemaField ({ // resitance values, expressed as int percentages 
                     physical:   new SchemaField ({
                         value : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
@@ -200,9 +203,12 @@ export class SkillData extends foundry.abstract.TypeDataModel {
         return {
             name: new StringField({required: true}), // skill name
             description: new HTMLField(), // skill description
-            AP: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // action point cost
-            JP: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // jiriki point cost
-            cooldown: new NumberField({ required: true, integer: true, min: -1, initial: 0}), // cooldown in rounds negative value means inf
+            ap: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // action point cost
+            jp: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // jiriki point cost
+            cooldown: new SchemaField ({
+                value: new NumberField({ required: true, integer: true, min: -1, initial: 0}),
+                max: new NumberField({ required: true, integer: true, min: -1, initial: 0}),
+            }), // cooldown in rounds negative value means inf
             memorized: new BooleanField({ required: true, initial:false }),
             prereqs: new SchemaField({ // prerequisite combat skill values to memorize
                 flamespeaker    : new NumberField({ required: true, integer:true, min: 0, initial: 0}),
@@ -217,9 +223,14 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             }),
             damage: new ArrayField(new SchemaField({
                 type: new StringField(), // damage type
-                value: new new NumberField({ required: true, integer: false, min: 0, initial: 0}), // damage roll as %of base@lvl
+                value: new NumberField({ required: true, integer: false, min: 0, initial: 0}), // damage roll as %of base@lvl
             })),
             ability: new StringField(), // int/dex/str - ability used for scaling of damage
+            attack: new BooleanField({ required: true, initial: false }),
+            targets: new SchemaField ({ // amount of targets required/allowed
+                min: new NumberField({ required: true, integer:true, min: 0, initial: 0}),
+                max: new NumberField({ required: true, integer:true, min: 0, initial: 0}),
+            }),
         };
     }
 };

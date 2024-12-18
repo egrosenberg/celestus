@@ -8,8 +8,7 @@ export class CelestusActor extends Actor {
     async applyDamage(damage, type) {
         damage = parseInt(damage);
         // subtract resisted damage from damage
-        if (this.system.attributes.resistance[type].value && this.system.attributes.resistance[type].bonus)
-        {
+        if (this.system.attributes.resistance[type].value && this.system.attributes.resistance[type].bonus) {
             const DR = this.system.attributes.resistance[type].value + this.system.attributes.resistance[type].bonus;
             damage -= DR * damage;
         }
@@ -160,4 +159,59 @@ export class CelestusActor extends Actor {
         // Log a message.
         console.log(`${this.name} took ${damage} ${type} damage!`);
     }
+
+    /**
+     * 
+     * @param {SkillData} skill : object containing info of the skill to use
+     */
+    async useSkill(skill) {
+        
+        const actor = this.system;
+        console.log(actor);
+
+        // verify resources
+        if (skill.system.ap > actor.resources.ap.value) {
+            const apError = new Dialog({
+                title: "Insufficient Resources",
+                content: `Actor has insufficient Action Points to use chosen skill`,
+                buttons: {
+                    button1:
+                    {
+                        label: "Ok",
+                        icon: `<i class="fas fa-check"></i>`
+                    }
+                }
+            }).render(true);
+            return;
+        }
+        else if (skill.system.jp > actor.resources.jiriki.value) {
+            const jpError = new Dialog({
+                title: "Insufficient Resources",
+                content: `Actor has insufficient Jiriki Points to use chosen skill`,
+                buttons: {
+                    button1:
+                    {
+                        label: "Ok",
+                        icon: `<i class="fas fa-check"></i>`
+                    }
+                }
+            }).render(true);
+            return;
+        }
+        // use resources
+        await this.update({"system.resources.ap.value": actor.resources.ap.value - skill.system.ap});
+        await this.update({"system.resources.jirki.value": actor.resources.jiriki.value - skill.system.jp});
+
+        const path = './systems/celestus/templates/skillDescription.hbs';
+        const msgData = {
+            name: skill.system.name,
+            flavor: skill.system.description,
+            itemID: skill.uuid,
+            actorID: this.uuid,
+            attack: skill.system.attack,
+        }
+        const msg = await renderTemplate(path, msgData);
+        await ChatMessage.create({content : msg, speaker: {alias: this.name}});
+    }
 }
+

@@ -35,6 +35,13 @@
             "npc":
             {
             }
+        },
+        "Item":
+        {
+            "skill":
+            {
+                "htmlFields": ["description"]
+            }
         }
     },
     "socket": true,
