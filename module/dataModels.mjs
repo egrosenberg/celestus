@@ -1,8 +1,11 @@
 const {
-    HTMLField, SchemaField, NumberField, StringField, FilePathField, ArrayField
+    HTMLField, SchemaField, NumberField, StringField, FilePathField, ArrayField, BooleanField
 } = foundry.data.fields;
 
-// Define data model for player character
+/**
+ * Define data model for player character
+ * @extends {TypeDataModel}
+ */
 export class PlayerData extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
@@ -12,60 +15,211 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
             resources: new SchemaField ({
                 // configure health as a schema field
                 hp: new SchemaField ({
-                    val: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // current hp value
-                    min: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // min hp value
+                    value: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // current hp value
                     max: new NumberField({ required: true, integer: true, min: 0, initial: 0})  // max hp value
                 }),
                 // configure armor as a schema field
                 phys_armor: new SchemaField ({
-                    val: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // current armor value
-                    min: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // min armor value
-                    max: new NumberField({ required: true, integer: true, min: 0, initial: 0})  // max armor value
+                    value : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // current armor value
+                    max : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // max armor value
+                    temp: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // temporary armor (from skills)
                 }),
                 // configure magic armor as a schema field
                 mag_armor: new SchemaField ({
-                    val: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // current armor value
-                    min: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // min armor value
-                    max: new NumberField({ required: true, integer: true, min: 0, initial: 0})  // max armor value
+                    value : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // current armor value
+                    max : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // max armor value
+                    temp: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // temporary armor (from skills)
                 }),
-                ap: new NumberField({ required: true, integer: true, min: 0, initial: 4}), // action points
+                ap: new SchemaField ({ // action points
+                    value: new NumberField({ required: true, integer: true, min: 0, initial: 4}), // current ap amount
+                    max: new NumberField({ required: true, integer: true, min: 4, initial: 4}), // max ap amount
+                }),
+                jiriki: new SchemaField ({ // jiriki points
+                    value: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // current ap amount
+                    max: new NumberField({ required: true, integer: true, min: 1, initial: 1}), // max ap amount
+                }),
             }),
             attributes: new SchemaField ({
-                crit_chance: new NumberField({ required: true, integer: true, min:0, initial: 5}), // chance to land a crit, expressed as an int percentage
-                resistance: new SchemaField ({ // resitance values, expressed as int percentages
-                    physical:   new NumberField({ required: true, integer: true, min: -500, initial: 0}),
-                    fire    :   new NumberField({ required: true, integer: true, min: -500, initial: 0}),
-                    water   :   new NumberField({ required: true, integer: true, min: -500, initial: 0}),
-                    air     :   new NumberField({ required: true, integer: true, min: -500, initial: 0}),
-                    earth   :   new NumberField({ required: true, integer: true, min: -500, initial: 0}),
-                    poison  :   new NumberField({ required: true, integer: true, min: -500, initial: 0}),
-                    psychic :   new NumberField({ required: true, integer: true, min: -500, initial: 0}),
-                    healing :   new NumberField({ required: true, integer: true, min: -500, initial: 0}),
-                })
+                crit_chance: new NumberField({ required: true, integer: false, min:0, initial: 0.05}), // chance to land a crit, expressed as a percentage
+                crit_bonus : new NumberField({ required: true, integer: false, min:0, initial: 0   }), // damage increase (on top of base) on crit (as percent)
+                resistance: new SchemaField ({ // resitance values, expressed as int percentages 
+                    physical:   new SchemaField ({
+                        value : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                        bonus : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                    }),
+                    fire    :   new SchemaField ({
+                        value : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                        bonus : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                    }),
+                    water   :   new SchemaField ({
+                        value : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                        bonus : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                    }),
+                    air     :   new SchemaField ({
+                        value : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                        bonus : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                    }),
+                    earth   :   new SchemaField ({
+                        value : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                        bonus : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                    }),
+                    poison  :   new SchemaField ({
+                        value : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                        bonus : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                    }),
+                    psychic :   new SchemaField ({
+                        value : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                        bonus : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                    }),
+                    healing :   new SchemaField ({
+                        value : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                        bonus : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                    }),
+                    phys_armor :   new SchemaField ({
+                        value : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                        bonus : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                    }),
+                    mag_armor :   new SchemaField ({
+                        value : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                        bonus : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                    }),
+                    t_phys_armor :   new SchemaField ({
+                        value : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                        bonus : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                    }),
+                    t_mag_armor :   new SchemaField ({
+                        value : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                        bonus : new NumberField ({ required: true, integer: true, min: -500, initial: 0}),
+                    }),
+                }),
+                damage: new SchemaField ({ // damage modifiers as additive bonus percent
+                    physical    : new NumberField({ required: true, integer: false, min:0, initial: 0 }),
+                    fire        : new NumberField({ required: true, integer: false, min:0, initial: 0 }),
+                    water       : new NumberField({ required: true, integer: false, min:0, initial: 0 }),
+                    air         : new NumberField({ required: true, integer: false, min:0, initial: 0 }),
+                    earth       : new NumberField({ required: true, integer: false, min:0, initial: 0 }),
+                    poison      : new NumberField({ required: true, integer: false, min:0, initial: 0 }),
+                    psychic     : new NumberField({ required: true, integer: false, min:0, initial: 0 }),
+                    piercing    : new NumberField({ required: true, integer: false, min:0, initial: 0 }),
+                    healing     : new NumberField({ required: true, integer: false, min:0, initial: 0 }),
+                    phys_armor  : new NumberField({ required: true, integer: false, min:0, initial: 0 }),
+                    mag_armor   : new NumberField({ required: true, integer: false, min:0, initial: 0 }),
+                    t_phys_armor: new NumberField({ required: true, integer: false, min:0, initial: 0 }),
+                    t_mag_armor : new NumberField({ required: true, integer: false, min:0, initial: 0 }),
+                }),
+                // movement
+                movement: new NumberField({ required: true, integer: false, min: 0, initial: 20}), // movement in map units (default ft)
+                // xp & level
+                xp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+                level: new NumberField({ required: true, integer: true, min: 0, initial: 1 }),
             }),
             // combat abilities
             combat: new SchemaField ({
-                flamespeaker    : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // fire
-                tidecaller      : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // water/ healing
-                stormseeker     : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // air
-                duneshaper      : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // earth / poison
-                voidcantor      : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // psychic (psionics)
-                deathbringer    : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // physical/ lifesteal (will include blood)
-                shroudstalker   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // rogue, crit, movement (shadow magic)
-                formshifter     : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // polymorph, gives bonus abillity points
-                warlord         : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // increases physical
+                flamespeaker    : new SchemaField({ // fire
+                    value   : new NumberField({ required: true, integer: true , min: 0, initial: 0}), // base value
+                    bonus   : new NumberField({ required: true, integer: true , min: 0, initial: 0}), // bonus to base value from items/features
+                }),
+                tidecaller      : new SchemaField({ // water/ healing
+                    value   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // base value
+                    bonus   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // bonus to base value from items/features
+                }),
+                stormseeker      : new SchemaField({ // air
+                    value   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // base value
+                    bonus   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // bonus to base value from items/features
+                }),
+                duneshaper      : new SchemaField({ // earth / poison
+                    value   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // base value
+                    bonus   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // bonus to base value from items/features
+                }),
+                voidcantor      : new SchemaField({ // psychic (psionics)
+                    value   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // base value
+                    bonus   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // bonus to base value from items/features
+                }),
+                deathbringer    : new SchemaField({ // physical/ lifesteal (will include blood)
+                    value   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // base value
+                    bonus   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // bonus to base value from items/features
+                }),
+                shroudstalker   : new SchemaField({ // rogue, crit, movement (shadow magic)
+                    value   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // base value
+                    bonus   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // bonus to base value from items/features
+                }),
+                formshifter     : new SchemaField({ // polymorph, gives bonus abillity points
+                    value   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // base value
+                    bonus   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // bonus to base value from items/features
+                }),
+                warlord         : new SchemaField({ // increases physical
+                    value   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // base value
+                    bonus   : new NumberField({ required: true, integer: true, min: 0, initial: 0}), // bonus to base value from items/features
+                }),
             }),
             // configure ability/attributes
             abilities: new SchemaField ({
-                str  : new NumberField({ trquired: true, integer: true, min: 0, initial: 10}), // Strength
-                dex  : new NumberField({ trquired: true, integer: true, min: 0, initial: 10}), // Dexterity
-                con  : new NumberField({ trquired: true, integer: true, min: 0, initial: 10}), // Constitution
-                intl : new NumberField({ trquired: true, integer: true, min: 0, initial: 10}), // Intellect
-                mind : new NumberField({ trquired: true, integer: true, min: 0, initial: 10}), // Mind
-                wit  : new NumberField({ trquired: true, integer: true, min: 0, initial: 10}), // Wits
+                str  : new SchemaField ({ // Strength
+                    value   : new NumberField({ required: true, integer: true , min: 0, initial: 10}), // base value
+                    mod     : new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // modifier value (percentage)
+                    bonus   : new NumberField({ required: true, integer: true , min: 0, initial: 0 }), // bonus to base value from items/features
+                }),
+                dex  : new SchemaField ({ // Dexterity
+                    value   : new NumberField({ required: true, integer: true , min: 0, initial: 10}), // base value
+                    mod     : new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // modifier value (percentage)
+                    bonus   : new NumberField({ required: true, integer: true , min: 0, initial: 0 }), // bonus to base value from items/features
+                }),
+                con  : new SchemaField ({ // Constitution
+                    value   : new NumberField({ required: true, integer: true , min: 0, initial: 10}), // base value
+                    mod     : new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // modifier value (percentage)
+                    bonus   : new NumberField({ required: true, integer: true , min: 0, initial: 0 }), // bonus to base value from items/features
+                }),
+                int : new SchemaField ({ // Intellect
+                    value   : new NumberField({ required: true, integer: true , min: 0, initial: 10}), // base value
+                    mod     : new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // modifier value (percentage)
+                    bonus   : new NumberField({ required: true, integer: true , min: 0, initial: 0 }), // bonus to base value from items/features
+                }),
+                mind : new SchemaField ({ // Mind
+                    value   : new NumberField({ required: true, integer: true , min: 0, initial: 10}), // base value
+                    mod     : new NumberField({ required: true, integer: true , min: 0, initial: 0 }), // modifier value (flat)
+                    bonus   : new NumberField({ required: true, integer: true , min: 0, initial: 0 }), // bonus to base value from items/features
+                }),
+                wit  : new SchemaField ({ // Wits
+                    value   : new NumberField({ required: true, integer: true , min: 0, initial: 10}), // base value
+                    mod     : new NumberField({ required: true, integer: true , min: 0, initial: 0 }), // modifier value (flat)
+                    bonus   : new NumberField({ required: true, integer: true , min: 0, initial: 0 }), // bonus to base value from items/features
+                }),
             }),
-            // xp as a text field
-            xp: new NumberField({ required: true, integer: true, min: 0, initial: 0})
         };
     }   
-}
+};
+
+
+
+/**
+ * Defines data model for skills
+ * @extends { TypeDataModel }
+ */
+export class SkillData extends foundry.abstract.TypeDataModel {
+    static defineSchema() {
+        return {
+            name: new StringField({required: true}), // skill name
+            description: new HTMLField(), // skill description
+            AP: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // action point cost
+            JP: new NumberField({ required: true, integer: true, min: 0, initial: 0}), // jiriki point cost
+            cooldown: new NumberField({ required: true, integer: true, min: -1, initial: 0}), // cooldown in rounds negative value means inf
+            memorized: new BooleanField({ required: true, initial:false }),
+            prereqs: new SchemaField({ // prerequisite combat skill values to memorize
+                flamespeaker    : new NumberField({ required: true, integer:true, min: 0, initial: 0}),
+                tidecaller      : new NumberField({ required: true, integer:true, min: 0, initial: 0}),
+                stormseeker     : new NumberField({ required: true, integer:true, min: 0, initial: 0}),
+                duneshaper      : new NumberField({ required: true, integer:true, min: 0, initial: 0}),
+                voidcantor      : new NumberField({ required: true, integer:true, min: 0, initial: 0}),
+                deathbringer    : new NumberField({ required: true, integer:true, min: 0, initial: 0}),
+                shroudstalker   : new NumberField({ required: true, integer:true, min: 0, initial: 0}),
+                formshifter     : new NumberField({ required: true, integer:true, min: 0, initial: 0}),
+                warlord         : new NumberField({ required: true, integer:true, min: 0, initial: 0}),
+            }),
+            damage: new ArrayField(new SchemaField({
+                type: new StringField(), // damage type
+                value: new new NumberField({ required: true, integer: false, min: 0, initial: 0}), // damage roll as %of base@lvl
+            })),
+            ability: new StringField(), // int/dex/str - ability used for scaling of damage
+        };
+    }
+};
