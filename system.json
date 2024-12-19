@@ -41,6 +41,10 @@
             "skill":
             {
                 "htmlFields": ["description"]
+            },
+            "armor":
+            {
+                "htmlFields": ["description"]
             }
         }
     },

@@ -167,7 +167,6 @@ export class CelestusActor extends Actor {
     async useSkill(skill) {
         
         const actor = this.system;
-        console.log(actor);
 
         // verify resources
         if (skill.system.ap > actor.resources.ap.value) {
@@ -204,14 +203,38 @@ export class CelestusActor extends Actor {
 
         const path = './systems/celestus/templates/skillDescription.hbs';
         const msgData = {
-            name: skill.system.name,
+            name: skill.name,
             flavor: skill.system.description,
-            itemID: skill.uuid,
-            actorID: this.uuid,
-            attack: skill.system.attack,
         }
         const msg = await renderTemplate(path, msgData);
-        await ChatMessage.create({content : msg, speaker: {alias: this.name}});
+        await ChatMessage.create({
+            content : msg, speaker: {alias: this.name},
+            'system.actorID': this.uuid,
+            'system.isSkill': true,
+            'system.itemID': skill.uuid,
+            'system.skill.hasAttack': skill.system.attack,
+        });
+    }
+
+    /**
+     * refreshes all armor, health, and other resources
+     * removes temp resources
+     */
+    async refresh() {
+        // update hp
+        this.update({ "system.resources.hp.value": this.system.resources.hp.max });
+        // update physical armor
+        this.update({ "system.resources.phys_armor.value": this.system.resources.phys_armor.max });
+        // remove temp physical armor
+        this.update({ "system.resources.phys_armor.temp": 0 });
+        // update magic armor
+        this.update({ "system.resources.mag_armor.value": this.system.resources.mag_armor.max });
+        // remove temp magic armor
+        this.update({ "system.resources.mag_armor.temp": 0 });
+
+        // refresh ap
+        this.update({ "system.resources.ap.value": this.system.resources.ap.start });
+        // refresh jiriki points
+        this.update({ "system.resources.jiriki.value": this.system.resources.jiriki.max });
     }
 }
-

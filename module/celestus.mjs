@@ -1,6 +1,6 @@
-import { PlayerData, SkillData } from "./dataModels.mjs"
+import { PlayerData, SkillData, ChatDataModel } from "./dataModels.mjs"
 import { CelestusActor } from "./actors.mjs"
-import { calcModifiers, rollAttack, rollDamage } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, calcModifiers, rollAttack, rollDamage } from "./hooks.mjs"
 
 // Registering System data Models
 Hooks.on("init", () => {
@@ -36,7 +36,15 @@ Hooks.on("init", () => {
             int: 0.05, // +5% damage/healing per point
             con: 0.10, // +10% max hp per point
             mind: 1, // 1 memory slot per point
-            wit: 0.05, // +5% crit chance (can use raw value to calc initiative)
+            wit: 0.01, // +1% crit chance (can use raw value to calc initiative)
+        },
+        baseAbilityMod: {
+            str: 0.0,
+            dex: 0.0,
+            int: 0.0,
+            con: 0.0,
+            mind: 3,
+            wit: 0.05,
         },
         combatSkillMod: 0.05,   // amount to increase damage by for combat skills per level
         baseCritBonus: 0.6,   // base critical damage bonus expressed as a percentage
@@ -200,13 +208,18 @@ Hooks.on("init", () => {
     };
 
     CONFIG.Actor.documentClass = CelestusActor;
+
+    CONFIG.ChatMessage.dataModels.base = ChatDataModel;
 });
 
-Hooks.on("ready", () =>
-{
+Hooks.on("ready", () => {
     $(document).on("click", ".attack", rollAttack);
     $(document).on("click", ".damage", rollDamage);
+    $(document).on("click", ".apply-damage", applyDamageHook);
 });
 
 // hook stats calc on actor update
 Hooks.on("updateActor", calcModifiers);
+
+// append apply damage button to damage rolls for GM
+Hooks.on("renderChatMessage", addChatButtons);
