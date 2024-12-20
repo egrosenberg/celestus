@@ -103,12 +103,13 @@ export async function applyDamageHook (e) {
     console.log(e.currentTarget.dataset)
     const damage = e.currentTarget.dataset.damageTotal;
     const type = e.currentTarget.dataset.damageType;
+    const origin = await fromUuid(e.currentTarget.dataset.originActor);
 
     const selected = canvas.tokens.controlled;
     // iterate through each controlled token
     for (const token of selected)
     {
-        token.actor.applyDamage(damage, type);
+        token.actor.applyDamage(damage, type, origin);
     }
 }
 
@@ -127,7 +128,6 @@ export async function addChatButtons(msg, html, options) {
             total += roll.total;
         }
         // change color based on hit, miss, or crit
-        console.log(msg.getFlag("celestus", "critThreshold"));
         if (total > msg.getFlag("celestus", "critThreshold"))
         {
             html.find(".dice-total").css('background-color', BLUE);
@@ -170,8 +170,7 @@ export async function addChatButtons(msg, html, options) {
             for (let roll of msg.rolls) {
                 dmgTotal += roll.total;
             }
-            console.log(html.find("dice-total"));
-            html.append(`<button data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\">Apply Damage</button>`);
+            html.append(`<button data-origin-actor="${msg.actorID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\">Apply Damage</button>`);
         }
     }
 }
@@ -189,6 +188,8 @@ export async function previewDamage(object, controlled) {
         // if selecting a token, show damage calc, otherwise show prompt
         if (controlled) {
             let damage = actor.calcDamage($(this).data("damage-total"), $(this).data("damage-type"));
+            // invert damage preview if healing
+            damage = CONFIG.CELESTUS.damageTypes[$(this).data("damage-type")].style === "healing" ? -damage : damage;
             const sign = damage > 0 ? "" : "+";
             damage *= -1;
             // set html

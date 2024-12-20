@@ -40,14 +40,19 @@ export class CelestusActor extends Actor {
 
         // calculate health
         const hpMod = actor.abilities.con.mod;
-        const currentHP = actor.resources.hp.value
+        const currentHP = actor.resources.hp.flat;
         const missingHP = actor.resources.hp.max - currentHP;
         let maxHP = CONFIG.CELESTUS.maxHP[actor.attributes.level] * (1 + hpMod);
         actor.resources.hp.max = parseInt(maxHP);
         // dont damage character when lowering con unless current hp is less than new max
         let newHP = Math.max((maxHP - missingHP), currentHP);
         newHP = Math.min(newHP, maxHP);
-        actor.resources.hp.value = parseInt(newHP);
+        actor.resources.hp.flat = parseInt(newHP);
+
+        // update resource totals
+        actor.resources.hp.value = actor.resources.hp.flat;
+        actor.resources.phys_armor.value = actor.resources.phys_armor.flat + actor.resources.phys_armor.temp;
+        actor.resources.mag_armor.value =  actor.resources.mag_armor.flat +  actor.resources.mag_armor.temp;
 
         // calculate crit chance
         const witMod = actor.abilities.wit.mod;
@@ -79,19 +84,20 @@ export class CelestusActor extends Actor {
      * 
      * @param {number} damage : amount of damage (pref int)
      * @param {string} type : type of damage (must exist in CONFIG.CELESTUS.damageTypes)
-     * @param {CelestusActor} attacker: actor attacking this
+     * @param {CelestusActor} origin: actor that damage originates from
      */
-    async applyDamage(damage, type, attacker) {
+    async applyDamage(damage, type, origin) {
+        console.log(origin);
+
         damage = this.calcDamage(damage, type);
 
-        console.log(`Damage: ${damage}, Type: ${type}, Style: ${CONFIG.CELESTUS.damageTypes[type].style}`)
         // remainder damage after armor
         let remaining = damage;
         // apply damage to armor if applicable
         //physical damage
         if (CONFIG.CELESTUS.damageTypes[type].style === "physical") {
             // apply damage to physical armor
-            const cPhysArmor = this.system.resources.phys_armor.value;
+            const cPhysArmor = this.system.resources.phys_armor.flat;
             const tPhysArmor = this.system.resources.phys_armor.temp;
             // calculate new temp armor value after damage
             if (tPhysArmor > 0) {
@@ -121,13 +127,13 @@ export class CelestusActor extends Actor {
                     remaining = 0;
                 }
                 // update phys armor
-                await this.update({ "system.resources.phys_armor.value": parseInt(newPhysArmor) })
+                await this.update({ "system.resources.phys_armor.flat": parseInt(newPhysArmor) })
             }
         }
         // magical damage
         else if (CONFIG.CELESTUS.damageTypes[type].style === "magical") {
             // apply damage to magical armor
-            const cMagArmor = this.system.resources.mag_armor.value;
+            const cMagArmor = this.system.resources.mag_armor.flat;
             const tMagArmor = this.system.resources.mag_armor.temp;
             // calculate new temp armor value after damage
             if (tMagArmor > 0) {
@@ -157,7 +163,7 @@ export class CelestusActor extends Actor {
                     remaining = 0;
                 }
                 // update mag armor
-                await this.update({ "system.resources.mag_armor.value": parseInt(newMagArmor) })
+                await this.update({ "system.resources.mag_armor.flat": parseInt(newMagArmor) })
             }
         }
         // healing
@@ -165,26 +171,26 @@ export class CelestusActor extends Actor {
             // physical armor restoration (cant go above max physical armor)
             if (CONFIG.CELESTUS.damageTypes[type].text === "phys_armor") {
                 // calculate new physical armor value
-                const cPhysArmor = this.system.resources.phys_armor.value;
+                const cPhysArmor = this.system.resources.phys_armor.flat;
                 const maxPhysArmor = this.system.resources.phys_armor.max;
                 let newPhysArmor = cPhysArmor + remaining;
                 // cap physical armor at max value
                 newPhysArmor = (newPhysArmor > maxPhysArmor) ? maxPhysArmor : newPhysArmor;
                 // update physical armor value
-                await this.update({ "system.resources.phys_armor.value": parseInt(newPhysArmor) });
+                await this.update({ "system.resources.phys_armor.flat": parseInt(newPhysArmor) });
                 // zero out remaining
                 remaining = 0;
             }
             // magic armor restoration (cant go above max physical armor)
             else if (CONFIG.CELESTUS.damageTypes[type].text === "mag_armor") {
                 // calculate new magic armor value
-                const cMagArmor = this.system.resources.mag_armor.value;
+                const cMagArmor = this.system.resources.mag_armor.flat;
                 const maxMagArmor = this.system.resources.mag_armor.max;
                 let newMagArmor = cMagArmor + remaining;
                 // cap magic armor at max value
                 newMagArmor = (newMagArmor > maxMagArmor) ? maxMagArmor : newMagArmor;
                 // update magic armor value
-                await this.update({ "system.resources.mag_armor.value": parseInt(newMagArmor) });
+                await this.update({ "system.resources.mag_armor.flat": parseInt(newMagArmor) });
                 // zero out remaining
                 remaining = 0;
             }
@@ -218,7 +224,7 @@ export class CelestusActor extends Actor {
         }
 
         // update the health
-        const value = this.system.resources.hp.value;
+        const value = this.system.resources.hp.flat;
         const maxHealth = this.system.resources.hp.max;
         // calculate the new damage
         let newHealth = value - remaining;
@@ -226,9 +232,8 @@ export class CelestusActor extends Actor {
         newHealth = Math.max(newHealth, 0);
         // set to min of newhealth and max health
         newHealth = Math.min(newHealth, maxHealth);
-        console.log(`currentHP: ${value}, newHealth: ${newHealth}, dmg: ${remaining}`);
         // update health value
-        await this.update({ "system.resources.hp.value": parseInt(newHealth) });
+        await this.update({ "system.resources.hp.flat": parseInt(newHealth) });
         // Log a message.
         console.log(`${this.name} took ${damage} ${type} damage!`);
     }
@@ -295,13 +300,13 @@ export class CelestusActor extends Actor {
      */
     async refresh() {
         // update hp
-        this.update({ "system.resources.hp.value": this.system.resources.hp.max });
+        this.update({ "system.resources.hp.flat": this.system.resources.hp.max });
         // update physical armor
-        this.update({ "system.resources.phys_armor.value": this.system.resources.phys_armor.max });
+        this.update({ "system.resources.phys_armor.flat": this.system.resources.phys_armor.max });
         // remove temp physical armor
         this.update({ "system.resources.phys_armor.temp": 0 });
         // update magic armor
-        this.update({ "system.resources.mag_armor.value": this.system.resources.mag_armor.max });
+        this.update({ "system.resources.mag_armor.flat": this.system.resources.mag_armor.max });
         // remove temp magic armor
         this.update({ "system.resources.mag_armor.temp": 0 });
 

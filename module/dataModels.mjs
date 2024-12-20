@@ -15,18 +15,21 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
             resources: new SchemaField({
                 // configure health as a schema field
                 hp: new SchemaField({
-                    value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // current hp value
+                    value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total hp value
+                    flat: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // current hp value
                     max: new NumberField({ required: true, integer: true, min: 0, initial: 0 })  // max hp value
                 }),
                 // configure armor as a schema field
                 phys_armor: new SchemaField({
-                    value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // current armor value
+                    value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total armor value
+                    flat: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // current hp value
                     max: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // max armor value
                     temp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // temporary armor (from skills)
                 }),
                 // configure magic armor as a schema field
                 mag_armor: new SchemaField({
-                    value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // current armor value
+                    value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total armor value
+                    flat: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // current hp value
                     max: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // max armor value
                     temp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // temporary armor (from skills)
                 }),
