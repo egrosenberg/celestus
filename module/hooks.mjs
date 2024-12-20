@@ -100,6 +100,7 @@ export async function rollDamage(e) {
  * @param {event} e : event from button click
  */
 export async function applyDamageHook (e) {
+    console.log(e.currentTarget.dataset)
     const damage = e.currentTarget.dataset.damageTotal;
     const type = e.currentTarget.dataset.damageType;
 

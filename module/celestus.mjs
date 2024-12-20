@@ -1,6 +1,6 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData } from "./dataModels.mjs"
 import { CelestusActor } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, calcModifiers, previewDamage, rollAttack, rollDamage } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, previewDamage, rollAttack, rollDamage } from "./hooks.mjs"
 import { CharacterSheet } from "./sheets.mjs";
 
 // Registering System data Models

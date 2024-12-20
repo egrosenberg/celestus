@@ -14,6 +14,17 @@ export class CelestusActor extends Actor {
             // update modifier value
             ability.mod = modifier;
         }
+        
+        // update combat ability values
+        for (let [key, ability] of Object.entries(actor.combat)) {
+            // calculate total
+            ability.value = ability.base + ability.bonus;
+        }
+        // update civil ability values
+        for (let [key, ability] of Object.entries(actor.civil)) {
+            // calculate total
+            ability.value = ability.base + ability.bonus;
+        }
 
         // update damage bonus modifiers
         // iterate through damage types
@@ -29,10 +40,14 @@ export class CelestusActor extends Actor {
 
         // calculate health
         const hpMod = actor.abilities.con.mod;
-        const missingHP = actor.resources.hp.max - actor.resources.hp.value;
+        const currentHP = actor.resources.hp.value
+        const missingHP = actor.resources.hp.max - currentHP;
         let maxHP = CONFIG.CELESTUS.maxHP[actor.attributes.level] * (1 + hpMod);
         actor.resources.hp.max = parseInt(maxHP);
-        actor.resources.hp.value = parseInt(maxHP - missingHP);
+        // dont damage character when lowering con unless current hp is less than new max
+        let newHP = Math.max((maxHP - missingHP), currentHP);
+        newHP = Math.min(newHP, maxHP);
+        actor.resources.hp.value = parseInt(newHP);
 
         // calculate crit chance
         const witMod = actor.abilities.wit.mod;
@@ -64,10 +79,12 @@ export class CelestusActor extends Actor {
      * 
      * @param {number} damage : amount of damage (pref int)
      * @param {string} type : type of damage (must exist in CONFIG.CELESTUS.damageTypes)
+     * @param {CelestusActor} attacker: actor attacking this
      */
-    async applyDamage(damage, type) {
+    async applyDamage(damage, type, attacker) {
         damage = this.calcDamage(damage, type);
 
+        console.log(`Damage: ${damage}, Type: ${type}, Style: ${CONFIG.CELESTUS.damageTypes[type].style}`)
         // remainder damage after armor
         let remaining = damage;
         // apply damage to armor if applicable
@@ -209,6 +226,7 @@ export class CelestusActor extends Actor {
         newHealth = Math.max(newHealth, 0);
         // set to min of newhealth and max health
         newHealth = Math.min(newHealth, maxHealth);
+        console.log(`currentHP: ${value}, newHealth: ${newHealth}, dmg: ${remaining}`);
         // update health value
         await this.update({ "system.resources.hp.value": parseInt(newHealth) });
         // Log a message.
