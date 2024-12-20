@@ -1,4 +1,64 @@
+const BASE_AS = 10; // base ability score value
+
 export class CelestusActor extends Actor {
+    /** @override */
+    prepareDerivedData() {
+        const actor = this.system;
+        // update ability score modifiers
+        // iterate through abilities
+        for (let [key, ability] of Object.entries(actor.abilities)) {
+            // calculate modifier
+            let total = ability.value + ability.bonus - BASE_AS;
+            let modifier = total * CONFIG.CELESTUS.abilityMod[key];
+            modifier += CONFIG.CELESTUS.baseAbilityMod[key];
+            // update modifier value
+            ability.mod = modifier;
+        }
+
+        // update damage bonus modifiers
+        // iterate through damage types
+        for (let [key, value] of Object.entries(actor.attributes.damage)) {
+            // get combat skill name to use for damage bonus
+            const cSkill = CONFIG.CELESTUS.damageTypes[key].skill;
+            // calculate modifier
+            let total = actor.combat[cSkill].value + actor.combat[cSkill].bonus;
+            let modifier = total * CONFIG.CELESTUS.combatSkillMod;
+            // update modifier value
+            value = modifier;
+        }
+
+        // calculate health
+        const hpMod = actor.abilities.con.mod;
+        const missingHP = actor.resources.hp.max - actor.resources.hp.value;
+        let maxHP = CONFIG.CELESTUS.maxHP[actor.attributes.level] * (1 + hpMod);
+        actor.resources.hp.max = parseInt(maxHP);
+        actor.resources.hp.value = parseInt(maxHP - missingHP);
+
+        // calculate crit chance
+        const witMod = actor.abilities.wit.mod;
+        actor.attributes.crit_chance = actor.abilities.wit.mod;
+    }
+
+    /**
+     * 
+     * @param {number} damage : amount of base damage to do (will be cast to int)
+     * @param {string} type : type of damage
+     * @returns {int} total damage after resists
+     */
+    calcDamage(damage, type) {
+        damage = parseInt(damage);
+        // subtract resisted damage from damage
+        if (typeof this.system.attributes.resistance[type] !== 'undefined') {
+            const DR = this.system.attributes.resistance[type].value + this.system.attributes.resistance[type].bonus;
+            damage -= DR * damage;
+        }
+        else
+        {
+            console.log(`DR type "${type}" does not exist`);
+        }
+        return Math.floor(damage);
+    }
+
     /**
      * Applies damage to the actor, incorporates damage resist as well as armors
      * 
@@ -6,12 +66,7 @@ export class CelestusActor extends Actor {
      * @param {string} type : type of damage (must exist in CONFIG.CELESTUS.damageTypes)
      */
     async applyDamage(damage, type) {
-        damage = parseInt(damage);
-        // subtract resisted damage from damage
-        if (this.system.attributes.resistance[type].value && this.system.attributes.resistance[type].bonus) {
-            const DR = this.system.attributes.resistance[type].value + this.system.attributes.resistance[type].bonus;
-            damage -= DR * damage;
-        }
+        damage = this.calcDamage(damage, type);
 
         // remainder damage after armor
         let remaining = damage;

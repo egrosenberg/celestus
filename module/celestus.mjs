@@ -1,6 +1,7 @@
-import { PlayerData, SkillData, ChatDataModel } from "./dataModels.mjs"
+import { PlayerData, SkillData, ChatDataModel, ArmorData } from "./dataModels.mjs"
 import { CelestusActor } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, calcModifiers, rollAttack, rollDamage } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, calcModifiers, previewDamage, rollAttack, rollDamage } from "./hooks.mjs"
+import { CharacterSheet } from "./sheets.mjs";
 
 // Registering System data Models
 Hooks.on("init", () => {
@@ -10,25 +11,46 @@ Hooks.on("init", () => {
         /**
          * Damage Types
          * 
-         * label: label for display
+         * label: text for display
          * text: text code corresponding to label
          * style: magical/physical/healing, how to apply damage
          * skill: combat skill used for damage type
+         * color: background color for damage rolls
+         * glyph: glyphter icon to use for display
          */
         damageTypes: {
-            physical: { label: "Physical", text: "physical", style: "physical", skill: "warlord" },
-            fire: { label: "Fire", text: "fire", style: "magical", skill: "flamespeaker" },
-            water: { label: "Water", text: "water", style: "magical", skill: "tidecaller" },
-            air: { label: "Air", text: "air", style: "magical", skill: "stormseeker" },
-            earth: { label: "Earth", text: "earth", style: "magical", skill: "duneshaper" },
-            poison: { label: "Poison", text: "poison", style: "magical", skill: "duneshaper" },
-            psychic: { label: "Psychic", text: "psychic", style: "magical", skill: "voidcantor" },
-            piercing: { label: "Piercing", text: "piercing", style: "direct", skill: "warlord" },
-            healing: { label: "Healing", text: "healing", style: "healing", skill: "tidecaller" },
-            phys_armor: { label: "Physical Armor", text: "phys_armor", style: "healing", skill: "duneshaper" },
-            mag_armor: { label: "Magical Armor", text: "mag_armor", style: "healing", skill: "tidecaller" },
-            t_phys_armor: { label: "Temp Physical Armor", text: "t_phys_armor", style: "healing", skill: "duneshaper" },
-            t_mag_armor: { label: "Temp Magical Armor", text: "t_mag_armor", style: "healing", skill: "tidecaller" },
+            physical: { label: "Physical", text: "physical", style: "physical", skill: "warlord", color: "#b3c0cc", glyph: "icon-spinning-sword" },
+            fire: { label: "Fire", text: "fire", style: "magical", skill: "flamespeaker", color: "#db8b70", glyph: "icon-flamer" },
+            water: { label: "Water", text: "water", style: "magical", skill: "tidecaller", color: "#86c0df", glyph: "icon-drop" },
+            air: { label: "Air", text: "air", style: "magical", skill: "stormseeker", color: "#9c86df", glyph: "icon-lightning-helix" },
+            earth: { label: "Earth", text: "earth", style: "magical", skill: "duneshaper", color: "#dba670", glyph: "icon-rock" },
+            poison: { label: "Poison", text: "poison", style: "magical", skill: "duneshaper", color: "#c9df86", glyph: "icon-chemical-bolt" },
+            psychic: { label: "Psychic", text: "psychic", style: "magical", skill: "voidcantor", color: "#df86df", glyph: "icon-croissants-pupil" },
+            piercing: { label: "Piercing", text: "piercing", style: "direct", skill: "warlord", color: "#df8686", glyph: "icon-bloody-stash" },
+            healing: { label: "Healing", text: "healing", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-nested-hearts" },
+            phys_armor: { label: "Physical Armor", text: "phys_armor", style: "healing", skill: "duneshaper", color: "#dba670", glyph: "icon-edged-shield" },
+            mag_armor: { label: "Magical Armor", text: "mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
+            t_phys_armor: { label: "Physical Armor", text: "t_phys_armor", style: "healing", skill: "duneshaper", color: "#dba670", glyph: "icon-edged-shield" },
+            t_mag_armor: { label: "Magical Armor", text: "t_mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
+        },
+        /**
+         * combat skills
+         * 
+         * label: text for display
+         * text: text code corresponding to label
+         * damage: primary damage type associated with skill
+         * glyph: glyphter icon to use for display
+         */
+        combatSkills: {
+            flamespeaker: { label: "Flamespeaker", text: "flamespeaker", damage: "fire", glyph: "icon-fireflake"},
+            tidecaller: { label: "Tidecaller", text: "tidecaller", damage: "water", glyph: "icon-waves"},
+            stormseeker: { label: "Stormseeker", text: "stormseeker", damage: "air", glyph: "icon-flower-twirl"},
+            duneshaper: { label: "Duneshaper", text: "duneshaper", damage: "earth", glyph: "icon-stone-sphere"},
+            voidcantor: { label: "Voidcantor", text: "voidcantor", damage: "psychic", glyph: "icon-star-swirl"},
+            deathbringer: { label: "Deathbringer", text: "deathbringer", damage: "physical", glyph: "icon-death-zone"},
+            shroudstalker: { label: "Shroudstalker", text: "shroudstalker", damage: "piercing", glyph: "icon-nested-eclipses"},
+            formshifter: { label: "Formshifter", text: "formshifter", damage: "physical", glyph: "icon-wolf-howl"},
+            warlord: { label: "Warlord", text: "warlord", damage: "physical", glyph: "icon-axe-sword"},
         },
         abilityMod: { // ability modifer percentages per point above or below 10
             str: 0.05, // +5% damage per point
@@ -43,7 +65,7 @@ Hooks.on("init", () => {
             dex: 0.0,
             int: 0.0,
             con: 0.0,
-            mind: 3,
+            mind: 0,
             wit: 0.05,
         },
         combatSkillMod: 0.05,   // amount to increase damage by for combat skills per level
@@ -196,7 +218,13 @@ Hooks.on("init", () => {
 
     CONFIG.Item.dataModels = {
         skill: SkillData,
+        armor: ArmorData,
     }
+
+    //// set up sheets
+    //CONFIG.Actor.dataModels = {
+    //    player: CharacterSheet,
+    //};
 
     // set up resource attributes as trackable
     CONFIG.Actor.trackableAttributes = {
@@ -218,8 +246,8 @@ Hooks.on("ready", () => {
     $(document).on("click", ".apply-damage", applyDamageHook);
 });
 
-// hook stats calc on actor update
-Hooks.on("updateActor", calcModifiers);
-
 // append apply damage button to damage rolls for GM
 Hooks.on("renderChatMessage", addChatButtons);
+
+// hook damage preview on token select
+Hooks.on("controlToken", previewDamage);

@@ -45,54 +45,54 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                 crit_bonus: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // damage increase (on top of base) on crit (as percent)
                 accuracy: new NumberField({ required: true, integer: false, min: 0, initial: 0.95 }), // base chance to hit (can go above 1)
                 evasion: new NumberField({ required: true, integer: false, min: 0, initial: 0.0 }), // chance to dodge an attack (expressed as a percent)
-                resistance: new SchemaField({ // resitance values, expressed as int percentages 
+                resistance: new SchemaField({ // resitance values, expressed int percentages 
                     physical: new SchemaField({
-                        value: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
-                        bonus: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     fire: new SchemaField({
-                        value: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
-                        bonus: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     water: new SchemaField({
-                        value: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
-                        bonus: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     air: new SchemaField({
-                        value: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
-                        bonus: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     earth: new SchemaField({
-                        value: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
-                        bonus: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     poison: new SchemaField({
-                        value: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
-                        bonus: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     psychic: new SchemaField({
-                        value: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
-                        bonus: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     healing: new SchemaField({
-                        value: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
-                        bonus: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     phys_armor: new SchemaField({
-                        value: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
-                        bonus: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     mag_armor: new SchemaField({
-                        value: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
-                        bonus: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     t_phys_armor: new SchemaField({
-                        value: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
-                        bonus: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     t_mag_armor: new SchemaField({
-                        value: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
-                        bonus: new NumberField({ required: true, integer: true, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                 }),
                 damage: new SchemaField({ // damage modifiers as additive bonus percent

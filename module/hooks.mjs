@@ -1,47 +1,6 @@
-const BASE_AS = 10; // base ability score value
-
-/**
- * Calculates stat bonuses and totals for the actor
- */
-export async function calcModifiers(actor) {
-    // update ability score modifiers
-    // iterate through abilities
-    for (let [key, value] of Object.entries(actor.system.abilities))
-    {
-        // calculate modifier
-        let total = value.value + value.bonus - BASE_AS;
-        let modifier = total * CONFIG.CELESTUS.abilityMod[key];
-        modifier += CONFIG.CELESTUS.baseAbilityMod[key];
-        // update modifier value
-        await actor.update({ [`system.abilities.${key}.mod`]: modifier});
-    }
-
-    // update damage bonus modifiers
-    // iterate through damage types
-    for (let [key, value] of Object.entries(actor.system.attributes.damage))
-    {
-        // get combat skill name to use for damage bonus
-        const cSkill = CONFIG.CELESTUS.damageTypes[key].skill;
-        // calculate modifier
-        let total = actor.system.combat[cSkill].value + actor.system.combat[cSkill].bonus;
-        let modifier = total * CONFIG.CELESTUS.combatSkillMod;
-        // update modifier value
-        await actor.update({ [`system.attributes.damage.${key}`]: modifier});
-    }
-
-    // calculate health
-    const hpMod = actor.system.abilities.con.mod;
-    const missingHP = actor.system.resources.hp.max - actor.system.resources.hp.value;
-    let maxHP = CONFIG.CELESTUS.maxHP[actor.system.attributes.level] * (1 + hpMod);
-    await actor.update({"system.resources.hp.max": parseInt(maxHP) });
-    await actor.update({"system.resources.hp.value": parseInt(maxHP - missingHP) });
-    
-    // calculate crit chance
-    const witMod = actor.system.abilities.wit.mod;
-    await actor.update({"system.attributes.crit_chance": witMod})
-
-    console.log("CELESTUS  | Updated modifiers");
-}
+const RED = '#e29292';
+const GREEN = '#92e298';
+const BLUE = '#92c6e2';
 
 /**
  * 
@@ -170,15 +129,15 @@ export async function addChatButtons(msg, html, options) {
         console.log(msg.getFlag("celestus", "critThreshold"));
         if (total > msg.getFlag("celestus", "critThreshold"))
         {
-            html.find(".dice-total").css('background-color', '#92c6e2');
+            html.find(".dice-total").css('background-color', BLUE);
         }
         else if (total > msg.getFlag("celestus", "hitThreshold"))
         {
-            html.find(".dice-total").css('background-color', '#92e298');
+            html.find(".dice-total").css('background-color', GREEN);
         }
         else
         {
-            html.find(".dice-total").css('background-color', '#e29292');
+            html.find(".dice-total").css('background-color', RED);
         }
     }
     // if message is a skill usage, add attack / damage buttons for owners
@@ -197,12 +156,51 @@ export async function addChatButtons(msg, html, options) {
             }
         }
     }
-    if (game.user.isGM && msg.system.isDamage) {
-        let dmgTotal = 0;
-        for (let roll of msg.rolls) {
-            dmgTotal += roll.total;
+    if (msg.system.isDamage) {
+        // add damage type to damage text
+        const dieTotal = html.find(".dice-total");
+        dieTotal.html(dieTotal.html() + ` (${CONFIG.CELESTUS.damageTypes[msg.system.damageType].label})`)
+        dieTotal.append(`<i class=${CONFIG.CELESTUS.damageTypes[msg.system.damageType].glyph}></i>`);
+        dieTotal.css("background-color", CONFIG.CELESTUS.damageTypes[msg.system.damageType].color);
+        // only gm can apply damage
+        if (game.user.isGM)
+        {
+            let dmgTotal = 0;
+            for (let roll of msg.rolls) {
+                dmgTotal += roll.total;
+            }
+            console.log(html.find("dice-total"));
+            html.append(`<button data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\">Apply Damage</button>`);
         }
-        console.log(html.find("dice-total"));
-        html.append(`<button data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\">Apply Damage</button>`);
     }
+}
+
+/**
+ * 
+ * @param {Token} object : object being controlled, used to get actor for dmg preview
+ * @param {boolean} controlled : verify if control is being gained or lost
+ */
+export async function previewDamage(object, controlled) {
+    const actor = object.actor;
+
+    // iterate through each apply damage button
+    $("button.apply-damage").each(function () {
+        // if selecting a token, show damage calc, otherwise show prompt
+        if (controlled) {
+            let damage = actor.calcDamage($(this).data("damage-total"), $(this).data("damage-type"));
+            const sign = damage > 0 ? "" : "+";
+            damage *= -1;
+            // set html
+            $(this).html(sign + damage.toString());
+            // set background based on healing or harming
+            $(this).css("background-color", (damage < 0) ? RED : GREEN)
+            // set class to display as number
+            $(this).addClass("number");
+        }
+        else {
+            $(this).html("Apply Damage");
+            $(this).removeClass("number");
+            $(this).css("background-color", "")
+        }
+    });
 }
