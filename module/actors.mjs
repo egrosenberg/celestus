@@ -38,6 +38,38 @@ export class CelestusActor extends Actor {
             value = modifier;
         }
 
+        // log current armor state
+        const cPhysArmor = actor.resources.phys_armor.flat;
+        const cMagArmor = actor.resources.mag_armor.flat;
+        // fix any weird issues with missing amounts
+        // reset derrived armor values
+        actor.resources.phys_armor.max = 0;
+        actor.resources.mag_armor.max = 0;
+        // iterate through items
+        for (const item of this.items) {
+            // check if item is an armor piece and equipped
+            if (item.type === "armor" && item.system.equipped) {
+                // calculate armor values
+                const phys = CONFIG.CELESTUS.baseArmor[item.system.type][item.system.slot][actor.attributes.level].phys;
+                const mag = CONFIG.CELESTUS.baseArmor[item.system.type][item.system.slot][actor.attributes.level].mag;
+                // increase max armor
+                actor.resources.phys_armor.max += phys;
+                actor.resources.mag_armor.max += mag;
+            }
+        }
+        // add flat misc max bonuses
+        actor.resources.phys_armor.max += actor.resources.phys_armor.bonus;
+        actor.resources.mag_armor.max += actor.resources.mag_armor.bonus;
+        // set new value to current - missing
+        let newPhys = Math.min(actor.resources.phys_armor.max, cPhysArmor);
+        let newMag = Math.min(actor.resources.mag_armor.max, cMagArmor);
+        // dont let current go below 0
+        newPhys = Math.max(newPhys, 0);
+        newMag = Math.max(newMag, 0);
+        // update current armor
+        actor.resources.phys_armor.flat = newPhys;
+        actor.resources.mag_armor.flat = newMag;
+
         // calculate health
         const hpMod = actor.abilities.con.mod;
         const currentHP = actor.resources.hp.flat;
@@ -87,8 +119,6 @@ export class CelestusActor extends Actor {
      * @param {CelestusActor} origin: actor that damage originates from
      */
     async applyDamage(damage, type, origin) {
-        console.log(origin);
-
         damage = this.calcDamage(damage, type);
 
         // remainder damage after armor

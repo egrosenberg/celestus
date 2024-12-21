@@ -1,7 +1,8 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData } from "./dataModels.mjs"
 import { CelestusActor } from "./actors.mjs"
 import { addChatButtons, applyDamageHook, previewDamage, rollAttack, rollDamage } from "./hooks.mjs"
-import { CharacterSheet } from "./sheets.mjs";
+import { CharacterSheet } from "./sheets.mjs"
+import { armorData } from "./armor.mjs"
 
 // Registering System data Models
 Hooks.on("init", () => {
@@ -51,6 +52,19 @@ Hooks.on("init", () => {
             shroudstalker: { label: "Shroudstalker", text: "shroudstalker", damage: "piercing", glyph: "icon-nested-eclipses"},
             formshifter: { label: "Formshifter", text: "formshifter", damage: "physical", glyph: "icon-wolf-howl"},
             warlord: { label: "Warlord", text: "warlord", damage: "physical", glyph: "icon-axe-sword"},
+        },
+        /**
+         * civil skills
+         * 
+         * label: text for display
+         * text: text code corresponding to label
+         * glyph: glyphter icon to use for display
+         */
+        civilSkills: {
+            scoundrel: { label: "Scoundrel", text: "scoundrel", glyph: "icon-pay-money"},
+            lore: { label: "Lore", text: "lore", glyph: "icon-book-cover"},
+            nature: { label: "Nature", text: "nature", glyph: "icon-linden-leaf"},
+            influence: { label: "Influence", text: "influence", glyph: "icon-lyre"},
         },
         abilityMod: { // ability modifer percentages per point above or below 10
             str: 0.05, // +5% damage per point
@@ -208,6 +222,7 @@ Hooks.on("init", () => {
                 25: 510,
             }
         },
+        baseArmor: armorData,
     };
 
     // set up data models

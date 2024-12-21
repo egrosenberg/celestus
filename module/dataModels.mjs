@@ -22,16 +22,18 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                 // configure armor as a schema field
                 phys_armor: new SchemaField({
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total armor value
-                    flat: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // current hp value
+                    flat: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // current armor
                     max: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // max armor value
                     temp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // temporary armor (from skills)
+                    bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // misc. bonus max armor
                 }),
                 // configure magic armor as a schema field
                 mag_armor: new SchemaField({
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total armor value
-                    flat: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // current hp value
+                    flat: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // current armor
                     max: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // max armor value
                     temp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // temporary armor (from skills)
+                    bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // misc. bonus max armor
                 }),
                 ap: new SchemaField({ // action points
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 4 }), // current ap amount
@@ -50,51 +52,51 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                 evasion: new NumberField({ required: true, integer: false, min: 0, initial: 0.0 }), // chance to dodge an attack (expressed as a percent)
                 resistance: new SchemaField({ // resitance values, expressed int percentages 
                     physical: new SchemaField({
-                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     fire: new SchemaField({
-                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     water: new SchemaField({
-                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     air: new SchemaField({
-                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     earth: new SchemaField({
-                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     poison: new SchemaField({
-                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     psychic: new SchemaField({
-                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     healing: new SchemaField({
-                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     phys_armor: new SchemaField({
-                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     mag_armor: new SchemaField({
-                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     t_phys_armor: new SchemaField({
-                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     t_mag_armor: new SchemaField({
-                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                 }),
@@ -276,9 +278,16 @@ export class SkillData extends foundry.abstract.TypeDataModel {
 export class ArmorData extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
-            // type of armor (determines stat used as prereq)
-            type: new StringField({ required: true, initial: "none" }),
+            // equiped or not
+            equipped: new BooleanField({ required: true, initial: false }),
+            // html description of armor
             description: new HTMLField(),
+            // type of armor (robes (int) / light (dex) / heavy (str))
+            type: new StringField({ required: true, initial: "none" }),
+            // slot of armor (helmet / chest / gloves / leggings / boots)
+            slot: new StringField({ required: true, initial: "none" }),
+            // effeciency stat multiplies by base value for that slot and type
+            efficiency: new NumberField({ required: true, integer: false, initial: 1 }),
             bonuses: new SchemaField({
                 // combat abilities
                 combat: new SchemaField({
@@ -292,6 +301,12 @@ export class ArmorData extends foundry.abstract.TypeDataModel {
                     formshifter: new NumberField({ required: true, integer: true, initial: 0 }),
                     warlord: new NumberField({ required: true, integer: true, initial: 0 }),
                 }),
+                civil: new SchemaField({
+                    scoundrel: new NumberField({ required: true, integer: true, initial: 0 }),
+                    lore: new NumberField({ required: true, integer: true, initial: 0 }),
+                    nature: new NumberField({ required: true, integer: true, initial: 0 }),
+                    influence: new NumberField({ required: true, integer: true, initial: 0 }),
+                }),
                 abilities: new SchemaField({
                     str: new NumberField({ required: true, integer: true, initial: 0 }),
                     dex: new NumberField({ required: true, integer: true, initial: 0 }),
@@ -300,6 +315,15 @@ export class ArmorData extends foundry.abstract.TypeDataModel {
                     mind: new NumberField({ required: true, integer: true, initial: 0 }),
                     wit: new NumberField({ required: true, integer: true, initial: 0 }),
                 }),
+            }),
+            // prerequisite stats
+            prereqs: new SchemaField({
+                str: new NumberField({ required: true, integer: true, initial: 0 }),
+                dex: new NumberField({ required: true, integer: true, initial: 0 }),
+                con: new NumberField({ required: true, integer: true, initial: 0 }),
+                int: new NumberField({ required: true, integer: true, initial: 0 }),
+                mind: new NumberField({ required: true, integer: true, initial: 0 }),
+                wit: new NumberField({ required: true, integer: true, initial: 0 }),
             }),
         }
     }

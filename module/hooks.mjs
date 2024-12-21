@@ -90,7 +90,8 @@ export async function rollDamage(e) {
         await r.toMessage({
             speaker: {alias: actor.name},
             'system.isDamage': true,
-            'system.damageType': type
+            'system.damageType': type,
+            'system.actorID': actorID,
         });
     }
 }
@@ -100,7 +101,6 @@ export async function rollDamage(e) {
  * @param {event} e : event from button click
  */
 export async function applyDamageHook (e) {
-    console.log(e.currentTarget.dataset)
     const damage = e.currentTarget.dataset.damageTotal;
     const type = e.currentTarget.dataset.damageType;
     const origin = await fromUuid(e.currentTarget.dataset.originActor);
@@ -170,7 +170,7 @@ export async function addChatButtons(msg, html, options) {
             for (let roll of msg.rolls) {
                 dmgTotal += roll.total;
             }
-            html.append(`<button data-origin-actor="${msg.actorID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\">Apply Damage</button>`);
+            html.append(`<button data-origin-actor="${msg.system.actorID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\">Apply Damage</button>`);
         }
     }
 }
