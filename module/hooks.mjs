@@ -33,14 +33,14 @@ export async function rollAttack(e) {
     }
 
     // threshold needed to exceed to count as a crit
-    const critThresh = 100 - (actor.system.attributes.crit_chance * 100);
+    const critThresh = 100 - (actor.system.attributes.bonuses.crit_chance * 100);
     // part of determining wether an attack hits
-    const accuracy = actor.system.attributes.accuracy;
+    const accuracy = actor.system.attributes.bonuses.accuracy.value;
 
     // roll an attack for each target
     for (const target of targets) {
         const tActor = target.actor;
-        const evasion = tActor.system.attributes.evasion;
+        const evasion = tActor.system.attributes.bonuses.evasion.value;
 
         // threshold needed to roll to count as a hit
         const hitThresh = 100 * (evasion + (1 - accuracy));
@@ -82,9 +82,17 @@ export async function rollDamage(e) {
         // base damage multiplier percent
         const baseMul = part.value;
         // elemental damage bonus percentage
-        const elementBonus = actor.system.attributes.damage[type];
+        let elementalBonus = 0;
+        if (type !== "none")
+        {
+            elementBonus = actor.system.attributes.damage[type];
+        }
         // bonus from ability associated with skill
-        const abilityBonus = actor.system.abilities[ability].mod;
+        let abilityBonus = 0;
+        if (ability !== "none")
+        {
+            abilityBonus = actor.system.abilities[ability].mod;
+        }
 
         const r = new Roll(`floor(((${base})[${type}] * (${baseMul}) * (1 + ${elementBonus}) * (1 + ${abilityBonus})))`)
         await r.toMessage({

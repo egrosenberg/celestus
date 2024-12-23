@@ -46,10 +46,24 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                 }),
             }),
             attributes: new SchemaField({
-                crit_chance: new NumberField({ required: true, integer: false, min: 0, initial: 0.05 }), // chance to land a crit, expressed as a percentage
-                crit_bonus: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // damage increase (on top of base) on crit (as percent)
-                accuracy: new NumberField({ required: true, integer: false, min: 0, initial: 0.95 }), // base chance to hit (can go above 1)
-                evasion: new NumberField({ required: true, integer: false, min: 0, initial: 0.0 }), // chance to dodge an attack (expressed as a percent)
+                bonuses: new SchemaField({
+                    crit_chance: new SchemaField({ // chance to land a crit, expressed as a percentage
+                        value: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // derived
+                        bonus: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    }),
+                    crit_bonus: new SchemaField({ // damage increase (on top of base) on crit (as percent)
+                        value: new NumberField({ required: true, integer: false, min: 0, initial: 1.6 }), // derived
+                        bonus: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    }),
+                    accuracy: new SchemaField({ // base chance to hit (can go above 1)
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0.95 }), // derived
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                    }),
+                    evasion: new SchemaField({ // chance to dodge an attack (expressed as a percent)
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                    }), 
+                }),
                 resistance: new SchemaField({ // resitance values, expressed int percentages 
                     physical: new SchemaField({
                         value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
@@ -120,6 +134,11 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                 // xp & level
                 xp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 level: new NumberField({ required: true, integer: true, min: 1, initial: 1 }),
+                unspentPoints: new NumberField({ required: true, integer: true, initial: 0 }), // derived
+                memory: new SchemaField({
+                    total: new NumberField({ required: true, integer: true, initial: 0 }), // derived
+                    spent: new NumberField({ required: true, integer: true, initial: 0 }), // derived
+                }),
             }),
             // combat abilities
             combat: new SchemaField({
@@ -127,46 +146,55 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total value
                     base: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // base value from leveling
                     bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), //derived
                 }),
                 tidecaller: new SchemaField({ // water/ healing
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total value
                     base: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // base value from leveling
                     bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), //derived
                 }),
                 stormseeker: new SchemaField({ // air
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total value
                     base: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // base value from leveling
                     bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), //derived
                 }),
                 duneshaper: new SchemaField({ // earth / poison
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total value
                     base: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // base value from leveling
                     bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), //derived
                 }),
                 voidcantor: new SchemaField({ // psychic (psionics)
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total value
                     base: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // base value from leveling
                     bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), //derived
                 }),
                 deathbringer: new SchemaField({ // physical/ lifesteal (will include blood)
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total value
                     base: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // base value from leveling
                     bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), //derived
                 }),
                 shroudstalker: new SchemaField({ // rogue, crit, movement (shadow magic)
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total value
                     base: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // base value from leveling
                     bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), //derived
                 }),
                 formshifter: new SchemaField({ // polymorph, gives bonus abillity points
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total value
                     base: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // base value from leveling
                     bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), //derived
                 }),
                 warlord: new SchemaField({ // increases physical
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total value
                     base: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // base value from leveling
                     bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), //derived
                 }),
             }),
             // civil abilities
@@ -195,34 +223,46 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
             // configure ability/attributes
             abilities: new SchemaField({
                 str: new SchemaField({ // Strength
-                    value: new NumberField({ required: true, integer: true, min: 0, initial: 10 }), // base value
+                    value: new NumberField({ required: true, integer: false, min: 0, initial: 10 }), // base value
                     mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // modifier value (percentage)
-                    bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    bonus: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // bonus to base value from items/features
+                    total: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    label: new StringField({ required: true, initial: "Str" }),
                 }),
                 dex: new SchemaField({ // Dexterity
-                    value: new NumberField({ required: true, integer: true, min: 0, initial: 10 }), // base value
+                    value: new NumberField({ required: true, integer: false, min: 0, initial: 10 }), // base value
                     mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // modifier value (percentage)
-                    bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    bonus: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // bonus to base value from items/features
+                    total: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    label: new StringField({ required: true, initial: "Dex" }),
                 }),
                 con: new SchemaField({ // Constitution
-                    value: new NumberField({ required: true, integer: true, min: 0, initial: 10 }), // base value
+                    value: new NumberField({ required: true, integer: false, min: 0, initial: 10 }), // base value
                     mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // modifier value (percentage)
-                    bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    bonus: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // bonus to base value from items/features
+                    total: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    label: new StringField({ required: true, initial: "Con" }),
                 }),
                 int: new SchemaField({ // Intellect
-                    value: new NumberField({ required: true, integer: true, min: 0, initial: 10 }), // base value
+                    value: new NumberField({ required: true, integer: false, min: 0, initial: 10 }), // base value
                     mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // modifier value (percentage)
-                    bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    bonus: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // bonus to base value from items/features
+                    total: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    label: new StringField({ required: true, initial: "Int" }),
                 }),
                 mind: new SchemaField({ // Mind
-                    value: new NumberField({ required: true, integer: true, min: 0, initial: 10 }), // base value
-                    mod: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // modifier value (flat)
-                    bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    value: new NumberField({ required: true, integer: false, min: 0, initial: 10 }), // base value
+                    mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // modifier value (flat)
+                    bonus: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // bonus to base value from items/features
+                    total: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    label: new StringField({ required: true, initial: "Mind" }),
                 }),
                 wit: new SchemaField({ // Wits
-                    value: new NumberField({ required: true, integer: true, min: 0, initial: 10 }), // base value
+                    value: new NumberField({ required: true, integer: false, min: 0, initial: 10 }), // base value
                     mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // modifier value (flat)
-                    bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    bonus: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // bonus to base value from items/features
+                    total: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    label: new StringField({ required: true, initial: "Wit" }),
                 }),
             }),
         };
@@ -246,6 +286,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
                 max: new NumberField({ required: true, integer: true, min: -1, initial: 0 }),
             }), // cooldown in rounds negative value means inf
             memorized: new BooleanField({ required: true, initial: false }),
+            memSlots: new NumberField({ required: true, integer: true, min: 0, initial: 1 }), // memory slot cost
             prereqs: new SchemaField({ // prerequisite combat skill values to memorize
                 flamespeaker: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 tidecaller: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
@@ -258,10 +299,10 @@ export class SkillData extends foundry.abstract.TypeDataModel {
                 warlord: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
             }),
             damage: new ArrayField(new SchemaField({
-                type: new StringField(), // damage type
+                type: new StringField({ required: true, initial: "none" }), // damage type
                 value: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // damage roll as %of base@lvl
             })),
-            ability: new StringField(), // int/dex/str - ability used for scaling of damage
+            ability: new StringField({ required: true, initial: "none" }), // int/dex/str - ability used for scaling of damage
             attack: new BooleanField({ required: true, initial: false }),
             targets: new SchemaField({ // amount of targets required/allowed
                 min: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),

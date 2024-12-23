@@ -5,20 +5,27 @@ export class CelestusActor extends Actor {
     prepareDerivedData() {
         const actor = this.system;
         // update ability score modifiers
+        // calculate spent/unspent points
+        let spentPoints = 0;
         // iterate through abilities
         for (let [key, ability] of Object.entries(actor.abilities)) {
+            // update spent points
+            spentPoints += ability.value - BASE_AS;
             // calculate modifier
             let total = ability.value + ability.bonus - BASE_AS;
             let modifier = total * CONFIG.CELESTUS.abilityMod[key];
             modifier += CONFIG.CELESTUS.baseAbilityMod[key];
             // update modifier value
             ability.mod = modifier;
+            ability.total = ability.value + ability.bonus;
         }
-        
+        actor.attributes.unspentPoints = (actor.attributes.level * 2) + CONFIG.CELESTUS.baseAbilityPoints - spentPoints;
+
         // update combat ability values
         for (let [key, ability] of Object.entries(actor.combat)) {
             // calculate total
             ability.value = ability.base + ability.bonus;
+            ability.mod = 0.05 * ability.value;
         }
         // update civil ability values
         for (let [key, ability] of Object.entries(actor.civil)) {
@@ -38,6 +45,8 @@ export class CelestusActor extends Actor {
             value = modifier;
         }
 
+        // reset spent memory
+        actor.attributes.memory.spent = 0;
         // log current armor state
         const cPhysArmor = actor.resources.phys_armor.flat;
         const cMagArmor = actor.resources.mag_armor.flat;
@@ -56,10 +65,20 @@ export class CelestusActor extends Actor {
                 actor.resources.phys_armor.max += phys;
                 actor.resources.mag_armor.max += mag;
             }
+            if (item.type === "skill" && item.system.memorized)
+            {
+                actor.attributes.memory.spent += item.system.memSlots;
+            }
         }
         // add flat misc max bonuses
         actor.resources.phys_armor.max += actor.resources.phys_armor.bonus;
         actor.resources.mag_armor.max += actor.resources.mag_armor.bonus;
+        // let armor max be affected by con
+        actor.resources.phys_armor.max *= (1 + actor.abilities.con.mod)
+        actor.resources.mag_armor.max *= (1 + actor.abilities.con.mod)
+        // convert back to int
+        actor.resources.phys_armor.max = parseInt(actor.resources.phys_armor.max)
+        actor.resources.mag_armor.max = parseInt(actor.resources.mag_armor.max)
         // set new value to current - missing
         let newPhys = Math.min(actor.resources.phys_armor.max, cPhysArmor);
         let newMag = Math.min(actor.resources.mag_armor.max, cMagArmor);
@@ -84,11 +103,16 @@ export class CelestusActor extends Actor {
         // update resource totals
         actor.resources.hp.value = actor.resources.hp.flat;
         actor.resources.phys_armor.value = actor.resources.phys_armor.flat + actor.resources.phys_armor.temp;
-        actor.resources.mag_armor.value =  actor.resources.mag_armor.flat +  actor.resources.mag_armor.temp;
+        actor.resources.mag_armor.value = actor.resources.mag_armor.flat + actor.resources.mag_armor.temp;
 
         // calculate crit chance
-        const witMod = actor.abilities.wit.mod;
-        actor.attributes.crit_chance = actor.abilities.wit.mod;
+        actor.attributes.bonuses.crit_chance.value = actor.abilities.wit.mod;
+
+        // calculate memory
+        actor.attributes.memory.total = parseInt(Math.floor((actor.attributes.level) / 2) + (actor.abilities.mind.value) - 7);
+
+        // final unspent skill points update for formshifter
+        actor.attributes.unspentPoints += actor.combat.formshifter.value * 2;
     }
 
     /**
@@ -104,8 +128,7 @@ export class CelestusActor extends Actor {
             const DR = this.system.attributes.resistance[type].value + this.system.attributes.resistance[type].bonus;
             damage -= DR * damage;
         }
-        else
-        {
+        else {
             console.log(`DR type "${type}" does not exist`);
         }
         return Math.floor(damage);
@@ -273,7 +296,7 @@ export class CelestusActor extends Actor {
      * @param {SkillData} skill : object containing info of the skill to use
      */
     async useSkill(skill) {
-        
+
         const actor = this.system;
 
         // verify resources
@@ -306,8 +329,8 @@ export class CelestusActor extends Actor {
             return;
         }
         // use resources
-        await this.update({"system.resources.ap.value": actor.resources.ap.value - skill.system.ap});
-        await this.update({"system.resources.jirki.value": actor.resources.jiriki.value - skill.system.jp});
+        await this.update({ "system.resources.ap.value": actor.resources.ap.value - skill.system.ap });
+        await this.update({ "system.resources.jirki.value": actor.resources.jiriki.value - skill.system.jp });
 
         const path = './systems/celestus/templates/skillDescription.hbs';
         const msgData = {
@@ -316,7 +339,7 @@ export class CelestusActor extends Actor {
         }
         const msg = await renderTemplate(path, msgData);
         await ChatMessage.create({
-            content : msg, speaker: {alias: this.name},
+            content: msg, speaker: { alias: this.name },
             'system.actorID': this.uuid,
             'system.isSkill': true,
             'system.itemID': skill.uuid,

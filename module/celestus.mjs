@@ -4,6 +4,24 @@ import { addChatButtons, applyDamageHook, previewDamage, rollAttack, rollDamage 
 import { CharacterSheet } from "./sheets.mjs"
 import { armorData } from "./armor.mjs"
 
+/**
+ * Define a set of template paths to pre-load
+ * Pre-loaded templates are compiled and cached for fast access when rendering
+ * @return {Promise}
+ */
+const preloadHandlebarsTemplates = async function () {
+    return loadTemplates([
+      // Actor partials.
+      'systems/celestus/templates/actor/parts/actor-features.hbs',
+      'systems/celestus/templates/actor/parts/actor-items.hbs',
+      'systems/celestus/templates/actor/parts/actor-skills.hbs',
+      'systems/celestus/templates/actor/parts/actor-effects.hbs',
+      // Item partials
+      //'systems/celestus/templates/item/parts/item-effects.hbs',
+    ]);
+  };
+  
+
 // Registering System data Models
 Hooks.on("init", () => {
     // create Celestus entry in CONFIG
@@ -28,7 +46,7 @@ Hooks.on("init", () => {
             poison: { label: "Poison", text: "poison", style: "magical", skill: "duneshaper", color: "#c9df86", glyph: "icon-chemical-bolt" },
             psychic: { label: "Psychic", text: "psychic", style: "magical", skill: "voidcantor", color: "#df86df", glyph: "icon-croissants-pupil" },
             piercing: { label: "Piercing", text: "piercing", style: "direct", skill: "warlord", color: "#df8686", glyph: "icon-bloody-stash" },
-            healing: { label: "Healing", text: "healing", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-nested-hearts" },
+            healing: { label: "Healing", text: "healing", style: "healing", skill: "tidecaller", color: "#92e298", glyph: "icon-nested-hearts" },
             phys_armor: { label: "Physical Armor", text: "phys_armor", style: "healing", skill: "duneshaper", color: "#dba670", glyph: "icon-edged-shield" },
             mag_armor: { label: "Magical Armor", text: "mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
             t_phys_armor: { label: "Physical Armor", text: "t_phys_armor", style: "healing", skill: "duneshaper", color: "#dba670", glyph: "icon-edged-shield" },
@@ -45,7 +63,7 @@ Hooks.on("init", () => {
         combatSkills: {
             flamespeaker: { label: "Flamespeaker", text: "flamespeaker", damage: "fire", glyph: "icon-fireflake"},
             tidecaller: { label: "Tidecaller", text: "tidecaller", damage: "water", glyph: "icon-waves"},
-            stormseeker: { label: "Stormseeker", text: "stormseeker", damage: "air", glyph: "icon-flower-twirl"},
+            stormseeker: { label: "Stormseeker", text: "stormseeker", damage: "air", glyph: "icon-fluffy-cloud"},
             duneshaper: { label: "Duneshaper", text: "duneshaper", damage: "earth", glyph: "icon-stone-sphere"},
             voidcantor: { label: "Voidcantor", text: "voidcantor", damage: "psychic", glyph: "icon-star-swirl"},
             deathbringer: { label: "Deathbringer", text: "deathbringer", damage: "physical", glyph: "icon-death-zone"},
@@ -58,19 +76,33 @@ Hooks.on("init", () => {
          * 
          * label: text for display
          * text: text code corresponding to label
+         * color: html color for background of civil skill
          * glyph: glyphter icon to use for display
          */
         civilSkills: {
-            scoundrel: { label: "Scoundrel", text: "scoundrel", glyph: "icon-pay-money"},
-            lore: { label: "Lore", text: "lore", glyph: "icon-book-cover"},
-            nature: { label: "Nature", text: "nature", glyph: "icon-linden-leaf"},
-            influence: { label: "Influence", text: "influence", glyph: "icon-lyre"},
+            scoundrel: { label: "Scoundrel", text: "scoundrel", color: "#f0f0f4", glyph: "icon-pay-money"},
+            lore: { label: "Lore", text: "lore", color: "#ff9999", glyph: "icon-book-cover"},
+            nature: { label: "Nature", text: "nature", color: "#b0e8b0", glyph: "icon-linden-leaf"},
+            influence: { label: "Influence", text: "influence", color: "#ffccf1", glyph: "icon-lyre"},
+        },
+        /**
+         * bonuses
+         * 
+         * label: text for display
+         * text: text code corresponding to label
+         * symbol: symbol to append when displaying
+         */
+        bonuses: {
+            crit_chance: { label: "Crit Chance", text: "crit_chance", symbol: ""},
+            crit_bonus: { label: "Crit Damage", text: "crit_bonus", symbol: '\u00D7'},
+            accuracy: { label: "Accuracy", text: "accuracy", symbol: ""},
+            evasion: { label: "Evasion", text: "evasion", symbol: ""},
         },
         abilityMod: { // ability modifer percentages per point above or below 10
             str: 0.05, // +5% damage per point
             dex: 0.05, // +5% damage per point
             int: 0.05, // +5% damage/healing per point
-            con: 0.10, // +10% max hp per point
+            con: 0.07, // +10% max hp per point
             mind: 1, // 1 memory slot per point
             wit: 0.01, // +1% crit chance (can use raw value to calc initiative)
         },
@@ -82,6 +114,7 @@ Hooks.on("init", () => {
             mind: 0,
             wit: 0.05,
         },
+        baseAbilityPoints: 1,
         combatSkillMod: 0.05,   // amount to increase damage by for combat skills per level
         baseCritBonus: 0.6,   // base critical damage bonus expressed as a percentage
         baseCritChance: 0.05,   // base critical hit chance expressed as a percentage
@@ -236,11 +269,13 @@ Hooks.on("init", () => {
         armor: ArmorData,
     }
 
-    //// set up sheets
-    //CONFIG.Actor.dataModels = {
-    //    player: CharacterSheet,
-    //};
-
+    // set up sheets
+    Actors.unregisterSheet('core', ActorSheet);
+    Actors.registerSheet('celestus', CharacterSheet, {
+      makeDefault: true,
+      label: 'CELESTUS.SheetLabels.Actor',
+    });
+  
     // set up resource attributes as trackable
     CONFIG.Actor.trackableAttributes = {
         player:
@@ -253,6 +288,10 @@ Hooks.on("init", () => {
     CONFIG.Actor.documentClass = CelestusActor;
 
     CONFIG.ChatMessage.dataModels.base = ChatDataModel;
+
+    // preload handlebars templates
+    return preloadHandlebarsTemplates();
+  
 });
 
 Hooks.on("ready", () => {
