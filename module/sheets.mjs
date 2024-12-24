@@ -20,11 +20,9 @@ export class CharacterSheet extends ActorSheet {
     }
 
     /** @override */
-    getData() {
+    async getData() {
         // retrieve the data structure from the base sheet
         const context = super.getData();
-        console.log("test");
-        console.log(context);
 
         // get actor data
         const actorData = context.data;
@@ -41,6 +39,18 @@ export class CharacterSheet extends ActorSheet {
 
         // pass config data
         context.config = CONFIG.CELESTUS;
+
+        // do text enrichment
+        context.enrichedDescription = await TextEditor.enrichHTML(
+            this.document.system.biography,
+            {
+                // Only show secret blocks to owner
+                secrets: this.document.isOwner,
+                async: true,
+                // For Actors and Items
+                rollData: this.document.getRollData()
+            }
+        );
 
         return context;
     }
@@ -91,11 +101,33 @@ export class CharacterSheet extends ActorSheet {
             item.sheet.render(true);
         });
 
+        // render progress bars for resources
+        html.find('.resource-value').each((index, target) => {
+            const varPath = target.id;
+            const resourceVal = this.object.system.resources[varPath.substring(varPath.lastIndexOf('.') + 1)].value;
+            const resourceMax = this.object.system.resources[varPath.substring(varPath.lastIndexOf('.') + 1)].max;
+            const resourcePercent = (resourceVal / resourceMax);
+            // draw gradient depending on if overflowing or not
+            let gradient;
+            if (resourcePercent > 1) {
+                const gradientCol = "rgba(255,255,255,0.25)";
+                gradient = `linear-gradient(to left, ${gradientCol} ${((1 - resourcePercent) * -100)}%, rgba(0,0,0,0) 0%)`;
+            }
+            else {
+                const gradientCol = "#404040";
+                gradient = `linear-gradient(to left, ${gradientCol} ${((1 - resourcePercent) * 100)}%, rgba(0,0,0,0) 0%)`;
+            }
+            $(target).css("background-image", gradient);
+        });
+
         // -------------------------------------------------------------
         // Everything below here is only needed if the sheet is editable
         if (!this.isEditable) return;
 
-        console.log("editable");
+        // refresh all resources
+        html.on('click', '#refresh-all', (ev) => {
+            this.actor.refresh();
+        })
 
         // Add Inventory Item
         //html.on('click', '.item-create', this._onItemCreate.bind(this));
@@ -112,48 +144,21 @@ export class CharacterSheet extends ActorSheet {
         html.on('click', '.item-memorize', (ev) => {
             const li = $(ev.currentTarget).parents('.item');
             const item = this.actor.items.get(li.data('itemId'));
-            if (item.system.memorized)
-            {
-                item.update({"system.memorized": false});
+            if (item.system.memorized) {
+                item.update({ "system.memorized": false });
             }
-            else
-            {
+            else {
                 // check memorization requirements
                 if (item.system.memSlots + this.actor.system.attributes.memory.spent > this.actor.system.attributes.memory.total) {
-                    const memorizeError = new Dialog({
-                        title: "Insufficient Slots",
-                        content: `Actor doesn't have enough unused memory slots to memorize skill.`,
-                        buttons: {
-                            button1:
-                            {
-                                label: "Ok",
-                                icon: `<i class="fas fa-check"></i>`
-                            }
-                        }
-                    }).render(true);
-                    return;
+                    return ui.notifications.warn(`Actor doesn't have enough free memory slots. (needed: ${item.system.memSlots}. free: ${this.actor.system.attributes.memory.total - this.actor.system.attributes.memory.spent})`);
                 }
                 // check ability prereqs
-                for (let [key, prereq] of Object.entries(item.system.prereqs))
-                {
-                    if (this.actor.system.combat[key].value < prereq)
-                    {
-                        canMemorize = false;
-                        const memorizeError = new Dialog({
-                            title: "Missing Prereqs",
-                            content: `Actor is missing prerequisite combat ability level (${key}: ${prereq})`,
-                            buttons: {
-                                button1:
-                                {
-                                    label: "Ok",
-                                    icon: `<i class="fas fa-check"></i>`
-                                }
-                            }
-                        }).render(true);
-                        return;
+                for (let [key, prereq] of Object.entries(item.system.prereqs)) {
+                    if (this.actor.system.combat[key].value < prereq) {
+                        return ui.notifications.warn(`Actor is missing prerequisite combat ability level (${key}: ${prereq})`);
                     }
                 }
-                item.update({"system.memorized": true});
+                item.update({ "system.memorized": true });
             }
         });
 
@@ -179,6 +184,7 @@ export class CharacterSheet extends ActorSheet {
                 li.addEventListener('dragstart', handler, false);
             });
         }
+
     }
 
     /**
@@ -195,34 +201,70 @@ export class CharacterSheet extends ActorSheet {
             const skill = this.actor.items.get(dataset.skillId);
             this.actor.useSkill(skill);
         }
+    }
 
-        return;
-        // Handle item rolls.
-        if (dataset.rollType) {
-            if (dataset.rollType == 'item') {
-                const itemId = element.closest('.item').dataset.itemId;
-                const item = this.actor.items.get(itemId);
-                if (item) return item.roll();
+}
+
+/**
+ * @extends { ItemSheet }
+ */
+export class CelestusItemSheet extends ItemSheet {
+    /** @override */
+    static get defaultOptions() {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+            classes: ['celestus', 'sheet', 'item'],
+            width: 700,
+            height: 500,
+            tabs: [
+                {
+                    navSelector: '.sheet-tabs',
+                    contentSelector: '.sheet-body',
+                    initial: 'description',
+                },
+            ],
+        });
+    }
+
+    /** @override */
+    get template() {
+        const path = 'systems/celestus/templates/item';
+
+        // return unique sheet by item type
+        return `${path}/item-${this.item.type}-sheet.hbs`;
+    }
+
+    /** @override */
+    async getData() {
+        // Retrieve base data structure.
+        const context = super.getData();
+
+        // Use a safe clone of the item data for further operations.
+        const itemData = context.data;
+
+        // Retrieve the roll data for TinyMCE editors.
+        context.rollData = this.item.getRollData();
+
+        // Add the item's data to context.data for easier access, as well as flags.
+        context.system = itemData.system;
+        context.flags = itemData.flags;
+
+        // Prepare active effects for easier access
+        //context.effects = prepareActiveEffectCategories(this.item.effects);
+
+        // do text enrichment
+        context.enrichedDescription = await TextEditor.enrichHTML(
+            this.document.system.description,
+            {
+                // Only show secret blocks to owner
+                secrets: this.document.isOwner,
+                async: true,
+                // For Actors and Items
+                rollData: this.document.getRollData()
             }
-        }
-
-        // Handle rolls that supply the formula directly.
-        if (dataset.roll) {
-            let label = dataset.label ? `[ability] ${dataset.label}` : '';
-            let roll = new Roll(dataset.roll, this.actor.getRollData());
-            roll.toMessage({
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                flavor: label,
-                rollMode: game.settings.get('core', 'rollMode'),
-            });
-            return roll;
-        }
+        );
 
 
-        li = $(ev.currentTarget).parents('.item');
-        item = this.actor.items.get(li.data('itemId'));
-        item.delete();
-        li.slideUp(200, () => this.render(false));
+        return context;
     }
 
 }
