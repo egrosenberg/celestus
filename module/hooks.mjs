@@ -16,8 +16,7 @@ export async function rollAttack(e) {
     // check for targets
     const targets = game.user.targets;
     // verify targets amount
-    if (targets.size > item.system.targets.max || targets.size < item.system.targets.min)
-    {
+    if (targets.size > item.system.targets.max || targets.size < item.system.targets.min) {
         const targetError = new Dialog({
             title: "Invalid Targets",
             content: `Please select an appropriate amount of targets for the spell (between ${item.system.targets.min} and ${item.system.targets.max})`,
@@ -45,9 +44,9 @@ export async function rollAttack(e) {
         // threshold needed to roll to count as a hit
         const hitThresh = 100 * (evasion + (1 - accuracy));
 
-        let r = new Roll("1d100",{},{flavor: `${actor.name} attacking ${tActor.name}`});
+        let r = new Roll("1d100", {}, { flavor: `${actor.name} attacking ${tActor.name}` });
         r.toMessage({
-            speaker: {alias: actor.name},
+            speaker: { alias: actor.name },
             flags: {
                 "celestus": {
                     hitThreshold: hitThresh,
@@ -63,7 +62,7 @@ export async function rollAttack(e) {
  * 
  * @param {event} e : event from button click, should contain info about actor/item uuid
  */
-export async function rollDamage(e) {    
+export async function rollDamage(e) {
     // extract actor and item from event
     const actorID = e.currentTarget.dataset.actorUuid;
     const actor = await fromUuid(actorID);
@@ -71,32 +70,29 @@ export async function rollDamage(e) {
     const item = await fromUuid(itemID);
 
     // iterate through damage array
-    for (let part of item.system.damage )
-    {
+    for (let part of item.system.damage) {
         // damage type
         const type = part.type;
         const ability = item.system.ability;
-    
+
         // base damage roll corresponding to actor level
         const base = CONFIG.CELESTUS.baseDamage.formula[actor.system.attributes.level];
         // base damage multiplier percent
         const baseMul = part.value;
         // elemental damage bonus percentage
-        let elementalBonus = 0;
-        if (type !== "none")
-        {
+        let elementBonus = 0;
+        if (type !== "none") {
             elementBonus = actor.system.attributes.damage[type];
         }
         // bonus from ability associated with skill
         let abilityBonus = 0;
-        if (ability !== "none")
-        {
+        if (ability !== "none") {
             abilityBonus = actor.system.abilities[ability].mod;
         }
 
         const r = new Roll(`floor(((${base})[${type}] * (${baseMul}) * (1 + ${elementBonus}) * (1 + ${abilityBonus})))`)
         await r.toMessage({
-            speaker: {alias: actor.name},
+            speaker: { alias: actor.name },
             'system.isDamage': true,
             'system.damageType': type,
             'system.actorID': actorID,
@@ -108,15 +104,14 @@ export async function rollDamage(e) {
  * 
  * @param {event} e : event from button click
  */
-export async function applyDamageHook (e) {
+export async function applyDamageHook(e) {
     const damage = e.currentTarget.dataset.damageTotal;
     const type = e.currentTarget.dataset.damageType;
     const origin = await fromUuid(e.currentTarget.dataset.originActor);
 
     const selected = canvas.tokens.controlled;
     // iterate through each controlled token
-    for (const token of selected)
-    {
+    for (const token of selected) {
         token.actor.applyDamage(damage, type, origin);
     }
 }
@@ -136,16 +131,13 @@ export async function addChatButtons(msg, html, options) {
             total += roll.total;
         }
         // change color based on hit, miss, or crit
-        if (total > msg.getFlag("celestus", "critThreshold"))
-        {
+        if (total > msg.getFlag("celestus", "critThreshold")) {
             html.find(".dice-total").css('background-color', BLUE);
         }
-        else if (total > msg.getFlag("celestus", "hitThreshold"))
-        {
+        else if (total > msg.getFlag("celestus", "hitThreshold")) {
             html.find(".dice-total").css('background-color', GREEN);
         }
-        else
-        {
+        else {
             html.find(".dice-total").css('background-color', RED);
         }
     }
@@ -172,8 +164,7 @@ export async function addChatButtons(msg, html, options) {
         dieTotal.append(`<i class=${CONFIG.CELESTUS.damageTypes[msg.system.damageType].glyph}></i>`);
         dieTotal.css("background-color", CONFIG.CELESTUS.damageTypes[msg.system.damageType].color);
         // only gm can apply damage
-        if (game.user.isGM)
-        {
+        if (game.user.isGM) {
             let dmgTotal = 0;
             for (let roll of msg.rolls) {
                 dmgTotal += roll.total;
@@ -213,4 +204,70 @@ export async function previewDamage(object, controlled) {
             $(this).css("background-color", "")
         }
     });
+}
+
+/**
+ * Create a macro for an item dropped onto hotbar
+ * find existing or create new if one already exists
+ * 
+ * @param {Object} data: the dropped data for macro
+ * @param {number} slot: the hotbar slot
+ * @returns {Promise}
+ */
+export async function createCelestusMacro(data, slot) {
+    // only create macros for items
+    if (data.type !== "Item") {
+        return;
+    }
+    // only let player create macro for an owned item
+    if (!data.uuid.includes('Actor.') && !data.uuid.includes('Token.')) {
+        return ui.notifications.warn(
+            "Error: cannot create macro for unowned item."
+        );
+    }
+    // find item
+    const item = await Item.fromDropData(data);
+
+    // create macro
+    const command = `game.celestus.rollItemMacro("${data.uuid}")`;
+    // check if macro already exists
+    let macro = game.macros.find(m => (m.name === item.name) && (m.command === command));
+    if (!macro) {
+        macro = await Macro.create({
+            name: item.name,
+            type: "script",
+            img: item.img,
+            command: command,
+            flags: { "celestus.itemMacro": true }
+        })
+    }
+    game.user.assignHotbarMacro(macro, slot);
+    return false;
+}
+
+/**
+ * @param {string} itemUuid
+ * @returns {Promise}
+ */
+export function rollItemMacro(itemUuid) {
+    // reconstruct drop data
+    const dropData = {
+        type: 'Item',
+        uuid: itemUuid
+    }
+
+    // Load the item from the uuid.
+    Item.fromDropData(dropData).then((item) => {
+        // Determine if the item loaded and if it's an owned item.
+        if (!item || !item.parent) {
+            const itemName = item?.name ?? itemUuid;
+            return ui.notifications.warn(
+                `Could not find item ${itemName}. You may need to delete and recreate this macro.`
+            );
+        }
+
+        // Trigger the item roll
+        item.roll();
+    });
+
 }

@@ -1,8 +1,9 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData } from "./dataModels.mjs"
 import { CelestusActor } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, previewDamage, rollAttack, rollDamage } from "./hooks.mjs"
-import { CharacterSheet } from "./sheets.mjs"
+import { addChatButtons, applyDamageHook, createCelestusMacro, previewDamage, rollAttack, rollDamage, rollItemMacro } from "./hooks.mjs"
+import { CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
 import { armorData } from "./armor.mjs"
+import { CelestusItem } from "./items.mjs"
 
 /**
  * Define a set of template paths to pre-load
@@ -24,6 +25,11 @@ const preloadHandlebarsTemplates = async function () {
 
 // Registering System data Models
 Hooks.on("init", () => {
+    // important things for roll data
+    game.celestus = {
+        rollItemMacro,
+    }
+
     // create Celestus entry in CONFIG
     CONFIG.CELESTUS = {
         // Set up data types
@@ -274,6 +280,13 @@ Hooks.on("init", () => {
     Actors.registerSheet('celestus', CharacterSheet, {
       makeDefault: true,
       label: 'CELESTUS.SheetLabels.Actor',
+      async: true,
+    });
+    Items.unregisterSheet('core', ItemSheet);
+    Items.registerSheet('celestus', CelestusItemSheet, {
+      makeDefault: true,
+      label: 'CELESTUS.SheetLabels.Actor',
+      async: true,
     });
   
     // set up resource attributes as trackable
@@ -286,6 +299,7 @@ Hooks.on("init", () => {
     };
 
     CONFIG.Actor.documentClass = CelestusActor;
+    CONFIG.Item.documentClass = CelestusItem;
 
     CONFIG.ChatMessage.dataModels.base = ChatDataModel;
 
@@ -298,10 +312,16 @@ Hooks.on("ready", () => {
     $(document).on("click", ".attack", rollAttack);
     $(document).on("click", ".damage", rollDamage);
     $(document).on("click", ".apply-damage", applyDamageHook);
+
+    // append apply damage button to damage rolls for GM
+    Hooks.on("renderChatMessage", addChatButtons);
+    
+    // hook damage preview on token select
+    Hooks.on("controlToken", previewDamage);
+    
+    // hook macro creation on hotbar drop
+    Hooks.on("hotbarDrop", (bar, data, slot) => {
+        createCelestusMacro(data, slot);
+        return false;
+    });
 });
-
-// append apply damage button to damage rolls for GM
-Hooks.on("renderChatMessage", addChatButtons);
-
-// hook damage preview on token select
-Hooks.on("controlToken", previewDamage);

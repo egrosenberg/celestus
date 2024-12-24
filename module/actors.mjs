@@ -65,8 +65,7 @@ export class CelestusActor extends Actor {
                 actor.resources.phys_armor.max += phys;
                 actor.resources.mag_armor.max += mag;
             }
-            if (item.type === "skill" && item.system.memorized)
-            {
+            if (item.type === "skill" && item.system.memorized) {
                 actor.attributes.memory.spent += item.system.memSlots;
             }
         }
@@ -296,37 +295,19 @@ export class CelestusActor extends Actor {
      * @param {SkillData} skill : object containing info of the skill to use
      */
     async useSkill(skill) {
+        // dont use skill if its on cooldown
+        if (skill.system.cooldown.value > 0) {
+            return ui.notifications.warn("Error: ability is on cooldown!");
+        }
 
         const actor = this.system;
 
         // verify resources
         if (skill.system.ap > actor.resources.ap.value) {
-            const apError = new Dialog({
-                title: "Insufficient Resources",
-                content: `Actor has insufficient Action Points to use chosen skill`,
-                buttons: {
-                    button1:
-                    {
-                        label: "Ok",
-                        icon: `<i class="fas fa-check"></i>`
-                    }
-                }
-            }).render(true);
-            return;
+            return ui.notifications.warn("Actor has insufficient Action Points to use chosen skill");
         }
         else if (skill.system.jp > actor.resources.jiriki.value) {
-            const jpError = new Dialog({
-                title: "Insufficient Resources",
-                content: `Actor has insufficient Jiriki Points to use chosen skill`,
-                buttons: {
-                    button1:
-                    {
-                        label: "Ok",
-                        icon: `<i class="fas fa-check"></i>`
-                    }
-                }
-            }).render(true);
-            return;
+            return ui.notifications.warn("Actor has insufficient Jiriki Points to use chosen skill");
         }
         // use resources
         await this.update({ "system.resources.ap.value": actor.resources.ap.value - skill.system.ap });

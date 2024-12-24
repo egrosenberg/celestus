@@ -72,8 +72,8 @@
 }
 
 
-/* styling for character sheets */
-.celestus.actor.sheet {
+/* styling for sheets */
+.celestus.sheet {
     --color-physical-bg: #b3c0cc;
     --color-fire-bg: #db8b70;
     --color-water-bg: #86c0df;
@@ -85,33 +85,40 @@
     --color-healing-bg: #92e298;
 }
 /* colors for elements */
-.celestus.actor.sheet .physical {
+.celestus.sheet .physical {
     background-color: var(--color-physical-bg);
 }
-.celestus.actor.sheet .fire {
+.celestus.sheet .fire {
     background-color: var(--color-fire-bg);
 }
-.celestus.actor.sheet .water {
+.celestus.sheet .water {
     background-color: var(--color-water-bg);
 }
-.celestus.actor.sheet .air {
+.celestus.sheet .air {
     background-color: var(--color-air-bg);
 }
-.celestus.actor.sheet .earth {
+.celestus.sheet .earth {
     background-color: var(--color-earth-bg);
 }
-.celestus.actor.sheet .poison {
+.celestus.sheet .poison {
     background-color: var(--color-poison-bg);
 }
-.celestus.actor.sheet .psychic {
+.celestus.sheet .psychic {
     background-color: var(--color-psychic-bg);
 }
-.celestus.actor.sheet .piercing {
+.celestus.sheet .piercing {
     background-color: var(--color-piercing-bg);
 }
-.celestus.actor.sheet .healing {
+.celestus.sheet .healing {
     background-color: var(--color-healing-bg);
 }
+.celestus.sheet .editor {
+    margin: 5px;
+    padding: 10px;
+    outline: var(--color-cool-3) solid thin;
+    min-height: 200px;
+}
+/* styling for character sheets */
 .celestus.actor.sheet .sheet-inner {
     flex-direction: row;
     display: flex;
@@ -193,7 +200,7 @@
     font-size: var(--font-size-16);
     font-weight: bold;
 }
-.celestus.actor.sheet .sheet-header label.resource-label.hp {
+.celestus.actor.sheet .sheet-header label.resource-label.single {
     width: 100%;
 }
 .celestus.actor.sheet .resource-value {
@@ -201,20 +208,27 @@
     border-width: thin;
     border-radius: 5px;
     border-color: black;
+
     display: inline-flex;
     padding: 5px;
+
     font-size: var(--font-size-16);
-    width: 100%;
     text-align: center;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
+    width: 100%;
 }
 .celestus.actor.sheet .resource-value input {
     text-align: right;
     margin: -3px 0; 
-    background: inherit;
+    background-color: rgba(0,0,0,0);
     padding: 0px;
     border-style: none;
     box-sizing: border-box;
     flex: 1;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .celestus.actor.sheet .resource-value .total {
     flex: 2;
@@ -299,11 +313,49 @@
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     font-size: 20px;
 }
-.celestus.actor.sheet .skill-frame .item-overlay i {
+.celestus.actor.sheet .item.skill .skill-frame .item-overlay i {
     position: relative;
     top: 3px;
 }
 .celestus.actor.sheet .item.skill {
-    border: black solid thin;
-    background: rgba(255, 255, 255, 0.5)
+    border: var(--color-cool-3) solid thin;
+    background: rgba(255, 255, 255, 0.5);
+    display: inline-block;
+    width: 80px;
+}
+.celestus.actor.sheet .item.skill .item-controls {
+    display: flex;
+    justify-content: space-between;
+}
+.celestus.actor.sheet .item-overlay.active {
+    height: 80px;
+    width: 80px;
+    left: 0px;
+    top: 0px;
+    background-image: url('../svg/stopwatch.svg');
+    background-color: rgba(255, 255, 255, 0.5);
+    font-size: var(--font-size-36);
+    text-align: center;
+    line-height: 80px;
+}
+/* Item Sheet */
+.celestus.item.sheet {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.celestus.item.sheet .sheet-header {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: solid thin var(--color-cool-3);
+}
+.celestus.item.sheet .item-quick {
+    flex: 0 0 150px;
+    align-content: top;
+    margin-right: 6px;
+    margin-top: -10px;
+    padding-top: 10px;
+    border-right: solid var(--color-cool-3) thin;
+    height: 100%
+}
+.celestus.item.sheet .item-main {
 }

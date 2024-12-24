@@ -42,7 +42,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                 }),
                 jiriki: new SchemaField({ // jiriki points
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // current ap amount
-                    max: new NumberField({ required: true, integer: true, min: 1, initial: 1 }), // max ap amount
+                    max: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // max ap amount
                 }),
             }),
             attributes: new SchemaField({

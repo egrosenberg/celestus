@@ -14,34 +14,34 @@
         <div class='skill-frame'>
             <div class='item-image'>
                 <a class='rollable' data-roll-type='skill' data-skill-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
-                        height='80' /></a>
-                <span class="item-overlay">
-                    {{#each skill.system.prereqs as |ability key|}}
-                    {{#if ability}}
-                    {{#with (lookup ../../config.combatSkills key)}}
-                        <i class="{{glyph}}"></i>{{ability}}<br />
-                    {{/with}}
-                    {{/if}}
-                    {{/each}}
+                    height='80' /></a>
+                {{#if skill.system.cooldown.value}}
+                <span class="item-overlay active">
+                    {{skill.system.cooldown.value}}
                 </span>
+                {{/if}}
             </div>
         </div>
         <div class='item-controls'>
+            <span>
             <a class='item-control item-memorize' title='memorize'>
                 <i class="fa-solid fa-brain"></i>
             </a>
+            </span>
+            <span>
             <a class='item-control item-edit' title='edit'>
                 <i class='fas fa-edit'></i>
             </a>
             <a class='item-control item-delete' title='delete'>
                 <i class='fas fa-trash'></i>
             </a>
+            </span>
         </div>
     </li>
     {{/each}}
     <h2>Not Memorized</h2>
     {{#each skills.unmemorized as |skill|}}
-    <li class='item skill' style="display: inline-block; width: 80px" data-item-id='{{skill._id}}'>
+    <li class='item skill' data-item-id='{{skill._id}}'>
         <div class='skill-frame'>
             <div class='item-image'>
                 <a class='rollable' data-roll-type='skill' data-skill-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
@@ -58,15 +58,19 @@
             </div>
         </div>
         <div class='item-controls'>
+            <span>
             <a class='item-control item-memorize' title='memorize'>
                 <i class="fa-solid fa-brain"></i>
             </a>
+            </span>
+            <span>
             <a class='item-control item-edit' title='edit'>
                 <i class='fas fa-edit'></i>
             </a>
             <a class='item-control item-delete' title='delete'>
                 <i class='fas fa-trash'></i>
             </a>
+            </span>
         </div>
     </li>
     {{/each}}
