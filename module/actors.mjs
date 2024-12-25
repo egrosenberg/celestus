@@ -8,20 +8,22 @@ export class CelestusActor extends Actor {
          * Zero out all derived data
          */
         // zero out ability score related things
-        console.log(actor);
-        for (let ability of Object.entries(actor.abilities)) {
+        for (let [key, ability] of Object.entries(actor.abilities)) {
             ability.mod = 0;
             ability.total = 0;
+            ability.bonus = 0;
         }
         actor.attributes.unspentPoints = 0;
         // zero out combat ability stuff
-        for (let ability of Object.entries(actor.combat)) {
+        for (let [key, ability] of Object.entries(actor.combat)) {
             ability.value = 0;
             ability.mod = 0;
+            ability.bonus = 0;
         }
         // zero out civil ability stuff
-        for (let ability of Object.entries(actor.civil)) {
+        for (let [key, ability] of Object.entries(actor.civil)) {
             ability.value = 0;
+            ability.bonus = 0;
         }
         // zero out damage bonuses
         for (let damageType of Object.entries(actor.attributes.damage)) {
@@ -29,11 +31,11 @@ export class CelestusActor extends Actor {
             damageType.mod = 0;
         }
         // zero out damage resists
-        for (let damageType of Object.entries(actor.attributes.resistance)) {
+        for (let [key, damageType] of Object.entries(actor.attributes.resistance)) {
             damageType.value = 0;
         }
         // zero out generic bonuses
-        for (let bonus of Object.entries(actor.attributes.bonuses)) {
+        for (let [key, bonus] of Object.entries(actor.attributes.bonuses)) {
             bonus.value = 0;
         }
         // zero out memory related things
@@ -50,26 +52,27 @@ export class CelestusActor extends Actor {
          */
         // calculate flat ability scores
         let spentPoints = 0;
-        for (let ability of Object.entries(actor.abilities)) {
+        for (let [key, ability] of Object.entries(actor.abilities)) {
             spentPoints += ability.value - BASE_AS;
-            ability.total += ability.value + ability.bonus;
+            ability.total += ability.value;
         }
         actor.attributes.unspentPoints += (actor.attributes.level * 2) + CONFIG.CELESTUS.baseAbilityPoints - spentPoints;
 
         // update combat ability values
-        for (let ability of Object.entries(actor.combat)) {
+        for (let [key, ability] of Object.entries(actor.combat)) {
             // calculate total
-            ability.value += ability.base + ability.bonus;
+            ability.value += ability.base;
         }
         // update civil ability values
-        for (let ability of Object.entries(actor.civil)) {
+        for (let [key, ability] of Object.entries(actor.civil)) {
             // calculate total
-            ability.value += ability.base + ability.bonus;
+            ability.value += ability.base;
         }
         // update base damage resists
         for (let damageType of Object.entries(actor.attributes.resistance)) {
             damageType.value += damageType.bonus;
         }
+
         // iterate through items
         for (const item of this.items) {
             // check if item is an armor piece and equipped
@@ -82,12 +85,15 @@ export class CelestusActor extends Actor {
                 actor.resources.mag_armor.max += mag;
                 // apply bonuses
                 for (let [ability, value] of Object.entries(item.system.bonuses.combat)) {
+                    actor.combat[ability].bonus += value;
                     actor.combat[ability].value += value;
                 }
                 for (let [ability, value] of Object.entries(item.system.bonuses.civil)) {
+                    actor.civil[ability].bonus += value;
                     actor.civil[ability].value += value;
                 }
                 for (let [ability, value] of Object.entries(item.system.bonuses.abilities)) {
+                    actor.abilities[ability].bonus += value;
                     actor.abilities[ability].total += value;
                 }
             }
@@ -107,23 +113,28 @@ export class CelestusActor extends Actor {
         for (let [key, value] of Object.entries(actor.attributes.damage)) {
             const cSkill = CONFIG.CELESTUS.damageTypes[key].skill;
             // calculate modifiers
-            value += actor.combat[cSkill].value;
+            value += actor.combat[cSkill].value * CONFIG.CELESTUS.combatSkillMod;
         }
         // final unspent skill points update for formshifter
         actor.attributes.unspentPoints += actor.combat.formshifter.value * 2;
         // calculate memory
         actor.attributes.memory.total += parseInt(Math.floor((actor.attributes.level) / 2) + (actor.abilities.mind.value) - 7);
-        // calculate crit chance
-        actor.attributes.bonuses.crit_chance.value = actor.abilities.wit.mod;
         // calculate modifiers
         // ability scores
         for (let [key, ability] of Object.entries(actor.abilities)) {
-            ability.mod += ((ability.value - BASE_AS) * CONFIG.CELESTUS.abilityMod[key]) + CONFIG.CELESTUS.baseAbilityMod[key];
+            ability.mod += ((ability.total - BASE_AS) * CONFIG.CELESTUS.abilityMod[key]) + CONFIG.CELESTUS.baseAbilityMod[key];
         }
         // combat abilities
-        for (let ability of Object.entries(actor.combat)) {
+        for (let [key, ability] of Object.entries(actor.combat)) {
             ability.mod += ability.value * 0.05;
         }
+        // calculate crit chance
+        actor.attributes.bonuses.crit_chance.value += actor.abilities.wit.mod;
+        // calculate crit bonus
+        actor.attributes.bonuses.crit_bonus.value += 1 + CONFIG.CELESTUS.baseCritBonus + actor.attributes.bonuses.crit_bonus.bonus + actor.combat.shroudstalker.mod;
+        // calculate accuracy
+        actor.attributes.bonuses.accuracy.value += CONFIG.CELESTUS.baseAccuracy + actor.attributes.bonuses.accuracy.bonus;
+
 
         /**
          * Perform multiplicative operations
@@ -317,8 +328,6 @@ export class CelestusActor extends Actor {
         newHealth = Math.min(newHealth, maxHealth);
         // update health value
         await this.update({ "system.resources.hp.flat": parseInt(newHealth) });
-        // Log a message.
-        console.log(`${this.name} took ${damage} ${type} damage!`);
     }
 
     /**

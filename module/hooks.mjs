@@ -30,7 +30,6 @@ export async function rollAttack(e) {
     const critThresh = 100 - (actor.system.attributes.bonuses.crit_chance.value * 100);
     // part of determining wether an attack hits
     const accuracy = actor.system.attributes.bonuses.accuracy.value;
-    console.log(`accuracy: ${accuracy}, critThresh: ${critThresh}`);
 
     // roll an attack for each target
     for (const target of targets) {
@@ -109,7 +108,6 @@ export async function applyDamageHook(e) {
  * @param { messageData } options 
  */
 export async function addChatButtons(msg, html, options) {
-    console.log(msg.system);
     // if msg is an attack roll, change colors appropriately
     if (msg.system.isAttack) {
         // get roll toral (in case there are modifiers for some reason)
@@ -132,7 +130,6 @@ export async function addChatButtons(msg, html, options) {
     if (msg.system.isSkill) {
         const actor = await fromUuid(msg.system.actorID);
         const perms = actor.ownership;
-        console.log(perms);
         // check if player has owner access on token associated with message
         if (perms.default >= 3 || ((game.user.id in perms) && perms[game.user.id] >= 3)) {
             // add attack button if there is an attack

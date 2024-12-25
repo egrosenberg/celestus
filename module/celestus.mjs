@@ -133,6 +133,7 @@ Hooks.on("init", () => {
         combatSkillMod: 0.05,   // amount to increase damage by for combat skills per level
         baseCritBonus: 0.6,   // base critical damage bonus expressed as a percentage
         baseCritChance: 0.05,   // base critical hit chance expressed as a percentage
+        baseAccuracy: 0.95,
         maxHP: { // base max hp amounts
             1: 30,
             2: 45,

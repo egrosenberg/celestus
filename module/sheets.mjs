@@ -98,7 +98,6 @@ export class CharacterSheet extends ActorSheet {
         html.on('click', '.item-edit', (ev) => {
             const li = $(ev.currentTarget).parents('.item');
             const item = this.actor.items.get(li.data('itemId'));
-            console.log(item);
             item.sheet.render(true);
         });
 
@@ -315,7 +314,6 @@ export class CelestusItemSheet extends ItemSheet {
                 const t = ev.currentTarget;
                 const index = $(t).data("index");
                 let damage = this.item.system.damage;
-                console.log(index);
                 damage.splice(index, 1);
                 this.item.update({ "system.damage": damage });
             });
