@@ -9,7 +9,36 @@
     <div class="flexrow" style="align-items: stretch; height: 100%; padding-bottom: 10px">
         {{!-- quick view of important item info --}}
         <div class="item-quick">
-            
+            <h3>Details:</h3>
+            <div class="quick-reference">Cooldown: {{system.cooldown.max}} rounds</div>
+            {{#if system.ap}}<div class="quick-reference">AP Cost: {{system.ap}}</div>{{/if}}
+            {{#if system.jp}}<div class="quick-reference">Jiriki Cost: {{system.jp}}</div>{{/if}}
+            <div class="quick-reference">Memory Slots: {{system.memSlots}}</div>
+            <div class="quick-reference">
+                Range: {{#if system.range}}{{system.range}} ft.{{else}}melee{{/if}}</div>
+
+            <h3>Prereqs:</h3>
+            {{#each system.prereqs as |value skill|}}
+            {{#if value}}
+            {{#with (lookup ../config.combatSkills skill)}}
+            <div class="quick-reference"
+                style="background-color:{{#with (lookup ../../config.damageTypes damage)}}{{color}}{{/with}};">
+                {{value}} {{label}} <i class="{{glyph}}"></i></div>
+            {{/with}}
+            {{/if}}
+            {{/each}}
+
+            <h3>Damage:</h3>
+            {{#each system.damage as |damage|}}
+            {{#with (lookup ../config.damageTypes damage.type)}}
+            <div class="quick-reference" style="background-color: {{color}};" title="{{damage.type}}">
+                {{#with (lookup ../../rollData.dmg damage.type)}}
+                {{min}}-{{max}} ({{avg}})
+                {{/with}}
+                <i class="{{glyph}}"></i>
+            </div>
+            {{/with}}
+            {{/each}}
         </div>
         <div class="item-main">
             {{!-- Sheet Tab Navigation --}}
@@ -22,11 +51,6 @@
             <section class="sheet-body">
                 {{!-- Description Tab --}}
                 <div class="tab" data-group="primary" data-tab="description">
-                    {{!-- To render inline rolls in a TinyMCE editor, you need to pass the parent actor's (if any) roll
-                    data
-                    to
-                    the
-                    rollData prop. --}}
                     {{editor enrichedDescription engine="prosemirror" target="system.description" rollData=rollData
                     button=true owner=owner
                     editable=editable}}
@@ -35,30 +59,103 @@
 
                 {{!-- Attributes Tab --}}
                 <div class="tab attributes" data-group="primary" data-tab="attributes">
-                    {{!-- As you add new fields, add them in here! --}}
-                    <div class="resource">
-                        <label class="resource-label">Roll Formula:</label>
-                        <span>{{system.formula}}</span>
-                        <div class="grid grid-4col">
-                            <div class="grid-span-1">
-                                <label class="resource-label">Number of Dice</label>
-                                <input type="text" name="system.roll.diceNum" value="{{system.roll.diceNum}}"
+                    <div>
+                        <h3>General</h3>
+                        <div class="attribute-section">
+                            {{!-- AP cost --}}
+                            <div class="general attribute">
+                                <label for="system.ap" class="resource-label">Action Points: </label>
+                                <input type="text" name="system.ap" value="{{system.ap}}" data-dtype="Number" />
+                            </div>
+                            {{!-- cooldown --}}
+                            <div class="general attribute">
+                                <label for="system.cooldown.value" class="resource-label">Cooldown (rounds): </label>
+                                <input type="text" name="system.cooldown.value" value="{{system.cooldown.value}}"
+                                    data-dtype="Number" />
+                                / <input type="text" name="system.cooldown.max" value="{{system.cooldown.max}}"
                                     data-dtype="Number" />
                             </div>
-                            <div class="grid-span-1">
-                                <label class="resource-label">Die Size</label>
-                                <input type="text" name="system.roll.diceSize" value="{{system.roll.diceSize}}"
-                                    data-dtype="String" />
+                            {{!-- memory cost --}}
+                            <div class="general attribute">
+                                <label for="system.memSlots" class="resource-label">Memory Slots: </label>
+                                <input type="text" name="system.memSlots" value="{{system.memSlots}}"
+                                    data-dtype="Number" />
                             </div>
-                            <div class="grid-span-2">
-                                <label class="resource-label">Roll Modifier</label>
-                                <input type="text" name="system.roll.diceBonus" value="{{system.roll.diceBonus}}"
-                                    data-dtype="String" />
+                            {{!-- cooldown --}}
+                            <div class="general attribute">
+                                <label for="system.cooldown.value" class="resource-label">Targets: </label>
+                                <input type="text" name="system.targets.min" value="{{system.targets.min}}"
+                                    data-dtype="Number" />
+                                - <input type="text" name="system.targets.max" value="{{system.targets.max}}"
+                                    data-dtype="Number" />
+                            </div>
+                            {{!-- has attack? --}}
+                            <div class="general attribute">
+                                <label for="system.attack" class="resource-label">Has Attack?: </label>
+                                <input class="check-input" name="system.attack" type="checkbox" {{#if
+                                    system.attack}}checked{{/if}} />
+                            </div>
+                            {{!-- range --}}
+                            <div class="general attribute">
+                                <label for="system.range" class="resource-label">Range (ft.): </label>
+                                <input type="text" name="system.range" value="{{system.range}}" data-dtype="Number"
+                                    style="width: 50px;" />
                             </div>
                         </div>
+                        <h3>Prerequisites</h3>
+                        <div class="attribute-section">
+                            {{#each system.prereqs as |value key|}}
+                            <div class="attribute"
+                                style="background-color: var(--color-{{#with (lookup ../config.combatSkills key)}}{{damage}}{{/with}}-bg)">
+                                <label for="system.combat.{{key}}.base"
+                                    class="resource-label rollable flexlarge align-left"
+                                    data-roll="d20+@abilities.{{key}}.mod" data-label="key">{{#with (lookup
+                                    ../config.combatSkills key)}}<i class="{{glyph}}">
+                                    </i>{{label}}{{/with}}</label>
+                                <input type="text" name="system.prereqs.{{key}}" value="{{value}}"
+                                    data-dtype="Number" />
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                    {{!-- Damage Array --}}
+                    <h3>Damage</h3>
+                    <div class="attribute-section">
+                        <li class="item flexrow damage-header" draggable="true">
+                            <div class="damage-type">Type</div>
+                            <div class="damage-amount">Amount (%)</div>
+                            <div class="item-controls">
+                                <a class="item-control damage-create" title="Create New Damage Component" data-type="item">
+                                    <i class="fas fa-plus"></i>
+                                    Add Damage
+                                </a>
+                            </div>
+                        </li>
+                        {{!-- create editor for each damage type --}}
+                        {{#each system.damage as |damage|}}
+                        <li class="item flexrow" >
+                            <div class="damage-type">
+                                <select class="damage-type-selector" name="system.damage[{{@index}}].type"  data-index="{{@index}}">
+                                    {{!-- create a dropdown option for each damage type --}}
+                                    {{#each ../config.damageTypes as |data type|}}
+                                        <option value="{{type}}"{{#if (eq type damage.type)}}selected{{/if}}>{{data.label}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="damage-amount">
+                                <input type="text" name="system.damage[{{@index}}].value" value="{{damage.value}}" data-index="{{@index}}" />
+                            </div>
+                            <div class="item-controls">
+                                <a class="item-control damage-delete" title="Delete Damage Component" data-type="damage" data-index="{{@index}}">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </li>
+                        {{/each}}
                     </div>
                 </div>
-            </section>
         </div>
+        </section>
+    </div>
     </div>
 </form>

@@ -1,7 +1,16 @@
+<div class="celestus">
+  <h2>{{name}}</h2>
 
-<h2>{{name}}</h2>
-<div class="dice-roll">
-    {{#if flavor}}
-    <div class="dice-flavor">{{flavor}}</div>
-    {{/if}}
+  {{#if portrait}}
+  <img style="width: 100px; height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;" src="{{portrait}}" data-edit="img" title="{{name}}" />
+  <br />
+  {{/if}}
+  {{#if flavor}}
+  <div class="dice-flavor">{{{flavor}}}</div>
+  {{/if}}
+  <div class="dice-roll">
+  </div>
 </div>

@@ -140,7 +140,7 @@ export class CelestusActor extends Actor {
      * @param {string} type : type of damage (must exist in CONFIG.CELESTUS.damageTypes)
      * @param {CelestusActor} origin: actor that damage originates from
      */
-    async applyDamage(damage, type, origin) {
+    async applyDamage(damage, type, base, origin) {
         damage = this.calcDamage(damage, type);
 
         // remainder damage after armor
@@ -291,6 +291,30 @@ export class CelestusActor extends Actor {
     }
 
     /**
+     * Calculates the multiplier for a specified damage roll
+     * 
+     * @param {String} type: elemental type of damage
+     * @param {String} ability: ability to scale damage with ("none" if no scalar)
+     * @param {Number} base: damage multiplier from damage source percent
+     * @param {String} flat: flat damage bonus as percent
+     * @returns {Number} multiplier to apply to damage roll
+     */
+    calcMult (type, ability, base, flat = 0) {
+        // elemental damage bonus percentage
+        let elementBonus = 0;
+        if (type !== "none") {
+            elementBonus = this.system.attributes.damage[type];
+        }
+        // bonus from ability associated with skill
+        let abilityBonus = 0;
+        if (ability !== "none") {
+            abilityBonus = this.system.abilities[ability].mod;
+        }
+
+        return 1 * (base) * (1 + elementBonus) * (1 + abilityBonus) * (1 + flat);
+    }
+
+    /**
      * 
      * @param {SkillData} skill : object containing info of the skill to use
      */
@@ -317,8 +341,20 @@ export class CelestusActor extends Actor {
         const msgData = {
             name: skill.name,
             flavor: skill.system.description,
+            portrait: skill.img,
         }
-        const msg = await renderTemplate(path, msgData);
+        let msg = await renderTemplate(path, msgData);
+        // do text enrichment
+        msg = await TextEditor.enrichHTML(
+            msg,
+            {
+                // Only show secret blocks to owner
+                secrets: skill.isOwner,
+                async: true,
+                // For Actors and Items
+                rollData: skill.getRollData()
+            }
+        );
         await ChatMessage.create({
             content: msg, speaker: { alias: this.name },
             'system.actorID': this.uuid,
@@ -326,6 +362,11 @@ export class CelestusActor extends Actor {
             'system.itemID': skill.uuid,
             'system.skill.hasAttack': skill.system.attack,
         });
+        
+        // set skill on cooldown if in combat (currently set to true for debugging)
+        if (true) {
+            skill.update({"system.cooldown.value": skill.system.cooldown.max});
+        }
     }
 
     /**
@@ -348,5 +389,28 @@ export class CelestusActor extends Actor {
         this.update({ "system.resources.ap.value": this.system.resources.ap.start });
         // refresh jiriki points
         this.update({ "system.resources.jiriki.value": this.system.resources.jiriki.max });
+
+        // reset all cooldowns
+        for (let item of this.items) {
+            if (item.type === "skill" ) {
+                item.update({"system.cooldown.value": 0});
+            }
+        }
+    }
+
+    /**
+     * handles all upkeep for a combat turn
+     */
+    progressRound() {
+        // progress all cooldowns
+        for (let item of this.items) {
+            if (item.type === "skill" ) {
+                const cd = item.system.cooldown.value;
+                if (cd > 0)
+                {
+                    item.update({"system.cooldown.value": cd - 1});
+                }
+            }
+        }
     }
 }

@@ -100,6 +100,7 @@ export class CharacterSheet extends ActorSheet {
             const item = this.actor.items.get(li.data('itemId'));
             item.sheet.render(true);
         });
+        
 
         // render progress bars for resources
         html.find('.resource-value').each((index, target) => {
@@ -117,7 +118,8 @@ export class CharacterSheet extends ActorSheet {
                 const gradientCol = "#404040";
                 gradient = `linear-gradient(to left, ${gradientCol} ${((1 - resourcePercent) * 100)}%, rgba(0,0,0,0) 0%)`;
             }
-            $(target).css("background-image", gradient);
+            const curCSS = $(target).css("background-image");
+            $(target).css("background-image", `${curCSS}, ${gradient}`);
         });
 
         // -------------------------------------------------------------
@@ -174,6 +176,12 @@ export class CharacterSheet extends ActorSheet {
 
         // Rollable abilities.
         html.on('click', '.rollable', this._onRoll.bind(this));
+        
+        // item previews
+        html.on('contextmenu', '.item', (ev) => {
+            const item = this.actor.items.get($(ev.currentTarget).data('itemId'));
+            item.sheet.render(true);
+        });
 
         // Drag events for macros.
         if (this.actor.isOwner) {
@@ -213,7 +221,7 @@ export class CelestusItemSheet extends ItemSheet {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ['celestus', 'sheet', 'item'],
-            width: 700,
+            width: 750,
             height: 500,
             tabs: [
                 {
@@ -241,13 +249,16 @@ export class CelestusItemSheet extends ItemSheet {
         // Use a safe clone of the item data for further operations.
         const itemData = context.data;
 
-        // Retrieve the roll data for TinyMCE editors.
-        context.rollData = this.item.getRollData();
+        // Retrieve the roll data for editors.
+        context.rollData = this.document.getRollData();
 
         // Add the item's data to context.data for easier access, as well as flags.
         context.system = itemData.system;
         context.flags = itemData.flags;
 
+        // pass config data
+        context.config = CONFIG.CELESTUS;
+        
         // Prepare active effects for easier access
         //context.effects = prepareActiveEffectCategories(this.item.effects);
 
@@ -265,6 +276,52 @@ export class CelestusItemSheet extends ItemSheet {
 
 
         return context;
+    }
+
+    /** @override */
+    activateListeners(html) {
+        super.activateListeners(html);
+
+        // toggle checkboxes
+        html.on('click', '.check-input', (ev) => {
+            const checked = ev.currentTarget.checked;
+            const name = ev.currentTarget.name;
+            this.item.update({[name]: checked});
+        });
+
+        // operate changes on damage type
+        html.on('change', '.damage-type select', (ev) => {
+            const t = ev.currentTarget;
+            const index = $(t).data("index");
+            const type = $(t).val();
+            let damage = this.item.system.damage;
+            damage[index].type = type;
+            this.item.update({"system.damage": damage});
+        });
+        // get damage values
+        html.on('change', '.damage-amount input', (ev) => {
+            const t = ev.currentTarget;
+            const index = $(t).data("index");
+            const value = $(t).val();
+            let damage = this.item.system.damage;
+            damage[index].value = value;
+            this.item.update({"system.damage": damage});
+        });
+        // remove damage element
+        html.on('click', '.damage-delete', (ev) => {
+            const t = ev.currentTarget;
+            const index = $(t).data("index");
+            let damage = this.item.system.damage;
+            console.log(index);
+            damage.splice(index, 1);
+            this.item.update({"system.damage": damage});
+        });
+        // add damage element
+        html.on('click', '.damage-create', (ev) => {
+            let damage = this.item.system.damage;
+            damage.push({type: "none", value: 1.0});
+            this.item.update({"system.damage": damage});
+        });
     }
 
 }

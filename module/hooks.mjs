@@ -7,34 +7,30 @@ const BLUE = '#92c6e2';
  * @param {event} e : event from button click, should contain info about actor/item uuid
  */
 export async function rollAttack(e) {
-    // extract actor and item from event
-    const actorID = e.currentTarget.dataset.actorUuid;
-    const actor = await fromUuid(actorID);
-    const itemID = e.currentTarget.dataset.itemUuid;
-    const item = await fromUuid(itemID);
+    // reconstruct drop data
+    const dropData = {
+        type: 'Item',
+        uuid:  e.currentTarget.dataset.itemUuid
+    }
+
+    const item = await Item.fromDropData(dropData);
+    const actor = item.actor;
+    if (!actor) {
+        return ui.notifications.warn("ERROR: No actor found belonging to item.")
+    }
 
     // check for targets
     const targets = game.user.targets;
     // verify targets amount
     if (targets.size > item.system.targets.max || targets.size < item.system.targets.min) {
-        const targetError = new Dialog({
-            title: "Invalid Targets",
-            content: `Please select an appropriate amount of targets for the spell (between ${item.system.targets.min} and ${item.system.targets.max})`,
-            buttons: {
-                button1:
-                {
-                    label: "Ok",
-                    icon: `<i class="fas fa-check"></i>`
-                }
-            }
-        }).render(true);
-        return;
+        return ui.notifications.warn(`ERROR: Please select a valid amount of targets for ability (${item.system.targets.min}-${item.system.targets.max})`);
     }
 
     // threshold needed to exceed to count as a crit
-    const critThresh = 100 - (actor.system.attributes.bonuses.crit_chance * 100);
+    const critThresh = 100 - (actor.system.attributes.bonuses.crit_chance.value * 100);
     // part of determining wether an attack hits
     const accuracy = actor.system.attributes.bonuses.accuracy.value;
+    console.log(`accuracy: ${accuracy}, critThresh: ${critThresh}`);
 
     // roll an attack for each target
     for (const target of targets) {
@@ -77,20 +73,10 @@ export async function rollDamage(e) {
 
         // base damage roll corresponding to actor level
         const base = CONFIG.CELESTUS.baseDamage.formula[actor.system.attributes.level];
-        // base damage multiplier percent
-        const baseMul = part.value;
-        // elemental damage bonus percentage
-        let elementBonus = 0;
-        if (type !== "none") {
-            elementBonus = actor.system.attributes.damage[type];
-        }
-        // bonus from ability associated with skill
-        let abilityBonus = 0;
-        if (ability !== "none") {
-            abilityBonus = actor.system.abilities[ability].mod;
-        }
 
-        const r = new Roll(`floor(((${base})[${type}] * (${baseMul}) * (1 + ${elementBonus}) * (1 + ${abilityBonus})))`)
+        const mult = actor.calcMult(type, ability, part.value, 0);
+
+        const r = new Roll(`floor((${base})[${type}] * ${mult})`)
         await r.toMessage({
             speaker: { alias: actor.name },
             'system.isDamage': true,
@@ -123,9 +109,10 @@ export async function applyDamageHook(e) {
  * @param { messageData } options 
  */
 export async function addChatButtons(msg, html, options) {
+    console.log(msg.system);
     // if msg is an attack roll, change colors appropriately
     if (msg.system.isAttack) {
-        // get roll toal (in case there are modifiers for some reason)
+        // get roll toral (in case there are modifiers for some reason)
         let total = 0;
         for (let roll of msg.rolls) {
             total += roll.total;
@@ -145,6 +132,7 @@ export async function addChatButtons(msg, html, options) {
     if (msg.system.isSkill) {
         const actor = await fromUuid(msg.system.actorID);
         const perms = actor.ownership;
+        console.log(perms);
         // check if player has owner access on token associated with message
         if (perms.default >= 3 || ((game.user.id in perms) && perms[game.user.id] >= 3)) {
             // add attack button if there is an attack

@@ -72,53 +72,70 @@
 }
 
 
-/* styling for sheets */
-.celestus.sheet {
-    --color-physical-bg: #b3c0cc;
-    --color-fire-bg: #db8b70;
-    --color-water-bg: #86c0df;
-    --color-air-bg: #9c86df;
-    --color-earth-bg: #dba670;
-    --color-poison-bg: #c9df86;
-    --color-psychic-bg: #df86df;
-    --color-piercing-bg: #df8686;
-    --color-healing-bg: #92e298;
+.celestus {
+    --color-physical-bg: rgb(179, 192, 204);
+    --color-fire-bg: rgb(219, 139, 112);
+    --color-water-bg: rgb(134, 192, 223);
+    --color-air-bg: rgb(156, 134, 223);
+    --color-earth-bg: rgb(219, 166, 112);
+    --color-poison-bg: rgb(201, 223, 134);
+    --color-psychic-bg: rgb(223, 134, 223);
+    --color-piercing-bg: rgb(223, 134, 134);
+    --color-healing-bg: rgb(146, 226, 152);
+
+    --color-cream-50: rgba(250, 246, 239, 0.5);
+
+    --shadow-bevel: inset 0.2em 0.2em 0.2em 0 rgba(255,255,255,0.3), inset -0.2em -0.2em 0.2em 0 rgba(0,0,0,0.3);
+    --shadow-inset: inset 0.2em 0.2em 0.2em 0 rgba(0,0,0,0.3), inset -0.2em -0.2em 0.2em 0 rgba(0,0,0,0.3);
+
 }
 /* colors for elements */
-.celestus.sheet .physical {
+.celestus .physical {
     background-color: var(--color-physical-bg);
 }
-.celestus.sheet .fire {
+.celestus .fire {
     background-color: var(--color-fire-bg);
 }
-.celestus.sheet .water {
+.celestus .water {
     background-color: var(--color-water-bg);
 }
-.celestus.sheet .air {
+.celestus .air {
     background-color: var(--color-air-bg);
 }
 .celestus.sheet .earth {
     background-color: var(--color-earth-bg);
 }
-.celestus.sheet .poison {
+.celestus .poison {
     background-color: var(--color-poison-bg);
 }
-.celestus.sheet .psychic {
+.celestus .psychic {
     background-color: var(--color-psychic-bg);
 }
-.celestus.sheet .piercing {
+.celestus .piercing {
     background-color: var(--color-piercing-bg);
 }
-.celestus.sheet .healing {
+.celestus .healing {
     background-color: var(--color-healing-bg);
 }
+/* chat messages */
+.celestus .dice-flavor {
+    border: thin solid var(--color-warm-1);
+    box-shadow: var(--shadow-bevel);
+    background-color: rgba(255, 231, 195, 0.5);
+    padding: 0.4em;
+    margin: 0.2em;
+}
+/* styling for sheets */
+/* styling for character sheets */
 .celestus.sheet .editor {
     margin: 5px;
     padding: 10px;
-    outline: var(--color-cool-3) solid thin;
+    outline: var(--color-warm-3) solid thin;
+    border-radius: 10px;
+    box-shadow: var(--shadow-inset);
     min-height: 200px;
+    background-color: rgba(var(--color-warm-1), 0.5);
 }
-/* styling for character sheets */
 .celestus.actor.sheet .sheet-inner {
     flex-direction: row;
     display: flex;
@@ -216,6 +233,10 @@
     text-align: center;
     color: white;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
+    box-shadow: var(--shadow-inset);
+    background-image: url('../img/milky-texture.webp');
+    background-blend-mode: multiply;
 
     width: 100%;
 }
@@ -357,5 +378,41 @@
     border-right: solid var(--color-cool-3) thin;
     height: 100%
 }
-.celestus.item.sheet .item-main {
+.celestus.item.sheet .quick-reference {
+    border: thin var(--color-warm-3) solid;
+    border-radius: 6px;
+    font-size: var(--font-size-14);
+    padding: 3px;
+    margin-right: 10px;
+    background-color: var(--color-cream-50);
+    box-shadow: var(--shadow-bevel);
+}
+.celestus.item.sheet .attribute-section {
+    padding: 3px;
+}
+.celestus.item.sheet .attribute-section label{
+    display: inline-block;
+    width: 140px;
+    padding: 3px;
+}
+.celestus.item.sheet .attribute-section input {
+    width: 25px;
+    text-align: center;
+    margin: 0px;
+    background: inherit;
+}
+.celestus.item.sheet .attribute {
+    display: inline-block;
+    padding: 0.2em;
+    margin: 0.2em;
+    border: thin solid black;
+}
+.celestus.item.sheet .general.attribute {
+    background-color: var(--color-cream-50);
+}
+.celestus.item.sheet .damage-header {
+    border-bottom: thin solid var(--color-warm-3);
+}
+.celestus.item.sheet .damage-amount input {
+    width: auto;
 }

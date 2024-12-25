@@ -12,16 +12,16 @@ import { CelestusItem } from "./items.mjs"
  */
 const preloadHandlebarsTemplates = async function () {
     return loadTemplates([
-      // Actor partials.
-      'systems/celestus/templates/actor/parts/actor-features.hbs',
-      'systems/celestus/templates/actor/parts/actor-items.hbs',
-      'systems/celestus/templates/actor/parts/actor-skills.hbs',
-      'systems/celestus/templates/actor/parts/actor-effects.hbs',
-      // Item partials
-      //'systems/celestus/templates/item/parts/item-effects.hbs',
+        // Actor partials.
+        'systems/celestus/templates/actor/parts/actor-features.hbs',
+        'systems/celestus/templates/actor/parts/actor-items.hbs',
+        'systems/celestus/templates/actor/parts/actor-skills.hbs',
+        'systems/celestus/templates/actor/parts/actor-effects.hbs',
+        // Item partials
+        //'systems/celestus/templates/item/parts/item-effects.hbs',
     ]);
-  };
-  
+};
+
 
 // Registering System data Models
 Hooks.on("init", () => {
@@ -54,9 +54,9 @@ Hooks.on("init", () => {
             piercing: { label: "Piercing", text: "piercing", style: "direct", skill: "warlord", color: "#df8686", glyph: "icon-bloody-stash" },
             healing: { label: "Healing", text: "healing", style: "healing", skill: "tidecaller", color: "#92e298", glyph: "icon-nested-hearts" },
             phys_armor: { label: "Physical Armor", text: "phys_armor", style: "healing", skill: "duneshaper", color: "#dba670", glyph: "icon-edged-shield" },
-            mag_armor: { label: "Magical Armor", text: "mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
-            t_phys_armor: { label: "Physical Armor", text: "t_phys_armor", style: "healing", skill: "duneshaper", color: "#dba670", glyph: "icon-edged-shield" },
-            t_mag_armor: { label: "Magical Armor", text: "t_mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
+            mag_armor: { label: "Magic Armor", text: "mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
+            t_phys_armor: { label: "Temp Physical Armor", text: "t_phys_armor", style: "healing", skill: "duneshaper", color: "#dba670", glyph: "icon-edged-shield" },
+            t_mag_armor: { label: "Temp Magic Armor", text: "t_mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
         },
         /**
          * combat skills
@@ -67,15 +67,15 @@ Hooks.on("init", () => {
          * glyph: glyphter icon to use for display
          */
         combatSkills: {
-            flamespeaker: { label: "Flamespeaker", text: "flamespeaker", damage: "fire", glyph: "icon-fireflake"},
-            tidecaller: { label: "Tidecaller", text: "tidecaller", damage: "water", glyph: "icon-waves"},
-            stormseeker: { label: "Stormseeker", text: "stormseeker", damage: "air", glyph: "icon-fluffy-cloud"},
-            duneshaper: { label: "Duneshaper", text: "duneshaper", damage: "earth", glyph: "icon-stone-sphere"},
-            voidcantor: { label: "Voidcantor", text: "voidcantor", damage: "psychic", glyph: "icon-star-swirl"},
-            deathbringer: { label: "Deathbringer", text: "deathbringer", damage: "physical", glyph: "icon-death-zone"},
-            shroudstalker: { label: "Shroudstalker", text: "shroudstalker", damage: "piercing", glyph: "icon-nested-eclipses"},
-            formshifter: { label: "Formshifter", text: "formshifter", damage: "physical", glyph: "icon-wolf-howl"},
-            warlord: { label: "Warlord", text: "warlord", damage: "physical", glyph: "icon-axe-sword"},
+            flamespeaker: { label: "Flamespeaker", text: "flamespeaker", damage: "fire", glyph: "icon-fireflake" },
+            tidecaller: { label: "Tidecaller", text: "tidecaller", damage: "water", glyph: "icon-waves" },
+            stormseeker: { label: "Stormseeker", text: "stormseeker", damage: "air", glyph: "icon-fluffy-cloud" },
+            duneshaper: { label: "Duneshaper", text: "duneshaper", damage: "earth", glyph: "icon-stone-sphere" },
+            voidcantor: { label: "Voidcantor", text: "voidcantor", damage: "psychic", glyph: "icon-star-swirl" },
+            deathbringer: { label: "Deathbringer", text: "deathbringer", damage: "physical", glyph: "icon-death-zone" },
+            shroudstalker: { label: "Shroudstalker", text: "shroudstalker", damage: "piercing", glyph: "icon-nested-eclipses" },
+            formshifter: { label: "Formshifter", text: "formshifter", damage: "physical", glyph: "icon-wolf-howl" },
+            warlord: { label: "Warlord", text: "warlord", damage: "physical", glyph: "icon-axe-sword" },
         },
         /**
          * civil skills
@@ -86,10 +86,10 @@ Hooks.on("init", () => {
          * glyph: glyphter icon to use for display
          */
         civilSkills: {
-            scoundrel: { label: "Scoundrel", text: "scoundrel", color: "#f0f0f4", glyph: "icon-pay-money"},
-            lore: { label: "Lore", text: "lore", color: "#ff9999", glyph: "icon-book-cover"},
-            nature: { label: "Nature", text: "nature", color: "#b0e8b0", glyph: "icon-linden-leaf"},
-            influence: { label: "Influence", text: "influence", color: "#ffccf1", glyph: "icon-lyre"},
+            scoundrel: { label: "Scoundrel", text: "scoundrel", color: "#f0f0f4", glyph: "icon-pay-money" },
+            lore: { label: "Lore", text: "lore", color: "#ff9999", glyph: "icon-book-cover" },
+            nature: { label: "Nature", text: "nature", color: "#b0e8b0", glyph: "icon-linden-leaf" },
+            influence: { label: "Influence", text: "influence", color: "#ffccf1", glyph: "icon-lyre" },
         },
         /**
          * bonuses
@@ -99,10 +99,10 @@ Hooks.on("init", () => {
          * symbol: symbol to append when displaying
          */
         bonuses: {
-            crit_chance: { label: "Crit Chance", text: "crit_chance", symbol: ""},
-            crit_bonus: { label: "Crit Damage", text: "crit_bonus", symbol: '\u00D7'},
-            accuracy: { label: "Accuracy", text: "accuracy", symbol: ""},
-            evasion: { label: "Evasion", text: "evasion", symbol: ""},
+            crit_chance: { label: "Crit Chance", text: "crit_chance", symbol: "" },
+            crit_bonus: { label: "Crit Damage", text: "crit_bonus", symbol: '\u00D7' },
+            accuracy: { label: "Accuracy", text: "accuracy", symbol: "" },
+            evasion: { label: "Evasion", text: "evasion", symbol: "" },
         },
         abilityMod: { // ability modifer percentages per point above or below 10
             str: 0.05, // +5% damage per point
@@ -278,17 +278,17 @@ Hooks.on("init", () => {
     // set up sheets
     Actors.unregisterSheet('core', ActorSheet);
     Actors.registerSheet('celestus', CharacterSheet, {
-      makeDefault: true,
-      label: 'CELESTUS.SheetLabels.Actor',
-      async: true,
+        makeDefault: true,
+        label: 'CELESTUS.SheetLabels.Actor',
+        async: true,
     });
     Items.unregisterSheet('core', ItemSheet);
     Items.registerSheet('celestus', CelestusItemSheet, {
-      makeDefault: true,
-      label: 'CELESTUS.SheetLabels.Actor',
-      async: true,
+        makeDefault: true,
+        label: 'CELESTUS.SheetLabels.Actor',
+        async: true,
     });
-  
+
     // set up resource attributes as trackable
     CONFIG.Actor.trackableAttributes = {
         player:
@@ -305,7 +305,7 @@ Hooks.on("init", () => {
 
     // preload handlebars templates
     return preloadHandlebarsTemplates();
-  
+
 });
 
 Hooks.on("ready", () => {
@@ -313,15 +313,16 @@ Hooks.on("ready", () => {
     $(document).on("click", ".damage", rollDamage);
     $(document).on("click", ".apply-damage", applyDamageHook);
 
-    // append apply damage button to damage rolls for GM
-    Hooks.on("renderChatMessage", addChatButtons);
-    
-    // hook damage preview on token select
-    Hooks.on("controlToken", previewDamage);
-    
     // hook macro creation on hotbar drop
     Hooks.on("hotbarDrop", (bar, data, slot) => {
         createCelestusMacro(data, slot);
         return false;
     });
 });
+
+
+// append apply damage button to damage rolls for GM
+Hooks.on("renderChatMessage", addChatButtons);
+
+// hook damage preview on token select
+Hooks.on("controlToken", previewDamage);
