@@ -1354,5 +1354,13 @@ export const armorData = {
                 mag: 84
             }
         }
+    },
+    jewel: {
+        amulet: {
+
+        },
+        ring: {
+
+        },
     }
 }

@@ -1,0 +1,181 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+        </div>
+    </header>
+
+    <div class="flexrow" style="align-items: stretch; height: 100%; padding-bottom: 10px">
+        {{!-- quick view of important item info --}}
+        <div class="item-quick">
+            <h3>Details:</h3>
+            <div class="quick-reference">{{system.slot}}, {{system.type}}</div>
+            <div class="quick-reference">
+                Requires:
+                {{#each system.prereqs as |value stat|}}
+                {{#if value}}
+                {{stat}} {{value}}
+                {{/if}}
+                {{/each}}
+            </div>
+            <div class="quick-reference">
+                {{rollData.armor.phys}}<i class="icon-edged-shield"></i> /
+                {{rollData.armor.mag}}<i class="icon-magic-shield"></i>
+            </div>
+
+            <h3>Bonuses:</h3>
+            {{!-- Combat Abilities --}}
+            {{#each system.bonuses.combat as |value skill|}}
+            {{#if value}}
+            {{#with (lookup ../config.combatSkills skill)}}
+            <div class="quick-reference {{damage}}" title="{{label}}">
+                {{numberFormat value sign=true decimals=0}}
+                {{label}}
+            </div>
+            {{/with}}
+            {{/if}}
+            {{/each}}
+            {{!-- Civil Abilities --}}
+            {{#each system.bonuses.civil as |value skill|}}
+            {{#if value}}
+            {{#with (lookup ../config.civilSkills skill)}}
+            <div class="quick-reference" style="background-color: {{color}};" title="{{skill}}">
+                {{numberFormat value sign=true decimals=0}}
+                {{label}}
+            </div>
+            {{/with}}
+            {{/if}}
+            {{/each}}
+            {{!-- Attributes --}}
+            {{#each system.bonuses.abilities as |value skill|}}
+            {{#if value}}
+            {{#with (lookup ../config.abilities skill)}}
+            <div class="quick-reference" title="{{skill}}">
+                {{numberFormat value sign=true decimals=0}}
+                {{label}}
+            </div>
+            {{/with}}
+            {{/if}}
+            {{/each}}
+
+        </div>
+        <div class="item-main">
+            {{!-- Sheet Tab Navigation --}}
+            <nav class="sheet-tabs tabs" data-group="primary">
+                <a class="item" data-tab="description">Description</a>
+                <a class="item" data-tab="attributes">Attributes</a>
+            </nav>
+
+            {{!-- Sheet Body --}}
+            <section class="sheet-body">
+                {{!-- Description Tab --}}
+                <div class="tab" data-group="primary" data-tab="description">
+                    {{editor enrichedDescription engine="prosemirror" target="system.description" rollData=rollData
+                    button=true owner=owner
+                    editable=editable}}
+                </div>
+
+                {{!-- Attributes Tab --}}
+                <div class="tab attributes" data-group="primary" data-tab="attributes">
+                    <div>
+                        <h3>General</h3>
+                        <div class="attribute-section">
+                            {{!-- Efficiency --}}
+                            <div class="general attribute">
+                                <label for="system.efficiency" class="resource-label">Efficiency: </label>
+                                <input type="text" name="system.efficiency" value="{{system.efficiency}}"
+                                    data-dtype="Number" />
+                            </div>
+                            {{!-- Armor Type --}}
+                            <div class="general attribute">
+                                <label for="system.type" class="resource-label">Type: </label>
+                                <select class="armor-type-selector" name="system.type">
+                                    {{!-- create a dropdown option for each damage type --}}
+                                    {{#each config.armor.types as |data type|}}
+                                    <option value="{{type}}" {{#if (eq data.text ../system.type)}}selected{{/if}}>
+                                        {{data.label}}
+                                    </option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            {{!-- Armor Slot --}}
+                            <div class="general attribute">
+                                <label for="system.slot" class="resource-label">Type: </label>
+                                <select class="armor-type-selector" name="system.slot">
+                                    {{!-- create a dropdown option for each damage type --}}
+                                    {{#each config.armor.slots as |data type|}}
+                                    <option value="{{type}}" {{#if (eq data.text ../system.slot)}}selected{{/if}}>
+                                        {{data.label}}
+                                    </option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <h3>Prerequisites</h3>
+                        <div class="attribute-section">
+                            {{#each system.prereqs as |value key|}}
+                            <div class="attribute">
+                                <label for="system.prereqs.{{key}}"
+                                    class="resource-label rollable flexlarge align-left" data-label="key">
+                                    {{#with (lookup ../config.abilities key)}}{{label}}{{/with}}
+                                </label>
+                                <input type="text" name="system.prereqs.{{key}}" value="{{value}}"
+                                    data-dtype="Number" />
+                            </div>
+                            {{/each}}
+                        </div>
+                        {{!-- bonuses from armor --}}
+                        <h3>Bonuses</h3>
+                        <h4>Combat</h4>
+                        <div class="attribute-section">
+                            {{#each system.bonuses.combat as |value key|}}
+                            <div class="attribute {{#with (lookup ../config.combatSkills key)}}{{damage}}{{/with}}" >
+                                <label for="system.bonuses.combat.{{key}}"
+                                    class="resource-label rollable flexlarge align-left" data-label="key">
+                                    {{#with (lookup ../config.combatSkills key)}}
+                                        <i class="{{glyph}}"></i> {{label}}
+                                    {{/with}}
+                                </label>
+                                <input type="text" name="system.bonuses.combat.{{key}}" value="{{value}}"
+                                    data-dtype="Number" />
+                            </div>
+                            {{/each}}
+                        </div>
+                        <h4>Civil</h4>
+                        <div class="attribute-section">
+                            {{#each system.bonuses.civil as |value key|}}
+                            <div class="attribute" style="background-color: {{#with (lookup ../config.civilSkills key)}}{{color}}{{/with}};">
+                                <label for="system.bonuses.civil.{{key}}"
+                                    class="resource-label rollable flexlarge align-left" data-label="key">
+                                    {{#with (lookup ../config.civilSkills key)}}
+                                        <i class="{{glyph}}"></i> {{label}}
+                                    {{/with}}
+                                </label>
+                                <input type="text" name="system.bonuses.civil.{{key}}" value="{{value}}"
+                                    data-dtype="Number" />
+                            </div>
+                            {{/each}}
+                        </div>
+                        <h4>Attributes</h4>
+                        <div class="attribute-section">
+                            {{#each system.bonuses.abilities as |value key|}}
+                            <div class="attribute">
+                                <label for="system.bonuses.abilities.{{key}}"
+                                    class="resource-label rollable flexlarge align-left" data-label="key">
+                                    {{#with (lookup ../config.abilities key)}}
+                                        {{label}}
+                                    {{/with}}
+                                </label>
+                                <input type="text" name="system.bonuses.abilities.{{key}}" value="{{value}}"
+                                    data-dtype="Number" />
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</form>

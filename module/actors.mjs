@@ -58,9 +58,10 @@ export class CelestusActor extends Actor {
         for (const item of this.items) {
             // check if item is an armor piece and equipped
             if (item.type === "armor" && item.system.equipped) {
+                console.log(item.system);
                 // calculate armor values
-                const phys = CONFIG.CELESTUS.baseArmor[item.system.type][item.system.slot][actor.attributes.level].phys;
-                const mag = CONFIG.CELESTUS.baseArmor[item.system.type][item.system.slot][actor.attributes.level].mag;
+                const phys = CONFIG.CELESTUS.baseArmor[item.system.type][item.system.slot][actor.attributes.level].phys * item.system.efficiency;
+                const mag = CONFIG.CELESTUS.baseArmor[item.system.type][item.system.slot][actor.attributes.level].mag * item.system.efficiency;
                 // increase max armor
                 actor.resources.phys_armor.max += phys;
                 actor.resources.mag_armor.max += mag;

@@ -120,6 +120,15 @@ Hooks.on("init", () => {
             mind: 0,
             wit: 0.05,
         },
+        // character stats
+        abilities: {
+            str:  {label: "Strength", text: "str"},
+            dex:  {label: "Dexterity", text: "dex"},
+            int:  {label: "Intellect", text: "int"},
+            con:  {label: "Constitution", text: "con"},
+            mind: {label: "Mind", text: "mind"},
+            wit:  {label: "Wits", text: "wit"},
+        },
         baseAbilityPoints: 1,
         combatSkillMod: 0.05,   // amount to increase damage by for combat skills per level
         baseCritBonus: 0.6,   // base critical damage bonus expressed as a percentage
@@ -262,6 +271,24 @@ Hooks.on("init", () => {
             }
         },
         baseArmor: armorData,
+        // info on different types of armor
+        armor: {
+            types: {
+                robes: {label: "Robes", text: "robes"},
+                light: {label: "Light", text: "light"},
+                heavy: {label: "Heavy", text: "heavy"},
+                jewel: {label: "Jewelry ", text: "jewel"},
+            },
+            slots: {
+                helmet: {label: "Helmet", text: "helmet", jewel: false},
+                chest: {label: "Chestplate", text: "chest", jewel: false},
+                gloves: {label: "Gloves", text: "gloves", jewel: false},
+                leggings: {label: "Leggings", text: "leggings", jewel: false},
+                boots: {label: "Boots", text: "boots", jewel: false},
+                amulet: {label: "Amulet", text: "amulet", jewel: true},
+                ring: {label: "Ring", text: "ring", jewel: true},
+            },
+        },
     };
 
     // set up data models

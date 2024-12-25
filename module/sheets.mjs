@@ -98,9 +98,10 @@ export class CharacterSheet extends ActorSheet {
         html.on('click', '.item-edit', (ev) => {
             const li = $(ev.currentTarget).parents('.item');
             const item = this.actor.items.get(li.data('itemId'));
+            console.log(item);
             item.sheet.render(true);
         });
-        
+
 
         // render progress bars for resources
         html.find('.resource-value').each((index, target) => {
@@ -176,7 +177,7 @@ export class CharacterSheet extends ActorSheet {
 
         // Rollable abilities.
         html.on('click', '.rollable', this._onRoll.bind(this));
-        
+
         // item previews
         html.on('contextmenu', '.item', (ev) => {
             const item = this.actor.items.get($(ev.currentTarget).data('itemId'));
@@ -258,7 +259,7 @@ export class CelestusItemSheet extends ItemSheet {
 
         // pass config data
         context.config = CONFIG.CELESTUS;
-        
+
         // Prepare active effects for easier access
         //context.effects = prepareActiveEffectCategories(this.item.effects);
 
@@ -274,7 +275,6 @@ export class CelestusItemSheet extends ItemSheet {
             }
         );
 
-
         return context;
     }
 
@@ -286,42 +286,56 @@ export class CelestusItemSheet extends ItemSheet {
         html.on('click', '.check-input', (ev) => {
             const checked = ev.currentTarget.checked;
             const name = ev.currentTarget.name;
-            this.item.update({[name]: checked});
+            this.item.update({ [name]: checked });
         });
 
-        // operate changes on damage type
-        html.on('change', '.damage-type select', (ev) => {
-            const t = ev.currentTarget;
-            const index = $(t).data("index");
-            const type = $(t).val();
-            let damage = this.item.system.damage;
-            damage[index].type = type;
-            this.item.update({"system.damage": damage});
-        });
-        // get damage values
-        html.on('change', '.damage-amount input', (ev) => {
-            const t = ev.currentTarget;
-            const index = $(t).data("index");
-            const value = $(t).val();
-            let damage = this.item.system.damage;
-            damage[index].value = value;
-            this.item.update({"system.damage": damage});
-        });
-        // remove damage element
-        html.on('click', '.damage-delete', (ev) => {
-            const t = ev.currentTarget;
-            const index = $(t).data("index");
-            let damage = this.item.system.damage;
-            console.log(index);
-            damage.splice(index, 1);
-            this.item.update({"system.damage": damage});
-        });
-        // add damage element
-        html.on('click', '.damage-create', (ev) => {
-            let damage = this.item.system.damage;
-            damage.push({type: "none", value: 1.0});
-            this.item.update({"system.damage": damage});
-        });
+
+        // skill specific listeners
+        if (this.item.type === "skill") {
+            // operate changes on damage type
+            html.on('change', '.damage-type select', (ev) => {
+                const t = ev.currentTarget;
+                const index = $(t).data("index");
+                const type = $(t).val();
+                let damage = this.item.system.damage;
+                damage[index].type = type;
+                this.item.update({ "system.damage": damage });
+            });
+            // get damage values
+            html.on('change', '.damage-amount input', (ev) => {
+                const t = ev.currentTarget;
+                const index = $(t).data("index");
+                const value = $(t).val();
+                let damage = this.item.system.damage;
+                damage[index].value = value;
+                this.item.update({ "system.damage": damage });
+            });
+            // remove damage element
+            html.on('click', '.damage-delete', (ev) => {
+                const t = ev.currentTarget;
+                const index = $(t).data("index");
+                let damage = this.item.system.damage;
+                console.log(index);
+                damage.splice(index, 1);
+                this.item.update({ "system.damage": damage });
+            });
+            // add damage element
+            html.on('click', '.damage-create', (ev) => {
+                let damage = this.item.system.damage;
+                damage.push({ type: "none", value: 1.0 });
+                this.item.update({ "system.damage": damage });
+            });
+        }
+        // armor specific listeners
+        if (this.item.type === "armor")
+        {
+            // armor classification listeners
+            html.on('change', '.armor-type-selector', (ev) => {
+                const key = $(ev.currentTarget).attr("name");
+                const value = $(ev.currentTarget).val();
+                this.item.update({key: value});
+            });
+        }
     }
 
 }

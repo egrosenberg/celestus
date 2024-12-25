@@ -91,31 +91,31 @@
 }
 /* colors for elements */
 .celestus .physical {
-    background-color: var(--color-physical-bg);
+    background-color: var(--color-physical-bg) !important;
 }
 .celestus .fire {
-    background-color: var(--color-fire-bg);
+    background-color: var(--color-fire-bg) !important;
 }
 .celestus .water {
-    background-color: var(--color-water-bg);
+    background-color: var(--color-water-bg) !important;
 }
 .celestus .air {
-    background-color: var(--color-air-bg);
+    background-color: var(--color-air-bg) !important;
 }
 .celestus.sheet .earth {
-    background-color: var(--color-earth-bg);
+    background-color: var(--color-earth-bg) !important;
 }
 .celestus .poison {
-    background-color: var(--color-poison-bg);
+    background-color: var(--color-poison-bg) !important;
 }
 .celestus .psychic {
-    background-color: var(--color-psychic-bg);
+    background-color: var(--color-psychic-bg) !important;
 }
 .celestus .piercing {
-    background-color: var(--color-piercing-bg);
+    background-color: var(--color-piercing-bg) !important;
 }
 .celestus .healing {
-    background-color: var(--color-healing-bg);
+    background-color: var(--color-healing-bg) !important;
 }
 /* chat messages */
 .celestus .dice-flavor {
