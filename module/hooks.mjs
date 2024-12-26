@@ -10,7 +10,7 @@ export async function rollAttack(e) {
     // reconstruct drop data
     const dropData = {
         type: 'Item',
-        uuid:  e.currentTarget.dataset.itemUuid
+        uuid: e.currentTarget.dataset.itemUuid
     }
 
     const item = await Item.fromDropData(dropData);
@@ -255,4 +255,38 @@ export function rollItemMacro(itemUuid) {
         item.roll();
     });
 
+}
+
+/**
+ * Manage Active Effect instances through an Actor or Item Sheet via effect control buttons
+ * @param {MouseEvent} event: left-click event on the effect control
+ * @param {Actor|Item} owner: document which manages this effect
+ */
+export function onManageActiveEffect(event, owner) {
+    event.preventDefault();
+    const a = event.currentTarget;
+    const li = a.closest('li');
+    const effect = li.dataset.effectId
+        ? owner.effects.get(li.dataset.effectId)
+        : null;
+    switch (a.dataset.action) {
+        case 'create':
+            console.log("MANAGINGGGG EWFECECECSTASDFA")
+            return owner.createEmbeddedDocuments('ActiveEffect', [
+                {
+                    name: "new effect",
+                    img: 'icons/svg/aura.svg',
+                    origin: owner.uuid,
+                    'duration.rounds':
+                        li.dataset.effectType === 'temporary' ? 1 : undefined,
+                    disabled: li.dataset.effectType === 'inactive',
+                },
+            ]);
+        case 'edit':
+            return effect.sheet.render(true);
+        case 'delete':
+            return effect.delete();
+        case 'toggle':
+            return effect.update({ disabled: !effect.disabled });
+    }
 }

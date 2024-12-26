@@ -312,6 +312,18 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
             belt: this.parent.items.filter(i => (i.type === "armor" &&  i.system.slot == "belt")),
         };
     }
+    
+    /**
+     * Finds and returns all effects on character
+     * @returns {Object} with categories for different states of effect
+     */
+    get effects() {
+        return {
+            temporary: this.parent.effects.filter(e=> (!e.disabled && e.isTemporary)),
+            passive: this.parent.effects.filter(e=> (!e.disabled && !e.isTemporary)),
+            disabled: this.parent.effects.filter(e => e.disabled),
+        };
+    }
 };
 
 
@@ -426,10 +438,26 @@ export class ArmorData extends foundry.abstract.TypeDataModel {
                 mind: new NumberField({ required: true, integer: true, initial: 0 }),
                 wit: new NumberField({ required: true, integer: true, initial: 0 }),
             }),
-        }
+        };
     }
 };
 
+
+/**
+ * Defines data structure for active effects
+ * @extends {TypeDataModel}
+ */
+export class EffectData extends foundry.abstract.TypeDataModel {
+    static defineSchema() {
+        return {
+        };
+    }
+}
+
+/** 
+ * Defines important data fields for chat messages
+ * @extends {TypeDataModel}
+ */
 export class ChatDataModel extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
@@ -443,6 +471,6 @@ export class ChatDataModel extends foundry.abstract.TypeDataModel {
                 hasAttack: new BooleanField({ required: true, initial: false }),
                 hasDamage: new BooleanField({ required: true, initial: true }),
             }),
-        }
+        };
     }
 }

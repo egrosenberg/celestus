@@ -10,20 +10,17 @@ export class CelestusActor extends Actor {
         // zero out ability score related things
         for (let [key, ability] of Object.entries(actor.abilities)) {
             ability.mod = 0;
-            ability.total = 0;
-            ability.bonus = 0;
+            ability.total = ability.bonus;
         }
         actor.attributes.unspentPoints = 0;
         // zero out combat ability stuff
         for (let [key, ability] of Object.entries(actor.combat)) {
-            ability.value = 0;
+            ability.value = ability.bonus;
             ability.mod = 0;
-            ability.bonus = 0;
         }
         // zero out civil ability stuff
         for (let [key, ability] of Object.entries(actor.civil)) {
-            ability.value = 0;
-            ability.bonus = 0;
+            ability.value = ability.bonus;
         }
         // zero out damage bonuses
         for (let damageType of Object.entries(actor.attributes.damage)) {
@@ -102,6 +99,13 @@ export class CelestusActor extends Actor {
             }
             else if (item.type === "skill" && item.system.memorized) {
                 actor.attributes.memory.spent += item.system.memSlots;
+            }
+        }
+        // iterate through effects
+        for (const effect of this.effects) {
+            // iterate through changes
+            for (const change in effect.changes) {
+                console.log(change);
             }
         }
         // add flat misc armor bonuses

@@ -1,9 +1,10 @@
-import { PlayerData, SkillData, ChatDataModel, ArmorData } from "./dataModels.mjs"
+import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData } from "./dataModels.mjs"
 import { CelestusActor } from "./actors.mjs"
 import { addChatButtons, applyDamageHook, createCelestusMacro, previewDamage, rollAttack, rollDamage, rollItemMacro } from "./hooks.mjs"
 import { CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
 import { armorData } from "./armor.mjs"
 import { CelestusItem } from "./items.mjs"
+import { CelestusEffect } from "./effects.mjs"
 
 /**
  * Define a set of template paths to pre-load
@@ -304,6 +305,10 @@ Hooks.on("init", () => {
         armor: ArmorData,
     }
 
+    CONFIG.ActiveEffect.dataModels = {
+        effect: EffectData,
+    }
+
     // set up sheets
     Actors.unregisterSheet('core', ActorSheet);
     Actors.registerSheet('celestus', CharacterSheet, {
@@ -329,6 +334,7 @@ Hooks.on("init", () => {
 
     CONFIG.Actor.documentClass = CelestusActor;
     CONFIG.Item.documentClass = CelestusItem;
+    CONFIG.ActiveEffect.documentClass = CelestusEffect;
 
     CONFIG.ChatMessage.dataModels.base = ChatDataModel;
 

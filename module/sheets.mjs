@@ -1,3 +1,5 @@
+import { onManageActiveEffect } from "./hooks.mjs";
+
 /**
  * Extends the basic ActorSheet with system specific functions
  * 
@@ -152,6 +154,17 @@ export class CharacterSheet extends ActorSheet {
             this.actor.equip($(ev.currentTarget).data('itemId'));
         });
 
+        // manage active effects
+        html.on('click', '.effect-control', (ev) => {
+            const row = ev.currentTarget.closest('li');
+            const document =
+                row.dataset.parentId === this.actor.id
+                    ? this.actor
+                    : this.actor.items.get(row.dataset.parentId);
+            onManageActiveEffect(ev, document);
+        });
+
+
         // memorize or unmemorize a skill
         html.on('click', '.item-memorize', (ev) => {
             const li = $(ev.currentTarget).parents('.item');
@@ -196,16 +209,6 @@ export class CharacterSheet extends ActorSheet {
         html.on('contextmenu', '.armor-socket-browse', (ev) => {
             const item = this.actor.items.get($(ev.currentTarget).data('itemId'));
             item.sheet.render(true);
-        });
-
-        // Active Effect management
-        html.on('click', '.effect-control', (ev) => {
-            const row = ev.currentTarget.closest('li');
-            const document =
-                row.dataset.parentId === this.actor.id
-                    ? this.actor
-                    : this.actor.items.get(row.dataset.parentId);
-            onManageActiveEffect(ev, document);
         });
 
         // Rollable abilities.
@@ -359,13 +362,12 @@ export class CelestusItemSheet extends ItemSheet {
             });
         }
         // armor specific listeners
-        if (this.item.type === "armor")
-        {
+        if (this.item.type === "armor") {
             // armor classification listeners
             html.on('change', '.armor-type-selector', (ev) => {
                 const key = $(ev.currentTarget).attr("name");
                 const value = $(ev.currentTarget).val();
-                this.item.update({key: value});
+                this.item.update({ key: value });
             });
         }
     }

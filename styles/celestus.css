@@ -136,7 +136,7 @@
 .celestus.sheet .editor {
     margin: 5px;
     padding: 10px;
-    outline: var(--color-warm-3) solid thin;
+    border: var(--color-warm-3) solid thin;
     border-radius: 10px;
     box-shadow: var(--shadow-inset);
     min-height: 200px;
@@ -299,8 +299,8 @@
     padding: 3px;
 }
 /* abilities */
-.celestus.actor.sheet .flexrow {
-    outline: black thin solid;
+.celestus.actor.sheet .abilities .flexrow {
+    border: black thin solid;
     padding: 3px;
 }
 .celestus.actor.sheet .abilities {
@@ -375,6 +375,21 @@
     text-shadow: var(--text-outline-1);
     margin-right: 2px;
 }
+/* Items */
+.celestus.actor.sheet .items-list .item.flexrow {
+    border: thin black solid;
+    margin: 2px;
+    padding: 6px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-bevel);
+}
+.celestus.actor.sheet .item-name h4 {
+    display: inline;
+    vertical-align: top;
+}
+.celestus.actor.sheet .item-image {
+    display: inline;
+}
 /* Armor sockets preview */
 .celestus.actor.sheet .armor-section {
     height: 230px;
@@ -406,6 +421,36 @@
     padding: 6px;
     border-radius: 6px;
     border: thin black solid;
+}
+/* Effects */
+.celestus .effect-image {
+    width: 25px;
+    height: 25px;
+    display: inline;
+}
+.celestus .effect-source {
+    text-align: center;
+}
+.celestus h3.effect-name {
+    background-color: darkred;
+    color: white;
+    padding: 10px;
+}
+.celestus .effect-name {
+    display: inline;
+    vertical-align: top;
+}
+.celestus .items-header {
+    border: none ;
+}
+.celestus .item.effect.flexrow {
+    border: thin black solid;
+    padding: 3px;
+    border-radius: 6px;
+    box-shadow: var(--shadow-bevel);
+}
+.celestus .effect-section {
+    border: thin darkgray solid;
 }
 /* Item Sheet */
 .celestus.item.sheet {
