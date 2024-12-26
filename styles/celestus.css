@@ -378,7 +378,8 @@
 /* Armor sockets preview */
 .celestus.actor.sheet .armor-section {
     height: 230px;
-    background-color: var(--color-cool-4);
+    background-color: rgb(32, 1, 1);
+    border-bottom: rgb(255,179,0) thick ridge;;
 }
 .celestus.actor.sheet .armor-socket {
     margin-top: 15px;
@@ -394,6 +395,8 @@
 .celestus.actor.sheet .armor-socket-icon {
     width: 65px;
     height: 65px;
+    background: rgb(131,0,0);
+    background: radial-gradient(circle, rgba(131,0,0,1) 0%, rgba(55,0,0,1) 0%, rgba(19,0,0,1) 100%); 
 }
 /* armor browser */
 .celestus.actor.sheet .armor-browser {
