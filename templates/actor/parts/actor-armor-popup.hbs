@@ -1,0 +1,7 @@
+<div class="armor-browser {{slot}}">
+    {{#each (lookup armor slot) as |piece|}}
+    <a class="armor-equip" data-item-id="{{piece._id}}">
+        <img src="{{piece.img}}" width="50" height="50" title="{{piece.name}}" />
+    </a>
+    {{/each}}
+</div>

@@ -69,7 +69,7 @@ export class CelestusActor extends Actor {
             ability.value += ability.base;
         }
         // update base damage resists
-        for (let damageType of Object.entries(actor.attributes.resistance)) {
+        for (let [key, damageType] of Object.entries(actor.attributes.resistance)) {
             damageType.value += damageType.bonus;
         }
 
@@ -95,6 +95,9 @@ export class CelestusActor extends Actor {
                 for (let [ability, value] of Object.entries(item.system.bonuses.abilities)) {
                     actor.abilities[ability].bonus += value;
                     actor.abilities[ability].total += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.resistance)) {
+                    actor.attributes.resistance[ability].value += value;
                 }
             }
             else if (item.type === "skill" && item.system.memorized) {
@@ -182,7 +185,7 @@ export class CelestusActor extends Actor {
      * @param {string} type : type of damage (must exist in CONFIG.CELESTUS.damageTypes)
      * @param {CelestusActor} origin: actor that damage originates from
      */
-    async applyDamage(damage, type, base, origin) {
+    async applyDamage(damage, type, origin) {
         damage = this.calcDamage(damage, type);
 
         // remainder damage after armor
@@ -293,7 +296,7 @@ export class CelestusActor extends Actor {
                 // calculate new physical armor value
                 const cTPhysArmor = this.system.resources.phys_armor.temp;
                 // set new temp phys armor to max between current and damage
-                let newTPhysArmor = (cTPhysArmor > remaining) ? cTPhysArmor : remaining;
+                let newTPhysArmor = Math.max(cTPhysArmor, remaining);
                 // update physical armor value
                 await this.update({ "system.resources.phys_armor.temp": parseInt(newTPhysArmor) });
                 // zero out remaining
@@ -363,6 +366,10 @@ export class CelestusActor extends Actor {
         if (skill.system.cooldown.value > 0) {
             return ui.notifications.warn("Error: ability is on cooldown!");
         }
+        // dont use skill if its not memorized
+        if (!skill.system.memorized) {
+            return ui.notifications.warn("Error: ability isn't memorized!");
+        }
 
         const actor = this.system;
 
@@ -407,6 +414,39 @@ export class CelestusActor extends Actor {
         if (true) {
             skill.update({ "system.cooldown.value": skill.system.cooldown.max });
         }
+    }
+
+    /**
+     * attempts to equip an item to the character and unequips whatever is currently in that slot
+     * @param {String} id of item to equip
+     */
+    async equip(id) {
+        const item = this.items.get(id);
+        // if item is equipped, simply unequip
+        if (item.system.equipped)
+        {
+            item.update({"system.equipped": false});
+            return;
+        }
+        // verify that actor meets prerequisites
+        let canEquip = true;
+        for (let [ability, value] of Object.entries(item.system.prereqs)) {
+            if (this.system.abilities[ability].value < value)
+            {
+                canEquip = false;
+            }
+        }
+        if (!canEquip) {
+            return ui.notifications.warn("Cannot equip item: prerequisites not met.");
+        }
+        // unequip item in that slot
+        const equipped = this.system.equipped;
+        if (equipped[item.system.slot])
+        {
+            equipped[item.system.slot].update({"system.equipped": false});
+        }
+        // equip this item
+        item.update({"system.equipped": true});
     }
 
     /**

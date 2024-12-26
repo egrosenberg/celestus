@@ -288,6 +288,7 @@ Hooks.on("init", () => {
                 boots: {label: "Boots", text: "boots", jewel: false},
                 amulet: {label: "Amulet", text: "amulet", jewel: true},
                 ring: {label: "Ring", text: "ring", jewel: true},
+                belt: {label: "Belt", text: "belt", jewel: true},
             },
         },
     };
@@ -354,3 +355,13 @@ Hooks.on("renderChatMessage", addChatButtons);
 
 // hook damage preview on token select
 Hooks.on("controlToken", previewDamage);
+
+
+// hbs helpers
+Handlebars.registerHelper("repeat", (n, options) => {
+    let output = ""
+    for (let i = 0; i < n; i++) {
+        output += options.fn(this);
+    }
+    return output;
+});

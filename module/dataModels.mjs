@@ -3,6 +3,15 @@ const {
 } = foundry.data.fields;
 
 /**
+ * helper function simplifying equipped armor
+ */
+function armorSocket(){
+    return new SchemaField({
+        id: new StringField({}), // _id of item
+    });
+}
+
+/**
  * Define data model for player character
  * @extends {TypeDataModel}
  */
@@ -267,6 +276,42 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
             }),
         };
     }
+
+    /**
+     * finds and returns equipped items
+     * @returns {undefined | Object} object containing slots for each type of equipped item
+     */
+    get equipped() {
+        const rings = this.parent.items.filter(i => (i.type === "armor" && i.system.equipped && i.system.slot == "ring"));
+        return {
+            helmet: this.parent.items.find(i => (i.type === "armor" && i.system.equipped && i.system.slot == "helmet")),
+            chest: this.parent.items.find(i => (i.type === "armor" && i.system.equipped && i.system.slot == "chest")),
+            gloves: this.parent.items.find(i => (i.type === "armor" && i.system.equipped && i.system.slot == "gloves")),
+            leggings: this.parent.items.find(i => (i.type === "armor" && i.system.equipped && i.system.slot == "leggings")),
+            boots: this.parent.items.find(i => (i.type === "armor" && i.system.equipped && i.system.slot == "boots")),
+            amulet: this.parent.items.find(i => (i.type === "armor" && i.system.equipped && i.system.slot == "amulet")),
+            ring1: rings[0],
+            ring2: rings[1],
+            belt: this.parent.items.find(i => (i.type === "armor" && i.system.equipped && i.system.slot == "belt")),
+        };
+    }
+
+    /**
+     * finds and returns all armor
+     * @returns {undefined | Object} array containing each armor item for each armor slot
+     */
+    get armor() {
+        return {
+            helmet: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "helmet")),
+            chest: this.parent.items.filter(i => (i.type === "armor" &&  i.system.slot == "chest")),
+            gloves: this.parent.items.filter(i => (i.type === "armor" &&  i.system.slot == "gloves")),
+            leggings: this.parent.items.filter(i => (i.type === "armor" &&  i.system.slot == "leggings")),
+            boots: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "boots")),
+            amulet: this.parent.items.filter(i => (i.type === "armor" &&  i.system.slot == "amulet")),
+            ring1: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "ring")),
+            belt: this.parent.items.filter(i => (i.type === "armor" &&  i.system.slot == "belt")),
+        };
+    }
 };
 
 
@@ -356,6 +401,20 @@ export class ArmorData extends foundry.abstract.TypeDataModel {
                     int: new NumberField({ required: true, integer: true, initial: 0 }),
                     mind: new NumberField({ required: true, integer: true, initial: 0 }),
                     wit: new NumberField({ required: true, integer: true, initial: 0 }),
+                }),
+                resistance: new SchemaField({
+                    physical: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    fire: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    water: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    air: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    earth: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    poison: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    psychic: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    healing: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    phys_armor: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    mag_armor: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    t_phys_armor: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    t_mag_armor: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
                 }),
             }),
             // prerequisite stats

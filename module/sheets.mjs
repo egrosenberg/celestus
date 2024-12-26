@@ -10,7 +10,7 @@ export class CharacterSheet extends ActorSheet {
             classes: ["celestus", "sheet", "actor"],
             template: "./systems/celestus/templates/actor/actor-sheet.hbs",
             width: 900,
-            height: 600,
+            height: 700,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
         });
     }
@@ -142,6 +142,16 @@ export class CharacterSheet extends ActorSheet {
             li.slideUp(200, () => this.render(false));
         });
 
+        // Equip Inventory Item
+        html.on('click', '.item-equip', (ev) => {
+            const li = $(ev.currentTarget).parents('.item');
+            this.actor.equip(li.data('itemId'));
+        });
+        // Equip armor from popup
+        html.on('click', '.armor-equip', (ev) => {
+            this.actor.equip($(ev.currentTarget).data('itemId'));
+        });
+
         // memorize or unmemorize a skill
         html.on('click', '.item-memorize', (ev) => {
             const li = $(ev.currentTarget).parents('.item');
@@ -162,6 +172,30 @@ export class CharacterSheet extends ActorSheet {
                 }
                 item.update({ "system.memorized": true });
             }
+        });
+
+        // browser armor pieces
+        html.on('click', '.armor-socket-browse', async (ev) => {
+            // check if this slot already has a template rendered, if so remove and return
+            if ($(`.armor-browser.${$(ev.currentTarget).data('slot')}`).length) {
+                $(`.armor-browser.${$(ev.currentTarget).data('slot')}`).remove();
+                return;
+            }
+            // close any other extra browsers
+            $('.armor-browser').remove();
+            const msg = await renderTemplate("systems/celestus/templates/actor/parts/actor-armor-popup.hbs", {
+                slot: $(ev.currentTarget).data('slot'),
+                armor: this.actor.system.armor,
+            });
+            const div = $(msg);
+            div.css("left", $(ev.currentTarget).offset().left + 65);
+            div.css("top", $(ev.currentTarget).offset().top - 65);
+            const popup = $(html).append(div);
+        });
+        // item previews
+        html.on('contextmenu', '.armor-socket-browse', (ev) => {
+            const item = this.actor.items.get($(ev.currentTarget).data('itemId'));
+            item.sheet.render(true);
         });
 
         // Active Effect management

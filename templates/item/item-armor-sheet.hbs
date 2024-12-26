@@ -58,6 +58,18 @@
             {{/with}}
             {{/if}}
             {{/each}}
+            {{!-- Resistances --}}
+            <h3>Resistances</h3>
+            {{#each system.bonuses.resistance as |value skill|}}
+            {{#if value}}
+            {{#with (lookup ../config.damageTypes skill)}}
+            <div class="quick-reference" style="background-color: {{color}};" title="{{skill}}">
+                {{numberFormat value decimals=2}}
+                {{label}}
+            </div>
+            {{/with}}
+            {{/if}}
+            {{/each}}
 
         </div>
         <div class="item-main">
@@ -110,6 +122,12 @@
                                     </option>
                                     {{/each}}
                                 </select>
+                            </div>
+                            {{!-- eqipped --}}
+                            <div class="general attribute">
+                                <label for="system.equipped" class="resource-label">Equipped: </label>
+                                <input class="check-input" name="system.equipped" type="checkbox" {{#if
+                                    system.equipped}}checked{{/if}} />
                             </div>
                         </div>
                         <h3>Prerequisites</h3>
@@ -168,6 +186,21 @@
                                     {{/with}}
                                 </label>
                                 <input type="text" name="system.bonuses.abilities.{{key}}" value="{{value}}"
+                                    data-dtype="Number" />
+                            </div>
+                            {{/each}}
+                        </div>
+                        <h4>Resistances</h4>
+                        <div class="attribute-section">
+                            {{#each system.bonuses.resistance as |value key|}}
+                            <div class="attribute" style="background-color: {{#with (lookup ../config.damageTypes key)}}{{color}}{{/with}};">
+                                <label for="system.bonuses.resistance.{{key}}"
+                                    class="resource-label rollable flexlarge align-left" data-label="key">
+                                    {{#with (lookup ../config.damageTypes key)}}
+                                        <i class="{{glyph}}"></i> {{label}}
+                                    {{/with}}
+                                </label>
+                                <input type="text" name="system.bonuses.resistance.{{key}}" value="{{value}}"
                                     data-dtype="Number" />
                             </div>
                             {{/each}}
