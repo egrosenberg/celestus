@@ -1,7 +1,7 @@
 <div class="armor-browser {{slot}}">
-    {{#each (lookup armor slot) as |piece|}}
-    <a class="armor-equip" data-item-id="{{piece._id}}">
-        <img src="{{piece.img}}" width="50" height="50" title="{{piece.name}}" {{#if piece.system.equipped}}style="border: solid thin yellow;"{{/if}} />
+    {{#each armor as |piece|}}
+    <a class="armor-equip" data-item-id="{{piece._id}}" data-item-slot="{{../slot}}">
+        <img src="{{piece.img}}" width="50" height="50" title="{{piece.name}}"{{#if piece.system.equipped}}style="border: solid thin yellow;"{{/if}} />
     </a>
     {{/each}}
 </div>

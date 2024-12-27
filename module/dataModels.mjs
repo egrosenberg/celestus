@@ -1,3 +1,5 @@
+import { calcMult } from "./helpers.mjs";
+
 const {
     HTMLField, SchemaField, NumberField, StringField, FilePathField, ArrayField, BooleanField
 } = foundry.data.fields;
@@ -122,21 +124,6 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                         value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
-                }),
-                damage: new SchemaField({ // damage modifiers as additive bonus percent
-                    physical: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    fire: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    water: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    air: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    earth: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    poison: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    psychic: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    piercing: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    healing: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    phys_armor: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    mag_armor: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    t_phys_armor: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    t_mag_armor: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
                 }),
                 // movement
                 movement: new NumberField({ required: true, integer: false, min: 0, initial: 20 }), // movement in map units (default ft)
@@ -283,6 +270,18 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
      */
     get equipped() {
         const rings = this.parent.items.filter(i => (i.type === "armor" && i.system.equipped && i.system.slot == "ring"));
+        const equippedWeapons = this.parent.items.filter(i => (i.type == "weapon" && i.system.equipped));
+        let leftHand;
+        let rightHand;
+        if(equippedWeapons.length) {
+            leftHand = equippedWeapons[0];
+            if (!leftHand.system.twoHanded && equippedWeapons.length > 1) {
+                rightHand = equippedWeapons[1];
+            }
+            else if (leftHand.system.twoHanded) {
+                rightHand = leftHand;
+            }
+        }
         return {
             helmet: this.parent.items.find(i => (i.type === "armor" && i.system.equipped && i.system.slot == "helmet")),
             chest: this.parent.items.find(i => (i.type === "armor" && i.system.equipped && i.system.slot == "chest")),
@@ -293,12 +292,14 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
             ring1: rings[0],
             ring2: rings[1],
             belt: this.parent.items.find(i => (i.type === "armor" && i.system.equipped && i.system.slot == "belt")),
+            left: leftHand,
+            right: rightHand, 
         };
     }
 
     /**
      * finds and returns all armor
-     * @returns {undefined | Object} array containing each armor item for each armor slot
+     * @returns {undefined | Object} object containing each armor item for each armor slot
      */
     get armor() {
         return {
@@ -308,9 +309,17 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
             leggings: this.parent.items.filter(i => (i.type === "armor" &&  i.system.slot == "leggings")),
             boots: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "boots")),
             amulet: this.parent.items.filter(i => (i.type === "armor" &&  i.system.slot == "amulet")),
-            ring1: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "ring")),
+            ring: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "ring")),
             belt: this.parent.items.filter(i => (i.type === "armor" &&  i.system.slot == "belt")),
         };
+    }
+
+    /**
+     * finds and returns all weapons
+     * @returns {undefined | Object} object containing each weapon
+     */
+    get weapon() {
+        return this.parent.items.filter(i => i.type === "weapon");
     }
     
     /**
@@ -323,6 +332,45 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
             passive: this.parent.effects.filter(e=> (!e.disabled && !e.isTemporary)),
             disabled: this.parent.effects.filter(e => e.disabled),
         };
+    }
+
+    /**
+     * Calculates damage bonuses for elements
+     * @returns {Object} with keys = to all damage types and values = to percent damage multiplier (additive)
+     */
+    get elementBonus() {
+        let bonuses = {};
+        for (let [key, type] of Object.entries(CONFIG.CELESTUS.damageTypes)) {
+            bonuses[key] = this.combat[type.skill].value * CONFIG.CELESTUS.combatSkillMod;
+        }
+        return bonuses;
+    }
+
+    /**
+     * Calculates weapon damage
+     * @returns {false|Object} false if no weapon or object containing min, max, average, and roll formula for base damage of this weapon
+     */
+    get weaponDamage() {
+        const equipped = this.equipped;
+        // return early if no equipped weapons
+        if (!equipped.left) {
+            return false;
+        }
+        // two weapon
+        else if (equipped.left.system.twoHanded || !equipped.right) {
+            return equipped.left.system.damage;
+        }
+        // two single handed
+        else {
+            const left = equipped.left.system.damage;
+            const right = equipped.right.system.damage;
+            return {
+                min: Math.floor((left.min + right.min)*0.75),
+                max: Math.floor((left.max + right.max)*0.75),
+                avg: Math.floor((left.avg + right.avg)*0.75),
+                roll: `(${left.roll})*0.75+(${right.roll})*0.75`,
+            };
+        }
     }
 };
 
@@ -371,10 +419,10 @@ export class SkillData extends foundry.abstract.TypeDataModel {
 };
 
 /**
- * Defines data model for armor items
+ * Defines data model for all gear items
  * @extends { TypeDataModel }
  */
-export class ArmorData extends foundry.abstract.TypeDataModel {
+export class GearData extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
             // equiped or not
@@ -441,6 +489,65 @@ export class ArmorData extends foundry.abstract.TypeDataModel {
         };
     }
 };
+
+
+/**
+ * Defines data model for all armor items
+ * @extends { TypeDataModel }
+ */
+export class ArmorData extends GearData {
+    static defineSchema() {
+        return super.defineSchema();
+    }
+
+    /**
+     * getter to get max armor values from armor
+     * @returns {Object} containing phys and mag values for armor granted from this armor
+     */
+    get value() {
+        // if no type, return 0s
+        if (this.type === "none") {
+            return {phys: 0, mag: 0};
+        }
+        // get actor level if it exists
+        const level = this.parent.actor ? this.parent.actor.system.attributes.level : 1;
+        return {
+            phys: CONFIG.CELESTUS.baseArmor[this.type][this.slot][level].phys * this.efficiency,
+            mag: CONFIG.CELESTUS.baseArmor[this.type][this.slot][level].mag * this.efficiency,
+        }
+    }
+}
+
+/**
+ * Defines data model for all weapon items
+ * @extends { TypeDataModel }
+ */
+export class WeaponData extends GearData {
+    static defineSchema() {
+        const schema = super.defineSchema();
+        schema.twoHanded = new BooleanField({ required: true, initial: false});
+        schema.ability = new StringField({ required: true, initial: "str"});
+        return schema;
+    }
+
+    /**
+     * Calculate damage roll based on actor level
+     * @returns {Object} containing min, max, average, and roll formula for base damage of this weapon
+     */
+    get damage() {
+        // get actor level if it exists
+        const level = this.parent.actor ? this.parent.actor.system.attributes.level : 1;
+        const dice = Math.floor(Math.pow(CONFIG.CELESTUS.weaponDmgBase, level));
+        const dmgDie = this.twoHanded ? 12 : 6;
+        const mult = this.parent.actor ? calcMult(this.parent.actor, "physical", this.ability, this.efficiency) : 1;
+        return {
+            min: Math.floor(dice*mult),
+            max: Math.floor(dice*dmgDie*mult),
+            avg: Math.floor(dice*(dmgDie/2+0.5)*mult),
+            roll: `${dice}d${dmgDie}*${mult}`,
+        };
+    }
+}
 
 
 /**

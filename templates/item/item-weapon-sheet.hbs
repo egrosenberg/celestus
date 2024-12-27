@@ -10,7 +10,7 @@
         {{!-- quick view of important item info --}}
         <div class="item-quick">
             <h3>Details:</h3>
-            <div class="quick-reference">{{system.slot}}, {{system.type}}</div>
+            <div class="quick-reference">{{#if system.twoHanded}}Two-Handed{{else}}One-Handed{{/if}}</div>
             <div class="quick-reference">
                 Requires:
                 {{#each system.prereqs as |value stat|}}
@@ -20,8 +20,7 @@
                 {{/each}}
             </div>
             <div class="quick-reference">
-                {{item.system.value.phys}}<i class="icon-edged-shield"></i> /
-                {{item.system.value.mag}}<i class="icon-magic-shield"></i>
+                {{item.system.damage.roll}} physical
             </div>
 
             <h3>Bonuses:</h3>
@@ -99,29 +98,11 @@
                                 <input type="text" name="system.efficiency" value="{{system.efficiency}}"
                                     data-dtype="Number" />
                             </div>
-                            {{!-- Armor Type --}}
+                            {{!-- Two Handed --}}
                             <div class="general attribute">
-                                <label for="system.type" class="resource-label">Type: </label>
-                                <select class="armor-type-selector" name="system.type">
-                                    {{!-- create a dropdown option for each damage type --}}
-                                    {{#each config.armor.types as |data type|}}
-                                    <option value="{{type}}" {{#if (eq data.text ../system.type)}}selected{{/if}}>
-                                        {{data.label}}
-                                    </option>
-                                    {{/each}}
-                                </select>
-                            </div>
-                            {{!-- Armor Slot --}}
-                            <div class="general attribute">
-                                <label for="system.slot" class="resource-label">Type: </label>
-                                <select class="armor-type-selector" name="system.slot">
-                                    {{!-- create a dropdown option for each damage type --}}
-                                    {{#each config.armor.slots as |data type|}}
-                                    <option value="{{type}}" {{#if (eq data.text ../system.slot)}}selected{{/if}}>
-                                        {{data.label}}
-                                    </option>
-                                    {{/each}}
-                                </select>
+                                <label for="system.twoHanded" class="resource-label">Two Handed?: </label>
+                                <input class="check-input" name="system.twoHanded" type="checkbox" {{#if
+                                    system.twoHanded}}checked{{/if}} />
                             </div>
                             {{!-- eqipped --}}
                             <div class="general attribute">

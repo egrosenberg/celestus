@@ -22,11 +22,6 @@ export class CelestusActor extends Actor {
         for (let [key, ability] of Object.entries(actor.civil)) {
             ability.value = ability.bonus;
         }
-        // zero out damage bonuses
-        for (let damageType of Object.entries(actor.attributes.damage)) {
-            damageType.total = 0;
-            damageType.mod = 0;
-        }
         // zero out damage resists
         for (let [key, damageType] of Object.entries(actor.attributes.resistance)) {
             damageType.value = 0;
@@ -78,8 +73,8 @@ export class CelestusActor extends Actor {
                 const phys = CONFIG.CELESTUS.baseArmor[item.system.type][item.system.slot][actor.attributes.level].phys * item.system.efficiency;
                 const mag = CONFIG.CELESTUS.baseArmor[item.system.type][item.system.slot][actor.attributes.level].mag * item.system.efficiency;
                 // increase max armor
-                actor.resources.phys_armor.max += phys;
-                actor.resources.mag_armor.max += mag;
+                actor.resources.phys_armor.max += item.system.value.phys;
+                actor.resources.mag_armor.max += item.system.value.mag;
                 // apply bonuses
                 for (let [ability, value] of Object.entries(item.system.bonuses.combat)) {
                     actor.combat[ability].bonus += value;
@@ -101,13 +96,6 @@ export class CelestusActor extends Actor {
                 actor.attributes.memory.spent += item.system.memSlots;
             }
         }
-        // iterate through effects
-        for (const effect of this.effects) {
-            // iterate through changes
-            for (const change in effect.changes) {
-                console.log(change);
-            }
-        }
         // add flat misc armor bonuses
         actor.resources.phys_armor.max += actor.resources.phys_armor.bonus;
         actor.resources.mag_armor.max += actor.resources.mag_armor.bonus;
@@ -116,12 +104,6 @@ export class CelestusActor extends Actor {
         /**
          * Perform final additive operations
          */
-        // update damage bonuses (has to happen after finalizing combat abilities from armor / features)
-        for (let [key, value] of Object.entries(actor.attributes.damage)) {
-            const cSkill = CONFIG.CELESTUS.damageTypes[key].skill;
-            // calculate modifiers
-            value += actor.combat[cSkill].value * CONFIG.CELESTUS.combatSkillMod;
-        }
         // final unspent skill points update for formshifter
         actor.attributes.unspentPoints += actor.combat.formshifter.value * 2;
         // calculate memory
@@ -338,30 +320,6 @@ export class CelestusActor extends Actor {
     }
 
     /**
-     * Calculates the multiplier for a specified damage roll
-     * 
-     * @param {String} type: elemental type of damage
-     * @param {String} ability: ability to scale damage with ("none" if no scalar)
-     * @param {Number} base: damage multiplier from damage source percent
-     * @param {String} flat: flat damage bonus as percent
-     * @returns {Number} multiplier to apply to damage roll
-     */
-    calcMult(type, ability, base, flat = 0) {
-        // elemental damage bonus percentage
-        let elementBonus = 0;
-        if (type !== "none") {
-            elementBonus = this.system.attributes.damage[type];
-        }
-        // bonus from ability associated with skill
-        let abilityBonus = 0;
-        if (ability !== "none") {
-            abilityBonus = this.system.abilities[ability].mod;
-        }
-
-        return 1 * (base) * (1 + elementBonus) * (1 + abilityBonus) * (1 + flat);
-    }
-
-    /**
      * 
      * @param {SkillData} skill : object containing info of the skill to use
      */
@@ -423,20 +381,19 @@ export class CelestusActor extends Actor {
     /**
      * attempts to equip an item to the character and unequips whatever is currently in that slot
      * @param {String} id of item to equip
+     * @param {Number} n: 1/left, 2/right for items that have multiple slots
      */
-    async equip(id) {
+    async equip(id, n = 1) {
         const item = this.items.get(id);
         // if item is equipped, simply unequip
-        if (item.system.equipped)
-        {
-            item.update({"system.equipped": false});
+        if (item.system.equipped) {
+            item.update({ "system.equipped": false });
             return;
         }
         // verify that actor meets prerequisites
         let canEquip = true;
         for (let [ability, value] of Object.entries(item.system.prereqs)) {
-            if (this.system.abilities[ability].value < value)
-            {
+            if (this.system.abilities[ability].value < value) {
                 canEquip = false;
             }
         }
@@ -445,12 +402,43 @@ export class CelestusActor extends Actor {
         }
         // unequip item in that slot
         const equipped = this.system.equipped;
-        if (equipped[item.system.slot])
-        {
-            equipped[item.system.slot].update({"system.equipped": false});
+        if (item.type === "armor") {
+            if (item.system.slot === "ring") {
+                if (equipped[`${item.system.slot}${n}`]) {
+                    equipped[`${item.system.slot}${n}`].update({ "system.equipped": false });
+                }
+            }
+            else {
+                if (equipped[item.system.slot]) {
+                    equipped[item.system.slot].update({ "system.equipped": false });
+                }
+            }
+        }
+        else if (item.type === "weapon") {
+            if (item.system.twoHanded) {
+                // unequip all hands
+                if (equipped.left) {
+                    equipped.left.update({ "system.equipped": false });
+                }
+                if (equipped.right) {
+                    equipped.left.update({ "system.equipped": false });
+                }
+            }
+            else if(n === 1 && equipped.right) {
+                // unequip left hand
+                if (equipped.left) {
+                    equipped.left.update({ "system.equipped": false });
+                }
+            }
+            else {
+                //unequip right
+                if (equipped.right) {
+                    equipped.left.update({ "system.equipped": false });
+                }
+            }
         }
         // equip this item
-        item.update({"system.equipped": true});
+        item.update({ "system.equipped": true });
     }
 
     /**

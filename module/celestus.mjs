@@ -1,4 +1,4 @@
-import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData } from "./dataModels.mjs"
+import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData } from "./dataModels.mjs"
 import { CelestusActor } from "./actors.mjs"
 import { addChatButtons, applyDamageHook, createCelestusMacro, previewDamage, rollAttack, rollDamage, rollItemMacro } from "./hooks.mjs"
 import { CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
@@ -129,6 +129,7 @@ Hooks.on("init", () => {
             con:  {label: "Constitution", text: "con"},
             mind: {label: "Mind", text: "mind"},
             wit:  {label: "Wits", text: "wit"},
+            none: {label: "None", text: "none"},
         },
         baseAbilityPoints: 1,
         combatSkillMod: 0.05,   // amount to increase damage by for combat skills per level
@@ -272,6 +273,8 @@ Hooks.on("init", () => {
                 25: 510,
             }
         },
+        flatDamageScalar: 0.07, // +.07*(level-1) damage
+        weaponDmgBase: 1.165, // used to calculate # of dice a weapon uses (1.165^lvl dice)
         baseArmor: armorData,
         // info on different types of armor
         armor: {
@@ -280,6 +283,7 @@ Hooks.on("init", () => {
                 light: {label: "Light", text: "light"},
                 heavy: {label: "Heavy", text: "heavy"},
                 jewel: {label: "Jewelry ", text: "jewel"},
+                none: {label: "None", text: "none"},
             },
             slots: {
                 helmet: {label: "Helmet", text: "helmet", jewel: false},
@@ -290,6 +294,7 @@ Hooks.on("init", () => {
                 amulet: {label: "Amulet", text: "amulet", jewel: true},
                 ring: {label: "Ring", text: "ring", jewel: true},
                 belt: {label: "Belt", text: "belt", jewel: true},
+                none: {label: "None", text: "none"},
             },
         },
     };
@@ -303,6 +308,7 @@ Hooks.on("init", () => {
     CONFIG.Item.dataModels = {
         skill: SkillData,
         armor: ArmorData,
+        weapon: WeaponData,
     }
 
     CONFIG.ActiveEffect.dataModels = {
@@ -319,7 +325,7 @@ Hooks.on("init", () => {
     Items.unregisterSheet('core', ItemSheet);
     Items.registerSheet('celestus', CelestusItemSheet, {
         makeDefault: true,
-        label: 'CELESTUS.SheetLabels.Actor',
+        label: 'CELESTUS.SheetLabels.Item',
         async: true,
     });
 

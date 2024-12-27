@@ -73,7 +73,7 @@ export class CharacterSheet extends ActorSheet {
         for (let i of context.items) {
             i.img = i.img || Item.DEFAULT_ICON;
             // Append to gear.
-            if (i.type === 'armor') {
+            if (i.type === 'armor' || i.type === 'weapon') {
                 gear.push(i);
             }
             // Append to spells.
@@ -151,7 +151,17 @@ export class CharacterSheet extends ActorSheet {
         });
         // Equip armor from popup
         html.on('click', '.armor-equip', (ev) => {
-            this.actor.equip($(ev.currentTarget).data('itemId'));
+            const slot = $(ev.currentTarget).data('itemSlot');
+            if (slot.startsWith("ring")) {
+                console.log(parseInt(slot[slot.length-1]));
+                this.actor.equip($(ev.currentTarget).data('itemId'), parseInt(slot[slot.length-1]));
+            }
+            else if (slot === "right") {
+                this.actor.equip($(ev.currentTarget).data('itemId'), 2);
+            }
+            else { 
+                this.actor.equip($(ev.currentTarget).data('itemId'));
+            }
         });
 
         // manage active effects
@@ -194,11 +204,22 @@ export class CharacterSheet extends ActorSheet {
                 $(`.armor-browser.${$(ev.currentTarget).data('slot')}`).remove();
                 return;
             }
+            let dataSet;
+            let slot = $(ev.currentTarget).data('slot');
+            if (slot.startsWith("ring")) {
+                dataSet = this.actor.system.armor.ring;
+            }
+            else if (slot === "left" || slot === "right") {
+                dataSet = this.actor.system.weapon;
+            }
+            else {
+                dataSet = this.actor.system.armor[$(ev.currentTarget).data('slot')]
+            }
             // close any other extra browsers
             $('.armor-browser').remove();
             const msg = await renderTemplate("systems/celestus/templates/actor/parts/actor-armor-popup.hbs", {
                 slot: $(ev.currentTarget).data('slot'),
-                armor: this.actor.system.armor,
+                armor: dataSet,
             });
             const div = $(msg);
             div.css("left", $(ev.currentTarget).offset().left + 65);

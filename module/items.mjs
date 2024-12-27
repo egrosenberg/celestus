@@ -1,3 +1,5 @@
+import { calcMult } from "./helpers.mjs";
+
 /**
  * Extends the basic item class for skills
  * @extends {Item}
@@ -23,8 +25,7 @@ export class CelestusItem extends Item {
         if (!this.actor) return rollData;
 
         // calculate damage if skill
-        if (this.type === "skill")
-        {
+        if (this.type === "skill") {
             let damage = {
                 formula: "",
                 min: 0,
@@ -39,7 +40,7 @@ export class CelestusItem extends Item {
                 else {
                     first = false;
                 }
-                const mult = this.actor.calcMult(part.type, this.system.ability, part.value, 0) * part.value;
+                const mult = calcMult(this.actor, part.type, this.system.ability, part.value, 0) * part.value;
                 damage.formula += `((${CONFIG.CELESTUS.baseDamage.formula[this.actor.system.attributes.level]})*${part.value})[${part.type}]`;
                 const min = parseInt(CONFIG.CELESTUS.baseDamage.min[this.actor.system.attributes.level] * mult);
                 const max = parseInt(CONFIG.CELESTUS.baseDamage.max[this.actor.system.attributes.level] * mult);
@@ -59,19 +60,21 @@ export class CelestusItem extends Item {
                 damage[part.type].max += max;
                 damage[part.type].avg += avg;
             }
-    
+
             rollData.dmg = damage;
         }
-        if (this.type === "armor")
-        {
-            const phys = CONFIG.CELESTUS.baseArmor[this.system.type][this.system.slot][this.actor.system.attributes.level].phys  * this.system.efficiency;
-            const mag = CONFIG.CELESTUS.baseArmor[this.system.type][this.system.slot][this.actor.system.attributes.level].mag  * this.system.efficiency;
-            rollData.armor = {phys: phys, mag: mag};
+        if (this.type === "armor") {
+            if (this.system.type !== "none") {
+                const phys = CONFIG.CELESTUS.baseArmor[this.system.type][this.system.slot][this.actor.system.attributes.level].phys * this.system.efficiency;
+                const mag = CONFIG.CELESTUS.baseArmor[this.system.type][this.system.slot][this.actor.system.attributes.level].mag * this.system.efficiency;
+                rollData.armor = { phys: phys, mag: mag };
+
+            }
         }
 
         // add actor's roll data
         rollData.actor = this.actor.getRollData();
-        
+
         return rollData;
     }
 

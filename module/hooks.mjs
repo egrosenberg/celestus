@@ -1,3 +1,5 @@
+import { calcMult } from "./helpers.mjs";
+
 const RED = '#e29292';
 const GREEN = '#92e298';
 const BLUE = '#92c6e2';
@@ -73,7 +75,7 @@ export async function rollDamage(e) {
         // base damage roll corresponding to actor level
         const base = CONFIG.CELESTUS.baseDamage.formula[actor.system.attributes.level];
 
-        const mult = actor.calcMult(type, ability, part.value, 0);
+        const mult = calcMult(actor, type, ability, part.value, 0);
 
         const r = new Roll(`floor((${base})[${type}] * ${mult})`)
         await r.toMessage({
