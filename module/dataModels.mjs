@@ -341,6 +341,10 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
     get elementBonus() {
         let bonuses = {};
         for (let [key, type] of Object.entries(CONFIG.CELESTUS.damageTypes)) {
+            if (key === "none") {
+                bonuses[key] = 0;
+                continue;
+            }
             bonuses[key] = this.combat[type.skill].value * CONFIG.CELESTUS.combatSkillMod;
         }
         return bonuses;
@@ -348,7 +352,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
 
     /**
      * Calculates weapon damage
-     * @returns {false|Object} false if no weapon or object containing min, max, average, and roll formula for base damage of this weapon
+     * @returns {false|Array[Object]} false if no weapon or array of damage info objects from equipped weapons
      */
     get weaponDamage() {
         const equipped = this.equipped;
@@ -358,19 +362,26 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
         }
         // two weapon
         else if (equipped.left.system.twoHanded || !equipped.right) {
-            return equipped.left.system.damage;
+            return [equipped.left.system.damage];
         }
         // two single handed
         else {
             const left = equipped.left.system.damage;
             const right = equipped.right.system.damage;
-            return {
-                min: Math.floor((left.min + right.min)*0.75),
-                max: Math.floor((left.max + right.max)*0.75),
-                avg: Math.floor((left.avg + right.avg)*0.75),
-                roll: `(${left.roll})*0.75+(${right.roll})*0.75`,
-            };
+            return [left, right];
         }
+    }
+
+    /**
+     * All skills owned by actor
+     * @returns {Object} containing all skills, categorized as memorized, unmemorized, and always
+     */
+    get skills() {
+        return {
+            memorized: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "true")),
+            unmemorized: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "false")),
+            always: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "always")),
+        };
     }
 };
 
@@ -386,11 +397,12 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             description: new HTMLField(), // skill description
             ap: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // action point cost
             jp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // jiriki point cost
-            cooldown: new SchemaField({
+            cooldown: new SchemaField({ // cooldown in rounds negative value means inf
                 value: new NumberField({ required: true, integer: true, min: -1, initial: 0 }),
                 max: new NumberField({ required: true, integer: true, min: -1, initial: 0 }),
-            }), // cooldown in rounds negative value means inf
-            memorized: new BooleanField({ required: true, initial: false }),
+            }),
+            memorized: new StringField({ required: true, initial: "false" }),
+            type: new StringField({ required: true, initial: "magic" }),
             memSlots: new NumberField({ required: true, integer: true, min: 0, initial: 1 }), // memory slot cost
             prereqs: new SchemaField({ // prerequisite combat skill values to memorize
                 flamespeaker: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
@@ -416,6 +428,20 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             range: new NumberField({ required: true, initial: 0 }), // range of skill use, 0ft = self, 5ft = melee
         };
     }
+    
+    /**
+     * calculates final range value
+     * @returns {Number}
+     */
+    get finalRange() {
+        if (this.type === "weapon" && this.parent.actor && this.parent.actor.system.equipped.left) {
+            console.log(this.parent.actor.system.equipped.left.system.range);
+            return this.parent.actor.system.equipped.left.system.range;
+        }
+        else {
+            return this.range;
+        }
+    } 
 };
 
 /**
@@ -527,6 +553,8 @@ export class WeaponData extends GearData {
         const schema = super.defineSchema();
         schema.twoHanded = new BooleanField({ required: true, initial: false});
         schema.ability = new StringField({ required: true, initial: "str"});
+        schema.type = new StringField({ required: true, initial: "physical"});
+        schema.range = new NumberField({ required: true, initial: 0 }); // range in feet
         return schema;
     }
 
@@ -539,14 +567,16 @@ export class WeaponData extends GearData {
         const level = this.parent.actor ? this.parent.actor.system.attributes.level : 1;
         const dice = Math.floor(Math.pow(CONFIG.CELESTUS.weaponDmgBase, level));
         const dmgDie = this.twoHanded ? 12 : 6;
-        const mult = this.parent.actor ? calcMult(this.parent.actor, "physical", this.ability, this.efficiency) : 1;
+        const mult = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency) : 1;
         return {
+            type: this.type,
             min: Math.floor(dice*mult),
             max: Math.floor(dice*dmgDie*mult),
             avg: Math.floor(dice*(dmgDie/2+0.5)*mult),
             roll: `${dice}d${dmgDie}*${mult}`,
         };
     }
+
 }
 
 

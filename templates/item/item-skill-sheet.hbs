@@ -15,7 +15,8 @@
             {{#if system.jp}}<div class="quick-reference">Jiriki Cost: {{system.jp}}</div>{{/if}}
             <div class="quick-reference">Memory Slots: {{system.memSlots}}</div>
             <div class="quick-reference">
-                Range: {{#if system.range}}{{system.range}} ft.{{else}}melee{{/if}}</div>
+                Range: {{#if item.system.finalRange}}{{item.system.finalRange}} ft.{{else}}melee{{/if}}
+            </div>
 
             <h3>Prereqs:</h3>
             {{#each system.prereqs as |value skill|}}
@@ -62,6 +63,13 @@
                     <div>
                         <h3>General</h3>
                         <div class="attribute-section">
+                            {{!-- skill type --}}
+                            <div class="general attribute">
+                                <label for="system.type" class="resource-label">Type: </label>
+                                <select class="skill-type-selector" name="system.type">
+                                    {{selectOptions config.skillTypes selected=system.type}}
+                                </select>
+                            </div>
                             {{!-- AP cost --}}
                             <div class="general attribute">
                                 <label for="system.ap" class="resource-label">Action Points: </label>
@@ -96,10 +104,19 @@
                                     system.attack}}checked{{/if}} />
                             </div>
                             {{!-- range --}}
+                            {{#if (ne system.type "weapon")}}
                             <div class="general attribute">
                                 <label for="system.range" class="resource-label">Range (ft.): </label>
                                 <input type="text" name="system.range" value="{{system.range}}" data-dtype="Number"
                                     style="width: 50px;" />
+                            </div>
+                            {{/if}}
+                            {{!-- memorized? --}}
+                            <div class="general attribute">
+                                <label for="system.memorized" class="resource-label">Memorized: </label>
+                                <select class="skill-type-selector" name="system.memorized">
+                                    {{selectOptions config.memTypes selected=system.memorized}}
+                                </select>
                             </div>
                         </div>
                         <h3>Prerequisites</h3>

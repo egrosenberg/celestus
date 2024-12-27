@@ -58,6 +58,7 @@ Hooks.on("init", () => {
             mag_armor: { label: "Magic Armor", text: "mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
             t_phys_armor: { label: "Temp Physical Armor", text: "t_phys_armor", style: "healing", skill: "duneshaper", color: "#dba670", glyph: "icon-edged-shield" },
             t_mag_armor: { label: "Temp Magic Armor", text: "t_mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
+            none: { label: "None", text: "none", style: "none", skill: "none", color: "black"},
         },
         /**
          * combat skills
@@ -136,6 +137,7 @@ Hooks.on("init", () => {
         baseCritBonus: 0.6,   // base critical damage bonus expressed as a percentage
         baseCritChance: 0.05,   // base critical hit chance expressed as a percentage
         baseAccuracy: 0.95,
+        twoHandMult: 0.9,
         maxHP: { // base max hp amounts
             1: 30,
             2: 45,
@@ -296,6 +298,18 @@ Hooks.on("init", () => {
                 belt: {label: "Belt", text: "belt", jewel: true},
                 none: {label: "None", text: "none"},
             },
+        },
+        // categories of skills
+        skillTypes: {
+            weapon: "Weapon (combat)",
+            magic: "Magic (combat)",
+            civil: "Civil",
+        },
+        // memorization statuses
+        memTypes: {
+            true: "Memorized",
+            false: "Not Memorized",
+            always: "Always Memorized",
         },
     };
 

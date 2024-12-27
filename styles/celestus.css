@@ -390,6 +390,10 @@
 .celestus.actor.sheet .item-image {
     display: inline;
 }
+.celestus.actor.sheet .item-image img{
+    background-color: black;
+    background: radial-gradient(circle, rgba(131,0,0,1) 0%, rgba(55,0,0,1) 0%, rgba(19,0,0,1) 100%); 
+}
 /* Armor sockets preview */
 .celestus.actor.sheet .armor-section {
     height: 230px;

@@ -8,8 +8,37 @@
             </a>
         </div>
     </li>
+    <h2>Always Memorized</h2>
+    {{#each actor.system.skills.always as |skill|}}
+    <li class='item skill' style="display: inline-block; width: 80px" data-item-id='{{skill._id}}'>
+        <div class='skill-frame'>
+            <div class='item-image'>
+                <a class='rollable' data-roll-type='skill' data-skill-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
+                    height='80' /></a>
+                {{#if skill.system.cooldown.value}}
+                <span class="item-overlay active">
+                    {{skill.system.cooldown.value}}
+                </span>
+                {{/if}}
+            </div>
+        </div>
+        <div>
+            {{#repeat skill.system.ap}}<i class="fa-solid fa-circle ap-icon"></i>{{/repeat}}
+        </div>
+        <div class='item-controls'>
+            <span>
+            <a class='item-control item-edit' title='edit'>
+                <i class='fas fa-edit'></i>
+            </a>
+            <a class='item-control item-delete' title='delete'>
+                <i class='fas fa-trash'></i>
+            </a>
+            </span>
+        </div>
+    </li>
+    {{/each}}
     <h2>Memorized {{numberFormat system.attributes.memory.spent}}/{{numberFormat system.attributes.memory.total}}</h2>
-    {{#each skills.memorized as |skill|}}
+    {{#each actor.system.skills.memorized as |skill|}}
     <li class='item skill' style="display: inline-block; width: 80px" data-item-id='{{skill._id}}'>
         <div class='skill-frame'>
             <div class='item-image'>
@@ -43,7 +72,7 @@
     </li>
     {{/each}}
     <h2>Not Memorized</h2>
-    {{#each skills.unmemorized as |skill|}}
+    {{#each actor.system.skills.unmemorized as |skill|}}
     <li class='item skill' data-item-id='{{skill._id}}'>
         <div class='skill-frame'>
             <div class='item-image'>

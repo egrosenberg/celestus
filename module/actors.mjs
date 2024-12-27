@@ -92,7 +92,7 @@ export class CelestusActor extends Actor {
                     actor.attributes.resistance[ability].value += value;
                 }
             }
-            else if (item.type === "skill" && item.system.memorized) {
+            else if (item.type === "skill" && item.system.memorized === "true") {
                 actor.attributes.memory.spent += item.system.memSlots;
             }
         }
@@ -329,7 +329,7 @@ export class CelestusActor extends Actor {
             return ui.notifications.warn("Error: ability is on cooldown!");
         }
         // dont use skill if its not memorized
-        if (!skill.system.memorized) {
+        if (skill.system.memorized === "false") {
             return ui.notifications.warn("Error: ability isn't memorized!");
         }
 
@@ -483,5 +483,7 @@ export class CelestusActor extends Actor {
                 }
             }
         }
+        // refresh action points
+        this.update({ "system.resources.ap.value": this.system.resources.ap.start });
     }
 }

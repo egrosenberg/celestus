@@ -66,24 +66,67 @@ export async function rollDamage(e) {
     const itemID = e.currentTarget.dataset.itemUuid;
     const item = await fromUuid(itemID);
 
-    // iterate through damage array
-    for (let part of item.system.damage) {
-        // damage type
-        const type = part.type;
-        const ability = item.system.ability;
+    if (item.system.type === "magic") {
+        // iterate through damage array
+        for (let part of item.system.damage) {
+            // damage type
+            const type = part.type;
+            const ability = item.system.ability;
 
-        // base damage roll corresponding to actor level
-        const base = CONFIG.CELESTUS.baseDamage.formula[actor.system.attributes.level];
+            // base damage roll corresponding to actor level
+            const base = CONFIG.CELESTUS.baseDamage.formula[actor.system.attributes.level];
 
-        const mult = calcMult(actor, type, ability, part.value, 0);
+            const mult = calcMult(actor, type, ability, part.value, 0);
 
-        const r = new Roll(`floor((${base})[${type}] * ${mult})`)
-        await r.toMessage({
-            speaker: { alias: actor.name },
-            'system.isDamage': true,
-            'system.damageType': type,
-            'system.actorID': actorID,
-        });
+            const r = new Roll(`floor((${base})[${type}] * ${mult})`)
+            await r.toMessage({
+                speaker: { alias: actor.name },
+                'system.isDamage': true,
+                'system.damageType': type,
+                'system.actorID': actorID,
+            });
+        }
+    }
+    else if (item.system.type === "weapon") {
+        const damage = actor.system.weaponDamage;
+        if (!damage)
+        {
+            return;
+        }
+        if (damage.length === 1) {
+            const type = damage[0].type;
+            const formula = `floor(${damage[0].roll})`
+
+            const r = new Roll(formula);
+            await r.toMessage({
+                speaker: { alias: actor.name },
+                'system.isDamage': true,
+                'system.damageType': type,
+                'system.actorID': actorID,
+            });
+        }
+        else {
+            const type1 = damage[0].type;
+            const formula1 = `floor((${damage[0].roll})*${CONFIG.CELESTUS.twoHandMult})`
+
+            const r1 = new Roll(formula1);
+            await r1.toMessage({
+                speaker: { alias: actor.name },
+                'system.isDamage': true,
+                'system.damageType': type1,
+                'system.actorID': actorID,
+            });
+            const type2 = damage[1].type;
+            const formula2 = `floor((${damage[1].roll})*${CONFIG.CELESTUS.twoHandMult})`
+
+            const r2 = new Roll(formula2);
+            await r2.toMessage({
+                speaker: { alias: actor.name },
+                'system.isDamage': true,
+                'system.damageType': type2,
+                'system.actorID': actorID,
+            });
+        }
     }
 }
 

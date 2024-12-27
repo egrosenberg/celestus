@@ -20,7 +20,10 @@
                 {{/each}}
             </div>
             <div class="quick-reference">
-                {{item.system.damage.roll}} physical
+                {{item.system.damage.roll}} {{system.type}}
+            </div>
+            <div class="quick-reference">
+                Range: {{#if system.range}}{{system.range}} ft.{{else}}melee{{/if}}
             </div>
 
             <h3>Bonuses:</h3>
@@ -109,6 +112,22 @@
                                 <label for="system.equipped" class="resource-label">Equipped: </label>
                                 <input class="check-input" name="system.equipped" type="checkbox" {{#if
                                     system.equipped}}checked{{/if}} />
+                            </div>
+                            {{!-- damage type --}}
+                            <div class="general attribute">
+                                <label for="system.type" class="resource-label">Damage Type: </label>
+                                <select class="damage-type-selector" name="system.type">
+                                    {{!-- create a dropdown option for each damage type --}}
+                                    {{#each config.damageTypes as |data type|}}
+                                        <option value="{{type}}"{{#if (eq type ../system.type)}}selected{{/if}}>{{data.label}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            {{!-- range --}}
+                            <div class="general attribute">
+                                <label for="system.range" class="resource-label">Range (ft.): </label>
+                                <input type="text" name="system.range" value="{{system.range}}" data-dtype="Number"
+                                    style="width: 50px;" />
                             </div>
                         </div>
                         <h3>Prerequisites</h3>

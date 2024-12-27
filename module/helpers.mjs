@@ -25,5 +25,6 @@ export function calcMult(actor, type, ability, base, flat = 0) {
         abilityBonus = (actor.system.attributes.level - 1) * CONFIG.CELESTUS.flatDamageScalar;
     }
 
-    return 1 * (base) * (1 + elementBonus) * (1 + abilityBonus) * (1 + flat);
+    let mult = 1 * (base) * (1 + elementBonus) * (1 + abilityBonus) * (1 + flat);
+    return mult.toFixed(2);
 }

@@ -64,11 +64,6 @@ export class CharacterSheet extends ActorSheet {
     _prepareItems(context) {
         // initialize containers for items
         const gear = [];
-        const skills = {
-            memorized: [],
-            unmemorized: []
-        };
-
         // iterate through items// Iterate through items, allocating to containers
         for (let i of context.items) {
             i.img = i.img || Item.DEFAULT_ICON;
@@ -76,19 +71,9 @@ export class CharacterSheet extends ActorSheet {
             if (i.type === 'armor' || i.type === 'weapon') {
                 gear.push(i);
             }
-            // Append to spells.
-            else if (i.type === 'skill') {
-                if (i.system.memorized) {
-                    skills.memorized.push(i);
-                }
-                else {
-                    skills.unmemorized.push(i);
-                }
-            }
         }
 
         context.gear = gear;
-        context.skills = skills;
 
     }
 
@@ -179,10 +164,10 @@ export class CharacterSheet extends ActorSheet {
         html.on('click', '.item-memorize', (ev) => {
             const li = $(ev.currentTarget).parents('.item');
             const item = this.actor.items.get(li.data('itemId'));
-            if (item.system.memorized) {
-                item.update({ "system.memorized": false });
+            if (item.system.memorized === "true") {
+                item.update({ "system.memorized": "false" });
             }
-            else {
+            else if (item.system.memorized === "false"){
                 // check memorization requirements
                 if (item.system.memSlots + this.actor.system.attributes.memory.spent > this.actor.system.attributes.memory.total) {
                     return ui.notifications.warn(`Actor doesn't have enough free memory slots. (needed: ${item.system.memSlots}. free: ${this.actor.system.attributes.memory.total - this.actor.system.attributes.memory.spent})`);
@@ -193,7 +178,7 @@ export class CharacterSheet extends ActorSheet {
                         return ui.notifications.warn(`Actor is missing prerequisite combat ability level (${key}: ${prereq})`);
                     }
                 }
-                item.update({ "system.memorized": true });
+                item.update({ "system.memorized": "true" });
             }
         });
 
