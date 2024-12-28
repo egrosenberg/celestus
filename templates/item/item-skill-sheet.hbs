@@ -105,13 +105,18 @@
                                     system.attack}}checked{{/if}} />
                             </div>
                             {{!-- range --}}
-                            {{#if (ne system.type "weapon")}}
                             <div class="general attribute">
                                 <label for="system.range" class="resource-label">Range (ft.): </label>
                                 <input type="text" name="system.range" value="{{system.range}}" data-dtype="Number"
-                                    style="width: 50px;" />
+                                    style="width: 50px;" {{ifThen (ne system.type "weapon") "" "disabled"}} />
                             </div>
-                            {{/if}}
+                            {{!-- ability --}}
+                            <div class="general attribute">
+                                <label for="system.ability" class="resource-label">Ability: </label>
+                                <select class="damage-type-selector" name="system.ability" {{ifThen (ne system.type "weapon") "" "disabled"}}>
+                                    {{selectOptions config.abilities selected=item.system.finalAbility}}
+                                </select>
+                            </div>
                             {{!-- memorized? --}}
                             <div class="general attribute">
                                 <label for="system.memorized" class="resource-label">Memorized: </label>
@@ -137,6 +142,7 @@
                         </div>
                     </div>
                     {{!-- Damage Array --}}
+                    {{#if (ne system.type "weapon")}}
                     <h3>Damage</h3>
                     <div class="attribute-section">
                         <li class="item flexrow damage-header" draggable="true">
@@ -176,6 +182,7 @@
                         </li>
                         {{/each}}
                     </div>
+                    {{/if}}
                 </div>
 
                 {{!-- Active Effects Tab --}}

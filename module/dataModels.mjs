@@ -441,6 +441,18 @@ export class SkillData extends foundry.abstract.TypeDataModel {
         }
     }
     /**
+     * calculates final ability modifier value
+     * @returns {Number}
+     */
+    get finalAbility() {
+        if (this.type === "weapon" && this.parent.actor && this.parent.actor.system.equipped.left) {
+            return this.parent.actor.system.equipped.left.system.ability;
+        }
+        else {
+            return this.ability;
+        }
+    }
+    /**
      * Finds and returns all effects on character
      * @returns {Object} with categories for different states of effect
      */

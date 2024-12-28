@@ -123,6 +123,13 @@
                                     {{/each}}
                                 </select>
                             </div>
+                            {{!-- ability --}}
+                            <div class="general attribute">
+                                <label for="system.ability" class="resource-label">Ability: </label>
+                                <select class="damage-type-selector" name="system.ability">
+                                    {{selectOptions config.abilities selected=system.ability}}
+                                </select>
+                            </div>
                             {{!-- range --}}
                             <div class="general attribute">
                                 <label for="system.range" class="resource-label">Range (ft.): </label>
