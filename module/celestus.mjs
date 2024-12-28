@@ -1,7 +1,7 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData } from "./dataModels.mjs"
 import { CelestusActor } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, createCelestusMacro, previewDamage, rollAttack, rollDamage, rollItemMacro } from "./hooks.mjs"
-import { CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
+import { addChatButtons, applyDamageHook, applyStatusHook, createCelestusMacro, previewDamage, rollAttack, rollDamage, rollItemMacro, triggerTurn } from "./hooks.mjs"
+import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
 import { armorData } from "./armor.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
@@ -58,7 +58,7 @@ Hooks.on("init", () => {
             mag_armor: { label: "Magic Armor", text: "mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
             t_phys_armor: { label: "Temp Physical Armor", text: "t_phys_armor", style: "healing", skill: "duneshaper", color: "#dba670", glyph: "icon-edged-shield" },
             t_mag_armor: { label: "Temp Magic Armor", text: "t_mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
-            none: { label: "None", text: "none", style: "none", skill: "none", color: "black"},
+            none: { label: "None", text: "none", style: "none", skill: "none", color: "black", glyph: "" },
         },
         /**
          * combat skills
@@ -124,13 +124,13 @@ Hooks.on("init", () => {
         },
         // character stats
         abilities: {
-            str:  {label: "Strength", text: "str"},
-            dex:  {label: "Dexterity", text: "dex"},
-            int:  {label: "Intellect", text: "int"},
-            con:  {label: "Constitution", text: "con"},
-            mind: {label: "Mind", text: "mind"},
-            wit:  {label: "Wits", text: "wit"},
-            none: {label: "None", text: "none"},
+            str: { label: "Strength", text: "str" },
+            dex: { label: "Dexterity", text: "dex" },
+            int: { label: "Intellect", text: "int" },
+            con: { label: "Constitution", text: "con" },
+            mind: { label: "Mind", text: "mind" },
+            wit: { label: "Wits", text: "wit" },
+            none: { label: "None", text: "none" },
         },
         baseAbilityPoints: 1,
         combatSkillMod: 0.05,   // amount to increase damage by for combat skills per level
@@ -281,22 +281,22 @@ Hooks.on("init", () => {
         // info on different types of armor
         armor: {
             types: {
-                robes: {label: "Robes", text: "robes"},
-                light: {label: "Light", text: "light"},
-                heavy: {label: "Heavy", text: "heavy"},
-                jewel: {label: "Jewelry ", text: "jewel"},
-                none: {label: "None", text: "none"},
+                robes: { label: "Robes", text: "robes" },
+                light: { label: "Light", text: "light" },
+                heavy: { label: "Heavy", text: "heavy" },
+                jewel: { label: "Jewelry ", text: "jewel" },
+                none: { label: "None", text: "none" },
             },
             slots: {
-                helmet: {label: "Helmet", text: "helmet", jewel: false},
-                chest: {label: "Chestplate", text: "chest", jewel: false},
-                gloves: {label: "Gloves", text: "gloves", jewel: false},
-                leggings: {label: "Leggings", text: "leggings", jewel: false},
-                boots: {label: "Boots", text: "boots", jewel: false},
-                amulet: {label: "Amulet", text: "amulet", jewel: true},
-                ring: {label: "Ring", text: "ring", jewel: true},
-                belt: {label: "Belt", text: "belt", jewel: true},
-                none: {label: "None", text: "none"},
+                helmet: { label: "Helmet", text: "helmet", jewel: false },
+                chest: { label: "Chestplate", text: "chest", jewel: false },
+                gloves: { label: "Gloves", text: "gloves", jewel: false },
+                leggings: { label: "Leggings", text: "leggings", jewel: false },
+                boots: { label: "Boots", text: "boots", jewel: false },
+                amulet: { label: "Amulet", text: "amulet", jewel: true },
+                ring: { label: "Ring", text: "ring", jewel: true },
+                belt: { label: "Belt", text: "belt", jewel: true },
+                none: { label: "None", text: "none" },
             },
         },
         // categories of skills
@@ -326,7 +326,7 @@ Hooks.on("init", () => {
     }
 
     CONFIG.ActiveEffect.dataModels = {
-        effect: EffectData,
+        status: EffectData,
     }
 
     // set up sheets
@@ -342,6 +342,16 @@ Hooks.on("init", () => {
         label: 'CELESTUS.SheetLabels.Item',
         async: true,
     });
+
+    // register active effect sheet
+    DocumentSheetConfig.registerSheet(CelestusEffect, "celestus", CelestusActiveEffectSheet,
+        {
+            types: ["status", "base"],
+            makeDefault: true,
+            canBeDefault: true,
+            label: "CELESTUS.SheetLabels.activeEffect",
+        }
+    );
 
     // set up resource attributes as trackable
     CONFIG.Actor.trackableAttributes = {
@@ -367,6 +377,7 @@ Hooks.on("ready", () => {
     $(document).on("click", ".attack", rollAttack);
     $(document).on("click", ".damage", rollDamage);
     $(document).on("click", ".apply-damage", applyDamageHook);
+    $(document).on("click", ".apply-status", applyStatusHook);
 
     // hook macro creation on hotbar drop
     Hooks.on("hotbarDrop", (bar, data, slot) => {
@@ -382,6 +393,8 @@ Hooks.on("renderChatMessage", addChatButtons);
 // hook damage preview on token select
 Hooks.on("controlToken", previewDamage);
 
+// handle turn changes
+Hooks.on("combatTurnChange", triggerTurn);
 
 // hbs helpers
 Handlebars.registerHelper("repeat", (n, options) => {

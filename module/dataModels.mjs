@@ -7,7 +7,7 @@ const {
 /**
  * helper function simplifying equipped armor
  */
-function armorSocket(){
+function armorSocket() {
     return new SchemaField({
         id: new StringField({}), // _id of item
     });
@@ -73,7 +73,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                     evasion: new SchemaField({ // chance to dodge an attack (expressed as a percent)
                         value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
-                    }), 
+                    }),
                 }),
                 resistance: new SchemaField({ // resitance values, expressed int percentages 
                     physical: new SchemaField({
@@ -273,7 +273,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
         const equippedWeapons = this.parent.items.filter(i => (i.type == "weapon" && i.system.equipped));
         let leftHand;
         let rightHand;
-        if(equippedWeapons.length) {
+        if (equippedWeapons.length) {
             leftHand = equippedWeapons[0];
             if (!leftHand.system.twoHanded && equippedWeapons.length > 1) {
                 rightHand = equippedWeapons[1];
@@ -293,7 +293,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
             ring2: rings[1],
             belt: this.parent.items.find(i => (i.type === "armor" && i.system.equipped && i.system.slot == "belt")),
             left: leftHand,
-            right: rightHand, 
+            right: rightHand,
         };
     }
 
@@ -304,13 +304,13 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
     get armor() {
         return {
             helmet: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "helmet")),
-            chest: this.parent.items.filter(i => (i.type === "armor" &&  i.system.slot == "chest")),
-            gloves: this.parent.items.filter(i => (i.type === "armor" &&  i.system.slot == "gloves")),
-            leggings: this.parent.items.filter(i => (i.type === "armor" &&  i.system.slot == "leggings")),
+            chest: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "chest")),
+            gloves: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "gloves")),
+            leggings: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "leggings")),
             boots: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "boots")),
-            amulet: this.parent.items.filter(i => (i.type === "armor" &&  i.system.slot == "amulet")),
+            amulet: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "amulet")),
             ring: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "ring")),
-            belt: this.parent.items.filter(i => (i.type === "armor" &&  i.system.slot == "belt")),
+            belt: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "belt")),
         };
     }
 
@@ -321,15 +321,15 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
     get weapon() {
         return this.parent.items.filter(i => i.type === "weapon");
     }
-    
+
     /**
      * Finds and returns all effects on character
      * @returns {Object} with categories for different states of effect
      */
     get effects() {
         return {
-            temporary: this.parent.effects.filter(e=> (!e.disabled && e.isTemporary)),
-            passive: this.parent.effects.filter(e=> (!e.disabled && !e.isTemporary)),
+            temporary: this.parent.effects.filter(e => (!e.disabled && e.isTemporary)),
+            passive: this.parent.effects.filter(e => (!e.disabled && !e.isTemporary)),
             disabled: this.parent.effects.filter(e => e.disabled),
         };
     }
@@ -428,20 +428,30 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             range: new NumberField({ required: true, initial: 0 }), // range of skill use, 0ft = self, 5ft = melee
         };
     }
-    
+
     /**
      * calculates final range value
      * @returns {Number}
      */
     get finalRange() {
         if (this.type === "weapon" && this.parent.actor && this.parent.actor.system.equipped.left) {
-            console.log(this.parent.actor.system.equipped.left.system.range);
             return this.parent.actor.system.equipped.left.system.range;
         }
         else {
             return this.range;
         }
-    } 
+    }
+    /**
+     * Finds and returns all effects on character
+     * @returns {Object} with categories for different states of effect
+     */
+    get effects() {
+        return {
+            temporary: this.parent.effects.filter(e => (!e.disabled && e.isTemporary)),
+            passive: this.parent.effects.filter(e => (!e.disabled && !e.isTemporary)),
+            disabled: this.parent.effects.filter(e => e.disabled),
+        };
+    }
 };
 
 /**
@@ -514,6 +524,17 @@ export class GearData extends foundry.abstract.TypeDataModel {
             }),
         };
     }
+    /**
+     * Finds and returns all effects on character
+     * @returns {Object} with categories for different states of effect
+     */
+    get effects() {
+        return {
+            temporary: this.parent.effects.filter(e => (!e.disabled && e.isTemporary)),
+            passive: this.parent.effects.filter(e => (!e.disabled && !e.isTemporary)),
+            disabled: this.parent.effects.filter(e => e.disabled),
+        };
+    }
 };
 
 
@@ -533,7 +554,7 @@ export class ArmorData extends GearData {
     get value() {
         // if no type, return 0s
         if (this.type === "none") {
-            return {phys: 0, mag: 0};
+            return { phys: 0, mag: 0 };
         }
         // get actor level if it exists
         const level = this.parent.actor ? this.parent.actor.system.attributes.level : 1;
@@ -551,9 +572,9 @@ export class ArmorData extends GearData {
 export class WeaponData extends GearData {
     static defineSchema() {
         const schema = super.defineSchema();
-        schema.twoHanded = new BooleanField({ required: true, initial: false});
-        schema.ability = new StringField({ required: true, initial: "str"});
-        schema.type = new StringField({ required: true, initial: "physical"});
+        schema.twoHanded = new BooleanField({ required: true, initial: false });
+        schema.ability = new StringField({ required: true, initial: "str" });
+        schema.type = new StringField({ required: true, initial: "physical" });
         schema.range = new NumberField({ required: true, initial: 0 }); // range in feet
         return schema;
     }
@@ -570,9 +591,9 @@ export class WeaponData extends GearData {
         const mult = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency) : 1;
         return {
             type: this.type,
-            min: Math.floor(dice*mult),
-            max: Math.floor(dice*dmgDie*mult),
-            avg: Math.floor(dice*(dmgDie/2+0.5)*mult),
+            min: Math.floor(dice * mult),
+            max: Math.floor(dice * dmgDie * mult),
+            avg: Math.floor(dice * (dmgDie / 2 + 0.5) * mult),
             roll: `${dice}d${dmgDie}*${mult}`,
         };
     }
@@ -582,12 +603,16 @@ export class WeaponData extends GearData {
 
 /**
  * Defines data structure for active effects
- * @extends {TypeDataModel}
+ * @extends {ActiveEffectData}
  */
 export class EffectData extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
-        };
+            damage: new ArrayField(new SchemaField({
+                type: new StringField({ required: true, initial: "none" }), // damage type
+                value: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // damage roll as %of base@lvl
+            })),
+        }
     }
 }
 

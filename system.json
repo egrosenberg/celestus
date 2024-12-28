@@ -56,6 +56,9 @@
                     "description"
                 ]
             }
+        },
+        "ActiveEffect": {
+            "status": {}
         }
     },
     "socket": true,

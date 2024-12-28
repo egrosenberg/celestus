@@ -3,10 +3,4 @@
  * @extends {ActiveEffect}
  */
 export class CelestusEffect extends ActiveEffect {
-    /**
-     * Prepare derived data
-     */
-    prepareData() {
-
-    }
 }

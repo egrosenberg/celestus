@@ -17,12 +17,12 @@ export function calcMult(actor, type, ability, base, flat = 0) {
     }
     // bonus from ability associated with skill
     let abilityBonus = 0;
-    if (ability !== "none") {
-        abilityBonus = actor.system.abilities[ability].mod;
-    }
     // if there is no ability to scale with, use base level scaling mult
-    else {
+    if (ability === "none") {
         abilityBonus = (actor.system.attributes.level - 1) * CONFIG.CELESTUS.flatDamageScalar;
+    }
+    else if (ability !== "0") {
+        abilityBonus = actor.system.abilities[ability].mod;
     }
 
     let mult = 1 * (base) * (1 + elementBonus) * (1 + abilityBonus) * (1 + flat);

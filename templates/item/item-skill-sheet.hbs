@@ -46,6 +46,7 @@
             <nav class="sheet-tabs tabs" data-group="primary">
                 <a class="item" data-tab="description">Description</a>
                 <a class="item" data-tab="attributes">Attributes</a>
+                <a class="item" data-tab="effects">Effects</a>
             </nav>
 
             {{!-- Sheet Body --}}
@@ -142,7 +143,8 @@
                             <div class="damage-type">Type</div>
                             <div class="damage-amount">Amount (%)</div>
                             <div class="item-controls">
-                                <a class="item-control damage-create" title="Create New Damage Component" data-type="item">
+                                <a class="item-control damage-create" title="Create New Damage Component"
+                                    data-type="item">
                                     <i class="fas fa-plus"></i>
                                     Add Damage
                                 </a>
@@ -150,26 +152,78 @@
                         </li>
                         {{!-- create editor for each damage type --}}
                         {{#each system.damage as |damage|}}
-                        <li class="item flexrow" >
+                        <li class="item flexrow">
                             <div class="damage-type">
-                                <select class="damage-type-selector" name="system.damage[{{@index}}].type"  data-index="{{@index}}">
+                                <select class="damage-type-selector" name="system.damage[{{@index}}].type"
+                                    data-index="{{@index}}">
                                     {{!-- create a dropdown option for each damage type --}}
                                     {{#each ../config.damageTypes as |data type|}}
-                                        <option value="{{type}}"{{#if (eq type damage.type)}}selected{{/if}}>{{data.label}}</option>
+                                    <option value="{{type}}" {{#if (eq type damage.type)}}selected{{/if}}>{{data.label}}
+                                    </option>
                                     {{/each}}
                                 </select>
                             </div>
                             <div class="damage-amount">
-                                <input type="text" name="system.damage[{{@index}}].value" value="{{damage.value}}" data-index="{{@index}}" />
+                                <input type="text" name="system.damage[{{@index}}].value" value="{{damage.value}}"
+                                    data-index="{{@index}}" />
                             </div>
                             <div class="item-controls">
-                                <a class="item-control damage-delete" title="Delete Damage Component" data-type="damage" data-index="{{@index}}">
+                                <a class="item-control damage-delete" title="Delete Damage Component" data-type="damage"
+                                    data-index="{{@index}}">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </div>
                         </li>
                         {{/each}}
                     </div>
+                </div>
+
+                {{!-- Active Effects Tab --}}
+                <div class="tab effects flexcol" data-group="primary" data-tab="effects">
+                    <ol class="items-list effects-list">
+                        {{#each item.system.effects as |section sid|}}
+                        <div class="flexcol effect-section">
+                            <h3 class="item-name effect-name flexrow">{{sid}}</h3>
+                            <li class="items-header flexrow" data-effect-type="{{section.type}}"
+                                data-parent-id="{{@root.item.id}}">
+                                <div class="effect-source">Name</div>
+                                <div class="effect-source">Source</div>
+                                <div class="effect-source">Duration</div>
+                                <div class="item-controls effect-controls flexrow">
+                                    <a class="effect-control" data-action="create" title="Create New Effect">
+                                        <i class="fas fa-plus"></i> Create New Effect
+                                    </a>
+                                </div>
+                            </li>
+
+                            <ol class="item-list">
+                                {{#each section as |effect|}}
+                                <li class="item effect flexrow" data-effect-id="{{effect.id}}"
+                                    data-parent-id="{{effect.parent.id}}">
+                                    <div class="item-name">
+                                        <img class="effect-image" src="{{effect.img}}" />
+                                        <h4 class="effect-name">{{effect.name}}</h4>
+                                    </div>
+                                    <div class="effect-source">{{effect.sourceName}}</div>
+                                    <div class="effect-duration">{{#if effect.duration.rounds}}
+                                        {{effect.duration.rounds}} rounds{{/if}}</div>
+                                    <div class="effect-controls">
+                                        <a class="effect-control" data-action="toggle" title="disable/enable">
+                                            <i class="fas {{#if effect.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
+                                        </a>
+                                        <a class="effect-control" data-action="edit" title="edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="effect-control" data-action="delete" title="delete">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                                {{/each}}
+                            </ol>
+                        </div>
+                        {{/each}}
+                    </ol>
                 </div>
         </div>
         </section>

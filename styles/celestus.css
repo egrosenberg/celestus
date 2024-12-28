@@ -120,6 +120,10 @@
 .celestus .healing {
     background-color: var(--color-healing-bg) !important;
 }
+.celestus img{
+    background-color: black;
+    background: radial-gradient(circle, rgba(131,0,0,1) 0%, rgba(55,0,0,1) 0%, rgba(19,0,0,1) 100%); 
+}
 /* chat messages */
 .celestus .dice-flavor {
     border: thin solid var(--color-warm-1);
@@ -188,6 +192,7 @@
     width: 250px;
     height: 250px;
     pointer-events:  none;
+    background: none;
 }
 .celestus.actor.sheet .profile-img {
     width: 250px;
@@ -389,10 +394,6 @@
 }
 .celestus.actor.sheet .item-image {
     display: inline;
-}
-.celestus.actor.sheet .item-image img{
-    background-color: black;
-    background: radial-gradient(circle, rgba(131,0,0,1) 0%, rgba(55,0,0,1) 0%, rgba(19,0,0,1) 100%); 
 }
 /* Armor sockets preview */
 .celestus.actor.sheet .armor-section {

@@ -138,13 +138,12 @@ export class CharacterSheet extends ActorSheet {
         html.on('click', '.armor-equip', (ev) => {
             const slot = $(ev.currentTarget).data('itemSlot');
             if (slot.startsWith("ring")) {
-                console.log(parseInt(slot[slot.length-1]));
-                this.actor.equip($(ev.currentTarget).data('itemId'), parseInt(slot[slot.length-1]));
+                this.actor.equip($(ev.currentTarget).data('itemId'), parseInt(slot[slot.length - 1]));
             }
             else if (slot === "right") {
                 this.actor.equip($(ev.currentTarget).data('itemId'), 2);
             }
-            else { 
+            else {
                 this.actor.equip($(ev.currentTarget).data('itemId'));
             }
         });
@@ -167,7 +166,7 @@ export class CharacterSheet extends ActorSheet {
             if (item.system.memorized === "true") {
                 item.update({ "system.memorized": "false" });
             }
-            else if (item.system.memorized === "false"){
+            else if (item.system.memorized === "false") {
                 // check memorization requirements
                 if (item.system.memSlots + this.actor.system.attributes.memory.spent > this.actor.system.attributes.memory.total) {
                     return ui.notifications.warn(`Actor doesn't have enough free memory slots. (needed: ${item.system.memSlots}. free: ${this.actor.system.attributes.memory.total - this.actor.system.attributes.memory.spent})`);
@@ -376,6 +375,79 @@ export class CelestusItemSheet extends ItemSheet {
                 this.item.update({ key: value });
             });
         }
+        
+        // manage active effects
+        html.on('click', '.effect-control', (ev) => {
+            const row = ev.currentTarget.closest('li');
+            const document =
+                row.dataset.parentId === this.actor.id
+                    ? this.actor
+                    : this.actor.items.get(row.dataset.parentId);
+            onManageActiveEffect(ev, document);
+        });
     }
 
+}
+
+/**
+ * @extends { ItemSheet }
+ */
+export class CelestusActiveEffectSheet extends ActiveEffectConfig {
+    /** @override */
+    static get defaultOptions() {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+            classes: ["celestus", "sheet", "effect"],
+            template: "./systems/celestus/templates/effects/active-effect.hbs",
+            width: 580,
+            height: "auto",
+            tabs: [{navSelector: ".tabs", contentSelector: "form", initial: "details"}]
+        });
+    }
+
+    /** @override */
+    async getData() {
+        const context = await super.getData();
+
+        context.system = context.data.system;
+        context.config = CONFIG.CELESTUS;
+
+        return context;
+    }
+
+    /** @override */
+    activateListeners(html) {
+        super.activateListeners(html);
+        // operate changes on damage type
+        html.on('change', '.damage-type select', (ev) => {
+            const t = ev.currentTarget;
+            const index = $(t).data("index");
+            const type = $(t).val();
+            let damage = this.object.system.damage;
+            damage[index].type = type;
+            this.object.update({ "system.damage": damage });
+        });
+        // get damage values
+        html.on('change', '.damage-amount input', (ev) => {
+            const t = ev.currentTarget;
+            const index = $(t).data("index");
+            const value = $(t).val();
+            let damage = this.object.system.damage;
+            damage[index].value = value;
+            this.object.update({ "system.damage": damage });
+        });
+        // remove damage element
+        html.on('click', '.damage-delete', (ev) => {
+            const t = ev.currentTarget;
+            const index = $(t).data("index");
+            let damage = this.object.system.damage;
+            damage.splice(index, 1);
+            this.object.update({ "system.damage": damage });
+        });
+        // add damage element
+        html.on('click', '.damage-create', (ev) => {
+            let damage = this.object.system.damage;
+            damage.push({ type: "none", roll: "" });
+            this.object.update({ "system.damage": damage });
+        });
+    }
 }

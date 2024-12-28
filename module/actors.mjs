@@ -1,3 +1,5 @@
+import { calcMult } from "./helpers.mjs";
+
 const BASE_AS = 10; // base ability score value
 
 export class CelestusActor extends Actor {
@@ -325,7 +327,7 @@ export class CelestusActor extends Actor {
      */
     async useSkill(skill) {
         // dont use skill if its on cooldown
-        if (skill.system.cooldown.value > 0) {
+        if (skill.system.cooldown.value > 0 || skill.system.cooldown.value < 0) {
             return ui.notifications.warn("Error: ability is on cooldown!");
         }
         // dont use skill if its not memorized
@@ -372,8 +374,12 @@ export class CelestusActor extends Actor {
             'system.skill.hasAttack': skill.system.attack,
         });
 
+        // civil skills set cd to -1
+        if (skill.system.type === "civil") {
+            skill.update({ "system.cooldown.value": -1 });
+        }
         // set skill on cooldown if in combat (currently set to true for debugging)
-        if (true) {
+        else if (true) {
             skill.update({ "system.cooldown.value": skill.system.cooldown.max });
         }
     }
@@ -388,6 +394,12 @@ export class CelestusActor extends Actor {
         // if item is equipped, simply unequip
         if (item.system.equipped) {
             item.update({ "system.equipped": false });
+            // remove statuses
+            for (let status of this.effects) {
+                if (item.effects.find(i => i.name === status.name)) {
+                    status.delete();
+                }
+            }
             return;
         }
         // verify that actor meets prerequisites
@@ -400,17 +412,21 @@ export class CelestusActor extends Actor {
         if (!canEquip) {
             return ui.notifications.warn("Cannot equip item: prerequisites not met.");
         }
+        // track which piece is being removed
+        let unequipping = [];
         // unequip item in that slot
         const equipped = this.system.equipped;
         if (item.type === "armor") {
             if (item.system.slot === "ring") {
                 if (equipped[`${item.system.slot}${n}`]) {
                     equipped[`${item.system.slot}${n}`].update({ "system.equipped": false });
+                    unequipping.push(equipped[`${item.system.slot}${n}`]);
                 }
             }
             else {
                 if (equipped[item.system.slot]) {
                     equipped[item.system.slot].update({ "system.equipped": false });
+                    unequipping.push(equipped[item.system.slot]);
                 }
             }
         }
@@ -419,26 +435,57 @@ export class CelestusActor extends Actor {
                 // unequip all hands
                 if (equipped.left) {
                     equipped.left.update({ "system.equipped": false });
+                    unequipping.push(equipped.left);
+
                 }
                 if (equipped.right) {
-                    equipped.left.update({ "system.equipped": false });
+                    equipped.right.update({ "system.equipped": false });
+                    unequipping.push(equipped.right);
                 }
             }
-            else if(n === 1 && equipped.right) {
+            else if (n === 1 && equipped.right) {
                 // unequip left hand
                 if (equipped.left) {
                     equipped.left.update({ "system.equipped": false });
+                    unequipping.push(equipped.left);
                 }
             }
             else {
                 //unequip right
                 if (equipped.right) {
                     equipped.left.update({ "system.equipped": false });
+                    unequipping.push(equipped.right);
+                }
+            }
+        }
+        // remove status effects from unequipped
+        for (let gear of unequipping) {
+            // remove statuses
+            for (let status of this.effects) {
+                if (gear.effects.find(i => i.name === status.name)) {
+                    status.delete();
                 }
             }
         }
         // equip this item
         item.update({ "system.equipped": true });
+        // apply any status effects from the item
+        for (const status of item.effects) {
+            if (status.disabled || this.effects.find(i => i.name === status.name)) {
+                continue;
+            }
+            await this.createEmbeddedDocuments('ActiveEffect', [
+                {
+                    name: status.name,
+                    img: status.img,
+                    origin: this.uuid,
+                    'duration.rounds': status.duration.rounds,
+                    disabled: false,
+                    type: "status",
+                    "system.damage": status.system.damage,
+                },
+            ]);
+        }
     }
 
     /**
@@ -473,7 +520,7 @@ export class CelestusActor extends Actor {
     /**
      * handles all upkeep for a combat turn
      */
-    progressRound() {
+    async startTurn() {
         // progress all cooldowns
         for (let item of this.items) {
             if (item.type === "skill") {
@@ -484,6 +531,48 @@ export class CelestusActor extends Actor {
             }
         }
         // refresh action points
-        this.update({ "system.resources.ap.value": this.system.resources.ap.start });
+        const ap = this.system.resources.ap.value;
+        const startAp = this.system.resources.ap.start;
+        const maxAp = this.system.resources.ap.max;
+        this.update({ "system.resources.ap.value": Math.min((ap + startAp), maxAp) });
+        // go through all effects
+        for (let effect of this.effects) {
+            if (effect.type === "status") {
+                for (let part of effect.system.damage) {
+                    const origin = await fromUuid(effect.origin);
+
+                    // damage type
+                    const type = part.type;
+
+                    // base damage roll corresponding to actor level
+                    const base = CONFIG.CELESTUS.baseDamage.formula[origin.system.attributes.level];
+
+                    const mult = calcMult(this, type, "0", part.value, 0);
+
+                    const r = new Roll(`floor((${base})[${type}] * ${mult})`)
+                    await r.toMessage({
+                        speaker: { alias: `${this.name} - Status Damage` },
+                        'system.isDamage': true,
+                        'system.damageType': type,
+                        'system.actorID': this.uuid,
+                    });
+                }
+            }
+            if (effect.isTemporary) {
+                if (effect.duration.rounds > 1) {
+                    effect.update({ "duration.rounds": effect.duration.rounds - 1 });
+                }
+                else {
+                    effect.delete();
+                }
+            }
+        }
+    }
+
+    /**
+     * handles cleanup of a combat turn
+     */
+    endTurn() {
+
     }
 }

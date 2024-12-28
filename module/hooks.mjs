@@ -89,8 +89,7 @@ export async function rollDamage(e) {
     }
     else if (item.system.type === "weapon") {
         const damage = actor.system.weaponDamage;
-        if (!damage)
-        {
+        if (!damage) {
             return;
         }
         if (damage.length === 1) {
@@ -148,6 +147,42 @@ export async function applyDamageHook(e) {
 
 /**
  * 
+ * @param {event} e : event from button click
+ */
+export async function applyStatusHook(e) {
+    // get currently controlled tokens
+    const selected = canvas.tokens.controlled;
+    if (selected.size < 1) {
+        return ui.notifications.warn("ERROR: must select an actor to apply statuses to")
+    }
+
+    const origin = await fromUuid(e.currentTarget.dataset.actorUuid);
+    const item = await fromUuid(e.currentTarget.dataset.itemUuid);
+
+    // for each controlled token
+    for (const target of selected) {
+        // for each status
+        for (const status of item.effects) {
+            if (status.disabled || target.actor.effects.find(i => i.name === status.name)) {
+                continue;
+            }
+            await target.actor.createEmbeddedDocuments('ActiveEffect', [
+                {
+                    name: status.name,
+                    img: status.img,
+                    origin: origin.uuid,
+                    'duration.rounds': status.duration.rounds,
+                    disabled: false,
+                    type: "status",
+                    "system.damage": status.system.damage,
+                },
+            ]);
+        }
+    }
+}
+
+/**
+ * 
  * @param { ChatMessage } msg : chatmessage object for message being rendered (readonly)
  * @param { jQuery } html : jquery html data for chat
  * @param { messageData } options 
@@ -174,33 +209,39 @@ export async function addChatButtons(msg, html, options) {
     // if message is a skill usage, add attack / damage buttons for owners
     if (msg.system.isSkill) {
         const actor = await fromUuid(msg.system.actorID);
+        const skill = await fromUuid(msg.system.itemID);
         const perms = actor.ownership;
+
         // check if player has owner access on token associated with message
-        if (perms.default >= 3 || ((game.user.id in perms) && perms[game.user.id] >= 3)) {
-            // add attack button if there is an attack
-            if (msg.system.skill.hasAttack) {
-                html.append(`<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="attack">Roll Attack</button>`)
-            }
-            // add damage button if there is a damage roll
-            if (msg.system.skill.hasDamage) {
-                html.append(`<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="damage">Roll Damage</button>`)
-            }
+        const disabled = (perms.default >= 3 || ((game.user.id in perms) && perms[game.user.id] >= 3)) ? "" : "disabled";
+
+        // add attack button if there is an attack
+        if (msg.system.skill.hasAttack) {
+            html.append(`<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="attack" ${disabled}>Roll Attack</button>`)
+        }
+        // add damage button if there is a damage roll
+        if (msg.system.skill.hasDamage) {
+            html.append(`<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="damage"${disabled}>Roll Damage</button>`)
+        }
+        console.log(skill.effects.size, skill.effects)
+        if (skill.effects.size > 0) {
+            html.append(`<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="apply-status"${disabled}>Apply Statuses</button>`)
         }
     }
     if (msg.system.isDamage) {
+        // only gm can apply damage
+        const disabled = game.user.isGM ? "" : "disabled";
         // add damage type to damage text
         const dieTotal = html.find(".dice-total");
         dieTotal.html(dieTotal.html() + ` (${CONFIG.CELESTUS.damageTypes[msg.system.damageType].label})`)
         dieTotal.append(`<i class=${CONFIG.CELESTUS.damageTypes[msg.system.damageType].glyph}></i>`);
         dieTotal.css("background-color", CONFIG.CELESTUS.damageTypes[msg.system.damageType].color);
-        // only gm can apply damage
-        if (game.user.isGM) {
-            let dmgTotal = 0;
-            for (let roll of msg.rolls) {
-                dmgTotal += roll.total;
-            }
-            html.append(`<button data-origin-actor="${msg.system.actorID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\">Apply Damage</button>`);
+        let dmgTotal = 0;
+        for (let roll of msg.rolls) {
+            dmgTotal += roll.total;
         }
+        html.append(`<button data-origin-actor="${msg.system.actorID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\ ${disabled}">Apply Damage</button>`);
+
     }
 }
 
@@ -224,7 +265,7 @@ export async function previewDamage(object, controlled) {
             // set html
             $(this).html(sign + damage.toString());
             // set background based on healing or harming
-            $(this).css("background-color", (damage < 0) ? RED : GREEN)
+            $(this).css("background-color", (damage <= 0) ? RED : GREEN)
             // set class to display as number
             $(this).addClass("number");
         }
@@ -316,7 +357,6 @@ export function onManageActiveEffect(event, owner) {
         : null;
     switch (a.dataset.action) {
         case 'create':
-            console.log("MANAGINGGGG EWFECECECSTASDFA")
             return owner.createEmbeddedDocuments('ActiveEffect', [
                 {
                     name: "new effect",
@@ -325,6 +365,7 @@ export function onManageActiveEffect(event, owner) {
                     'duration.rounds':
                         li.dataset.effectType === 'temporary' ? 1 : undefined,
                     disabled: li.dataset.effectType === 'inactive',
+                    type: "status",
                 },
             ]);
         case 'edit':
@@ -334,4 +375,25 @@ export function onManageActiveEffect(event, owner) {
         case 'toggle':
             return effect.update({ disabled: !effect.disabled });
     }
+}
+
+/**
+ * 
+ * @param {Combat} combat 
+ * @param {Number, Number} updateData round,turn
+ * @param {Number, Number} updateOptions advanceTimer, direction
+ */
+export function triggerTurn(combat, updateData, updateOptions) {
+    // only fire if user is a GM
+    if (!game.user.isGM) {
+        return;
+    }
+    const endingId = combat.previous.combatantId;
+    const startingId = combat.current.combatantId;
+    // only handle ending turn if there was a previous turn
+    if (endingId) {
+        const ending = combat.combatants.get(endingId);
+    }
+    const starting = combat.combatants.get(startingId);
+    starting.actor.startTurn();
 }
