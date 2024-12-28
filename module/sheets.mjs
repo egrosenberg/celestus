@@ -115,7 +115,10 @@ export class CharacterSheet extends ActorSheet {
 
         // refresh all resources
         html.on('click', '#refresh-all', (ev) => {
-            this.actor.refresh();
+            this.actor.refresh(false);
+        })
+        html.on('click', '#refresh-dawn', (ev) => {
+            this.actor.refresh(true);
         })
 
         // Add Inventory Item

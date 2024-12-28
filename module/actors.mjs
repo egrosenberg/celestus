@@ -334,6 +334,10 @@ export class CelestusActor extends Actor {
         if (skill.system.memorized === "false") {
             return ui.notifications.warn("Error: ability isn't memorized!");
         }
+        // dont use civil skills in combat?
+        if (skill.system.type === "civil" && this.inCombat) {
+            return ui.notifications.warn("Error: can't use civil skill in combat!");
+        }
 
         const actor = this.system;
 
@@ -345,7 +349,10 @@ export class CelestusActor extends Actor {
             return ui.notifications.warn("Actor has insufficient Jiriki Points to use chosen skill");
         }
         // use resources
-        await this.update({ "system.resources.ap.value": actor.resources.ap.value - skill.system.ap });
+        // only use ap if in combat
+        if (this.inCombat) {
+            await this.update({ "system.resources.ap.value": actor.resources.ap.value - skill.system.ap });
+        }
         await this.update({ "system.resources.jirki.value": actor.resources.jiriki.value - skill.system.jp });
 
         const path = './systems/celestus/templates/skillDescription.hbs';
@@ -379,7 +386,7 @@ export class CelestusActor extends Actor {
             skill.update({ "system.cooldown.value": -1 });
         }
         // set skill on cooldown if in combat (currently set to true for debugging)
-        else if (true) {
+        else if (this.inCombat) {
             skill.update({ "system.cooldown.value": skill.system.cooldown.max });
         }
     }
@@ -491,8 +498,9 @@ export class CelestusActor extends Actor {
     /**
      * refreshes all armor, health, and other resources
      * removes temp resources
+     * @param {Boolean} dawn: t/f is it a new day (refreshes civil skills)
      */
-    async refresh() {
+    async refresh(dawn = false) {
         // update hp
         this.update({ "system.resources.hp.flat": this.system.resources.hp.max });
         // update physical armor
@@ -511,7 +519,7 @@ export class CelestusActor extends Actor {
 
         // reset all cooldowns
         for (let item of this.items) {
-            if (item.type === "skill") {
+            if (item.type === "skill" && (dawn || item.system.cooldown.value > 0)) {
                 item.update({ "system.cooldown.value": 0 });
             }
         }

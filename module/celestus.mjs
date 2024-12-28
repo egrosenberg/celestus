@@ -1,6 +1,6 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData } from "./dataModels.mjs"
 import { CelestusActor } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, applyStatusHook, createCelestusMacro, previewDamage, rollAttack, rollDamage, rollItemMacro, triggerTurn } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, previewDamage, rollAttack, rollDamage, rollItemMacro, startCombat, triggerTurn } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
 import { armorData } from "./armor.mjs"
 import { CelestusItem } from "./items.mjs"
@@ -395,6 +395,11 @@ Hooks.on("controlToken", previewDamage);
 
 // handle turn changes
 Hooks.on("combatTurnChange", triggerTurn);
+
+// handle combat start
+Hooks.on("combatStart", startCombat);
+// handle combat end
+Hooks.on("preDeleteCombat", cleanupCombat);
 
 // hbs helpers
 Handlebars.registerHelper("repeat", (n, options) => {

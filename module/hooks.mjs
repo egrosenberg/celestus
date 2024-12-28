@@ -397,3 +397,36 @@ export function triggerTurn(combat, updateData, updateOptions) {
     const starting = combat.combatants.get(startingId);
     starting.actor.startTurn();
 }
+
+/**
+ * 
+ * @param {Combat} combat 
+ * @param {number,number} updateData {round, turn}
+ */
+export function startCombat(combat, updateData) {
+    // only fire if user is a GM
+    if (!game.user.isGM) {
+        return;
+    }
+    // make all combatants in combat
+    for (const combatant of combat.combatants) {
+        combatant.actor.refresh(false);
+    }
+}
+
+/**
+ * 
+ * @param {Document} document 
+ * @param {DatabaseDeleteOperation} options 
+ * @param {string} userId 
+ */
+export function cleanupCombat(document, options, userId) {
+    // only fire if user is a GM
+    if (!game.user.isGM) {
+        return;
+    }
+    // make all combatants in combat
+    for (const combatant of document.combatants) {
+        combatant.actor.refresh(false);
+    }
+}

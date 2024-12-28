@@ -21,7 +21,6 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
             biography: new HTMLField(), // create biography field
-            inCombat: new BooleanField({ required: true, initial: false }),
             // configure resources
             resources: new SchemaField({
                 // configure health as a schema field

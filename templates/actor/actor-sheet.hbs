@@ -14,14 +14,18 @@
                             data-dtype="Number" />
                     </span>
                     <a class="control refresh" title="refresh resources" id="refresh-all"><i class="icon-cycle"></i></a>
+                    <a class="control refresh" title="new day" id="refresh-dawn"><i class="icon-sunrise"></i></a>
+                    <a class="control refresh" title="toggle combat state" id="toggle-combat"><i class="{{ifThen actor.inCombat "icon-swords-emblem-solid" "icon-swords-emblem-outline"}}"></i></a>
+
                 </span>
                 <h2>Resources</h2>
                 <div class="resources grid" id="hp">
                     <span class="resource">
                         <label class="resource-label hp">HP</label><br />
                         <span class="resource-value healing" id="system.resources.hp" style="flex: 2">
-                            <input class="resource-input" type="number" name="system.resources.hp.flat" value="{{system.resources.hp.flat}}"
-                                data-dtype="Number" data-max-value="{{system.resources.hp.max}}"/>
+                            <input class="resource-input" type="number" name="system.resources.hp.flat"
+                                value="{{system.resources.hp.flat}}" data-dtype="Number"
+                                data-max-value="{{system.resources.hp.max}}" />
                             <span class="total">/{{system.resources.hp.max}}</span>
                         </span>
                     </span>
@@ -30,7 +34,8 @@
                     <span class="resource" id="physical-armor">
                         <label class="resource-label armor">Physical Armor</label>
                         <span class="earth resource-value" id="system.resources.phys_armor">
-                            <input class="resource-input" type="number" name="system.resources.phys_armor.flat" data-max-value="{{system.resources.phys_armor.max}}"
+                            <input class="resource-input" type="number" name="system.resources.phys_armor.flat"
+                                data-max-value="{{system.resources.phys_armor.max}}"
                                 value="{{system.resources.phys_armor.flat}}" data-dtype="Number" /> <span
                                 class="total">+{{system.resources.phys_armor.temp}}/{{system.resources.phys_armor.max}}</span>
                         </span>
@@ -38,7 +43,8 @@
                     <span class="resource" id="magic-armor">
                         <label class="resource-label">Magic Armor</label><br />
                         <span class="resource-value water" id="system.resources.mag_armor">
-                            <input class="resource-input" type="number" name="system.resources.mag_armor.flat" data-max-value="{{system.resources.mag_armor.max}}"
+                            <input class="resource-input" type="number" name="system.resources.mag_armor.flat"
+                                data-max-value="{{system.resources.mag_armor.max}}"
                                 value="{{system.resources.mag_armor.flat}}" data-dtype="Number" /> <span
                                 class="total">+{{system.resources.mag_armor.temp}}/{{system.resources.mag_armor.max}}</span>
                         </span>
@@ -49,7 +55,8 @@
                         <label class="resource-label single">Action Points</label><br />
                         <span class="resource-value physical" id="system.resources.ap" style="flex: 2">
                             <input type="number" name="system.resources.ap.value" value="{{system.resources.ap.value}}"
-                                data-dtype="Number" data-max-value="{{system.resources.ap.max}}" /> <span class="total">/{{system.resources.ap.max}}</span>
+                                data-dtype="Number" data-max-value="{{system.resources.ap.max}}" /> <span
+                                class="total">/{{system.resources.ap.max}}</span>
                         </span>
                     </span>
                 </div>
@@ -59,8 +66,10 @@
                     <span class="resource">
                         <label class="resource-label single">Jiriki Points</label><br />
                         <span class="resource-value poison" id="system.resources.jiriki" style="flex: 2">
-                            <input class="resource-input" type="number" name="system.resources.jiriki.value" value="{{system.resources.jiriki.value}}"
-                                data-dtype="Number" data-max-value="{{system.resources.jiriki.max}}" /> <span class="total">/{{system.resources.jiriki.max}}</span>
+                            <input class="resource-input" type="number" name="system.resources.jiriki.value"
+                                value="{{system.resources.jiriki.value}}" data-dtype="Number"
+                                data-max-value="{{system.resources.jiriki.max}}" /> <span
+                                class="total">/{{system.resources.jiriki.max}}</span>
                         </span>
                     </span>
                 </div>
@@ -120,8 +129,8 @@
                 <div class="armor-socket">
                     <div class="armor-socket-label">{{slot}}</div>
                     <a class="armor-socket-browse" data-slot="{{slot}}" data-item-id="{{piece._id}}">
-                        <img class="armor-socket-icon" src="{{piece.img}}" title="{{piece.name}}"
-                        {{#if (and piece.system.twoHanded (eq slot "right"))}}style="opacity: 0.5"{{/if}}/>
+                        <img class="armor-socket-icon" src="{{piece.img}}" title="{{piece.name}}" {{#if (and
+                            piece.system.twoHanded (eq slot "right" ))}}style="opacity: 0.5" {{/if}} />
                     </a>
                 </div>
                 {{/each}}
@@ -203,9 +212,11 @@
                     {{!-- If you want TinyMCE editors to output inline rolls when rendered, you need to pass the actor's
                     roll
                     data to the rollData property. --}}
-                    {{!--{{editor enrichedDescription engine="prosemirror" target="system.biography" rollData=rollData button=true owner=owner
+                    {{!--{{editor enrichedDescription engine="prosemirror" target="system.biography" rollData=rollData
+                    button=true owner=owner
                     editable=editable}}--}}
-                    {{editor enrichedDescription target="system.biography" editable=editable button=true engine="prosemirror"}}
+                    {{editor enrichedDescription target="system.biography" editable=editable button=true
+                    engine="prosemirror"}}
                 </div>
 
                 {{!-- Owned Items Tab --}}

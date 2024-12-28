@@ -15,9 +15,14 @@
             <div class='item-image'>
                 <a class='rollable' data-roll-type='skill' data-skill-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
                     height='80' /></a>
-                {{#if skill.system.cooldown.value}}
+                {{#if (gt skill.system.cooldown.value 0)}}
                 <span class="item-overlay active">
                     {{skill.system.cooldown.value}}
+                </span>
+                {{/if}}
+                {{#if (lt skill.system.cooldown.value 0)}}
+                <span class="item-overlay active">
+                    <i class="icon-sunrise"></i>
                 </span>
                 {{/if}}
             </div>
@@ -44,9 +49,14 @@
             <div class='item-image'>
                 <a class='rollable' data-roll-type='skill' data-skill-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
                     height='80' /></a>
-                {{#if skill.system.cooldown.value}}
+                {{#if (gt skill.system.cooldown.value 0)}}
                 <span class="item-overlay active">
                     {{skill.system.cooldown.value}}
+                </span>
+                {{/if}}
+                {{#if (lt skill.system.cooldown.value 0)}}
+                <span class="item-overlay active">
+                    <i class="icon-sunrise"></i>
                 </span>
                 {{/if}}
             </div>
