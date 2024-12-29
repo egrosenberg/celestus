@@ -109,7 +109,6 @@
                 <h2>Bonuses</h2>
                 <div class="abilities flexcol">
                     {{#each system.attributes.bonuses as |ability key|}}
-                    {{#if ability.value}}
                     <div class="ability flexrow flex-group-center"
                         style="background-color: rgba(255, 255, 255, 0.719);">
                         {{#with (lookup ../config.bonuses key)}}
@@ -117,7 +116,6 @@
                         <span class="resist">{{numberFormat ability.value decimals=2}}{{symbol}}</span>
                         {{/with}}
                     </div>
-                    {{/if}}
                     {{/each}}
                 </div>
             </div>
