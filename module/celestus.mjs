@@ -5,6 +5,7 @@ import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./
 import { armorData } from "./armor.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
+import { statuses } from "./data/statuses.mjs"
 
 /**
  * Define a set of template paths to pre-load
@@ -105,6 +106,7 @@ Hooks.on("init", () => {
             crit_bonus: { label: "Crit Damage", text: "crit_bonus", symbol: '\u00D7' },
             accuracy: { label: "Accuracy", text: "accuracy", symbol: "" },
             evasion: { label: "Evasion", text: "evasion", symbol: "" },
+            damage: { label: "Damage Increase", text: "damage", symbol: '\u00D7' },
         },
         abilityMod: { // ability modifer percentages per point above or below 10
             str: 0.05, // +5% damage per point
@@ -367,6 +369,8 @@ Hooks.on("init", () => {
     CONFIG.ActiveEffect.documentClass = CelestusEffect;
 
     CONFIG.ChatMessage.dataModels.base = ChatDataModel;
+
+    CONFIG.statusEffects = statuses;
 
     // preload handlebars templates
     return preloadHandlebarsTemplates();

@@ -1,4 +1,4 @@
-import { calcMult } from "./helpers.mjs";
+import { calcMult, canvasPopupText } from "./helpers.mjs";
 
 const {
     HTMLField, SchemaField, NumberField, StringField, FilePathField, ArrayField, BooleanField
@@ -73,6 +73,10 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                         value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
+                    damage: new SchemaField({ // flat damage bonus
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                    }),
                 }),
                 resistance: new SchemaField({ // resitance values, expressed int percentages 
                     physical: new SchemaField({
@@ -125,7 +129,11 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                     }),
                 }),
                 // movement
-                movement: new NumberField({ required: true, integer: false, min: 0, initial: 20 }), // movement in map units (default ft)
+                movement: new SchemaField({ // movement in map units (default ft)
+                    base: new NumberField({ required: true, integer: false, min: 0, initial: 20 }),
+                    bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // bonus as additive percent
+                    value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+                }),
                 // xp & level
                 xp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 level: new NumberField({ required: true, integer: true, min: 1, initial: 1 }),
@@ -416,7 +424,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             }),
             damage: new ArrayField(new SchemaField({
                 type: new StringField({ required: true, initial: "none" }), // damage type
-                value: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // damage roll as %of base@lvl
+                value: new NumberField({ required: true, integer: false, initial: 0 }), // damage roll as %of base@lvl
             })),
             ability: new StringField({ required: true, initial: "none" }), // int/dex/str - ability used for scaling of damage
             attack: new BooleanField({ required: true, initial: false }),
@@ -621,8 +629,91 @@ export class EffectData extends foundry.abstract.TypeDataModel {
         return {
             damage: new ArrayField(new SchemaField({
                 type: new StringField({ required: true, initial: "none" }), // damage type
-                value: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // damage roll as %of base@lvl
+                value: new NumberField({ required: true, integer: false, initial: 0 }), // damage roll as %of base@lvl
             })),
+            // armor type that resists the effect, none/mag/phys/any
+            resistedBy: new StringField({ required: true, initial: "none" }),
+            combines: new ArrayField( new SchemaField({ // effect it combos with
+                    with: new StringField({ required: true, initial: "none" }), // status id of status it combos with
+                    makes: new StringField({ required: true, initial: "none " }) // status id of status the two create
+                })
+            ),
+            removes: new ArrayField( // statuses it removes
+                new StringField ()
+            ),
+            blocks: new ArrayField( // statuses it prevents from ebing applied
+                new StringField ()
+            ),
+            triggers: new ArrayField( // statuses it brings with it
+                new StringField ()
+            ),
+        }
+    }
+    
+    /** @override */
+    async _preCreate(data, options, user) {
+        const pre = await super._preCreate();
+        if (pre === false) {
+            return false;
+        }
+        // get actor this is trying to attach to
+        const actor = this.parent.parent;
+        // check if status is resisted by armor
+        let resisted = false;
+        switch (data.system.resistedBy) {
+            case "phys":
+                if (actor.system.resources.phys_armor.value > 0) resisted = true;
+                break;
+            case "mag": 
+                if (actor.system.resources.mag_armor.value > 0) resisted = true;
+                break;
+            case "any":
+                if (actor.system.resources.phys_armor.value > 0 || actor.system.resources.mag_armor.value > 0) resisted = true;
+        }
+        if (resisted === true) {
+            canvasPopupText(actor, `Resisted ${data.name}`);
+            return false;
+        }
+
+        // check if status is blocked if a statuseffect exists
+        if (data.statuses.legnth > 0) {
+            // check if status is blocked
+            for (let effect of actor.effects) {
+                if (effect.system.blocks.find(b => b === data.statuses[0])) {
+                    canvasPopupText(actor, `${data.name} blocked by ${effect.name}`);
+                    return false;
+                }
+            }
+        }
+        // check if status needs to combine
+        for (let combination of data.system.combines) {
+            // check all effects on actor for status in combination
+            let combiner = actor.effects.find(e => e.statuses.has(combination.with));
+            // second incredient exists, combine
+            if (combiner) {
+                combiner.delete();
+                await actor.toggleStatusEffect(combination.makes, true);
+                return false;
+            }
+        }
+        // removes all things the status clears
+        for (let status of data.system.removes) {
+            let target = actor.effects.find(e => e.statuses.has(status));
+            if (target) {
+                target.delete();
+            }
+        }
+        // removes all things the status blocks
+        for (let status of data.system.blocks) {
+            let target = actor.effects.find(e => e.statuses.has(status));
+            if (target) {
+                target.delete();
+            }
+        }
+        // if status has no duration, instantly remove it after applying its combinations and blocks
+        if (data.duration.rounds === 0) {
+            await canvasPopupText(actor, data.name);
+            return false;
         }
     }
 }

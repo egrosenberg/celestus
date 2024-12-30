@@ -1,0 +1,788 @@
+export let statuses = [
+    {
+        id: "dead",
+        name: "EFFECT.StatusDead",
+        img: "icons/svg/skull.svg"
+    },
+    {
+        id: "unconscious",
+        name: "EFFECT.StatusUnconscious",
+        img: "icons/svg/unconscious.svg"
+    },
+    {
+        id: "burn",
+        name: "EFFECT.StatusBurning",
+        img: "icons/svg/fire.svg",
+        type: "status",
+        duration: { rounds: 3 },
+        system: {
+            damage: [{ type: "fire", value: 1 }],
+            resistedBy: "mag",
+            removes: ["warm", "wet", "chill", "oily"],
+            blocks: ["warm"],
+        },
+        changes: [
+            {
+                key: "system.attributes.resistance.water.bonus",
+                value: "+0.1",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.resistance.fire.bonus",
+                value: "-0.15",
+                mode: 2,
+            },
+        ],
+    },
+    {
+        id: "warm",
+        name: "Warm",
+        img: "systems/celestus/svg/thermometer-hot.svg",
+        type: "status",
+        duration: { rounds: 3 },
+        system: {
+            resistedBy: "none",
+            combines: [{ with: "warm", makes: "burn" }, { with: "oil", makes: "burn" }],
+            removes: ["wet", "chill"],
+        },
+        changes: [
+            {
+                key: "system.attributes.resistance.water.bonus",
+                value: "+0.1",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.resistance.fire.bonus",
+                value: "-0.15",
+                mode: 2,
+            },
+        ],
+    },
+    {
+        id: "burn+",
+        name: "Spiritfire",
+        img: "systems/celestus/svg/burning-skull.svg",
+        type: "status",
+        duration: { rounds: 3 },
+        system: {
+            damage: [{ type: "fire", value: 1 }],
+            resistedBy: "mag",
+            removes: ["warm", "wet", "chill", "oil", "butn"],
+        },
+        changes: [
+            {
+                key: "system.attributes.resistance.fire.bonus",
+                value: "-0.2",
+                mode: 2,
+            },
+        ],
+    },
+    {
+        id: "shock",
+        name: "EFFECT.StatusShocked",
+        img: "systems/celestus/svg/round-struck.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            resistedBy: "mag",
+            combines: [{with: "wet", makes: "stun"}, {with: "shock", makes: "stun"}],
+        },
+        changes: [
+            {
+                key: "system.resources.ap.start",
+                value: "-1",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.bonuses.evasion.mod",
+                value: "-0.3",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.resistance.earth.bonus",
+                value: "+0.1",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.resistance.air.bonus",
+                value: "-0.15",
+                mode: 2,
+            },
+        ]
+    },
+    {
+        id: "stun",
+        name: "EFFECT.StatusStunned",
+        img: "systems/celestus/svg/electric.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            resistedBy: "mag",
+            removes: ["wet"],
+            blocks: ["shocked", "frozen", "petrify", "asleep", "fear", "charm"],
+        },
+        changes: [
+            {
+                key: "system.attributes.bonuses.evasion.mod",
+                value: "-1",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.movement.mod",
+                value: "-1",
+                mode: 5,
+            },
+            {
+                key: "system.attributes.resistance.earth.bonus",
+                value: "+0.1",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.resistance.air.bonus",
+                value: "-0.15",
+                mode: 2,
+            },
+            {
+                key: "flags.celestus.incapacitated",
+                value: "true",
+                mode: 5,
+            },
+        ],
+    },
+    {
+        id: "soothe",
+        name: "Soothed",
+        img: "systems/celestus/svg/magic-shield.svg",
+        type: "status",
+        duration: { rounds: 0 },
+        system: {
+            removes: ["burn", "frozen", "poison", "stun", "suffocate", "petrify", "oil", "shock"]
+        }
+
+    },
+    {
+        id: "petrify",
+        name: "Petrified",
+        img: "systems/celestus/svg/golem-head.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            resistedBy: "mag",
+            removes: ["wet", "oil"],
+            blocks: ["frozen", "burn", "burn+", "stun", "poison", "fear", "prone", "chill", "warm", "bleed", "taunt", "sleep",],
+        },
+        changes: [
+            {
+                key: "system.attributes.bonuses.evasion.mod",
+                value: "-1",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.movement.mod",
+                value: "-1",
+                mode: 5,
+            },
+            {
+                key: "system.attributes.resistance.fire.bonus",
+                value: "+0.1",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.resistance.earth.bonus",
+                value: "-0.2",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.resistance.air.bonus",
+                value: "+0.1",
+                mode: 2,
+            },
+            {
+                key: "flags.celestus.incapacitated",
+                value: "true",
+                mode: 5,
+            },
+        ],
+    },
+    {
+        id: "poison",
+        name: "EFFECT.StatusPoison",
+        img: "icons/svg/poison.svg",
+        type: "status",
+        duration: { rounds: 3 },
+        system: {
+            damage: [{type: "poison", value: 1 }],
+            resistedBy: "mag",
+        },
+    },
+    {
+        id: "acid",
+        name: "EFFECT.StatusAcid",
+        img: "icons/svg/acid.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            damage: [{type: "phys_armor", value: "-1" }]
+        }
+    },
+    {
+        id: "oil",
+        name: "Oily",
+        img: "systems/celestus/svg/oily-spiral.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            damage: [],
+            combines: [{"warm": "burn"}],
+            removes: ["wet"],
+            blocks: ["invisible"],
+            triggers: ["slow"],
+        },
+        changes: [
+            {
+                key: "system.attributes.resistance.water.bonus",
+                value: "+0.1",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.resistance.fire.bonus",
+                value: "-0.2",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.resistance.earth.bonus",
+                value: "-0.1",
+                mode: 2,
+            },
+            {
+                key: "flags.celestus.oil",
+                value: "true",
+                mode: 5,
+            },
+        ],
+    },
+    {
+        id: "root",
+        name: "Rooted",
+        img: "systems/celestus/svg/tentacle-strike.svg",
+        type: "status",
+        duration: { rounds: 3 },
+        changes: [
+            {
+                key: "system.attributes.movement.bonus",
+                value: "-1",
+                mode: 5,
+            },
+            {
+                key: "system.attributes.bonuses.evasion.bonus",
+                value: "-0.5",
+                mode: 2,
+            },
+            {
+                key: "flags.celestus.grounded",
+                value: "true",
+                mode: 5,
+            },
+        ],
+    },
+    {
+        id: "fortify",
+        name: "Fortified",
+        img: "systems/celestus/svg/edged-shield.svg",
+        type: "status",
+        duration: { rounds: 0 },
+        system: {
+            removes: ["poison", "bleed", "burn", "burn+", "acid", "decay"],
+        },
+    },
+    {
+        id: "regen",
+        name: "EFFECT.StatusRegen",
+        img: "icons/svg/regen.svg",
+        type: "status",
+        duration: { rounds: 1 },
+        system: {
+            damage: [{type: "healing", value: 1.5}],
+            removes: ["bleed", "poison", "burn", "warm"],
+        }
+    },
+    {
+        id: "heal",
+        name: "Healing",
+        img: "systems/celestus/svg/heart-plus.svg",
+        type: "status",
+        duration: { rounds: 3 },
+        system: {
+            damage: [{type: "healing", value: 1}],
+        }
+    },
+    {
+        id: "wet",
+        name: "Wet",
+        img: "systems/celestus/svg/drop.svg",
+        type: "status",
+        duration: { rounds: 3 },
+        system: {
+            resistedBy: "none",
+            combines: [{ with: "chill", makes: "frozen" }, { with: "shock", makes: "stun" }],
+            removes: ["warm", "burn", "invisible"],
+        },
+        changes: [
+            {
+                key: "system.attributes.resistance.water.bonus",
+                value: "-0.1",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.resistance.air.bonus",
+                value: "-0.2",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.resistance.fire.bonus",
+                value: "+0.1",
+                mode: 2,
+            },
+        ],
+    },
+    {
+        id: "chill",
+        name: "Chilled",
+        img: "systems/celestus/svg/thermometer-cold.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            resistedBy: "mag",
+            combines: [{ with: "wet", makes: "frozen" }, { with: "chill", makes: "frozen" }],
+            removes: ["warm", "burn"],
+        },
+        changes: [
+            {
+                key: "system.attributes.resistance.water.bonus",
+                value: "-0.2",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.resistance.air.bonus",
+                value: "-0.1",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.resistance.fire.bonus",
+                value: "+0.1",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.bonuses.evasion.bonus",
+                value: "-0.3",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.movement.bonus",
+                value: "-0.35",
+                mode: 2,
+            }
+        ],
+    },
+    {
+        id: "frozen",
+        name: "Frozen",
+        img: "icons/svg/frozen.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            damage: [],
+            resistedBy: "mag",
+            removes: ["wet", "oil"],
+            blocks: ["stun", "chill", "poison", "charm", "fear", "bleed", "petrify", "taunt", "sleep", "burn"],
+        },
+        changes: [
+            {
+                key: "system.attributes.movement.bonus",
+                value: "-1",
+                mode: 5,
+            },
+            {
+                key: "system.attributes.resistance.water.bonus",
+                value: "-0.2",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.resistance.fire.bonus",
+                value: "+0.2",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.resistance.earth.bonus",
+                value: "+0.2",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.bonuses.evasion.bonus",
+                value: "-1",
+                mode: 2,
+            },
+        ],
+    },
+    {
+        id: "enlighten",
+        name: "Clear Minded",
+        img: "systems/celestus/svg/third-eye.svg",
+        type: "status",
+        duration: { rounds: 5 },
+        system: {
+            blocks: ["rage", "charm", "fear", "sleep", "taunt", "mad"],
+        },
+        changes: [
+            {
+                key: "flags.celestus.enlightened",
+                value: "true",
+                mode: 5,
+            }
+        ],
+    },
+    {
+        id: "rage",
+        name: "Raging",
+        img: "systems/celestus/svg/mighty-force.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            blocks: ["charm", "fear", "sleep", "mad"],
+        },
+        changes: [
+            {
+                key: "flags.celestus.silenced",
+                value: "true",
+                mode: 5,
+            }
+        ],
+    },
+    {
+        id: "haste",
+        name: "Hasted",
+        img: "icons/svg/upgrade.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            removes: ["slow", "maim"],
+        },
+        changes: [
+            {
+                key: "system.resources.ap.start",
+                value: "+1",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.movement.bonus",
+                value: "+0.5",
+                mode: 2,
+            }
+        ],
+    },
+    {
+        id: "fly",
+        name: "EFFECT.StatusFlying",
+        img: "icons/svg/wing.svg",
+        type: "status",
+        duration: { rounds: 4 },
+        changes: [
+            {
+                key: "flags.celestus.flying",
+                value: "true",
+                mode: 5,
+            }
+        ],
+    },
+    {
+        id: "invisible",
+        name: "EFFECT.StatusInvisible",
+        img: "icons/svg/invisible.svg",
+        type: "status",
+        duration: { rounds: 5 },
+        changes: [
+            {
+                key: "flags.celestus.invisible",
+                value: "true",
+                mode: 5,
+            }
+        ],
+    },
+    {
+        id: "patched",
+        name: "Patched Up",
+        img: "systems/celestus/svg/caduceus.svg",
+        type: "status",
+        duration: { rounds: 0 },
+        system: {
+            removes: ["main", "atrophy", "blind", "prone", "bleed", "disease", "silence",],
+        }
+    },
+    {
+        id: "slow",
+        name: "Slowed",
+        img: "icons/svg/downgrade.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            removes: ["haste"],
+        },
+        changes: [
+            {
+                key: "system.attributes.bonuses.evasion.bonus",
+                value: "-0.3",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.movement.bonus",
+                value: "-0.5",
+                mode: 2,
+            }
+        ],
+    },
+    {
+        id: "bleeding",
+        name: "EFFECT.StatusBleeding",
+        img: "icons/svg/blood.svg",
+        type: "status",
+        duration: { rounds: 3 },
+        system: {
+            resistedBy: "phys",
+            damage: [{type: "piercing", value: 1}],
+        }
+    },
+    {
+        id: "blind",
+        name: "EFFECT.StatusBlind",
+        img: "systems/celestus/svg/sight-disabled.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            resistedBy: "mag",
+        },
+        changes: [
+            {
+                key: "system.attributes.bonuses.accuracy.bonus",
+                value: "-0.35",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.bonuses.evasion.bonus",
+                value: "-0.5",
+                mode: 2,
+            }
+        ],
+    },
+    {
+        id: "charm",
+        name: "Charmed",
+        img: "systems/celestus/svg/charm.svg",
+        type: "status",
+        duration: { rounds: 3 },
+        system: {
+            resistedBy: "mag",
+        },
+    },
+    {
+        id: "atrophy",
+        name: "Atrophied",
+        img: "systems/celestus/svg/drop-weapon.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            resistedBy: "phys",
+        },
+        changes: [
+            {
+                key: "flags.celestus.disarmed",
+                value: "true",
+                mode: 5,
+            },
+        ],
+    },
+    {
+        id: "decay",
+        name: "Decaying",
+        img: "icons/svg/degen.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            resistedBy: "any",
+        },
+        changes: [
+            {
+                key: "system.attributes.resistance.healing.bonus",
+                value: "+2",
+                mode: 2,
+            },
+        ],
+    },
+    {
+        id: "disease",
+        name: "EFFECT.StatusDisease",
+        img: "icons/svg/biohazard.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            resistedBy: "mag",
+        },
+        changes: [
+            {
+                key: "system.abilities.con.bonus",
+                value: "-2",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.bonuses.damage.bonus",
+                value: "-0.35",
+                mode: 2,
+            }
+        ],
+    },
+    {
+        id: "prone",
+        name: "EFFECT.StatusProne",
+        img: "icons/svg/falling.svg",
+        type: "status",
+        duration: { rounds: 1 },
+        system: {
+            resistedBy: "phys",
+        },
+    },
+    {
+        id: "suffocate",
+        name: "Suffocating",
+        img: "systems/celestus/svg/lungs.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            damage: [{type: "mag_armor", value: -1}],
+        },
+    },
+    {
+        id: "silence",
+        name: "Silenced",
+        img: "systems/celestus/svg/silenced.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            resistedBy: "mag",
+        },
+        changes: [
+            {
+                key: "flags.celestus.silenced",
+                value: "true",
+                mode: 5,
+            }
+        ],
+    },
+    {
+        id: "fear",
+        name: "Afraid",
+        img: "icons/svg/terror.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            resistedBy: "mag",
+            removes: ["charm"],
+        },
+    },
+    {
+        id: "mad",
+        name: "Mad",
+        img: "systems/celestus/svg/delighted.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            removes: ["charm"],
+            resistedBy: "mag",
+        },
+    },
+    {
+        id: "sleep",
+        name: "EFFECT.StatusAsleep",
+        img: "icons/svg/sleep.svg",
+        type: "status",
+        duration: { rounds: 3 },
+        system: {
+            resistedBy: "mag",
+        },
+        changes: [
+            {
+                key: "system.attributes.bonuses.evasion.mod",
+                value: "-1",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.movement.mod",
+                value: "-1",
+                mode: 5,
+            },
+            {
+                key: "flags.celestus.incapacitated",
+                value: "true",
+                mode: 5,
+            },
+        ],
+    },
+    //{
+    //    id: "curse",
+    //    name: "EFFECT.StatusCursed",
+    //    img: "icons/svg/sun.svg"
+    //},
+    //{
+    //    id: "hover",
+    //    name: "EFFECT.StatusHover",
+    //    img: "icons/svg/wingfoot.svg"
+    //},
+    //{
+    //    id: "burrow",
+    //    name: "EFFECT.StatusBurrow",
+    //    img: "icons/svg/mole.svg"
+    //},
+    //{
+    //    id: "upgrade",
+    //    name: "EFFECT.StatusUpgrade",
+    //    img: "icons/svg/upgrade.svg"
+    //},
+    //{
+    //    id: "downgrade",
+    //    name: "EFFECT.StatusDowngrade",
+    //    img: "icons/svg/downgrade.svg"
+    //},
+    //{
+    //    id: "target",
+    //    name: "EFFECT.StatusTarget",
+    //    img: "icons/svg/target.svg"
+    //},
+    //{
+    //    id: "eye",
+    //    name: "EFFECT.StatusMarked",
+    //    img: "icons/svg/eye.svg"
+    //},
+    //{
+    //    id: "bless",
+    //    name: "EFFECT.StatusBlessed",
+    //    img: "icons/svg/angel.svg"
+    //},
+    //{
+    //    id: "fireShield",
+    //    name: "EFFECT.StatusFireShield",
+    //    img: "icons/svg/fire-shield.svg"
+    //},
+    //{
+    //    id: "coldShield",
+    //    name: "EFFECT.StatusIceShield",
+    //    img: "icons/svg/ice-shield.svg"
+    //},
+    //{
+    //    id: "magicShield",
+    //    name: "EFFECT.StatusMagicShield",
+    //    img: "icons/svg/mage-shield.svg"
+    //},
+    //{
+    //    id: "holyShield",
+    //    name: "EFFECT.StatusHolyShield",
+    //    img: "icons/svg/holy-shield.svg"
+    //}
+];

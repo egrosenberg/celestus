@@ -125,7 +125,12 @@ export class CelestusActor extends Actor {
         actor.attributes.bonuses.crit_bonus.value += 1 + CONFIG.CELESTUS.baseCritBonus + actor.attributes.bonuses.crit_bonus.bonus + actor.combat.shroudstalker.mod;
         // calculate accuracy
         actor.attributes.bonuses.accuracy.value += CONFIG.CELESTUS.baseAccuracy + actor.attributes.bonuses.accuracy.bonus;
-
+        // calculate evasion
+        actor.attributes.bonuses.evasion.value += actor.attributes.bonuses.evasion.bonus;
+        // calculate overall damage bonus
+        actor.attributes.bonuses.damage.value += actor.attributes.bonuses.damage.bonus;
+        // calculate movespeed
+        actor.attributes.movement.value += actor.attributes.movement.base;
 
         /**
          * Perform multiplicative operations
@@ -138,6 +143,8 @@ export class CelestusActor extends Actor {
         actor.resources.phys_armor.max = parseInt(actor.resources.phys_armor.max);
         actor.resources.mag_armor.max = parseInt(actor.resources.mag_armor.max);
         actor.resources.hp.max = parseInt(actor.resources.hp.max);
+        // movespeed
+        actor.attributes.movement.value *= (1 + actor.attributes.movement.bonus);
 
         /**
          * Final derived totals (mostly just for display)
@@ -255,29 +262,89 @@ export class CelestusActor extends Actor {
         else if (CONFIG.CELESTUS.damageTypes[type].style === "healing") {
             // physical armor restoration (cant go above max physical armor)
             if (CONFIG.CELESTUS.damageTypes[type].text === "phys_armor") {
-                // calculate new physical armor value
-                const cPhysArmor = this.system.resources.phys_armor.flat;
-                const maxPhysArmor = this.system.resources.phys_armor.max;
-                let newPhysArmor = cPhysArmor + remaining;
-                // cap physical armor at max value
-                newPhysArmor = (newPhysArmor > maxPhysArmor) ? maxPhysArmor : newPhysArmor;
-                // update physical armor value
-                await this.update({ "system.resources.phys_armor.flat": parseInt(newPhysArmor) });
-                // zero out remaining
-                remaining = 0;
+                // what to do if its physical armor restoration
+                if (remaining > 0) {
+                    // calculate new physical armor value
+                    const cPhysArmor = this.system.resources.phys_armor.flat;
+                    const maxPhysArmor = this.system.resources.phys_armor.max;
+                    let newPhysArmor = cPhysArmor + remaining;
+                    // cap physical armor at max value
+                    newPhysArmor = (newPhysArmor > maxPhysArmor) ? maxPhysArmor : newPhysArmor;
+                    // update physical armor value
+                    await this.update({ "system.resources.phys_armor.flat": parseInt(newPhysArmor) });
+                    // zero out remaining
+                    remaining = 0;
+                }
+                // damage directly to physical armor
+                else {
+                    // calculate new physical armor value
+                    const tPhysArmor = this.system.resources.phys_armor.temp;
+                    const cPhysArmor = this.system.resources.phys_armor.flat;
+                    let newTPhysArmor = tPhysArmor + remaining;
+                    if (newTPhysArmor < 0) {
+                        remaining = newTPhysArmor;
+                        newTPhysArmor = 0;
+                    }
+                    else {
+                        remaining = 0;
+                    }
+                    let newPhysArmor = cPhysArmor + remaining;
+                    if (newPhysArmor < 0) {
+                        remaining = newPhysArmor;
+                        newPhysArmor = 0;
+                    }
+                    else {
+                        remaining = 0;
+                    }
+                    // update physical armor value
+                    await this.update({ "system.resources.phys_armor.flat": parseInt(newPhysArmor) });
+                    await this.update({ "system.resources.phys_armor.temp": parseInt(newTPhysArmor) });
+                    // zero out remaining
+                    remaining = 0;
+                }
             }
             // magic armor restoration (cant go above max physical armor)
             else if (CONFIG.CELESTUS.damageTypes[type].text === "mag_armor") {
-                // calculate new magic armor value
-                const cMagArmor = this.system.resources.mag_armor.flat;
-                const maxMagArmor = this.system.resources.mag_armor.max;
-                let newMagArmor = cMagArmor + remaining;
-                // cap magic armor at max value
-                newMagArmor = (newMagArmor > maxMagArmor) ? maxMagArmor : newMagArmor;
-                // update magic armor value
-                await this.update({ "system.resources.mag_armor.flat": parseInt(newMagArmor) });
-                // zero out remaining
-                remaining = 0;
+                // what to do if its magic armor resotartion
+                if (remaining > 0) {
+                    // calculate new magic armor value
+                    const cMagArmor = this.system.resources.mag_armor.flat;
+                    const maxMagArmor = this.system.resources.mag_armor.max;
+                    let newMagArmor = cMagArmor + remaining;
+                    // cap magic armor at max value
+                    newMagArmor = (newMagArmor > maxMagArmor) ? maxMagArmor : newMagArmor;
+                    // update magic armor value
+                    await this.update({ "system.resources.mag_armor.flat": parseInt(newMagArmor) });
+                    // zero out remaining
+                    remaining = 0;
+                }
+                // damage directly to magic armor
+                else {
+                    // calculate new physical armor value
+                    const tMagArmor = this.system.resources.mag_armor.temp;
+                    const cMagArmor = this.system.resources.mag_armor.flat;
+                    let newTMagArmor = tMagArmor + remaining;
+                    if (newTMagArmor < 0) {
+                        remaining = newTMagArmor;
+                        newTMagArmor = 0;
+                    }
+                    else {
+                        remaining = 0;
+                    }
+                    let newMagArmor = cMagArmor + remaining;
+                    if (newMagArmor < 0) {
+                        remaining = newMagArmor;
+                        newMagArmor = 0;
+                    }
+                    else {
+                        remaining = 0;
+                    }
+                    // update physical armor value
+                    await this.update({ "system.resources.mag_armor.flat": parseInt(newMagArmor) });
+                    await this.update({ "system.resources.mag_armor.temp": parseInt(newTMagArmor) });
+                    // zero out remaining
+                    remaining = 0;
+                }
             }
             // temp physical armor in addition to base armor, can only have one source at a time
             else if (CONFIG.CELESTUS.damageTypes[type].text === "t_phys_armor") {
@@ -548,12 +615,12 @@ export class CelestusActor extends Actor {
             if (effect.type === "status") {
                 for (let part of effect.system.damage) {
                     const origin = await fromUuid(effect.origin);
-
+                    const level = origin ? origin.system.attributes.level : this.system.attributes.level;
                     // damage type
                     const type = part.type;
 
                     // base damage roll corresponding to actor level
-                    const base = CONFIG.CELESTUS.baseDamage.formula[origin.system.attributes.level];
+                    const base = CONFIG.CELESTUS.baseDamage.formula[level];
 
                     const mult = calcMult(this, type, "0", part.value, 0);
 
