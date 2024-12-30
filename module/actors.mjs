@@ -557,6 +557,7 @@ export class CelestusActor extends Actor {
                     disabled: false,
                     type: "status",
                     system: status.system,
+                    changes: status.changes,
                 },
             ]);
         }
