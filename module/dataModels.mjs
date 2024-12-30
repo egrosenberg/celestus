@@ -433,6 +433,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
                 max: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
             }),
             range: new NumberField({ required: true, initial: 0 }), // range of skill use, 0ft = self, 5ft = melee
+            statusEffects: new ArrayField(new StringField()),
         };
     }
 
@@ -660,6 +661,9 @@ export class EffectData extends foundry.abstract.TypeDataModel {
         const actor = this.parent.parent;
         // check if status is resisted by armor
         let resisted = false;
+        if (!data.system) {
+            return;
+        }
         switch (data.system.resistedBy) {
             case "phys":
                 if (actor.system.resources.phys_armor.value > 0) resisted = true;
@@ -676,7 +680,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
         }
 
         // check if status is blocked if a statuseffect exists
-        if (data.statuses.legnth > 0) {
+        if (data.statuses && data.statuses.legnth > 0) {
             // check if status is blocked
             for (let effect of actor.effects) {
                 if (effect.system.blocks.find(b => b === data.statuses[0])) {
