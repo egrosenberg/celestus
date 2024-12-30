@@ -136,6 +136,9 @@
 .celestus .window-content {
     padding: 0;
 }
+.celestus.sheet .attribute-section .item-controls {
+    flex: 0 0 100px;
+}
 /* styling for character sheets */
 .celestus.sheet .editor {
     margin: 5px;

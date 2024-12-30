@@ -161,6 +161,10 @@ export async function applyStatusHook(e) {
 
     // for each controlled token
     for (const target of selected) {
+        // go through actual statusEffects
+        for (const id of item.system.statusEffects) {
+            await target.actor.toggleStatusEffect(id, true);
+        }
         // for each status
         for (const status of item.effects) {
             if (status.disabled || target.actor.effects.find(i => i.name === status.name)) {

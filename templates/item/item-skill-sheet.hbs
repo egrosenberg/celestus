@@ -108,12 +108,13 @@
                             <div class="general attribute">
                                 <label for="system.range" class="resource-label">Range (ft.): </label>
                                 <input type="text" name="system.range" value="{{system.range}}" data-dtype="Number"
-                                    style="width: 50px;" {{ifThen (ne system.type "weapon") "" "disabled"}} />
+                                    style="width: 50px;" {{ifThen (ne system.type "weapon" ) "" "disabled" }} />
                             </div>
                             {{!-- ability --}}
                             <div class="general attribute">
                                 <label for="system.ability" class="resource-label">Ability: </label>
-                                <select class="damage-type-selector" name="system.ability" {{ifThen (ne system.type "weapon") "" "disabled"}}>
+                                <select class="damage-type-selector" name="system.ability" {{ifThen (ne
+                                    system.type "weapon" ) "" "disabled" }}>
                                     {{selectOptions config.abilities selected=item.system.finalAbility}}
                                 </select>
                             </div>
@@ -183,6 +184,41 @@
                         {{/each}}
                     </div>
                     {{/if}}
+                    {{!-- StatusEffects --}}
+                    <h3>Status Effects</h3>
+                    <div class="attribute-section">
+                        <li class="item flexrow damage-header" draggable="true">
+                            <div class="damage-type">Status Name</div>
+                            <div class="item-controls">
+                                <a class="item-control status-create" title="Create New StatusEffect"
+                                    data-type="item">
+                                    <i class="fas fa-plus"></i>
+                                    Add Status
+                                </a>
+                            </div>
+                        </li>
+                        {{!-- create editor for each damage type --}}
+                        {{#each system.statusEffects as |status|}}
+                        <li class="item flexrow">
+                            <div class="status-type flexrow">
+                                <select class="status-type-selector"name="system.statusEffects[{{@index}}]"
+                                    data-index="{{@index}}">
+                                    {{#each ../statusEffects as |statusEffect|}}
+                                    <option value="{{statusEffect.id}}" {{ifThen (eq statusEffect.id status) "selected" ""}}>
+                                        {{statusEffect.name}}
+                                    </option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="item-controls">
+                                <a class="item-control status-delete" title="Delete StatusEffect" data-type="statusEffect"
+                                    data-index="{{@index}}">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </div>
                 </div>
 
                 {{!-- Active Effects Tab --}}

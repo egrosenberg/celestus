@@ -303,6 +303,7 @@ export class CelestusItemSheet extends ItemSheet {
 
         // pass config data
         context.config = CONFIG.CELESTUS;
+        context.statusEffects = CONFIG.statusEffects;
 
         // Prepare active effects for easier access
         //context.effects = prepareActiveEffectCategories(this.item.effects);
@@ -368,6 +369,29 @@ export class CelestusItemSheet extends ItemSheet {
                 damage.push({ type: "none", value: 1.0 });
                 this.item.update({ "system.damage": damage });
             });
+            // remove status effect
+            html.on('click', '.status-delete', (ev) => {
+                const t = ev.currentTarget;
+                const index = $(t).data("index");
+                let statuses = this.item.system.statusEffects;
+                statuses.splice(index, 1);
+                this.item.update({ "system.statusEffects": statuses });
+            });
+            // add status effect
+            html.on('click', '.status-create', (ev) => {
+                let statuses = this.item.system.statusEffects;
+                statuses.push("death");
+                this.item.update({ "system.statusEffects": statuses });
+            });
+            // operate changes on status effect
+            html.on('change', '.status-type select', (ev) => {
+                const t = ev.currentTarget;
+                const index = $(t).data("index");
+                const type = $(t).val();
+                let statuses = this.item.system.statusEffects;
+                statuses[index] = type;
+                this.item.update({ "system.statusEffects": statuses });
+            });
         }
         // armor specific listeners
         if (this.item.type === "armor") {
@@ -378,7 +402,7 @@ export class CelestusItemSheet extends ItemSheet {
                 this.item.update({ key: value });
             });
         }
-        
+
         // manage active effects
         html.on('click', '.effect-control', (ev) => {
             const row = ev.currentTarget.closest('li');
@@ -403,7 +427,7 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
             template: "./systems/celestus/templates/effects/active-effect.hbs",
             width: 580,
             height: "auto",
-            tabs: [{navSelector: ".tabs", contentSelector: "form", initial: "details"}]
+            tabs: [{ navSelector: ".tabs", contentSelector: "form", initial: "details" }]
         });
     }
 
