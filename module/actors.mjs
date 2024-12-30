@@ -556,7 +556,7 @@ export class CelestusActor extends Actor {
                     'duration.rounds': status.duration.rounds,
                     disabled: false,
                     type: "status",
-                    "system.damage": status.system.damage,
+                    system: status.system,
                 },
             ]);
         }
