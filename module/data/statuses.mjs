@@ -255,7 +255,7 @@ export let statuses = [
                 mode: 2,
             },
             {
-                key: "flags.celestus.oil",
+                key: "flags.celestus.flamamble",
                 value: "true",
                 mode: 5,
             },
