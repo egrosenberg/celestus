@@ -174,7 +174,7 @@ export async function applyStatusHook(e) {
                     'duration.rounds': status.duration.rounds,
                     disabled: false,
                     type: "status",
-                    "system.damage": status.system.damage,
+                    system: status.system,
                 },
             ]);
         }
