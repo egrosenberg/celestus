@@ -76,6 +76,16 @@
                                 <label for="system.ap" class="resource-label">Action Points: </label>
                                 <input type="text" name="system.ap" value="{{system.ap}}" data-dtype="Number" />
                             </div>
+                            {{!-- Components --}}
+                            <div class="general attribute">
+                                <label for="system.components.verbal" class="resource-label">Components: </label>
+                                V: <input class="check-input" name="system.components.verbal" type="checkbox" {{checked system.components.verbal}} />
+                                S: <input class="check-input" name="system.components.somatic" type="checkbox" {{checked system.components.somatic}} />
+                                M: <input class="check-input" name="system.components.material" type="checkbox" {{checked system.components.material}} />
+                                {{#if system.components.material}}
+                                <input type="text" style="width: 200px" name="system.components.materialFull" value="{{system.components.materialFull}}" data-dtype="Text" />
+                                {{/if}}
+                            </div>
                             {{!-- cooldown --}}
                             <div class="general attribute">
                                 <label for="system.cooldown.value" class="resource-label">Cooldown (rounds): </label>

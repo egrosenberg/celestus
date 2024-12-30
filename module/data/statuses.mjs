@@ -18,7 +18,7 @@ export let statuses = [
         system: {
             damage: [{ type: "fire", value: 1 }],
             resistedBy: "mag",
-            removes: ["warm", "wet", "chill", "oily"],
+            removes: ["warm", "wet", "chill", "oil"],
             blocks: ["warm"],
         },
         changes: [
@@ -119,7 +119,7 @@ export let statuses = [
         system: {
             resistedBy: "mag",
             removes: ["wet"],
-            blocks: ["shocked", "frozen", "petrify", "asleep", "fear", "charm"],
+            blocks: ["shocked", "frozen", "petrify", "sleep", "fear", "charm"],
         },
         changes: [
             {
@@ -255,7 +255,7 @@ export let statuses = [
                 mode: 2,
             },
             {
-                key: "flags.celestus.flamamble",
+                key: "flags.celestus.flammable",
                 value: "true",
                 mode: 5,
             },
@@ -325,7 +325,7 @@ export let statuses = [
         system: {
             resistedBy: "none",
             combines: [{ with: "chill", makes: "frozen" }, { with: "shock", makes: "stun" }],
-            removes: ["warm", "burn", "invisible"],
+            removes: ["warm", "burn", "invisible", "oil"],
         },
         changes: [
             {

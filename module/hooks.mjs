@@ -163,7 +163,10 @@ export async function applyStatusHook(e) {
     for (const target of selected) {
         // go through actual statusEffects
         for (const id of item.system.statusEffects) {
-            await target.actor.toggleStatusEffect(id, true);
+            const status = await target.actor.toggleStatusEffect(id, {active: true});
+            if (typeof status != "boolean") {
+                status.update({"origin": origin.uuid});
+            }
         }
         // for each status
         for (const status of item.effects) {

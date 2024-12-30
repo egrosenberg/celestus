@@ -19,12 +19,16 @@
                 <span class="item-overlay active">
                     {{skill.system.cooldown.value}}
                 </span>
-                {{/if}}
-                {{#if (lt skill.system.cooldown.value 0)}}
+                {{else if (lt skill.system.cooldown.value 0)}}
                 <span class="item-overlay active">
                     <i class="icon-sunrise"></i>
                 </span>
+                {{else if skill.system.disabled}}
+                <span class="item-overlay active">
+                    <i class="fa-solid fa-ban"></i>
+                </span>
                 {{/if}}
+                
             </div>
         </div>
         <div>
@@ -53,10 +57,13 @@
                 <span class="item-overlay active">
                     {{skill.system.cooldown.value}}
                 </span>
-                {{/if}}
-                {{#if (lt skill.system.cooldown.value 0)}}
+                {{else if (lt skill.system.cooldown.value 0)}}
                 <span class="item-overlay active">
                     <i class="icon-sunrise"></i>
+                </span>
+                {{else if skill.system.disabled}}
+                <span class="item-overlay active">
+                    <i class="fa-solid fa-ban"></i>
                 </span>
                 {{/if}}
             </div>

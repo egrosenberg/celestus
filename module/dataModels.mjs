@@ -408,6 +408,12 @@ export class SkillData extends foundry.abstract.TypeDataModel {
                 value: new NumberField({ required: true, integer: true, min: -1, initial: 0 }),
                 max: new NumberField({ required: true, integer: true, min: -1, initial: 0 }),
             }),
+            components: new SchemaField({
+                verbal: new BooleanField({ required: true, initial: false }),
+                somatic: new BooleanField({ required: true, initial: false }),
+                material: new BooleanField({ required: true, initial: false }),
+                materialFull: new StringField({ required: true, initial: "" }),
+            }),
             memorized: new StringField({ required: true, initial: "false" }),
             type: new StringField({ required: true, initial: "magic" }),
             memSlots: new NumberField({ required: true, integer: true, min: 0, initial: 1 }), // memory slot cost
@@ -471,6 +477,56 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             passive: this.parent.effects.filter(e => (!e.disabled && !e.isTemporary)),
             disabled: this.parent.effects.filter(e => e.disabled),
         };
+    }
+    /**
+     * checks if skill is usable
+     * @returns {false|String} false if not disabled, string containing status message if disabled
+     */
+    get disabled() {
+        const actor = this.parent.actor;
+        // dont disable if no actor
+        if (!actor) {
+            return false;
+        }
+        // can't use skills while incapacitated
+        if (actor.getFlag("celestus", "incapacitated")) {
+            return "actor is incapacitated";
+        }
+        // check if skill on cooldown
+        if (this.cooldown.value > 0 || this.cooldown.value < 0) {
+            return "on cooldown";
+        }
+        // check if skill is memorized
+        if (this.memorized === "false") {
+            return "not memorized";
+        }
+        // dont use civil skills in combat?
+        if (this.type === "civil" && actor.inCombat) {
+            return "can't use civil skill in combat";
+        }
+        // dont use skills that require verbal component if actor is silenced
+        if (this.components.verbal && actor.getFlag("celestus", "silenced")) {
+            return "actor is silenced";
+        }
+        // special cases for weapon skills
+        if (this.type === "weapon") {
+            // needs a weapon to use a weapon skill
+            if (!actor.system.equipped.left) {
+                return "requires a weapon";
+            }
+            // cant use weapon skills while disarmed
+            if (actor.getFlag("celestus", "disarmed")) {
+                return "actor is disarmed";
+            }
+        }
+        // check if actor has available AP or FP
+        if (this.ap > actor.system.resources.ap.value) {
+            return "insufficent action points available";
+        }
+        if (this.jp > actor.system.resources.jiriki.value) {
+            return "insufficent focus points available";
+        }
+        return false;
     }
 };
 
@@ -634,23 +690,23 @@ export class EffectData extends foundry.abstract.TypeDataModel {
             })),
             // armor type that resists the effect, none/mag/phys/any
             resistedBy: new StringField({ required: true, initial: "none" }),
-            combines: new ArrayField( new SchemaField({ // effect it combos with
-                    with: new StringField({ required: true, initial: "none" }), // status id of status it combos with
-                    makes: new StringField({ required: true, initial: "none " }) // status id of status the two create
-                })
+            combines: new ArrayField(new SchemaField({ // effect it combos with
+                with: new StringField({ required: true, initial: "none" }), // status id of status it combos with
+                makes: new StringField({ required: true, initial: "none " }) // status id of status the two create
+            })
             ),
             removes: new ArrayField( // statuses it removes
-                new StringField ()
+                new StringField()
             ),
             blocks: new ArrayField( // statuses it prevents from ebing applied
-                new StringField ()
+                new StringField()
             ),
             triggers: new ArrayField( // statuses it brings with it
-                new StringField ()
+                new StringField()
             ),
         }
     }
-    
+
     /** @override */
     async _preCreate(data, options, user) {
         const pre = await super._preCreate();
@@ -668,7 +724,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
             case "phys":
                 if (actor.system.resources.phys_armor.value > 0) resisted = true;
                 break;
-            case "mag": 
+            case "mag":
                 if (actor.system.resources.mag_armor.value > 0) resisted = true;
                 break;
             case "any":
@@ -680,9 +736,10 @@ export class EffectData extends foundry.abstract.TypeDataModel {
         }
 
         // check if status is blocked if a statuseffect exists
-        if (data.statuses && data.statuses.legnth > 0) {
+        if (data.statuses && data.statuses.length > 0) {
             // check if status is blocked
             for (let effect of actor.effects) {
+                console.log(effect.system.blocks);
                 if (effect.system.blocks.find(b => b === data.statuses[0])) {
                     canvasPopupText(actor, `${data.name} blocked by ${effect.name}`);
                     return false;
@@ -696,7 +753,10 @@ export class EffectData extends foundry.abstract.TypeDataModel {
             // second incredient exists, combine
             if (combiner) {
                 combiner.delete();
-                await actor.toggleStatusEffect(combination.makes, true);
+                const product = await actor.toggleStatusEffect(combination.makes, {active: true});
+                if (typeof product != "boolean") {
+                    product.update({"origin": this.parent.parent.uuid});
+                }
                 return false;
             }
         }

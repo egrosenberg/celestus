@@ -51,7 +51,13 @@ export class CelestusActor extends Actor {
             ability.total += ability.value;
         }
         actor.attributes.unspentPoints += (actor.attributes.level * 2) + CONFIG.CELESTUS.baseAbilityPoints - spentPoints;
-
+        // calculage ability bonus from enlightened
+        if (this.getFlag("celestus", "enlightened")) {
+            for (let [ability, value] of Object.entries(CONFIG.CELESTUS.enlightenedBonus[actor.attributes.level])) {
+                actor.abilities[ability].bonus += value;
+                actor.abilities[ability].total += value;
+            }
+        }
         // update combat ability values
         for (let [key, ability] of Object.entries(actor.combat)) {
             // calculate total
@@ -386,6 +392,14 @@ export class CelestusActor extends Actor {
         newHealth = Math.min(newHealth, maxHealth);
         // update health value
         await this.update({ "system.resources.hp.flat": parseInt(newHealth) });
+        
+        // finally, check if actor is flammable and if damage is fire damage
+        if (type==="fire" && this.getFlag("celestus", "flammable")) {
+            const burn = await this.toggleStatusEffect("burn", {active: true});
+            if (typeof burn != "boolean") {
+                burn.update({"origin": origin.uuid})
+            }
+        }
     }
 
     /**
@@ -393,28 +407,12 @@ export class CelestusActor extends Actor {
      * @param {SkillData} skill : object containing info of the skill to use
      */
     async useSkill(skill) {
-        // dont use skill if its on cooldown
-        if (skill.system.cooldown.value > 0 || skill.system.cooldown.value < 0) {
-            return ui.notifications.warn("Error: ability is on cooldown!");
-        }
-        // dont use skill if its not memorized
-        if (skill.system.memorized === "false") {
-            return ui.notifications.warn("Error: ability isn't memorized!");
-        }
-        // dont use civil skills in combat?
-        if (skill.system.type === "civil" && this.inCombat) {
-            return ui.notifications.warn("Error: can't use civil skill in combat!");
+        // check if skill is disabled
+        if (skill.system.disabled !== false) {
+            return ui.notifications.warn(`CELESTUS | Error: ${skill.system.disabled}`);
         }
 
         const actor = this.system;
-
-        // verify resources
-        if (skill.system.ap > actor.resources.ap.value) {
-            return ui.notifications.warn("Actor has insufficient Action Points to use chosen skill");
-        }
-        else if (skill.system.jp > actor.resources.jiriki.value) {
-            return ui.notifications.warn("Actor has insufficient Jiriki Points to use chosen skill");
-        }
         // use resources
         // only use ap if in combat
         if (this.inCombat) {
