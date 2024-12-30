@@ -1,17 +1,17 @@
 export let statuses = [
     {
         id: "dead",
-        name: "EFFECT.StatusDead",
+        name: "Dead",
         img: "icons/svg/skull.svg"
     },
     {
         id: "unconscious",
-        name: "EFFECT.StatusUnconscious",
+        name: "Unconscious",
         img: "icons/svg/unconscious.svg"
     },
     {
         id: "burn",
-        name: "EFFECT.StatusBurning",
+        name: "Burning",
         img: "icons/svg/fire.svg",
         type: "status",
         duration: { rounds: 3 },
@@ -79,7 +79,7 @@ export let statuses = [
     },
     {
         id: "shock",
-        name: "EFFECT.StatusShocked",
+        name: "Shocked",
         img: "systems/celestus/svg/round-struck.svg",
         type: "status",
         duration: { rounds: 2 },
@@ -112,7 +112,7 @@ export let statuses = [
     },
     {
         id: "stun",
-        name: "EFFECT.StatusStunned",
+        name: "Stunned",
         img: "systems/celestus/svg/electric.svg",
         type: "status",
         duration: { rounds: 2 },
@@ -206,7 +206,7 @@ export let statuses = [
     },
     {
         id: "poison",
-        name: "EFFECT.StatusPoison",
+        name: "Poisoned",
         img: "icons/svg/poison.svg",
         type: "status",
         duration: { rounds: 3 },
@@ -217,7 +217,7 @@ export let statuses = [
     },
     {
         id: "acid",
-        name: "EFFECT.StatusAcid",
+        name: "Acid",
         img: "icons/svg/acid.svg",
         type: "status",
         duration: { rounds: 2 },
@@ -297,7 +297,7 @@ export let statuses = [
     },
     {
         id: "regen",
-        name: "EFFECT.StatusRegen",
+        name: "Regenerating",
         img: "icons/svg/regen.svg",
         type: "status",
         duration: { rounds: 1 },
@@ -482,7 +482,7 @@ export let statuses = [
     },
     {
         id: "fly",
-        name: "EFFECT.StatusFlying",
+        name: "Flying",
         img: "icons/svg/wing.svg",
         type: "status",
         duration: { rounds: 4 },
@@ -496,7 +496,7 @@ export let statuses = [
     },
     {
         id: "invisible",
-        name: "EFFECT.StatusInvisible",
+        name: "Invisible",
         img: "icons/svg/invisible.svg",
         type: "status",
         duration: { rounds: 5 },
@@ -542,7 +542,7 @@ export let statuses = [
     },
     {
         id: "bleeding",
-        name: "EFFECT.StatusBleeding",
+        name: "Bleeding",
         img: "icons/svg/blood.svg",
         type: "status",
         duration: { rounds: 3 },
@@ -553,7 +553,7 @@ export let statuses = [
     },
     {
         id: "blind",
-        name: "EFFECT.StatusBlind",
+        name: "Blind",
         img: "systems/celestus/svg/sight-disabled.svg",
         type: "status",
         duration: { rounds: 2 },
@@ -619,7 +619,7 @@ export let statuses = [
     },
     {
         id: "disease",
-        name: "EFFECT.StatusDisease",
+        name: "Diseased",
         img: "icons/svg/biohazard.svg",
         type: "status",
         duration: { rounds: 2 },
@@ -641,7 +641,7 @@ export let statuses = [
     },
     {
         id: "prone",
-        name: "EFFECT.StatusProne",
+        name: "Prone",
         img: "icons/svg/falling.svg",
         type: "status",
         duration: { rounds: 1 },
@@ -700,7 +700,7 @@ export let statuses = [
     },
     {
         id: "sleep",
-        name: "EFFECT.StatusAsleep",
+        name: "Asleep",
         img: "icons/svg/sleep.svg",
         type: "status",
         duration: { rounds: 3 },
