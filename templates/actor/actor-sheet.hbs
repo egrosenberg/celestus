@@ -140,6 +140,7 @@
                 {{!-- Default tab is specified in actor-sheet.mjs --}}
                 <a class="item" data-tab="abilities">Abilities</a>
                 <a class="item" data-tab="items">Items</a>
+                <a class="item" data-tab="features">Features</a>
                 <a class="item" data-tab="skills">Skills</a>
                 <a class="item" data-tab="description">Biography</a>
                 <a class="item" data-tab="effects">Effects</a>
@@ -202,25 +203,11 @@
                                 {{/each}}
                             </div>
                         </aside>
-
-                        {{!-- For the main features list, span the right two columns --}}
-                        <section class="main grid-span-2">
-                            {{!-- This is a Handlebars partial. They're stored in the `/parts` folder next to this
-                            sheet, and
-                            defined in module/helpers/templates.mjs --}}
-                            {{> "systems/celestus/templates/actor/parts/actor-features.hbs"}}
-                        </section>
                     </section>
                 </div>
 
                 {{!-- Biography Tab --}}
                 <div class="tab biography" data-group="primary" data-tab="description">
-                    {{!-- If you want TinyMCE editors to output inline rolls when rendered, you need to pass the actor's
-                    roll
-                    data to the rollData property. --}}
-                    {{!--{{editor enrichedDescription engine="prosemirror" target="system.biography" rollData=rollData
-                    button=true owner=owner
-                    editable=editable}}--}}
                     {{editor enrichedDescription target="system.biography" editable=editable button=true
                     engine="prosemirror"}}
                 </div>
@@ -228,6 +215,11 @@
                 {{!-- Owned Items Tab --}}
                 <div class="tab items" data-group="primary" data-tab="items">
                     {{> "systems/celestus/templates/actor/parts/actor-items.hbs"}}
+                </div>
+
+                {{!-- Features Tab --}}
+                <div class="tab items" data-group="primary" data-tab="features">
+                    {{> "systems/celestus/templates/actor/parts/actor-features.hbs"}}
                 </div>
 
                 {{!-- Known Skills Tab --}}

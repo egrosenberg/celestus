@@ -55,6 +55,11 @@
                 "htmlFields": [
                     "description"
                 ]
+            },
+            "feature": {
+                "htmlFields": [
+                    "description"
+                ]
             }
         },
         "ActiveEffect": {

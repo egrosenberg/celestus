@@ -400,6 +400,15 @@
     padding: 6px;
     border-radius: 12px;
     box-shadow: var(--shadow-bevel);
+    font-size: var(--font-size-18);
+}
+.celestus.actor.sheet .items-list .item.flexrow.items-header {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0px;
+    box-shadow: none;
+    padding: 0px;
 }
 .celestus.actor.sheet .item-name h4 {
     display: inline;

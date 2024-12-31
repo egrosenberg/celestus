@@ -1,4 +1,4 @@
-import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData } from "./dataModels.mjs"
+import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature } from "./dataModels.mjs"
 import { CelestusActor } from "./actors.mjs"
 import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, previewDamage, rollAttack, rollDamage, rollItemMacro, startCombat, triggerTurn } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
@@ -340,6 +340,12 @@ Hooks.on("init", () => {
             false: "Not Memorized",
             always: "Always Memorized",
         },
+        featureTypes: {
+            feature: "Feature",
+            origin: "Origin",
+            species: "Species",
+            occupation: "Occupation",
+        }
     };
 
     // set up data models
@@ -352,6 +358,7 @@ Hooks.on("init", () => {
         skill: SkillData,
         armor: ArmorData,
         weapon: WeaponData,
+        feature: CelestusFeature,
     }
 
     CONFIG.ActiveEffect.dataModels = {

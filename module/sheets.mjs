@@ -123,7 +123,7 @@ export class CharacterSheet extends ActorSheet {
         })
 
         // Add Inventory Item
-        //html.on('click', '.item-create', this._onItemCreate.bind(this));
+        html.on('click', '.item-create', this._onItemCreate.bind(this));
 
         html.on('click', '.ability-roll', (ev) => {
             const ability = $(ev.currentTarget).data('label')
@@ -259,6 +259,36 @@ export class CharacterSheet extends ActorSheet {
         if (dataset.rollType == "skill") {
             const skill = this.actor.items.get(dataset.skillId);
             this.actor.useSkill(skill);
+        }
+    }
+
+
+    /**
+     * Creating an item for the actor
+     * @param {Event} event   The originating click event
+     * @private
+     */
+    async _onItemCreate(event) {
+        event.preventDefault();
+        const header = event.currentTarget;
+        // Get the type of item to create.
+        const type = header.dataset.type;
+        // Grab any data associated with this control.
+        //const data = duplicate(header.dataset);
+        // Initialize a default name.
+        const name = `New ${type.capitalize()}`;
+        // Prepare the item object.
+        const itemData = {
+            name: name,
+            type: type,
+            //system: data,
+        };
+
+        // create the item
+        const item = await Item.create(itemData, { parent: this.actor });
+
+        if (type === "feature") {
+            return await item.update({"system.type": "feature"});
         }
     }
 

@@ -401,6 +401,17 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
             always: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "always")),
         };
     }
+
+    /**
+     * all features owned by actor
+     */
+    get features() {
+        let features = {};
+        for (let [type, label] of Object.entries(CONFIG.CELESTUS.featureTypes)) {
+            features[type] = this.parent.items.filter(i => (i.type === "feature" && i.system.type === type));
+        }
+        return features;
+    }
 };
 
 
@@ -813,5 +824,15 @@ export class ChatDataModel extends foundry.abstract.TypeDataModel {
                 hasDamage: new BooleanField({ required: true, initial: true }),
             }),
         };
+    }
+}
+
+/**
+ * @extends {GearData}
+ */
+export class CelestusFeature extends GearData {
+    static defineSchema() {
+        let schema = super.defineSchema();
+        return schema;
     }
 }
