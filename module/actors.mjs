@@ -153,11 +153,38 @@ export class CelestusActor extends Actor {
         actor.attributes.movement.value *= (1 + actor.attributes.movement.bonus);
 
         /**
-         * Final derived totals (mostly just for display)
+         * calculate final flat values from offsets
          */
-        actor.resources.hp.value = actor.resources.hp.flat;
-        actor.resources.phys_armor.value = actor.resources.phys_armor.flat + actor.resources.phys_armor.temp;
-        actor.resources.mag_armor.value = actor.resources.mag_armor.flat + actor.resources.mag_armor.temp;
+        for (const key of ["hp", "phys_armor", "mag_armor"]) {
+            const resource = actor.resources[key];
+            resource.flat = resource.max + resource.offset;
+        }
+
+        /**
+        * derive final resource values for display
+        */
+        this.system.resources.hp.value = this.system.resources.hp.flat;
+        this.system.resources.phys_armor.value = this.system.resources.phys_armor.flat + this.system.resources.phys_armor.temp;
+        this.system.resources.mag_armor.value = this.system.resources.mag_armor.flat + this.system.resources.mag_armor.temp;
+    }
+
+    /** @override */
+    async _preUpdate(changed, options, user) {
+        // call super
+        await super._preUpdate(changed, options, user);
+
+        // offset resource values
+        const resources = changed.system.resources;
+        if (resources) {
+            for (const key of ["hp", "phys_armor", "mag_armor"]) {
+                const val = resources[key];
+                if (!val) continue;
+                if (val.flat !== undefined) {
+                    const max = val.max ?? this.system.resources[key]?.max ?? 0;
+                    val.offset = val.flat - max;
+                }
+            }
+        }
     }
 
     /**
@@ -392,12 +419,12 @@ export class CelestusActor extends Actor {
         newHealth = Math.min(newHealth, maxHealth);
         // update health value
         await this.update({ "system.resources.hp.flat": parseInt(newHealth) });
-        
+
         // finally, check if actor is flammable and if damage is fire damage
-        if (type==="fire" && this.getFlag("celestus", "flammable")) {
-            const burn = await this.toggleStatusEffect("burn", {active: true});
+        if (type === "fire" && this.getFlag("celestus", "flammable")) {
+            const burn = await this.toggleStatusEffect("burn", { active: true });
             if (typeof burn != "boolean") {
-                burn.update({"origin": origin.uuid})
+                burn.update({ "origin": origin.uuid })
             }
         }
     }

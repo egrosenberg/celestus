@@ -27,7 +27,8 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                 hp: new SchemaField({
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total hp value
                     flat: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // current hp value
-                    max: new NumberField({ required: true, integer: true, min: 0, initial: 0 })  // max hp value
+                    max: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),  // max hp value
+                    offset: new NumberField({ required: true, integer: true, initial: 0 }), // offset from max hp
                 }),
                 // configure armor as a schema field
                 phys_armor: new SchemaField({
@@ -36,6 +37,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                     max: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // max armor value
                     temp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // temporary armor (from skills)
                     bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // misc. bonus max armor
+                    offset: new NumberField({ required: true, integer: true, initial: 0 }), // offset from max phys_armor
                 }),
                 // configure magic armor as a schema field
                 mag_armor: new SchemaField({
@@ -44,6 +46,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                     max: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // max armor value
                     temp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // temporary armor (from skills)
                     bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // misc. bonus max armor
+                    offset: new NumberField({ required: true, integer: true, initial: 0 }), // offset from max mag_armor
                 }),
                 ap: new SchemaField({ // action points
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 4 }), // current ap amount
