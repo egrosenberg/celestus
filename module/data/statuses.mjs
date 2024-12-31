@@ -725,6 +725,20 @@ export let statuses = [
             },
         ],
     },
+    {
+        id: "mark",
+        name: "Marked",
+        img: "systems/celestus/svg/convergence-target.svg",
+        type: "status",
+        duration: { rounds: 3 },
+        changes: [
+            {
+                key: "flags.celestus.marked",
+                value: "true",
+                mode: 5,
+            },
+        ],
+    },
     //{
     //    id: "curse",
     //    name: "EFFECT.StatusCursed",

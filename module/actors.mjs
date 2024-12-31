@@ -241,9 +241,10 @@ export class CelestusActor extends Actor {
      * 
      * @param {number} damage : amount of base damage to do (will be cast to int)
      * @param {string} type : type of damage
+     * @param {Actor} origin: actor that damage originates from
      * @returns {int} total damage after resists
      */
-    calcDamage(damage, type) {
+    calcDamage(damage, type, origin = undefined) {
         damage = parseInt(damage);
         // subtract resisted damage from damage
         if (typeof this.system.attributes.resistance[type] !== 'undefined') {
@@ -252,6 +253,13 @@ export class CelestusActor extends Actor {
         }
         else {
             console.log(`DR type "${type}" does not exist`);
+        }
+        // check if huntmaster is involved
+        if (this.getFlag("celestus", "marked")) {
+            const mod = origin.system.combat.huntmaster.mod;
+            if (mod > 0) {
+                damage *= 1 + mod;
+            }
         }
         return Math.floor(damage);
     }
@@ -264,7 +272,7 @@ export class CelestusActor extends Actor {
      * @param {CelestusActor} origin: actor that damage originates from
      */
     async applyDamage(damage, type, origin) {
-        damage = this.calcDamage(damage, type);
+        damage = this.calcDamage(damage, type, origin);
 
         // remainder damage after armor
         let remaining = damage;

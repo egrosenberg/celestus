@@ -261,10 +261,11 @@ export async function previewDamage(object, controlled) {
     const actor = object.actor;
 
     // iterate through each apply damage button
-    $("button.apply-damage").each(function () {
+    $("button.apply-damage").each(async function () {
         // if selecting a token, show damage calc, otherwise show prompt
         if (controlled) {
-            let damage = actor.calcDamage($(this).data("damage-total"), $(this).data("damage-type"));
+            const origin = await fromUuid($(this).data("origin-actor"));
+            let damage = actor.calcDamage($(this).data("damage-total"), $(this).data("damage-type"), origin);
             // invert damage preview if healing
             damage = CONFIG.CELESTUS.damageTypes[$(this).data("damage-type")].style === "healing" ? -damage : damage;
             const sign = damage > 0 ? "" : "+";
