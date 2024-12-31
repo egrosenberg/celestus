@@ -140,7 +140,9 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                 // xp & level
                 xp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 level: new NumberField({ required: true, integer: true, min: 1, initial: 1 }),
-                unspentPoints: new NumberField({ required: true, integer: true, initial: 0 }), // derived
+                unspentPoints: new NumberField({ required: true, integer: true, initial: 0 }), // derived unspent attribute points
+                unspentCombat: new NumberField({ required: true, integer: true, initial: 0 }),
+                unspentCivil: new NumberField({ required: true, integer: true, initial: 0 }),
                 memory: new SchemaField({
                     total: new NumberField({ required: true, integer: true, initial: 0 }), // derived
                     spent: new NumberField({ required: true, integer: true, initial: 0 }), // derived

@@ -59,15 +59,21 @@ export class CelestusActor extends Actor {
             }
         }
         // update combat ability values
+        let spentCombat = 0;
         for (let [key, ability] of Object.entries(actor.combat)) {
             // calculate total
             ability.value += ability.base;
+            spentCombat += ability.base;
         }
+        actor.attributes.unspentCombat = actor.attributes.level + CONFIG.CELESTUS.baseAbilityPoints - spentCombat;
+        let spentCivil = 0;
         // update civil ability values
         for (let [key, ability] of Object.entries(actor.civil)) {
             // calculate total
             ability.value += ability.base;
+            spentCivil += ability.base;
         }
+        actor.attributes.unspentCivil = Math.floor(actor.attributes.level/3) + CONFIG.CELESTUS.baseAbilityPoints - spentCivil;
         // update base damage resists
         for (let [key, damageType] of Object.entries(actor.attributes.resistance)) {
             damageType.value += damageType.bonus;
