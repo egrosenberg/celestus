@@ -158,6 +158,8 @@ export class CelestusActor extends Actor {
         for (const key of ["hp", "phys_armor", "mag_armor"]) {
             const resource = actor.resources[key];
             resource.flat = resource.max + resource.offset;
+            // cap resource at max
+            resource.flat = Math.min(resource.flat, resource.max);
         }
 
         /**
@@ -419,6 +421,12 @@ export class CelestusActor extends Actor {
         newHealth = Math.min(newHealth, maxHealth);
         // update health value
         await this.update({ "system.resources.hp.flat": parseInt(newHealth) });
+
+        // apply healing to origin if they have positive deathbringer
+        if (origin.system.combat.deathbringer.mod > 0) {
+            const heal = origin.system.combat.deathbringer.mod * damage;
+            origin.update({"system.resources.hp.flat": origin.system.resources.hp.flat + heal})
+        }
 
         // finally, check if actor is flammable and if damage is fire damage
         if (type === "fire" && this.getFlag("celestus", "flammable")) {
