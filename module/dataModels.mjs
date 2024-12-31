@@ -289,6 +289,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
     get equipped() {
         const rings = this.parent.items.filter(i => (i.type === "armor" && i.system.equipped && i.system.slot == "ring"));
         const equippedWeapons = this.parent.items.filter(i => (i.type == "weapon" && i.system.equipped));
+        const offhand = this.parent.items.find(i => (i.type === "offhand" && i.system.equipped));
         let leftHand;
         let rightHand;
         if (equippedWeapons.length) {
@@ -299,6 +300,13 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
             else if (leftHand.system.twoHanded) {
                 rightHand = leftHand;
             }
+        }
+        // check for offhand
+        if (offhand) {
+            if (rightHand) {
+                rightHand.update({"system.equipped": false});
+            }
+            rightHand = offhand;
         }
         return {
             helmet: this.parent.items.find(i => (i.type === "armor" && i.system.equipped && i.system.slot == "helmet")),
@@ -338,6 +346,12 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
      */
     get weapon() {
         return this.parent.items.filter(i => i.type === "weapon");
+    }
+    /**
+     * finds and returns all offhands
+     */
+    get offhand() {
+        return this.parent.items.filter(i => i.type === "offhand");
     }
 
     /**
@@ -698,6 +712,30 @@ export class WeaponData extends GearData {
         };
     }
 
+}
+
+/** @extends {GearData} */
+export class OffhandData extends GearData {
+    static defineSchema() {
+        return super.defineSchema();
+    }
+
+    /**
+     * getter to get max armor values from item
+     * @returns {Object} containing phys and mag values for armor granted from this item
+     */
+    get value() {
+        // if no type, return 0s
+        if (this.type === "none") {
+            return { phys: 0, mag: 0 };
+        }
+        // get actor level if it exists
+        const level = this.parent.actor ? this.parent.actor.system.attributes.level : 1;
+        return {
+            phys: CONFIG.CELESTUS.baseOffhand[level].phys * this.efficiency,
+            mag: CONFIG.CELESTUS.baseArmor[level].mag * this.efficiency,
+        }
+    }
 }
 
 

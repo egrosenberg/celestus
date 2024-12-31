@@ -60,6 +60,11 @@
                 "htmlFields": [
                     "description"
                 ]
+            },
+            "offhand": {
+                "htmlFields": [
+                    "description"
+                ]
             }
         },
         "ActiveEffect": {

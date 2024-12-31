@@ -1432,3 +1432,29 @@ export const armorData = {
         }
     }
 }
+
+export const offhandData = {
+    1: { phys: 8, mag: 6 },
+    2: { phys: 12, mag: 8 },
+    3: { phys: 18, mag: 12 },
+    4: { phys: 24, mag: 16 },
+    5: { phys: 32, mag: 21 },
+    6: { phys: 41, mag: 27 },
+    7: { phys: 52, mag: 35 },
+    8: { phys: 66, mag: 44 },
+    9: { phys: 83, mag: 55 },
+    10: { phys: 103, mag: 69 },
+    11: { phys: 129, mag: 86 },
+    12: { phys: 160, mag: 107 },
+    13: { phys: 199, mag: 133 },
+    14: { phys: 248, mag: 165 },
+    15: { phys: 310, mag: 207 },
+    16: { phys: 389, mag: 259 },
+    17: { phys: 488, mag: 325 },
+    18: { phys: 655, mag: 437 },
+    19: { phys: 825, mag: 550 },
+    20: { phys: 1043, mag: 695 },
+    21: { phys: 1318, mag: 879 },
+    22: { phys: 1669, mag: 1113 },
+
+}

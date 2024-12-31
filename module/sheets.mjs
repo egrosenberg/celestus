@@ -204,6 +204,10 @@ export class CharacterSheet extends ActorSheet {
             }
             else if (slot === "left" || slot === "right") {
                 dataSet = this.actor.system.weapon;
+                // handle offhands
+                if (slot === "right") {
+                    dataSet = dataSet.concat(this.actor.system.offhand);
+                }
             }
             else {
                 dataSet = this.actor.system.armor[$(ev.currentTarget).data('slot')]

@@ -1,8 +1,8 @@
-import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature } from "./dataModels.mjs"
+import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData } from "./dataModels.mjs"
 import { CelestusActor } from "./actors.mjs"
 import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, previewDamage, rollAttack, rollDamage, rollItemMacro, startCombat, triggerTurn } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
-import { armorData } from "./armor.mjs"
+import { armorData, offhandData } from "./armor.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
 import { statuses } from "./data/statuses.mjs"
@@ -307,6 +307,7 @@ Hooks.on("init", () => {
         flatDamageScalar: 0.07, // +.07*(level-1) damage
         weaponDmgBase: 1.165, // used to calculate # of dice a weapon uses (1.165^lvl dice)
         baseArmor: armorData,
+        baseOffhand: offhandData,
         // info on different types of armor
         armor: {
             types: {
@@ -358,6 +359,7 @@ Hooks.on("init", () => {
         skill: SkillData,
         armor: ArmorData,
         weapon: WeaponData,
+        offhand: OffhandData,
         feature: CelestusFeature,
     }
 

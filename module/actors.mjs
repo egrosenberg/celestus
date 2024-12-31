@@ -106,6 +106,48 @@ export class CelestusActor extends Actor {
                     actor.attributes.resistance[ability].value += value;
                 }
             }
+            else if ((item.type === "weapon" || item.type === "feature") && item.system.equipped) {
+                // apply bonuses
+                for (let [ability, value] of Object.entries(item.system.bonuses.combat)) {
+                    actor.combat[ability].bonus += value;
+                    actor.combat[ability].value += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.civil)) {
+                    actor.civil[ability].bonus += value;
+                    actor.civil[ability].value += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.abilities)) {
+                    actor.abilities[ability].bonus += value;
+                    actor.abilities[ability].total += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.resistance)) {
+                    actor.attributes.resistance[ability].value += value;
+                }
+            }
+            else if (item.type === "offhand" && item.system.equipped) {
+                // calculate armor values
+                const phys = CONFIG.CELESTUS.baseOffhand[actor.attributes.level].phys * item.system.efficiency;
+                const mag = CONFIG.CELESTUS.baseOffhand[actor.attributes.level].mag * item.system.efficiency;
+                // increase max armor
+                actor.resources.phys_armor.max += item.system.value.phys;
+                actor.resources.mag_armor.max += item.system.value.mag;
+                // apply bonuses
+                for (let [ability, value] of Object.entries(item.system.bonuses.combat)) {
+                    actor.combat[ability].bonus += value;
+                    actor.combat[ability].value += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.civil)) {
+                    actor.civil[ability].bonus += value;
+                    actor.civil[ability].value += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.abilities)) {
+                    actor.abilities[ability].bonus += value;
+                    actor.abilities[ability].total += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.resistance)) {
+                    actor.attributes.resistance[ability].value += value;
+                }
+            }
             else if (item.type === "skill" && item.system.memorized === "true") {
                 actor.attributes.memory.spent += item.system.memSlots;
             }
@@ -543,6 +585,13 @@ export class CelestusActor extends Actor {
                 }
             }
         }
+        else if (item.type === "offhand") {
+            // unequip current offhand
+            if (equipped.right) {
+                equipped.right.update( {"system.equipped": false});
+                unequipping.push(equipped.right);
+            }
+        }
         else if (item.type === "weapon") {
             if (item.system.twoHanded) {
                 // unequip all hands
@@ -566,7 +615,7 @@ export class CelestusActor extends Actor {
             else {
                 //unequip right
                 if (equipped.right) {
-                    equipped.left.update({ "system.equipped": false });
+                    equipped.right.update({ "system.equipped": false });
                     unequipping.push(equipped.right);
                 }
             }
