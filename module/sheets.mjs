@@ -1,3 +1,4 @@
+import { rollAbility } from "./helpers.mjs";
 import { onManageActiveEffect } from "./hooks.mjs";
 
 /**
@@ -13,7 +14,7 @@ export class CharacterSheet extends ActorSheet {
             template: "./systems/celestus/templates/actor/actor-sheet.hbs",
             width: 900,
             height: 700,
-            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
+            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "abilities" }]
         });
     }
     /** @override */
@@ -123,6 +124,11 @@ export class CharacterSheet extends ActorSheet {
 
         // Add Inventory Item
         //html.on('click', '.item-create', this._onItemCreate.bind(this));
+
+        html.on('click', '.ability-roll', (ev) => {
+            const ability = $(ev.currentTarget).data('label')
+            rollAbility(this.actor, ability);
+        });
 
         // Delete Inventory Item
         html.on('click', '.item-delete', (ev) => {

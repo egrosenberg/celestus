@@ -50,3 +50,65 @@ export function canvasPopupText(actor, text) {
         });
     }
 }
+/**
+ * 
+ * @param {Actor} actor actor initiating the roll
+ * @param {String} ability for actor to roll with
+ */
+export async function rollAbility(actor, ability) {
+    let label, abilityMod;
+    if (CONFIG.CELESTUS.civilSkills[ability] !== undefined) {
+        label = CONFIG.CELESTUS.civilSkills[ability].label;
+        abilityMod = actor.system.civil[ability].value * 5;
+    }
+    else if (CONFIG.CELESTUS.combatSkills[ability] !== undefined) {
+        label = CONFIG.CELESTUS.combatSkills[ability].label;
+        abilityMod = actor.system.combat[ability].value;
+    }
+    else {
+        return;
+    }
+    const path = './systems/celestus/templates/rolls/abilityRollPrompt.hbs';
+    const msgData = {
+        attributes: CONFIG.CELESTUS.abilities,
+        ability: label,
+    }
+    let msg = await renderTemplate(path, msgData);
+    new foundry.applications.api.DialogV2({
+        window: { title: `${label} check` },
+        content: msg,
+        buttons: [{
+            action: "normal",
+            label: "Normal",
+            default: true,
+            callback: (event, button, dialog) => ["normal", button.form.elements.attribute.value]
+        }, {
+            action: "advantage",
+            label: "Advantage",
+            callback: (event, button, dialog) => ["advantage", button.form.elements.attribute.value]
+        }],
+        submit: result => {
+            const [mode, attribute] = result;
+            let skillBonus = actor.system.abilities[attribute]?.value ?? 0;
+            if (skillBonus > 0) skillBonus -= CONFIG.CELESTUS.baseAttributeScore;
+            if (mode === "normal") {
+                let r = new Roll(
+                    `1d100 + ${abilityMod} + ${skillBonus}`,
+                    {},
+                    { flavor: `${label} (${CONFIG.CELESTUS.abilities[attribute]?.label}) check` });
+                r.toMessage({
+                    speaker: { alias: actor.name },
+                })
+            }
+            else if (mode === "advantage") {
+                let r = new Roll(
+                    `2d100kh1 + ${abilityMod} + ${skillBonus}`,
+                    {},
+                    { flavor: `${label} (${CONFIG.CELESTUS.abilities[attribute]?.label}) check` });
+                r.toMessage({
+                    speaker: { alias: actor.name },
+                })
+            }
+        }
+    }).render({ force: true });
+}

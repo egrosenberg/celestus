@@ -383,6 +383,13 @@
     text-shadow: var(--text-outline-1);
     margin-right: 2px;
 }
+/* Skill Rolls */
+.celestus.actor.sheet .ability-roll {
+    cursor: pointer;
+}
+.celestus.actor.sheet .ability-roll:hover {
+    text-shadow: 0px 0px 5px var(--color-warm-3);
+}
 /* Items */
 .celestus.actor.sheet .items-list .item.flexrow {
     border: thin black solid;
