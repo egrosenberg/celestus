@@ -196,6 +196,12 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                     bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
                     mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), //derived
                 }),
+                huntmaster: new SchemaField({ // huntmaster will do something
+                    value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total value
+                    base: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // base value from leveling
+                    bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), //derived
+                }),
                 warlord: new SchemaField({ // increases physical
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total value
                     base: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // base value from leveling
@@ -429,6 +435,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
                 deathbringer: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 shroudstalker: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 formshifter: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+                huntmaster: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 warlord: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
             }),
             damage: new ArrayField(new SchemaField({
@@ -561,6 +568,7 @@ export class GearData extends foundry.abstract.TypeDataModel {
                     deathbringer: new NumberField({ required: true, integer: true, initial: 0 }),
                     shroudstalker: new NumberField({ required: true, integer: true, initial: 0 }),
                     formshifter: new NumberField({ required: true, integer: true, initial: 0 }),
+                    huntmaster: new NumberField({ required: true, integer: true, initial: 0 }),
                     warlord: new NumberField({ required: true, integer: true, initial: 0 }),
                 }),
                 civil: new SchemaField({

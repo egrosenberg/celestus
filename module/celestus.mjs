@@ -77,7 +77,8 @@ Hooks.on("init", () => {
             voidcantor: { label: "Voidcantor", text: "voidcantor", damage: "psychic", glyph: "icon-star-swirl" },
             deathbringer: { label: "Deathbringer", text: "deathbringer", damage: "physical", glyph: "icon-death-zone" },
             shroudstalker: { label: "Shroudstalker", text: "shroudstalker", damage: "piercing", glyph: "icon-nested-eclipses" },
-            formshifter: { label: "Formshifter", text: "formshifter", damage: "physical", glyph: "icon-wolf-howl" },
+            formshifter: { label: "Formshifter", text: "formshifter", damage: "acid", glyph: "icon-wolf-howl" },
+            huntmaster: { label: "Huntmaster", text: "huntmaster", damage: "poison", glyph: "icon-pocket-bow" },
             warlord: { label: "Warlord", text: "warlord", damage: "physical", glyph: "icon-axe-sword" },
         },
         /**
