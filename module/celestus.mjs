@@ -329,6 +329,20 @@ Hooks.on("init", () => {
                 none: { label: "None", text: "none" },
             },
         },
+        equipmentSlots: {
+            helmet: "Helmet",
+            chest: "Chest",
+            gloves: "Gloves",
+            leggings: "Leggings",
+            boots: "Boots",
+            amulet: "Amulet",
+            ring1: "Ring",
+            ring2: "Ring",
+            belt: "Belt",
+            left: "Mainhand",
+            right: "Offhand",
+            none: "None",
+        },
         // categories of skills
         skillTypes: {
             weapon: "Weapon (combat)",
