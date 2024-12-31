@@ -393,7 +393,7 @@ Hooks.on("init", () => {
     CONFIG.Actor.trackableAttributes = {
         player:
         {
-            bar: ["resources.hp", "resources.phys_armor", "resources.mag_armor", "resources.ap", "resources.jiriki"],
+            bar: ["resources.hp", "resources.phys_armor", "resources.mag_armor", "resources.ap", "resources.fp"],
             value: []
         }
     };

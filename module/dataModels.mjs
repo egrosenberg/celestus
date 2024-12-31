@@ -53,7 +53,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
                     max: new NumberField({ required: true, integer: true, min: 4, initial: 6 }), // max ap amount
                     start: new NumberField({ required: true, integer: true, min: 4, initial: 4 }), // starting ap amount
                 }),
-                jiriki: new SchemaField({ // jiriki points
+                fp: new SchemaField({ // focus points
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // current ap amount
                     max: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // max ap amount
                 }),
@@ -425,7 +425,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
         return {
             description: new HTMLField(), // skill description
             ap: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // action point cost
-            jp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // jiriki point cost
+            fp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // focus point cost
             cooldown: new SchemaField({ // cooldown in rounds negative value means inf
                 value: new NumberField({ required: true, integer: true, min: -1, initial: 0 }),
                 max: new NumberField({ required: true, integer: true, min: -1, initial: 0 }),
@@ -546,7 +546,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
         if (this.ap > actor.system.resources.ap.value) {
             return "insufficent action points available";
         }
-        if (this.jp > actor.system.resources.jiriki.value) {
+        if (this.fp > actor.system.resources.fp.value) {
             return "insufficent focus points available";
         }
         return false;

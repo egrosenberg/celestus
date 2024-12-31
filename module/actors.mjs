@@ -459,7 +459,7 @@ export class CelestusActor extends Actor {
         if (this.inCombat) {
             await this.update({ "system.resources.ap.value": actor.resources.ap.value - skill.system.ap });
         }
-        await this.update({ "system.resources.jirki.value": actor.resources.jiriki.value - skill.system.jp });
+        await this.update({ "system.resources.jirki.value": actor.resources.fp.value - skill.system.fp });
 
         const path = './systems/celestus/templates/skillDescription.hbs';
         const msgData = {
@@ -621,8 +621,8 @@ export class CelestusActor extends Actor {
 
         // refresh ap
         this.update({ "system.resources.ap.value": this.system.resources.ap.start });
-        // refresh jiriki points
-        this.update({ "system.resources.jiriki.value": this.system.resources.jiriki.max });
+        // refresh focus points
+        this.update({ "system.resources.fp.value": this.system.resources.fp.max });
 
         // reset all cooldowns
         for (let item of this.items) {

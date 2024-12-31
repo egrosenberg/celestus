@@ -62,16 +62,16 @@
                         </span>
                     </span>
                 </div>
-                {{!-- only renders jiriki if max jiriki has been manually set --}}
-                {{#if system.resources.jiriki.max}}
-                <div class="resources grid" id="jiriki">
+                {{!-- only renders focus points if max focus points have been manually set --}}
+                {{#if system.resources.fp.max}}
+                <div class="resources grid" id="fp">
                     <span class="resource">
-                        <label class="resource-label single">Jiriki Points</label><br />
-                        <span class="resource-value poison" id="system.resources.jiriki" style="flex: 2">
-                            <input class="resource-input" type="number" name="system.resources.jiriki.value"
-                                value="{{system.resources.jiriki.value}}" data-dtype="Number"
-                                data-max-value="{{system.resources.jiriki.max}}" /> <span
-                                class="total">/{{system.resources.jiriki.max}}</span>
+                        <label class="resource-label single">Focus Points</label><br />
+                        <span class="resource-value poison" id="system.resources.fp" style="flex: 2">
+                            <input class="resource-input" type="number" name="system.resources.fp.value"
+                                value="{{system.resources.fp.value}}" data-dtype="Number"
+                                data-max-value="{{system.resources.fp.max}}" /> <span
+                                class="total">/{{system.resources.fp.max}}</span>
                         </span>
                     </span>
                 </div>
