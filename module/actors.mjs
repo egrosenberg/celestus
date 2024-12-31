@@ -616,6 +616,10 @@ export class CelestusActor extends Actor {
                 item.update({ "system.cooldown.value": 0 });
             }
         }
+        // clear all temporary statuses
+        for (const status of this.system.effects.temporary) {
+            status.delete();
+        }
     }
 
     /**
