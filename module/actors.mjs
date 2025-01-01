@@ -1,4 +1,4 @@
-import { calcMult } from "./helpers.mjs";
+import { calcMult, canvasPopupText } from "./helpers.mjs";
 
 const BASE_AS = 10; // base ability score value
 
@@ -232,6 +232,12 @@ export class CelestusActor extends Actor {
                 if (val.flat !== undefined) {
                     const max = val.max ?? this.system.resources[key]?.max ?? 0;
                     val.offset = val.flat - max;
+                    const old = this.system.resources[key]?.flat ?? 0;
+                    const diff = val.flat - old;
+                    if (diff !== 0) {
+                        const str = (diff > 0) ? "+" + diff.toString(): diff.toString();
+                        canvasPopupText(this, str, CONFIG.CELESTUS.damageCol[key][diff > 0 ? "gain" : "lose"]);
+                    }
                 }
             }
         }

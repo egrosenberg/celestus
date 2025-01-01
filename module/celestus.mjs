@@ -360,7 +360,21 @@ Hooks.on("init", () => {
             origin: "Origin",
             species: "Species",
             occupation: "Occupation",
-        }
+        },
+        damageCol: {
+            hp: {
+                gain: "#99cc00",
+                lose: "#cc0000",
+            },
+            mag_armor: {
+                gain: "#00ffff",
+                lose: "#000066",
+            },
+            phys_armor: {
+                gain: "#ffcc00",
+                lose: "#806600",
+            }
+        },
     };
 
     // set up data models
