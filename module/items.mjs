@@ -12,6 +12,33 @@ export class CelestusItem extends Item {
 
     }
 
+    /** @override */
+    async _preUpdate(changed, options, user) {
+        // call super
+        await super._preUpdate(changed, options, user);
+
+        if (this.type === "armor") {
+            const spread = changed.system?.spread;
+            if (spread && spread !== "none") {
+                const base = CONFIG.CELESTUS.armor.spreads[spread] ?? CONFIG.CELESTUS.armor.spreads.none;
+                changed.system.base = {
+                    phys: base.phys,
+                    mag: base.mag,
+                }
+            }
+        }
+        if (this.type === "offhand") {
+            const spread = changed.system?.spread;
+            if (spread && spread !== "none") {
+                const base = CONFIG.CELESTUS.offhand.spreads[spread] ?? CONFIG.CELESTUS.offhand.spreads.none;
+                changed.system.base = {
+                    phys: base.phys,
+                    mag: base.mag,
+                }
+            }
+        }
+    }
+
     /**
      * prepare data object for rolls
      * @override

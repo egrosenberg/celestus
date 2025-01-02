@@ -100,7 +100,16 @@
                                 <input type="text" name="system.efficiency" value="{{system.efficiency}}"
                                     data-dtype="Number" />
                             </div>
-                            {{!-- Base Armor Ratios --}}
+                            {{!-- Preset Spreads --}}
+                            <div class="general attribute">
+                                <label for="system.spread" class="resource-label">Armor Spread: </label>
+                                <select class="armor-type-selector" name="system.spread">
+                                    {{!-- create a dropdown option for each damage type --}}
+                                    {{selectOptions config.armor.spreads selected=system.spread}}
+                                </select>
+                            </div>
+                            {{!-- Base Armor Spread (only show if not using a preset spread) --}}
+                            {{#if (eq system.spread "none")}}
                             <div class="general attribute">
                                 <label for="system.base" class="resource-label">Base Armor: </label>
                                 (P):
@@ -110,6 +119,7 @@
                                 <input type="text" name="system.base.mag" value="{{system.base.mag}}"
                                     data-dtype="Number" />
                             </div>
+                            {{/if}}
                             {{!-- Armor Slot --}}
                             <div class="general attribute">
                                 <label for="system.slot" class="resource-label">Slot: </label>

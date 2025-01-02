@@ -2,7 +2,6 @@ import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData
 import { CelestusActor } from "./actors.mjs"
 import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, previewDamage, rollAttack, rollDamage, rollItemMacro, startCombat, triggerTurn } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
-import { armorData, offhandData } from "./armor.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
 import { statuses } from "./data/statuses.mjs"
@@ -306,15 +305,16 @@ Hooks.on("init", () => {
         },
         flatDamageScalar: 0.07, // +.07*(level-1) damage
         weaponDmgBase: 1.165, // used to calculate # of dice a weapon uses (1.165^lvl dice)
-        baseOffhand: offhandData,
         // info on different types of armor
         armor: {
-            types: {
-                robes: { label: "Robes", text: "robes" },
-                light: { label: "Light", text: "light" },
-                heavy: { label: "Heavy", text: "heavy" },
-                jewel: { label: "Jewelry ", text: "jewel" },
-                none: { label: "None", text: "none" },
+            spreads: {
+                none: { label: "Custom", phys: 0, mag: 0 },
+                mage: { label: "Robes", phys: 15, mag: 90 },
+                heavy: { label: "Heavy", phys: 90, mag: 15 },
+                light: { label: "Light", phys: 50, mag: 30 },
+                amulet: { label: "Amulet", phys: 0, mag: 100 },
+                ring: { label: "Ring", phys: 0, mag: 100 },
+                belt: { label: "Belt", phys: 100, mag: 0 },
             },
             slots: {
                 helmet: { label: "Helmet", text: "helmet", jewel: false },
@@ -337,7 +337,14 @@ Hooks.on("init", () => {
                 amulet: 2.3,
                 ring: 1.6,
                 none: 0,
-            }
+            },
+        },
+        offhand: {
+            spreads: {
+                none: { label: "Custom", phys: 0, mag: 0 },
+                shield: {label: "Shield", phys: 90, mag: 60}
+            },
+            scalar: 9.68,
         },
         e: 1.27,
         equipmentSlots: {

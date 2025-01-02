@@ -125,9 +125,6 @@ export class CelestusActor extends Actor {
                 }
             }
             else if (item.type === "offhand" && item.system.equipped) {
-                // calculate armor values
-                const phys = CONFIG.CELESTUS.baseOffhand[actor.attributes.level].phys * item.system.efficiency;
-                const mag = CONFIG.CELESTUS.baseOffhand[actor.attributes.level].mag * item.system.efficiency;
                 // increase max armor
                 actor.resources.phys_armor.max += item.system.value.phys;
                 actor.resources.mag_armor.max += item.system.value.mag;
