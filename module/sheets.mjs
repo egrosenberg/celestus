@@ -19,7 +19,7 @@ export class CharacterSheet extends ActorSheet {
     }
     /** @override */
     get template() {
-        return "./systems/celestus/templates/actor/actor-sheet.hbs";
+        return `./systems/celestus/templates/actor/actor-${this.actor.type}-sheet.hbs`;
     }
 
     /** @override */
