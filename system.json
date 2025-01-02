@@ -38,7 +38,11 @@
                     "biography"
                 ]
             },
-            "npc": {}
+            "npc": {
+                "htmlFields": [
+                    "biography"
+                ]
+            }
         },
         "Item": {
             "skill": {

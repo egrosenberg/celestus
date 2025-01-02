@@ -1,4 +1,4 @@
-import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData } from "./dataModels.mjs"
+import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData } from "./dataModels.mjs"
 import { CelestusActor } from "./actors.mjs"
 import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, previewDamage, rollAttack, rollDamage, rollItemMacro, startCombat, triggerTurn } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
@@ -18,6 +18,7 @@ const preloadHandlebarsTemplates = async function () {
         'systems/celestus/templates/actor/parts/actor-items.hbs',
         'systems/celestus/templates/actor/parts/actor-skills.hbs',
         'systems/celestus/templates/actor/parts/actor-effects.hbs',
+        'systems/celestus/templates/actor/parts/actor-npc-skills.hbs',
         // Item partials
         //'systems/celestus/templates/item/parts/item-effects.hbs',
     ]);
@@ -136,6 +137,8 @@ Hooks.on("init", () => {
         },
         baseAbilityPoints: 1,
         baseAttributeScore: 10,
+        npcAttributeScalar: 1.9/10,
+        npcArmorScalar: 20/100,
         combatSkillMod: 0.05,   // amount to increase damage by for combat skills per level
         baseCritBonus: 0.6,   // base critical damage bonus expressed as a percentage
         baseCritChance: 0.05,   // base critical hit chance expressed as a percentage
@@ -398,7 +401,7 @@ Hooks.on("init", () => {
     // set up data models
     CONFIG.Actor.dataModels = {
         player: PlayerData,
-        npc: PlayerData
+        npc: NpcData
     };
 
     CONFIG.Item.dataModels = {

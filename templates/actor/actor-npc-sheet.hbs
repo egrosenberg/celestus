@@ -1,0 +1,237 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" style="height: 100%" autocomplete="off">
+    <div class="sheet-inner">
+        {{!-- Sheet Header --}}
+        <span class="sheet-header">
+            <div class="portrait">
+                <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+                <img class="portrait-overlay" src="systems/celestus/img/portrait-frame.webp" />
+            </div>
+            <div class="header-fields">
+                <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+                <span>
+                    <span class="level">
+                        Level: <input type="number" name="system.attributes.level" value="{{system.attributes.level}}"
+                            data-dtype="Number" />
+                    </span>
+                    <a class="control refresh" title="refresh resources" id="refresh-all"><i class="icon-cycle"></i></a>
+                    <a class="control refresh" title="new day" id="refresh-dawn"><i class="icon-sunrise"></i></a>
+                    <a class="control refresh" title="toggle combat state" id="toggle-combat"><i
+                            class="{{ifThen actor.inCombat " icon-swords-emblem-solid" "icon-swords-emblem-outline"
+                            }}"></i></a>
+
+                </span>
+                <h2>Resources</h2>
+                <div class="resources grid" id="hp">
+                    <span class="resource">
+                        <label class="resource-label hp">HP</label><br />
+                        <span class="resource-value healing" id="system.resources.hp" style="flex: 2">
+                            <input class="resource-input" type="number" name="system.resources.hp.flat"
+                                value="{{system.resources.hp.flat}}" data-dtype="Number"
+                                data-max-value="{{system.resources.hp.max}}" />
+                            <span class="total">/{{system.resources.hp.max}}</span>
+                        </span>
+                    </span>
+                </div>
+                <div class="resources grid" id="armor">
+                    <span class="resource" id="physical-armor">
+                        <label class="resource-label armor">Physical Armor</label>
+                        <span class="earth resource-value" id="system.resources.phys_armor">
+                            <input class="resource-input" type="number" name="system.resources.phys_armor.flat"
+                                data-max-value="{{system.resources.phys_armor.max}}"
+                                value="{{system.resources.phys_armor.flat}}" data-dtype="Number" /> <span
+                                class="total">+{{system.resources.phys_armor.temp}}/{{system.resources.phys_armor.max}}</span>
+                        </span>
+                        <span style="display: inline-flex;"><label class="resource-label">Base: </label>
+                            <input type="number" name="system.armorSpread.phys" data-max-value="10"
+                                value="{{system.armorSpread.phys}}" data-dtype="Number" />
+                        </span>
+                    </span>
+                    <span class="resource" id="magic-armor">
+                        <label class="resource-label">Magic Armor</label><br />
+                        <span class="resource-value water" id="system.resources.mag_armor">
+                            <input class="resource-input" type="number" name="system.resources.mag_armor.flat"
+                                data-max-value="{{system.resources.mag_armor.max}}"
+                                value="{{system.resources.mag_armor.flat}}" data-dtype="Number" /> <span
+                                class="total">+{{system.resources.mag_armor.temp}}/{{system.resources.mag_armor.max}}</span>
+                        </span>
+                        <span style="display: inline-flex;"><label class="resource-label">Base: </label>
+                            <input type="number" name="system.armorSpread.mag" data-max-value="10"
+                                value="{{system.armorSpread.mag}}" data-dtype="Number" />
+                        </span>
+                    </span>
+                </div>
+                <div class="resources grid" id="ap">
+                    <span class="resource">
+                        <label class="resource-label single">Action Points</label><br />
+                        <span class="resource-value physical" id="system.resources.ap" style="flex: 2">
+                            <input type="number" name="system.resources.ap.value" value="{{system.resources.ap.value}}"
+                                data-dtype="Number" data-max-value="{{system.resources.ap.max}}" /> <span
+                                class="total">/{{system.resources.ap.max}}</span>
+                        </span>
+                    </span>
+                </div>
+                {{!-- only renders focus points if max focus points have been manually set --}}
+                {{#if system.resources.fp.max}}
+                <div class="resources grid" id="fp">
+                    <span class="resource">
+                        <label class="resource-label single">Focus Points</label><br />
+                        <span class="resource-value poison" id="system.resources.fp" style="flex: 2">
+                            <input class="resource-input" type="number" name="system.resources.fp.value"
+                                value="{{system.resources.fp.value}}" data-dtype="Number"
+                                data-max-value="{{system.resources.fp.max}}" /> <span
+                                class="total">/{{system.resources.fp.max}}</span>
+                        </span>
+                    </span>
+                </div>
+                {{/if}}
+                <h2>Attribute Totals</h2>
+                <div class="stats-grid">
+                    {{#each system.abilities as |ability key|}}
+                    <div class="ability flexrow flex-group-center">
+                        <label for="system.abilities.{{key}}.value" class="resource-label rollable flexlarge align-left"
+                            data-label="{{ability.label}}">{{ability.label}}</label>
+                        <input type="number" name="system.abilitySpread.{{key}}"
+                            value="{{lookup ../system.abilitySpread key}}" data-dtype="Number" />
+                        <span class="ability-mod rollable" data-roll="d20+@abilities.{{key}}.mod"
+                            data-label="{{ability.label}}">{{numberFormat ability.bonus decimals=0
+                            sign=true}} = {{ability.total}} ({{numberFormat ability.mod decimals=2 decimalSep=s
+                            sign=true}}&#215;)
+                        </span>
+                    </div>
+                    {{/each}}
+                </div>
+                <h2>Resistances</h2>
+                <div class="abilities flexcol">
+                    {{#each system.attributes.resistance as |ability key|}}
+                    {{#if ability.value}}
+                    {{#with (lookup ../config.damageTypes key)}}
+                    <div class="ability flexrow flex-group-center" style="background-color: {{color}};">
+                        <label class="resource-label rollable flexlarge align-left"><i
+                                class="{{glyph}}"></i>{{label}}</label>
+                        <span class="resist">&#215;{{numberFormat ability.value decimals=2}}</span>
+                    </div>
+                    {{/with}}
+                    {{/if}}
+                    {{/each}}
+                </div>
+                <h2>Bonuses</h2>
+                <div class="abilities flexcol">
+                    {{#each system.attributes.bonuses as |ability key|}}
+                    <div class="ability flexrow flex-group-center"
+                        style="background-color: rgba(255, 255, 255, 0.719);">
+                        {{#with (lookup ../config.bonuses key)}}
+                        <label class="resource-label rollable flexlarge align-left">{{label}}</label>
+                        <span class="resist">{{numberFormat ability.value decimals=2}}{{symbol}}</span>
+                        {{/with}}
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </span>
+        <span class="sheet-main">
+            {{!-- Sheet Tab Navigation --}}
+            <nav class="sheet-tabs tabs" data-group="primary">
+                {{!-- Default tab is specified in actor-sheet.mjs --}}
+                <a class="item" data-tab="skills">Skills</a>
+                <a class="item" data-tab="abilities">Abilities</a>
+                <a class="item" data-tab="items">Items</a>
+                <a class="item" data-tab="features">Features</a>
+                <a class="item" data-tab="description">Biography</a>
+                <a class="item" data-tab="effects">Effects</a>
+            </nav>
+
+            {{!-- Sheet Body --}}
+            <section class="sheet-body">
+                {{!-- Owned Features Tab --}}
+                <div class="tab abilities" data-group="primary" data-tab="abilities">
+                    <section class="grid grid-3col">
+                        <h2>
+                            Civil Abilities
+                            {{ifThen system.attributes.unspentCivil
+                            (concat "(Unspent: " (numberFormat system.attributes.unspentCivil sign=true) ")")
+                            ""}}
+                        </h2>
+                        <aside class="sidebar">
+                            <div class="abilities flexcol">
+                                {{#each system.civil as |ability key|}}
+                                <div class="ability flexrow flex-group-center"
+                                    style="background-color: {{#with (lookup ../config.civilSkills key)}}{{color}}{{/with}}">
+                                    <label for="system.civil.{{key}}.base"
+                                        class="resource-label ability-roll flexlarge align-left" data-label="{{key}}">
+                                        {{#with (lookup ../config.civilSkills key)}}
+                                        <i class="{{glyph}}"> </i>{{label}}
+                                        {{/with}}
+                                    </label>
+                                    <input type="number" name="system.civil.{{key}}.base" value="{{ability.base}}"
+                                        data-dtype="Number" />
+                                    <span class="math">
+                                        {{numberFormat ability.bonus decimals=0 sign=true}} = {{ability.value}}
+                                    </span>
+                                </div>
+                                {{/each}}
+                            </div>
+                        </aside>
+                        <h2>
+                            Combat Abilities
+                            {{ifThen system.attributes.unspentCombat
+                            (concat "(Unspent: " (numberFormat system.attributes.unspentCombat sign=true) ")")
+                            ""}}
+                        </h2>
+                        <aside class="sidebar">
+                            <div class="abilities flexcol">
+                                {{#each system.combat as |ability key|}}
+                                <div class="ability flexrow flex-group-center"
+                                    style="background-color: var(--color-{{#with (lookup ../config.combatSkills key)}}{{damage}}{{/with}}-bg)">
+                                    <label for="system.combat.{{key}}.base"
+                                        class="resource-label ability-roll flexlarge align-left" data-label="{{key}}">
+                                        {{#with (lookup ../config.combatSkills key)}}
+                                        <i class="{{glyph}}"></i>{{label}}
+                                        {{/with}}
+                                    </label>
+                                    <input type="text" name="system.combat.{{key}}.base" value="{{ability.base}}"
+                                        data-dtype="Number" />
+                                    <span class="math">{{numberFormat ability.bonus decimals=0 sign=true}} =
+                                        {{ability.value}}
+                                    </span>
+                                    <span class="ability-mod rollable" data-roll="d20+@abilities.{{key}}.mod"
+                                        data-label="{{ability.label}}">
+                                        ({{numberFormat ability.mod decimals=2 sign=true}}&#215;)
+                                    </span>
+                                </div>
+                                {{/each}}
+                            </div>
+                        </aside>
+                    </section>
+                </div>
+
+                {{!-- Biography Tab --}}
+                <div class="tab biography" data-group="primary" data-tab="description">
+                    {{editor enrichedDescription target="system.biography" editable=editable button=true
+                    engine="prosemirror"}}
+                </div>
+
+                {{!-- Known Skills Tab --}}
+                <div class="tab skills" data-group="primary" data-tab="skills">
+                    {{> "systems/celestus/templates/actor/parts/actor-npc-skills.hbs"}}
+                </div>
+
+                {{!-- Owned Items Tab --}}
+                <div class="tab items" data-group="primary" data-tab="items">
+                    {{> "systems/celestus/templates/actor/parts/actor-items.hbs"}}
+                </div>
+
+                {{!-- Features Tab --}}
+                <div class="tab items" data-group="primary" data-tab="features">
+                    {{> "systems/celestus/templates/actor/parts/actor-features.hbs"}}
+                </div>
+
+
+                {{!-- Active Effects Tab --}}
+                <div class="tab effects flexcol" data-group="primary" data-tab="effects">
+                    {{> "systems/celestus/templates/actor/parts/actor-effects.hbs"}}
+                </div>
+
+            </section>
+        </span>
+    </div>
+</form>

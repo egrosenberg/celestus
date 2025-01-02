@@ -381,19 +381,6 @@ export class ActorData extends foundry.abstract.TypeDataModel {
         return bonuses;
     }
 
-
-    /**
-     * All skills owned by actor
-     * @returns {Object} containing all skills, categorized as memorized, unmemorized, and always
-     */
-    get skills() {
-        return {
-            memorized: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "true")),
-            unmemorized: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "false")),
-            always: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "always")),
-        };
-    }
-
     /**
      * all features owned by actor
      */
@@ -589,7 +576,7 @@ export class PlayerData extends ActorData {
         // check for offhand
         if (offhand) {
             if (rightHand) {
-                rightHand.update({"system.equipped": false});
+                rightHand.update({ "system.equipped": false });
             }
             rightHand = offhand;
         }
@@ -638,7 +625,7 @@ export class PlayerData extends ActorData {
     get offhand() {
         return this.parent.items.filter(i => i.type === "offhand");
     }
-    
+
     /**
      * Calculates weapon damage
      * @returns {false|Array[Object]} false if no weapon or array of damage info objects from equipped weapons
@@ -661,7 +648,95 @@ export class PlayerData extends ActorData {
         }
     }
 
+    /**
+     * All skills owned by actor
+     * @returns {Object} containing all skills, categorized as memorized, unmemorized, and always
+     */
+    get skills() {
+        return {
+            memorized: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "true")),
+            unmemorized: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "false")),
+            always: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "always")),
+        };
+    }
+
 }
+
+/**
+ * @extends {ActorData}
+ */
+export class NpcData extends ActorData {
+    static defineSchema() {
+        let schema = super.defineSchema();
+        schema.abilitySpread = new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.abilities)).reduce((obj, ability) => {
+            obj[ability] = new NumberField({required: true, min: 0, initial: 0});
+            return obj;
+        }, {}));
+        schema.armorSpread = new SchemaField({
+            phys: new NumberField({required: true, integer: true, min: 0, initial: 0}),
+            mag: new NumberField({required: true, integer: true, min: 0, initial: 0}),
+        });
+        schema.armorBoost = new NumberField({required: true, min: 0, initial: 1});
+        return schema;
+    }
+
+    /** @override */
+    prepareDerivedData() {
+        /**
+         * Zero out all derived data
+         */
+        // zero out ability score related things
+        for (let [key, ability] of Object.entries(this.abilities)) {
+            ability.mod = 0;
+            ability.total = ability.bonus;
+        }
+        this.attributes.unspentPoints = 0;
+        // zero out combat ability stuff
+        for (let [key, ability] of Object.entries(this.combat)) {
+            ability.value = ability.bonus;
+            ability.mod = 0;
+        }
+        // zero out civil ability stuff
+        for (let [key, ability] of Object.entries(this.civil)) {
+            ability.value = ability.bonus;
+        }
+        // zero out damage resists
+        for (let [key, damageType] of Object.entries(this.attributes.resistance)) {
+            damageType.value = 0;
+        }
+        // zero out generic bonuses
+        for (let [key, bonus] of Object.entries(this.attributes.bonuses)) {
+            bonus.value = 0;
+        }
+        // zero out memory related things
+        this.attributes.memory.total = 0;
+        this.attributes.memory.spent = 0;
+        // zero out armor totals
+        this.resources.phys_armor.max = 0;
+        this.resources.mag_armor.max = 0;
+        this.resources.hp.max = 0;
+
+        // calculate ability score
+        for (let [key, value] of Object.entries(this.abilitySpread)) {
+            this.abilities[key].total += Math.round(CONFIG.CELESTUS.baseAttributeScore + value * CONFIG.CELESTUS.npcAttributeScalar * this.attributes.level);
+        }
+
+        // calculate armor
+        this.resources.phys_armor.max += Math.round(this.armorSpread.phys*CONFIG.CELESTUS.npcArmorScalar*(CONFIG.CELESTUS.e**this.attributes.level)*this.armorBoost);
+        this.resources.mag_armor.max +=  Math.round(this.armorSpread.mag*CONFIG.CELESTUS.npcArmorScalar*(CONFIG.CELESTUS.e**this.attributes.level)*this.armorBoost);
+
+        // call final derivations from super
+        super.prepareDerivedData();
+    }
+    /**
+     * All skills owned by actor
+     * @returns {Object} containing all skills, categorized as memorized, unmemorized, and always
+     */
+    get skills() {
+        return this.parent.items.filter(i => (i.type === "skill"));
+    }
+}
+
 /**
  * Defines data model for skills
  * @extends { TypeDataModel }
@@ -891,11 +966,11 @@ export class GearData extends foundry.abstract.TypeDataModel {
 export class ArmorData extends GearData {
     static defineSchema() {
         let schema = super.defineSchema();
-        schema.spread = new StringField({ required: true, initial: "none"}),
-        schema.base = new SchemaField({
-            phys: new NumberField({ required: true, integer: true, initial: 0 }),
-            mag: new NumberField({ required: true, integer: true, initial: 0 }),
-        })
+        schema.spread = new StringField({ required: true, initial: "none" }),
+            schema.base = new SchemaField({
+                phys: new NumberField({ required: true, integer: true, initial: 0 }),
+                mag: new NumberField({ required: true, integer: true, initial: 0 }),
+            })
         return schema;
     }
 
@@ -912,8 +987,8 @@ export class ArmorData extends GearData {
         const level = this.parent?.actor?.system.attributes.level ?? 1;
         const scalar = CONFIG.CELESTUS.armor.scalars[this.slot] ?? 0;
         return {
-            phys: Math.round((this.base.phys*scalar/100.0)*(CONFIG.CELESTUS.e**level)),
-            mag:  Math.round((this.base.mag*scalar/100.0)*(CONFIG.CELESTUS.e**level)),
+            phys: Math.round((this.base.phys * scalar / 100.0) * (CONFIG.CELESTUS.e ** level)),
+            mag: Math.round((this.base.mag * scalar / 100.0) * (CONFIG.CELESTUS.e ** level)),
         }
     }
 }
@@ -957,11 +1032,11 @@ export class WeaponData extends GearData {
 export class OffhandData extends GearData {
     static defineSchema() {
         let schema = super.defineSchema();
-        schema.spread = new StringField({ required: true, initial: "none"}),
-        schema.base = new SchemaField({
-            phys: new NumberField({ required: true, integer: true, initial: 0 }),
-            mag: new NumberField({ required: true, integer: true, initial: 0 }),
-        })
+        schema.spread = new StringField({ required: true, initial: "none" }),
+            schema.base = new SchemaField({
+                phys: new NumberField({ required: true, integer: true, initial: 0 }),
+                mag: new NumberField({ required: true, integer: true, initial: 0 }),
+            })
         return schema;
     }
 
@@ -974,8 +1049,8 @@ export class OffhandData extends GearData {
         const level = this.parent.actor ? this.parent.actor.system.attributes.level : 1;
         const scalar = CONFIG.CELESTUS.offhand.scalar;
         return {
-            phys: Math.round((this.base.phys*scalar/100.0)*(CONFIG.CELESTUS.e**level)),
-            mag:  Math.round((this.base.mag*scalar/100.0)*(CONFIG.CELESTUS.e**level)),
+            phys: Math.round((this.base.phys * scalar / 100.0) * (CONFIG.CELESTUS.e ** level)),
+            mag: Math.round((this.base.mag * scalar / 100.0) * (CONFIG.CELESTUS.e ** level)),
         }
     }
 }
@@ -1057,9 +1132,9 @@ export class EffectData extends foundry.abstract.TypeDataModel {
             // second incredient exists, combine
             if (combiner) {
                 combiner.delete();
-                const product = await actor.toggleStatusEffect(combination.makes, {active: true});
+                const product = await actor.toggleStatusEffect(combination.makes, { active: true });
                 if (typeof product != "boolean") {
-                    product.update({"origin": this.parent.parent.uuid});
+                    product.update({ "origin": this.parent.parent.uuid });
                 }
                 return false;
             }
