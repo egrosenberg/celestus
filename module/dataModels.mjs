@@ -17,7 +17,7 @@ function armorSocket() {
  * Define data model for player character
  * @extends {TypeDataModel}
  */
-export class PlayerData extends foundry.abstract.TypeDataModel {
+export class ActorData extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
             biography: new HTMLField(), // create biography field
@@ -282,6 +282,291 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
         };
     }
 
+    /** override */
+    prepareDerivedData() {
+        /**
+         * perform final operations
+         */
+        // add flat misc armor bonuses
+        this.resources.phys_armor.max += this.resources.phys_armor.bonus;
+        this.resources.mag_armor.max += this.resources.mag_armor.bonus;
+        // calculate max hp
+        this.resources.hp.max += CONFIG.CELESTUS.maxHP[this.attributes.level];
+        /**
+         * Perform final additive operations
+         */
+        // final unspent skill points update for formshifter
+        this.attributes.unspentPoints += this.combat.formshifter.value * 2;
+        // calculate memory
+        this.attributes.memory.total += parseInt(Math.floor((this.attributes.level) / 2) + (this.abilities.mind.value) - 7);
+        // calculate modifiers
+        // ability scores
+        for (let [key, ability] of Object.entries(this.abilities)) {
+            ability.mod += ((ability.total - CONFIG.CELESTUS.baseAttributeScore) * CONFIG.CELESTUS.abilityMod[key]) + CONFIG.CELESTUS.baseAbilityMod[key];
+        }
+        // combat abilities
+        for (let [key, ability] of Object.entries(this.combat)) {
+            ability.mod += ability.value * 0.05;
+        }
+        // calculate crit chance
+        this.attributes.bonuses.crit_chance.value += this.abilities.wit.mod;
+        // calculate crit bonus
+        this.attributes.bonuses.crit_bonus.value += 1 + CONFIG.CELESTUS.baseCritBonus + this.attributes.bonuses.crit_bonus.bonus + this.combat.shroudstalker.mod;
+        // calculate accuracy
+        this.attributes.bonuses.accuracy.value += CONFIG.CELESTUS.baseAccuracy + this.attributes.bonuses.accuracy.bonus;
+        // calculate evasion
+        this.attributes.bonuses.evasion.value += this.attributes.bonuses.evasion.bonus;
+        // calculate overall damage bonus
+        this.attributes.bonuses.damage.value += this.attributes.bonuses.damage.bonus;
+        // calculate movespeed
+        this.attributes.movement.value += this.attributes.movement.base;
+
+        /**
+         * Perform multiplicative operations
+         */
+        // con operations
+        this.resources.phys_armor.max *= 1 + this.abilities.con.mod;
+        this.resources.mag_armor.max *= 1 + this.abilities.con.mod;
+        this.resources.hp.max *= 1 + this.abilities.con.mod;
+        // ensure all resources are back to int
+        this.resources.phys_armor.max = parseInt(this.resources.phys_armor.max);
+        this.resources.mag_armor.max = parseInt(this.resources.mag_armor.max);
+        this.resources.hp.max = parseInt(this.resources.hp.max);
+        // movespeed
+        this.attributes.movement.value *= (1 + this.attributes.movement.bonus);
+
+        /**
+         * calculate final flat values from offsets
+         */
+        for (const key of ["hp", "phys_armor", "mag_armor"]) {
+            const resource = this.resources[key];
+            resource.flat = resource.max + resource.offset;
+            // cap resource at max
+            resource.flat = Math.min(resource.flat, resource.max);
+        }
+
+        /**
+        * derive final resource values for display
+        */
+        this.resources.hp.value = this.resources.hp.flat;
+        this.resources.phys_armor.value = this.resources.phys_armor.flat + this.resources.phys_armor.temp;
+        this.resources.mag_armor.value = this.resources.mag_armor.flat + this.resources.mag_armor.temp;
+    }
+
+    /**
+     * Finds and returns all effects on character
+     * @returns {Object} with categories for different states of effect
+     */
+    get effects() {
+        return {
+            temporary: this.parent.effects.filter(e => (!e.disabled && e.isTemporary)),
+            passive: this.parent.effects.filter(e => (!e.disabled && !e.isTemporary)),
+            disabled: this.parent.effects.filter(e => e.disabled),
+        };
+    }
+
+    /**
+     * Calculates damage bonuses for elements
+     * @returns {Object} with keys = to all damage types and values = to percent damage multiplier (additive)
+     */
+    get elementBonus() {
+        let bonuses = {};
+        for (let [key, type] of Object.entries(CONFIG.CELESTUS.damageTypes)) {
+            if (key === "none") {
+                bonuses[key] = 0;
+                continue;
+            }
+            bonuses[key] = this.combat[type.skill].value * CONFIG.CELESTUS.combatSkillMod;
+        }
+        return bonuses;
+    }
+
+
+    /**
+     * All skills owned by actor
+     * @returns {Object} containing all skills, categorized as memorized, unmemorized, and always
+     */
+    get skills() {
+        return {
+            memorized: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "true")),
+            unmemorized: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "false")),
+            always: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "always")),
+        };
+    }
+
+    /**
+     * all features owned by actor
+     */
+    get features() {
+        let features = {};
+        for (let [type, label] of Object.entries(CONFIG.CELESTUS.featureTypes)) {
+            features[type] = this.parent.items.filter(i => (i.type === "feature" && i.system.type === type));
+        }
+        return features;
+    }
+};
+
+
+/**
+ * Define data model for player character
+ * @extends {ActorData}
+ */
+export class PlayerData extends ActorData {
+    static defineSchema() {
+        let schema = super.defineSchema();
+        return schema;
+    }
+
+    /** @override */
+    prepareDerivedData() {
+        /**
+         * Zero out all derived data
+         */
+        // zero out ability score related things
+        for (let [key, ability] of Object.entries(this.abilities)) {
+            ability.mod = 0;
+            ability.total = ability.bonus;
+        }
+        this.attributes.unspentPoints = 0;
+        // zero out combat ability stuff
+        for (let [key, ability] of Object.entries(this.combat)) {
+            ability.value = ability.bonus;
+            ability.mod = 0;
+        }
+        // zero out civil ability stuff
+        for (let [key, ability] of Object.entries(this.civil)) {
+            ability.value = ability.bonus;
+        }
+        // zero out damage resists
+        for (let [key, damageType] of Object.entries(this.attributes.resistance)) {
+            damageType.value = 0;
+        }
+        // zero out generic bonuses
+        for (let [key, bonus] of Object.entries(this.attributes.bonuses)) {
+            bonus.value = 0;
+        }
+        // zero out memory related things
+        this.attributes.memory.total = 0;
+        this.attributes.memory.spent = 0;
+        // zero out armor totals
+        this.resources.phys_armor.max = 0;
+        this.resources.mag_armor.max = 0;
+        this.resources.hp.max = 0;
+
+        /**
+         * perform item operations
+         */
+        let spentPoints = 0;
+        for (let [key, ability] of Object.entries(this.abilities)) {
+            spentPoints += ability.value - CONFIG.CELESTUS.baseAttributeScore;
+            ability.total += ability.value;
+        }
+        this.attributes.unspentPoints += (this.attributes.level * 2) + CONFIG.CELESTUS.baseAbilityPoints - spentPoints;
+        // calculage ability bonus from enlightened
+        if (this.parent.getFlag("celestus", "enlightened")) {
+            for (let [ability, value] of Object.entries(CONFIG.CELESTUS.enlightenedBonus[this.attributes.level])) {
+                this.abilities[ability].bonus += value;
+                this.abilities[ability].total += value;
+            }
+        }
+        // update combat ability values
+        let spentCombat = 0;
+        for (let [key, ability] of Object.entries(this.combat)) {
+            // calculate total
+            ability.value += ability.base;
+            spentCombat += ability.base;
+        }
+        this.attributes.unspentCombat = this.attributes.level + CONFIG.CELESTUS.baseAbilityPoints - spentCombat;
+        let spentCivil = 0;
+        // update civil ability values
+        for (let [key, ability] of Object.entries(this.civil)) {
+            // calculate total
+            ability.value += ability.base;
+            spentCivil += ability.base;
+        }
+        this.attributes.unspentCivil = Math.floor(this.attributes.level / 3) + CONFIG.CELESTUS.baseAbilityPoints - spentCivil;
+        // update base damage resists
+        for (let [key, damageType] of Object.entries(this.attributes.resistance)) {
+            damageType.value += damageType.bonus;
+        }
+
+        // iterate through items
+        for (const item of this.parent.items) {
+            // check if item is an armor piece and equipped
+            if (item.type === "armor" && item.system.equipped) {
+                // calculate armor values
+                const phys = item.system.value.phys;
+                const mag = item.system.value.mag;
+                // increase max armor
+                this.resources.phys_armor.max += item.system.value.phys;
+                this.resources.mag_armor.max += item.system.value.mag;
+                // apply bonuses
+                for (let [ability, value] of Object.entries(item.system.bonuses.combat)) {
+                    this.combat[ability].bonus += value;
+                    this.combat[ability].value += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.civil)) {
+                    this.civil[ability].bonus += value;
+                    this.civil[ability].value += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.abilities)) {
+                    this.abilities[ability].bonus += value;
+                    this.abilities[ability].total += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.resistance)) {
+                    this.attributes.resistance[ability].value += value;
+                }
+            }
+            else if ((item.type === "weapon" || item.type === "feature") && item.system.equipped) {
+                // apply bonuses
+                for (let [ability, value] of Object.entries(item.system.bonuses.combat)) {
+                    this.combat[ability].bonus += value;
+                    this.combat[ability].value += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.civil)) {
+                    this.civil[ability].bonus += value;
+                    this.civil[ability].value += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.abilities)) {
+                    this.abilities[ability].bonus += value;
+                    this.abilities[ability].total += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.resistance)) {
+                    this.attributes.resistance[ability].value += value;
+                }
+            }
+            else if (item.type === "offhand" && item.system.equipped) {
+                // increase max armor
+                this.resources.phys_armor.max += item.system.value.phys;
+                this.resources.mag_armor.max += item.system.value.mag;
+                // apply bonuses
+                for (let [ability, value] of Object.entries(item.system.bonuses.combat)) {
+                    this.combat[ability].bonus += value;
+                    this.combat[ability].value += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.civil)) {
+                    this.civil[ability].bonus += value;
+                    this.civil[ability].value += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.abilities)) {
+                    this.abilities[ability].bonus += value;
+                    this.abilities[ability].total += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.resistance)) {
+                    this.attributes.resistance[ability].value += value;
+                }
+            }
+            else if (item.type === "skill" && item.system.memorized === "true") {
+                this.attributes.memory.spent += item.system.memSlots;
+            }
+        }
+
+        /**
+         * call final operations from super
+         */
+        super.prepareDerivedData();
+    }
+
     /**
      * finds and returns equipped items
      * @returns {undefined | Object} object containing slots for each type of equipped item
@@ -353,35 +638,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
     get offhand() {
         return this.parent.items.filter(i => i.type === "offhand");
     }
-
-    /**
-     * Finds and returns all effects on character
-     * @returns {Object} with categories for different states of effect
-     */
-    get effects() {
-        return {
-            temporary: this.parent.effects.filter(e => (!e.disabled && e.isTemporary)),
-            passive: this.parent.effects.filter(e => (!e.disabled && !e.isTemporary)),
-            disabled: this.parent.effects.filter(e => e.disabled),
-        };
-    }
-
-    /**
-     * Calculates damage bonuses for elements
-     * @returns {Object} with keys = to all damage types and values = to percent damage multiplier (additive)
-     */
-    get elementBonus() {
-        let bonuses = {};
-        for (let [key, type] of Object.entries(CONFIG.CELESTUS.damageTypes)) {
-            if (key === "none") {
-                bonuses[key] = 0;
-                continue;
-            }
-            bonuses[key] = this.combat[type.skill].value * CONFIG.CELESTUS.combatSkillMod;
-        }
-        return bonuses;
-    }
-
+    
     /**
      * Calculates weapon damage
      * @returns {false|Array[Object]} false if no weapon or array of damage info objects from equipped weapons
@@ -393,7 +650,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
             return false;
         }
         // two weapon
-        else if (equipped.left.system.twoHanded || !equipped.right) {
+        else if (equipped.left.system.twoHanded || !equipped.right || equipped.right.type === "offhand") {
             return [equipped.left.system.damage];
         }
         // two single handed
@@ -404,32 +661,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
         }
     }
 
-    /**
-     * All skills owned by actor
-     * @returns {Object} containing all skills, categorized as memorized, unmemorized, and always
-     */
-    get skills() {
-        return {
-            memorized: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "true")),
-            unmemorized: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "false")),
-            always: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "always")),
-        };
-    }
-
-    /**
-     * all features owned by actor
-     */
-    get features() {
-        let features = {};
-        for (let [type, label] of Object.entries(CONFIG.CELESTUS.featureTypes)) {
-            features[type] = this.parent.items.filter(i => (i.type === "feature" && i.system.type === type));
-        }
-        return features;
-    }
-};
-
-
-
+}
 /**
  * Defines data model for skills
  * @extends { TypeDataModel }

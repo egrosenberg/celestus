@@ -3,217 +3,6 @@ import { calcMult, canvasPopupText } from "./helpers.mjs";
 const BASE_AS = 10; // base ability score value
 
 export class CelestusActor extends Actor {
-    /** @override */
-    prepareDerivedData() {
-        const actor = this.system;
-        /**
-         * Zero out all derived data
-         */
-        // zero out ability score related things
-        for (let [key, ability] of Object.entries(actor.abilities)) {
-            ability.mod = 0;
-            ability.total = ability.bonus;
-        }
-        actor.attributes.unspentPoints = 0;
-        // zero out combat ability stuff
-        for (let [key, ability] of Object.entries(actor.combat)) {
-            ability.value = ability.bonus;
-            ability.mod = 0;
-        }
-        // zero out civil ability stuff
-        for (let [key, ability] of Object.entries(actor.civil)) {
-            ability.value = ability.bonus;
-        }
-        // zero out damage resists
-        for (let [key, damageType] of Object.entries(actor.attributes.resistance)) {
-            damageType.value = 0;
-        }
-        // zero out generic bonuses
-        for (let [key, bonus] of Object.entries(actor.attributes.bonuses)) {
-            bonus.value = 0;
-        }
-        // zero out memory related things
-        actor.attributes.memory.total = 0;
-        actor.attributes.memory.spent = 0;
-        // zero out armor totals
-        actor.resources.phys_armor.max = 0;
-        actor.resources.mag_armor.max = 0;
-        actor.resources.hp.max = 0;
-
-
-        /**
-         * Perform additive bonuses
-         */
-        // calculate flat ability scores
-        let spentPoints = 0;
-        for (let [key, ability] of Object.entries(actor.abilities)) {
-            spentPoints += ability.value - BASE_AS;
-            ability.total += ability.value;
-        }
-        actor.attributes.unspentPoints += (actor.attributes.level * 2) + CONFIG.CELESTUS.baseAbilityPoints - spentPoints;
-        // calculage ability bonus from enlightened
-        if (this.getFlag("celestus", "enlightened")) {
-            for (let [ability, value] of Object.entries(CONFIG.CELESTUS.enlightenedBonus[actor.attributes.level])) {
-                actor.abilities[ability].bonus += value;
-                actor.abilities[ability].total += value;
-            }
-        }
-        // update combat ability values
-        let spentCombat = 0;
-        for (let [key, ability] of Object.entries(actor.combat)) {
-            // calculate total
-            ability.value += ability.base;
-            spentCombat += ability.base;
-        }
-        actor.attributes.unspentCombat = actor.attributes.level + CONFIG.CELESTUS.baseAbilityPoints - spentCombat;
-        let spentCivil = 0;
-        // update civil ability values
-        for (let [key, ability] of Object.entries(actor.civil)) {
-            // calculate total
-            ability.value += ability.base;
-            spentCivil += ability.base;
-        }
-        actor.attributes.unspentCivil = Math.floor(actor.attributes.level/3) + CONFIG.CELESTUS.baseAbilityPoints - spentCivil;
-        // update base damage resists
-        for (let [key, damageType] of Object.entries(actor.attributes.resistance)) {
-            damageType.value += damageType.bonus;
-        }
-
-        // iterate through items
-        for (const item of this.items) {
-            // check if item is an armor piece and equipped
-            if (item.type === "armor" && item.system.equipped) {
-                // calculate armor values
-                const phys = item.system.value.phys;
-                const mag = item.system.value.mag;
-                // increase max armor
-                actor.resources.phys_armor.max += item.system.value.phys;
-                actor.resources.mag_armor.max += item.system.value.mag;
-                // apply bonuses
-                for (let [ability, value] of Object.entries(item.system.bonuses.combat)) {
-                    actor.combat[ability].bonus += value;
-                    actor.combat[ability].value += value;
-                }
-                for (let [ability, value] of Object.entries(item.system.bonuses.civil)) {
-                    actor.civil[ability].bonus += value;
-                    actor.civil[ability].value += value;
-                }
-                for (let [ability, value] of Object.entries(item.system.bonuses.abilities)) {
-                    actor.abilities[ability].bonus += value;
-                    actor.abilities[ability].total += value;
-                }
-                for (let [ability, value] of Object.entries(item.system.bonuses.resistance)) {
-                    actor.attributes.resistance[ability].value += value;
-                }
-            }
-            else if ((item.type === "weapon" || item.type === "feature") && item.system.equipped) {
-                // apply bonuses
-                for (let [ability, value] of Object.entries(item.system.bonuses.combat)) {
-                    actor.combat[ability].bonus += value;
-                    actor.combat[ability].value += value;
-                }
-                for (let [ability, value] of Object.entries(item.system.bonuses.civil)) {
-                    actor.civil[ability].bonus += value;
-                    actor.civil[ability].value += value;
-                }
-                for (let [ability, value] of Object.entries(item.system.bonuses.abilities)) {
-                    actor.abilities[ability].bonus += value;
-                    actor.abilities[ability].total += value;
-                }
-                for (let [ability, value] of Object.entries(item.system.bonuses.resistance)) {
-                    actor.attributes.resistance[ability].value += value;
-                }
-            }
-            else if (item.type === "offhand" && item.system.equipped) {
-                // increase max armor
-                actor.resources.phys_armor.max += item.system.value.phys;
-                actor.resources.mag_armor.max += item.system.value.mag;
-                // apply bonuses
-                for (let [ability, value] of Object.entries(item.system.bonuses.combat)) {
-                    actor.combat[ability].bonus += value;
-                    actor.combat[ability].value += value;
-                }
-                for (let [ability, value] of Object.entries(item.system.bonuses.civil)) {
-                    actor.civil[ability].bonus += value;
-                    actor.civil[ability].value += value;
-                }
-                for (let [ability, value] of Object.entries(item.system.bonuses.abilities)) {
-                    actor.abilities[ability].bonus += value;
-                    actor.abilities[ability].total += value;
-                }
-                for (let [ability, value] of Object.entries(item.system.bonuses.resistance)) {
-                    actor.attributes.resistance[ability].value += value;
-                }
-            }
-            else if (item.type === "skill" && item.system.memorized === "true") {
-                actor.attributes.memory.spent += item.system.memSlots;
-            }
-        }
-        // add flat misc armor bonuses
-        actor.resources.phys_armor.max += actor.resources.phys_armor.bonus;
-        actor.resources.mag_armor.max += actor.resources.mag_armor.bonus;
-        // calculate max hp
-        actor.resources.hp.max += CONFIG.CELESTUS.maxHP[actor.attributes.level];
-        /**
-         * Perform final additive operations
-         */
-        // final unspent skill points update for formshifter
-        actor.attributes.unspentPoints += actor.combat.formshifter.value * 2;
-        // calculate memory
-        actor.attributes.memory.total += parseInt(Math.floor((actor.attributes.level) / 2) + (actor.abilities.mind.value) - 7);
-        // calculate modifiers
-        // ability scores
-        for (let [key, ability] of Object.entries(actor.abilities)) {
-            ability.mod += ((ability.total - BASE_AS) * CONFIG.CELESTUS.abilityMod[key]) + CONFIG.CELESTUS.baseAbilityMod[key];
-        }
-        // combat abilities
-        for (let [key, ability] of Object.entries(actor.combat)) {
-            ability.mod += ability.value * 0.05;
-        }
-        // calculate crit chance
-        actor.attributes.bonuses.crit_chance.value += actor.abilities.wit.mod;
-        // calculate crit bonus
-        actor.attributes.bonuses.crit_bonus.value += 1 + CONFIG.CELESTUS.baseCritBonus + actor.attributes.bonuses.crit_bonus.bonus + actor.combat.shroudstalker.mod;
-        // calculate accuracy
-        actor.attributes.bonuses.accuracy.value += CONFIG.CELESTUS.baseAccuracy + actor.attributes.bonuses.accuracy.bonus;
-        // calculate evasion
-        actor.attributes.bonuses.evasion.value += actor.attributes.bonuses.evasion.bonus;
-        // calculate overall damage bonus
-        actor.attributes.bonuses.damage.value += actor.attributes.bonuses.damage.bonus;
-        // calculate movespeed
-        actor.attributes.movement.value += actor.attributes.movement.base;
-
-        /**
-         * Perform multiplicative operations
-         */
-        // con operations
-        actor.resources.phys_armor.max *= 1 + actor.abilities.con.mod;
-        actor.resources.mag_armor.max *= 1 + actor.abilities.con.mod;
-        actor.resources.hp.max *= 1 + actor.abilities.con.mod;
-        // ensure all resources are back to int
-        actor.resources.phys_armor.max = parseInt(actor.resources.phys_armor.max);
-        actor.resources.mag_armor.max = parseInt(actor.resources.mag_armor.max);
-        actor.resources.hp.max = parseInt(actor.resources.hp.max);
-        // movespeed
-        actor.attributes.movement.value *= (1 + actor.attributes.movement.bonus);
-
-        /**
-         * calculate final flat values from offsets
-         */
-        for (const key of ["hp", "phys_armor", "mag_armor"]) {
-            const resource = actor.resources[key];
-            resource.flat = resource.max + resource.offset;
-            // cap resource at max
-            resource.flat = Math.min(resource.flat, resource.max);
-        }
-
-        /**
-        * derive final resource values for display
-        */
-        this.system.resources.hp.value = this.system.resources.hp.flat;
-        this.system.resources.phys_armor.value = this.system.resources.phys_armor.flat + this.system.resources.phys_armor.temp;
-        this.system.resources.mag_armor.value = this.system.resources.mag_armor.flat + this.system.resources.mag_armor.temp;
-    }
 
     /** @override */
     async _preUpdate(changed, options, user) {
@@ -232,7 +21,7 @@ export class CelestusActor extends Actor {
                     const old = this.system.resources[key]?.flat ?? 0;
                     const diff = val.flat - old;
                     if (diff !== 0) {
-                        const str = (diff > 0) ? "+" + diff.toString(): diff.toString();
+                        const str = (diff > 0) ? "+" + diff.toString() : diff.toString();
                         canvasPopupText(this, str, CONFIG.CELESTUS.damageCol[key][diff > 0 ? "gain" : "lose"]);
                     }
                 }
@@ -484,7 +273,7 @@ export class CelestusActor extends Actor {
         // apply healing to origin if they have positive deathbringer
         if (origin.system.combat.deathbringer.mod > 0) {
             const heal = origin.system.combat.deathbringer.mod * damage;
-            origin.update({"system.resources.hp.flat": origin.system.resources.hp.flat + heal})
+            origin.update({ "system.resources.hp.flat": origin.system.resources.hp.flat + heal })
         }
 
         // finally, check if actor is flammable and if damage is fire damage
@@ -599,7 +388,7 @@ export class CelestusActor extends Actor {
         else if (item.type === "offhand") {
             // unequip current offhand
             if (equipped.right) {
-                equipped.right.update( {"system.equipped": false});
+                equipped.right.update({ "system.equipped": false });
                 unequipping.push(equipped.right);
             }
         }
