@@ -65,10 +65,7 @@ export class CelestusItem extends Item {
         }
         if (this.type === "armor") {
             if (this.system.type !== "none") {
-                const phys = CONFIG.CELESTUS.baseArmor[this.system.type][this.system.slot][this.actor.system.attributes.level].phys * this.system.efficiency;
-                const mag = CONFIG.CELESTUS.baseArmor[this.system.type][this.system.slot][this.actor.system.attributes.level].mag * this.system.efficiency;
-                rollData.armor = { phys: phys, mag: mag };
-
+                rollData.armor = this.system.value;
             }
         }
 

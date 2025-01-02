@@ -658,7 +658,12 @@ export class GearData extends foundry.abstract.TypeDataModel {
  */
 export class ArmorData extends GearData {
     static defineSchema() {
-        return super.defineSchema();
+        let schema = super.defineSchema();
+        schema.base = new SchemaField({
+            phys: new NumberField({ required: true, integer: true, initial: 0 }),
+            mag: new NumberField({ required: true, integer: true, initial: 0 }),
+        })
+        return schema;
     }
 
     /**
@@ -666,15 +671,16 @@ export class ArmorData extends GearData {
      * @returns {Object} containing phys and mag values for armor granted from this armor
      */
     get value() {
-        // if no type, return 0s
-        if (this.type === "none") {
+        // if no slot, return 0s
+        if (this.slot === "none") {
             return { phys: 0, mag: 0 };
         }
         // get actor level if it exists
-        const level = this.parent.actor ? this.parent.actor.system.attributes.level : 1;
+        const level = this.parent?.actor?.system.attributes.level ?? 1;
+        const scalar = CONFIG.CELESTUS.armor.scalars[this.slot] ?? 0;
         return {
-            phys: CONFIG.CELESTUS.baseArmor[this.type][this.slot][level].phys * this.efficiency,
-            mag: CONFIG.CELESTUS.baseArmor[this.type][this.slot][level].mag * this.efficiency,
+            phys: Math.round((this.base.phys*scalar/100.0)*(CONFIG.CELESTUS.e**level)),
+            mag:  Math.round((this.base.mag*scalar/100.0)*(CONFIG.CELESTUS.e**level)),
         }
     }
 }
@@ -733,7 +739,7 @@ export class OffhandData extends GearData {
         const level = this.parent.actor ? this.parent.actor.system.attributes.level : 1;
         return {
             phys: CONFIG.CELESTUS.baseOffhand[level].phys * this.efficiency,
-            mag: CONFIG.CELESTUS.baseArmor[level].mag * this.efficiency,
+            mag: CONFIG.CELESTUS.baseOffhand[level].mag * this.efficiency,
         }
     }
 }

@@ -306,7 +306,6 @@ Hooks.on("init", () => {
         },
         flatDamageScalar: 0.07, // +.07*(level-1) damage
         weaponDmgBase: 1.165, // used to calculate # of dice a weapon uses (1.165^lvl dice)
-        baseArmor: armorData,
         baseOffhand: offhandData,
         // info on different types of armor
         armor: {
@@ -328,7 +327,19 @@ Hooks.on("init", () => {
                 belt: { label: "Belt", text: "belt", jewel: true },
                 none: { label: "None", text: "none" },
             },
+            scalars: {
+                helmet: 2.9,
+                chest: 5.8,
+                legs: 3.9,
+                gloves: 2.9,
+                boots: 2.9,
+                belt: 1.9,
+                amulet: 2.3,
+                ring: 1.6,
+                none: 0,
+            }
         },
+        e: 1.27,
         equipmentSlots: {
             helmet: "Helmet",
             chest: "Chest",

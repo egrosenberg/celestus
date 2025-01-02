@@ -100,21 +100,19 @@
                                 <input type="text" name="system.efficiency" value="{{system.efficiency}}"
                                     data-dtype="Number" />
                             </div>
-                            {{!-- Armor Type --}}
+                            {{!-- Base Armor Ratios --}}
                             <div class="general attribute">
-                                <label for="system.type" class="resource-label">Type: </label>
-                                <select class="armor-type-selector" name="system.type">
-                                    {{!-- create a dropdown option for each damage type --}}
-                                    {{#each config.armor.types as |data type|}}
-                                    <option value="{{type}}" {{#if (eq data.text ../system.type)}}selected{{/if}}>
-                                        {{data.label}}
-                                    </option>
-                                    {{/each}}
-                                </select>
+                                <label for="system.base" class="resource-label">Base Armor: </label>
+                                (P):
+                                <input type="text" name="system.base.phys" value="{{system.base.phys}}"
+                                    data-dtype="Number" />
+                                (M):
+                                <input type="text" name="system.base.mag" value="{{system.base.mag}}"
+                                    data-dtype="Number" />
                             </div>
                             {{!-- Armor Slot --}}
                             <div class="general attribute">
-                                <label for="system.slot" class="resource-label">Type: </label>
+                                <label for="system.slot" class="resource-label">Slot: </label>
                                 <select class="armor-type-selector" name="system.slot">
                                     {{!-- create a dropdown option for each damage type --}}
                                     {{#each config.armor.slots as |data type|}}
