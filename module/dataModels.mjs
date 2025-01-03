@@ -718,9 +718,18 @@ export class NpcData extends ActorData {
         this.resources.mag_armor.max = 0;
         this.resources.hp.max = 0;
 
-        // calculate ability score
+        // calculate attribute scores
         for (let [key, value] of Object.entries(this.abilitySpread)) {
             this.abilities[key].total += Math.round(CONFIG.CELESTUS.baseAttributeScore + value * CONFIG.CELESTUS.npcAttributeScalar * this.attributes.level);
+        }
+
+        // calculate combat abilities
+        for (let [key, ability] of Object.entries(this.combat)) {
+            ability.value += Math.round(CONFIG.CELESTUS.npcAbilityBase + ability.base * CONFIG.CELESTUS.npcAbilityScalar * this.attributes.level);
+        }
+        // calculate civil abilities
+        for (let [key, ability] of Object.entries(this.civil)) {
+            ability.value += Math.round(CONFIG.CELESTUS.npcAbilityBase + ability.base * CONFIG.CELESTUS.npcAbilityScalar * this.attributes.level);
         }
 
         // calculate armor

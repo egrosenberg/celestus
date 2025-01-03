@@ -140,6 +140,8 @@ Hooks.on("init", () => {
         baseAttributeScore: 10,
         npcAttributeScalar: 1.9/10,
         npcArmorScalar: 20/100,
+        npcAbilityScalar: 0.173,
+        npcAbilityBase: 0.4,
         combatSkillMod: 0.05,   // amount to increase damage by for combat skills per level
         baseCritBonus: 0.6,   // base critical damage bonus expressed as a percentage
         baseCritChance: 0.05,   // base critical hit chance expressed as a percentage
