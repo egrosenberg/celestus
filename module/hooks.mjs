@@ -24,8 +24,8 @@ export async function rollAttack(e) {
     // check for targets
     const targets = game.user.targets;
     // verify targets amount
-    if (targets.size > item.system.targets.max || targets.size < item.system.targets.min) {
-        return ui.notifications.warn(`ERROR: Please select a valid amount of targets for ability (${item.system.targets.min}-${item.system.targets.max})`);
+    if (targets.size < 1) {
+        return ui.notifications.warn("ERROR: Please select at least one target to attack.");
     }
 
     // threshold needed to exceed to count as a crit
