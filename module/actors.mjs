@@ -31,7 +31,7 @@ export class CelestusActor extends Actor {
         // handle setting npc stats from stat spread preset
         if (this.type === "npc") {
             const statSpread = changed.system.spread;
-            if (statSpread) {
+            if (statSpread && this.system.spread != statSpread) {
                 const spread = CONFIG.CELESTUS.npcStats[statSpread];
                 if (spread) {
                     let abilities = {};

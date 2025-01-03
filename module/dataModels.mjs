@@ -794,8 +794,8 @@ export class SkillData extends foundry.abstract.TypeDataModel {
      * @returns {Number}
      */
     get finalRange() {
-        if (this.type === "weapon" && this.parent.actor && this.parent.actor.system.equipped.left) {
-            return this.parent.actor.system.equipped.left.system.range;
+        if (this.type === "weapon" && this.parent.actor?.weaponDamage?.left) {
+            return this.parent.actor.weaponDamage.left.range;
         }
         else {
             return this.range;
@@ -806,8 +806,20 @@ export class SkillData extends foundry.abstract.TypeDataModel {
      * @returns {Number}
      */
     get finalAbility() {
-        if (this.type === "weapon" && this.parent.actor && this.parent.actor.system.equipped.left) {
-            return this.parent.actor.system.equipped.left.system.ability;
+        if (this.type === "weapon") {
+            if (this.parent.actor?.type === "player" && this.parent.actor.system.equipped.left) {
+                return this.parent.actor.system.equipped.left.system.ability;
+            }
+            else if (this.parent.actor?.type === "npc") {
+                let ability = "str";
+                if (this.parent.actor.system.abilities[ability].total < this.parent.actor.system.abilities.dex.total) {
+                    ability = "dex";
+                }
+                if (this.parent.actor.system.abilities[ability].total < this.parent.actor.system.abilities.int.total) {
+                    ability = "int";
+                }
+                return ability;
+            }
         }
         else {
             return this.ability;
@@ -843,7 +855,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             return "on cooldown";
         }
         // check if skill is memorized
-        if (this.memorized === "false") {
+        if (this.memorized === "false" && actor.type === "player") {
             return "not memorized";
         }
         // dont use civil skills in combat?
@@ -857,7 +869,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
         // special cases for weapon skills
         if (this.type === "weapon") {
             // needs a weapon to use a weapon skill
-            if (!actor.system.equipped.left) {
+            if (actor.type === "player" && !actor.system.equipped.left) {
                 return "requires a weapon";
             }
             // cant use weapon skills while disarmed
