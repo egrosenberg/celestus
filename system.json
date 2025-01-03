@@ -21,9 +21,19 @@
     "styles": [
         "styles/celestus.css"
     ],
-    "packs": [
-        {}
+    "packs": [ {
+            "name": "rules",
+            "label": "Celestus Rules",
+            "type": "Item",
+            "system": "celestus"
+        }, {
+            "name": "skills",
+            "label": "Celestus Skills",
+            "type": "Item",
+            "system": "celestus"
+        }
     ],
+    "packFolders": [],
     "languages": [
         {
             "lang": "en",
