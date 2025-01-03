@@ -1067,7 +1067,7 @@ export class WeaponData extends GearData {
         const dice = Math.floor(Math.pow(CONFIG.CELESTUS.weaponDmgBase, level));
         const dmgDie = this.twoHanded ? 12 : 6;
         let mult = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency) : 1;
-        mult *= 1 + ((this.parent?.actor?.system.dmgBoost ?? 1) * 0.5);
+        mult *= 1 + ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
         mult = mult.toFixed(2);
         return {
             type: this.type,

@@ -7,7 +7,7 @@ export let npcStatSpread = {
         con: 2,
         mind: 1,
         wit: 2,
-        dmg: 3,
+        dmg: 1,
         phys_armor: 0,
         mag_armor: 0
     },
@@ -31,7 +31,7 @@ export let npcStatSpread = {
         con: 1.5,
         mind: 1,
         wit: 1.5,
-        dmg: 1,
+        dmg: 0,
         phys_armor: "",
         mag_armor: ""
     },
@@ -43,7 +43,7 @@ export let npcStatSpread = {
         con: 1.5,
         mind: 1,
         wit: 1,
-        dmg: 1,
+        dmg: 0,
         phys_armor: "",
         mag_armor: ""
     },
@@ -55,7 +55,7 @@ export let npcStatSpread = {
         con: 3,
         mind: 1,
         wit: 0.5,
-        dmg: 1,
+        dmg: 0,
         phys_armor: "",
         mag_armor: ""
     },
@@ -67,7 +67,7 @@ export let npcStatSpread = {
         con: 2.5,
         mind: 0.5,
         wit: 3,
-        dmg: 1,
+        dmg: 0,
         phys_armor: "",
         mag_armor: ""
     },
@@ -79,7 +79,7 @@ export let npcStatSpread = {
         con: 1,
         mind: 0.5,
         wit: 2,
-        dmg: 2,
+        dmg: 0,
         phys_armor: "",
         mag_armor: ""
     },
@@ -91,7 +91,7 @@ export let npcStatSpread = {
         con: 2.5,
         mind: 0.5,
         wit: 2,
-        dmg: 2,
+        dmg: 1,
         phys_armor: 40,
         mag_armor: ""
     },
@@ -103,7 +103,7 @@ export let npcStatSpread = {
         con: 3.5,
         mind: 0.5,
         wit: 2,
-        dmg: 2,
+        dmg: 1,
         phys_armor: 20,
         mag_armor: ""
     },
@@ -115,7 +115,7 @@ export let npcStatSpread = {
         con: 2,
         mind: 0.5,
         wit: 2,
-        dmg: 2,
+        dmg: 1,
         phys_armor: 20,
         mag_armor: ""
     },
@@ -127,7 +127,7 @@ export let npcStatSpread = {
         con: 2,
         mind: 1,
         wit: 2,
-        dmg: 2,
+        dmg: 1,
         phys_armor: 20,
         mag_armor: ""
     },
@@ -139,7 +139,7 @@ export let npcStatSpread = {
         con: 2,
         mind: 1,
         wit: 2,
-        dmg: 2,
+        dmg: 1,
         phys_armor: 40,
         mag_armor: 10
     },
@@ -199,7 +199,7 @@ export let npcStatSpread = {
         con: 5,
         mind: 3,
         wit: 6,
-        dmg: 3,
+        dmg: 2,
         phys_armor: 60,
         mag_armor: ""
     },
@@ -211,7 +211,7 @@ export let npcStatSpread = {
         con: 4,
         mind: 5,
         wit: 5,
-        dmg: 2,
+        dmg: 1,
         phys_armor: 40,
         mag_armor: ""
     },
@@ -235,7 +235,7 @@ export let npcStatSpread = {
         con: 4,
         mind: 6,
         wit: 5,
-        dmg: 3,
+        dmg: 2,
         phys_armor: 20,
         mag_armor: ""
     },
@@ -247,7 +247,7 @@ export let npcStatSpread = {
         con: 5,
         mind: 3,
         wit: 6,
-        dmg: 5,
+        dmg: 3,
         phys_armor: 100,
         mag_armor: ""
     },
@@ -259,7 +259,7 @@ export let npcStatSpread = {
         con: 6,
         mind: 4,
         wit: 7,
-        dmg: 5,
+        dmg: 3,
         phys_armor: 130,
         mag_armor: 30
     },
@@ -271,7 +271,7 @@ export let npcStatSpread = {
         con: 6,
         mind: 3,
         wit: 5,
-        dmg: 5,
+        dmg: 3,
         phys_armor: 125,
         mag_armor: 30
     },
@@ -283,7 +283,7 @@ export let npcStatSpread = {
         con: 5,
         mind: 4,
         wit: 8,
-        dmg: 5,
+        dmg: 2,
         phys_armor: 75,
         mag_armor: 30
     },
@@ -295,7 +295,7 @@ export let npcStatSpread = {
         con: 6,
         mind: 4,
         wit: 8,
-        dmg: 5,
+        dmg: 3,
         phys_armor: 105,
         mag_armor: 50
     },
@@ -307,7 +307,7 @@ export let npcStatSpread = {
         con: 5,
         mind: 4,
         wit: 7,
-        dmg: 5,
+        dmg: 3,
         phys_armor: 30,
         mag_armor: 75
     },
@@ -319,7 +319,7 @@ export let npcStatSpread = {
         con: 5,
         mind: 4,
         wit: 8,
-        dmg: 5,
+        dmg: 3,
         phys_armor: 50,
         mag_armor: 115
     },
@@ -331,7 +331,7 @@ export let npcStatSpread = {
         con: 5,
         mind: 7,
         wit: 7,
-        dmg: 5,
+        dmg: 2,
         phys_armor: "",
         mag_armor: 105
     },
@@ -343,7 +343,7 @@ export let npcStatSpread = {
         con: 5,
         mind: 7,
         wit: 7,
-        dmg: 5,
+        dmg: 3,
         phys_armor: "",
         mag_armor: 105
     }
