@@ -14,7 +14,8 @@ export class CharacterSheet extends ActorSheet {
             template: "./systems/celestus/templates/actor/actor-sheet.hbs",
             width: 900,
             height: 700,
-            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "abilities" }]
+            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "abilities" }],
+            scrollY: [".sheet-header",".sheet-main"],
         });
     }
     /** @override */
@@ -315,6 +316,7 @@ export class CelestusItemSheet extends ItemSheet {
                     initial: 'description',
                 },
             ],
+            scrollY: [".window-content"],
         });
     }
 
