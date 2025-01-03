@@ -5,6 +5,7 @@ import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
 import { statuses } from "./data/statuses.mjs"
+import { npcStatSpread } from "./data/npc-stat-spreads.mjs"
 
 /**
  * Define a set of template paths to pre-load
@@ -364,6 +365,7 @@ Hooks.on("init", () => {
             right: "Offhand",
             none: "None",
         },
+        npcStats: npcStatSpread,
         // categories of skills
         skillTypes: {
             weapon: "Weapon (combat)",

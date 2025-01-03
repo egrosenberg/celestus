@@ -677,6 +677,8 @@ export class NpcData extends ActorData {
             mag: new NumberField({required: true, integer: true, min: 0, initial: 0}),
         });
         schema.armorBoost = new NumberField({required: true, min: 0, initial: 1});
+        schema.dmgBoost = new NumberField({required: true, min: 0, initial: 1});
+        schema.spread = new StringField({required: true, initial: "custom"});
         return schema;
     }
 

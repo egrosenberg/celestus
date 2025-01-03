@@ -27,6 +27,26 @@ export class CelestusActor extends Actor {
                 }
             }
         }
+
+        // handle setting npc stats from stat spread preset
+        if (this.type === "npc") {
+            const statSpread = changed.system.spread;
+            if (statSpread) {
+                const spread = CONFIG.CELESTUS.npcStats[statSpread];
+                if (spread) {
+                    let abilities = {};
+                    for (let key of ["str", "dex", "con", "int", "mind", "wit"]) {
+                        abilities[key] = spread[key] || spread.parent?.[key] || 0;
+                    }
+                    changed.system.abilitySpread = abilities;
+                    changed.system.armorSpread = {
+                        phys: spread.phys_armor || spread.parent?.phys_armor || 0,
+                        mag: spread.mag_armor || spread.parent?.mag_armor || 0,
+                    }
+                    changed.system.dmgBoost = spread.dmg || spread.parent?.dmg || 1;
+                }
+            }
+        }
     }
 
     /**

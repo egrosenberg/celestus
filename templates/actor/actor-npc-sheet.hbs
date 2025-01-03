@@ -8,6 +8,12 @@
             </div>
             <div class="header-fields">
                 <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+                {{!-- NPC prefab stat spreads --}}
+                <div>
+                    <select class="npc-prefab-selector" name="system.spread">
+                        {{selectOptions config.npcStats selected=system.spread}}
+                    </select>
+                </div>
                 <span>
                     <span class="level">
                         Level: <input type="number" name="system.attributes.level" value="{{system.attributes.level}}"
@@ -15,9 +21,10 @@
                     </span>
                     <a class="control refresh" title="refresh resources" id="refresh-all"><i class="icon-cycle"></i></a>
                     <a class="control refresh" title="new day" id="refresh-dawn"><i class="icon-sunrise"></i></a>
-                    <a class="control refresh" title="toggle combat state" id="toggle-combat"><i
-                            class="{{ifThen actor.inCombat " icon-swords-emblem-solid" "icon-swords-emblem-outline"
-                            }}"></i></a>
+                    <a class="control refresh" title="toggle combat state" id="toggle-combat">
+                        <i class="{{ifThen actor.inCombat " icon-swords-emblem-solid" "icon-swords-emblem-outline" }}">
+                        </i>
+                    </a>
 
                 </span>
                 <h2>Resources</h2>
