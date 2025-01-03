@@ -67,7 +67,7 @@ export let statuses = [
         system: {
             damage: [{ type: "fire", value: 1 }],
             resistedBy: "mag",
-            removes: ["warm", "wet", "chill", "oil", "butn"],
+            blocks: ["warm", "wet", "chill", "oil", "burn"],
         },
         changes: [
             {
@@ -267,6 +267,9 @@ export let statuses = [
         img: "systems/celestus/svg/tentacle-strike.svg",
         type: "status",
         duration: { rounds: 3 },
+        system: {
+            resistedBy: "mag",
+        },
         changes: [
             {
                 key: "system.attributes.movement.bonus",
@@ -455,13 +458,18 @@ export let statuses = [
                 key: "flags.celestus.silenced",
                 value: "true",
                 mode: 5,
+            },
+            {
+                key: "system.attributes.bonuses.crit_chance.bonus",
+                value: "+1",
+                mode: 2,
             }
         ],
     },
     {
         id: "haste",
         name: "Hasted",
-        img: "icons/svg/upgrade.svg",
+        img: "icons/svg/wingfoot.svg",
         type: "status",
         duration: { rounds: 2 },
         system: {
@@ -521,7 +529,7 @@ export let statuses = [
     {
         id: "slow",
         name: "Slowed",
-        img: "icons/svg/downgrade.svg",
+        img: "icons/svg/anchor.svg",
         type: "status",
         duration: { rounds: 2 },
         system: {
@@ -644,7 +652,7 @@ export let statuses = [
         name: "Prone",
         img: "icons/svg/falling.svg",
         type: "status",
-        duration: { rounds: 1 },
+        duration: { rounds: 2 },
         system: {
             resistedBy: "phys",
         },
@@ -678,13 +686,13 @@ export let statuses = [
     },
     {
         id: "fear",
-        name: "Afraid",
+        name: "Terrified",
         img: "icons/svg/terror.svg",
         type: "status",
         duration: { rounds: 2 },
         system: {
             resistedBy: "mag",
-            removes: ["charm"],
+            removes: ["charm", "mad"],
         },
     },
     {
@@ -694,7 +702,7 @@ export let statuses = [
         type: "status",
         duration: { rounds: 2 },
         system: {
-            removes: ["charm"],
+            removes: ["charm", "fear"],
             resistedBy: "mag",
         },
     },
@@ -730,7 +738,10 @@ export let statuses = [
         name: "Marked",
         img: "systems/celestus/svg/convergence-target.svg",
         type: "status",
-        duration: { rounds: 3 },
+        duration: { rounds: 5 },
+        system: {
+            blocks: ["invisible"],
+        },
         changes: [
             {
                 key: "flags.celestus.marked",
