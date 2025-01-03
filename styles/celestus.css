@@ -224,10 +224,12 @@
 .celestus.actor.sheet .npc-prefab-selector {
     display: flex;
     width: 90%;
-    background-color: white;
     margin: auto;
     border-radius: 5px;
     padding: 5px;
+    box-shadow: var(--shadow-inset);
+    background-image: url('../img/milky-texture.webp');
+    background-blend-mode: multiply;
     
 }
 /* resources */

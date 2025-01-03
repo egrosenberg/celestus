@@ -10,7 +10,7 @@
                 <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
                 {{!-- NPC prefab stat spreads --}}
                 <div>
-                    <select class="npc-prefab-selector" name="system.spread">
+                    <select class="npc-prefab-selector physical" name="system.spread">
                         {{selectOptions config.npcStats selected=system.spread}}
                     </select>
                 </div>
