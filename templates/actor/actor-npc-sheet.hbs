@@ -106,6 +106,12 @@
                         </span>
                     </div>
                     {{/each}}
+                    <div class="ability flexrow flex-group-center">
+                        <label for="system.dmgBoost" class="resource-label rollable flexlarge align-left" style="flex: 0 0 150px">
+                            Damage Scalar
+                        </label>
+                        <input type="number" name="system.dmgBoost" value="{{system.dmgBoost}}" data-dtype="Number" />
+                    </div>
                 </div>
                 <h2>Resistances</h2>
                 <div class="abilities flexcol">

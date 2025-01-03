@@ -354,6 +354,36 @@ export class ActorData extends foundry.abstract.TypeDataModel {
     }
 
     /**
+     * finds and returns all armor
+     * @returns {undefined | Object} object containing each armor item for each armor slot
+     */
+    get armor() {
+        return {
+            helmet: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "helmet")),
+            chest: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "chest")),
+            gloves: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "gloves")),
+            leggings: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "leggings")),
+            boots: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "boots")),
+            amulet: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "amulet")),
+            ring: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "ring")),
+            belt: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "belt")),
+        };
+    }
+
+    /**
+     * finds and returns all weapons
+     * @returns {undefined | Object} object containing each weapon
+     */
+    get weapon() {
+        return this.parent.items.filter(i => i.type === "weapon");
+    }
+    /**
+     * finds and returns all offhands
+     */
+    get offhand() {
+        return this.parent.items.filter(i => i.type === "offhand");
+    }
+    /**
      * Finds and returns all effects on character
      * @returns {Object} with categories for different states of effect
      */
@@ -596,37 +626,6 @@ export class PlayerData extends ActorData {
     }
 
     /**
-     * finds and returns all armor
-     * @returns {undefined | Object} object containing each armor item for each armor slot
-     */
-    get armor() {
-        return {
-            helmet: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "helmet")),
-            chest: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "chest")),
-            gloves: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "gloves")),
-            leggings: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "leggings")),
-            boots: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "boots")),
-            amulet: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "amulet")),
-            ring: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "ring")),
-            belt: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "belt")),
-        };
-    }
-
-    /**
-     * finds and returns all weapons
-     * @returns {undefined | Object} object containing each weapon
-     */
-    get weapon() {
-        return this.parent.items.filter(i => i.type === "weapon");
-    }
-    /**
-     * finds and returns all offhands
-     */
-    get offhand() {
-        return this.parent.items.filter(i => i.type === "offhand");
-    }
-
-    /**
      * Calculates weapon damage
      * @returns {false|Array[Object]} false if no weapon or array of damage info objects from equipped weapons
      */
@@ -669,16 +668,16 @@ export class NpcData extends ActorData {
     static defineSchema() {
         let schema = super.defineSchema();
         schema.abilitySpread = new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.abilities)).reduce((obj, ability) => {
-            obj[ability] = new NumberField({required: true, min: 0, initial: 0});
+            obj[ability] = new NumberField({ required: true, min: 0, initial: 0 });
             return obj;
         }, {}));
         schema.armorSpread = new SchemaField({
-            phys: new NumberField({required: true, integer: true, min: 0, initial: 0}),
-            mag: new NumberField({required: true, integer: true, min: 0, initial: 0}),
+            phys: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+            mag: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
         });
-        schema.armorBoost = new NumberField({required: true, min: 0, initial: 1});
-        schema.dmgBoost = new NumberField({required: true, min: 0, initial: 1});
-        schema.spread = new StringField({required: true, initial: "custom"});
+        schema.armorBoost = new NumberField({ required: true, min: 0, initial: 1 });
+        schema.dmgBoost = new NumberField({ required: true, min: 0, initial: 1 });
+        schema.spread = new StringField({ required: true, initial: "custom" });
         return schema;
     }
 
@@ -733,8 +732,8 @@ export class NpcData extends ActorData {
         }
 
         // calculate armor
-        this.resources.phys_armor.max += Math.round(this.armorSpread.phys*CONFIG.CELESTUS.npcArmorScalar*(CONFIG.CELESTUS.e**this.attributes.level)*this.armorBoost);
-        this.resources.mag_armor.max +=  Math.round(this.armorSpread.mag*CONFIG.CELESTUS.npcArmorScalar*(CONFIG.CELESTUS.e**this.attributes.level)*this.armorBoost);
+        this.resources.phys_armor.max += Math.round(this.armorSpread.phys * CONFIG.CELESTUS.npcArmorScalar * (CONFIG.CELESTUS.e ** this.attributes.level) * this.armorBoost);
+        this.resources.mag_armor.max += Math.round(this.armorSpread.mag * CONFIG.CELESTUS.npcArmorScalar * (CONFIG.CELESTUS.e ** this.attributes.level) * this.armorBoost);
 
         // call final derivations from super
         super.prepareDerivedData();
@@ -745,6 +744,46 @@ export class NpcData extends ActorData {
      */
     get skills() {
         return this.parent.items.filter(i => (i.type === "skill"));
+    }
+
+    get equipped() {
+        const equippedWeapons = this.weapon;
+        let leftHand;
+        let rightHand;
+        if (equippedWeapons.length) {
+            leftHand = equippedWeapons[0];
+            if (!leftHand.system.twoHanded && equippedWeapons.length > 1) {
+                rightHand = equippedWeapons[1];
+            }
+            else if (leftHand.system.twoHanded) {
+                rightHand = leftHand;
+            }
+        }
+        return {
+            left: leftHand,
+            right: rightHand,
+        };
+    }
+
+    /**
+     * @returns 
+     */
+    get weaponDamage() {
+        const equipped = this.equipped;
+        // return early if no equipped weapons
+        if (!equipped.left) {
+            return false;
+        }
+        // two weapon
+        else if (equipped.left.system.twoHanded || !equipped.right || equipped.right.type === "offhand") {
+            return [equipped.left.system.damage];
+        }
+        // two single handed
+        else {
+            const left = equipped.left.system.damage;
+            const right = equipped.right.system.damage;
+            return [left, right];
+        }
     }
 }
 
@@ -815,20 +854,8 @@ export class SkillData extends foundry.abstract.TypeDataModel {
      * @returns {Number}
      */
     get finalAbility() {
-        if (this.type === "weapon") {
-            if (this.parent.actor?.type === "player" && this.parent.actor.system.equipped.left) {
-                return this.parent.actor.system.equipped.left.system.ability;
-            }
-            else if (this.parent.actor?.type === "npc") {
-                let ability = "str";
-                if (this.parent.actor.system.abilities[ability].total < this.parent.actor.system.abilities.dex.total) {
-                    ability = "dex";
-                }
-                if (this.parent.actor.system.abilities[ability].total < this.parent.actor.system.abilities.int.total) {
-                    ability = "int";
-                }
-                return ability;
-            }
+        if (this.type === "weapon" && this.parent?.actor?.system?.equipped?.left) {
+            return this.parent.actor.system.equipped.left.system.ability;
         }
         else {
             return this.ability;
@@ -878,7 +905,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
         // special cases for weapon skills
         if (this.type === "weapon") {
             // needs a weapon to use a weapon skill
-            if (actor.type === "player" && !actor.system.equipped.left) {
+            if (!actor.system.equipped.left) {
                 return "requires a weapon";
             }
             // cant use weapon skills while disarmed
@@ -1039,7 +1066,9 @@ export class WeaponData extends GearData {
         const level = this.parent.actor ? this.parent.actor.system.attributes.level : 1;
         const dice = Math.floor(Math.pow(CONFIG.CELESTUS.weaponDmgBase, level));
         const dmgDie = this.twoHanded ? 12 : 6;
-        const mult = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency) : 1;
+        let mult = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency) : 1;
+        mult *= 1 + ((this.parent?.actor?.system.dmgBoost ?? 1) * 0.5);
+        mult = mult.toFixed(2);
         return {
             type: this.type,
             min: Math.floor(dice * mult),
