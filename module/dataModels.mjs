@@ -309,7 +309,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
             ability.mod += ability.value * 0.05;
         }
         // calculate crit chance
-        this.attributes.bonuses.crit_chance.value += this.abilities.wit.mod;
+        this.attributes.bonuses.crit_chance.value += this.abilities.wit.mod + this.attributes.bonuses.crit_chance.bonus;
         // calculate crit bonus
         this.attributes.bonuses.crit_bonus.value += 1 + CONFIG.CELESTUS.baseCritBonus + this.attributes.bonuses.crit_bonus.bonus + this.combat.shroudstalker.mod;
         // calculate accuracy
