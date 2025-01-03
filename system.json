@@ -69,6 +69,11 @@
                 "htmlFields": [
                     "description"
                 ]
+            },
+            "quickref": {
+                "htmlFields": [
+                    "description"
+                ]
             }
         },
         "ActiveEffect": {

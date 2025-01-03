@@ -1243,3 +1243,17 @@ export class CelestusFeature extends GearData {
         return schema;
     }
 }
+
+
+/**
+ * Data model for quick references
+ * @extends { TypeDataModel }
+ */
+export class ReferenceData extends foundry.abstract.TypeDataModel {
+    static defineSchema() {
+        return {
+            // html description of armor
+            description: new HTMLField()
+        }
+    }
+}
