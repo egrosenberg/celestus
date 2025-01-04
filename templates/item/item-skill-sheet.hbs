@@ -79,11 +79,15 @@
                             {{!-- Components --}}
                             <div class="general attribute">
                                 <label for="system.components.verbal" class="resource-label">Components: </label>
-                                V: <input class="check-input" name="system.components.verbal" type="checkbox" {{checked system.components.verbal}} />
-                                S: <input class="check-input" name="system.components.somatic" type="checkbox" {{checked system.components.somatic}} />
-                                M: <input class="check-input" name="system.components.material" type="checkbox" {{checked system.components.material}} />
+                                V: <input class="check-input" name="system.components.verbal" type="checkbox" {{checked
+                                    system.components.verbal}} />
+                                S: <input class="check-input" name="system.components.somatic" type="checkbox" {{checked
+                                    system.components.somatic}} />
+                                M: <input class="check-input" name="system.components.material" type="checkbox"
+                                    {{checked system.components.material}} />
                                 {{#if system.components.material}}
-                                <input type="text" style="width: 200px" name="system.components.materialFull" value="{{system.components.materialFull}}" data-dtype="Text" />
+                                <input type="text" style="width: 200px" name="system.components.materialFull"
+                                    value="{{system.components.materialFull}}" data-dtype="Text" />
                                 {{/if}}
                             </div>
                             {{!-- cooldown --}}
@@ -100,13 +104,22 @@
                                 <input type="text" name="system.memSlots" value="{{system.memSlots}}"
                                     data-dtype="Number" />
                             </div>
-                            {{!-- cooldown --}}
+                            {{!-- Targeting --}}
                             <div class="general attribute">
-                                <label for="system.cooldown.value" class="resource-label">Targets: </label>
-                                <input type="text" name="system.targets.min" value="{{system.targets.min}}"
-                                    data-dtype="Number" />
-                                - <input type="text" name="system.targets.max" value="{{system.targets.max}}"
-                                    data-dtype="Number" />
+                                <label for="system.targets.type" class="resource-label">Targets: </label>
+                                <select class="skill-type-selector" name="system.targets.type">
+                                    {{selectOptions config.targetTypes selected=system.targets.type}}
+                                </select>
+                                {{#if (eq system.targets.type "creature")}}
+                                    Targets: 
+                                    <input type="text" name="system.targets.count" value="{{system.targets.count}}" data-dtype="Number" />
+                                {{/if}}
+                                {{#with (lookup config.targetTypes system.targets.type)}}
+                                {{#if (eq options.[0] "size")}}
+                                    Size: 
+                                    <input type="text" name="system.targets.size" value="{{../system.targets.size}}" data-dtype="Number" />
+                                {{/if}}
+                                {{/with}}
                             </div>
                             {{!-- has attack? --}}
                             <div class="general attribute">
@@ -200,8 +213,7 @@
                         <li class="item flexrow damage-header" draggable="true">
                             <div class="damage-type">Status Name</div>
                             <div class="item-controls">
-                                <a class="item-control status-create" title="Create New StatusEffect"
-                                    data-type="item">
+                                <a class="item-control status-create" title="Create New StatusEffect" data-type="item">
                                     <i class="fas fa-plus"></i>
                                     Add Status
                                 </a>
@@ -211,18 +223,19 @@
                         {{#each system.statusEffects as |status|}}
                         <li class="item flexrow">
                             <div class="status-type flexrow">
-                                <select class="status-type-selector"name="system.statusEffects[{{@index}}]"
+                                <select class="status-type-selector" name="system.statusEffects[{{@index}}]"
                                     data-index="{{@index}}">
                                     {{#each ../statusEffects as |statusEffect|}}
-                                    <option value="{{statusEffect.id}}" {{ifThen (eq statusEffect.id status) "selected" ""}}>
+                                    <option value="{{statusEffect.id}}" {{ifThen (eq statusEffect.id
+                                        status) "selected" "" }}>
                                         {{statusEffect.name}}
                                     </option>
                                     {{/each}}
                                 </select>
                             </div>
                             <div class="item-controls">
-                                <a class="item-control status-delete" title="Delete StatusEffect" data-type="statusEffect"
-                                    data-index="{{@index}}">
+                                <a class="item-control status-delete" title="Delete StatusEffect"
+                                    data-type="statusEffect" data-index="{{@index}}">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </div>

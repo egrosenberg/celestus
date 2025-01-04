@@ -1,11 +1,12 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData } from "./dataModels.mjs"
 import { CelestusActor } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, previewDamage, rollAttack, rollDamage, rollItemMacro, startCombat, triggerTurn } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTemplate, previewDamage, rollAttack, rollDamage, rollItemMacro, startCombat, triggerTurn } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
 import { statuses } from "./data/statuses.mjs"
 import { npcStatSpread } from "./data/npc-stat-spreads.mjs"
+import { CelestusMeasuredTemplate } from "./measure.mjs"
 
 /**
  * Define a set of template paths to pre-load
@@ -400,6 +401,16 @@ Hooks.on("init", () => {
                 lose: "#806600",
             }
         },
+        targetTypes: {
+            none: { label: "None", options: [] },
+            self: { label: "Self", options: [] },
+            creature: { label: "Creatures", options: ["count"] },
+            point: { label: "Point", options: [] },
+            sphere: { label: "Sphere", measure: "circle", options: ["size"] },
+            radius: { label: "Radius", measure: "circle", options: ["size"] },
+            cone: { label: "Cone", measure: "cone", options: ["size"], angle: 60 },
+            line: { label: "Line", measure: "ray", options: ["size"] },
+        }
     };
 
     // set up data models
@@ -420,6 +431,8 @@ Hooks.on("init", () => {
     CONFIG.ActiveEffect.dataModels = {
         status: EffectData,
     }
+
+    CONFIG.MeasuredTemplate.objectClass = CelestusMeasuredTemplate;
 
     // set up sheets
     Actors.unregisterSheet('core', ActorSheet);
@@ -472,6 +485,7 @@ Hooks.on("ready", () => {
     $(document).on("click", ".damage", rollDamage);
     $(document).on("click", ".apply-damage", applyDamageHook);
     $(document).on("click", ".apply-status", applyStatusHook);
+    $(document).on("click", ".draw-template", drawTemplate);
 
     // hook macro creation on hotbar drop
     Hooks.on("hotbarDrop", (bar, data, slot) => {
