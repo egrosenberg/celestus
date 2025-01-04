@@ -21,6 +21,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
             biography: new HTMLField(), // create biography field
+            t: new StringField({ required: true, initial: "humanoid" }),
             // configure resources
             resources: new SchemaField({
                 // configure health as a schema field
