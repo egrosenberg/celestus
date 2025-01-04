@@ -479,6 +479,7 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
 
         context.system = context.data.system;
         context.config = CONFIG.CELESTUS;
+        context.statusEffects = CONFIG.statusEffects;
 
         return context;
     }
@@ -494,6 +495,16 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
             let damage = this.object.system.damage;
             damage[index].type = type;
             this.object.update({ "system.damage": damage });
+        });
+        // operate changes on status block/remove
+        html.on('change', '.status-type select', (ev) => {
+            const t = ev.currentTarget;
+            const index = $(t).data("index");
+            const statusType = $(t).data("type");
+            const status = $(t).val();
+            let arr = this.object.system[statusType];
+            arr[index] = status;
+            this.object.update({ [`system.${statusType}`]: arr });
         });
         // get damage values
         html.on('change', '.damage-amount input', (ev) => {
@@ -517,6 +528,35 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
             let damage = this.object.system.damage;
             damage.push({ type: "none", roll: "" });
             this.object.update({ "system.damage": damage });
+        });
+        // add status removal element
+        html.on('click', '.removes-create', (ev) => {
+            let removes = this.object.system.removes;
+            console.log(removes);
+            removes.push("death");
+            this.object.update({ "system.removes": removes });
+        });
+        // remove status removal element
+        html.on('click', '.removes-delete', (ev) => {
+            const t = ev.currentTarget;
+            const index = $(t).data("index");
+            let arr = this.object.system.removes;
+            arr.splice(index, 1);
+            this.object.update({ "system.removes": arr });
+        });
+        // add status block element
+        html.on('click', '.blocks-create', (ev) => {
+            let blocks = this.object.system.blocks;
+            blocks.push("death");
+            this.object.update({ "system.blocks": blocks });
+        });
+        // remove status block element
+        html.on('click', '.blocks-delete', (ev) => {
+            const t = ev.currentTarget;
+            const index = $(t).data("index");
+            let arr = this.object.system.blocks;
+            arr.splice(index, 1);
+            this.object.update({ "system.blocks": arr });
         });
     }
 }

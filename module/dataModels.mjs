@@ -831,7 +831,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             targets: new SchemaField({ // amount of targets required/allowed
                 count: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 type: new StringField({ required: true, initial: "none" }),
-                size: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+                size: new NumberField({ required: true, min: 0, initial: 0 }),
             }),
             range: new NumberField({ required: true, initial: 0 }), // range of skill use, 0ft = self, 5ft = melee
             statusEffects: new ArrayField(new StringField()),
