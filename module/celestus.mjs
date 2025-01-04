@@ -57,9 +57,9 @@ Hooks.on("init", () => {
             psychic: { label: "Psychic", text: "psychic", style: "magical", skill: "voidcantor", color: "#df86df", glyph: "icon-croissants-pupil" },
             piercing: { label: "Piercing", text: "piercing", style: "direct", skill: "warlord", color: "#df8686", glyph: "icon-bloody-stash" },
             healing: { label: "Healing", text: "healing", style: "healing", skill: "tidecaller", color: "#92e298", glyph: "icon-nested-hearts" },
-            phys_armor: { label: "Physical Armor", text: "phys_armor", style: "healing", skill: "duneshaper", color: "#dba670", glyph: "icon-edged-shield" },
+            phys_armor: { label: "Physical Armor", text: "phys_armor", style: "healing", skill: "duneshaper", color: "#ebccad", glyph: "icon-edged-shield" },
             mag_armor: { label: "Magic Armor", text: "mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
-            t_phys_armor: { label: "Temp Physical Armor", text: "t_phys_armor", style: "healing", skill: "duneshaper", color: "#dba670", glyph: "icon-edged-shield" },
+            t_phys_armor: { label: "Temp Physical Armor", text: "t_phys_armor", style: "healing", skill: "duneshaper", color: "#ebccad", glyph: "icon-edged-shield" },
             t_mag_armor: { label: "Temp Magic Armor", text: "t_mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
             none: { label: "None", text: "none", style: "none", skill: "none", color: "black", glyph: "" },
         },
@@ -79,7 +79,7 @@ Hooks.on("init", () => {
             voidcantor: { label: "Voidcantor", text: "voidcantor", damage: "psychic", glyph: "icon-star-swirl" },
             deathbringer: { label: "Deathbringer", text: "deathbringer", damage: "physical", glyph: "icon-death-zone" },
             shroudstalker: { label: "Shroudstalker", text: "shroudstalker", damage: "piercing", glyph: "icon-nested-eclipses" },
-            formshifter: { label: "Formshifter", text: "formshifter", damage: "acid", glyph: "icon-wolf-howl" },
+            formshifter: { label: "Formshifter", text: "formshifter", damage: "phys_armor", glyph: "icon-wolf-howl" },
             huntmaster: { label: "Huntmaster", text: "huntmaster", damage: "poison", glyph: "icon-pocket-bow" },
             warlord: { label: "Warlord", text: "warlord", damage: "physical", glyph: "icon-axe-sword" },
         },
@@ -139,8 +139,8 @@ Hooks.on("init", () => {
         },
         baseAbilityPoints: 1,
         baseAttributeScore: 10,
-        npcAttributeScalar: 1.9/10,
-        npcArmorScalar: 20/100,
+        npcAttributeScalar: 1.9 / 10,
+        npcArmorScalar: 20 / 100,
         npcAbilityScalar: 0.173,
         npcAbilityBase: 0.4,
         combatSkillMod: 0.05,   // amount to increase damage by for combat skills per level
@@ -349,7 +349,7 @@ Hooks.on("init", () => {
         offhand: {
             spreads: {
                 none: { label: "Custom", phys: 0, mag: 0 },
-                shield: {label: "Shield", phys: 90, mag: 60}
+                shield: { label: "Shield", phys: 90, mag: 60 }
             },
             scalar: 9.68,
         },
@@ -410,6 +410,25 @@ Hooks.on("init", () => {
             radius: { label: "Radius", measure: "circle", options: ["size"] },
             cone: { label: "Cone", measure: "cone", options: ["size"], angle: 60 },
             line: { label: "Line", measure: "ray", options: ["size"] },
+        },
+        auraTargets: {
+            any: "All Creatures",
+            friendly: "Friendly Creatures",
+            hostile: "Hostile Creatures",
+            type: "Creature Type",
+        },
+        creatureTypes: {
+            humanoid: "Humanoid",
+            undead: "Undead",
+            animal: "Animal",
+            monstrosity: "Monstrosity",
+            fiend: "Fiend",
+            fey: "Fey",
+            elemental: "Elemental",
+            aberration: "Aberration",
+            ooze: "Ooze",
+            dragon: "Dragon",
+            splinter: "Splinter",
         }
     };
 
@@ -487,13 +506,14 @@ Hooks.on("ready", () => {
     $(document).on("click", ".apply-status", applyStatusHook);
     $(document).on("click", ".draw-template", drawTemplate);
 
-    // hook macro creation on hotbar drop
-    Hooks.on("hotbarDrop", (bar, data, slot) => {
-        createCelestusMacro(data, slot);
-        return false;
-    });
 });
 
+
+// hook macro creation on hotbar drop
+Hooks.on("hotbarDrop", (bar, data, slot) => {
+    createCelestusMacro(data, slot);
+    return false;
+});
 
 // append apply damage button to damage rolls for GM
 Hooks.on("renderChatMessage", addChatButtons);
@@ -508,6 +528,11 @@ Hooks.on("combatTurnChange", triggerTurn);
 Hooks.on("combatStart", startCombat);
 // handle combat end
 Hooks.on("preDeleteCombat", cleanupCombat);
+
+// handle combat end
+//Hooks.on("updateToken", (object) => {
+//    console.log(object);
+//});
 
 // hbs helpers
 Handlebars.registerHelper("repeat", (n, options) => {

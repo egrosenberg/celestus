@@ -8,6 +8,11 @@
             </div>
             <div class="header-fields">
                 <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+                <div>
+                    <select class="npc-prefab-selector physical" name="system.t">
+                        {{selectOptions config.creatureTypes selected=system.t}}
+                    </select>
+                </div>
                 <span>
                     <span class="level">
                         Level: <input type="number" name="system.attributes.level" value="{{system.attributes.level}}"
