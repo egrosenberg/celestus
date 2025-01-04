@@ -449,9 +449,9 @@ export class CelestusItemSheet extends ItemSheet {
         html.on('click', '.effect-control', (ev) => {
             const row = ev.currentTarget.closest('li');
             const document =
-                row.dataset.parentId === this.actor.id
-                    ? this.actor
-                    : this.actor.items.get(row.dataset.parentId);
+                row.dataset.parentId === this.item?.id
+                    ? this.item
+                    : this.item.items.get(row.dataset.parentId);
             onManageActiveEffect(ev, document);
         });
     }
