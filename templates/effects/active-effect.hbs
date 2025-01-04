@@ -13,7 +13,7 @@
         <a class="item" data-tab="details"><i class="fas fa-book"></i> {{localize "EFFECT.TabDetails"}}</a>
         <a class="item" data-tab="duration"><i class="fas fa-clock"></i> {{localize "EFFECT.TabDuration"}}</a>
         <a class="item" data-tab="effects"><i class="fas fa-cogs"></i> {{localize "EFFECT.TabEffects"}}</a>
-        <a class="item" data-tab="damage"><i class="fas fa-cogs"></i> Damage</a>
+        <a class="item" data-tab="other"><i class="fas fa-cogs"></i> Other</a>
     </nav>
 
     <!-- Details Tab -->
@@ -140,8 +140,9 @@
             {{/each}}
         </ol>
     </section>
-    <!-- Effects Tab -->
-    <section class="tab" data-tab="damage">
+    <!-- Other Tab -->
+    <section class="tab" data-tab="other">
+        <h2>Damage</h2>
         <li class="item flexrow damage-header" draggable="true">
             <div class="damage-type">Type</div>
             <div class="damage-amount">Amount (%)</div>
@@ -177,8 +178,69 @@
             </li>
             {{/each}}
         </ol>
+        <h2>Removes</h2>
+        <li class="item flexrow damage-header" draggable="true">
+            <div class="damage-type">Status</div>
+            <div class="item-controls">
+                <a class="item-control removes-create" title="Add a new status" data-type="item">
+                    <i class="fas fa-plus"></i>
+                    Add Status
+                </a>
+            </div>
+        </li>
+        <ol class="damage-list">
+            {{!-- create editor for each status it removes --}}
+            {{#each system.removes as |status|}}
+            <li class="item flexrow">
+                <div class="status-type">
+                    <select class="damage-type-selector" name="system.removes[{{@index}}]" data-index="{{@index}}" data-type="removes">
+                        {{!-- create a dropdown option for each damage type --}}
+                        {{#each ../statusEffects as |statusEffect|}}
+                        <option value="{{statusEffect.id}}" {{#if (eq status statusEffect.id)}}selected{{/if}}>{{statusEffect.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="item-controls">
+                    <a class="item-control removes-delete" title="Remove status" data-type="damage"
+                        data-index="{{@index}}">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </div>
+            </li>
+            {{/each}}
+        </ol>
+        <h2>Blocks</h2>
+        <li class="item flexrow damage-header" draggable="true">
+            <div class="damage-type">Status</div>
+            <div class="item-controls">
+                <a class="item-control blocks-create" title="Add a new status" data-type="item">
+                    <i class="fas fa-plus"></i>
+                    Add Status
+                </a>
+            </div>
+        </li>
+        <ol class="damage-list">
+            {{!-- create editor for each status it removes --}}
+            {{#each system.blocks as |status|}}
+            <li class="item flexrow">
+                <div class="status-type">
+                    <select class="damage-type-selector" name="system.removes[{{@index}}]" data-index="{{@index}}" data-type="blocks">
+                        {{!-- create a dropdown option for each damage type --}}
+                        {{#each ../statusEffects as |statusEffect|}}
+                        <option value="{{statusEffect.id}}" {{#if (eq status statusEffect.id)}}selected{{/if}}>{{statusEffect.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="item-controls">
+                    <a class="item-control blocks-delete" title="Remove status" data-type="damage"
+                        data-index="{{@index}}">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </div>
+            </li>
+            {{/each}}
+        </ol>
     </section>
-
     <footer class="sheet-footer">
         <button type="submit"><i class="fas fa-save"></i> {{localize submitText}}</button>
     </footer>
