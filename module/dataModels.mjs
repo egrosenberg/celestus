@@ -1161,7 +1161,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
             return;
         }
         const targetsSelf = data.system?.aura?.targetsSelf;
-        if (targetsSelf || !data.system?.aura?.has) {
+        if ((targetsSelf || data.origin !== actor.uuid) || !data.system?.aura?.has) {
             switch (data.system.resistedBy) {
                 case "phys":
                     if (actor.system.resources.phys_armor.value > 0) resisted = true;
