@@ -1179,7 +1179,6 @@ export class EffectData extends foundry.abstract.TypeDataModel {
         if (data.statuses && data.statuses.length > 0) {
             // check if status is blocked
             for (let effect of actor.effects) {
-                console.log(effect.system.blocks);
                 if (effect.system.blocks.find(b => b === data.statuses[0])) {
                     canvasPopupText(actor, `${data.name} blocked by ${effect.name}`);
                     return false;

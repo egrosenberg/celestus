@@ -37,7 +37,6 @@ export function calcMult(actor, type, ability, base, flat = 0) {
  */
 export function canvasPopupText(actor, text, color = "#ffffff") {
     const tokens = actor.getActiveTokens(true);
-    console.log(color);
     for (let t of tokens) {
         if (!t.visible || !t.renderable) continue;
         canvas.interface.createScrollingText(t.center, text, {
