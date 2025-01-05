@@ -539,8 +539,6 @@ Hooks.on("preDeleteCombat", cleanupCombat);
 // handle combat end
 Hooks.on("updateToken", spreadAura);
 
-Hooks.on("canvasDraw", (object) => {console.log(object)})
-
 // hbs helpers
 Handlebars.registerHelper("repeat", (n, options) => {
     let output = ""
