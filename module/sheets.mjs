@@ -468,7 +468,7 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
             classes: ["celestus", "sheet", "effect"],
             template: "./systems/celestus/templates/effects/active-effect.hbs",
             width: 580,
-            height: "auto",
+            height: 580,
             tabs: [{ navSelector: ".tabs", contentSelector: "form", initial: "details" }]
         });
     }
@@ -487,6 +487,13 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
     /** @override */
     activateListeners(html) {
         super.activateListeners(html);
+        
+        // toggle checkboxes
+        html.on('click', '.check-input', (ev) => {
+            const checked = ev.currentTarget.checked;
+            const name = ev.currentTarget.name;
+            this.object.update({ [name]: checked });
+        });
         // operate changes on damage type
         html.on('change', '.damage-type select', (ev) => {
             const t = ev.currentTarget;
@@ -505,6 +512,14 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
             let arr = this.object.system[statusType];
             arr[index] = status;
             this.object.update({ [`system.${statusType}`]: arr });
+        });
+        // operate changes on status block/remove
+        html.on('change', '.aura-type-selector', (ev) => {
+            const t = ev.currentTarget;
+            const index = $(t).data("index");
+            const name = $(t).attr("name");
+            const value = $(t).val();
+            this.object.update({ [name]: value });
         });
         // get damage values
         html.on('change', '.damage-amount input', (ev) => {

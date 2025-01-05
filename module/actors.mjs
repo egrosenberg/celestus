@@ -564,3 +564,114 @@ export class CelestusActor extends Actor {
 
     }
 }
+
+export class CelestusToken extends Token {
+    /**
+     * Checks which tokens should have auras from this token's actor
+     * @param {Number,Number} newPosition optional
+     */
+    async spreadAuraFrom(newPosition = null) {
+        const tokenCoords = newPosition || {x: this.x, y: this.y}
+        const token = this.document;
+        // get token effects with auras
+        const effects = token.actor.effects.filter(e => (e.type === "status" && e.system.aura.has))
+        // iterate through effects to spread aura
+        for (const effect of effects) {
+            // only worry about the effect if this actor is the origin
+            if (effect.origin !== token.actor.uuid) continue;
+            // iterate through all tokens on canvas
+            for (const target of canvas.scene.tokens) {
+                // skip self
+                if (target === token) continue;
+
+                let validTarget = false;
+
+                const targets = effect.system.aura.targets;
+                // check if target matches criteria
+                if (targets === "any") {
+                    validTarget = true;
+                }
+                else if (targets === "ally" && token.document.disposition === target.document.disposition) {
+                    validTarget = true;
+                }
+                else if (targets === "enemy" && token.document.disposition !== target.document.disposition) {
+                    validTarget = true;
+                }
+                else if (targets === "type" && effect.system.aura.targetType === target.actor.system.t) {
+                    validTarget = true;
+                }
+                // check distance
+                const distance = canvas.grid.measurePath([tokenCoords, { x: target.x, y: target.y }]).distance.toFixed(1);
+                if (distance > effect.system.aura.radius) validTarget = false;
+
+                // if target is still valid, apply effect
+                if (validTarget) {
+                    // check if effect is already there
+                    if (!target.actor.effects.find(e => (e.name === effect.name && e.source === effect.source))) {
+                        // create a copy of the status effect on the target
+                        await target.actor.createEmbeddedDocuments(effect.documentName, [effect.toJSON()]);
+                    }
+                }
+                else {
+                    // erase any lingering copies
+                    const lingering = target.actor.effects.find(e => (e.name === effect.name && e.source === effect.source));
+                    if (lingering) lingering.delete();
+                }
+            }
+        }
+    }
+
+    /**
+     * Checks which tokens this token's actor should have auras from
+     * @param {Number,Number} newPosition optional
+     */
+    async spreadAuraTo(newPosition = null) {
+        const tokenCoords = newPosition || {x: this.x, y: this.y}
+        const token = this.document;
+        // iterate through all tokens
+        for (const origin of canvas.scene.tokens) {
+            // skip self
+            if (origin === token) continue;
+            // check all effects on token
+            const effects = origin.actor.effects.filter(e => (e.type === "status" && e.system.aura.has));
+            // iterate through effects
+            for (const effect of effects) {
+                // only worry about the effect of the origin is the origin of the effect
+                if (effect.origin !== origin.actor.uuid) continue;
+
+                let validTarget = false;
+                // check if origin matches criteria
+                const targets = effect.system.aura.targets;
+                if (targets === "any") {
+                    validTarget = true;
+                }
+                else if (targets === "ally" && token.document.disposition === origin.document.disposition) {
+                    validTarget = true;
+                }
+                else if (targets === "enemy" && token.document.disposition !== origin.document.disposition) {
+                    validTarget = true;
+                }
+                else if (targets === "type" && effect.system.aura.targetType === origin.actor.system.t) {
+                    validTarget = true;
+                }
+                // check distance
+                const distance = canvas.grid.measurePath([tokenCoords, { x: origin.x, y: origin.y }]).distance.toFixed(1);
+                if (distance > effect.system.aura.radius) validTarget = false;
+                
+                // if token is still a valid target, apply effect
+                if (validTarget) {
+                    // check if effect is already there
+                    if (!token.actor.effects.find(e => (e.name === effect.name && e.source === effect.source))) {
+                        // create a copy of the status effect on the target
+                        await token.actor.createEmbeddedDocuments(effect.documentName, [effect.toJSON()]);
+                    }
+                }
+                else {
+                    // erase any lingering copies
+                    const lingering = token.actor.effects.find(e => (e.name === effect.name && e.source === effect.source));
+                    if (lingering) lingering.delete();
+                }
+            }
+        }
+    }
+}

@@ -172,9 +172,9 @@ export async function applyStatusHook(e) {
     for (const target of selected) {
         // go through actual statusEffects
         for (const id of item.system.statusEffects) {
-            const status = await target.actor.toggleStatusEffect(id, {active: true});
+            const status = await target.actor.toggleStatusEffect(id, { active: true });
             if (typeof status != "boolean") {
-                status.update({"origin": origin.uuid});
+                status.update({ "origin": origin.uuid });
             }
         }
         // for each status
@@ -452,4 +452,22 @@ export function cleanupCombat(document, options, userId) {
     for (const combatant of document.combatants) {
         combatant.actor.refresh(false);
     }
+}
+
+/**
+ * 
+ * @param {Object} token: token object on canvas to spread aura from 
+ */
+export async function spreadAura(token, changed, options, userId) {
+    // only worry if we changed coords
+    if (!(changed.x || changed.y)) return;
+    // get new coords as an object
+    const tokenCoords = {
+        x: changed.x || token.x,
+        y: changed.y || token.y,
+    }
+    // spread from this token
+    await token.object.spreadAuraFrom(tokenCoords);
+    // spread from other tokens
+    await token.object.spreadAuraTo(tokenCoords);
 }

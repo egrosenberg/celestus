@@ -1,6 +1,6 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData } from "./dataModels.mjs"
-import { CelestusActor } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTemplate, previewDamage, rollAttack, rollDamage, rollItemMacro, startCombat, triggerTurn } from "./hooks.mjs"
+import { CelestusActor, CelestusToken } from "./actors.mjs"
+import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTemplate, previewDamage, rollAttack, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
@@ -413,8 +413,8 @@ Hooks.on("init", () => {
         },
         auraTargets: {
             any: "All Creatures",
-            friendly: "Friendly Creatures",
-            hostile: "Hostile Creatures",
+            ally: "Allies",
+            enemy: "Enemies",
             type: "Creature Type",
         },
         creatureTypes: {
@@ -452,6 +452,7 @@ Hooks.on("init", () => {
     }
 
     CONFIG.MeasuredTemplate.objectClass = CelestusMeasuredTemplate;
+    CONFIG.Token.objectClass = CelestusToken;
 
     // set up sheets
     Actors.unregisterSheet('core', ActorSheet);
@@ -530,9 +531,9 @@ Hooks.on("combatStart", startCombat);
 Hooks.on("preDeleteCombat", cleanupCombat);
 
 // handle combat end
-//Hooks.on("updateToken", (object) => {
-//    console.log(object);
-//});
+Hooks.on("updateToken", spreadAura);
+
+Hooks.on("canvasDraw", (object) => {console.log(object)})
 
 // hbs helpers
 Handlebars.registerHelper("repeat", (n, options) => {

@@ -1139,9 +1139,10 @@ export class EffectData extends foundry.abstract.TypeDataModel {
             ),
             aura: new SchemaField({
                 has: new BooleanField({ required: true, initial: false }),
-                effectsSelf: new BooleanField({ required: true, initial: false }),
+                targetsSelf: new BooleanField({ required: true, initial: false }),
                 radius: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                effects: new StringField({ required: true, initial: "any"})
+                targets: new StringField({ required: true, initial: "any"}),
+                targetType: new StringField ({ required: true, initial: "humanoid"})
             }),
         }
     }
