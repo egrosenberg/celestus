@@ -84,6 +84,7 @@ export async function rollDamage(e) {
                 'system.isDamage': true,
                 'system.damageType': type,
                 'system.actorID': actorID,
+                'system.itemID': itemID,
             });
         }
     }
@@ -137,11 +138,16 @@ export async function applyDamageHook(e) {
     const damage = e.currentTarget.dataset.damageTotal;
     const type = e.currentTarget.dataset.damageType;
     const origin = await fromUuid(e.currentTarget.dataset.originActor);
+    const item = await fromUuid(e.currentTarget.dataset.originItem);
+    let lifesteal = 0;
+    if (item?.type === "skill") {
+        lifesteal = item.system.lifesteal;
+    }
 
     const selected = canvas.tokens.controlled;
     // iterate through each controlled token
     for (const token of selected) {
-        token.actor.applyDamage(damage, type, origin);
+        token.actor.applyDamage(damage, type, origin, lifesteal);
     }
 }
 
@@ -264,7 +270,7 @@ export async function addChatButtons(msg, html, options) {
         for (let roll of msg.rolls) {
             dmgTotal += roll.total;
         }
-        html.append(`<button data-origin-actor="${msg.system.actorID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\ ${disabled}">Apply Damage</button>`);
+        html.append(`<button data-origin-actor="${msg.system.actorID}" data-origin-item="${msg.system.itemID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\ ${disabled}">Apply Damage</button>`);
 
     }
 }

@@ -113,3 +113,124 @@ export async function rollAbility(actor, ability) {
         }
     }).render({ force: true });
 }
+
+
+
+
+
+
+
+/**
+ * Access nested object variable from string
+ * by Ray Bellis 
+ * https://stackoverflow.com/a/6491621/23494595
+ * @param {Object} o 
+ * @param {String} s 
+ * @returns 
+ */
+export function byString (o, s) {
+    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    s = s.replace(/^\./, '');           // strip a leading dot
+    var a = s.split('.');
+    for (var i = 0, n = a.length; i < n; ++i) {
+        var k = a[i];
+        if (k in o) {
+            o = o[k];
+        } else {
+            return;
+        }
+    }
+    return o;
+}
+
+/**
+ * Calculate function by Felix Bohm
+ * https://code.tutsplus.com/what-they-didnt-tell-you-about-es5s-array-extras--net-28263t
+ * @param {String} calculation
+ * @returns {Number}
+ */
+export function calculate (calculation) {
+
+    //build an array containing the individual parts
+
+    var parts = calculation.match(
+
+        // digits |operators|whitespace
+
+        /(?:\-?[\d\.]+)|[-\+\*\/]|\s+/g
+
+    );
+
+    //test if everything was matched
+
+    if( calculation !== parts.join("") ) {
+
+        throw new Error("couldn't parse calculation")
+
+    }
+
+    //remove all whitespace
+
+    parts = parts.map(Function.prototype.call, String.prototype.trim);
+
+    parts = parts.filter(Boolean);
+
+    //build a separate array containing parsed numbers
+
+    var nums = parts.map(parseFloat);
+
+    //build another array with all operations reduced to additions
+
+    var processed = [];
+
+    for(var i = 0; i < parts.length; i++){
+
+        if( nums[i] === nums[i] ){ //nums[i] isn't NaN
+
+            processed.push( nums[i] );
+
+        } else {
+
+            switch( parts[i] ) {
+
+                case "+":
+
+                    continue; //ignore
+
+                case "-":
+
+                    processed.push(nums[++i] * -1);
+
+                    break;
+
+                case "*":
+
+                    processed.push(processed.pop() * nums[++i]);
+
+                    break;
+
+                case "/":
+
+                    processed.push(processed.pop() / nums[++i]);
+
+                    break;
+
+                default:
+
+                    throw new Error("unknown operation: " + parts[i]);
+
+            }
+
+        }
+
+    }
+
+    //add all numbers and return the result
+
+    return processed.reduce(function(result, elem){
+
+        return result + elem;
+
+    });
+
+}

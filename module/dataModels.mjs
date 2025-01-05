@@ -30,6 +30,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
                     flat: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // current hp value
                     max: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),  // max hp value
                     offset: new NumberField({ required: true, integer: true, initial: 0 }), // offset from max hp
+                    percent: new NumberField({ required: true, integer: false, initial: 1 }), // current hp as percent of max hp, decimal percent
                 }),
                 // configure armor as a schema field
                 phys_armor: new SchemaField({
@@ -78,6 +79,10 @@ export class ActorData extends foundry.abstract.TypeDataModel {
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
                     damage: new SchemaField({ // flat damage bonus
+                        value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
+                        bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
+                    }),
+                    lifesteal: new SchemaField({ // heal from damage done
                         value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }),
                     }),
@@ -309,6 +314,8 @@ export class ActorData extends foundry.abstract.TypeDataModel {
         for (let [key, ability] of Object.entries(this.combat)) {
             ability.mod += ability.value * 0.05;
         }
+        // calculate lifesteal
+        this.attributes.bonuses.lifesteal.value += this.combat.deathbringer.mod + this.attributes.bonuses.lifesteal.bonus;
         // calculate crit chance
         this.attributes.bonuses.crit_chance.value += this.abilities.wit.mod + this.attributes.bonuses.crit_chance.bonus;
         // calculate crit bonus
@@ -796,8 +803,8 @@ export class SkillData extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
             description: new HTMLField(), // skill description
-            ap: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // action point cost
-            fp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // focus point cost
+            ap: new NumberField({ required: true, integer: true, initial: 0 }), // action point cost
+            fp: new NumberField({ required: true, integer: true, initial: 0 }), // focus point cost
             cooldown: new SchemaField({ // cooldown in rounds negative value means inf
                 value: new NumberField({ required: true, integer: true, min: -1, initial: 0 }),
                 max: new NumberField({ required: true, integer: true, min: -1, initial: 0 }),
@@ -835,7 +842,8 @@ export class SkillData extends foundry.abstract.TypeDataModel {
                 size: new NumberField({ required: true, min: 0, initial: 0 }),
             }),
             range: new NumberField({ required: true, initial: 0 }), // range of skill use, 0ft = self, 5ft = melee
-            statusEffects: new ArrayField(new StringField()),
+            statusEffects: new ArrayField(new StringField()), // statusEffects applied by skill
+            lifesteal: new NumberField({ required: true, initial: 0}) // lifesteal that comes from skill
         };
     }
 

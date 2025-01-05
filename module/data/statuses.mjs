@@ -637,7 +637,7 @@ export let statuses = [
         type: "status",
         duration: { rounds: 2 },
         system: {
-            resistedBy: "any",
+            resistedBy: "phys",
         },
         changes: [
             {
@@ -654,7 +654,7 @@ export let statuses = [
         type: "status",
         duration: { rounds: 2 },
         system: {
-            resistedBy: "mag",
+            resistedBy: "phys",
         },
         changes: [
             {

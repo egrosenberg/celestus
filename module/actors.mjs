@@ -24,6 +24,10 @@ export class CelestusActor extends Actor {
                         const str = (diff > 0) ? "+" + diff.toString() : diff.toString();
                         canvasPopupText(this, str, CONFIG.CELESTUS.damageCol[key][diff > 0 ? "gain" : "lose"]);
                     }
+                    if (key === "hp") {
+                        val.percent = val.flat / this.system.resources.hp.max;
+                        console.log(val.flat , this.system.resources.hp.max, val.flat / this.system.resources.hp.max, val.percent)
+                    }
                 }
             }
         }
@@ -82,8 +86,9 @@ export class CelestusActor extends Actor {
      * @param {number} damage : amount of damage (pref int)
      * @param {string} type : type of damage (must exist in CONFIG.CELESTUS.damageTypes)
      * @param {CelestusActor} origin: actor that damage originates from
+     * @param {number} lifesteal: bonus lifesteal attached to damage source (decimal percent) (optional)
      */
-    async applyDamage(damage, type, origin) {
+    async applyDamage(damage, type, origin, lifesteal = 0) {
         damage = this.calcDamage(damage, type, origin);
 
         // remainder damage after armor
@@ -290,10 +295,10 @@ export class CelestusActor extends Actor {
         // update health value
         await this.update({ "system.resources.hp.flat": parseInt(newHealth) });
 
-        // apply healing to origin if they have positive deathbringer
-        if (origin.system.combat.deathbringer.mod > 0) {
-            const heal = origin.system.combat.deathbringer.mod * damage;
-            origin.update({ "system.resources.hp.flat": origin.system.resources.hp.flat + heal })
+        // apply healing to origin based on lifesteal
+        if (origin.uuid != this.uuid && damage > 0 && CONFIG.CELESTUS.damageTypes[type].style !== "healing") {
+            const heal = (origin.system.attributes.bonuses.lifesteal.value + lifesteal) * damage;
+            origin.update({ "system.resources.hp.flat": origin.system.resources.hp.flat + Math.round(heal) })
         }
 
         // finally, check if actor is flammable and if damage is fire damage
