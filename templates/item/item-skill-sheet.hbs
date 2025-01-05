@@ -147,6 +147,12 @@
                                     {{selectOptions config.memTypes selected=system.memorized}}
                                 </select>
                             </div>
+                            {{!-- lifesteal --}}
+                            <div class="general attribute">
+                                <label for="system.lifesteal" class="resource-label">Lifesteal: </label>
+                                <input type="text" name="system.lifesteal" value="{{system.lifesteal}}" data-dtype="Number"
+                                    style="width: 50px;" />
+                            </div>
                         </div>
                         <h3>Prerequisites</h3>
                         <div class="attribute-section">
