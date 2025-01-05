@@ -591,10 +591,10 @@ export class CelestusToken extends Token {
                 if (targets === "any") {
                     validTarget = true;
                 }
-                else if (targets === "ally" && token.document.disposition === target.document.disposition) {
+                else if (targets === "ally" && token.disposition === target.disposition) {
                     validTarget = true;
                 }
-                else if (targets === "enemy" && token.document.disposition !== target.document.disposition) {
+                else if (targets === "enemy" && token.disposition !== target.disposition) {
                     validTarget = true;
                 }
                 else if (targets === "type" && effect.system.aura.targetType === target.actor.system.t) {
@@ -649,10 +649,10 @@ export class CelestusToken extends Token {
                 if (targets === "any") {
                     validTarget = true;
                 }
-                else if (targets === "ally" && token.document.disposition === origin.document.disposition) {
+                else if (targets === "ally" && token.disposition === origin.disposition) {
                     validTarget = true;
                 }
-                else if (targets === "enemy" && token.document.disposition !== origin.document.disposition) {
+                else if (targets === "enemy" && token.disposition !== origin.disposition) {
                     validTarget = true;
                 }
                 else if (targets === "type" && effect.system.aura.targetType === origin.actor.system.t) {
