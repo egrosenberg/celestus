@@ -571,7 +571,7 @@ export class CelestusToken extends Token {
      * @param {Number,Number} newPosition optional
      */
     async spreadAuraFrom(newPosition = null) {
-        const tokenCoords = newPosition || {x: this.x, y: this.y}
+        const tokenCoords = newPosition || { x: this.x, y: this.y }
         const token = this.document;
         // get token effects with auras
         const effects = token.actor.effects.filter(e => (e.type === "status" && e.system.aura.has))
@@ -607,10 +607,12 @@ export class CelestusToken extends Token {
                 // if target is still valid, apply effect
                 if (validTarget) {
                     // check if effect is already there
-                    if (!target.actor.effects.find(e => (e.name === effect.name && e.source === effect.source))) {
-                        // create a copy of the status effect on the target
-                        await target.actor.createEmbeddedDocuments(effect.documentName, [effect.toJSON()]);
+                    const old = target.actor.effects.find(e => (e.name === effect.name && e.source === effect.source));
+                    if (old) {
+                        old.delete();
                     }
+                    // create a copy of the status effect on the target
+                    await target.actor.createEmbeddedDocuments(effect.documentName, [effect.toJSON()]);
                 }
                 else {
                     // erase any lingering copies
@@ -626,7 +628,7 @@ export class CelestusToken extends Token {
      * @param {Number,Number} newPosition optional
      */
     async spreadAuraTo(newPosition = null) {
-        const tokenCoords = newPosition || {x: this.x, y: this.y}
+        const tokenCoords = newPosition || { x: this.x, y: this.y }
         const token = this.document;
         // iterate through all tokens
         for (const origin of canvas.scene.tokens) {
@@ -638,6 +640,8 @@ export class CelestusToken extends Token {
             for (const effect of effects) {
                 // only worry about the effect of the origin is the origin of the effect
                 if (effect.origin !== origin.actor.uuid) continue;
+                // skip if disabled
+                if (effect.disabled) continue;
 
                 let validTarget = false;
                 // check if origin matches criteria
@@ -657,14 +661,16 @@ export class CelestusToken extends Token {
                 // check distance
                 const distance = canvas.grid.measurePath([tokenCoords, { x: origin.x, y: origin.y }]).distance.toFixed(1);
                 if (distance > effect.system.aura.radius) validTarget = false;
-                
+
                 // if token is still a valid target, apply effect
                 if (validTarget) {
                     // check if effect is already there
-                    if (!token.actor.effects.find(e => (e.name === effect.name && e.source === effect.source))) {
-                        // create a copy of the status effect on the target
-                        await token.actor.createEmbeddedDocuments(effect.documentName, [effect.toJSON()]);
+                    const old = token.actor.effects.find(e => (e.name === effect.name && e.source === effect.source));
+                    if (old) {
+                        old.delete();
                     }
+                    // create a copy of the status effect on the target
+                    await token.actor.createEmbeddedDocuments(effect.documentName, [effect.toJSON()]);
                 }
                 else {
                     // erase any lingering copies

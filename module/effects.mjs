@@ -3,4 +3,16 @@
  * @extends {ActiveEffect}
  */
 export class CelestusEffect extends ActiveEffect {
+    /** @override */
+    get isSuppressed () {
+        const aura = this.system?.aura;
+        // check if this is an aura
+        if (aura) {
+            console.log(aura.has, aura.targetsSelf, this.origin, this.parent.uuid)
+            if (aura.has && !aura.targetsSelf && this.origin === this.parent.uuid) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
