@@ -1141,8 +1141,8 @@ export class EffectData extends foundry.abstract.TypeDataModel {
                 has: new BooleanField({ required: true, initial: false }),
                 targetsSelf: new BooleanField({ required: true, initial: true }),
                 radius: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                targets: new StringField({ required: true, initial: "any"}),
-                targetType: new StringField ({ required: true, initial: "humanoid"})
+                targets: new StringField({ required: true, initial: "any" }),
+                targetType: new StringField({ required: true, initial: "humanoid" })
             }),
         }
     }
@@ -1160,15 +1160,18 @@ export class EffectData extends foundry.abstract.TypeDataModel {
         if (!data.system) {
             return;
         }
-        switch (data.system.resistedBy) {
-            case "phys":
-                if (actor.system.resources.phys_armor.value > 0) resisted = true;
-                break;
-            case "mag":
-                if (actor.system.resources.mag_armor.value > 0) resisted = true;
-                break;
-            case "any":
-                if (actor.system.resources.phys_armor.value > 0 || actor.system.resources.mag_armor.value > 0) resisted = true;
+        const targetsSelf = data.system?.aura?.targetsSelf;
+        if (targetsSelf || !data.system?.aura?.has) {
+            switch (data.system.resistedBy) {
+                case "phys":
+                    if (actor.system.resources.phys_armor.value > 0) resisted = true;
+                    break;
+                case "mag":
+                    if (actor.system.resources.mag_armor.value > 0) resisted = true;
+                    break;
+                case "any":
+                    if (actor.system.resources.phys_armor.value > 0 || actor.system.resources.mag_armor.value > 0) resisted = true;
+            }
         }
         if (resisted === true) {
             canvasPopupText(actor, `Resisted ${data.name}`);
