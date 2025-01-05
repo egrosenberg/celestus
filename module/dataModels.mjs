@@ -1142,7 +1142,8 @@ export class EffectData extends foundry.abstract.TypeDataModel {
                 targetsSelf: new BooleanField({ required: true, initial: true }),
                 radius: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
                 targets: new StringField({ required: true, initial: "any" }),
-                targetType: new StringField({ required: true, initial: "humanoid" })
+                targetType: new StringField({ required: true, initial: "humanoid" }),
+                clearOnLeave: new BooleanField({ required: true, initial: true }),
             }),
         }
     }
@@ -1226,7 +1227,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
     /** @override */
     _onCreate(data, options, userId) {
         const actor = this.parent?.parent;
-        if (actor) {
+        if (actor && actor.documentName === "Actor") {
             const tokens = actor.getActiveTokens();
             for (const token of tokens) {
                 token.spreadAuraFrom();

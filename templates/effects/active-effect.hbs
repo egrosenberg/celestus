@@ -38,6 +38,15 @@
                     system.aura.targetsSelf}} />
             </div>
         </div>
+        {{#if effect.isTemporary}}
+        <div class="form-group">
+            <label>Clear on Leave</label>
+            <div class="form-fields">
+                <input type="checkbox" class="check-input" name="system.aura.clearOnLeave" {{checked
+                    system.aura.clearOnLeave}} />
+            </div>
+        </div>
+        {{/if}}
         <div class="form-group">
             <label>Aura Radius</label>
             <div class="form-fields">

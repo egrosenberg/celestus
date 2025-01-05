@@ -107,19 +107,18 @@
                             {{!-- Targeting --}}
                             <div class="general attribute">
                                 <label for="system.targets.type" class="resource-label">Targets: </label>
-                                <select class="skill-type-selector" name="system.targets.type">
-                                    {{selectOptions config.targetTypes selected=system.targets.type}}
-                                </select>
                                 {{#if (eq system.targets.type "creature")}}
-                                    Targets: 
                                     <input type="text" name="system.targets.count" value="{{system.targets.count}}" data-dtype="Number" />
                                 {{/if}}
                                 {{#with (lookup config.targetTypes system.targets.type)}}
                                 {{#if (eq options.[0] "size")}}
-                                    Size: 
                                     <input type="text" name="system.targets.size" value="{{../system.targets.size}}" data-dtype="Number" />
+                                    ft. 
                                 {{/if}}
                                 {{/with}}
+                                <select class="skill-type-selector" name="system.targets.type">
+                                    {{selectOptions config.targetTypes selected=system.targets.type}}
+                                </select>
                             </div>
                             {{!-- has attack? --}}
                             <div class="general attribute">

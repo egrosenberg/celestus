@@ -60,7 +60,7 @@ export class CelestusActor extends Actor {
         damage = parseInt(damage);
         // subtract resisted damage from damage
         if (typeof this.system.attributes.resistance[type] !== 'undefined') {
-            const DR = this.system.attributes.resistance[type].value + this.system.attributes.resistance[type].bonus;
+            const DR = this.system.attributes.resistance[type].value;
             damage -= DR * damage;
         }
         else {
@@ -617,7 +617,7 @@ export class CelestusToken extends Token {
                 else {
                     // erase any lingering copies
                     const lingering = target.actor.effects.find(e => (e.name === effect.name && e.source === effect.source));
-                    if (lingering && !lingering.isTemporary) lingering.delete();
+                    if (lingering && (!lingering.isTemporary || lingering.clearOnLeave)) lingering.delete();
                 }
             }
         }
@@ -675,7 +675,7 @@ export class CelestusToken extends Token {
                 else {
                     // erase any lingering copies
                     const lingering = token.actor.effects.find(e => (e.name === effect.name && e.source === effect.source));
-                    if (lingering && !lingering.isTemporary) lingering.delete();
+                    if (lingering && (!lingering.isTemporary || lingering.clearOnLeave)) lingering.delete();
                 }
             }
         }

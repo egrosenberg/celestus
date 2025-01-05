@@ -289,6 +289,28 @@ export let statuses = [
         ],
     },
     {
+        id: "maim",
+        name: "Maimed",
+        img: "systems/celestus/svg/nailed-foot.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            resistedBy: "phys",
+        },
+        changes: [
+            {
+                key: "system.attributes.movement.bonus",
+                value: "-1",
+                mode: 5,
+            },
+            {
+                key: "system.attributes.bonuses.evasion.bonus",
+                value: "-0.3",
+                mode: 2,
+            },
+        ],
+    },
+    {
         id: "fortify",
         name: "Fortified",
         img: "systems/celestus/svg/edged-shield.svg",
@@ -303,9 +325,9 @@ export let statuses = [
         name: "Regenerating",
         img: "icons/svg/regen.svg",
         type: "status",
-        duration: { rounds: 1 },
+        duration: { rounds: 2 },
         system: {
-            damage: [{type: "healing", value: 1.5}],
+            damage: [{type: "healing", value: 1.25}],
             removes: ["bleed", "poison", "burn", "warm"],
         }
     },

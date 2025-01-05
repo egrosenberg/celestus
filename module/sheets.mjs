@@ -547,7 +547,6 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
         // add status removal element
         html.on('click', '.removes-create', (ev) => {
             let removes = this.object.system.removes;
-            console.log(removes);
             removes.push("death");
             this.object.update({ "system.removes": removes });
         });

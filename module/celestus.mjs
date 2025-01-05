@@ -408,6 +408,7 @@ Hooks.on("init", () => {
             point: { label: "Point", options: [] },
             sphere: { label: "Sphere", measure: "circle", options: ["size"] },
             radius: { label: "Radius", measure: "circle", options: ["size"] },
+            cylinder: { label: "Cylinder", measure: "circle", options: ["size"] },
             cone: { label: "Cone", measure: "cone", options: ["size"], angle: 60 },
             line: { label: "Line", measure: "ray", options: ["size"] },
         },
@@ -433,7 +434,7 @@ Hooks.on("init", () => {
         effectResists: {
             none: "None",
             mag: "Magic Armor",
-            pyhs: "Physical Armor",
+            phys: "Physical Armor",
             any: "Any Armor",
         }
     };
