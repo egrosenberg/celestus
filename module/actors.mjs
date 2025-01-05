@@ -26,7 +26,6 @@ export class CelestusActor extends Actor {
                     }
                     if (key === "hp") {
                         val.percent = val.flat / this.system.resources.hp.max;
-                        console.log(val.flat , this.system.resources.hp.max, val.flat / this.system.resources.hp.max, val.percent)
                     }
                 }
             }
