@@ -27,41 +27,50 @@
         <div class="form-group">
             <label>Has Aura</label>
             <div class="form-fields">
-                <input type="checkbox" class="check-input" name="system.aura.has" {{checked system.aura.has}}/>
-             </div>
+                <input type="checkbox" class="check-input" name="system.aura.has" {{checked system.aura.has}} />
+            </div>
         </div>
         {{#if system.aura.has}}
-            <div class="form-group">
-                <label>Affects Self</label>
-                <div class="form-fields">
-                    <input type="checkbox" class="check-input" name="system.aura.targetsSelf" {{checked system.aura.targetsSelf}}/>
-                 </div>
+        <div class="form-group">
+            <label>Affects Self</label>
+            <div class="form-fields">
+                <input type="checkbox" class="check-input" name="system.aura.targetsSelf" {{checked
+                    system.aura.targetsSelf}} />
             </div>
-            <div class="form-group">
-                <label>Aura Radius</label>
-                <div class="form-fields">
-                    <input type="text" name="system.aura.radius" value="{{ system.aura.radius }}" />
-                </div>
+        </div>
+        <div class="form-group">
+            <label>Aura Radius</label>
+            <div class="form-fields">
+                <input type="text" name="system.aura.radius" value="{{ system.aura.radius }}" />
             </div>
-            <div class="form-group">
-                <label>Aura Targets</label>
-                <div class="form-fields">
-                    <select class="aura-type-selector" name="system.aura.targets">
-                        {{selectOptions config.auraTargets selected=system.aura.targets}}
-                    </select>
-                 </div>
+        </div>
+        <div class="form-group">
+            <label>Aura Targets</label>
+            <div class="form-fields">
+                <select class="aura-type-selector" name="system.aura.targets">
+                    {{selectOptions config.auraTargets selected=system.aura.targets}}
+                </select>
             </div>
-            {{#if (eq system.aura.targets "type")}}
-            <div class="form-group">
-                <label>Targets Type</label>
-                <div class="form-fields">
-                    <select class="aura-type-selector" name="system.aura.targetType">
-                        {{selectOptions config.creatureTypes selected=system.aura.targetType}}
-                    </select>
-                 </div>
+        </div>
+        {{#if (eq system.aura.targets "type")}}
+        <div class="form-group">
+            <label>Targets Type</label>
+            <div class="form-fields">
+                <select class="aura-type-selector" name="system.aura.targetType">
+                    {{selectOptions config.creatureTypes selected=system.aura.targetType}}
+                </select>
             </div>
-            {{/if}}
+        </div>
         {{/if}}
+        {{/if}}
+        <div class="form-group">
+            <label>Resisted By</label>
+            <div class="form-fields">
+                <select class="aura-type-selector" name="system.resistedBy">
+                    {{selectOptions config.effectResists selected=system.resistedBy}}
+                </select>
+            </div>
+        </div>
 
         <div class="form-group stacked">
             <label>{{ localize "EFFECT.Description" }}</label>
@@ -231,10 +240,12 @@
             {{#each system.removes as |status|}}
             <li class="item flexrow">
                 <div class="status-type">
-                    <select class="damage-type-selector" name="system.removes[{{@index}}]" data-index="{{@index}}" data-type="removes">
+                    <select class="damage-type-selector" name="system.removes[{{@index}}]" data-index="{{@index}}"
+                        data-type="removes">
                         {{!-- create a dropdown option for each damage type --}}
                         {{#each ../statusEffects as |statusEffect|}}
-                        <option value="{{statusEffect.id}}" {{#if (eq status statusEffect.id)}}selected{{/if}}>{{statusEffect.name}}</option>
+                        <option value="{{statusEffect.id}}" {{#if (eq status statusEffect.id)}}selected{{/if}}>
+                            {{statusEffect.name}}</option>
                         {{/each}}
                     </select>
                 </div>
@@ -262,10 +273,12 @@
             {{#each system.blocks as |status|}}
             <li class="item flexrow">
                 <div class="status-type">
-                    <select class="damage-type-selector" name="system.removes[{{@index}}]" data-index="{{@index}}" data-type="blocks">
+                    <select class="damage-type-selector" name="system.removes[{{@index}}]" data-index="{{@index}}"
+                        data-type="blocks">
                         {{!-- create a dropdown option for each damage type --}}
                         {{#each ../statusEffects as |statusEffect|}}
-                        <option value="{{statusEffect.id}}" {{#if (eq status statusEffect.id)}}selected{{/if}}>{{statusEffect.name}}</option>
+                        <option value="{{statusEffect.id}}" {{#if (eq status statusEffect.id)}}selected{{/if}}>
+                            {{statusEffect.name}}</option>
                         {{/each}}
                     </select>
                 </div>

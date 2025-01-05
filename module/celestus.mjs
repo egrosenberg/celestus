@@ -429,6 +429,12 @@ Hooks.on("init", () => {
             ooze: "Ooze",
             dragon: "Dragon",
             splinter: "Splinter",
+        },
+        effectResists: {
+            none: "None",
+            mag: "Magic Armor",
+            pyhs: "Physical Armor",
+            any: "Any Armor",
         }
     };
 
