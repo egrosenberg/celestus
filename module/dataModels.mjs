@@ -1222,6 +1222,17 @@ export class EffectData extends foundry.abstract.TypeDataModel {
             return false;
         }
     }
+
+    /** @override */
+    _onCreate(data, options, userId) {
+        const actor = this.parent?.parent;
+        if (actor) {
+            const tokens = actor.getActiveTokens();
+            for (const token of tokens) {
+                token.spreadAuraFrom();
+            }
+        }
+    }
 }
 
 /** 

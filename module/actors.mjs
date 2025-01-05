@@ -10,7 +10,7 @@ export class CelestusActor extends Actor {
         await super._preUpdate(changed, options, user);
 
         // offset resource values
-        const resources = changed.system.resources;
+        const resources = changed.system?.resources;
         if (resources) {
             for (const key of ["hp", "phys_armor", "mag_armor"]) {
                 const val = resources[key];
@@ -30,7 +30,7 @@ export class CelestusActor extends Actor {
 
         // handle setting npc stats from stat spread preset
         if (this.type === "npc") {
-            const statSpread = changed.system.spread;
+            const statSpread = changed.system?.spread;
             if (statSpread && this.system.spread != statSpread) {
                 const spread = CONFIG.CELESTUS.npcStats[statSpread];
                 if (spread) {
@@ -617,7 +617,7 @@ export class CelestusToken extends Token {
                 else {
                     // erase any lingering copies
                     const lingering = target.actor.effects.find(e => (e.name === effect.name && e.source === effect.source));
-                    if (lingering) lingering.delete();
+                    if (lingering && !lingering.isTemporary) lingering.delete();
                 }
             }
         }
@@ -675,7 +675,7 @@ export class CelestusToken extends Token {
                 else {
                     // erase any lingering copies
                     const lingering = token.actor.effects.find(e => (e.name === effect.name && e.source === effect.source));
-                    if (lingering) lingering.delete();
+                    if (lingering && !lingering.isTemporary) lingering.delete();
                 }
             }
         }

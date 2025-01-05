@@ -191,6 +191,8 @@ export async function applyStatusHook(e) {
                     disabled: false,
                     type: "status",
                     system: status.system,
+                    changes: status.changes,
+                    statuses: status.statuses,
                 },
             ]);
         }
