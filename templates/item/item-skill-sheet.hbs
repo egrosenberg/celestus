@@ -30,12 +30,10 @@
             {{/each}}
 
             <h3>Damage:</h3>
-            {{#each system.damage as |damage|}}
-            {{#with (lookup ../config.damageTypes damage.type)}}
-            <div class="quick-reference" style="background-color: {{color}};" title="{{damage.type}}">
-                {{#with (lookup ../../rollData.dmg damage.type)}}
-                {{min}}-{{max}} ({{avg}})
-                {{/with}}
+            {{#each rollData.dmg as |damage type|}}
+            {{#with (lookup ../config.damageTypes type)}}
+            <div class="quick-reference" style="background-color: {{color}};" title="{{type}}">
+                {{damage.min}}-{{damage.max}} ({{damage.avg}})
                 <i class="{{glyph}}"></i>
             </div>
             {{/with}}
@@ -71,6 +69,19 @@
                                     {{selectOptions config.skillTypes selected=system.type}}
                                 </select>
                             </div>
+                            {{#if (eq system.type "weapon")}}
+                            {{!-- weapon efficiency --}}
+                            <div class="general attribute">
+                                <label for="system.weaponEfficiency" class="resource-label">Weapon Efficiency: </label>
+                                <input type="text" name="system.weaponEfficiency" value="{{system.weaponEfficiency}}" data-dtype="Number"
+                                    style="width: 50px;" />
+                            </div>
+                            {{!-- overrides weapon damage --}}
+                            <div class="general attribute">
+                                <label for="system.overridesWeaponDamage" class="resource-label">Overrides Damage: </label>
+                                <input class="check-input" name="system.overridesWeaponDamage" type="checkbox" {{checked system.overridesWeaponDamage}} />
+                            </div>
+                            {{/if}}
                             {{!-- AP cost --}}
                             <div class="general attribute">
                                 <label for="system.ap" class="resource-label">Action Points: </label>
@@ -130,7 +141,7 @@
                             <div class="general attribute">
                                 <label for="system.range" class="resource-label">Range (ft.): </label>
                                 <input type="text" name="system.range" value="{{system.range}}" data-dtype="Number"
-                                    style="width: 50px;" {{ifThen (ne system.type "weapon" ) "" "disabled" }} />
+                                    style="width: 50px;" />
                             </div>
                             {{!-- ability --}}
                             <div class="general attribute">
@@ -171,7 +182,7 @@
                         </div>
                     </div>
                     {{!-- Damage Array --}}
-                    {{#if (ne system.type "weapon")}}
+                    {{#if item.system.needsDamageField}}
                     <h3>Damage</h3>
                     <div class="attribute-section">
                         <li class="item flexrow damage-header" draggable="true">

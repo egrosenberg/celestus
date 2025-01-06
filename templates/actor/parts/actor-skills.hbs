@@ -27,6 +27,16 @@
                 <span class="item-overlay active">
                     <i class="fa-solid fa-ban"></i>
                 </span>
+                {{else}}
+                <span class="item-overlay">
+                    {{#each skill.system.prereqs as |ability key|}}
+                    {{#if ability}}
+                    {{#with (lookup ../../config.combatSkills key)}}
+                        <i class="{{glyph}}"></i><br />
+                    {{/with}}
+                    {{/if}}
+                    {{/each}}
+                </span>
                 {{/if}}
                 
             </div>
@@ -65,6 +75,16 @@
                 <span class="item-overlay active">
                     <i class="fa-solid fa-ban"></i>
                 </span>
+                {{else}}
+                <span class="item-overlay">
+                    {{#each skill.system.prereqs as |ability key|}}
+                    {{#if ability}}
+                    {{#with (lookup ../../config.combatSkills key)}}
+                        <i class="{{glyph}}"></i><br />
+                    {{/with}}
+                    {{/if}}
+                    {{/each}}
+                </span>
                 {{/if}}
             </div>
         </div>
@@ -93,7 +113,7 @@
     <li class='item skill' data-item-id='{{skill._id}}'>
         <div class='skill-frame'>
             <div class='item-image'>
-                <a class='rollable item' data-roll-type='skill' data-skill-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
+                <a class='rollable item' data-roll-type='skill' data-item-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
                         height='80' /></a>
                 <span class="item-overlay">
                     {{#each skill.system.prereqs as |ability key|}}
