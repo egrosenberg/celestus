@@ -21,7 +21,6 @@ export class CelestusActor extends Actor {
                     if (key === "hp") {
                         if (this.getFlag("celestus", "undying")) {
                             val.offset = Math.max(val.offset, 1 - this.system.resources.hp.max);
-                            console.log(val.offset, 1 - this.system.resources.hp.max)
                         }
                         val.percent = val.flat / this.system.resources.hp.max;
                     }
@@ -298,10 +297,12 @@ export class CelestusActor extends Actor {
         // update health value
         await this.update({ "system.resources.hp.flat": parseInt(newHealth) });
 
-        // apply healing to origin based on lifesteal
+        // apply healing to origin based on lifesteal / apply retribution damage
         if (origin.uuid != this.uuid && damage > 0 && CONFIG.CELESTUS.damageTypes[type].style !== "healing") {
             const heal = (origin.system.attributes.bonuses.lifesteal.value + lifesteal) * damage;
-            origin.update({ "system.resources.hp.flat": origin.system.resources.hp.flat + Math.round(heal) })
+            await origin.update({ "system.resources.hp.flat": origin.system.resources.hp.flat + Math.round(heal) })
+            const retribution = this.system.combat.retributive.mod * damage;
+            await origin.applyDamage(retribution, type, origin)
         }
 
         // finally, check if actor is flammable and if damage is fire damage
