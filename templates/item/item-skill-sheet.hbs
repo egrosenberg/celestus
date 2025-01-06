@@ -81,6 +81,11 @@
                                 <label for="system.overridesWeaponDamage" class="resource-label">Overrides Damage: </label>
                                 <input class="check-input" name="system.overridesWeaponDamage" type="checkbox" {{checked system.overridesWeaponDamage}} />
                             </div>
+                            {{!-- overrides weapon range --}}
+                            <div class="general attribute">
+                                <label for="system.overridesWeaponRange" class="resource-label">Overrides Range: </label>
+                                <input class="check-input" name="system.overridesWeaponRange" type="checkbox" {{checked system.overridesWeaponRange}} />
+                            </div>
                             {{/if}}
                             {{!-- AP cost --}}
                             <div class="general attribute">
@@ -141,7 +146,7 @@
                             <div class="general attribute">
                                 <label for="system.range" class="resource-label">Range (ft.): </label>
                                 <input type="text" name="system.range" value="{{system.range}}" data-dtype="Number"
-                                    style="width: 50px;" />
+                                    style="width: 50px;" {{ifThen item.system.needsRangeField "" "disabled"}}/>
                             </div>
                             {{!-- ability --}}
                             <div class="general attribute">

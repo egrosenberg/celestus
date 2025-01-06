@@ -846,6 +846,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             lifesteal: new NumberField({ required: true, initial: 0}), // lifesteal that comes from skill
             weaponEfficiency: new NumberField({ required: true, initial: 1 }), // weapon damage scalar for weapon skills
             overridesWeaponDamage: new BooleanField({ required: true, initial: false }),
+            overridesWeaponRange: new BooleanField({ required: true, initial: false }),
         };
     }
 
@@ -854,13 +855,12 @@ export class SkillData extends foundry.abstract.TypeDataModel {
      * @returns {Number}
      */
     get finalRange() {
-        return this.range;
-        //if (this.type === "weapon" && this.parent.actor?.weaponDamage?.left) {
-        //    return this.parent.actor.weaponDamage.left.range;
-        //}
-        //else {
-        //    return this.range;
-        //}
+        if (this.type === "weapon" && !this.overridesWeaponRange && this.parent.actor?.system?.equipped?.left) {
+            return this.parent.actor.system.equipped.left.system.range;
+        }
+        else {
+            return this.range;
+        }
     }
     /**
      * calculates final ability modifier value
@@ -936,8 +936,13 @@ export class SkillData extends foundry.abstract.TypeDataModel {
         return false;
     }
 
+    // if skill sheet needs a damage field
     get needsDamageField() {
         return (this.type !== "weapon" || this.overridesWeaponDamage)
+    }
+    // if player should edit the range field
+    get needsRangeField() {
+        return (this.type !== "weapon" || this.overridesWeaponRange)
     }
 };
 
