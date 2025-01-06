@@ -53,14 +53,19 @@ export class CelestusEffect extends ActiveEffect {
                             grantedArr = [];
                         }
                         grantedArr.push(newItem[0].id);
-                        await this.updateSource({ "system.ownedItems": grantedArr })
+                        this.updateSource({ "system.ownedItems": grantedArr })
                     }
                 }
             }
             else if (changed.disabled === true) { // remove all items granted by this skill
                 for (const id of this.system.ownedItems) {
                     const item = this.parent.items.find(i => i.id === id);
-                    item.delete();
+                    if (item) {
+                        item.delete();
+                    }
+                    else {
+                        console.error(`Item not found: ${id}`)
+                    }
                 }
                 let system = changed.system;
                 if (!system) {
@@ -73,19 +78,13 @@ export class CelestusEffect extends ActiveEffect {
 
         return await super._preUpdate(changed, options, user);
     }
-    
+
     /** @override */
     async _preCreate(data, options, user) {
         if (!data.system) return await super._preCreate(data, options, user);
         const grantedSkills = data.system?.grantedSkills;
-        if (grantedSkills) {
+        if (grantedSkills && !data.disabled) {
             const grantedIds = [];
-            if (!data.flags) {
-                data.flags = {};
-            }
-            if (!data.flags.celestus) {
-                data.flags.celestus = {};
-            }
             for (const item of grantedSkills) {
                 const sourceItem = await fromUuid(item.uuid);
                 const newItems = await this.parent?.createEmbeddedDocuments("Item", [sourceItem.toJSON()]);
@@ -94,11 +93,16 @@ export class CelestusEffect extends ActiveEffect {
                     await newItems[0].update({ "system.memorized": "always" });
                     // record that this effect "owns" this item
                     grantedIds.push(newItems[0].id);
+                    console.log(newItems[0].id);
                 }
             }
-            this.updateSource({ "system.ownedItems": grantedIds });
+            options.system = {ownedItems: grantedIds};
         }
         return await super._preCreate(data, options, user);
+    }
+
+    _onCreate(data, options, userid) {
+        this.updateSource({ "system.ownedItems": options.system.ownedItems });
     }
 
     /** @override */
@@ -106,7 +110,7 @@ export class CelestusEffect extends ActiveEffect {
         // remove all items granted by this skill
         for (const id of this.system.ownedItems) {
             const item = this.parent.items.find(i => i.id === id);
-            item.delete();
+            if (item) item.delete();
         }
     }
 }

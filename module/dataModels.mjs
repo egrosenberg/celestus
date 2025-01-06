@@ -1044,7 +1044,7 @@ export class OffhandData extends GearData {
 
 /**
  * Defines data structure for active effects
- * @extends {ActiveEffectData}
+ * @extends {TypeDataModel}
  */
 export class EffectData extends foundry.abstract.TypeDataModel {
     static defineSchema() {
@@ -1082,7 +1082,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
                 name: new StringField(),
             })),
             ownedItems: new ArrayField( // items that have been created by this effect
-                new StringField(),
+                new StringField()
             ),
         }
     }
