@@ -66,7 +66,7 @@ export async function rollDamage(e) {
     const itemID = e.currentTarget.dataset.itemUuid;
     const item = await fromUuid(itemID);
 
-    if (item.system.type === "magic") {
+    if (item.system.type === "magic" || item.system.overridesWeaponDamage) {
         // iterate through damage array
         for (let part of item.system.damage) {
             // damage type
@@ -89,13 +89,14 @@ export async function rollDamage(e) {
         }
     }
     else if (item.system.type === "weapon") {
+        let weaponScalar = item.system.weaponEfficiency ?? 1;
         const damage = actor.system.weaponDamage;
         if (!damage) {
             return;
         }
         if (damage.length === 1) {
             const type = damage[0].type;
-            const formula = `floor(${damage[0].roll})`
+            const formula = `floor((${damage[0].roll})*${weaponScalar})`
 
             const r = new Roll(formula);
             await r.toMessage({
@@ -107,7 +108,7 @@ export async function rollDamage(e) {
         }
         else {
             const type1 = damage[0].type;
-            const formula1 = `floor((${damage[0].roll})*${CONFIG.CELESTUS.twoHandMult})`
+            const formula1 = `floor((${damage[0].roll})*${CONFIG.CELESTUS.twoHandMult}*${weaponScalar})`
 
             const r1 = new Roll(formula1);
             await r1.toMessage({
@@ -117,7 +118,7 @@ export async function rollDamage(e) {
                 'system.actorID': actorID,
             });
             const type2 = damage[1].type;
-            const formula2 = `floor((${damage[1].roll})*${CONFIG.CELESTUS.twoHandMult})`
+            const formula2 = `floor((${damage[1].roll})*${CONFIG.CELESTUS.twoHandMult}*${weaponScalar})`
 
             const r2 = new Roll(formula2);
             await r2.toMessage({
@@ -248,7 +249,7 @@ export async function addChatButtons(msg, html, options) {
             html.append(`<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="damage"${disabled}>Roll Damage</button>`)
         }
         // apply effects
-        if (skill.effects.size > 0) {
+        if (skill.effects.size > 0 || skill.system.statusEffects?.length > 0) {
             html.append(`<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="apply-status"${disabled}>Apply Statuses</button>`)
         }
         // draw template

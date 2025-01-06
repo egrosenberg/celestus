@@ -843,7 +843,9 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             }),
             range: new NumberField({ required: true, initial: 0 }), // range of skill use, 0ft = self, 5ft = melee
             statusEffects: new ArrayField(new StringField()), // statusEffects applied by skill
-            lifesteal: new NumberField({ required: true, initial: 0}) // lifesteal that comes from skill
+            lifesteal: new NumberField({ required: true, initial: 0}), // lifesteal that comes from skill
+            weaponEfficiency: new NumberField({ required: true, initial: 1 }), // weapon damage scalar for weapon skills
+            overridesWeaponDamage: new BooleanField({ required: true, initial: false }),
         };
     }
 
@@ -852,12 +854,13 @@ export class SkillData extends foundry.abstract.TypeDataModel {
      * @returns {Number}
      */
     get finalRange() {
-        if (this.type === "weapon" && this.parent.actor?.weaponDamage?.left) {
-            return this.parent.actor.weaponDamage.left.range;
-        }
-        else {
-            return this.range;
-        }
+        return this.range;
+        //if (this.type === "weapon" && this.parent.actor?.weaponDamage?.left) {
+        //    return this.parent.actor.weaponDamage.left.range;
+        //}
+        //else {
+        //    return this.range;
+        //}
     }
     /**
      * calculates final ability modifier value
@@ -931,6 +934,10 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             return "insufficent focus points available";
         }
         return false;
+    }
+
+    get needsDamageField() {
+        return (this.type !== "weapon" || this.overridesWeaponDamage)
     }
 };
 

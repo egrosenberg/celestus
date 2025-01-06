@@ -18,14 +18,18 @@ export class CelestusActor extends Actor {
                 if (val.flat !== undefined) {
                     const max = val.max ?? this.system.resources[key]?.max ?? 0;
                     val.offset = val.flat - max;
+                    if (key === "hp") {
+                        if (this.getFlag("celestus", "undying")) {
+                            val.offset = Math.max(val.offset, 1 - this.system.resources.hp.max);
+                            console.log(val.offset, 1 - this.system.resources.hp.max)
+                        }
+                        val.percent = val.flat / this.system.resources.hp.max;
+                    }
                     const old = this.system.resources[key]?.flat ?? 0;
                     const diff = val.flat - old;
                     if (diff !== 0) {
                         const str = (diff > 0) ? "+" + diff.toString() : diff.toString();
                         canvasPopupText(this, str, CONFIG.CELESTUS.damageCol[key][diff > 0 ? "gain" : "lose"]);
-                    }
-                    if (key === "hp") {
-                        val.percent = val.flat / this.system.resources.hp.max;
                     }
                 }
             }
