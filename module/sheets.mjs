@@ -459,7 +459,7 @@ export class CelestusItemSheet extends ItemSheet {
 }
 
 /**
- * @extends { ItemSheet }
+ * @extends { ActiveEffectConfig }
  */
 export class CelestusActiveEffectSheet extends ActiveEffectConfig {
     /** @override */
@@ -469,7 +469,8 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
             template: "./systems/celestus/templates/effects/active-effect.hbs",
             width: 580,
             height: 580,
-            tabs: [{ navSelector: ".tabs", contentSelector: "form", initial: "details" }]
+            tabs: [{ navSelector: ".tabs", contentSelector: "form", initial: "details" }],
+            dragdrop: [".tab.other"],
         });
     }
 
@@ -488,6 +489,38 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
     activateListeners(html) {
         super.activateListeners(html);
         
+        // handle displaying granted skills ui
+        html.on('drop', '.tab.other', async (ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            const dragData = ev.originalEvent.dataTransfer.items;
+            for (const item of dragData) {
+                item.getAsString(async (s) => {
+                    const obj = JSON.parse(s);
+                    const skills = this.object.system.grantedSkills;
+                    const item = await fromUuid(obj.uuid);
+                    skills.push({uuid: obj.uuid, name: item.name});
+                    this.object.update({"system.grantedSkills": skills});
+                });
+            }
+        });
+        // handle deleting granted skills
+        html.on('click', '.skill-delete', (ev) => {
+            const t = ev.currentTarget;
+            const index = $(t).data("index");
+            let arr = this.object.system.grantedSkills;
+            arr.splice(index, 1);
+            this.object.update({ "system.grantedSkills": arr });
+        });
+        // handle expanding granted skills
+        html.on('click', '.expand-item', async (ev) => {
+            const t = ev.currentTarget;
+            const uuid = $(t).data("uuid");
+            const item = await fromUuid(uuid);
+            item.sheet.render(true);
+        });
+
+
         // toggle checkboxes
         html.on('click', '.check-input', (ev) => {
             const checked = ev.currentTarget.checked;

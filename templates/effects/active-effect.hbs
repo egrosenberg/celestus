@@ -1,7 +1,7 @@
-<form class="{{cssClass}} {{actor.type}} flexcol" style="height: 100%" autocomplete="off">
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
     <!-- Effect Header -->
-    <header class="sheet-header">
+    <header class="sheet-header" style="flex: 0">
         <img class="effect-img" src="{{ data.img }}" data-edit="img">
         <h1 class="effect-title">
             <input name="name" type="text" value="{{data.name}}" placeholder="{{ localize 'Name' }}" />
@@ -9,7 +9,7 @@
     </header>
 
     <!-- Effect Configuration Tabs -->
-    <nav class="sheet-tabs tabs" aria-role="{{localize 'SHEETS.FormNavLabel'}}">
+    <nav class="sheet-tabs tabs" style="flex: 0" aria-role="{{localize 'SHEETS.FormNavLabel'}}">
         <a class="item" data-tab="details"><i class="fas fa-book"></i> {{localize "EFFECT.TabDetails"}}</a>
         <a class="item" data-tab="duration"><i class="fas fa-clock"></i> {{localize "EFFECT.TabDuration"}}</a>
         <a class="item" data-tab="effects"><i class="fas fa-cogs"></i> {{localize "EFFECT.TabEffects"}}</a>
@@ -197,7 +197,19 @@
         </ol>
     </section>
     <!-- Other Tab -->
-    <section class="tab" data-tab="other">
+    <section class="tab other" data-tab="other">
+        <div id="granted-skills">
+            <h2>Grants Skills</h2>
+            <div class="tags input-element-tags">
+                {{#each system.grantedSkills as |item|}}
+                <div class="tag" data-key="{{item.uuid}}">
+                    <a class="expand-item" data-uuid="{{item.uuid}}">{{item.name}}</a>
+                    <a class="remove skill-delete fa-solid fa-times" data-index="{{@index}}" data-tooltip="Remove Skill"
+                        aria-label="Remove Skill"></a>
+                </div>
+                {{/each}}
+            </div>
+        </div>
         <h2>Damage</h2>
         <li class="item flexrow damage-header" draggable="true">
             <div class="damage-type">Type</div>

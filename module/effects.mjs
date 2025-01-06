@@ -1,11 +1,5 @@
 import { byString, calculate } from "./helpers.mjs";
 
-const tokenize = /(\(.+\))|[^\/\+\-\*]+|[\/\+\-*]/g;
-const parenthetical = /^(\(.+\))$/g;
-const operator = /^[\/\+\-*]$/g;
-const argument = /^[^\/\+\-\*]+$/g;
-//const attribute = /^@.+$/g;
-const number = /^[0123456789.]+$/g;
 const attribute = /(@[\d\w.]+)/g;
 
 /**
@@ -14,7 +8,7 @@ const attribute = /(@[\d\w.]+)/g;
  */
 export class CelestusEffect extends ActiveEffect {
     /** @override */
-    get isSuppressed () {
+    get isSuppressed() {
         const aura = this.system?.aura;
         // check if this is an aura
         if (aura) {
@@ -28,7 +22,7 @@ export class CelestusEffect extends ActiveEffect {
     /**@override */
     static applyField(model, change, field) {
         let value = change.value;
-        value = value.replaceAll(attribute, (s)  => {
+        value = value.replaceAll(attribute, (s) => {
             // get value from object
             const val = byString(model, s.substring(1));
             return val || "";
@@ -40,5 +34,79 @@ export class CelestusEffect extends ActiveEffect {
             console.error("CELESTUS | ERROR: Unable to parse effect calculation: " + value);
         }
         return super.applyField(model, change, field);
+    }
+
+    /** @override */
+    async _preUpdate(changed, options, user) {
+        // check if enabled status changed
+        if (typeof changed.disabled !== "undefined" && changed.disabled !== this.disabled) {
+            if (changed.disabled === false) { // enabling effect, grant all items
+                for (const item of this.system.grantedSkills) {
+                    const sourceItem = await fromUuid(item.uuid);
+                    const newItem = await this.parent?.createEmbeddedDocuments("Item", [sourceItem.toJSON()]);
+                    if (newItem) {
+                        // mark new Item as always prepped
+                        await newItem[0].update({ "system.memorized": "always" });
+                        // record that this effect "owns" this item
+                        let grantedArr = this.system.ownedItems;
+                        if (!grantedArr) {
+                            grantedArr = [];
+                        }
+                        grantedArr.push(newItem[0].id);
+                        await this.updateSource({ "system.ownedItems": grantedArr })
+                    }
+                }
+            }
+            else if (changed.disabled === true) { // remove all items granted by this skill
+                for (const id of this.system.ownedItems) {
+                    const item = this.parent.items.find(i => i.id === id);
+                    item.delete();
+                }
+                let system = changed.system;
+                if (!system) {
+                    changed.system = {};
+                    system = changed.system;
+                }
+                system.ownedItems = [];
+            }
+        }
+
+        return await super._preUpdate(changed, options, user);
+    }
+    
+    /** @override */
+    async _preCreate(data, options, user) {
+        if (!data.system) return await super._preCreate(data, options, user);
+        const grantedSkills = data.system?.grantedSkills;
+        if (grantedSkills) {
+            const grantedIds = [];
+            if (!data.flags) {
+                data.flags = {};
+            }
+            if (!data.flags.celestus) {
+                data.flags.celestus = {};
+            }
+            for (const item of grantedSkills) {
+                const sourceItem = await fromUuid(item.uuid);
+                const newItems = await this.parent?.createEmbeddedDocuments("Item", [sourceItem.toJSON()]);
+                if (newItems) {
+                    // mark new Item as always prepped
+                    await newItems[0].update({ "system.memorized": "always" });
+                    // record that this effect "owns" this item
+                    grantedIds.push(newItems[0].id);
+                }
+            }
+            this.updateSource({ "system.ownedItems": grantedIds });
+        }
+        return await super._preCreate(data, options, user);
+    }
+
+    /** @override */
+    _onDelete(options, userId) {
+        // remove all items granted by this skill
+        for (const id of this.system.ownedItems) {
+            const item = this.parent.items.find(i => i.id === id);
+            item.delete();
+        }
     }
 }

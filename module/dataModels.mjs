@@ -1165,6 +1165,13 @@ export class EffectData extends foundry.abstract.TypeDataModel {
                 targetType: new StringField({ required: true, initial: "humanoid" }),
                 clearOnLeave: new BooleanField({ required: true, initial: true }),
             }),
+            grantedSkills: new ArrayField( new SchemaField({ // skills granted by this effect
+                uuid: new StringField(),
+                name: new StringField(),
+            })),
+            ownedItems: new ArrayField( // items that have been created by this effect
+                new StringField(),
+            ),
         }
     }
 
