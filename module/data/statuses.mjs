@@ -456,7 +456,7 @@ export let statuses = [
         type: "status",
         duration: { rounds: 5 },
         system: {
-            blocks: ["rage", "charm", "fear", "sleep", "taunt", "mad"],
+            blocks: ["rage", "charm", "fear", "sleep", "taunt", "mad", "daze"],
         },
         changes: [
             {
@@ -772,64 +772,37 @@ export let statuses = [
             },
         ],
     },
-    //{
-    //    id: "curse",
-    //    name: "EFFECT.StatusCursed",
-    //    img: "icons/svg/sun.svg"
-    //},
-    //{
-    //    id: "hover",
-    //    name: "EFFECT.StatusHover",
-    //    img: "icons/svg/wingfoot.svg"
-    //},
-    //{
-    //    id: "burrow",
-    //    name: "EFFECT.StatusBurrow",
-    //    img: "icons/svg/mole.svg"
-    //},
-    //{
-    //    id: "upgrade",
-    //    name: "EFFECT.StatusUpgrade",
-    //    img: "icons/svg/upgrade.svg"
-    //},
-    //{
-    //    id: "downgrade",
-    //    name: "EFFECT.StatusDowngrade",
-    //    img: "icons/svg/downgrade.svg"
-    //},
-    //{
-    //    id: "target",
-    //    name: "EFFECT.StatusTarget",
-    //    img: "icons/svg/target.svg"
-    //},
-    //{
-    //    id: "eye",
-    //    name: "EFFECT.StatusMarked",
-    //    img: "icons/svg/eye.svg"
-    //},
-    //{
-    //    id: "bless",
-    //    name: "EFFECT.StatusBlessed",
-    //    img: "icons/svg/angel.svg"
-    //},
-    //{
-    //    id: "fireShield",
-    //    name: "EFFECT.StatusFireShield",
-    //    img: "icons/svg/fire-shield.svg"
-    //},
-    //{
-    //    id: "coldShield",
-    //    name: "EFFECT.StatusIceShield",
-    //    img: "icons/svg/ice-shield.svg"
-    //},
-    //{
-    //    id: "magicShield",
-    //    name: "EFFECT.StatusMagicShield",
-    //    img: "icons/svg/mage-shield.svg"
-    //},
-    //{
-    //    id: "holyShield",
-    //    name: "EFFECT.StatusHolyShield",
-    //    img: "icons/svg/holy-shield.svg"
-    //}
+    {
+        id: "daze",
+        name: "Dazed",
+        img: "systems/celestus/svg/knocked-out.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            resistedBy: "mag",
+            blocks: ["fear", "charm", "taunt", "sleep",],
+        },
+        changes: [
+            {
+                key: "system.attributes.bonuses.evasion.mod",
+                value: "-1",
+                mode: 2,
+            },
+            {
+                key: "system.attributes.movement.mod",
+                value: "-1",
+                mode: 5,
+            },
+            {
+                key: "system.attributes.resistance.psychic.bonus",
+                value: "-0.25",
+                mode: 2,
+            },
+            {
+                key: "flags.celestus.incapacitated",
+                value: "true",
+                mode: 5,
+            },
+        ],
+    },
 ];

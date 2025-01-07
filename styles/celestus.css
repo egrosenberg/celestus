@@ -64,6 +64,7 @@
 .icon-crossbow:before{content:'\0072';}
 .icon-spiked-shoulder-armor:before{content:'\0073';}
 .icon-angel-outfit:before{content:'\0074';}
+.icon-psionics:before{content:'\0075';}
 
 .chat-message button.apply-damage {
     flex: 0 0 100%;
