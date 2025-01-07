@@ -189,12 +189,22 @@ export class CharacterSheet extends ActorSheet {
                     return ui.notifications.warn(`Actor doesn't have enough free memory slots. (needed: ${item.system.memSlots}. free: ${this.actor.system.attributes.memory.total - this.actor.system.attributes.memory.spent})`);
                 }
                 // check ability prereqs
-                for (let [key, prereq] of Object.entries(item.system.prereqs)) {
-                    if (this.actor.system.combat[key].value < prereq) {
-                        return ui.notifications.warn(`Actor is missing prerequisite combat ability level (${key}: ${prereq})`);
+                if (item.system.type === "civil") {
+                    for (let [key, prereq] of item.system.civilPrereqs) {
+                        if ((this.actor.system.civil[key]?.value ?? -1) < prereq) {
+                            return ui.notifications.warn(`Actor is missing prerequisite civil ability level (${key}: ${prereq})`);
+                        }
                     }
+                    item.update({ "system.memorized": "true" });
                 }
-                item.update({ "system.memorized": "true" });
+                else {
+                    for (let [key, prereq] of item.system.combatPrereqs) {
+                        if ((this.actor.system.combat[key]?.value ?? -1) < prereq) {
+                            return ui.notifications.warn(`Actor is missing prerequisite combat ability level (${key}: ${prereq})`);
+                        }
+                    }
+                    item.update({ "system.memorized": "true" });
+                }
             }
         });
 

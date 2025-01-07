@@ -29,13 +29,15 @@
                 </span>
                 {{else}}
                 <span class="item-overlay">
-                    {{#each skill.system.prereqs as |ability key|}}
-                    {{#if ability}}
-                    {{#with (lookup ../../config.combatSkills key)}}
-                        <i class="{{glyph}}"></i><br />
+                    {{#if (eq skill.system.type "civil")}}
+                    {{#with (lookup ../config.civilSkills skill.system.school)}}
+                         <i class="{{glyph}}"></i>
+                    {{/with}}
+                    {{else}}
+                    {{#with (lookup ../config.combatSkills skill.system.school)}}
+                        <i class="{{glyph}}"></i>
                     {{/with}}
                     {{/if}}
-                    {{/each}}
                 </span>
                 {{/if}}
                 
@@ -77,13 +79,15 @@
                 </span>
                 {{else}}
                 <span class="item-overlay">
-                    {{#each skill.system.prereqs as |ability key|}}
-                    {{#if ability}}
-                    {{#with (lookup ../../config.combatSkills key)}}
-                        <i class="{{glyph}}"></i><br />
+                    {{#if (eq skill.system.type "civil")}}
+                    {{#with (lookup ../config.civilSkills skill.system.school)}}
+                         <i class="{{glyph}}"></i>
+                    {{/with}}
+                    {{else}}
+                    {{#with (lookup ../config.combatSkills skill.system.school)}}
+                        <i class="{{glyph}}"></i>
                     {{/with}}
                     {{/if}}
-                    {{/each}}
                 </span>
                 {{/if}}
             </div>
@@ -116,13 +120,23 @@
                 <a class='rollable item' data-roll-type='skill' data-item-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
                         height='80' /></a>
                 <span class="item-overlay">
-                    {{#each skill.system.prereqs as |ability key|}}
-                    {{#if ability}}
-                    {{#with (lookup ../../config.combatSkills key)}}
-                        <i class="{{glyph}}"></i>{{ability}}<br />
+                    {{#if (eq skill.system.type "civil")}}
+                    {{#each skill.system.civilPrereqs as |ability|}}
+                    {{#if ability.[1]}}
+                    {{#with (lookup ../../config.civilSkills ability.[0])}}
+                        <i class="{{glyph}}"></i>{{ability.[1]}}<br />
                     {{/with}}
                     {{/if}}
                     {{/each}}
+                    {{else}}
+                    {{#each skill.system.combatPrereqs as |ability|}}
+                    {{#if ability.[1]}}
+                    {{#with (lookup ../../config.combatSkills ability.[0])}}
+                        <i class="{{glyph}}"></i>{{ability.[1]}}<br />
+                    {{/with}}
+                    {{/if}}
+                    {{/each}}
+                    {{/if}}
                 </span>
             </div>
         </div>

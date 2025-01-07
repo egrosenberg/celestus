@@ -743,6 +743,11 @@ export class SkillData extends foundry.abstract.TypeDataModel {
                 formshifter: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 huntmaster: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 warlord: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+                scoundrel: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+                lore: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+                nature: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+                influence: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+                religion: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
             }),
             damage: new ArrayField(new SchemaField({
                 type: new StringField({ required: true, initial: "none" }), // damage type
@@ -761,6 +766,8 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             weaponEfficiency: new NumberField({ required: true, initial: 1 }), // weapon damage scalar for weapon skills
             overridesWeaponDamage: new BooleanField({ required: true, initial: false }),
             overridesWeaponRange: new BooleanField({ required: true, initial: false }),
+            school: new StringField({ required: true, initial: "none" }), // type of school skill is
+            tier: new NumberField({ required: true, integer: true, initial: 0}),
         };
     }
 
@@ -857,6 +864,14 @@ export class SkillData extends foundry.abstract.TypeDataModel {
     // if player should edit the range field
     get needsRangeField() {
         return (this.type !== "weapon" || this.overridesWeaponRange)
+    }
+
+    // all prerequisites that are combat abilities
+    get combatPrereqs() {
+        return Object.entries(this.prereqs).filter(([k,v]) => CONFIG.CELESTUS.combatSkills[k]);
+    }
+    get civilPrereqs() {
+        return Object.entries(this.prereqs).filter(([k,v]) => CONFIG.CELESTUS.civilSkills[k]);
     }
 };
 

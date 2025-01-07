@@ -442,6 +442,13 @@ Hooks.on("init", () => {
             mag: "Magic Armor",
             phys: "Physical Armor",
             any: "Any Armor",
+        },
+        skillTiers: {
+            0: "Apprentice",
+            1: "Novice",
+            2: "Adept",
+            3: "Expert",
+            4: "Master"
         }
     };
 
