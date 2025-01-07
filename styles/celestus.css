@@ -386,6 +386,9 @@
     display: inline-block;
     width: 80px;
 }
+.celestus.actor.sheet .item.skill .skill-cost {
+    height: 40px;
+}
 .celestus.actor.sheet .item.skill .item-controls {
     display: flex;
     justify-content: space-between;
