@@ -362,7 +362,7 @@ export class CelestusActor extends Actor {
 
         // civil skills set cd to -1
         if (skill.system.type === "civil") {
-            skill.update({ "system.cooldown.value": -1 });
+            skill.update({ "system.cooldown.value": (skill.system.cooldown.max !== 0 ? -1 : 0) });
         }
         // set skill on cooldown if in combat (currently set to true for debugging)
         else if (this.inCombat) {
