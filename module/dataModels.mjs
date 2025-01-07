@@ -110,6 +110,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
                     total: new NumberField({ required: true, integer: true, initial: 0 }), // derived
                     spent: new NumberField({ required: true, integer: true, initial: 0 }), // derived
                 }),
+                exhaustion: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
             }),
             // combat abilities
             combat: new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.combatSkills)).reduce((obj, ability) => {
@@ -149,6 +150,11 @@ export class ActorData extends foundry.abstract.TypeDataModel {
         /**
          * perform final operations
          */
+        // subtract from attributes based on exhaustion
+        for (let [key, ability] of Object.entries(this.abilities)) {
+            ability.total -= this.attributes.exhaustion;
+            ability.bonus -= this.attributes.exhaustion;
+        }
         // add flat misc armor bonuses
         this.resources.phys_armor.max += this.resources.phys_armor.bonus;
         this.resources.mag_armor.max += this.resources.mag_armor.bonus;

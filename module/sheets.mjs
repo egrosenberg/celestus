@@ -103,12 +103,19 @@ export class CharacterSheet extends ActorSheet {
                 const gradientCol = "rgba(255,255,255,0.25)";
                 gradient = `linear-gradient(to left, ${gradientCol} ${((1 - resourcePercent) * -100)}%, rgba(0,0,0,0) 0%)`;
             }
-            else {
+            else if (resourcePercent > 0) {
                 const gradientCol = "#404040";
                 gradient = `linear-gradient(to left, ${gradientCol} ${((1 - resourcePercent) * 100)}%, rgba(0,0,0,0) 0%)`;
             }
+            else {
+                const gradientCol = "#404040";
+                gradient = `linear-gradient(to right, ${gradientCol} ${((1 + resourcePercent) * 100)}%, rgba(0,0,0,0) 0%)`;
+            }
             const curCSS = $(target).css("background-image");
             $(target).css("background-image", `${curCSS}, ${gradient}`);
+            if (resourcePercent < 0) {
+                $(target).css("background-color", `#ff9999`);
+            }
         });
 
         // -------------------------------------------------------------

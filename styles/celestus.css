@@ -106,31 +106,31 @@
 }
 /* colors for elements */
 .celestus .physical {
-    background-color: var(--color-physical-bg) !important;
+    background-color: var(--color-physical-bg);
 }
 .celestus .fire {
-    background-color: var(--color-fire-bg) !important;
+    background-color: var(--color-fire-bg);
 }
 .celestus .water {
-    background-color: var(--color-water-bg) !important;
+    background-color: var(--color-water-bg);
 }
 .celestus .air {
-    background-color: var(--color-air-bg) !important;
+    background-color: var(--color-air-bg);
 }
 .celestus.sheet .earth {
-    background-color: var(--color-earth-bg) !important;
+    background-color: var(--color-earth-bg);
 }
 .celestus .poison {
-    background-color: var(--color-poison-bg) !important;
+    background-color: var(--color-poison-bg);
 }
 .celestus .psychic {
-    background-color: var(--color-psychic-bg) !important;
+    background-color: var(--color-psychic-bg);
 }
 .celestus .piercing {
-    background-color: var(--color-piercing-bg) !important;
+    background-color: var(--color-piercing-bg);
 }
 .celestus .healing {
-    background-color: var(--color-healing-bg) !important;
+    background-color: var(--color-healing-bg);
 }
 .celestus img{
     background-color: black;

@@ -18,13 +18,17 @@ export class CelestusActor extends Actor {
                 if (val.flat !== undefined) {
                     const max = val.max ?? this.system.resources[key]?.max ?? 0;
                     val.offset = val.flat - max;
+                    const old = this.system.resources[key]?.flat ?? 0;
                     if (key === "hp") {
                         if (this.getFlag("celestus", "undying")) {
                             val.offset = Math.max(val.offset, 1 - this.system.resources.hp.max);
                         }
                         val.percent = val.flat / this.system.resources.hp.max;
+                        // check if hp went from negative to positive
+                        if (old < 1 && val.flat > 0) {
+                            this.updateSource({"system.attributes.exhaustion": this.system.attributes.exhaustion + 1})
+                        }
                     }
-                    const old = this.system.resources[key]?.flat ?? 0;
                     const diff = val.flat - old;
                     if (diff !== 0) {
                         const str = (diff > 0) ? "+" + diff.toString() : diff.toString();
@@ -290,8 +294,6 @@ export class CelestusActor extends Actor {
         const maxHealth = this.system.resources.hp.max;
         // calculate the new damage
         let newHealth = value - remaining;
-        // set to max of 0 and new health
-        newHealth = Math.max(newHealth, 0);
         // set to min of newhealth and max health
         newHealth = Math.min(newHealth, maxHealth);
         // update health value
@@ -486,6 +488,10 @@ export class CelestusActor extends Actor {
      * @param {Boolean} dawn: t/f is it a new day (refreshes civil skills)
      */
     async refresh(dawn = false) {
+        // if dawn, remove exhaustion
+        if (dawn) {
+            this.update({ "system.attributes.exhaustion": 0 });
+        }
         // update hp
         this.update({ "system.resources.hp.flat": this.system.resources.hp.max });
         // update physical armor
@@ -512,6 +518,7 @@ export class CelestusActor extends Actor {
         for (const status of this.system.effects.temporary) {
             status.delete();
         }
+
     }
 
     /**
