@@ -7,9 +7,10 @@
  * @param {String} ability: ability to scale damage with ("none" if no scalar)
  * @param {Number} base: damage multiplier from damage source percent
  * @param {String} flat: flat damage bonus as percent
+ * @param {Boolean} crit: is damage roll for a critical hit
  * @returns {Number} multiplier to apply to damage roll
  */
-export function calcMult(actor, type, ability, base, flat = 0) {
+export function calcMult(actor, type, ability, base, crit, flat = 0) {
     // elemental damage bonus percentage
     let elementBonus = 0;
     if (type !== "none") {
@@ -24,8 +25,9 @@ export function calcMult(actor, type, ability, base, flat = 0) {
     else if (ability !== "0") {
         abilityBonus = actor.system.abilities[ability].mod;
     }
+    const critBonus = crit ? actor.system.attributes.bonuses.crit_bonus.value : 1;
 
-    let mult = 1 * (base) * (1 + elementBonus) * (1 + abilityBonus) * (1 + flat + actor.system.attributes.bonuses.damage.value);
+    let mult = 1 * (base) * (1 + elementBonus) * (1 + abilityBonus) * (1 + flat + actor.system.attributes.bonuses.damage.value) * critBonus;
     return mult.toFixed(2);
 }
 
@@ -114,6 +116,34 @@ export async function rollAbility(actor, ability) {
     }).render({ force: true });
 }
 
+/**
+ * Prompts user and asks if damage roll is a crit
+ * @returns {Boolean} true if crit, false if not
+ */
+export async function promptCrit() {
+    const promise = new Promise(async (resolve) => {
+        await new foundry.applications.api.DialogV2({
+            window: { title: "Roll Damage:" },
+            content: "",
+            buttons: [{
+                action: "normal",
+                label: "Normal",
+                default: true,
+                callback: (event, button, dialog) => ["normal"]
+            }, {
+                action: "crit",
+                label: "Critical",
+                callback: (event, button, dialog) => ["crit"]
+            }],
+            submit: result => {
+                const [mode] = result;
+                resolve(mode);
+            }
+        }).render({ force: true });
+    })
+    const mode =  await promise;
+    return mode === "crit";
+}
 
 
 
@@ -128,7 +158,7 @@ export async function rollAbility(actor, ability) {
  * @param {String} s 
  * @returns 
  */
-export function byString (o, s) {
+export function byString(o, s) {
     s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
     s = s.replace(/^\./, '');           // strip a leading dot
     var a = s.split('.');
@@ -149,7 +179,7 @@ export function byString (o, s) {
  * @param {String} calculation
  * @returns {Number}
  */
-export function calculate (calculation) {
+export function calculate(calculation) {
 
     //build an array containing the individual parts
 
@@ -163,7 +193,7 @@ export function calculate (calculation) {
 
     //test if everything was matched
 
-    if( calculation !== parts.join("") ) {
+    if (calculation !== parts.join("")) {
 
         throw new Error("couldn't parse calculation")
 
@@ -183,15 +213,15 @@ export function calculate (calculation) {
 
     var processed = [];
 
-    for(var i = 0; i < parts.length; i++){
+    for (var i = 0; i < parts.length; i++) {
 
-        if( nums[i] === nums[i] ){ //nums[i] isn't NaN
+        if (nums[i] === nums[i]) { //nums[i] isn't NaN
 
-            processed.push( nums[i] );
+            processed.push(nums[i]);
 
         } else {
 
-            switch( parts[i] ) {
+            switch (parts[i]) {
 
                 case "+":
 
@@ -227,7 +257,7 @@ export function calculate (calculation) {
 
     //add all numbers and return the result
 
-    return processed.reduce(function(result, elem){
+    return processed.reduce(function (result, elem) {
 
         return result + elem;
 

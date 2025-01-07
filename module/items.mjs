@@ -67,7 +67,7 @@ export class CelestusItem extends Item {
                 else {
                     first = false;
                 }
-                const mult = calcMult(this.actor, part.type, this.system.ability, part.value, 0);
+                const mult = calcMult(this.actor, part.type, this.system.ability, part.value, false, 0);
                 damage.formula += `((${CONFIG.CELESTUS.baseDamage.formula[this.actor.system.attributes.level]})*${part.value})[${part.type}]`;
                 const min = parseInt(CONFIG.CELESTUS.baseDamage.min[this.actor.system.attributes.level] * mult);
                 const max = parseInt(CONFIG.CELESTUS.baseDamage.max[this.actor.system.attributes.level] * mult);

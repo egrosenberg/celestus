@@ -1,4 +1,4 @@
-import { calcMult } from "./helpers.mjs";
+import { calcMult, promptCrit } from "./helpers.mjs";
 
 const RED = '#e29292';
 const GREEN = '#92e298';
@@ -66,6 +66,8 @@ export async function rollDamage(e) {
     const itemID = e.currentTarget.dataset.itemUuid;
     const item = await fromUuid(itemID);
 
+    const isCrit = await promptCrit();
+
     if (item.system.type === "magic" || item.system.overridesWeaponDamage) {
         // iterate through damage array
         for (let part of item.system.damage) {
@@ -76,7 +78,7 @@ export async function rollDamage(e) {
             // base damage roll corresponding to actor level
             const base = CONFIG.CELESTUS.baseDamage.formula[actor.system.attributes.level];
 
-            const mult = calcMult(actor, type, ability, part.value, 0);
+            const mult = calcMult(actor, type, ability, part.value, isCrit, 0);
 
             const r = new Roll(`floor((${base})[${type}] * ${mult})`)
             await r.toMessage({
@@ -96,7 +98,7 @@ export async function rollDamage(e) {
         }
         if (damage.length === 1) {
             const type = damage[0].type;
-            const formula = `floor((${damage[0].roll})*${weaponScalar})`
+            const formula = `floor((${isCrit ? damage[0].crit : damage[0].roll})*${weaponScalar})`
 
             const r = new Roll(formula);
             await r.toMessage({
@@ -108,7 +110,7 @@ export async function rollDamage(e) {
         }
         else {
             const type1 = damage[0].type;
-            const formula1 = `floor((${damage[0].roll})*${CONFIG.CELESTUS.twoHandMult}*${weaponScalar})`
+            const formula1 = `floor((${isCrit ? damage[0].crit : damage[0].roll})*${CONFIG.CELESTUS.twoHandMult}*${weaponScalar})`
 
             const r1 = new Roll(formula1);
             await r1.toMessage({
@@ -118,7 +120,7 @@ export async function rollDamage(e) {
                 'system.actorID': actorID,
             });
             const type2 = damage[1].type;
-            const formula2 = `floor((${damage[1].roll})*${CONFIG.CELESTUS.twoHandMult}*${weaponScalar})`
+            const formula2 = `floor((${isCrit ? damage[1].crit : damage[1].roll})*${CONFIG.CELESTUS.twoHandMult}*${weaponScalar})`
 
             const r2 = new Roll(formula2);
             await r2.toMessage({

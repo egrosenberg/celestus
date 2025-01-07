@@ -999,16 +999,20 @@ export class WeaponData extends GearData {
         // calculate bonus from weapon combat ability
         let abilityBonus = this.parent?.actor?.system?.combat[this.parent.actor.system.weaponType]?.mod ?? 0;
         // calculate mult
-        let mult = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, abilityBonus) : 1;
+        let mult = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, false, abilityBonus) : 1;
+        let multCrit = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, true, abilityBonus) : 1;
         // optionally multiply by flat damage boost for npcs
         mult *= 1 + ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
         mult = mult.toFixed(2);
+        multCrit *= 1 + ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
+        multCrit = multCrit.toFixed(2);
         return {
             type: this.type,
             min: Math.floor(dice * mult),
             max: Math.floor(dice * dmgDie * mult),
             avg: Math.floor(dice * (dmgDie / 2 + 0.5) * mult),
             roll: `${dice}d${dmgDie}*${mult}`,
+            crit: `${dice}d${dmgDie}*${multCrit}`,
         };
     }
 
