@@ -168,7 +168,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
         }
         // combat abilities
         for (let [key, ability] of Object.entries(this.combat)) {
-            const mult = CONFIG.CELESTUS.combatSkills[key].modOverride ?? CONFIG.CELESTUS.combatSkillMod;
+            const mult = CONFIG.CELESTUS.combatSkills[key]?.modOverride ?? CONFIG.CELESTUS.combatSkillMod;
             ability.mod += ability.value * mult;
         }
         // calculate lifesteal
@@ -296,8 +296,8 @@ export class ActorData extends foundry.abstract.TypeDataModel {
      */
     get combatAbilities() {
         return {
-            weapon: Object.entries(this.combat).filter(s => CONFIG.CELESTUS.combatSkills[s[0]].type === "weapon"),
-            skill: Object.entries(this.combat).filter(s => CONFIG.CELESTUS.combatSkills[s[0]].type === "skill"),
+            weapon: Object.entries(this.combat).filter(s => CONFIG.CELESTUS.combatSkills[s[0]]?.type === "weapon"),
+            skill: Object.entries(this.combat).filter(s => CONFIG.CELESTUS.combatSkills[s[0]]?.type === "skill"),
         };
     }
 

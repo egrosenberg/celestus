@@ -102,7 +102,7 @@ export class CelestusEffect extends ActiveEffect {
     }
 
     _onCreate(data, options, userid) {
-        this.updateSource({ "system.ownedItems": options.system.ownedItems });
+        this.updateSource({ "system.ownedItems": options.system?.ownedItems ?? [] });
     }
 
     /** @override */
