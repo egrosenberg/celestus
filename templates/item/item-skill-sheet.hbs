@@ -13,11 +13,11 @@
             <div class="quick-reference">
                 {{#if (eq system.type "civil")}}
                 {{#with (lookup config.civilSkills system.school)}}
-                    {{../config.skillTiers.[0]}} {{label}}
+                    {{lookup ../config.skillTiers ../system.tier}} {{label}}
                 {{/with}}
                 {{else}}
                 {{#with (lookup config.combatSkills system.school)}}
-                    {{../config.skillTiers.[0]}} {{label}}
+                    {{lookup ../config.skillTiers ../system.tier}} {{label}}
                 {{/with}}
                 {{/if}}
             </div>
