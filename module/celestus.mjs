@@ -72,8 +72,8 @@ Hooks.on("init", () => {
          * glyph: glyphter icon to use for display
          */
         combatSkills: {
-            onehand: { label: "Dueling", text: "onehand", damage: "physical", glyph: "icon-gladius", type: "weapon"},
-            dualwield: { label: "Dual Wielding", text: "dualwield", damage: "physical", glyph: "icon-crossed-swords", type: "weapon", modOverride: 0.01  },
+            onehand: { label: "Dueling", text: "onehand", damage: "physical", glyph: "icon-gladius", type: "weapon" },
+            dualwield: { label: "Dual Wielding", text: "dualwield", damage: "physical", glyph: "icon-crossed-swords", type: "weapon", modOverride: 0.01 },
             twohand: { label: "Heavy-Handed", text: "twohand", damage: "physical", glyph: "icon-sharp-axe", type: "weapon" },
             ranged: { label: "Marksman", text: "ranged", damage: "physical", glyph: "icon-crossbow", type: "weapon", modOverride: 0.01 },
             retributive: { label: "Retributive", text: "retributive", damage: "physical", glyph: "icon-spiked-shoulder-armor", type: "weapon" },
@@ -560,4 +560,60 @@ Handlebars.registerHelper("repeat", (n, options) => {
         output += options.fn(this);
     }
     return output;
+});
+
+
+// attempt to bind to elevation ruler
+const timeout = 10000;
+
+// This is the promise code, so this is the useful bit
+function awaitElevationRuler(timeout) {
+    var start = Date.now();
+    return new Promise(waitRuler);
+
+    function waitRuler(resolve, reject) {
+        if (CONFIG.elevationruler?.SPEED)
+            resolve(true);
+        else if (timeout && (Date.now() - start) >= timeout)
+            reject(new Error("CELESTUS: ElevationRuler not detected."));
+        else
+            setTimeout(waitRuler.bind(this, resolve, reject), 30);
+    }
+}
+awaitElevationRuler(timeout).then(function () {
+    CONFIG.elevationruler.SPEED.CATEGORIES = [
+        {
+            name: "1 AP",
+            color: Color.from(0x00ff00),
+            multiplier: 1,
+        },
+        {
+            name: "2 AP",
+            color: Color.from(0xffff00),
+            multiplier: 2
+        },
+        {
+            name: "3 AP",
+            color: Color.from(0xffbf00),
+            multiplier: 3
+        },
+        {
+            name: "4 AP",
+            color: Color.from(0xff0000),
+            multiplier: 4,
+        },
+        {
+            name: "Maximum",
+            color: Color.from(0x0000ff),
+            multiplier: 5
+        }
+    ]
+    CONFIG.elevationruler.SPEED.tokenSpeed = function (token) {
+        return token.actor?.system?.attributes?.movement.value ?? 0;
+    }
+    CONFIG.elevationruler.SPEED.maximumCategoryDistance = function (token, speedCategory, tokenSpeed) {
+        tokenSpeed ??= SPEED.tokenSpeed(token);
+        const mult = speedCategory?.multiplier ?? Number.POSITIVE_INFINITY;
+        return Math.min(mult * tokenSpeed, 5 * tokenSpeed);
+    };
 });
