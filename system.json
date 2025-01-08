@@ -36,6 +36,11 @@
             "label": "Celestus Backgrounds",
             "type": "Item",
             "system": "celestus"
+        }, {
+            "name": "professions",
+            "label": "Celestus Professions",
+            "type": "Item",
+            "system": "celestus"
         }
     ],
     "packFolders": [],
