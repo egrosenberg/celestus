@@ -72,8 +72,8 @@ Hooks.on("init", () => {
          * glyph: glyphter icon to use for display
          */
         combatSkills: {
-            onehand: { label: "Dueling", text: "onehand", damage: "physical", glyph: "icon-gladius", type: "weapon", modOverride: 0.01 },
-            dualwield: { label: "Dual Wielding", text: "dualwield", damage: "physical", glyph: "icon-crossed-swords", type: "weapon" },
+            onehand: { label: "Dueling", text: "onehand", damage: "physical", glyph: "icon-gladius", type: "weapon"},
+            dualwield: { label: "Dual Wielding", text: "dualwield", damage: "physical", glyph: "icon-crossed-swords", type: "weapon", modOverride: 0.01  },
             twohand: { label: "Heavy-Handed", text: "twohand", damage: "physical", glyph: "icon-sharp-axe", type: "weapon" },
             ranged: { label: "Marksman", text: "ranged", damage: "physical", glyph: "icon-crossbow", type: "weapon", modOverride: 0.01 },
             retributive: { label: "Retributive", text: "retributive", damage: "physical", glyph: "icon-spiked-shoulder-armor", type: "weapon" },
