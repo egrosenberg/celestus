@@ -41,6 +41,11 @@
             "label": "Celestus Professions",
             "type": "Item",
             "system": "celestus"
+        }, {
+            "name": "talents",
+            "label": "Celestus Talents",
+            "type": "Item",
+            "system": "celestus"
         }
     ],
     "packFolders": [],

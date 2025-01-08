@@ -133,15 +133,15 @@ export class ActorData extends foundry.abstract.TypeDataModel {
             }, {})),
             // configure ability/attributes
             abilities: new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.abilities)).reduce((obj, ability) => {
-                    obj[ability] = new SchemaField({
-                        value: new NumberField({ required: true, integer: false, min: 0, initial: 10 }), // base value
-                        mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // modifier value (percentage)
-                        bonus: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // bonus to base value from items/features
-                        total: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                        label: new StringField({ required: true, initial: ability }),
-                    });
-                    return obj;
-                }, {})),
+                obj[ability] = new SchemaField({
+                    value: new NumberField({ required: true, integer: false, min: 0, initial: 10 }), // base value
+                    mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // modifier value (percentage)
+                    bonus: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // bonus to base value from items/features
+                    total: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    label: new StringField({ required: true, initial: ability }),
+                });
+                return obj;
+            }, {})),
         };
     }
 
@@ -200,9 +200,15 @@ export class ActorData extends foundry.abstract.TypeDataModel {
          * Perform multiplicative operations
          */
         // con operations
-        this.resources.phys_armor.max *= 1 + this.abilities.con.mod;
-        this.resources.mag_armor.max *= 1 + this.abilities.con.mod;
+        // increase armor if actor has natural armor
+        if (this.parent.getFlag("celestus", "natural-armor")) { 
+            this.resources.phys_armor.max *= 1 + (this.abilities.con.mod * CONFIG.CELESTUS.naturalArmorScale);
+            this.resources.mag_armor.max *= 1 + (this.abilities.con.mod * CONFIG.CELESTUS.naturalArmorScale);
+        }
         this.resources.hp.max *= 1 + this.abilities.con.mod;
+        if (this.parent.getFlag("celestus", "durable")) {
+            this.resources.hp.max *= CONFIG.CELESTUS.durableMult;
+        }
         // ensure all resources are back to int
         this.resources.phys_armor.max = parseInt(this.resources.phys_armor.max);
         this.resources.mag_armor.max = parseInt(this.resources.mag_armor.max);
@@ -768,7 +774,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             overridesWeaponDamage: new BooleanField({ required: true, initial: false }),
             overridesWeaponRange: new BooleanField({ required: true, initial: false }),
             school: new StringField({ required: true, initial: "none" }), // type of school skill is
-            tier: new NumberField({ required: true, integer: true, initial: 0}),
+            tier: new NumberField({ required: true, integer: true, initial: 0 }),
         };
     }
 
@@ -781,6 +787,11 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             return this.parent.actor.system.equipped.left.system.range;
         }
         else {
+            if (this.type === "magic") {
+                if (this.parent.actor.getFlag("celestus", "farsight")) {
+                    return this.range + CONFIG.CELESTUS.farsightBonus;
+                } 
+            }
             return this.range;
         }
     }
@@ -869,10 +880,10 @@ export class SkillData extends foundry.abstract.TypeDataModel {
 
     // all prerequisites that are combat abilities
     get combatPrereqs() {
-        return Object.entries(this.prereqs).filter(([k,v]) => CONFIG.CELESTUS.combatSkills[k]);
+        return Object.entries(this.prereqs).filter(([k, v]) => CONFIG.CELESTUS.combatSkills[k]);
     }
     get civilPrereqs() {
-        return Object.entries(this.prereqs).filter(([k,v]) => CONFIG.CELESTUS.civilSkills[k]);
+        return Object.entries(this.prereqs).filter(([k, v]) => CONFIG.CELESTUS.civilSkills[k]);
     }
 };
 
@@ -1101,6 +1112,9 @@ export class EffectData extends foundry.abstract.TypeDataModel {
         }
         // get actor this is trying to attach to
         const actor = this.parent.parent;
+        // get AE source
+        let origin;
+        if (data.origin) origin = await fromUuid(data.origin);
         // check if status is resisted by armor
         let resisted = false;
         if (!data.system) {
@@ -1119,18 +1133,44 @@ export class EffectData extends foundry.abstract.TypeDataModel {
                     if (actor.system.resources.phys_armor.value > 0 || actor.system.resources.mag_armor.value > 0) resisted = true;
             }
         }
-        if (resisted === true) {
+        // things that only matter if there is an origin actor
+        if (origin && origin.documentName === "Actor") {
+            // check for tormentor
+            if (origin.getFlag("celestus", "tormentor")) {
+                // check if effect contains a tormentor status
+                let tormentor = false;
+                if (data.statuses && data.statuses.length > 0) {
+                    for (const status of data.statuses) {
+                        if (CONFIG.CELESTUS.tormentorStatuses.find(s => s === status)) {
+                            tormentor = true;
+                        }
+                    }
+                }
+                if (tormentor) {
+                    resisted = false;
+                    if (data.duration) {
+                        this.parent.updateSource({"duration.rounds": data.duration.rounds + 1})
+                    }
+                    else {
+                        data.duration = { rounds: 1 };
+                    }
+                }
+            }
+        }
+        if (resisted === true && !actor.getFlag("celestus", "glasscannon")) {
             canvasPopupText(actor, `Resisted ${data.name}`);
             return false;
         }
 
         // check if status is blocked if a statuseffect exists
         if (data.statuses && data.statuses.length > 0) {
-            // check if status is blocked
-            for (let effect of actor.effects) {
-                if (effect.system.blocks.find(b => b === data.statuses[0])) {
-                    canvasPopupText(actor, `${data.name} blocked by ${effect.name}`);
-                    return false;
+            for (const status of data.statuses) {
+                // check if status is blocked
+                for (let effect of actor.effects) {
+                    if (effect.system.blocks.find(b => b === status)) {
+                        canvasPopupText(actor, `${data.name} blocked by ${effect.name}`);
+                        return false;
+                    }
                 }
             }
         }
@@ -1167,6 +1207,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
             await canvasPopupText(actor, data.name);
             return false;
         }
+        canvasPopupText(actor, `+${data.name}`);
     }
 
     /** @override */

@@ -54,7 +54,36 @@ export async function rollAttack(e) {
         });
     }
 }
+/**
+ * roll a d100  just to check for a critical hit
+ * @param {event} e : event from button click, should contain info about actor/item uuid
+ */
+export async function rollCrit(e) {
+    // reconstruct drop data
+    const dropData = {
+        type: 'Item',
+        uuid: e.currentTarget.dataset.itemUuid
+    }
 
+    const item = await Item.fromDropData(dropData);
+    const actor = item.actor;
+    if (!actor) {
+        return ui.notifications.warn("ERROR: No actor found belonging to item.")
+    }
+    // threshold needed to exceed to count as a crit
+    const critThresh = 100 - (actor.system.attributes.bonuses.crit_chance.value * 100);
+
+    let r = new Roll("1d100", {}, { flavor: `${actor.name} rolls for Brutal Spellcraft` });
+    r.toMessage({
+        speaker: { alias: actor.name },
+        flags: {
+            "celestus": {
+                critThreshold: critThresh,
+            }
+        },
+        'system.isAttack': true,
+    });
+}
 /**
  * 
  * @param {event} e : event from button click, should contain info about actor/item uuid
@@ -181,10 +210,12 @@ export async function applyStatusHook(e) {
     for (const target of selected) {
         // go through actual statusEffects
         for (const id of item.system.statusEffects) {
-            const status = await target.actor.toggleStatusEffect(id, { active: true });
-            if (status) {
-                status.update({ "origin": origin.uuid });
-            }
+            const statusEffect = await ActiveEffect.fromStatusEffect(id);
+            statusEffect.updateSource({"origin": origin.uuid})
+            await target.actor.createEmbeddedDocuments(
+                "ActiveEffect",
+                [statusEffect]
+            );
         }
         // for each status
         for (const status of item.effects) {
@@ -245,6 +276,9 @@ export async function addChatButtons(msg, html, options) {
         // add attack button if there is an attack
         if (msg.system.skill.hasAttack) {
             html.append(`<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="attack" ${disabled}>Roll Attack</button>`)
+        }
+        else if (actor.getFlag("celestus", "brutalspells")) {
+            html.append(`<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="roll-crit" ${disabled}>Brutal Spellcraft</button>`)
         }
         // add damage button if there is a damage roll
         if (msg.system.skill.hasDamage) {

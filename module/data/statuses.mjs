@@ -14,7 +14,7 @@ export let statuses = [
         name: "Burning",
         img: "icons/svg/fire.svg",
         type: "status",
-        duration: { rounds: 3 },
+        duration: { rounds: 2 },
         system: {
             damage: [{ type: "fire", value: 1 }],
             resistedBy: "mag",
@@ -63,7 +63,7 @@ export let statuses = [
         name: "Spiritfire",
         img: "systems/celestus/svg/burning-skull.svg",
         type: "status",
-        duration: { rounds: 3 },
+        duration: { rounds: 2 },
         system: {
             damage: [{ type: "fire", value: 1 }],
             resistedBy: "mag",
@@ -209,7 +209,7 @@ export let statuses = [
         name: "Poisoned",
         img: "icons/svg/poison.svg",
         type: "status",
-        duration: { rounds: 3 },
+        duration: { rounds: 2 },
         system: {
             damage: [{type: "poison", value: 1 }],
             resistedBy: "mag",
@@ -266,7 +266,7 @@ export let statuses = [
         name: "Rooted",
         img: "systems/celestus/svg/tentacle-strike.svg",
         type: "status",
-        duration: { rounds: 3 },
+        duration: { rounds: 2 },
         system: {
             resistedBy: "mag",
         },
@@ -571,11 +571,11 @@ export let statuses = [
         ],
     },
     {
-        id: "bleeding",
+        id: "bleed",
         name: "Bleeding",
         img: "icons/svg/blood.svg",
         type: "status",
-        duration: { rounds: 3 },
+        duration: { rounds: 2 },
         system: {
             resistedBy: "phys",
             damage: [{type: "piercing", value: 1}],

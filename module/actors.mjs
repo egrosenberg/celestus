@@ -28,6 +28,28 @@ export class CelestusActor extends Actor {
                         if (old < 1 && val.flat > 0) {
                             this.updateSource({"system.attributes.exhaustion": this.system.attributes.exhaustion + 1})
                         }
+                        // check if target has been healed and has renewing armor
+                        if (val.flat > old && this.getFlag("celestus", "renewing_armor")) {
+                            const armorHeal = (val.flat - old) * CONFIG.CELESTUS.renewingArmorScale;
+                            const oldPhys = this.system.resources.phys_armor.flat;
+                            const oldMag = this.system.resources.mag_armor.flat;
+                            const newPhys = Math.min(oldPhys + armorHeal, this.system.resources.phys_armor.max);
+                            const newMag = Math.min(oldMag + armorHeal, this.system.resources.mag_armor.max);
+                            if (resources.phys_armor) {
+                                resources.phys_armor.flat = newPhys
+                            }
+                            else {
+                                resources.phys_armor = {flat: newPhys};
+                            }
+                            if (resources.mag_armor) {
+                                resources.mag_armor.flat = newMag
+                            }
+                            else {
+                                resources.mag_armor = {flat: newMag};
+                            }
+                            canvasPopupText(this, `+${newPhys-oldPhys}`, CONFIG.CELESTUS.damageCol.phys_armor.gain);
+                            canvasPopupText(this, `+${newMag-oldMag}`, CONFIG.CELESTUS.damageCol.mag_armor.gain);
+                        }
                     }
                     const diff = val.flat - old;
                     if (diff !== 0) {
@@ -298,6 +320,12 @@ export class CelestusActor extends Actor {
         newHealth = Math.min(newHealth, maxHealth);
         // update health value
         await this.update({ "system.resources.hp.flat": parseInt(newHealth) });
+        // check if hp was reduced to 0
+        if (value > 0 && newHealth < 1 && origin.getFlag("celestus", "executioner")) {
+            const ap = origin.system.resources.ap.value + CONFIG.CELESTUS.executeAp;
+            await origin.update({"system.resources.ap.value": Math.min(ap, origin.system.resources.ap.max)});
+            canvasPopupText(origin, "Executioner");
+        }
 
         // apply healing to origin based on lifesteal / apply retribution damage
         if (origin.uuid != this.uuid && damage > 0 && CONFIG.CELESTUS.damageTypes[type].style !== "healing") {

@@ -1,6 +1,6 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTemplate, previewDamage, rollAttack, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTemplate, previewDamage, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
@@ -392,6 +392,7 @@ Hooks.on("init", () => {
             origin: "Origin",
             species: "Species",
             occupation: "Occupation",
+            talent: "Talent"
         },
         damageCol: {
             hp: {
@@ -449,7 +450,22 @@ Hooks.on("init", () => {
             2: "Adept",
             3: "Expert",
             4: "Master"
-        }
+        },
+        // talent related constants
+        tormentorStatuses: [
+            "bleed",
+            "burn",
+            "burn+",
+            "poison",
+            "acid",
+            "suffocate",
+            "root"
+        ],
+        farsightBonus: 15,
+        executeAp: 2,
+        durableMult: 1.1,
+        naturalArmorScale: 0.5,
+        renewingArmorScale: 0.25,
     };
 
     // set up data models
@@ -522,6 +538,7 @@ Hooks.on("init", () => {
 
 Hooks.on("ready", () => {
     $(document).on("click", ".attack", rollAttack);
+    $(document).on("click", ".roll-crit", rollCrit);
     $(document).on("click", ".damage", rollDamage);
     $(document).on("click", ".apply-damage", applyDamageHook);
     $(document).on("click", ".apply-status", applyStatusHook);
@@ -583,6 +600,11 @@ function awaitElevationRuler(timeout) {
 awaitElevationRuler(timeout).then(function () {
     CONFIG.elevationruler.SPEED.CATEGORIES = [
         {
+            name: "0 AP",
+            color: Color.from(0x00ffff),
+            multiplier: 0,
+        },
+        {
             name: "1 AP",
             color: Color.from(0x00ff00),
             multiplier: 1,
@@ -614,6 +636,7 @@ awaitElevationRuler(timeout).then(function () {
     CONFIG.elevationruler.SPEED.maximumCategoryDistance = function (token, speedCategory, tokenSpeed) {
         tokenSpeed ??= SPEED.tokenSpeed(token);
         const mult = speedCategory?.multiplier ?? Number.POSITIVE_INFINITY;
-        return Math.min(mult * tokenSpeed, 5 * tokenSpeed);
+        const mobile = (token.actor.getFlag("celestus", "mobile") ?? false) ? 1 : 0;
+        return Math.min(mult + mobile, 5 ) * tokenSpeed;
     };
 });
