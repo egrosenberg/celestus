@@ -132,6 +132,12 @@
 .celestus .healing {
     background-color: var(--color-healing-bg);
 }
+.celestus .phys_armor {
+    background-color: var(--color-phys_armor-bg);
+}
+.celestus .mag_armor {
+    background-color: var(--color-mag_armor-bg);
+}
 .celestus img{
     background-color: black;
     background: radial-gradient(circle, rgba(131,0,0,1) 0%, rgba(55,0,0,1) 0%, rgba(19,0,0,1) 100%); 

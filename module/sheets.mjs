@@ -324,7 +324,7 @@ export class CelestusItemSheet extends ItemSheet {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ['celestus', 'sheet', 'item'],
-            width: 750,
+            width: 800,
             height: 500,
             tabs: [
                 {

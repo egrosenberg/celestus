@@ -894,24 +894,14 @@ export class GearData extends foundry.abstract.TypeDataModel {
             efficiency: new NumberField({ required: true, integer: false, initial: 1 }),
             bonuses: new SchemaField({
                 // combat abilities
-                combat: new SchemaField({
-                    flamespeaker: new NumberField({ required: true, integer: true, initial: 0 }),
-                    tidecaller: new NumberField({ required: true, integer: true, initial: 0 }),
-                    stormseeker: new NumberField({ required: true, integer: true, initial: 0 }),
-                    duneshaper: new NumberField({ required: true, integer: true, initial: 0 }),
-                    voidcantor: new NumberField({ required: true, integer: true, initial: 0 }),
-                    deathbringer: new NumberField({ required: true, integer: true, initial: 0 }),
-                    shroudstalker: new NumberField({ required: true, integer: true, initial: 0 }),
-                    formshifter: new NumberField({ required: true, integer: true, initial: 0 }),
-                    huntmaster: new NumberField({ required: true, integer: true, initial: 0 }),
-                    warlord: new NumberField({ required: true, integer: true, initial: 0 }),
-                }),
-                civil: new SchemaField({
-                    scoundrel: new NumberField({ required: true, integer: true, initial: 0 }),
-                    lore: new NumberField({ required: true, integer: true, initial: 0 }),
-                    nature: new NumberField({ required: true, integer: true, initial: 0 }),
-                    influence: new NumberField({ required: true, integer: true, initial: 0 }),
-                }),
+                combat: new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.combatSkills)).reduce((obj, type) => {
+                    obj[type] = new NumberField({ required: true, integer: false, min: 0, initial: 0 });
+                    return obj;
+                }, {})),
+                civil: new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.civilSkills)).reduce((obj, type) => {
+                    obj[type] = new NumberField({ required: true, integer: false, min: 0, initial: 0 });
+                    return obj;
+                }, {})),
                 abilities: new SchemaField({
                     str: new NumberField({ required: true, integer: true, initial: 0 }),
                     dex: new NumberField({ required: true, integer: true, initial: 0 }),
@@ -920,20 +910,10 @@ export class GearData extends foundry.abstract.TypeDataModel {
                     mind: new NumberField({ required: true, integer: true, initial: 0 }),
                     wit: new NumberField({ required: true, integer: true, initial: 0 }),
                 }),
-                resistance: new SchemaField({
-                    physical: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    fire: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    water: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    air: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    earth: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    poison: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    psychic: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    healing: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    phys_armor: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    mag_armor: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    t_phys_armor: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                    t_mag_armor: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
-                }),
+                resistance: new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.damageTypes)).reduce((obj, type) => {
+                    obj[type] = new NumberField({ required: true, integer: false, min: 0, initial: 0 });
+                    return obj;
+                }, {})),
             }),
             // prerequisite stats
             prereqs: new SchemaField({
