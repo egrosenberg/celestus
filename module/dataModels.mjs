@@ -208,7 +208,8 @@ export class ActorData extends foundry.abstract.TypeDataModel {
         this.resources.mag_armor.max = parseInt(this.resources.mag_armor.max);
         this.resources.hp.max = parseInt(this.resources.hp.max);
         // movespeed
-        this.attributes.movement.value *= (1 + this.attributes.movement.bonus);
+        this.attributes.movement.value *= (1 + this.attributes.movement.bonus) * (1 + this.combat.shroudstalker.mod);
+        this.attributes.movement.value = Math.round(this.attributes.movement.value)
 
         /**
          * calculate final flat values from offsets
