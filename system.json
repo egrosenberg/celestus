@@ -46,6 +46,11 @@
             "label": "Celestus Talents",
             "type": "Item",
             "system": "celestus"
+        }, {
+            "name": "ancestry",
+            "label": "Celestus Ancestries",
+            "type": "Item",
+            "system": "celestus"
         }
     ],
     "packFolders": [],

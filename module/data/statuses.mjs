@@ -805,4 +805,18 @@ export let statuses = [
             },
         ],
     },
+    {
+        id: "inspire",
+        name: "Inspired",
+        img: "icons/svg/light.svg",
+        type: "status",
+        duration: { rounds: 3 },
+        changes: [
+            {
+                key: "flags.celestus.inspired",
+                value: "true",
+                mode: 5,
+            },
+        ],
+    },
 ];

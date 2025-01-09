@@ -517,10 +517,22 @@
     display: flex;
     flex-wrap: nowrap;
 }
+.celestus.item.sheet .profile-img{
+    width: 100px;
+    height: 100px;
+}
 .celestus.item.sheet .sheet-header {
     margin-bottom: 10px;
     padding-bottom: 10px;
     border-bottom: solid thin var(--color-cool-3);
+}
+.celestus.item.sheet h2.item-type {
+    margin: 0px;
+    border-bottom: none;
+}
+.celestus.item.sheet h1.charname input{
+    margin: 0px;
+    outline: none;
 }
 .celestus.item.sheet .item-quick {
     flex: 0 0 150px;

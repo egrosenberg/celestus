@@ -154,6 +154,8 @@ Hooks.on("init", () => {
         baseCritChance: 0.05,   // base critical hit chance expressed as a percentage
         baseAccuracy: 0.95,
         twoHandMult: 0.9,
+        inspiredScalar: 1/7,
+        inspiredAttributes: [ "str", "dex", "con", "int"],
         enlightenedBonus: { // bonus from enlightened flag
             1: { str: 1, dex: 1, int: 1, wit: 1 },
             2: { str: 1, dex: 1, int: 1, wit: 2 },
@@ -389,8 +391,8 @@ Hooks.on("init", () => {
         },
         featureTypes: {
             feature: "Feature",
-            origin: "Origin",
-            species: "Species",
+            origin: "Background",
+            species: "Ancestry",
             occupation: "Occupation",
             talent: "Talent"
         },

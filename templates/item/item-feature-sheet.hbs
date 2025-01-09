@@ -3,6 +3,7 @@
         <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
         <div class="header-fields">
             <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+            <h2 class="item-type">{{lookup config.featureTypes system.type}}</h2>
         </div>
     </header>
 
@@ -10,7 +11,6 @@
         {{!-- quick view of important item info --}}
         <div class="item-quick">
             <h3>Details:</h3>
-            <div class="quick-reference">{{system.type}}</div>
             <div class="quick-reference">
                 Requires:
                 {{#each system.prereqs as |value stat|}}

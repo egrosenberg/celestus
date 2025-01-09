@@ -102,7 +102,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
                 }),
                 // xp & level
                 xp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
-                level: new NumberField({ required: true, integer: true, min: 1, initial: 1 }),
+                level: new NumberField({ required: true, integer: true, min: 1, max: 20, initial: 1 }),
                 unspentPoints: new NumberField({ required: true, integer: true, initial: 0 }), // derived unspent attribute points
                 unspentCombat: new NumberField({ required: true, integer: true, initial: 0 }),
                 unspentCivil: new NumberField({ required: true, integer: true, initial: 0 }),
@@ -150,8 +150,15 @@ export class ActorData extends foundry.abstract.TypeDataModel {
         /**
          * perform final operations
          */
+        // check for inspired bonus
+        if (this.parent.getFlag("celestus", "inspired")) {
+            for (let ability of CONFIG.CELESTUS.inspiredAttributes) {
+                this.abilities[ability].total += 1 + parseInt(this.attributes.level * CONFIG.CELESTUS.inspiredScalar);
+                this.abilities[ability].bonus += 1 + parseInt(this.attributes.level * CONFIG.CELESTUS.inspiredScalar);
+            }
+        }
         // subtract from attributes based on exhaustion
-        for (let [key, ability] of Object.entries(this.abilities)) {
+        for (let ability of [Object.entries(this.abilities)]) {
             ability.total -= this.attributes.exhaustion;
             ability.bonus -= this.attributes.exhaustion;
         }
@@ -201,7 +208,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
          */
         // con operations
         // increase armor if actor has natural armor
-        if (this.parent.getFlag("celestus", "natural-armor")) { 
+        if (this.parent.getFlag("celestus", "natural-armor")) {
             this.resources.phys_armor.max *= 1 + (this.abilities.con.mod * CONFIG.CELESTUS.naturalArmorScale);
             this.resources.mag_armor.max *= 1 + (this.abilities.con.mod * CONFIG.CELESTUS.naturalArmorScale);
         }
@@ -790,7 +797,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             if (this.type === "magic" && this.parent.actor) {
                 if (this.parent.actor.getFlag("celestus", "farsight")) {
                     return this.range + CONFIG.CELESTUS.farsightBonus;
-                } 
+                }
             }
             return this.range;
         }
@@ -1149,7 +1156,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
                 if (tormentor) {
                     resisted = false;
                     if (data.duration) {
-                        this.parent.updateSource({"duration.rounds": data.duration.rounds + 1})
+                        this.parent.updateSource({ "duration.rounds": data.duration.rounds + 1 })
                     }
                     else {
                         data.duration = { rounds: 1 };
