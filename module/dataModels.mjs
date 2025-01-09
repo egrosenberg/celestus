@@ -787,7 +787,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             return this.parent.actor.system.equipped.left.system.range;
         }
         else {
-            if (this.type === "magic") {
+            if (this.type === "magic" && this.parent.actor) {
                 if (this.parent.actor.getFlag("celestus", "farsight")) {
                     return this.range + CONFIG.CELESTUS.farsightBonus;
                 } 
