@@ -1100,6 +1100,10 @@ export class EffectData extends foundry.abstract.TypeDataModel {
                 targets: new StringField({ required: true, initial: "any" }),
                 targetType: new StringField({ required: true, initial: "humanoid" }),
                 clearOnLeave: new BooleanField({ required: true, initial: true }),
+                lingerDuration: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // 0 = store as non-temp
+                children: new ArrayField( // array of ids of owned effects created by the aura
+                    new StringField()
+                ),
             }),
             grantedSkills: new ArrayField(new SchemaField({ // skills granted by this effect
                 uuid: new StringField(),
@@ -1215,17 +1219,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
             return false;
         }
         canvasPopupText(actor, `+${data.name}`);
-    }
-
-    /** @override */
-    _onCreate(data, options, userId) {
-        const actor = this.parent?.parent;
-        if (actor && actor.documentName === "Actor") {
-            const tokens = actor.getActiveTokens();
-            for (const token of tokens) {
-                token.spreadAuraFrom();
-            }
-        }
+        return pre;
     }
 }
 

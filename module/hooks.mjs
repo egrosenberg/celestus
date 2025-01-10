@@ -504,8 +504,7 @@ export function cleanupCombat(document, options, userId) {
  * @param {Object} token: token object on canvas to spread aura from 
  */
 export async function spreadAura(token, changed, options, userId) {
-    // only worry if we changed coords
-    if (!(changed.x || changed.y)) return;
+    if (!game.users.activeGM.isSelf) return;
     // get new coords as an object
     const tokenCoords = {
         x: changed.x || token.x,

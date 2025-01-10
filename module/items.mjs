@@ -15,7 +15,8 @@ export class CelestusItem extends Item {
     /** @override */
     async _preUpdate(changed, options, user) {
         // call super
-        await super._preUpdate(changed, options, user);
+        const allowed = await super._preUpdate(changed, options, user);
+        if (allowed === false) return false;
 
         if (this.type === "armor") {
             const spread = changed.system?.spread;

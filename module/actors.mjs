@@ -7,7 +7,8 @@ export class CelestusActor extends Actor {
     /** @override */
     async _preUpdate(changed, options, user) {
         // call super
-        await super._preUpdate(changed, options, user);
+        const allowed = await super._preUpdate(changed, options, user);
+        if (allowed === false) return false;
 
         // offset resource values
         const resources = changed.system?.resources;
@@ -26,7 +27,7 @@ export class CelestusActor extends Actor {
                         val.percent = val.flat / this.system.resources.hp.max;
                         // check if hp went from negative to positive
                         if (old < 1 && val.flat > 0) {
-                            this.updateSource({"system.attributes.exhaustion": this.system.attributes.exhaustion + 1})
+                            this.updateSource({ "system.attributes.exhaustion": this.system.attributes.exhaustion + 1 })
                         }
                         // check if target has been healed and has renewing armor
                         if (val.flat > old && this.getFlag("celestus", "renewing_armor")) {
@@ -39,16 +40,16 @@ export class CelestusActor extends Actor {
                                 resources.phys_armor.flat = newPhys
                             }
                             else {
-                                resources.phys_armor = {flat: newPhys};
+                                resources.phys_armor = { flat: newPhys };
                             }
                             if (resources.mag_armor) {
                                 resources.mag_armor.flat = newMag
                             }
                             else {
-                                resources.mag_armor = {flat: newMag};
+                                resources.mag_armor = { flat: newMag };
                             }
-                            canvasPopupText(this, `+${newPhys-oldPhys}`, CONFIG.CELESTUS.damageCol.phys_armor.gain);
-                            canvasPopupText(this, `+${newMag-oldMag}`, CONFIG.CELESTUS.damageCol.mag_armor.gain);
+                            canvasPopupText(this, `+${newPhys - oldPhys}`, CONFIG.CELESTUS.damageCol.phys_armor.gain);
+                            canvasPopupText(this, `+${newMag - oldMag}`, CONFIG.CELESTUS.damageCol.mag_armor.gain);
                         }
                     }
                     const diff = val.flat - old;
@@ -79,6 +80,22 @@ export class CelestusActor extends Actor {
                 }
             }
         }
+    }
+
+    _onUpdate(changed, options, userId) {
+        // update auras
+        // if actor is downed, instead just clear tokens
+        const hp = changed.system?.resources?.hp?.value;
+        if (typeof hp !== "undefined" && hp < 1) {
+            for (const effect of this.effects) {
+                effect.cleanupAura();
+            }
+        }
+        //// spread auras to and from
+        //for (const token of this.getActiveTokens()) {
+        //    token.spreadAuraTo();
+        //    token.spreadAuraFrom();
+        //}
     }
 
     /**
@@ -323,7 +340,7 @@ export class CelestusActor extends Actor {
         // check if hp was reduced to 0
         if (value > 0 && newHealth < 1 && origin.getFlag("celestus", "executioner")) {
             const ap = origin.system.resources.ap.value + CONFIG.CELESTUS.executeAp;
-            await origin.update({"system.resources.ap.value": Math.min(ap, origin.system.resources.ap.max)});
+            await origin.update({ "system.resources.ap.value": Math.min(ap, origin.system.resources.ap.max) });
             canvasPopupText(origin, "Executioner");
         }
 
@@ -411,7 +428,7 @@ export class CelestusActor extends Actor {
             // remove statuses
             for (let status of this.effects) {
                 if (item.effects.find(i => i.name === status.name)) {
-                    status.delete();
+                    await status.delete();
                 }
             }
             return;
@@ -484,7 +501,7 @@ export class CelestusActor extends Actor {
             // remove statuses
             for (let status of this.effects) {
                 if (gear.effects.find(i => i.name === status.name)) {
-                    status.delete();
+                    await status.delete();
                 }
             }
         }
@@ -544,7 +561,7 @@ export class CelestusActor extends Actor {
         }
         // clear all temporary statuses
         for (const status of this.system.effects.temporary) {
-            status.delete();
+            await status.delete();
         }
 
     }
@@ -595,7 +612,7 @@ export class CelestusActor extends Actor {
                     effect.update({ "duration.rounds": effect.duration.rounds - 1 });
                 }
                 else {
-                    effect.delete();
+                    await effect.delete();
                 }
             }
         }
@@ -615,14 +632,21 @@ export class CelestusToken extends Token {
      * @param {Number,Number} newPosition optional
      */
     async spreadAuraFrom(newPosition = null) {
+        // only run if user owns token
+        if (!this.isOwner) return;
         const tokenCoords = newPosition || { x: this.x, y: this.y }
         const token = this.document;
+        // ignore if token is downed
+        const hp = token.actor.system?.resources?.hp?.value;
+        if (hp < 1) {
+            return;
+        }
         // get token effects with auras
         const effects = token.actor.effects.filter(e => (e.type === "status" && e.system.aura.has))
         // iterate through effects to spread aura
         for (const effect of effects) {
-            // only worry about the effect if this actor is the origin
-            if (effect.origin !== token.actor.uuid) continue;
+            // only worry about the effect if it is not a child
+            if (effect.flags?.celestus?.isChild) continue;
             // iterate through all tokens on canvas
             for (const target of canvas.scene.tokens) {
                 // skip self
@@ -647,21 +671,42 @@ export class CelestusToken extends Token {
                 // check distance
                 const distance = canvas.grid.measurePath([tokenCoords, { x: target.x, y: target.y }]).distance.toFixed(1);
                 if (distance > effect.system.aura.radius) validTarget = false;
-
                 // if target is still valid, apply effect
                 if (validTarget) {
                     // check if effect is already there
-                    const old = target.actor.effects.find(e => (e.name === effect.name && e.source === effect.source));
-                    if (old) {
-                        old.delete();
+                    const old = target.actor.effects.filter(e => (effect.system.aura.children.find(id => id === e.uuid)));
+                    if (old.length > 0) {
+                        for (const e of old) {
+                            // if aura lingers, reset lingering timer
+                            if (effect.system.aura.lingerDuration !== 0) {
+                                await e.update({ "duration.rounds": effect.system.aura.lingerDuration });
+                            }
+                        }
                     }
-                    // create a copy of the status effect on the target
-                    await target.actor.createEmbeddedDocuments(effect.documentName, [effect.toJSON()]);
+                    else {
+                        // create a copy of the status effect on the target
+                        let childData = foundry.utils.mergeObject(effect.toJSON(), { "flags.celestus.isChild": true });
+                        // set child duration based on parent linger duration
+                        if (effect.system.aura.lingerDuration === 0) {
+                            childData.duration.rounds = null;
+                            //await child.update({ "duration.rounds": null })
+                        }
+                        else {
+                            childData.duration.rounds = effect.system.aura.lingerDuration;
+                            //await child.update({ "duration.rounds": effect.system.aura.lingerDuration });
+                        }
+                        const [child] = await target.actor.createEmbeddedDocuments(effect.documentName, [childData]);
+                        // record new created child
+                        let children = effect.system.aura.children;
+                        children.push(child.uuid);
+                        await effect.update({ "system.aura.children": children });
+                    }
                 }
-                else {
-                    // erase any lingering copies
-                    const lingering = target.actor.effects.find(e => (e.name === effect.name && e.source === effect.source));
-                    if (lingering && (!lingering.isTemporary || lingering.clearOnLeave)) lingering.delete();
+                else if (effect.system.aura.lingerDuration === 0) {
+                    const lingering = target.actor.effects.filter(e => (effect.system.aura.children.find(id => id === e.uuid)));
+                    for (const e of lingering) {
+                        await e.delete();
+                    }
                 }
             }
         }
@@ -672,12 +717,19 @@ export class CelestusToken extends Token {
      * @param {Number,Number} newPosition optional
      */
     async spreadAuraTo(newPosition = null) {
+        // only run if user is active GM token
+        if (!game.users.activeGM.isSelf) return;
         const tokenCoords = newPosition || { x: this.x, y: this.y }
         const token = this.document;
         // iterate through all tokens
         for (const origin of canvas.scene.tokens) {
             // skip self
             if (origin === token) continue;
+            // ignore if token is downed
+            const hp = origin.actor.system?.resources?.hp?.value;
+            if (hp < 1) {
+                continue;
+            }
             // check all effects on token
             const effects = origin.actor.effects.filter(e => (e.type === "status" && e.system.aura.has));
             // iterate through effects
@@ -706,20 +758,46 @@ export class CelestusToken extends Token {
                 const distance = canvas.grid.measurePath([tokenCoords, { x: origin.x, y: origin.y }]).distance.toFixed(1);
                 if (distance > effect.system.aura.radius) validTarget = false;
 
-                // if token is still a valid target, apply effect
+                // ignore if token actor is dead
+                const hp = origin.actor.system?.resources?.hp?.value;
+                if (hp < 1) {
+                    validTarget = false;
+                }
+                // if target is still valid, apply effect
                 if (validTarget) {
                     // check if effect is already there
-                    const old = token.actor.effects.find(e => (e.name === effect.name && e.source === effect.source));
-                    if (old) {
-                        old.delete();
+                    const old = token.actor.effects.filter(e => (effect.system.aura.children.find(id => id === e.uuid)));
+                    if (old.length > 0) {
+                        for (const e of old) {
+                            // if aura lingers, reset lingering timer
+                            if (effect.system.aura.lingerDuration !== 0) {
+                                await e.update({ "duration.rounds": effect.system.aura.lingerDuration });
+                            }
+                        }
                     }
-                    // create a copy of the status effect on the target
-                    await token.actor.createEmbeddedDocuments(effect.documentName, [effect.toJSON()]);
+                    else {
+                        // create a copy of the status effect on the target
+                        let childData = foundry.utils.mergeObject(effect.toJSON(), { "flags.celestus.isChild": true });
+                        const [child] = await token.actor.createEmbeddedDocuments(effect.documentName, [childData]);
+                        // set child duration based on parent linger duration
+                        if (effect.system.aura.lingerDuration === 0) {
+                            child.update({ "duration.rounds": null });
+                        }
+                        else {
+                            child.update({ "duration.rounds": effect.system.aura.lingerDuration });
+                        }
+                        // record new created child
+                        let children = effect.system.aura.children;
+                        children.push(child.uuid);
+                        await effect.update({ "system.aura.children": children });
+                    }
                 }
-                else {
+                else if (effect.system.aura.lingerDuration === 0) {
                     // erase any lingering copies
-                    const lingering = token.actor.effects.find(e => (e.name === effect.name && e.source === effect.source));
-                    if (lingering && (!lingering.isTemporary || lingering.clearOnLeave)) lingering.delete();
+                    const lingering = token.actor.effects.filter(e => (effect.system.aura.children.find(id => id === e.uuid)));
+                    for (const e of lingering) {
+                        await e.delete();
+                    }
                 }
             }
         }
