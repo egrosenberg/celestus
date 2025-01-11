@@ -117,8 +117,9 @@
     <li class='item skill' data-item-id='{{skill._id}}'>
         <div class='skill-frame'>
             <div class='item-image'>
-                <a class='rollable item' data-roll-type='skill' data-item-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
-                        height='80' /></a>
+                <a class='rollable item' data-roll-type='skill' data-skill-id="{{skill._id}}">
+                    <img src='{{skill.img}}' title='{{skill.name}}' width='80' height='80' />
+                </a>
                 <span class="item-overlay">
                     {{#if (eq skill.system.type "civil")}}
                     {{#each skill.system.civilPrereqs as |ability|}}

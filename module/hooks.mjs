@@ -515,3 +515,14 @@ export async function spreadAura(token, changed, options, userId) {
     // spread from other tokens
     await token.object.spreadAuraTo(tokenCoords);
 }
+
+/**
+ * 
+ * @param {ChatMessage} message: The ChatMessage document being rendered
+ * @param {jQuery} html: The pending HTML as a jQuery object
+ * @param {any} messageData 
+ */
+export function removeRollAuthor(message, html, messageData) {
+    if (message.system?.type !== "roll") return;
+    html.find("h4.message-sender").remove();
+}

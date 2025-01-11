@@ -1,16 +1,60 @@
-<div class="celestus">
-  <h2>{{name}}</h2>
+<div class="celestus roll description">
+    <header class="message-header">
+        <img class="actor-img" src="{{ownerPortrait}}" title="{{owner}}" />
+        <span class="speaker-info">
+            <div class="author">{{owner}}</div>
+            <div class="user">{{user}}</div>
+        </span>
+    </header>
 
-  {{#if portrait}}
-  <img style="width: 100px; height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;" src="{{portrait}}" data-edit="img" title="{{name}}" />
-  <br />
-  {{/if}}
-  {{#if flavor}}
-  <div class="dice-flavor">{{{flavor}}}</div>
-  {{/if}}
-  <div class="dice-roll">
-  </div>
+
+    <div class="dice-flavor">
+        <header class="summary">
+            {{#if portrait}}
+            <img class="roll-icon" src="{{portrait}}" title="{{name}}" />
+            {{/if}}
+            <div class="name-stacked">
+                <span class="title">{{name}}</span>
+            </div>
+        </header>
+        <div class="roll-tags">
+            {{!-- skill tier --}}
+            <span class="roll-tag">
+                {{lookup config.skillTiers item.system.tier}}
+            </span>
+            {{!-- skill school --}}
+            <span class="roll-tag">
+                {{log item.system.school}}
+                {{#if (eq item.system.type "civil")}}
+                {{#with (lookup config.civilSkills item.system.school) as |school|}}
+                <i class="{{school.glyph}}"></i>{{school.label}}
+                {{/with}}
+                {{else}}
+                {{#with (lookup config.combatSkills item.system.school) as |school|}}
+                <i class="{{school.glyph}}"></i>{{school.label}}
+                {{/with}}
+                {{/if}}
+            </span>
+            {{!-- target type --}}
+            {{#if item.system.finalRange}}
+            <span class="roll-tag">
+                Range: {{item.system.finalRange}}
+            </span>
+            {{/if}}
+            {{#if item.system.targetMode}}
+            <span class="roll-tag">
+                {{item.system.targetMode}}
+            </span>
+            {{/if}}
+            {{!-- cooldown --}}
+            {{#if (gt item.system.cooldown.max 0)}}
+            <span class="roll-tag">
+                CD: {{item.system.cooldown.max}} rounds
+            </span>
+            {{/if}}
+        </div>
+        {{#if flavor}}{{{flavor}}}{{/if}}
+    </div>
+    <div class="dice-roll">
+    </div>
 </div>

@@ -83,6 +83,7 @@ export class CelestusActor extends Actor {
     }
 
     _onUpdate(changed, options, userId) {
+        super._onUpdate(changed, options, userId);
         // update auras
         // if actor is downed, instead just clear tokens
         const hp = changed.system?.resources?.hp?.value;
@@ -381,9 +382,14 @@ export class CelestusActor extends Actor {
 
         const path = './systems/celestus/templates/skillDescription.hbs';
         const msgData = {
+            owner: this.name,
+            ownerPortrait: this.prototypeToken.texture.src,
+            user: game.user.name,
             name: skill.name,
             flavor: skill.system.description,
             portrait: skill.img,
+            item: skill,
+            config: CONFIG.CELESTUS,
         }
         let msg = await renderTemplate(path, msgData);
         // do text enrichment
@@ -398,11 +404,13 @@ export class CelestusActor extends Actor {
             }
         );
         await ChatMessage.create({
-            content: msg, speaker: { alias: this.name },
+            content: msg,
+            'system.type': "roll",
             'system.actorID': this.uuid,
             'system.isSkill': true,
             'system.itemID': skill.uuid,
             'system.skill.hasAttack': skill.system.attack,
+            'system.skill.hasDamage': skill.system.damage.length > 0 || skill.system.type === "weapon",
         });
 
         // civil skills set cd to -1

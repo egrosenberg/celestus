@@ -3,68 +3,210 @@
     font-family: 'celestus glyphs';
     src: url('../fonts/celestus-glyphs.eot');
     src: url('../fonts/celestus-glyphs.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/celestus-glyphs.woff') format('woff'),
-         url('../fonts/celestus-glyphs.ttf') format('truetype'),
-         url('../fonts/celestus-glyphs.svg#celestus-glyphs') format('svg');
+        url('../fonts/celestus-glyphs.woff') format('woff'),
+        url('../fonts/celestus-glyphs.ttf') format('truetype'),
+        url('../fonts/celestus-glyphs.svg#celestus-glyphs') format('svg');
     font-weight: normal;
     font-style: normal;
 }
-[class*='icon-']:before{
-	display: inline-block;
-   font-family: 'celestus glyphs';
-   font-style: normal;
-   font-weight: normal;
-   line-height: 1;
-   -webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale
+
+[class*='icon-']:before {
+    display: inline-block;
+    font-family: 'celestus glyphs';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
 }
-.icon-flamer:before{content:'\0041';}
-.icon-axe-sword:before{content:'\0042';}
-.icon-spinning-sword:before{content:'\0043';}
-.icon-magic-shield:before{content:'\0044';}
-.icon-edged-shield:before{content:'\0045';}
-.icon-lyre:before{content:'\0046';}
-.icon-drop:before{content:'\0047';}
-.icon-chemical-bolt:before{content:'\0048';}
-.icon-bloody-stash:before{content:'\0049';}
-.icon-nested-hearts:before{content:'\004a';}
-.icon-heart-plus:before{content:'\004b';}
-.icon-heart-minus:before{content:'\004c';}
-.icon-lightning-helix:before{content:'\004d';}
-.icon-croissants-pupil:before{content:'\004e';}
-.icon-stone-sphere:before{content:'\004f';}
-.icon-death-zone:before{content:'\0050';}
-.icon-fireflake:before{content:'\0051';}
-.icon-waves:before{content:'\0052';}
-.icon-lightning-storm:before{content:'\0053';}
-.icon-fluffy-cloud:before{content:'\0054';}
-.icon-flower-twirl:before{content:'\0055';}
-.icon-dust-cloud:before{content:'\0056';}
-.icon-rock:before{content:'\0057';}
-.icon-star-swirl:before{content:'\0058';}
-.icon-nested-eclipses:before{content:'\0059';}
-.icon-death-skull:before{content:'\005a';}
-.icon-thorny-vine:before{content:'\0061';}
-.icon-tentacle-strike:before{content:'\0062';}
-.icon-wolf-howl:before{content:'\0063';}
-.icon-book-cover:before{content:'\0064';}
-.icon-linden-leaf:before{content:'\0065';}
-.icon-pay-money:before{content:'\0066';}
-.icon-gluttonous-smile:before{content:'\0067';}
-.icon-sunrise:before{content:'\0068';}
-.icon-cycle:before{content:'\0069';}
-.icon-swords-emblem-solid:before{content:'\006a';}
-.icon-swords-emblem-outline:before{content:'\006b';}
-.icon-high-shot:before{content:'\006c';}
-.icon-pocket-bow:before{content:'\006d';}
-.icon-bow-arrow:before{content:'\006e';}
-.icon-crossed-swords:before{content:'\006f';}
-.icon-gladius:before{content:'\0070';}
-.icon-sharp-axe:before{content:'\0071';}
-.icon-crossbow:before{content:'\0072';}
-.icon-spiked-shoulder-armor:before{content:'\0073';}
-.icon-angel-outfit:before{content:'\0074';}
-.icon-psionics:before{content:'\0075';}
+
+.icon-flamer:before {
+    content: '\0041';
+}
+
+.icon-axe-sword:before {
+    content: '\0042';
+}
+
+.icon-spinning-sword:before {
+    content: '\0043';
+}
+
+.icon-magic-shield:before {
+    content: '\0044';
+}
+
+.icon-edged-shield:before {
+    content: '\0045';
+}
+
+.icon-lyre:before {
+    content: '\0046';
+}
+
+.icon-drop:before {
+    content: '\0047';
+}
+
+.icon-chemical-bolt:before {
+    content: '\0048';
+}
+
+.icon-bloody-stash:before {
+    content: '\0049';
+}
+
+.icon-nested-hearts:before {
+    content: '\004a';
+}
+
+.icon-heart-plus:before {
+    content: '\004b';
+}
+
+.icon-heart-minus:before {
+    content: '\004c';
+}
+
+.icon-lightning-helix:before {
+    content: '\004d';
+}
+
+.icon-croissants-pupil:before {
+    content: '\004e';
+}
+
+.icon-stone-sphere:before {
+    content: '\004f';
+}
+
+.icon-death-zone:before {
+    content: '\0050';
+}
+
+.icon-fireflake:before {
+    content: '\0051';
+}
+
+.icon-waves:before {
+    content: '\0052';
+}
+
+.icon-lightning-storm:before {
+    content: '\0053';
+}
+
+.icon-fluffy-cloud:before {
+    content: '\0054';
+}
+
+.icon-flower-twirl:before {
+    content: '\0055';
+}
+
+.icon-dust-cloud:before {
+    content: '\0056';
+}
+
+.icon-rock:before {
+    content: '\0057';
+}
+
+.icon-star-swirl:before {
+    content: '\0058';
+}
+
+.icon-nested-eclipses:before {
+    content: '\0059';
+}
+
+.icon-death-skull:before {
+    content: '\005a';
+}
+
+.icon-thorny-vine:before {
+    content: '\0061';
+}
+
+.icon-tentacle-strike:before {
+    content: '\0062';
+}
+
+.icon-wolf-howl:before {
+    content: '\0063';
+}
+
+.icon-book-cover:before {
+    content: '\0064';
+}
+
+.icon-linden-leaf:before {
+    content: '\0065';
+}
+
+.icon-pay-money:before {
+    content: '\0066';
+}
+
+.icon-gluttonous-smile:before {
+    content: '\0067';
+}
+
+.icon-sunrise:before {
+    content: '\0068';
+}
+
+.icon-cycle:before {
+    content: '\0069';
+}
+
+.icon-swords-emblem-solid:before {
+    content: '\006a';
+}
+
+.icon-swords-emblem-outline:before {
+    content: '\006b';
+}
+
+.icon-high-shot:before {
+    content: '\006c';
+}
+
+.icon-pocket-bow:before {
+    content: '\006d';
+}
+
+.icon-bow-arrow:before {
+    content: '\006e';
+}
+
+.icon-crossed-swords:before {
+    content: '\006f';
+}
+
+.icon-gladius:before {
+    content: '\0070';
+}
+
+.icon-sharp-axe:before {
+    content: '\0071';
+}
+
+.icon-crossbow:before {
+    content: '\0072';
+}
+
+.icon-spiked-shoulder-armor:before {
+    content: '\0073';
+}
+
+.icon-angel-outfit:before {
+    content: '\0074';
+}
+
+.icon-psionics:before {
+    content: '\0075';
+}
 
 .chat-message button.apply-damage {
     flex: 0 0 100%;
@@ -99,64 +241,71 @@
 
     --color-cream-50: rgba(250, 246, 239, 0.5);
 
-    --shadow-bevel: inset 0.2em 0.2em 0.2em 0 rgba(255,255,255,0.3), inset -0.2em -0.2em 0.2em 0 rgba(0,0,0,0.3);
-    --shadow-inset: inset 0.2em 0.2em 0.2em 0 rgba(0,0,0,0.3), inset -0.2em -0.2em 0.2em 0 rgba(0,0,0,0.3);
+    --shadow-bevel: inset 0.2em 0.2em 0.2em 0 rgba(255, 255, 255, 0.3), inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.3);
+    --shadow-inset: inset 0.2em 0.2em 0.2em 0 rgba(0, 0, 0, 0.3), inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.3);
 
     --text-outline-1: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
+
 /* colors for elements */
 .celestus .physical {
     background-color: var(--color-physical-bg);
 }
+
 .celestus .fire {
     background-color: var(--color-fire-bg);
 }
+
 .celestus .water {
     background-color: var(--color-water-bg);
 }
+
 .celestus .air {
     background-color: var(--color-air-bg);
 }
+
 .celestus.sheet .earth {
     background-color: var(--color-earth-bg);
 }
+
 .celestus .poison {
     background-color: var(--color-poison-bg);
 }
+
 .celestus .psychic {
     background-color: var(--color-psychic-bg);
 }
+
 .celestus .piercing {
     background-color: var(--color-piercing-bg);
 }
+
 .celestus .healing {
     background-color: var(--color-healing-bg);
 }
+
 .celestus .phys_armor {
     background-color: var(--color-phys_armor-bg);
 }
+
 .celestus .mag_armor {
     background-color: var(--color-mag_armor-bg);
 }
-.celestus img{
+
+.celestus img {
     background-color: black;
-    background: radial-gradient(circle, rgba(131,0,0,1) 0%, rgba(55,0,0,1) 0%, rgba(19,0,0,1) 100%); 
+    background: radial-gradient(circle, rgba(131, 0, 0, 1) 0%, rgba(55, 0, 0, 1) 0%, rgba(19, 0, 0, 1) 100%);
 }
-/* chat messages */
-.celestus .dice-flavor {
-    border: thin solid var(--color-warm-1);
-    box-shadow: var(--shadow-bevel);
-    background-color: rgba(255, 231, 195, 0.5);
-    padding: 0.4em;
-    margin: 0.2em;
-}
+
 /* styling for sheets */
 .celestus .window-content {
     padding: 0;
 }
+
 .celestus.sheet .attribute-section .item-controls {
     flex: 0 0 100px;
 }
+
 /* styling for character sheets */
 .celestus.sheet .editor {
     margin: 5px;
@@ -167,6 +316,7 @@
     min-height: 200px;
     background-color: rgba(var(--color-warm-1), 0.5);
 }
+
 .celestus.actor.sheet .sheet-inner {
     flex-direction: row;
     display: flex;
@@ -174,6 +324,7 @@
     padding: 0px;
     height: 100%;
 }
+
 .celestus.actor.sheet .sheet-main {
     position: static;
     display: inline-block;
@@ -181,24 +332,28 @@
     flex: 1;
     height: 100%;
 }
+
 .celestus.actor.sheet .sheet-header {
     display: inline-block;
     padding: 0px;
     margin: 0px;
     background: rgb(0, 48, 3);
     flex: 0 0 275px;
-    border-right: rgb(255,179,0) thick ridge;
+    border-right: rgb(255, 179, 0) thick ridge;
     overflow: scroll;
     position: static;
     height: 100%;
 }
+
 .celestus.actor.sheet .sheet-header :is(h1, h2) {
     color: white;
     text-shadow: var(--text-outline-1);
 }
+
 .celestus.actor.sheet .sheet-header h2 {
     margin-bottom: 0px;
 }
+
 /* actor portrait */
 .celestus.actor.sheet .portrait {
     margin: 12.5px;
@@ -206,23 +361,26 @@
     display: inline-block;
     position: relative;
 }
+
 .celestus.actor.sheet .portrait .portrait-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 250px;
     height: 250px;
-    pointer-events:  none;
+    pointer-events: none;
     background: none;
 }
+
 .celestus.actor.sheet .profile-img {
     width: 250px;
     height: 250px;
     object-fit: cover;
     border-style: none;
-    background: rgb(255,179,0);
-    background: radial-gradient(circle, rgba(255,179,0,1) 0%, rgba(121,9,9,1) 55%, rgba(36,0,0,1) 100%); 
+    background: rgb(255, 179, 0);
+    background: radial-gradient(circle, rgba(255, 179, 0, 1) 0%, rgba(121, 9, 9, 1) 55%, rgba(36, 0, 0, 1) 100%);
 }
+
 .celestus.actor.sheet .level {
     border: solid rgb(6, 43, 0);
     background: rgba(255, 255, 255, 0.719);
@@ -233,12 +391,14 @@
     flex: 1;
     width: auto;
 }
+
 .celestus.actor.sheet .level input {
     width: 25px;
     margin-top: -4px;
     margin-bottom: -4px;
     text-align: center;
 }
+
 .celestus.actor.sheet .npc-prefab-selector {
     display: flex;
     width: 90%;
@@ -248,13 +408,15 @@
     box-shadow: var(--shadow-inset);
     background-image: url('../img/milky-texture.webp');
     background-blend-mode: multiply;
-    
+
 }
+
 /* resources */
 .celestus.actor.sheet .resources.grid {
     display: flex;
     padding: 0px;
 }
+
 .celestus.actor.sheet .resource {
     border: solid rgb(6, 43, 0);
     background: rgba(255, 255, 255, 0.719);
@@ -264,13 +426,16 @@
     margin: 2px;
     flex: 1;
 }
+
 .celestus.actor.sheet label.resource-label {
     font-size: var(--font-size-16);
     font-weight: bold;
 }
+
 .celestus.actor.sheet .sheet-header label.resource-label.single {
     width: 100%;
 }
+
 .celestus.actor.sheet .resource-value {
     border-style: solid;
     border-width: thin;
@@ -291,10 +456,11 @@
 
     width: 100%;
 }
+
 .celestus.actor.sheet .resource-value input {
     text-align: right;
-    margin: -3px 0; 
-    background-color: rgba(0,0,0,0);
+    margin: -3px 0;
+    background-color: rgba(0, 0, 0, 0);
     padding: 0px;
     border-style: none;
     box-sizing: border-box;
@@ -302,10 +468,12 @@
     color: white;
     text-shadow: var(--text-outline-1);
 }
+
 .celestus.actor.sheet .resource-value .total {
     flex: 2;
     text-align: left;
 }
+
 /* stats */
 .celestus.actor.sheet .stats-grid {
     border: solid rgb(6, 43, 0);
@@ -315,47 +483,58 @@
     padding: 5px;
     border-radius: 10px;
 }
+
 .celestus.actor.sheet .stats-grid label {
     text-align: right;
     margin-right: 10px;
 }
+
 .celestus.actor.sheet .stats-grid label {
     flex: 0 0 50px;
 }
+
 .celestus.actor.sheet .stats-grid input {
     flex: 0 0 25px;
     text-align: center;
     margin: 0px;
     background: inherit;
 }
+
 .celestus.actor.sheet .stats-grid div {
     display: flex;
 }
-.celestus.actor.sheet .sheet-header .charname input{
-    color:white;
+
+.celestus.actor.sheet .sheet-header .charname input {
+    color: white;
 }
+
 .celestus.actor.sheet .resist {
     font-size: var(--font-size-18);
     padding: 3px;
 }
+
 /* abilities */
 .celestus.actor.sheet .abilities .flexrow {
     border: black thin solid;
     padding: 3px;
 }
+
 .celestus.actor.sheet .abilities {
     padding: 3px;
 }
-.celestus.actor.sheet .abilities label{
+
+.celestus.actor.sheet .abilities label {
     flex: 0 0 160px;
     padding: 3px;
 }
+
 .celestus.actor.sheet .abilities input {
     flex: 0 0 25px;
     text-align: center;
     margin: 0px;
     background: inherit;
 }
+
 .celestus.actor.sheet .math {
     flex: 0 1 125px;
     padding: 3px;
@@ -363,45 +542,53 @@
     text-align: left;
     background: inherit;
 }
+
 .celestus.actor.sheet .control.refresh {
     font-size: var(--font-size-24);
-    color: rgb(255,179,0);
+    color: rgb(255, 179, 0);
     position: relative;
     top: 8px;
     aspect-ratio: 1 / 1;
 }
+
 /* skills */
 .celestus.actor.sheet .skill-frame {
     display: inline-block;
     position: relative;
 }
+
 .celestus.actor.sheet .skill-frame .item-overlay {
     position: absolute;
     bottom: 3px;
     left: 3px;
     width: 80px;
-    pointer-events:  none;
+    pointer-events: none;
     color: white;
     text-shadow: var(--text-outline-1);
     font-size: 20px;
 }
+
 .celestus.actor.sheet .item.skill .skill-frame .item-overlay i {
     position: relative;
     top: 3px;
 }
+
 .celestus.actor.sheet .item.skill {
     border: var(--color-cool-3) solid thin;
     background: rgba(255, 255, 255, 0.5);
     display: inline-block;
     width: 80px;
 }
+
 .celestus.actor.sheet .item.skill .skill-cost {
     height: 40px;
 }
+
 .celestus.actor.sheet .item.skill .item-controls {
     display: flex;
     justify-content: space-between;
 }
+
 .celestus.actor.sheet .item-overlay.active {
     height: 80px;
     width: 80px;
@@ -413,18 +600,22 @@
     text-align: center;
     line-height: 80px;
 }
+
 .celestus .ap-icon {
     color: green;
     text-shadow: var(--text-outline-1);
     margin-right: 2px;
 }
+
 /* Skill Rolls */
 .celestus.actor.sheet .ability-roll {
     cursor: pointer;
 }
+
 .celestus.actor.sheet .ability-roll:hover {
     text-shadow: 0px 0px 5px var(--color-warm-3);
 }
+
 /* Items */
 .celestus.actor.sheet .items-list .item.flexrow {
     border: thin black solid;
@@ -434,6 +625,7 @@
     box-shadow: var(--shadow-bevel);
     font-size: var(--font-size-18);
 }
+
 .celestus.actor.sheet .items-list .item.flexrow.items-header {
     border-top: none;
     border-left: none;
@@ -442,37 +634,45 @@
     box-shadow: none;
     padding: 0px;
 }
+
 .celestus.actor.sheet .item-name h4 {
     display: inline;
     vertical-align: top;
 }
+
 .celestus.actor.sheet .item-image {
     display: inline;
 }
+
 /* Armor sockets preview */
 .celestus.actor.sheet .armor-section {
     height: 230px;
     background-color: rgb(32, 1, 1);
-    border-bottom: rgb(255,179,0) thick ridge;;
+    border-bottom: rgb(255, 179, 0) thick ridge;
+    ;
 }
+
 .celestus.actor.sheet .armor-socket {
     margin-top: 15px;
     margin-left: 30px;
     background-color: rgb(20, 0, 0);
-    box-shadow: 0px 0px 20px rgb(131,0,0);
+    box-shadow: 0px 0px 20px rgb(131, 0, 0);
     display: inline-block;
 }
+
 .celestus.actor.sheet .armor-socket-label {
     color: white;
     text-shadow: var(--text-outline-1);
     padding: 2px;
 }
+
 .celestus.actor.sheet .armor-socket-icon {
     width: 65px;
     height: 65px;
-    background: rgb(131,0,0);
-    background: radial-gradient(circle, rgba(131,0,0,1) 0%, rgba(55,0,0,1) 0%, rgba(19,0,0,1) 100%); 
+    background: rgb(131, 0, 0);
+    background: radial-gradient(circle, rgba(131, 0, 0, 1) 0%, rgba(55, 0, 0, 1) 0%, rgba(19, 0, 0, 1) 100%);
 }
+
 /* armor browser */
 .celestus.actor.sheet .armor-browser {
     width: 200px;
@@ -482,58 +682,71 @@
     border-radius: 6px;
     border: thin black solid;
 }
+
 /* Effects */
 .celestus .effect-image {
     width: 25px;
     height: 25px;
     display: inline;
 }
+
 .celestus .effect-source {
     text-align: center;
 }
+
 .celestus h3.effect-name {
     background-color: darkred;
     color: white;
     padding: 10px;
 }
+
 .celestus .effect-name {
     display: inline;
     vertical-align: top;
 }
+
 .celestus .items-header {
-    border: none ;
+    border: none;
 }
+
 .celestus .item.effect.flexrow {
     border: thin black solid;
     padding: 3px;
     border-radius: 6px;
     box-shadow: var(--shadow-bevel);
 }
+
 .celestus .effect-section {
     border: thin darkgray solid;
 }
+
 /* Item Sheet */
 .celestus.item.sheet {
     display: flex;
     flex-wrap: nowrap;
 }
-.celestus.item.sheet .profile-img{
+
+.celestus.item.sheet .profile-img {
     width: 100px;
     height: 100px;
 }
+
 .celestus.item.sheet .sheet-header {
     margin-bottom: 10px;
     padding-bottom: 10px;
     border-bottom: solid thin var(--color-cool-3);
 }
+
 .celestus.item.sheet h2.item-type {
     margin: 0px;
     border-bottom: none;
 }
-.celestus.item.sheet h1.charname input{
+
+.celestus.item.sheet h1.charname input {
     margin: 0px;
     outline: none;
 }
+
 .celestus.item.sheet .item-quick {
     flex: 0 0 150px;
     align-content: top;
@@ -543,6 +756,7 @@
     border-right: solid var(--color-cool-3) thin;
     height: 100%
 }
+
 .celestus.item.sheet .quick-reference {
     border: thin var(--color-warm-3) solid;
     border-radius: 6px;
@@ -552,32 +766,117 @@
     background-color: var(--color-cream-50);
     box-shadow: var(--shadow-bevel);
 }
+
 .celestus.item.sheet .attribute-section {
     padding: 3px;
 }
-.celestus.item.sheet .attribute-section label{
+
+.celestus.item.sheet .attribute-section label {
     display: inline-block;
     width: 140px;
     padding: 3px;
 }
+
 .celestus.item.sheet .attribute-section input {
     width: 40px;
     text-align: center;
     margin: 0px;
     background: inherit;
 }
+
 .celestus.item.sheet .attribute {
     display: inline-block;
     padding: 0.2em;
     margin: 0.2em;
     border: thin solid black;
 }
+
 .celestus.item.sheet .general.attribute {
     background-color: var(--color-cream-50);
 }
+
 .celestus.item.sheet .damage-header {
     border-bottom: thin solid var(--color-warm-3);
 }
+
 .celestus.item.sheet .damage-amount input {
     width: auto;
+}
+
+/* roll chat message */
+.celestus.roll.description {
+    pointer-events: none;
+    margin-top: -1.25em;
+}
+.celestus .dice-flavor {
+    border: thin solid var(--color-warm-1);
+    box-shadow: var(--shadow-bevel);
+    background-color: rgba(255, 231, 195, 0.5);
+    padding: 0.4em;
+}
+
+.celestus.roll.description .message-header {
+    margin-bottom: 0.3em;
+}
+
+.celestus.roll.description .summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.3em;
+}
+
+.celestus.roll.description .roll-icon {
+    width: 35px;
+    height: 35px;
+    display: inline;
+}
+
+.celestus.roll.description .name-stacked {
+    vertical-align: top;
+    padding-right: 0.5rem;
+    border-right: 1px solid var(--color-border-light-1);
+}
+
+.celestus.roll.description .title {
+    font-size: var(--font-size-18);
+    font-weight: bold;
+}
+
+.celestus.roll.description .actor-img {
+    width: 45px;
+    height: 45px;
+    display: inline;
+    background: none;
+    border: none;
+}
+
+.celestus.roll.description .speaker-info {
+    vertical-align: top;
+    display: inline-block;
+}
+
+.celestus.roll.description .author {
+    color: black;
+    font-size: var(--font-size-20);
+    font-weight: bold;
+}
+
+.celestus.roll.description .author {
+    font-size: var(--font-size-16);
+}
+
+.celestus.roll.description .roll-tags {
+    margin-top: 0.6em;
+    margin-bottom: 0.6em;
+}
+
+.celestus.roll.description .roll-tag {
+    display: inline-block;
+    background-color: var(--color-warm-3);
+    color: white;
+    border-radius: 6px;
+    font-size: var(--font-size-14);
+    padding: 0.4em;
+    margin: 0.1em;
 }

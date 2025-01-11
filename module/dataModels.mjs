@@ -1306,6 +1306,7 @@ export class ChatDataModel extends foundry.abstract.TypeDataModel {
                 hasAttack: new BooleanField({ required: true, initial: false }),
                 hasDamage: new BooleanField({ required: true, initial: true }),
             }),
+            type: new StringField(),
         };
     }
 }
