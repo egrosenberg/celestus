@@ -368,7 +368,7 @@ export async function createCelestusMacro(data, slot) {
     const item = await Item.fromDropData(data);
 
     // create macro
-    const command = `game.celestus.rollItemMacro("${data.uuid}")`;
+    const command = `game.celestus.rollItemMacro("${item.name}")`;
     // check if macro already exists
     let macro = game.macros.find(m => (m.name === item.name) && (m.command === command));
     if (!macro) {
@@ -385,30 +385,19 @@ export async function createCelestusMacro(data, slot) {
 }
 
 /**
- * @param {string} itemUuid
- * @returns {Promise}
+ * @param {string} name
  */
-export function rollItemMacro(itemUuid) {
-    // reconstruct drop data
-    const dropData = {
-        type: 'Item',
-        uuid: itemUuid
+export function rollItemMacro(name) {
+    // check for token/actor
+    if (!_token) {
+        return ui.notifications.warn("CELESTUS | Please select a token before executing a macro");
     }
-
-    // Load the item from the uuid.
-    Item.fromDropData(dropData).then((item) => {
-        // Determine if the item loaded and if it's an owned item.
-        if (!item || !item.parent) {
-            const itemName = item?.name ?? itemUuid;
-            return ui.notifications.warn(
-                `Could not find item ${itemName}. You may need to delete and recreate this macro.`
-            );
-        }
-
-        // Trigger the item roll
-        item.roll();
-    });
-
+    // find item on controlled actor
+    const item = _token.actor.items.find(i => i.name === name);
+    if (!item) {
+        return ui.notifications.warn(`CELESTUS | Could not find item named ${name} on controlled actor`)
+    }
+    item.roll();
 }
 
 /**
