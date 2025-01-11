@@ -10,6 +10,7 @@
         {{!-- quick view of important item info --}}
         <div class="item-quick">
             <h3>Details:</h3>
+            {{#if item.system.hasPrereqs}}
             <div class="quick-reference">
                 Requires:
                 {{#each system.prereqs as |value stat|}}
@@ -18,6 +19,7 @@
                 {{/if}}
                 {{/each}}
             </div>
+            {{/if}}
             <div class="quick-reference">
                 {{item.system.value.phys}}<i class="icon-edged-shield"></i> /
                 {{item.system.value.mag}}<i class="icon-magic-shield"></i>

@@ -1022,6 +1022,14 @@ export class GearData extends foundry.abstract.TypeDataModel {
             disabled: this.parent.effects.filter(e => e.disabled),
         };
     }
+
+    /** checks if gear piece has any actual prereqs */
+    get hasPrereqs() {
+        for (const [key, value] of Object.entries(this.prereqs)) {
+            if (value > 0) return true;
+        }
+        return false;
+    }
 };
 
 

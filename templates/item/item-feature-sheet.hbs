@@ -11,6 +11,7 @@
         {{!-- quick view of important item info --}}
         <div class="item-quick">
             <h3>Details:</h3>
+            {{#if item.system.hasPrereqs}}
             <div class="quick-reference">
                 Requires:
                 {{#each system.prereqs as |value stat|}}
@@ -19,6 +20,7 @@
                 {{/if}}
                 {{/each}}
             </div>
+            {{/if}}
 
             <h3>Bonuses:</h3>
             {{!-- Combat Abilities --}}

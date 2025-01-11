@@ -3,6 +3,14 @@
         <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
         <div class="header-fields">
             <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+            <h2 class="item-type">
+                {{lookup config.equipmentSlots system.slot}}
+                {{#with (lookup config.armor.spreads system.spread) as |type|}}
+                {{#unless (eq type.label (lookup ../config.equipmentSlots ../system.slot))}}
+                 | {{type.label}}
+                {{/unless}}
+                {{/with}}
+            </h2>
         </div>
     </header>
 
@@ -10,7 +18,7 @@
         {{!-- quick view of important item info --}}
         <div class="item-quick">
             <h3>Details:</h3>
-            <div class="quick-reference">{{system.slot}}, {{system.type}}</div>
+            {{#if item.system.hasPrereqs}}
             <div class="quick-reference">
                 Requires:
                 {{#each system.prereqs as |value stat|}}
@@ -19,6 +27,7 @@
                 {{/if}}
                 {{/each}}
             </div>
+            {{/if}}
             <div class="quick-reference">
                 {{item.system.value.phys}}<i class="icon-edged-shield"></i> /
                 {{item.system.value.mag}}<i class="icon-magic-shield"></i>

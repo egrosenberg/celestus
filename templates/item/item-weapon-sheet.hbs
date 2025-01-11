@@ -3,6 +3,10 @@
         <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
         <div class="header-fields">
             <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+            <h2 class="item-type">
+                {{ifThen system.twoHanded "Two-Handed" "One-Handed"}} | 
+                {{ifThen (gt system.range 0) "Ranged" "Melee"}}
+            </h2>
         </div>
     </header>
 
@@ -11,6 +15,7 @@
         <div class="item-quick">
             <h3>Details:</h3>
             <div class="quick-reference">{{#if system.twoHanded}}Two-Handed{{else}}One-Handed{{/if}}</div>
+            {{#if item.system.hasPrereqs}}
             <div class="quick-reference">
                 Requires:
                 {{#each system.prereqs as |value stat|}}
@@ -19,11 +24,12 @@
                 {{/if}}
                 {{/each}}
             </div>
+            {{/if}}
             <div class="quick-reference">
                 {{item.system.damage.roll}} {{system.type}}
             </div>
             <div class="quick-reference">
-                Range: {{#if system.range}}{{system.range}} ft.{{else}}melee{{/if}}
+                Range: {{#if system.range}}{{system.range}} ft.{{else}}Melee{{/if}}
             </div>
 
             <h3>Bonuses:</h3>

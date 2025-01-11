@@ -369,6 +369,7 @@ Hooks.on("init", () => {
             leggings: "Leggings",
             boots: "Boots",
             amulet: "Amulet",
+            ring: "Ring",
             ring1: "Ring",
             ring2: "Ring",
             belt: "Belt",
