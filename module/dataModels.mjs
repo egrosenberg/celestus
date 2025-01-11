@@ -943,7 +943,36 @@ export class GearData extends foundry.abstract.TypeDataModel {
                 mind: new NumberField({ required: true, integer: true, initial: 0 }),
                 wit: new NumberField({ required: true, integer: true, initial: 0 }),
             }),
+            ownedEffects: new ArrayField(
+                new StringField()
+            ),
         };
+    }
+    /** @override */
+    async _preCreate(data, options, user) {
+        const allowed = await super._preCreate(data, options, user);
+        if (allowed === false) return false;
+
+        const grantedEffects = data.effects;
+        if (grantedEffects && data.system?.equipped) {
+            const grantedIds = [];
+            for (const effect of grantedEffects) {
+                if (effect.disabled) {
+                    continue;
+                }
+                let effectData = effect.toJSON();
+                effectData.type = "status";
+                if (this.parent?.parent?.documentName === "Actor") {
+                    effectData.origin = this.parent.parent.uuid;
+                }
+                const [newEffect] = await this.parent.parent?.createEmbeddedDocuments("ActiveEffect", [effectData]);
+                if (newEffect) {
+                    // record that this effect "owns" this item
+                    grantedIds.push(newEffect[0].id);
+                }
+            }
+            options.system = { ownedEffects: grantedIds };
+        }
     }
     /**
      * Finds and returns all effects on character

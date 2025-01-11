@@ -12,6 +12,7 @@ export class CelestusItem extends Item {
 
     }
 
+
     /** @override */
     async _preUpdate(changed, options, user) {
         // call super
@@ -38,8 +39,58 @@ export class CelestusItem extends Item {
                 }
             }
         }
+        // check if enabled status changed
+        if (changed.system?.equipped !== this.system.equipped) {
+            if (changed.system?.equipped === true) { // enabling effects
+                for (const effect of this.effects) {
+                    if (effect.disabled) {
+                        continue;
+                    }
+                    let effectData = effect.toJSON();
+                    effectData.type = "status";
+                    if (this.parent?.documentName === "Actor") {
+                        effectData.origin = this.parent.uuid;
+                    }
+                    const [newEffect] = await this.parent?.createEmbeddedDocuments("ActiveEffect", [effectData]);
+                    if (newEffect) {
+                        let grantedIds = this.system.ownedEffects;
+                        // record that this effect "owns" this item
+                        grantedIds.push(newEffect.id);
+                        this.updateSource({ "system.ownedEffects": grantedIds });
+                    }
+                }
+            }
+            else if (changed.system?.equipped === false) { // remove all granted effects
+                for (const id of this.system.ownedEffects) {
+                    const effect = this.parent.effects.find(e => e.id === id);
+                    if (effect) {
+                        await effect.delete();
+                    }
+                    else {
+                        console.error(`CELESTUS | Effect not found: ${id}`)
+                    }
+                }
+                this.updateSource({ "system.ownedEffects": [] });
+            }
+        }
     }
 
+    /** @override */
+    _onDelete(options, userId) {
+        const allowed = super._onDelete(options, userId);
+        if (allowed === false) return;
+        if (this.system.ownedEffects) {
+            for (const id of this.system.ownedEffects) {
+                const effect = this.parent.effects.find(e => e.id === id);
+                if (effect) {
+                    effect.delete();
+                }
+                else {
+                    console.error(`CELESTUS | Effect not found: ${id}`)
+                }
+            }
+        }
+    }
     /**
      * prepare data object for rolls
      * @override

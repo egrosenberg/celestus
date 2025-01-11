@@ -113,7 +113,7 @@ export class CelestusActor extends Actor {
             damage -= DR * damage;
         }
         else {
-            console.log(`DR type "${type}" does not exist`);
+            console.log(`CELESTUS | DR type "${type}" does not exist`);
         }
         // check if huntmaster is involved
         if (this.getFlag("celestus", "marked")) {
@@ -425,12 +425,6 @@ export class CelestusActor extends Actor {
         // if item is equipped, simply unequip
         if (item.system.equipped) {
             item.update({ "system.equipped": false });
-            // remove statuses
-            for (let status of this.effects) {
-                if (item.effects.find(i => i.name === status.name)) {
-                    await status.delete();
-                }
-            }
             return;
         }
         // verify that actor meets prerequisites
@@ -507,24 +501,6 @@ export class CelestusActor extends Actor {
         }
         // equip this item
         item.update({ "system.equipped": true });
-        // apply any status effects from the item
-        for (const status of item.effects) {
-            if (status.disabled || this.effects.find(i => i.name === status.name)) {
-                continue;
-            }
-            await this.createEmbeddedDocuments('ActiveEffect', [
-                {
-                    name: status.name,
-                    img: status.img,
-                    origin: this.uuid,
-                    'duration.rounds': status.duration.rounds,
-                    disabled: false,
-                    type: "status",
-                    system: status.system,
-                    changes: status.changes,
-                },
-            ]);
-        }
     }
 
     /**
