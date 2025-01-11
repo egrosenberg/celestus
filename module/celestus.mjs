@@ -1,6 +1,6 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTemplate, previewDamage, removeRollAuthor, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
@@ -560,8 +560,11 @@ Hooks.on("renderChatMessage", addChatButtons);
 // remove author from roll chat messages
 Hooks.on("renderChatMessage", removeRollAuthor);
 
+Hooks.on("renderHotbar", renderHotbarOverlay);
+
 // hook damage preview on token select
 Hooks.on("controlToken", previewDamage);
+Hooks.on("controlToken", (d, c) => {renderHotbarOverlay(c)});
 
 // handle turn changes
 Hooks.on("combatTurnChange", triggerTurn);

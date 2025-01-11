@@ -515,3 +515,33 @@ export function removeRollAuthor(message, html, messageData) {
     if (message.system?.type !== "roll") return;
     html.find("h4.message-sender").remove();
 }
+
+/**
+ * render overlays over hotbat
+ */
+export function renderHotbarOverlay(render = true) {
+    // check for token/actor
+    if (!_token) {
+        return;
+    }
+    // clear all old hotbar overlays
+    $(".macro-overlay").remove();
+    if (!render) return;
+    // find all active hotbar items
+    const active = $(".macro.active");
+    active.each((i, e) => {
+        const item = _token.actor.items.find(i => i.name === game.macros.get(e.dataset.macroId).name);
+        if (item) {
+            const cooldown = item.system.cooldown.value;
+            if (cooldown > 0) {
+                $(e).append(`<div class=macro-overlay>${cooldown}</div>`);
+            }
+            else if (cooldown < 0) {
+                $(e).append(`<div class=macro-overlay><i class="icon-sunrise"></i></div>`);
+            }
+            else if (item.system.disabled) {
+                $(e).append(`<div class=macro-overlay></div>`);
+            }
+        }
+    });
+}

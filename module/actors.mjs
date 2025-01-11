@@ -1,4 +1,5 @@
 import { calcMult, canvasPopupText } from "./helpers.mjs";
+import { renderHotbarOverlay } from "./hooks.mjs";
 
 const BASE_AS = 10; // base ability score value
 
@@ -92,11 +93,8 @@ export class CelestusActor extends Actor {
                 effect.cleanupAura();
             }
         }
-        //// spread auras to and from
-        //for (const token of this.getActiveTokens()) {
-        //    token.spreadAuraTo();
-        //    token.spreadAuraFrom();
-        //}
+        // render hotbar buttons
+        renderHotbarOverlay();
     }
 
     /**

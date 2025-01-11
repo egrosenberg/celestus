@@ -808,6 +808,7 @@
     pointer-events: none;
     margin-top: -1.25em;
 }
+
 .celestus .dice-flavor {
     border: thin solid var(--color-warm-1);
     box-shadow: var(--shadow-bevel);
@@ -879,4 +880,19 @@
     font-size: var(--font-size-14);
     padding: 0.4em;
     margin: 0.1em;
+}
+
+/* Macro Bar */
+.macro-overlay {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    pointer-events: none;
+    color: white;
+    text-shadow: var(--text-outline-1);
+    font-size: 30px;
+    text-align: center;
+    line-height: 48px;
 }
