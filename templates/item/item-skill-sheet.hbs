@@ -21,13 +21,20 @@
                 {{/with}}
                 {{/if}}
             </div>
-            <div class="quick-reference">Cooldown: {{system.cooldown.max}} rounds</div>
+            {{#if (gt system.cooldown.max 0)}}<div class="quick-reference">Cooldown: {{system.cooldown.max}} rounds</div>{{/if}}
             {{#if system.ap}}<div class="quick-reference">AP Cost: {{system.ap}}</div>{{/if}}
             {{#if system.fp}}<div class="quick-reference">FP Cost: {{system.fp}}</div>{{/if}}
             <div class="quick-reference">Memory Slots: {{system.memSlots}}</div>
             <div class="quick-reference">
-                Range: {{#if item.system.finalRange}}{{item.system.finalRange}} ft.{{else}}melee{{/if}}
+                Range: {{#if item.system.finalRange}}{{item.system.finalRange}}{{/if}}
             </div>
+            <div class="quick-reference">
+                Targets: {{#if item.system.targetMode}}{{item.system.targetMode}}{{/if}}
+            </div>
+            <div class="quick-reference">
+                Type: {{lookup config.skillTypes item.system.type}}
+            </div>
+
 
             <h3>Prereqs:</h3>
             {{#if (eq system.type "civil")}}

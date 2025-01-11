@@ -771,7 +771,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             attack: new BooleanField({ required: true, initial: false }),
             targets: new SchemaField({ // amount of targets required/allowed
                 count: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
-                type: new StringField({ required: true, initial: "none" }),
+                type: new StringField({ required: true, initial: "self" }),
                 size: new NumberField({ required: true, min: 0, initial: 0 }),
             }),
             range: new NumberField({ required: true, initial: 0 }), // range of skill use, 0ft = self, 5ft = melee
@@ -786,20 +786,57 @@ export class SkillData extends foundry.abstract.TypeDataModel {
     }
 
     /**
-     * calculates final range value
-     * @returns {Number}
+     * calculates final range value for display
+     * @returns {String | false}
      */
     get finalRange() {
+        let range = 0
         if (this.type === "weapon" && !this.overridesWeaponRange && this.parent.actor?.system?.equipped?.left) {
-            return this.parent.actor.system.equipped.left.system.range;
+            range = this.parent.actor.system.equipped.left.system.range;
         }
         else {
-            if (this.type === "magic" && this.parent.actor) {
-                if (this.parent.actor.getFlag("celestus", "farsight")) {
-                    return this.range + CONFIG.CELESTUS.farsightBonus;
-                }
+            if (this.type === "magic" && this.parent.actor && this.parent.actor.getFlag("celestus", "farsight")) {
+                range = this.range + CONFIG.CELESTUS.farsightBonus;
             }
-            return this.range;
+            else {
+                range = this.range;
+            }
+        }
+        if (this.targets.type === "self")
+        {
+            return "Self";
+        }
+        else if (this.targets.type === "none" || this.targets.type === "radius" || this.targets.type === "line") {
+            return false;
+        }
+        else {
+            if (range > 0) {
+                return `${range} ft.`;
+            }
+            else {
+                return "Touch";
+            }
+        }
+    }
+    /**
+     * prepares targeting mode for display
+     * @returns {String | false}
+     */
+    get targetMode() {
+        if (this.targets.type === "self" || this.targets.type === "none") {
+            return false;
+        }
+        const targetType = CONFIG.CELESTUS.targetTypes[this.targets.type];
+        if (targetType) {
+            if (targetType.options.find(e => e === "size")) {
+                return `${this.targets.size} ft. ${targetType.label}`;
+            }
+            else {
+                return `${this.targets.count} ${targetType.label}`;
+            }
+        }
+        else {
+            return false;
         }
     }
     /**
