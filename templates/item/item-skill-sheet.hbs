@@ -14,18 +14,31 @@
             <div class="quick-reference">
                 {{#if (eq system.type "civil")}}
                 {{#with (lookup config.civilSkills system.school)}}
-                    {{lookup ../config.skillTiers ../system.tier}} {{label}}
+                {{lookup ../config.skillTiers ../system.tier}} {{label}}
                 {{/with}}
                 {{else}}
                 {{#with (lookup config.combatSkills system.school)}}
-                    {{lookup ../config.skillTiers ../system.tier}} {{label}}
+                {{lookup ../config.skillTiers ../system.tier}} {{label}}
                 {{/with}}
                 {{/if}}
             </div>
-            {{#if (gt system.cooldown.max 0)}}<div class="quick-reference">Cooldown: {{system.cooldown.max}} rounds</div>{{/if}}
-            {{#if (gt system.ap 0)}}<div class="quick-reference">AP Cost: {{system.ap}}</div>{{/if}}
-            {{#if system.fp}}<div class="quick-reference">FP Cost: {{system.fp}}</div>{{/if}}
-            <div class="quick-reference">Memory Slots: {{system.memSlots}}</div>
+            {{#if (gt system.cooldown.max 0)}}
+            <div class="quick-reference">
+                Cooldown: {{system.cooldown.max}} rounds
+            </div>{{/if}}
+            {{#if (gt system.ap 0)}}
+            <div class="quick-reference">
+                AP Cost: {{system.ap}}
+            </div>
+            {{/if}}
+            {{#if system.fp}}
+            <div class="quick-reference">
+                FP Cost: {{system.fp}}
+            </div>
+            {{/if}}
+            <div class="quick-reference">
+                Memory Slots: {{system.memSlots}}
+            </div>
             {{#if item.system.finalRange}}
             <div class="quick-reference">
                 Range: {{item.system.finalRange}}
@@ -35,6 +48,7 @@
             <div class="quick-reference">
                 Targets: {{item.system.targetMode}}
             </div>
+            {{/if}}
 
 
             <h3>Prereqs:</h3>
@@ -43,8 +57,7 @@
                 {{#each item.system.civilPrereqs as |ability|}}
                     {{#if ability.[1]}}
                         {{#with (lookup ../config.civilSkills ability.[0])}}
-                        <div class="quick-reference"
-                            style="background-color:{{color}};">
+                        <div class="quick-reference" style="background-color:{{color}};">
                             {{ability.[1]}} {{label}} <i class="{{glyph}}"></i></div>
                         {{/with}}
                     {{/if}}
@@ -53,11 +66,11 @@
                 {{!-- Combat Prereqs --}}
                 {{#each item.system.combatPrereqs as |ability|}}
                     {{#if ability.[1]}}
-                    {{#with (lookup ../config.combatSkills ability.[0])}}
-                    <div class="quick-reference"
-                        style="background-color: var(--color-{{damage}}-bg)">
-                        {{ability.[1]}} {{label}} <i class="{{glyph}}"></i></div>
-                    {{/with}}
+                        {{#with (lookup ../config.combatSkills ability.[0])}}
+                        <div class="quick-reference" style="background-color: var(--color-{{damage}}-bg)">
+                            {{ability.[1]}} {{label}} <i class="{{glyph}}"></i>
+                        </div>
+                        {{/with}}
                     {{/if}}
                 {{/each}}
             {{/if}}
@@ -104,7 +117,7 @@
                             </div>
                             {{!-- skill school --}}
                             <div class="general attribute">
-                                Type: 
+                                Type:
                                 <select class="skill-type-selector" name="system.school">
                                     {{#if (eq system.type "civil")}}
                                     {{selectOptions config.civilSkills selected=system.school}}
@@ -382,8 +395,7 @@
                         {{/each}}
                     </ol>
                 </div>
+            </section>
         </div>
-        </section>
-    </div>
     </div>
 </form>
