@@ -277,7 +277,7 @@ export async function addChatButtons(msg, html, options) {
         if (msg.system.skill.hasAttack) {
             html.append(`<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="attack" ${disabled}>Roll Attack</button>`)
         }
-        else if (actor.getFlag("celestus", "brutalspells")) {
+        else if (actor.getFlag("celestus", "brutalspells") && skill.system.damage.length > 0) {
             html.append(`<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="roll-crit" ${disabled}>Brutal Spellcraft</button>`)
         }
         // add damage button if there is a damage roll
