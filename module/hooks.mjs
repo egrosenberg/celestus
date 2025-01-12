@@ -531,7 +531,7 @@ export function renderHotbarOverlay(render = true) {
     const active = $(".macro.active");
     active.each((i, e) => {
         const item = _token.actor.items.find(i => i.name === game.macros.get(e.dataset.macroId).name);
-        if (item) {
+        if (item?.type === "skill") {
             const cooldown = item.system.cooldown.value;
             if (cooldown > 0) {
                 $(e).append(`<div class=macro-overlay>${cooldown}</div>`);
