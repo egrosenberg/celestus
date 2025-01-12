@@ -3,6 +3,7 @@
         <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
         <div class="header-fields">
             <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+            <h2 class="item-type">{{lookup config.skillTypes system.type}}</h2>
         </div>
     </header>
 
@@ -33,10 +34,6 @@
             {{#if item.system.targetMode}}
             <div class="quick-reference">
                 Targets: {{item.system.targetMode}}
-            </div>
-            {{/if}}
-            <div class="quick-reference">
-                Type: {{lookup config.skillTypes item.system.type}}
             </div>
 
 

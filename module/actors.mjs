@@ -378,7 +378,7 @@ export class CelestusActor extends Actor {
         }
         await this.update({ "system.resources.jirki.value": actor.resources.fp.value - skill.system.fp });
 
-        const path = './systems/celestus/templates/skillDescription.hbs';
+        const path = './systems/celestus/templates/rolls/skill-roll.hbs';
         const msgData = {
             owner: this.name,
             ownerPortrait: this.prototypeToken.texture.src,

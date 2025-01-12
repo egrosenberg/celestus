@@ -283,6 +283,12 @@ export class CharacterSheet extends ActorSheet {
             if (skill) this.actor.useSkill(skill);
             else console.error("CELESTUS | ERROR: skill not found");
         }
+        else {
+            console.log($(element).parents(".item").data("item-id"));
+            const item = this.actor.items.get($(element).parents(".item").data("item-id"));
+            if (item) item.roll();
+            else console.error("CELESTUS | ERROR: item not found");
+        }
     }
 
 

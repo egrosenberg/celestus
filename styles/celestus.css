@@ -11,6 +11,7 @@
 }
 
 [class*='icon-']:before {
+    vertical-align: -10%;
     display: inline-block;
     font-family: 'celestus glyphs';
     font-style: normal;
@@ -804,8 +805,10 @@
 }
 
 /* roll chat message */
+.message-metadata {
+    z-index: 1;
+}
 .celestus.roll.description {
-    pointer-events: none;
     margin-top: -1.25em;
 }
 

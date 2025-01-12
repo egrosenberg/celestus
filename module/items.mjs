@@ -142,7 +142,7 @@ export class CelestusItem extends Item {
 
             rollData.dmg = damage;
         }
-        if (this.type === "armor") {
+        else if (this.type === "armor") {
             if (this.system.type !== "none") {
                 rollData.armor = this.system.value;
             }
@@ -150,6 +150,7 @@ export class CelestusItem extends Item {
 
         // add actor's roll data
         rollData.actor = this.actor.getRollData();
+        rollData.item = this;
 
         return rollData;
     }
@@ -165,6 +166,37 @@ export class CelestusItem extends Item {
             const actor = this.parent;
             // call roll skill
             actor.useSkill(this);
+        }
+        else {
+            const path = `./systems/celestus/templates/rolls/${this.type}-roll.hbs`;
+            const msgData = {
+                owner: this.parent.name,
+                ownerPortrait: this.parent.prototypeToken.texture.src,
+                user: game.user.name,
+                name: this.name,
+                flavor: this.system.description,
+                portrait: this.img,
+                item: this,
+                system: this.system,
+                config: CONFIG.CELESTUS,
+            }
+            let msg = await renderTemplate(path, msgData);
+            // do text enrichment
+            msg = await TextEditor.enrichHTML(
+                msg,
+                {
+                    // Only show secret blocks to owner
+                    secrets: this.isOwner,
+                    async: true,
+                    // For Actors and Items
+                    rollData: this.getRollData()
+                }
+            );
+            await ChatMessage.create({
+                content: msg,
+                'system.type': "roll",
+                'system.actorID': this.parent.uuid,
+            });
         }
     }
 }

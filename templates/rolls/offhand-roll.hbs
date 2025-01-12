@@ -1,0 +1,80 @@
+<div class="celestus roll description">
+    <header class="message-header">
+        <img class="actor-img" src="{{ownerPortrait}}" title="{{owner}}" />
+        <span class="speaker-info">
+            <div class="author">{{owner}}</div>
+            <div class="user">{{user}}</div>
+        </span>
+    </header>
+
+
+    <div class="dice-flavor">
+        <header class="summary">
+            {{#if portrait}}
+            <img class="roll-icon" src="{{portrait}}" title="{{name}}" />
+            {{/if}}
+            <div class="name-stacked">
+                <span class="title">{{name}}</span>
+            </div>
+        </header>
+        <div class="roll-tags">
+
+            {{!-- Armor Values --}}
+            <div class="roll-tag">
+                {{item.system.value.phys}}<i class="icon-edged-shield"></i> /
+                {{item.system.value.mag}}<i class="icon-magic-shield"></i>
+            </div>
+
+            {{!-- Combat Abilities --}}
+            {{#each system.bonuses.combat as |value skill|}}
+            {{#if value}}
+            {{#with (lookup ../config.combatSkills skill)}}
+            <div class="roll-tag" title="{{label}}">
+                {{numberFormat value sign=true decimals=0}}
+                {{label}}
+            </div>
+            {{/with}}
+            {{/if}}
+            {{/each}}
+
+            {{!-- Civil Abilities --}}
+            {{#each system.bonuses.civil as |value skill|}}
+            {{#if value}}
+            {{#with (lookup ../config.civilSkills skill)}}
+            <div class="roll-tag" title="{{skill}}">
+                {{numberFormat value sign=true decimals=0}}
+                {{label}}
+            </div>
+            {{/with}}
+            {{/if}}
+            {{/each}}
+
+            {{!-- Attributes --}}
+            {{#each system.bonuses.abilities as |value skill|}}
+            {{#if value}}
+            {{#with (lookup ../config.abilities skill)}}
+            <div class="roll-tag" title="{{skill}}">
+                {{numberFormat value sign=true decimals=0}}
+                {{label}}
+            </div>
+            {{/with}}
+            {{/if}}
+            {{/each}}
+            
+            {{!-- Resistances --}}
+            {{#each system.bonuses.resistance as |value skill|}}
+            {{#if value}}
+            {{#with (lookup ../config.damageTypes skill)}}
+            <div class="roll-tag" title="{{skill}}">
+                {{numberFormat value decimals=2}}
+                {{label}}
+            </div>
+            {{/with}}
+            {{/if}}
+            {{/each}}
+        </div>
+        {{#if flavor}}{{{flavor}}}{{/if}}
+    </div>
+    <div class="dice-roll">
+    </div>
+</div>
