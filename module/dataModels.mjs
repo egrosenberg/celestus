@@ -942,6 +942,10 @@ export class GearData extends foundry.abstract.TypeDataModel {
             equipped: new BooleanField({ required: true, initial: false }),
             // html description of armor
             description: new HTMLField(),
+            
+            price: new NumberField({ required: true, initial: 0 }),
+            quantity: new NumberField({ integer: true, required: true, initial: 1 }),
+            weight: new NumberField({ required: true, initial: 0 }),
             // type of armor (robes (int) / light (dex) / heavy (str))
             type: new StringField({ required: true, initial: "none" }),
             // slot of armor (helmet / chest / gloves / leggings / boots)
@@ -1029,6 +1033,11 @@ export class GearData extends foundry.abstract.TypeDataModel {
             if (value > 0) return true;
         }
         return false;
+    }
+
+    /** total price of item(s) */
+    get totalPrice() {
+        return this.price * this.quantity;
     }
 };
 
@@ -1282,6 +1291,13 @@ export class EffectData extends foundry.abstract.TypeDataModel {
         }
         // removes all things the status blocks
         for (let status of data.system.blocks) {
+            let target = actor.effects.find(e => e.statuses.has(status));
+            if (target) {
+                target.delete();
+            }
+        }
+        // removes all other instances of this status
+        for (let status of data.statuses) {
             let target = actor.effects.find(e => e.statuses.has(status));
             if (target) {
                 target.delete();

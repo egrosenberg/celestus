@@ -345,7 +345,7 @@ Hooks.on("init", () => {
             scalars: {
                 helmet: 2.9,
                 chest: 5.8,
-                legs: 3.9,
+                leggings: 3.9,
                 gloves: 2.9,
                 boots: 2.9,
                 belt: 1.9,

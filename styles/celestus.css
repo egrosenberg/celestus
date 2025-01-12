@@ -581,6 +581,10 @@
     width: 80px;
 }
 
+.celestus.actor.sheet .item-controls {
+    flex: 0 0 110px;
+}
+
 .celestus.actor.sheet .item.skill .skill-cost {
     height: 40px;
 }
