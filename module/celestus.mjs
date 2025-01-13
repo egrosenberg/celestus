@@ -33,6 +33,8 @@ Hooks.on("init", () => {
     game.celestus = {
         rollItemMacro,
     }
+    // override initiative rolls
+    game.system.initiative = "1d20+@abilities.wit.total";
 
     // create Celestus entry in CONFIG
     CONFIG.CELESTUS = {
