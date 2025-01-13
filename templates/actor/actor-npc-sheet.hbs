@@ -43,6 +43,21 @@
 
                 </span>
                 <h2>Resources</h2>
+                <div class="resources grid" id="action-points">
+                    <span class="resource">
+                        <label class="resource-label">AP: </label>
+                        {{#repeat system.resources.ap.value}}
+                        <a class="ap-interact" data-index="@index">
+                            <i class="fa-solid fa-circle action-point full small"></i>
+                        </a>
+                        {{/repeat}}
+                        {{#repeat (diff system.resources.ap.max system.resources.ap.value) offset=system.resources.ap.value}}
+                        <a class="ap-interact" data-index="@index">
+                            <i class="fa-solid fa-circle action-point empty small"></i>
+                        </a>
+                        {{/repeat}}
+                    </span>
+                </div>
                 <div class="resources grid" id="hp">
                     <span class="resource">
                         <label class="resource-label hp">HP</label><br />
@@ -79,16 +94,6 @@
                         <span style="display: inline-flex;"><label class="resource-label">Base: </label>
                             <input type="number" name="system.armorSpread.mag" data-max-value="10"
                                 value="{{system.armorSpread.mag}}" data-dtype="Number" />
-                        </span>
-                    </span>
-                </div>
-                <div class="resources grid" id="ap">
-                    <span class="resource">
-                        <label class="resource-label single">Action Points</label><br />
-                        <span class="resource-value physical" id="system.resources.ap" style="flex: 2">
-                            <input type="number" name="system.resources.ap.value" value="{{system.resources.ap.value}}"
-                                data-dtype="Number" data-max-value="{{system.resources.ap.max}}" /> <span
-                                class="total">/{{system.resources.ap.max}}</span>
                         </span>
                     </span>
                 </div>

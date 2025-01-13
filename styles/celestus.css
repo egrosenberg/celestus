@@ -519,6 +519,7 @@
 .celestus.actor.sheet .abilities .flexrow {
     border: black thin solid;
     padding: 3px;
+    margin-bottom: -1px;
 }
 
 .celestus.actor.sheet .abilities {
@@ -629,7 +630,7 @@
     padding: 6px;
     border-radius: 12px;
     box-shadow: var(--shadow-bevel);
-    font-size: var(--font-size-18);
+    font-size: var(--font-size-16);
 }
 
 .celestus.actor.sheet .items-list .item.flexrow.items-header {
@@ -912,10 +913,24 @@
 /* Action Point Icons */
 .action-point.full {
     background: rgb(226,244,0);
-    background: radial-gradient(circle at top right, rgb(131, 201, 2) 0%, rgba(46,77,0,1) 100%);
+    background: radial-gradient(circle at 60% 30%, rgb(148, 201, 2) 0%, rgba(46,77,0,1) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 2px rgb(0, 0, 0);
+    -webkit-text-stroke: 1px rgb(0, 0, 0);
     background-clip: text;
     margin: 2px;
+}
+
+.action-point.empty {
+    background: rgb(27, 27, 27);
+    background: radial-gradient(circle, rgb(107, 107, 107) 0%, rgb(20, 20, 20) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px rgb(0, 0, 0);
+    background-clip: text;
+    margin: 2px;
+}
+
+.action-point.small {
+    font-size: var(--font-size-18);
 }

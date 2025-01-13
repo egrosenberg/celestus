@@ -33,6 +33,21 @@
 
                 </span>
                 <h2>Resources</h2>
+                <div class="resources grid" id="action-points">
+                    <span class="resource">
+                        <label class="resource-label">AP: </label>
+                        {{#repeat system.resources.ap.value}}
+                        <a class="ap-interact" data-index="@index">
+                            <i class="fa-solid fa-circle action-point full small"></i>
+                        </a>
+                        {{/repeat}}
+                        {{#repeat (diff system.resources.ap.max system.resources.ap.value) offset=system.resources.ap.value}}
+                        <a class="ap-interact" data-index="@index">
+                            <i class="fa-solid fa-circle action-point empty small"></i>
+                        </a>
+                        {{/repeat}}
+                    </span>
+                </div>
                 <div class="resources grid" id="hp">
                     <span class="resource">
                         <label class="resource-label hp">HP</label><br />
@@ -61,16 +76,6 @@
                                 data-max-value="{{system.resources.mag_armor.max}}"
                                 value="{{system.resources.mag_armor.flat}}" data-dtype="Number" /> <span
                                 class="total">+{{system.resources.mag_armor.temp}}/{{system.resources.mag_armor.max}}</span>
-                        </span>
-                    </span>
-                </div>
-                <div class="resources grid" id="ap">
-                    <span class="resource">
-                        <label class="resource-label single">Action Points</label><br />
-                        <span class="resource-value physical" id="system.resources.ap" style="flex: 2">
-                            <input type="number" name="system.resources.ap.value" value="{{system.resources.ap.value}}"
-                                data-dtype="Number" data-max-value="{{system.resources.ap.max}}" /> <span
-                                class="total">/{{system.resources.ap.max}}</span>
                         </span>
                     </span>
                 </div>
@@ -150,9 +155,9 @@
             <nav class="sheet-tabs tabs" data-group="primary">
                 {{!-- Default tab is specified in actor-sheet.mjs --}}
                 <a class="item" data-tab="abilities">Abilities</a>
+                <a class="item" data-tab="skills">Skills</a>
                 <a class="item" data-tab="items">Items</a>
                 <a class="item" data-tab="features">Features</a>
-                <a class="item" data-tab="skills">Skills</a>
                 <a class="item" data-tab="description">Biography</a>
                 <a class="item" data-tab="effects">Effects</a>
             </nav>

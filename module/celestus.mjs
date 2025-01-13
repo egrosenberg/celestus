@@ -581,8 +581,10 @@ Hooks.on("updateToken", spreadAura);
 // hbs helpers
 Handlebars.registerHelper("repeat", (n, options) => {
     let output = ""
+    let offset = parseInt(options.hash.offset);
+    offset = isNaN(offset) ? 0 : offset;
     for (let i = 0; i < n; i++) {
-        output += options.fn(this);
+        output += options.fn(this).replace('@index', i+offset);
     }
     return output;
 });
@@ -594,6 +596,14 @@ Handlebars.registerHelper("percent", (n, options) => {
     number = Math.round(number*100);
     const signStr = options.hash.sign ? (number >= 0 ? "+" : "") : ""; 
     return `${signStr}${number}${options.hash.symbol?"%":""}`;
+});
+Handlebars.registerHelper("diff", (a, b) => {
+    a = parseFloat(a);
+    b = parseFloat(b);
+    if (isNaN(a) || isNaN(b)) {
+        return "";
+    }
+    return a-b;
 });
 
 

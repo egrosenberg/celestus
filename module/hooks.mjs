@@ -468,6 +468,7 @@ export function startCombat(combat, updateData) {
     // make all combatants in combat
     for (const combatant of combat.combatants) {
         combatant.actor.refresh(false);
+        combatant.actor.update({"system.resources.ap.value": 0})
     }
 }
 

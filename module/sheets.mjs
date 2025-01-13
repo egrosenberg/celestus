@@ -14,7 +14,7 @@ export class CharacterSheet extends ActorSheet {
             template: "./systems/celestus/templates/actor/actor-sheet.hbs",
             width: 900,
             height: 700,
-            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "abilities" }],
+            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "skills" }],
             scrollY: [".sheet-header",".sheet-main"],
         });
     }
@@ -128,6 +128,17 @@ export class CharacterSheet extends ActorSheet {
         })
         html.on('click', '#refresh-dawn', (ev) => {
             this.actor.refresh(true);
+        })
+
+        // set action points
+        html.on('click', '.ap-interact', (ev) => {
+            const index = $(ev.currentTarget).data('index') + 1;
+            if (index === this.actor.system.resources.ap.value) {
+                this.actor.update({"system.resources.ap.value": this.actor.system.resources.ap.value - 1});
+            }
+            else {
+                this.actor.update({"system.resources.ap.value": index});
+            }
         })
 
         // Add Inventory Item
