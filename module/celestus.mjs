@@ -319,7 +319,7 @@ Hooks.on("init", () => {
             }
         },
         flatDamageScalar: 0.07, // +.07*(level-1) damage
-        weaponDmgBase: 1.165, // used to calculate # of dice a weapon uses (1.165^lvl dice)
+        weaponDmgScalar: 0.153206, // used to calculate # of dice a weapon uses (1+0.153206*e^lvl dice)
         // info on different types of armor
         armor: {
             spreads: {

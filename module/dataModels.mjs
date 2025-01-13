@@ -1093,7 +1093,7 @@ export class WeaponData extends GearData {
     get damage() {
         // get actor level if it exists
         const level = this.parent.actor ? this.parent.actor.system.attributes.level : 1;
-        const dice = Math.floor(Math.pow(CONFIG.CELESTUS.weaponDmgBase, level));
+        const dice = 1 + Math.round(CONFIG.CELESTUS.weaponDmgScalar * Math.pow(CONFIG.CELESTUS.e, level));
         const dmgDie = this.twoHanded ? 12 : 6;
         // calculate bonus from weapon combat ability
         let abilityBonus = this.parent?.actor?.system?.combat[this.parent.actor.system.weaponType]?.mod ?? 0;
@@ -1110,8 +1110,8 @@ export class WeaponData extends GearData {
             min: Math.floor(dice * mult),
             max: Math.floor(dice * dmgDie * mult),
             avg: Math.floor(dice * (dmgDie / 2 + 0.5) * mult),
-            roll: `${dice}d${dmgDie}*${mult}`,
-            crit: `${dice}d${dmgDie}*${multCrit}`,
+            roll: `(${level}+${dice}d${dmgDie})*${mult}`,
+            crit: `(${level}+${dice}d${dmgDie})*${multCrit}`,
         };
     }
 
