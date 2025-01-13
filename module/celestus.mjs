@@ -586,6 +586,15 @@ Handlebars.registerHelper("repeat", (n, options) => {
     }
     return output;
 });
+Handlebars.registerHelper("percent", (n, options) => {
+    let number = parseFloat(n);
+    if (isNaN(number)) {
+        return "";
+    }
+    number = Math.round(number*100);
+    const signStr = options.hash.sign ? (number >= 0 ? "+" : "") : ""; 
+    return `${signStr}${number}${options.hash.symbol?"%":""}`;
+});
 
 
 // attempt to bind to elevation ruler

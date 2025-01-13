@@ -98,10 +98,9 @@
                             data-label="{{ability.label}}">{{ability.label}}</label>
                         <input type="number" name="system.abilities.{{key}}.value" value="{{ability.value}}"
                             data-dtype="Number" />
-                        <span class="ability-mod rollable" data-roll="d20+@abilities.{{key}}.mod"
-                            data-label="{{ability.label}}">{{numberFormat ability.bonus decimals=0
-                            sign=true}} = {{ability.total}} ({{numberFormat ability.mod decimals=2 decimalSep=s
-                            sign=true}}&#215;)
+                        <span class="ability-mod rollable" data-label="{{ability.label}}">
+                            {{numberFormat ability.bonus decimals=0 sign=true}} = {{ability.total}}
+                            ({{percent ability.mod sign=true symbol=true}})
                         </span>
                     </div>
                     {{/each}}
@@ -114,7 +113,7 @@
                     <div class="ability flexrow flex-group-center" style="background-color: {{color}};">
                         <label class="resource-label rollable flexlarge align-left"><i
                                 class="{{glyph}}"></i>{{label}}</label>
-                        <span class="resist">&#215;{{numberFormat ability.value decimals=2}}</span>
+                        <span class="resist">{{percent ability.value symbol=true}}</span>
                     </div>
                     {{/with}}
                     {{/if}}
@@ -127,7 +126,7 @@
                         style="background-color: rgba(255, 255, 255, 0.719);">
                         {{#with (lookup ../config.bonuses key)}}
                         <label class="resource-label rollable flexlarge align-left">{{label}}</label>
-                        <span class="resist">{{numberFormat ability.value decimals=2}}{{symbol}}</span>
+                        <span class="resist">{{percent ability.value symbol=true}}</span>
                         {{/with}}
                     </div>
                     {{/each}}
@@ -212,7 +211,7 @@
                                     </span>
                                     <span class="ability-mod rollable" data-roll="d20+@abilities.{{ability.[0]}}.mod"
                                         data-label="{{ability.[1].label}}">
-                                        ({{numberFormat ability.[1].mod decimals=2 sign=true}}&#215;)
+                                        ({{percent ability.[1].mod symbol=true sign=true}})
                                     </span>
                                 </div>
                                 {{/each}}
@@ -239,7 +238,7 @@
                                     </span>
                                     <span class="ability-mod rollable" data-roll="d20+@abilities.{{ability.[0]}}.mod"
                                         data-label="{{ability.[1].label}}">
-                                        ({{numberFormat ability.[1].mod decimals=2 sign=true}}&#215;)
+                                        ({{percent ability.[1].mod symbol=true sign=true}})
                                     </span>
                                 </div>
                                 {{/each}}

@@ -512,6 +512,7 @@
 .celestus.actor.sheet .resist {
     font-size: var(--font-size-18);
     padding: 3px;
+    text-align: right;
 }
 
 /* abilities */
@@ -643,6 +644,10 @@
 .celestus.actor.sheet .item-name h4 {
     display: inline;
     vertical-align: top;
+}
+
+.celestus.actor.sheet .item-formula {
+    text-align: center;
 }
 
 .celestus.actor.sheet .item-image {
@@ -902,4 +907,15 @@
     font-size: 30px;
     text-align: center;
     line-height: 48px;
+}
+
+/* Action Point Icons */
+.action-point.full {
+    background: rgb(226,244,0);
+    background: radial-gradient(circle at top right, rgb(131, 201, 2) 0%, rgba(46,77,0,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 2px rgb(0, 0, 0);
+    background-clip: text;
+    margin: 2px;
 }

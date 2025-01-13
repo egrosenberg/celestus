@@ -637,10 +637,6 @@ export class NpcData extends ActorData {
         for (let [key, ability] of Object.entries(this.civil)) {
             ability.value = ability.bonus;
         }
-        // zero out damage resists
-        for (let [key, damageType] of Object.entries(this.attributes.resistance)) {
-            damageType.value = 0;
-        }
         // zero out generic bonuses
         for (let [key, bonus] of Object.entries(this.attributes.bonuses)) {
             bonus.value = 0;

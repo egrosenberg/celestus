@@ -114,10 +114,9 @@
                             data-label="{{ability.label}}">{{ability.label}}</label>
                         <input type="number" name="system.abilitySpread.{{key}}"
                             value="{{lookup ../system.abilitySpread key}}" data-dtype="Number" />
-                        <span class="ability-mod rollable" data-roll="d20+@abilities.{{key}}.mod"
-                            data-label="{{ability.label}}">{{numberFormat ability.bonus decimals=0
-                            sign=true}} = {{ability.total}} ({{numberFormat ability.mod decimals=2 decimalSep=s
-                            sign=true}}&#215;)
+                        <span class="ability-mod rollable" data-label="{{ability.label}}">
+                            {{numberFormat ability.bonus decimals=0 sign=true}} = {{ability.total}}
+                            ({{percent ability.mod sign=true symbol=true}})
                         </span>
                     </div>
                     {{/each}}
@@ -136,7 +135,7 @@
                     <div class="ability flexrow flex-group-center" style="background-color: {{color}};">
                         <label class="resource-label rollable flexlarge align-left"><i
                                 class="{{glyph}}"></i>{{label}}</label>
-                        <span class="resist">&#215;{{numberFormat ability.value decimals=2}}</span>
+                        <span class="resist">{{percent ability.value symbol=true}}</span>
                     </div>
                     {{/with}}
                     {{/if}}
@@ -149,7 +148,7 @@
                         style="background-color: rgba(255, 255, 255, 0.719);">
                         {{#with (lookup ../config.bonuses key)}}
                         <label class="resource-label rollable flexlarge align-left">{{label}}</label>
-                        <span class="resist">{{numberFormat ability.value decimals=2}}{{symbol}}</span>
+                        <span class="resist">{{percent ability.value symbol=true}}</span>
                         {{/with}}
                     </div>
                     {{/each}}
@@ -205,25 +204,54 @@
                             (concat "(Unspent: " (numberFormat system.attributes.unspentCombat sign=true) ")")
                             ""}}
                         </h2>
+                        {{!-- weapon abilities --}}
+                        <h3>Fighting Styles</h3>
                         <aside class="sidebar">
                             <div class="abilities flexcol">
-                                {{#each system.combat as |ability key|}}
+                                {{#each actor.system.combatAbilities.weapon as |ability key|}}
                                 <div class="ability flexrow flex-group-center"
-                                    style="background-color: var(--color-{{#with (lookup ../config.combatSkills key)}}{{damage}}{{/with}}-bg)">
-                                    <label for="system.combat.{{key}}.base"
-                                        class="resource-label ability-roll flexlarge align-left" data-label="{{key}}">
-                                        {{#with (lookup ../config.combatSkills key)}}
+                                    style="background-color: var(--color-{{#with (lookup ../config.combatSkills ability.[0])}}{{damage}}{{/with}}-bg)">
+                                    <label for="system.combat.{{ability.[0]}}.base"
+                                        class="resource-label ability-roll flexlarge align-left"
+                                        data-label="{{ability.[0]}}">
+                                        {{#with (lookup ../config.combatSkills ability.[0])}}
                                         <i class="{{glyph}}"></i>{{label}}
                                         {{/with}}
                                     </label>
-                                    <input type="text" name="system.combat.{{key}}.base" value="{{ability.base}}"
-                                        data-dtype="Number" />
-                                    <span class="math">{{numberFormat ability.bonus decimals=0 sign=true}} =
-                                        {{ability.value}}
+                                    <input type="text" name="system.combat.{{ability.[0]}}.base"
+                                        value="{{ability.[1].base}}" data-dtype="Number" />
+                                    <span class="math">{{numberFormat ability.[1].bonus decimals=0 sign=true}} =
+                                        {{ability.[1].value}}
                                     </span>
-                                    <span class="ability-mod rollable" data-roll="d20+@abilities.{{key}}.mod"
-                                        data-label="{{ability.label}}">
-                                        ({{numberFormat ability.mod decimals=2 sign=true}}&#215;)
+                                    <span class="ability-mod rollable" data-label="{{ability.[1].label}}">
+                                        ({{percent ability.[1].mod symbol=true sign=true}})
+                                    </span>
+                                </div>
+                                {{/each}}
+                            </div>
+                        </aside>
+                        {{!-- skill abilities --}}
+                        <h3>Skill Schools</h3>
+                        <aside class="sidebar">
+                            <div class="abilities flexcol">
+                                {{#each actor.system.combatAbilities.skill as |ability key|}}
+                                <div class="ability flexrow flex-group-center"
+                                    style="background-color: var(--color-{{#with (lookup ../config.combatSkills ability.[0])}}{{damage}}{{/with}}-bg)">
+                                    <label for="system.combat.{{ability.[0]}}.base"
+                                        class="resource-label ability-roll flexlarge align-left"
+                                        data-label="{{ability.[0]}}">
+                                        {{#with (lookup ../config.combatSkills ability.[0])}}
+                                        <i class="{{glyph}}"></i>{{label}}
+                                        {{/with}}
+                                    </label>
+                                    <input type="text" name="system.combat.{{ability.[0]}}.base"
+                                        value="{{ability.[1].base}}" data-dtype="Number" />
+                                    <span class="math">{{numberFormat ability.[1].bonus decimals=0 sign=true}} =
+                                        {{ability.[1].value}}
+                                    </span>
+                                    <span class="ability-mod rollable" data-roll="d20+@abilities.{{ability.[0]}}.mod"
+                                        data-label="{{ability.[1].label}}">
+                                        ({{percent ability.[1].mod symbol=true sign=true}})
                                     </span>
                                 </div>
                                 {{/each}}
