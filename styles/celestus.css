@@ -236,6 +236,7 @@
     --color-poison-bg: rgb(201, 223, 134);
     --color-psychic-bg: rgb(223, 134, 223);
     --color-piercing-bg: rgb(223, 134, 134);
+    --color-shadow-bg: rgb(144, 161, 213);
     --color-healing-bg: rgb(146, 226, 152);
     --color-phys_armor-bg: rgb(235, 204, 173);
     --color-mag_armor-bg: rgb(134, 223, 223);
@@ -279,6 +280,10 @@
 
 .celestus .piercing {
     background-color: var(--color-piercing-bg);
+}
+
+.celestus .shadow {
+    background-color: var(--color-shadow-light);
 }
 
 .celestus .healing {
