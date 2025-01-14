@@ -145,6 +145,17 @@
                     {{/with}}
                     {{/if}}
                     {{/each}}
+                    {{#each system.attributes.statusImmune as |value status|}}
+                    {{#if value}}
+                    {{#with (lookup ../statusEffects status)}}
+                    <div class="ability flexrow flex-group-center" style="background-color: rgba(255, 255, 255, 0.719);">
+                        <label class="resource-label rollable flexlarge align-left" style="flex: 1">
+                            Immune to {{name}}
+                        </label>
+                    </div>
+                    {{/with}}
+                    {{/if}}
+                    {{/each}}
                 </div>
                 <h2>Bonuses</h2>
                 <div class="abilities flexcol">

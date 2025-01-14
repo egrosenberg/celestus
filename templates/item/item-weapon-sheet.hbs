@@ -77,6 +77,11 @@
             {{/with}}
             {{/if}}
             {{/each}}
+            {{#each system.bonuses.statusImmune as |status|}}
+            <div class="quick-reference" title="{{status}}">
+                Blocks {{status}}
+            </div>
+            {{/each}}
 
         </div>
         <div class="item-main">
@@ -216,6 +221,42 @@
                                 <input type="text" name="system.bonuses.resistance.{{key}}" value="{{value}}"
                                     data-dtype="Number" />
                             </div>
+                            {{/each}}
+                        </div>
+                        {{!-- StatusEffects --}}
+                        <h3>Status Immunities</h3>
+                        <div class="attribute-section">
+                            <li class="item flexrow damage-header" draggable="true">
+                                <div class="damage-type">Status Name</div>
+                                <div class="item-controls">
+                                    <a class="item-control status-create" title="Create New StatusEffect"
+                                        data-type="item">
+                                        <i class="fas fa-plus"></i>
+                                        Add Status
+                                    </a>
+                                </div>
+                            </li>
+                            {{!-- create editor for each damage type --}}
+                            {{#each system.bonuses.statusImmune as |status|}}
+                            <li class="item flexrow">
+                                <div class="status-type flexrow">
+                                    <select class="status-type-selector" name="system.statusEffects[{{@index}}]"
+                                        data-index="{{@index}}">
+                                        {{#each ../statusEffects as |statusEffect|}}
+                                        <option value="{{statusEffect.id}}" {{ifThen (eq statusEffect.id
+                                            status) "selected" "" }}>
+                                            {{statusEffect.name}}
+                                        </option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="item-controls">
+                                    <a class="item-control status-delete" title="Delete StatusEffect"
+                                        data-type="statusEffect" data-index="{{@index}}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </li>
                             {{/each}}
                         </div>
                     </div>

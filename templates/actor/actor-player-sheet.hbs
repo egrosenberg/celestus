@@ -19,8 +19,8 @@
                             data-dtype="Number" />
                     </span>
                     <span class="level">
-                        Exhaustion: <input type="number" name="system.attributes.exhaustion" value="{{system.attributes.exhaustion}}"
-                            data-dtype="Number" />
+                        Exhaustion: <input type="number" name="system.attributes.exhaustion"
+                            value="{{system.attributes.exhaustion}}" data-dtype="Number" />
                     </span>
                     <span class="level">
                         Movement: {{system.attributes.movement.value}}
@@ -41,7 +41,8 @@
                             <i class="fa-solid fa-circle action-point full small"></i>
                         </a>
                         {{/repeat}}
-                        {{#repeat (diff system.resources.ap.max system.resources.ap.value) offset=system.resources.ap.value}}
+                        {{#repeat (diff system.resources.ap.max system.resources.ap.value)
+                        offset=system.resources.ap.value}}
                         <a class="ap-interact" data-index="@index">
                             <i class="fa-solid fa-circle action-point empty small"></i>
                         </a>
@@ -123,6 +124,17 @@
                     {{/with}}
                     {{/if}}
                     {{/each}}
+                    {{#each system.attributes.statusImmune as |value status|}}
+                    {{#if value}}
+                    {{#with (lookup ../statusEffects status)}}
+                    <div class="ability flexrow flex-group-center" style="background-color: rgba(255, 255, 255, 0.719);">
+                        <label class="resource-label rollable flexlarge align-left" style="flex: 1">
+                            Immune to {{name}}
+                        </label>
+                    </div>
+                    {{/with}}
+                    {{/if}}
+                    {{/each}}
                 </div>
                 <h2>Bonuses</h2>
                 <div class="abilities flexcol">
@@ -169,7 +181,8 @@
                     <section class="grid grid-3col">
                         <h2>
                             Civil Abilities
-                            {{ifThen system.attributes.unspentCivil (concat "(Unspent: " (numberFormat system.attributes.unspentCivil sign=true) ")") ""}}
+                            {{ifThen system.attributes.unspentCivil (concat "(Unspent: " (numberFormat
+                            system.attributes.unspentCivil sign=true) ")") ""}}
                         </h2>
                         <aside class="sidebar">
                             <div class="abilities flexcol">
@@ -193,7 +206,8 @@
                         </aside>
                         <h2>
                             Combat Abilities
-                            {{ifThen system.attributes.unspentCombat (concat "(Unspent: " (numberFormat system.attributes.unspentCombat sign=true) ")") ""}}
+                            {{ifThen system.attributes.unspentCombat (concat "(Unspent: " (numberFormat
+                            system.attributes.unspentCombat sign=true) ")") ""}}
                         </h2>
                         {{!-- weapon abilities --}}
                         <h3>Fighting Styles</h3>

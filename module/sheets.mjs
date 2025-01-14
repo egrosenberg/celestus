@@ -15,7 +15,7 @@ export class CharacterSheet extends ActorSheet {
             width: 900,
             height: 700,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "skills" }],
-            scrollY: [".sheet-header",".sheet-main"],
+            scrollY: [".sheet-header", ".sheet-main"],
         });
     }
     /** @override */
@@ -43,6 +43,10 @@ export class CharacterSheet extends ActorSheet {
 
         // pass config data
         context.config = CONFIG.CELESTUS;
+        context.statusEffects = CONFIG.statusEffects.reduce((object, status) => {
+            object[status.id] = status;
+            return object;
+        });
 
         // do text enrichment
         context.enrichedDescription = await TextEditor.enrichHTML(
@@ -134,10 +138,10 @@ export class CharacterSheet extends ActorSheet {
         html.on('click', '.ap-interact', (ev) => {
             const index = $(ev.currentTarget).data('index') + 1;
             if (index === this.actor.system.resources.ap.value) {
-                this.actor.update({"system.resources.ap.value": this.actor.system.resources.ap.value - 1});
+                this.actor.update({ "system.resources.ap.value": this.actor.system.resources.ap.value - 1 });
             }
             else {
-                this.actor.update({"system.resources.ap.value": index});
+                this.actor.update({ "system.resources.ap.value": index });
             }
         })
 
@@ -328,7 +332,7 @@ export class CharacterSheet extends ActorSheet {
         const item = await Item.create(itemData, { parent: this.actor });
 
         if (type === "feature") {
-            return await item.update({"system.type": "feature"});
+            return await item.update({ "system.type": "feature" });
         }
     }
 
@@ -470,6 +474,32 @@ export class CelestusItemSheet extends ItemSheet {
                 this.item.update({ "system.statusEffects": statuses });
             });
         }
+        // gear listeners
+        else {
+            // remove status effect
+            html.on('click', '.status-delete', (ev) => {
+                const t = ev.currentTarget;
+                const index = $(t).data("index");
+                let statuses = this.item.system.bonuses.statusImmune;
+                statuses.splice(index, 1);
+                this.item.update({ "system.bonuses.statusImmune": statuses });
+            });
+            // add status effect
+            html.on('click', '.status-create', (ev) => {
+                let statuses = this.item.system.bonuses.statusImmune;
+                statuses.push("death");
+                this.item.update({ "system.bonuses.statusImmune": statuses });
+            });
+            // operate changes on status effect
+            html.on('change', '.status-type select', (ev) => {
+                const t = ev.currentTarget;
+                const index = $(t).data("index");
+                const type = $(t).val();
+                let statuses = this.item.system.bonuses.statusImmune;
+                statuses[index] = type;
+                this.item.update({ "system.bonuses.statusImmune": statuses });
+            });
+        }
         // armor specific listeners
         if (this.item.type === "armor") {
             // armor classification listeners
@@ -523,7 +553,7 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
     /** @override */
     activateListeners(html) {
         super.activateListeners(html);
-        
+
         // handle displaying granted skills ui
         html.on('drop', '.tab.other', async (ev) => {
             ev.preventDefault();
@@ -534,8 +564,8 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
                     const obj = JSON.parse(s);
                     const skills = this.object.system.grantedSkills;
                     const item = await fromUuid(obj.uuid);
-                    skills.push({uuid: obj.uuid, name: item.name});
-                    this.object.update({"system.grantedSkills": skills});
+                    skills.push({ uuid: obj.uuid, name: item.name });
+                    this.object.update({ "system.grantedSkills": skills });
                 });
             }
         });

@@ -515,6 +515,15 @@
     text-align: right;
 }
 
+.celestus.actor.sheet .status-icon {
+    width: 25px;
+    height: 25px;
+    border: none;
+    padding: 0px;
+    background: none;
+    filter: invert(1);
+}
+
 /* abilities */
 .celestus.actor.sheet .abilities .flexrow {
     border: black thin solid;
@@ -527,7 +536,7 @@
 }
 
 .celestus.actor.sheet .abilities label {
-    flex: 0 0 160px;
+    flex: 0 0 200px;
     padding: 3px;
 }
 

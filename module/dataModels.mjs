@@ -94,6 +94,10 @@ export class ActorData extends foundry.abstract.TypeDataModel {
                     })
                     return obj;
                 }, {})),
+                statusImmune: new SchemaField(CONFIG.statusEffects.reduce((obj, status) => {
+                    obj[status.id] = new BooleanField({ required: true, initial: false });
+                    return obj;
+                }, {})),
                 // movement
                 movement: new SchemaField({ // movement in map units (default ft)
                     base: new NumberField({ required: true, integer: false, min: 0, initial: 20 }),
@@ -469,6 +473,11 @@ export class PlayerData extends ActorData {
                 for (let [ability, value] of Object.entries(item.system.bonuses.resistance)) {
                     this.attributes.resistance[ability].value += value;
                 }
+                for (let status of item.system.bonuses.statusImmune) {
+                    if (typeof this.attributes.statusImmune[status] !== "undefined") {
+                        this.attributes.statusImmune[status] = true;
+                    }
+                }
             }
             else if ((item.type === "weapon" || item.type === "feature") && item.system.equipped) {
                 // apply bonuses
@@ -486,6 +495,11 @@ export class PlayerData extends ActorData {
                 }
                 for (let [ability, value] of Object.entries(item.system.bonuses.resistance)) {
                     this.attributes.resistance[ability].value += value;
+                }
+                for (let status of item.system.bonuses.statusImmune) {
+                    if (typeof this.attributes.statusImmune[status] !== "undefined") {
+                        this.attributes.statusImmune[status] = true;
+                    }
                 }
             }
             else if (item.type === "offhand" && item.system.equipped) {
@@ -507,6 +521,11 @@ export class PlayerData extends ActorData {
                 }
                 for (let [ability, value] of Object.entries(item.system.bonuses.resistance)) {
                     this.attributes.resistance[ability].value += value;
+                }
+                for (let status of item.system.bonuses.statusImmune) {
+                    if (typeof this.attributes.statusImmune[status] !== "undefined") {
+                        this.attributes.statusImmune[status] = true;
+                    }
                 }
             }
             else if (item.type === "skill" && item.system.memorized === "true") {
@@ -798,8 +817,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
                 range = this.range;
             }
         }
-        if (this.targets.type === "self")
-        {
+        if (this.targets.type === "self") {
             return "Self";
         }
         else if (this.targets.type === "none" || this.targets.type === "radius" || this.targets.type === "line") {
@@ -938,7 +956,7 @@ export class GearData extends foundry.abstract.TypeDataModel {
             equipped: new BooleanField({ required: true, initial: false }),
             // html description of armor
             description: new HTMLField(),
-            
+
             price: new NumberField({ required: true, initial: 0 }),
             quantity: new NumberField({ integer: true, required: true, initial: 1 }),
             weight: new NumberField({ required: true, initial: 0 }),
@@ -970,6 +988,9 @@ export class GearData extends foundry.abstract.TypeDataModel {
                     obj[type] = new NumberField({ required: true, integer: false, min: 0, initial: 0 });
                     return obj;
                 }, {})),
+                statusImmune: new ArrayField(
+                    new StringField()
+                ),
             }),
             // prerequisite stats
             prereqs: new SchemaField({
@@ -1255,6 +1276,11 @@ export class EffectData extends foundry.abstract.TypeDataModel {
         // check if status is blocked if a statuseffect exists
         if (data.statuses && data.statuses.length > 0) {
             for (const status of data.statuses) {
+                // check if actor is immune
+                if (actor.system.attributes.statusImmune[status] === true) {
+                    canvasPopupText(actor, `Immune to ${CONFIG.statusEffects.find(s => s.id === status).name}`);
+                    return false;
+                }
                 // check if status is blocked
                 for (let effect of actor.effects) {
                     if (effect.system.blocks.find(b => b === status)) {
