@@ -1107,8 +1107,8 @@ export class ArmorData extends GearData {
         const level = this.parent?.actor?.system.attributes.level ?? 1;
         const scalar = CONFIG.CELESTUS.armor.scalars[this.slot] ?? 0;
         return {
-            phys: Math.round((this.base.phys * scalar / 100.0) * (CONFIG.CELESTUS.e ** level)),
-            mag: Math.round((this.base.mag * scalar / 100.0) * (CONFIG.CELESTUS.e ** level)),
+            phys: Math.round((this.base.phys * scalar / 100.0) * (CONFIG.CELESTUS.e ** level) * this.efficiency),
+            mag: Math.round((this.base.mag * scalar / 100.0) * (CONFIG.CELESTUS.e ** level) * this.efficiency),
         }
     }
 }
@@ -1143,6 +1143,7 @@ export class WeaponData extends GearData {
         let multCrit = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, true, abilityBonus) : 1;
         // optionally multiply by flat damage boost for npcs
         mult *= 1 + ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
+        mult *= this.efficiency;
         mult = mult.toFixed(2);
         multCrit *= 1 + ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
         multCrit = multCrit.toFixed(2);
@@ -1179,8 +1180,8 @@ export class OffhandData extends GearData {
         const level = this.parent.actor ? this.parent.actor.system.attributes.level : 1;
         const scalar = CONFIG.CELESTUS.offhand.scalar;
         return {
-            phys: Math.round((this.base.phys * scalar / 100.0) * (CONFIG.CELESTUS.e ** level)),
-            mag: Math.round((this.base.mag * scalar / 100.0) * (CONFIG.CELESTUS.e ** level)),
+            phys: Math.round((this.base.phys * scalar / 100.0) * (CONFIG.CELESTUS.e ** level) * this.efficiency),
+            mag: Math.round((this.base.mag * scalar / 100.0) * (CONFIG.CELESTUS.e ** level) * this.efficiency),
         }
     }
 }
