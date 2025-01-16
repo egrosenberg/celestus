@@ -828,6 +828,10 @@
     width: auto;
 }
 
+.celestus .shuffle {
+    flex: 0 0 20px;
+}
+
 /* roll chat message */
 .message-metadata {
     z-index: 1;

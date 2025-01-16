@@ -7,6 +7,14 @@ import { CelestusEffect } from "./effects.mjs"
 import { statuses } from "./data/statuses.mjs"
 import { npcStatSpread } from "./data/npc-stat-spreads.mjs"
 import { CelestusMeasuredTemplate } from "./measure.mjs"
+// json
+ import itemSocketSpreadJson from './data/item-socket-spreads.mjs';
+ import itemArmorPlugsJson from './data/item-armor-plugs.mjs'; 
+ import itemSocketJson from './data/item-sockets.mjs';
+
+// import * as itemSocketSpreadJson from './data/item-socket-spreads.json' with { type: "json" };
+// import * as itemArmorPlugsJson from './data/item-armor-plugs.json' with { type: "json" };
+// import * as itemSocketJson from './data/item-sockets.json' with { type: "json" };
 
 /**
  * Define a set of template paths to pre-load
@@ -22,6 +30,7 @@ const preloadHandlebarsTemplates = async function () {
         'systems/celestus/templates/actor/parts/actor-effects.hbs',
         'systems/celestus/templates/actor/parts/actor-npc-skills.hbs',
         // Item partials
+        'systems/celestus/templates/item/parts/item-creation.hbs'
         //'systems/celestus/templates/item/parts/item-effects.hbs',
     ]);
 };
@@ -157,8 +166,8 @@ Hooks.on("init", () => {
         baseCritChance: 0.05,   // base critical hit chance expressed as a percentage
         baseAccuracy: 0.95,
         twoHandMult: 0.75,
-        inspiredScalar: 1/7,
-        inspiredAttributes: [ "str", "dex", "con", "int"],
+        inspiredScalar: 1 / 7,
+        inspiredAttributes: ["str", "dex", "con", "int"],
         enlightenedBonus: { // bonus from enlightened flag
             1: { str: 1, dex: 1, int: 1, wit: 1 },
             2: { str: 1, dex: 1, int: 1, wit: 2 },
@@ -381,6 +390,17 @@ Hooks.on("init", () => {
             none: "None",
         },
         npcStats: npcStatSpread,
+        gearTypes: [
+            "armor",
+            "weapon",
+            "offhand",
+            "feature"
+        ],
+        socketable: [
+            "armor",
+            "weapon",
+            "offhand"
+        ],
         // categories of skills
         skillTypes: {
             weapon: "Weapon (combat)",
@@ -472,6 +492,35 @@ Hooks.on("init", () => {
         durableMult: 1.1,
         naturalArmorScale: 0.5,
         renewingArmorScale: 0.25,
+        // item generation related constants
+        itemRarities: {
+            "Common": "Common",
+            "Uncommon": "Uncommon",
+            "Rare": "Rare",
+            "Epic": "Epic",
+            "Legendary": "Legendary",
+            "Angelic": "Angelic",
+            "Custom": "Custom",
+        },
+        socketTypes: {
+            "None": "None",
+            "Primary": "Primary",
+            "RuneEmpty": "RuneEmpty",
+            "Normal": "Normal",
+            "Small": "Small",
+            "Large": "Large",
+            "Legendary": "Legendary",
+            "Base": "Base",
+            "BaseCommon": "BaseCommon",
+            "BaseUncommon": "BaseUncommon",
+            "BaseRare": "BaseRare",
+            "BaseEpic": "BaseEpic",
+        },
+        itemSocketSpreads: itemSocketSpreadJson.types,
+        itemPlugs: {
+            armor: itemArmorPlugsJson.plugs,
+        },
+        itemSockets: itemSocketJson.sockets,
     };
 
     // set up data models
@@ -568,7 +617,7 @@ Hooks.on("renderHotbar", renderHotbarOverlay);
 
 // hook damage preview on token select
 Hooks.on("controlToken", previewDamage);
-Hooks.on("controlToken", (d, c) => {renderHotbarOverlay(c)});
+Hooks.on("controlToken", (d, c) => { renderHotbarOverlay(c) });
 
 // handle turn changes
 Hooks.on("combatTurnChange", triggerTurn);
@@ -587,7 +636,7 @@ Handlebars.registerHelper("repeat", (n, options) => {
     let offset = parseInt(options.hash.offset);
     offset = isNaN(offset) ? 0 : offset;
     for (let i = 0; i < n; i++) {
-        output += options.fn(this).replace('@index', i+offset);
+        output += options.fn(this).replace('@index', i + offset);
     }
     return output;
 });
@@ -596,9 +645,9 @@ Handlebars.registerHelper("percent", (n, options) => {
     if (isNaN(number)) {
         return "";
     }
-    number = Math.round(number*100);
-    const signStr = options.hash.sign ? (number >= 0 ? "+" : "") : ""; 
-    return `${signStr}${number}${options.hash.symbol?"%":""}`;
+    number = Math.round(number * 100);
+    const signStr = options.hash.sign ? (number >= 0 ? "+" : "") : "";
+    return `${signStr}${number}${options.hash.symbol ? "%" : ""}`;
 });
 Handlebars.registerHelper("diff", (a, b) => {
     a = parseFloat(a);
@@ -606,7 +655,7 @@ Handlebars.registerHelper("diff", (a, b) => {
     if (isNaN(a) || isNaN(b)) {
         return "";
     }
-    return a-b;
+    return a - b;
 });
 
 
@@ -667,6 +716,6 @@ awaitElevationRuler(timeout).then(function () {
         tokenSpeed ??= SPEED.tokenSpeed(token);
         const mult = speedCategory?.multiplier ?? Number.POSITIVE_INFINITY;
         const mobile = (token.actor.getFlag("celestus", "mobile") ?? false) ? 1 : 0;
-        return Math.min(mult + mobile, 5 ) * tokenSpeed;
+        return Math.min(mult + mobile, 5) * tokenSpeed;
     };
 });

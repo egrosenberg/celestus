@@ -1,7 +1,7 @@
 import { calcMult, canvasPopupText } from "./helpers.mjs";
 
 const {
-    HTMLField, SchemaField, NumberField, StringField, FilePathField, ArrayField, BooleanField
+    HTMLField, SchemaField, NumberField, StringField, FilePathField, ArrayField, BooleanField, ObjectField
 } = foundry.data.fields;
 
 /**
@@ -1004,6 +1004,26 @@ export class GearData extends foundry.abstract.TypeDataModel {
             ownedEffects: new ArrayField(
                 new StringField()
             ),
+            // for item generation
+            socketTypes: new ArrayField(
+                new StringField(),
+                {required: true, initial: ["","","","","","","",""]}
+            ),
+            socketValues: new ArrayField(
+                new StringField(),
+                {required: true, initial: ["","","","","","","",""]}
+            ),
+            plugIds: new ArrayField(
+                new StringField(),
+                {required: true, initial: ["","","","","","","",""]}
+            ),
+            plugChanges: new ArrayField(
+                new ObjectField(),
+                {required: true, initial: [{},{},{},{},{},{},{},{}]}
+            ),
+            rarity: new StringField({required: true, initial: "Common"}),
+            level: new NumberField({required: true, initial: 1, integer: true, min: 1, max: 20}),
+            socketSpread: new StringField(),
         };
     }
     /** @override */

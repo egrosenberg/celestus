@@ -1,4 +1,4 @@
-import { rollAbility } from "./helpers.mjs";
+import { byString, rollAbility } from "./helpers.mjs";
 import { onManageActiveEffect } from "./hooks.mjs";
 
 /**
@@ -299,7 +299,6 @@ export class CharacterSheet extends ActorSheet {
             else console.error("CELESTUS | ERROR: skill not found");
         }
         else {
-            console.log($(element).parents(".item").data("item-id"));
             const item = this.actor.items.get($(element).parents(".item").data("item-id"));
             if (item) item.roll();
             else console.error("CELESTUS | ERROR: item not found");
@@ -347,7 +346,7 @@ export class CelestusItemSheet extends ItemSheet {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ['celestus', 'sheet', 'item'],
             width: 800,
-            height: 500,
+            height: 700,
             tabs: [
                 {
                     navSelector: '.sheet-tabs',
@@ -386,6 +385,48 @@ export class CelestusItemSheet extends ItemSheet {
         context.config = CONFIG.CELESTUS;
         context.statusEffects = CONFIG.statusEffects;
 
+        // item generation data
+        let generation = {
+            validSpreads: {},
+            validSockets: [],
+            plugChange: [],
+        };
+        const potentialSpreads = CONFIG.CELESTUS.itemSocketSpreads.filter(s => (
+            (s.id === this.document.system.rarity || s.parent === this.document.system.rarity) &&
+            s.minLvl <= this.document.system.level
+        ));
+        for (const spread of potentialSpreads) {
+            generation.validSpreads[spread.id] = `${spread.id} | Req. lvl ${spread.minLvl}`;
+        }
+        if (potentialSpreads.length === 0) {
+            generation.validSpreads.none = "none";
+        }
+        for (const i in this.document.system.socketTypes) {
+            const type = this.document.system.socketTypes[i];
+            if (type) {
+                let sockets = CONFIG.CELESTUS.itemSockets.filter(s => (
+                    s.type.includes(type) &&
+                    s.gearType === this.document.type &&
+                    s.slot === this.document.system.slot &&
+                    s.minLvl <= this.document.system.level
+                ));
+                if (sockets.length > 0) {
+                    generation.validSockets[i] = {};
+                    for (const socket of sockets) {
+                        generation.validSockets[i][socket.id] = socket.id;
+                    }
+                }
+                else {
+                    generation.validSockets[i] = {"none": "none"};
+                }
+            }
+            else {
+                generation.validSockets[i] = {};
+            }
+        }
+
+        context.generation = generation;
+
         // Prepare active effects for easier access
         //context.effects = prepareActiveEffectCategories(this.item.effects);
 
@@ -413,6 +454,16 @@ export class CelestusItemSheet extends ItemSheet {
             const checked = ev.currentTarget.checked;
             const name = ev.currentTarget.name;
             this.item.update({ [name]: checked });
+        });
+        // changing values in indexed select elements
+        html.on('change', '.select-index', (ev) => {
+            const t = ev.currentTarget;
+            const index = $(t).data("index");
+            const value = $(t).val();
+            const name = $(t).attr("name");
+            let current = byString(this.item, name);
+            current[index] = value;
+            this.item.update({ [name]: current });
         });
 
 
@@ -498,6 +549,28 @@ export class CelestusItemSheet extends ItemSheet {
                 let statuses = this.item.system.bonuses.statusImmune;
                 statuses[index] = type;
                 this.item.update({ "system.bonuses.statusImmune": statuses });
+            });
+            // apply gear plugs
+            html.on('click', '.apply-plugs', () => {
+                this.item.applyAllPlugs();
+            });
+            // shuffle gear sockets
+            html.on('click', '.shuffle-socket', (ev) => {
+                const t = ev.currentTarget;
+                const index = $(t).data("index");
+                this.item.autoSelectSocket(index);
+            });
+            // shuffle all gear sockets
+            html.on('click', '.shuffle-all-sockets', () => {
+                this.item.autoSelectAllSockets();
+            });
+            // shuffle all gear sockets
+            html.on('click', '.shuffle-socket-spread', () => {
+                this.item.randSocketSpread();
+            });
+            // shuffle all
+            html.on('click', '.shuffle-all', () => {
+                this.item.generateAllFromRarity();
             });
         }
         // armor specific listeners
