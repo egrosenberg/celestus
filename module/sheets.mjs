@@ -259,7 +259,9 @@ export class CharacterSheet extends ActorSheet {
         // item previews
         html.on('contextmenu', '.armor-socket-browse', (ev) => {
             const item = this.actor.items.get($(ev.currentTarget).data('itemId'));
-            item.sheet.render(true);
+            if(item) {
+                item.sheet.render(true);
+            }
         });
 
         // Rollable abilities.
