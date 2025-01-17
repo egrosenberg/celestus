@@ -1217,10 +1217,10 @@ export class WeaponData extends GearData {
             damage.push({
                 type: element.type,
                 min: Math.max(Math.floor(flat * mult), 1),
-                max: Math.max(Math.floor((flat + CONFIG.CELESTUS.weaponBonusDmgDie) * mult), 1),
-                avg: Math.max(Math.floor((flat + (CONFIG.CELESTUS.weaponBonusDmgDie / 2 + 0.5)) * mult), 1),
-                roll: `((${flat}*${mult})+1d${CONFIG.CELESTUS.weaponBonusDmgDie})`,
-                crit: `((${flat}*${multCrit})+1d${CONFIG.CELESTUS.weaponBonusDmgDie})`,
+                max: Math.max(Math.floor((flat + CONFIG.CELESTUS.weaponBonusDmgDie) * mult) - 1, 1),
+                avg: Math.max(Math.floor((flat + (CONFIG.CELESTUS.weaponBonusDmgDie / 2 + 0.5)) * mult) - 1, 1),
+                roll: `((${flat}*${mult}-1)+1d${CONFIG.CELESTUS.weaponBonusDmgDie})`,
+                crit: `((${flat}*${multCrit}-1)+1d${CONFIG.CELESTUS.weaponBonusDmgDie})`,
             });
         }
         return damage;

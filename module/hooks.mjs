@@ -156,7 +156,7 @@ export async function rollDamage(e) {
         }
         else {
             const type1 = damage[0].type;
-            const formula1 = `floor((${isCrit ? damage[0].crit : damage[0].roll})*${CONFIG.CELESTUS.twoHandMult}*${weaponScalar})`
+            const formula1 = `floor((${isCrit ? damage[0].crit : damage[0].roll})*${weaponScalar})`
 
             const r1 = new Roll(formula1);
             await r1.toMessage({
@@ -171,7 +171,7 @@ export async function rollDamage(e) {
             if (bonusDamage[0]) {
                 for (const element of bonusDamage[0]) {
                     const type = element.type;
-                    const formula = `floor((${isCrit ? element.crit : element.roll})*${CONFIG.CELESTUS.twoHandMult}*${weaponScalar})`
+                    const formula = `floor((${isCrit ? element.crit : element.roll})*${weaponScalar})`
         
                     const r = new Roll(formula);
                     await r.toMessage({
@@ -184,7 +184,7 @@ export async function rollDamage(e) {
             }
 
             const type2 = damage[1].type;
-            const formula2 = `floor((${isCrit ? damage[1].crit : damage[1].roll})*${CONFIG.CELESTUS.twoHandMult}*${weaponScalar})`
+            const formula2 = `floor((${isCrit ? damage[1].crit : damage[1].roll})*${CONFIG.CELESTUS.dualwieldMult}*${weaponScalar})`
 
             const r2 = new Roll(formula2);
             await r2.toMessage({
@@ -199,7 +199,7 @@ export async function rollDamage(e) {
             if (bonusDamage[1]) {
                 for (const element of bonusDamage[1]) {
                     const type = element.type;
-                    const formula = `floor((${isCrit ? element.crit : element.roll})*${CONFIG.CELESTUS.twoHandMult}*${weaponScalar})`
+                    const formula = `floor((${isCrit ? element.crit : element.roll})*${CONFIG.CELESTUS.dualwieldMult}*${weaponScalar})`
         
                     const r = new Roll(formula);
                     await r.toMessage({

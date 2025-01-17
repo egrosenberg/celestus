@@ -167,7 +167,7 @@ Hooks.on("init", () => {
         baseCritBonus: 0.6,   // base critical damage bonus expressed as a percentage
         baseCritChance: 0.05,   // base critical hit chance expressed as a percentage
         baseAccuracy: 0.95,
-        twoHandMult: 0.75,
+        dualwieldMult: 0.5,
         inspiredScalar: 1 / 7,
         statusChance: {
             oneHand: 0.1,
