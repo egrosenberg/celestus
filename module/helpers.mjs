@@ -145,7 +145,15 @@ export async function promptCrit() {
     return mode === "crit";
 }
 
-
+/**
+ * Checks if both a and b match or if a isn't present
+ * @param {any} a
+ * @param {any} b
+ * @returns {boolean}
+ */
+export function matchIfPresent(a, b) {
+    return typeof a === "undefined" || a === b;
+}
 
 
 

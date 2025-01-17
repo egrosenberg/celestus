@@ -122,6 +122,7 @@ export async function rollDamage(e) {
     else if (item.system.type === "weapon") {
         let weaponScalar = item.system.weaponEfficiency ?? 1;
         const damage = actor.system.weaponDamage;
+        const bonusDamage = actor.system.bonusWeaponDamage;
         if (!damage) {
             return;
         }
@@ -131,11 +132,27 @@ export async function rollDamage(e) {
 
             const r = new Roll(formula);
             await r.toMessage({
-                speaker: { alias: actor.name },
+                speaker: { alias: `${actor.name} - Weapon Damage` },
                 'system.isDamage': true,
                 'system.damageType': type,
                 'system.actorID': actorID,
             });
+
+            // roll any bonus damage types
+            if (bonusDamage[0]) {
+                for (const element of bonusDamage[0]) {
+                    const type = element.type;
+                    const formula = `floor((${isCrit ? element.crit : element.roll})*${weaponScalar})`
+        
+                    const r = new Roll(formula);
+                    await r.toMessage({
+                        speaker: { alias: `${actor.name} - Bonus Weapon Damage` },
+                        'system.isDamage': true,
+                        'system.damageType': type,
+                        'system.actorID': actorID,
+                    });
+                }
+            }
         }
         else {
             const type1 = damage[0].type;
@@ -143,21 +160,56 @@ export async function rollDamage(e) {
 
             const r1 = new Roll(formula1);
             await r1.toMessage({
-                speaker: { alias: actor.name },
+                speaker: { alias: `${actor.name} - Main Hand Damage` },
                 'system.isDamage': true,
                 'system.damageType': type1,
                 'system.actorID': actorID,
             });
+
+            
+            // roll any bonus damage types
+            if (bonusDamage[0]) {
+                for (const element of bonusDamage[0]) {
+                    const type = element.type;
+                    const formula = `floor((${isCrit ? element.crit : element.roll})*${CONFIG.CELESTUS.twoHandMult}*${weaponScalar})`
+        
+                    const r = new Roll(formula);
+                    await r.toMessage({
+                        speaker: { alias: `${actor.name} - Bonus Main Hand Damage` },
+                        'system.isDamage': true,
+                        'system.damageType': type,
+                        'system.actorID': actorID,
+                    });
+                }
+            }
+
             const type2 = damage[1].type;
             const formula2 = `floor((${isCrit ? damage[1].crit : damage[1].roll})*${CONFIG.CELESTUS.twoHandMult}*${weaponScalar})`
 
             const r2 = new Roll(formula2);
             await r2.toMessage({
-                speaker: { alias: actor.name },
+                speaker: { alias: `${actor.name} - Offhand Damage` },
                 'system.isDamage': true,
                 'system.damageType': type2,
                 'system.actorID': actorID,
             });
+
+            
+            // roll any bonus damage types
+            if (bonusDamage[1]) {
+                for (const element of bonusDamage[1]) {
+                    const type = element.type;
+                    const formula = `floor((${isCrit ? element.crit : element.roll})*${CONFIG.CELESTUS.twoHandMult}*${weaponScalar})`
+        
+                    const r = new Roll(formula);
+                    await r.toMessage({
+                        speaker: { alias: `${actor.name} - Bonus Offhand Damage` },
+                        'system.isDamage': true,
+                        'system.damageType': type,
+                        'system.actorID': actorID,
+                    });
+                }
+            }
         }
     }
 }

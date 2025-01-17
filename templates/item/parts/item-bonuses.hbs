@@ -1,0 +1,143 @@
+<h3>Prerequisites</h3>
+<div class="attribute-section">
+    {{#each system.prereqs as |value key|}}
+    <div class="attribute">
+        <label for="system.prereqs.{{key}}" class="resource-label rollable flexlarge align-left" data-label="key">
+            {{#with (lookup ../config.abilities key)}}{{label}}{{/with}}
+        </label>
+        <input type="text" name="system.prereqs.{{key}}" value="{{value}}" data-dtype="Number" />
+    </div>
+    {{/each}}
+</div>
+{{!-- bonuses from armor --}}
+<h3>Bonuses</h3>
+<h4>Combat</h4>
+<div class="attribute-section">
+    {{#each system.bonuses.combat as |value key|}}
+    <div class="attribute {{#with (lookup ../config.combatSkills key)}}{{damage}}{{/with}}">
+        <label for="system.bonuses.combat.{{key}}" class="resource-label rollable flexlarge align-left"
+            data-label="key">
+            {{#with (lookup ../config.combatSkills key)}}
+            <i class="{{glyph}}"></i> {{label}}
+            {{/with}}
+        </label>
+        <input type="text" name="system.bonuses.combat.{{key}}" value="{{value}}" data-dtype="Number" />
+    </div>
+    {{/each}}
+</div>
+<h4>Civil</h4>
+<div class="attribute-section">
+    {{#each system.bonuses.civil as |value key|}}
+    <div class="attribute" style="background-color: {{#with (lookup ../config.civilSkills key)}}{{color}}{{/with}};">
+        <label for="system.bonuses.civil.{{key}}" class="resource-label rollable flexlarge align-left" data-label="key">
+            {{#with (lookup ../config.civilSkills key)}}
+            <i class="{{glyph}}"></i> {{label}}
+            {{/with}}
+        </label>
+        <input type="text" name="system.bonuses.civil.{{key}}" value="{{value}}" data-dtype="Number" />
+    </div>
+    {{/each}}
+</div>
+<h4>Attributes</h4>
+<div class="attribute-section">
+    {{#each system.bonuses.abilities as |value key|}}
+    <div class="attribute">
+        <label for="system.bonuses.abilities.{{key}}" class="resource-label rollable flexlarge align-left"
+            data-label="key">
+            {{#with (lookup ../config.abilities key)}}
+            {{label}}
+            {{/with}}
+        </label>
+        <input type="text" name="system.bonuses.abilities.{{key}}" value="{{value}}" data-dtype="Number" />
+    </div>
+    {{/each}}
+</div>
+<h4>Resistances</h4>
+<div class="attribute-section">
+    {{#each system.bonuses.resistance as |value key|}}
+    <div class="attribute" style="background-color: {{#with (lookup ../config.damageTypes key)}}{{color}}{{/with}};">
+        <label for="system.bonuses.resistance.{{key}}" class="resource-label rollable flexlarge align-left"
+            data-label="key">
+            {{#with (lookup ../config.damageTypes key)}}
+            <i class="{{glyph}}"></i> {{label}}
+            {{/with}}
+        </label>
+        <input type="text" name="system.bonuses.resistance.{{key}}" value="{{value}}" data-dtype="Number" />
+    </div>
+    {{/each}}
+</div>
+<h4>Miscellaneous Bonuses</h4>
+<div class="attribute-section">
+    {{!-- Crit Chance --}}
+    <div class="attribute">
+        <label for="system.bonuses.crit_chance" class="resource-label rollable flexlarge align-left"
+            data-label="Crit Chance">
+            Crit Chance
+        </label>
+        <input type="text" name="system.bonuses.crit_chance" value="{{system.bonuses.crit_chance}}"
+            data-dtype="Number" />
+    </div>
+    {{!-- Crit Damage --}}
+    <div class="attribute">
+        <label for="system.bonuses.crit_bonus" class="resource-label rollable flexlarge align-left"
+            data-label="Crit Damage">
+            Crit Damage
+        </label>
+        <input type="text" name="system.bonuses.crit_bonus" value="{{system.bonuses.crit_bonus}}" data-dtype="Number" />
+    </div>
+    {{!-- Accuracy --}}
+    <div class="attribute">
+        <label for="system.bonuses.accuracy" class="resource-label rollable flexlarge align-left" data-label="Accuracy">
+            Accuracy
+        </label>
+        <input type="text" name="system.bonuses.accuracy" value="{{system.bonuses.accuracy}}" data-dtype="Number" />
+    </div>
+    {{!-- Evasion --}}
+    <div class="attribute">
+        <label for="system.bonuses.evasion" class="resource-label rollable flexlarge align-left" data-label="Evasion">
+            Evasion
+        </label>
+        <input type="text" name="system.bonuses.evasion" value="{{system.bonuses.evasion}}" data-dtype="Number" />
+    </div>
+    {{!-- Initiative --}}
+    <div class="attribute">
+        <label for="system.bonuses.initiative" class="resource-label rollable flexlarge align-left"
+            data-label="Initiative">
+            Initiative
+        </label>
+        <input type="text" name="system.bonuses.initiative" value="{{system.bonuses.initiative}}" data-dtype="Number" />
+    </div>
+</div>
+{{!-- StatusEffects --}}
+<h3>Status Immunities</h3>
+<div class="attribute-section">
+    <li class="item flexrow damage-header" draggable="true">
+        <div class="damage-type">Status Name</div>
+        <div class="item-controls">
+            <a class="item-control list-create" title="Create New StatusEffect" name="system.bonuses.statusImmune">
+                <i class="fas fa-plus"></i>
+                Add Status
+            </a>
+        </div>
+    </li>
+    {{!-- create editor for each damage type --}}
+    {{#each system.bonuses.statusImmune as |status|}}
+    <li class="item flexrow">
+        <div class="status-type flexrow">
+            <select class="list-type-selector" name="system.bonuses.statusImmune" data-index="{{@index}}">
+                {{#each ../statusEffects as |statusEffect|}}
+                <option value="{{statusEffect.id}}" {{ifThen (eq statusEffect.id status) "selected" "" }}>
+                    {{statusEffect.name}}
+                </option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="item-controls">
+            <a class="item-control list-delete" title="Delete StatusEffect" name="system.bonuses.statusImmune"
+                data-index="{{@index}}">
+                <i class="fas fa-trash"></i>
+            </a>
+        </div>
+    </li>
+    {{/each}}
+</div>

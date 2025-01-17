@@ -1,4 +1,4 @@
-import { byString, calcMult } from "./helpers.mjs";
+import { byString, calcMult, matchIfPresent } from "./helpers.mjs";
 
 /**
  * Extends the basic item class for skills
@@ -84,7 +84,7 @@ export class CelestusItem extends Item {
             // apply spread
             let socketSpread = changed.system?.socketSpread;
             if (socketSpread && socketSpread !== this.system.socketSpread || newRarity) {
-                if (newRarity) {
+                if (!socketSpread) {
                     socketSpread = newRarity;
                 }
                 const spread = CONFIG.CELESTUS.itemSocketSpreads.find(s => s.id === socketSpread);
@@ -94,7 +94,6 @@ export class CelestusItem extends Item {
                         socketTypes.push(socket);
                     }
                     this.updateSource({"system.socketTypes": socketTypes});
-                    console.log(this.system.socketTypes, socketTypes)
                 }
             }
             // update plug id when selecting a socket
@@ -292,7 +291,7 @@ export class CelestusItem extends Item {
         const validSockets = CONFIG.CELESTUS.itemSockets.filter(s => (
             s.type.includes(socketType) &&
             s.gearType === this.type &&
-            s.slot === this.system.slot &&
+            matchIfPresent(s.slot, this.system.slot) &&
             s.minLvl <= this.system.level
         ));
         // if no valid sockets, ignore

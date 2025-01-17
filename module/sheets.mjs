@@ -530,27 +530,31 @@ export class CelestusItemSheet extends ItemSheet {
         // gear listeners
         else {
             // remove status effect
-            html.on('click', '.status-delete', (ev) => {
+            html.on('click', '.list-delete', (ev) => {
                 const t = ev.currentTarget;
+                const name = $(t).attr("name");
                 const index = $(t).data("index");
-                let statuses = this.item.system.bonuses.statusImmune;
+                let statuses = byString(this.item, name);
                 statuses.splice(index, 1);
-                this.item.update({ "system.bonuses.statusImmune": statuses });
+                this.item.update({ [name]: statuses });
             });
             // add status effect
-            html.on('click', '.status-create', (ev) => {
-                let statuses = this.item.system.bonuses.statusImmune;
+            html.on('click', '.list-create', (ev) => {
+                const t = ev.currentTarget;
+                const name = $(t).attr("name");
+                let statuses = byString(this.item, name);
                 statuses.push("death");
-                this.item.update({ "system.bonuses.statusImmune": statuses });
+                this.item.update({ [name]: statuses });
             });
             // operate changes on status effect
-            html.on('change', '.status-type select', (ev) => {
+            html.on('change', '.list-type select', (ev) => {
                 const t = ev.currentTarget;
                 const index = $(t).data("index");
+                const name = $(t).attr("name");
                 const type = $(t).val();
-                let statuses = this.item.system.bonuses.statusImmune;
+                let statuses = byString(this.item, name);
                 statuses[index] = type;
-                this.item.update({ "system.bonuses.statusImmune": statuses });
+                this.item.update({ [name]: statuses });
             });
             // apply gear plugs
             html.on('click', '.apply-plugs', () => {
@@ -582,6 +586,41 @@ export class CelestusItemSheet extends ItemSheet {
                 const key = $(ev.currentTarget).attr("name");
                 const value = $(ev.currentTarget).val();
                 this.item.update({ key: value });
+            });
+        }
+        // weapon specific
+        else if (this.item.type === "weapon") {
+            // operate changes on damage type
+            html.on('change', '.damage-type select', (ev) => {
+                const t = ev.currentTarget;
+                const index = $(t).data("index");
+                const type = $(t).val();
+                let damage = this.item.system.bonusElements;
+                damage[index].type = type;
+                this.item.update({ "system.bonusElements": damage });
+            });
+            // get damage values
+            html.on('change', '.damage-amount input', (ev) => {
+                const t = ev.currentTarget;
+                const index = $(t).data("index");
+                const value = $(t).val();
+                let damage = this.item.system.bonusElements;
+                damage[index].value = value;
+                this.item.update({ "system.bonusElements": damage });
+            });
+            // remove damage element
+            html.on('click', '.damage-delete', (ev) => {
+                const t = ev.currentTarget;
+                const index = $(t).data("index");
+                let damage = this.item.system.bonusElements;
+                damage.splice(index, 1);
+                this.item.update({ "system.bonusElements": damage });
+            });
+            // add damage element
+            html.on('click', '.damage-create', (ev) => {
+                let damage = this.item.system.bonusElements;
+                damage.push({ type: "none", value: 0.0 });
+                this.item.update({ "system.bonusElements": damage });
             });
         }
 

@@ -30,7 +30,8 @@ const preloadHandlebarsTemplates = async function () {
         'systems/celestus/templates/actor/parts/actor-effects.hbs',
         'systems/celestus/templates/actor/parts/actor-npc-skills.hbs',
         // Item partials
-        'systems/celestus/templates/item/parts/item-creation.hbs'
+        'systems/celestus/templates/item/parts/item-creation.hbs',
+        'systems/celestus/templates/item/parts/item-bonuses.hbs',
         //'systems/celestus/templates/item/parts/item-effects.hbs',
     ]);
 };
@@ -43,7 +44,7 @@ Hooks.on("init", () => {
         rollItemMacro,
     }
     // override initiative rolls
-    game.system.initiative = "1d20+@abilities.wit.total";
+    game.system.initiative = "1d20+@abilities.wit.total+@attributes.bonuses.initiative.value";
 
     // create Celestus entry in CONFIG
     CONFIG.CELESTUS = {
@@ -127,6 +128,7 @@ Hooks.on("init", () => {
             crit_bonus: { label: "Crit Damage", text: "crit_bonus", symbol: '\u00D7' },
             accuracy: { label: "Accuracy", text: "accuracy", symbol: "" },
             evasion: { label: "Evasion", text: "evasion", symbol: "" },
+            lifesteal: { label: "Lifesteal", text: "lifesteal" },
             damage: { label: "Damage Increase", text: "damage", symbol: '\u00D7' },
         },
         abilityMod: { // ability modifer percentages per point above or below 10
@@ -167,6 +169,11 @@ Hooks.on("init", () => {
         baseAccuracy: 0.95,
         twoHandMult: 0.75,
         inspiredScalar: 1 / 7,
+        statusChance: {
+            oneHand: 0.1,
+            twoHand: 0.2
+        },
+        weaponBonusDmgDie: 4,
         inspiredAttributes: ["str", "dex", "con", "int"],
         enlightenedBonus: { // bonus from enlightened flag
             1: { str: 1, dex: 1, int: 1, wit: 1 },
