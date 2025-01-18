@@ -170,8 +170,8 @@ Hooks.on("init", () => {
         dualwieldMult: 0.5,
         inspiredScalar: 1 / 7,
         statusChance: {
-            oneHand: 0.1,
-            twoHand: 0.2
+            oneHand: 10,
+            twoHand: 20
         },
         weaponBonusDmgDie: 4,
         inspiredAttributes: ["str", "dex", "con", "int"],

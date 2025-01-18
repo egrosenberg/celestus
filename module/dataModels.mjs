@@ -558,7 +558,7 @@ export class PlayerData extends ActorData {
         if (!equipped.left) {
             return false;
         }
-        // two weapon
+        // one weapon
         else if (equipped.left.system.twoHanded || !equipped.right || equipped.right.type === "offhand") {
             return [equipped.left.system.damage];
         }
@@ -580,7 +580,7 @@ export class PlayerData extends ActorData {
         if (!equipped.left) {
             return false;
         }
-        // two weapon
+        // one weapon
         else if (equipped.left.system.twoHanded || !equipped.right || equipped.right.type === "offhand") {
             return [equipped.left.system.bonusDamage];
         }
@@ -588,6 +588,28 @@ export class PlayerData extends ActorData {
         else {
             const left = equipped.left.system.bonusDamage;
             const right = equipped.right.system.bonusDamage;
+            return [left, right];
+        }
+    }
+
+    /**
+     * Gets status apply rolls from equipped weapons
+     * @returns {false|Array[Object]} false if no weapon or array of damage status effect rolls
+     */
+    get weaponStatusRolls() {
+        const equipped = this.equipped;
+        // return early if no equipped weapons
+        if (!equipped.left) {
+            return false;
+        }
+        // one weapon
+        else if (equipped.left.system.twoHanded || !equipped.right || equipped.right.type === "offhand") {
+            return [equipped.left.system.statusApplyRolls];
+        }
+        // two single handed
+        else {
+            const left = equipped.left.system.statusApplyRolls;
+            const right = equipped.right.system.statusApplyRolls;
             return [left, right];
         }
     }

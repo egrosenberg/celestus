@@ -1,0 +1,16 @@
+<div class="celestus roll status">
+    {{#each statuses as |status|}}
+    <div class="status {{ifThen status.success "success"}}" data-actor-id="{{actorId}}" data-status-id="{{status.id}}">
+        <span class="roll result {{ifThen status.success "success" "failure"}}">
+            {{status.roll}}
+        </span>
+        <span class="status-label">
+            ({{ifThen status.success "Success" "Failure"}})
+        </span>
+        <span class="status-label">
+            {{status.name}} 
+        </span>
+        <img class="status-icon" src="{{status.icon}}" />
+    </div>
+    {{/each}}
+</div>

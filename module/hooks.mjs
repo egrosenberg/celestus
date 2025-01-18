@@ -1,4 +1,4 @@
-import { calcMult, promptCrit, rollWeaponDamage } from "./helpers.mjs";
+import { applyWeaponStatus, calcMult, promptCrit, rollWeaponDamage } from "./helpers.mjs";
 
 const RED = '#e29292';
 const GREEN = '#92e298';
@@ -123,15 +123,16 @@ export async function rollDamage(e) {
         let weaponScalar = item.system.weaponEfficiency ?? 1;
         const damage = actor.system.weaponDamage;
         const bonusDamage = actor.system.bonusWeaponDamage;
+        const statuses = actor.system.weaponStatusRolls;
         if (!damage || damage.length === 0) {
             return;
         }
         if (damage.length === 1) {
-            await rollWeaponDamage(actor, damage[0], bonusDamage, isCrit, weaponScalar);
+            await rollWeaponDamage(actor, damage[0], bonusDamage[0], statuses[0], isCrit, weaponScalar);
         }
         else {
-            await rollWeaponDamage(actor, damage[0], bonusDamage, isCrit, weaponScalar);
-            await rollWeaponDamage(actor, damage[1], bonusDamage, isCrit, weaponScalar * CONFIG.CELESTUS.dualwieldMult);
+            await rollWeaponDamage(actor, damage[0], bonusDamage[0], statuses[0], isCrit, weaponScalar);
+            await rollWeaponDamage(actor, damage[1], bonusDamage[1], statuses[1], isCrit, weaponScalar * CONFIG.CELESTUS.dualwieldMult);
         }
     }
 }
@@ -282,8 +283,8 @@ export async function addChatButtons(msg, html, options) {
             dmgTotal += roll.total;
         }
         html.append(`<button data-origin-actor="${msg.system.actorID}" data-origin-item="${msg.system.itemID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\ ${disabled}">Apply Damage</button>`);
-
     }
+    html.on('click', '.status.success', applyWeaponStatus);
 }
 
 /**

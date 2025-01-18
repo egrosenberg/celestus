@@ -836,6 +836,7 @@
 .message-metadata {
     z-index: 1;
 }
+
 .celestus.roll.description {
     margin-top: -1.25em;
 }
@@ -913,6 +914,68 @@
     margin: 0.1em;
 }
 
+/* weapon status rolls */
+.celestus.roll.status .status {
+    color: white;
+    font-weight: bold;
+    line-height: 24px;
+    font-size: var(--font-size-16);
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+    background-color: var(--color-cool-4);
+    border-radius: 5px;
+}
+
+.celestus.roll.status .status.success:hover {
+    cursor: pointer;
+    background-color: var(--color-cool-5);
+}
+
+.celestus.roll.status .roll {
+    position: relative;
+    min-width: 24px;
+    line-height: 24px;
+    float: left;
+    margin-right: 5px;
+    background-image: url("../svg/d6-grey.svg");
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    font-size: var(--font-size-16);
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+}
+
+.celestus.roll.status .roll.failure {
+    color: #aa0200;
+    filter: sepia(0.5) hue-rotate(-60deg);
+}
+
+.celestus.roll.status .roll.success {
+    color: #18520b;
+    filter: sepia(0.5) hue-rotate(60deg);
+}
+
+.celestus.roll.status .roll.result {
+    background-image: url("../svg/d10-grey.svg");
+}
+
+.celestus.roll.status .status-label {
+    float: left;
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.celestus.roll.status .status-icon {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: none;
+}
+
 /* Macro Bar */
 .macro-overlay {
     position: absolute;
@@ -930,8 +993,8 @@
 
 /* Action Point Icons */
 .action-point.full {
-    background: rgb(226,244,0);
-    background: radial-gradient(circle at 60% 30%, rgb(148, 201, 2) 0%, rgba(46,77,0,1) 100%);
+    background: rgb(226, 244, 0);
+    background: radial-gradient(circle at 60% 30%, rgb(148, 201, 2) 0%, rgba(46, 77, 0, 1) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px rgb(0, 0, 0);

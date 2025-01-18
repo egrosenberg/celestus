@@ -141,7 +141,7 @@ export async function promptCrit() {
             }
         }).render({ force: true });
     })
-    const mode =  await promise;
+    const mode = await promise;
     return mode === "crit";
 }
 
@@ -150,12 +150,49 @@ export async function promptCrit() {
  * @param {Actor} actor 
  * @param {Object} damage Damage element for base damage
  * @param {Object[]} bonusDamage Array of bonus damage elements
+ * @param {Object[]} statuses statusApplyRolls from weapon
  * @param {Boolean} isCrit
  * @param {Number} scalar Overall weapon damage scalar
  */
-export async function rollWeaponDamage(actor, damage, bonusDamage, isCrit, scalar) {
+export async function rollWeaponDamage(actor, damage, bonusDamage, statuses, isCrit, scalar) {
     const type = damage.type;
     const formula = `floor((${isCrit ? damage.crit : damage.roll})*${scalar})`
+
+    // roll to apply statuses
+    if (statuses) {
+        let statusRolls = [];
+        for (const status of statuses) {
+            const roll = new Roll("1d100");
+            await roll.evaluate();
+            const statusEffect = CONFIG.statusEffects.find(s => s.id === status.id);
+            statusRolls.push({
+                name: statusEffect.name,
+                icon: statusEffect.img,
+                roll: roll.total,
+                success: roll.total > 100 - status.chance,
+                id: status.id
+            })
+        }
+
+        const path = './systems/celestus/templates/rolls/weapon-roll-statuses.hbs';
+        const msgData = {
+            statuses: statusRolls,
+            actorId: actor.uuid,
+        }
+        let msg = await renderTemplate(path, msgData);
+        // do text enrichment
+        msg = await TextEditor.enrichHTML(
+            msg,
+            {
+                async: true,
+            }
+        );
+        await ChatMessage.create({
+            content: msg,
+            'system.type': "weaponStatuses",
+            'system.actorID': actor.uuid,
+        });
+    }
 
     const r = new Roll(formula);
     await r.toMessage({
@@ -167,7 +204,7 @@ export async function rollWeaponDamage(actor, damage, bonusDamage, isCrit, scala
 
     // roll any bonus damage types
     if (bonusDamage) {
-        for (const element of bonusDamage[0]) {
+        for (const element of bonusDamage) {
             const type = element.type;
             const formula = `floor((${isCrit ? element.crit : element.roll})*${scalar})`
 
@@ -180,6 +217,24 @@ export async function rollWeaponDamage(actor, damage, bonusDamage, isCrit, scala
             });
         }
     }
+}
+
+export async function applyWeaponStatus(ev) {
+    const target = _token.actor;
+    if (!target) return;
+
+    // get info from press
+    const t = ev.currentTarget;
+    const statusId = $(t).data("statusId");
+    const actorId = $(t).data("actorId");
+    
+    // apply status effect
+    const statusEffect = await ActiveEffect.fromStatusEffect(statusId);
+    statusEffect.updateSource({"origin": actorId})
+    await target.createEmbeddedDocuments(
+        "ActiveEffect",
+        [statusEffect]
+    );
 }
 
 /**
