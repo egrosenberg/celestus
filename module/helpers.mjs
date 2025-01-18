@@ -146,6 +146,43 @@ export async function promptCrit() {
 }
 
 /**
+ * 
+ * @param {Actor} actor 
+ * @param {Object} damage Damage element for base damage
+ * @param {Object[]} bonusDamage Array of bonus damage elements
+ * @param {Boolean} isCrit
+ * @param {Number} scalar Overall weapon damage scalar
+ */
+export async function rollWeaponDamage(actor, damage, bonusDamage, isCrit, scalar) {
+    const type = damage.type;
+    const formula = `floor((${isCrit ? damage.crit : damage.roll})*${scalar})`
+
+    const r = new Roll(formula);
+    await r.toMessage({
+        speaker: { alias: `${actor.name} - Weapon Damage` },
+        'system.isDamage': true,
+        'system.damageType': type,
+        'system.actorID': actor.uuid,
+    });
+
+    // roll any bonus damage types
+    if (bonusDamage) {
+        for (const element of bonusDamage[0]) {
+            const type = element.type;
+            const formula = `floor((${isCrit ? element.crit : element.roll})*${scalar})`
+
+            const r = new Roll(formula);
+            await r.toMessage({
+                speaker: { alias: `${actor.name} - Bonus Weapon Damage` },
+                'system.isDamage': true,
+                'system.damageType': type,
+                'system.actorID': actor.uuid,
+            });
+        }
+    }
+}
+
+/**
  * Checks if both a and b match or if a isn't present
  * @param {any} a
  * @param {any} b

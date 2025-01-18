@@ -1,4 +1,4 @@
-import { calcMult, promptCrit } from "./helpers.mjs";
+import { calcMult, promptCrit, rollWeaponDamage } from "./helpers.mjs";
 
 const RED = '#e29292';
 const GREEN = '#92e298';
@@ -123,93 +123,15 @@ export async function rollDamage(e) {
         let weaponScalar = item.system.weaponEfficiency ?? 1;
         const damage = actor.system.weaponDamage;
         const bonusDamage = actor.system.bonusWeaponDamage;
-        if (!damage) {
+        if (!damage || damage.length === 0) {
             return;
         }
         if (damage.length === 1) {
-            const type = damage[0].type;
-            const formula = `floor((${isCrit ? damage[0].crit : damage[0].roll})*${weaponScalar})`
-
-            const r = new Roll(formula);
-            await r.toMessage({
-                speaker: { alias: `${actor.name} - Weapon Damage` },
-                'system.isDamage': true,
-                'system.damageType': type,
-                'system.actorID': actorID,
-            });
-
-            // roll any bonus damage types
-            if (bonusDamage[0]) {
-                for (const element of bonusDamage[0]) {
-                    const type = element.type;
-                    const formula = `floor((${isCrit ? element.crit : element.roll})*${weaponScalar})`
-        
-                    const r = new Roll(formula);
-                    await r.toMessage({
-                        speaker: { alias: `${actor.name} - Bonus Weapon Damage` },
-                        'system.isDamage': true,
-                        'system.damageType': type,
-                        'system.actorID': actorID,
-                    });
-                }
-            }
+            await rollWeaponDamage(actor, damage[0], bonusDamage, isCrit, weaponScalar);
         }
         else {
-            const type1 = damage[0].type;
-            const formula1 = `floor((${isCrit ? damage[0].crit : damage[0].roll})*${weaponScalar})`
-
-            const r1 = new Roll(formula1);
-            await r1.toMessage({
-                speaker: { alias: `${actor.name} - Main Hand Damage` },
-                'system.isDamage': true,
-                'system.damageType': type1,
-                'system.actorID': actorID,
-            });
-
-            
-            // roll any bonus damage types
-            if (bonusDamage[0]) {
-                for (const element of bonusDamage[0]) {
-                    const type = element.type;
-                    const formula = `floor((${isCrit ? element.crit : element.roll})*${weaponScalar})`
-        
-                    const r = new Roll(formula);
-                    await r.toMessage({
-                        speaker: { alias: `${actor.name} - Bonus Main Hand Damage` },
-                        'system.isDamage': true,
-                        'system.damageType': type,
-                        'system.actorID': actorID,
-                    });
-                }
-            }
-
-            const type2 = damage[1].type;
-            const formula2 = `floor((${isCrit ? damage[1].crit : damage[1].roll})*${CONFIG.CELESTUS.dualwieldMult}*${weaponScalar})`
-
-            const r2 = new Roll(formula2);
-            await r2.toMessage({
-                speaker: { alias: `${actor.name} - Offhand Damage` },
-                'system.isDamage': true,
-                'system.damageType': type2,
-                'system.actorID': actorID,
-            });
-
-            
-            // roll any bonus damage types
-            if (bonusDamage[1]) {
-                for (const element of bonusDamage[1]) {
-                    const type = element.type;
-                    const formula = `floor((${isCrit ? element.crit : element.roll})*${CONFIG.CELESTUS.dualwieldMult}*${weaponScalar})`
-        
-                    const r = new Roll(formula);
-                    await r.toMessage({
-                        speaker: { alias: `${actor.name} - Bonus Offhand Damage` },
-                        'system.isDamage': true,
-                        'system.damageType': type,
-                        'system.actorID': actorID,
-                    });
-                }
-            }
+            await rollWeaponDamage(actor, damage[0], bonusDamage, isCrit, weaponScalar);
+            await rollWeaponDamage(actor, damage[1], bonusDamage, isCrit, weaponScalar * CONFIG.CELESTUS.dualwieldMult);
         }
     }
 }
