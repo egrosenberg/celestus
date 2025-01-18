@@ -628,6 +628,12 @@
     margin-right: 2px;
 }
 
+.celestus .fp-icon {
+    color: gold;
+    text-shadow: var(--text-outline-1);
+    margin-right: 2px;
+}
+
 /* Skill Rolls */
 .celestus.actor.sheet .ability-roll {
     cursor: pointer;
@@ -1013,5 +1019,29 @@
 }
 
 .action-point.small {
+    font-size: var(--font-size-18);
+}
+
+.focus-point.full {
+    background: rgb(244, 228, 0);
+    background: radial-gradient(circle at 60% 30%, rgb(255, 238, 0) 0%, rgb(145, 41, 0) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px rgb(0, 0, 0);
+    background-clip: text;
+    margin: 2px;
+}
+
+.focus-point.empty {
+    background: rgb(27, 27, 27);
+    background: radial-gradient(circle, rgb(107, 107, 107) 0%, rgb(20, 20, 20) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px rgb(0, 0, 0);
+    background-clip: text;
+    margin: 2px;
+}
+
+.focus-point.small {
     font-size: var(--font-size-18);
 }

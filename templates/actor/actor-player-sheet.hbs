@@ -33,9 +33,9 @@
 
                 </span>
                 <h2>Resources</h2>
-                <div class="resources grid" id="action-points">
+                <div class="resources grid" id="action-points" style="text-align: center;">
                     <span class="resource">
-                        <label class="resource-label">AP: </label>
+                        {{!--<label class="resource-label">AP: </label>--}}
                         {{#repeat system.resources.ap.value}}
                         <a class="ap-interact" data-index="@index">
                             <i class="fa-solid fa-circle action-point full small"></i>
@@ -47,7 +47,23 @@
                             <i class="fa-solid fa-circle action-point empty small"></i>
                         </a>
                         {{/repeat}}
+                    <br/>
+                    {{!-- only renders focus points if max focus points have been manually set --}}
+                    {{#if system.resources.fp.max}}
+                        {{!--<label class="resource-label">FP: </label>--}}
+                        {{#repeat system.resources.fp.value}}
+                        <a class="fp-interact" data-index="@index">
+                            <i class="fa-solid fa-diamond focus-point full small"></i>
+                        </a>
+                        {{/repeat}}
+                        {{#repeat (diff system.resources.fp.max system.resources.fp.value)
+                        offset=system.resources.fp.value}}
+                        <a class="fp-interact" data-index="@index">
+                            <i class="fa-solid fa-diamond focus-point empty small"></i>
+                        </a>
+                        {{/repeat}}
                     </span>
+                    {{/if}}
                 </div>
                 <div class="resources grid" id="hp">
                     <span class="resource">
@@ -80,20 +96,6 @@
                         </span>
                     </span>
                 </div>
-                {{!-- only renders focus points if max focus points have been manually set --}}
-                {{#if system.resources.fp.max}}
-                <div class="resources grid" id="fp">
-                    <span class="resource">
-                        <label class="resource-label single">Focus Points</label><br />
-                        <span class="resource-value poison" id="system.resources.fp" style="flex: 2">
-                            <input class="resource-input" type="number" name="system.resources.fp.value"
-                                value="{{system.resources.fp.value}}" data-dtype="Number"
-                                data-max-value="{{system.resources.fp.max}}" /> <span
-                                class="total">/{{system.resources.fp.max}}</span>
-                        </span>
-                    </span>
-                </div>
-                {{/if}}
                 <h2>Attribute Totals</h2>
                 <div class="stats-grid">
                     <h4>Unspent: {{numberFormat system.attributes.unspentPoints sign=true}}</h4>
@@ -127,7 +129,8 @@
                     {{#each system.attributes.statusImmune as |value status|}}
                     {{#if value}}
                     {{#with (lookup ../statusEffects status)}}
-                    <div class="ability flexrow flex-group-center" style="background-color: rgba(255, 255, 255, 0.719);">
+                    <div class="ability flexrow flex-group-center"
+                        style="background-color: rgba(255, 255, 255, 0.719);">
                         <label class="resource-label rollable flexlarge align-left" style="flex: 1">
                             Immune to {{name}}
                         </label>
@@ -158,8 +161,8 @@
                     <div class="armor-socket-label">{{lookup ../config.equipmentSlots slot}}</div>
                     <a class="armor-socket-browse" data-slot="{{slot}}" data-item-id="{{piece._id}}">
                         <img class="armor-socket-icon" src="{{piece.img}}" title="{{piece.name}}"
-                        style="{{ifThen piece.img "" "opacity: 0.0;"}}"
-                        {{#if (and piece.system.twoHanded (eq slot "right" ))}}style="opacity: 0.5" {{/if}} />
+                            style="{{ifThen piece.img "" " opacity: 0.0;"}}" {{#if (and piece.system.twoHanded (eq
+                            slot "right" ))}}style="opacity: 0.5" {{/if}} />
                     </a>
                 </div>
                 {{/each}}

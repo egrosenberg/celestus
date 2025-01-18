@@ -14,7 +14,8 @@
             <img class="roll-icon" src="{{portrait}}" title="{{name}}" />
             {{/if}}
             <div class="name-stacked">
-                <span class="title">{{name}}</span>
+                <div class="title">{{name}}</div>
+                <div class="subtitle">{{lookup config.skillTypes item.system.type}}</div>
             </div>
         </header>
         <div class="roll-tags">
@@ -44,6 +45,18 @@
             {{#if item.system.targetMode}}
             <span class="roll-tag">
                 {{item.system.targetMode}}
+            </span>
+            {{/if}}
+            {{!-- action points --}}
+            {{#if (gt item.system.ap 0)}}
+            <span class="roll-tag">
+                {{item.system.ap}} AP
+            </span>
+            {{/if}}
+            {{!-- focus points --}}
+            {{#if (gt item.system.fp 0)}}
+            <span class="roll-tag">
+                {{item.system.fp}} FP
             </span>
             {{/if}}
             {{!-- cooldown --}}

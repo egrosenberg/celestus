@@ -28,12 +28,12 @@
             </div>{{/if}}
             {{#if (gt system.ap 0)}}
             <div class="quick-reference">
-                AP Cost: {{system.ap}}
+                {{system.ap}} AP
             </div>
             {{/if}}
             {{#if system.fp}}
             <div class="quick-reference">
-                FP Cost: {{system.fp}}
+                {{system.fp}} FP
             </div>
             {{/if}}
             <div class="quick-reference">
@@ -156,6 +156,11 @@
                             <div class="general attribute">
                                 <label for="system.ap" class="resource-label">Action Points: </label>
                                 <input type="text" name="system.ap" value="{{system.ap}}" data-dtype="Number" />
+                            </div>
+                            {{!-- FP cost --}}
+                            <div class="general attribute">
+                                <label for="system.fp" class="resource-label">Focus Points: </label>
+                                <input type="text" name="system.fp" value="{{system.fp}}" data-dtype="Number" />
                             </div>
                             {{!-- Components --}}
                             <div class="general attribute">

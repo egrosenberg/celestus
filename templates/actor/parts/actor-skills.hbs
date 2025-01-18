@@ -13,7 +13,7 @@
     <li class='item skill' style="display: inline-block; width: 80px" data-item-id='{{skill._id}}'>
         <div class='skill-frame'>
             <div class='item-image'>
-                <a class='rollable' data-roll-type='skill' data-skill-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
+                <a class='rollable' data-roll-type='skill' data-item-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
                     height='80' /></a>
                 {{#if (gt skill.system.cooldown.value 0)}}
                 <span class="item-overlay active">
@@ -45,6 +45,7 @@
         </div>
         <div class="skill-cost">
             {{#repeat skill.system.ap}}<i class="fa-solid fa-circle ap-icon"></i>{{/repeat}}
+            <br/>{{#repeat skill.system.fp}}<i class="fa-solid fa-diamond fp-icon"></i>{{/repeat}}
         </div>
         <div class='item-controls'>
             <span>
@@ -63,7 +64,7 @@
     <li class='item skill' style="display: inline-block; width: 80px" data-item-id='{{skill._id}}'>
         <div class='skill-frame'>
             <div class='item-image'>
-                <a class='rollable' data-roll-type='skill' data-skill-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
+                <a class='rollable' data-roll-type='skill' data-item-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
                     height='80' /></a>
                 {{#if (gt skill.system.cooldown.value 0)}}
                 <span class="item-overlay active">
@@ -94,6 +95,7 @@
         </div>
         <div class="skill-cost">
             {{#repeat skill.system.ap}}<i class="fa-solid fa-circle ap-icon"></i>{{/repeat}}
+            <br/>{{#repeat skill.system.fp}}<i class="fa-solid fa-diamond fp-icon"></i>{{/repeat}}
         </div>
         <div class='item-controls'>
             <span>
@@ -117,7 +119,7 @@
     <li class='item skill' data-item-id='{{skill._id}}'>
         <div class='skill-frame'>
             <div class='item-image'>
-                <a class='rollable item' data-roll-type='skill' data-skill-id="{{skill._id}}">
+                <a class='rollable item' data-roll-type='skill' data-item-id="{{skill._id}}">
                     <img src='{{skill.img}}' title='{{skill.name}}' width='80' height='80' />
                 </a>
                 <span class="item-overlay">
@@ -143,6 +145,7 @@
         </div>
         <div class="skill-cost">
             {{#repeat skill.system.ap}}<i class="fa-solid fa-circle ap-icon"></i>{{/repeat}}
+            <br/>{{#repeat skill.system.fp}}<i class="fa-solid fa-diamond fp-icon"></i>{{/repeat}}
         </div>
         <div class='item-controls'>
             <span>

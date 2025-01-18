@@ -376,7 +376,7 @@ export class CelestusActor extends Actor {
         if (this.inCombat) {
             await this.update({ "system.resources.ap.value": actor.resources.ap.value - skill.system.ap });
         }
-        await this.update({ "system.resources.jirki.value": actor.resources.fp.value - skill.system.fp });
+        await this.update({ "system.resources.fp.value": actor.resources.fp.value - skill.system.fp });
 
         const path = './systems/celestus/templates/rolls/skill-roll.hbs';
         const msgData = {

@@ -144,6 +144,16 @@ export class CharacterSheet extends ActorSheet {
                 this.actor.update({ "system.resources.ap.value": index });
             }
         })
+        // set focus points
+        html.on('click', '.fp-interact', (ev) => {
+            const index = $(ev.currentTarget).data('index') + 1;
+            if (index === this.actor.system.resources.fp.value) {
+                this.actor.update({ "system.resources.fp.value": this.actor.system.resources.fp.value - 1 });
+            }
+            else {
+                this.actor.update({ "system.resources.fp.value": index });
+            }
+        })
 
         // Add Inventory Item
         html.on('click', '.item-create', this._onItemCreate.bind(this));
