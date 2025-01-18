@@ -8,9 +8,10 @@ import { statuses } from "./data/statuses.mjs"
 import { npcStatSpread } from "./data/npc-stat-spreads.mjs"
 import { CelestusMeasuredTemplate } from "./measure.mjs"
 // json
- import itemSocketSpreadJson from './data/item-socket-spreads.mjs';
- import itemArmorPlugsJson from './data/item-armor-plugs.mjs'; 
- import itemSocketJson from './data/item-sockets.mjs';
+import itemSocketSpreadJson from './data/item-socket-spreads.mjs';
+import itemArmorPlugsJson from './data/item-armor-plugs.mjs';
+import itemWeaponPlugsJson from './data/item-weapon-plugs.mjs';
+import itemSocketJson from './data/item-sockets.mjs';
 
 // import * as itemSocketSpreadJson from './data/item-socket-spreads.json' with { type: "json" };
 // import * as itemArmorPlugsJson from './data/item-armor-plugs.json' with { type: "json" };
@@ -526,6 +527,7 @@ Hooks.on("init", () => {
         itemSocketSpreads: itemSocketSpreadJson.types,
         itemPlugs: {
             armor: itemArmorPlugsJson.plugs,
+            weapon: itemWeaponPlugsJson.plugs,
         },
         itemSockets: itemSocketJson.sockets,
     };

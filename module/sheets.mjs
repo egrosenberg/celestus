@@ -1,4 +1,4 @@
-import { byString, rollAbility } from "./helpers.mjs";
+import { byString, matchIfPresent, rollAbility } from "./helpers.mjs";
 import { onManageActiveEffect } from "./hooks.mjs";
 
 /**
@@ -406,10 +406,25 @@ export class CelestusItemSheet extends ItemSheet {
         for (const i in this.document.system.socketTypes) {
             const type = this.document.system.socketTypes[i];
             if (type) {
-                let sockets = CONFIG.CELESTUS.itemSockets.filter(s => (
+                let weaponStyle;
+                if (!this.document.system.twoHanded) {
+                    weaponStyle = "onehand"
+                }
+                else {
+                    if (this.document.system.range > 0) {
+                        weaponStyle = "ranged"
+                    }
+                    else {
+                        weaponStyle = "twohand"
+                    }
+                }
+                const sockets = CONFIG.CELESTUS.itemSockets.filter(s => (
                     s.type.includes(type) &&
-                    s.gearType === this.document.type &&
-                    s.slot === this.document.system.slot &&
+                    matchIfPresent(s.gearType, this.document.type) &&
+                    matchIfPresent(s.slot, this.document.system.slot) &&
+                    matchIfPresent(s.weaponStyle, weaponStyle) &&
+                    matchIfPresent(s.twoHanded, this.document.system.twoHanded) &&
+                    matchIfPresent(s.primaryStat, this.document.system.ability) &&
                     s.minLvl <= this.document.system.level
                 ));
                 if (sockets.length > 0) {

@@ -3966,6 +3966,831 @@ export default {
             "gearType": "armor",
             "slot": "amulet",
             "plug": "Armor_Attribute_Wits_T3"
+        },
+        {
+            "id": "Weapon_Damage_Base_Small",
+            "type": "BaseUncommon",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "plug": "Weapon_Damage_Bonus_T1"
+        },
+        {
+            "id": "Weapon_Damage_Base_Medium",
+            "type": "BaseRare",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "plug": "Weapon_Damage_Bonus_T2"
+        },
+        {
+            "id": "Weapon_Damage_Base_Large",
+            "type": "BaseEpic",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "plug": "Weapon_Damage_Bonus_T3"
+        },
+        {
+            "id": "Weapon_Damage_Fire_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Fire_T1"
+        },
+        {
+            "id": "Weapon_Damage_Fire_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Fire_T2"
+        },
+        {
+            "id": "Weapon_Damage_Fire_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Fire_T3"
+        },
+        {
+            "id": "Weapon_Damage_Fire_T4",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Fire_T4"
+        },
+        {
+            "id": "Weapon_Damage_Water_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Water_T1"
+        },
+        {
+            "id": "Weapon_Damage_Water_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Water_T2"
+        },
+        {
+            "id": "Weapon_Damage_Water_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Water_T3"
+        },
+        {
+            "id": "Weapon_Damage_Water_T4",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Water_T4"
+        },
+        {
+            "id": "Weapon_Damage_Air_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Air_T1"
+        },
+        {
+            "id": "Weapon_Damage_Air_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Air_T2"
+        },
+        {
+            "id": "Weapon_Damage_Air_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Air_T3"
+        },
+        {
+            "id": "Weapon_Damage_Air_T4",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Air_T4"
+        },
+        {
+            "id": "Weapon_Damage_Earth_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Earth_T1"
+        },
+        {
+            "id": "Weapon_Damage_Earth_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Earth_T2"
+        },
+        {
+            "id": "Weapon_Damage_Earth_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Earth_T3"
+        },
+        {
+            "id": "Weapon_Damage_Earth_T4",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Earth_T4"
+        },
+        {
+            "id": "Weapon_Damage_Poison_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Poison_T1"
+        },
+        {
+            "id": "Weapon_Damage_Poison_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Poison_T2"
+        },
+        {
+            "id": "Weapon_Damage_Poison_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Poison_T3"
+        },
+        {
+            "id": "Weapon_Damage_Poison_T4",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Poison_T4"
+        },
+        {
+            "id": "Weapon_Damage_Psychic_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Psychic_T1"
+        },
+        {
+            "id": "Weapon_Damage_Psychic_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Psychic_T2"
+        },
+        {
+            "id": "Weapon_Damage_Psychic_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Psychic_T3"
+        },
+        {
+            "id": "Weapon_Damage_Psychic_T4",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "unique": "BonusDamage",
+            "plug": "Weapon_Damage_Psychic_T4"
+        },
+        {
+            "id": "Weapon_Ability_OneHand_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "weaponStyle": "onehand",
+            "plug": "Weapon_Ability_OneHand_T1"
+        },
+        {
+            "id": "Weapon_Ability_OneHand_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "weaponStyle": "onehand",
+            "plug": "Weapon_Ability_OneHand_T2"
+        },
+        {
+            "id": "Weapon_Ability_OneHand_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "weaponStyle": "onehand",
+            "plug": "Weapon_Ability_OneHand_T3"
+        },
+        {
+            "id": "Weapon_Ability_DualWield_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "weaponStyle": "onehand",
+            "plug": "Weapon_Ability_DualWield_T1"
+        },
+        {
+            "id": "Weapon_Ability_DualWield_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "weaponStyle": "onehand",
+            "plug": "Weapon_Ability_DualWield_T3"
+        },
+        {
+            "id": "Weapon_Ability_DualWield_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "weaponStyle": "onehand",
+            "plug": "Weapon_Ability_DualWield_T3"
+        },
+        {
+            "id": "Weapon_Ability_TwoHand_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "weaponStyle": "twohand",
+            "plug": "Weapon_Ability_TwoHand_T1"
+        },
+        {
+            "id": "Weapon_Ability_TwoHand_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "weaponStyle": "twohand",
+            "plug": "Weapon_Ability_TwoHand_T2"
+        },
+        {
+            "id": "Weapon_Ability_TwoHand_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "weaponStyle": "twohand",
+            "plug": "Weapon_Ability_TwoHand_T3"
+        },
+        {
+            "id": "Weapon_Ability_Ranged_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "weaponStyle": "ranged",
+            "plug": "Weapon_Ability_Ranged_T1"
+        },
+        {
+            "id": "Weapon_Ability_Ranged_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "weaponStyle": "ranged",
+            "plug": "Weapon_Ability_Ranged_T2"
+        },
+        {
+            "id": "Weapon_Ability_Ranged_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "weaponStyle": "ranged",
+            "plug": "Weapon_Ability_Ranged_T3"
+        },
+        {
+            "id": "Weapon_Ability_Flamespeaker_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Flamespeaker_T1"
+        },
+        {
+            "id": "Weapon_Ability_Flamespeaker_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Flamespeaker_T2"
+        },
+        {
+            "id": "Weapon_Ability_Flamespeaker_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Flamespeaker_T3"
+        },
+        {
+            "id": "Weapon_Ability_Tidecaller_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Tidecaller_T1"
+        },
+        {
+            "id": "Weapon_Ability_Tidecaller_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Tidecaller_T2"
+        },
+        {
+            "id": "Weapon_Ability_Tidecaller_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Tidecaller_T3"
+        },
+        {
+            "id": "Weapon_Ability_Stormseeker_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Stormseeker_T1"
+        },
+        {
+            "id": "Weapon_Ability_Stormseeker_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Stormseeker_T2"
+        },
+        {
+            "id": "Weapon_Ability_Stormseeker_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Stormseeker_T3"
+        },
+        {
+            "id": "Weapon_Ability_Duneshaper_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Duneshaper_T1"
+        },
+        {
+            "id": "Weapon_Ability_Duneshaper_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Duneshaper_T2"
+        },
+        {
+            "id": "Weapon_Ability_Duneshaper_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Duneshaper_T3"
+        },
+        {
+            "id": "Weapon_Ability_Deathbringer_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Deathbringer_T1"
+        },
+        {
+            "id": "Weapon_Ability_Deathbringer_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Deathbringer_T2"
+        },
+        {
+            "id": "Weapon_Ability_Deathbringer_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Deathbringer_T3"
+        },
+        {
+            "id": "Weapon_Ability_Voidcantor_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Voidcantor_T1"
+        },
+        {
+            "id": "Weapon_Ability_Voidcantor_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Voidcantor_T2"
+        },
+        {
+            "id": "Weapon_Ability_Voidcantor_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Weapon_Ability_Voidcantor_T3"
+        },
+        {
+            "id": "Weapon_Ability_Shroudstalker_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "dex",
+            "weaponStyle": "onehand",
+            "plug": "Weapon_Ability_Shroudstalker_T1"
+        },
+        {
+            "id": "Weapon_Ability_Shroudstalker_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "dex",
+            "weaponStyle": "onehand",
+            "plug": "Weapon_Ability_Shroudstalker_T2"
+        },
+        {
+            "id": "Weapon_Ability_Shroudstalker_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "dex",
+            "weaponStyle": "onehand",
+            "plug": "Weapon_Ability_Shroudstalker_T3"
+        },
+        {
+            "id": "Weapon_Ability_Warlord_Dexterity_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "dex",
+            "weaponStyle": "onehand",
+            "plug": "Weapon_Ability_Warlord_T1"
+        },
+        {
+            "id": "Weapon_Ability_Warlord_Dexterity_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "dex",
+            "weaponStyle": "onehand",
+            "plug": "Weapon_Ability_Warlord_T2"
+        },
+        {
+            "id": "Weapon_Ability_Warlord_Dexterity_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "dex",
+            "weaponStyle": "onehand",
+            "plug": "Weapon_Ability_Warlord_T3"
+        },
+        {
+            "id": "Weapon_Ability_Warlord_Strength_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "str",
+            "weaponStyle": "onehand",
+            "plug": "Weapon_Ability_Warlord_T1"
+        },
+        {
+            "id": "Weapon_Ability_Warlord_Strength_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "str",
+            "weaponStyle": "onehand",
+            "plug": "Weapon_Ability_Warlord_T2"
+        },
+        {
+            "id": "Weapon_Ability_Warlord_Strength_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "str",
+            "weaponStyle": "onehand",
+            "plug": "Weapon_Ability_Warlord_T3"
+        },
+        {
+            "id": "Weapon_Ability_Huntmaster_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "weaponStyle": "ranged",
+            "plug": "Weapon_Ability_Huntmaster_T1"
+        },
+        {
+            "id": "Weapon_Ability_Huntmaster_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "weaponStyle": "ranged",
+            "plug": "Weapon_Ability_Huntmaster_T2"
+        },
+        {
+            "id": "Weapon_Ability_Huntmaster_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "weaponStyle": "ranged",
+            "plug": "Weapon_Ability_Huntmaster_T3"
+        },
+        {
+            "id": "Weapon_Bonus_Evasion_OneHand",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "twoHanded": false,
+            "plug": "Weapon_Bonus_Evasion_T1"
+        },
+        {
+            "id": "Weapon_Bonus_Evasion_TwoHand",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "twoHanded": true,
+            "plug": "Weapon_Bonus_Evasion_T2"
+        },
+        {
+            "id": "Weapon_Bonus_Initiative_OneHand",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "twoHanded": false,
+            "plug": "Weapon_Bonus_Initiative_T1"
+        },
+        {
+            "id": "Weapon_Bonus_Initiative_TwoHand",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "twoHanded": true,
+            "plug": "Weapon_Bonus_Initiative_T2"
+        },
+        {
+            "id": "Weapon_Bonus_CritChance_OneHand",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "twoHanded": false,
+            "plug": "Weapon_Bonus_CritChance_OneHand_T2"
+        },
+        {
+            "id": "Weapon_Bonus_CritChance_OneHand_Legend",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "twoHanded": false,
+            "plug": "Weapon_Bonus_CritChance_OneHand_T4"
+        },
+        {
+            "id": "Weapon_Bonus_CritChance_TwoHand",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "twoHanded": true,
+            "plug": "Weapon_Bonus_CritChance_TwoHand_T1"
+        },
+        {
+            "id": "Weapon_Bonus_CritChance_TwoHand_Legend",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "twoHanded": true,
+            "plug": "Weapon_Bonus_CritChance_TwoHand_T3"
+        },
+        {
+            "id": "Weapon_Bonus_CritBonus_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "plug": "Weapon_Bonus_CritBonus_T1"
+        },
+        {
+            "id": "Weapon_Bonus_CritBonus_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "plug": "Weapon_Bonus_CritBonus_T2"
+        },
+        {
+            "id": "Weapon_Bonus_CritBonus_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "plug": "Weapon_Bonus_CritBonus_T3"
+        },
+        {
+            "id": "Weapon_Bonus_CritBonus_T4",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "plug": "Weapon_Bonus_CritBonus_T4"
+        },
+        {
+            "id": "Weapon_Attribute_Strength_OneHand_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "str",
+            "twoHanded": false,
+            "plug": "Armor_Attribute_Strength_T1"
+        },
+        {
+            "id": "Weapon_Attribute_Strength_TwoHand_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "str",
+            "twoHanded": true,
+            "plug": "Armor_Attribute_Strength_T2"
+        },
+        {
+            "id": "Weapon_Attribute_Strength_Small",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "str",
+            "plug": "Armor_Attribute_Strength_T1"
+        },
+        {
+            "id": "Weapon_Attribute_Strength_Normal",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "str",
+            "plug": "Armor_Attribute_Strength_T2"
+        },
+        {
+            "id": "Weapon_Attribute_Strength_Large",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "str",
+            "plug": "Armor_Attribute_Strength_T3"
+        },
+        {
+            "id": "Weapon_Attribute_Dexterity_OneHand_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "dex",
+            "twoHanded": false,
+            "plug": "Armor_Attribute_Dexterity_T1"
+        },
+        {
+            "id": "Weapon_Attribute_Dexterity_TwoHand_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "dex",
+            "twoHanded": true,
+            "plug": "Armor_Attribute_Dexterity_T2"
+        },
+        {
+            "id": "Weapon_Attribute_Dexterity_Small",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "dex",
+            "plug": "Armor_Attribute_Dexterity_T1"
+        },
+        {
+            "id": "Weapon_Attribute_Dexterity_Normal",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "dex",
+            "plug": "Armor_Attribute_Dexterity_T2"
+        },
+        {
+            "id": "Weapon_Attribute_Dexterity_Large",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "dex",
+            "plug": "Armor_Attribute_Dexterity_T3"
+        },
+        {
+            "id": "Weapon_Attribute_Intellect_OneHand_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "twoHanded": false,
+            "plug": "Armor_Attribute_Intellect_T1"
+        },
+        {
+            "id": "Weapon_Attribute_Intellect_TwoHand_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "twoHanded": true,
+            "plug": "Armor_Attribute_Intellect_T2"
+        },
+        {
+            "id": "Weapon_Attribute_Intellect_Small",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Armor_Attribute_Intellect_T1"
+        },
+        {
+            "id": "Weapon_Attribute_Intellect_Normal",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Armor_Attribute_Intellect_T2"
+        },
+        {
+            "id": "Weapon_Attribute_Intellect_Large",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "primaryStat": "int",
+            "plug": "Armor_Attribute_Intellect_T3"
+        },
+        {
+            "id": "Weapon_StatusApply_Suffocating",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "plug": "Armor_StatusApply_Suffocating"
+        },
+        {
+            "id": "Weapon_StatusApply_Acid",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "plug": "Armor_StatusApply_Acid"
+        },
+        {
+            "id": "Weapon_StatusApply_Poisoned",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "plug": "Armor_StatusApply_Poisoned"
+        },
+        {
+            "id": "Weapon_StatusApply_Shocked",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "plug": "Armor_StatusApply_Shocked"
+        },
+        {
+            "id": "Weapon_StatusApply_Chilled",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "plug": "Armor_StatusApply_Chilled"
+        },
+        {
+            "id": "Weapon_StatusApply_Burning",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "plug": "Armor_StatusApply_Burning"
+        },
+        {
+            "id": "Weapon_StatusApply_Bleeding",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "plug": "Armor_StatusApply_Bleeding"
         }
     ]
 }

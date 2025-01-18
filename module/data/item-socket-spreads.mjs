@@ -628,7 +628,7 @@ export default {
             "id": "AngelicSub3",
             "parent": "Angelic",
             "weight": 4,
-            "minLvl": 9,
+            "minLvl": 16,
             "boosts": {
                 "1": "Legendary",
                 "2": "Legendary",

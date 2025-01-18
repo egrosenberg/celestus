@@ -75,7 +75,7 @@ export class CelestusItem extends Item {
         }
 
         // socketing stuff
-        if (this.type === "armor") {
+        if (this.type === "armor" || this.type === "weapon") {
             // initialize spread when changing rarity
             const newRarity = changed.system?.rarity;
             if (newRarity && newRarity !== this.system.rarity) {
@@ -288,10 +288,25 @@ export class CelestusItem extends Item {
             return;
         }
         // find all possible sockets
+        let weaponStyle;
+        if (!this.system.twoHanded) {
+            weaponStyle = "onehand"
+        }
+        else {
+            if (this.system.range > 0) {
+                weaponStyle = "ranged"
+            }
+            else {
+                weaponStyle = "twohand"
+            }
+        }
         const validSockets = CONFIG.CELESTUS.itemSockets.filter(s => (
             s.type.includes(socketType) &&
-            s.gearType === this.type &&
+            matchIfPresent(s.gearType, this.type) &&
             matchIfPresent(s.slot, this.system.slot) &&
+            matchIfPresent(s.weaponStyle, weaponStyle) &&
+            matchIfPresent(s.twoHanded, this.system.twoHanded) &&
+            matchIfPresent(s.primaryStat, this.system.ability) &&
             s.minLvl <= this.system.level
         ));
         // if no valid sockets, ignore
