@@ -38,6 +38,11 @@
             </div>
             {{/with}}
             {{/each}}
+            {{#each item.system.statusApplyRolls as |status|}}
+            <div class="quick-reference">
+                {{status.chance}}% chance to set {{status.id}}
+            </div>
+            {{/each}}
             <div class="quick-reference">
                 Range: {{#if system.range}}{{system.range}} ft.{{else}}Melee{{/if}}
             </div>
