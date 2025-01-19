@@ -551,6 +551,8 @@ export function drawTokenHover(token, hovered) {
 
         overlaySprite.blendMode = PIXI.BLEND_MODES.EXCLUSION;
 
+        overlaySprite.zIndex = 1;
+
         canvas.effects.addChild(overlaySprite); 
 
         /**
@@ -567,7 +569,6 @@ export function drawTokenHover(token, hovered) {
         reachOverlay.drawCircle(0, 0, radius);
         reachOverlay.endFill();
         reachOverlay.alpha = 0.2;
-        reachOverlay.zIndex = -1;
 
         // set position
         [reachOverlay.x, reachOverlay.y] = [tokenCenter.x, tokenCenter.y];
