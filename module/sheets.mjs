@@ -309,7 +309,7 @@ export class CharacterSheet extends ActorSheet {
         const dataset = element.dataset;
 
         if (dataset.rollType == "skill") {
-            const skill = this.actor.items.get(dataset.skillId);
+            const skill = this.actor.items.get(dataset.itemId);
             if (skill) this.actor.useSkill(skill);
             else console.error("CELESTUS | ERROR: skill not found");
         }

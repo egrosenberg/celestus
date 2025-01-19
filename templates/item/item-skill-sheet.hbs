@@ -49,6 +49,15 @@
                 Targets: {{item.system.targetMode}}
             </div>
             {{/if}}
+            <div class="quick-reference">
+                Components: 
+                {{ifThen system.components.verbal "V " ""}}
+                {{ifThen system.components.somatic "S " ""}}
+                {{ifThen system.components.material "M " ""}}
+                {{#if system.components.materialFull}}
+                ({{system.components.materialFull}})
+                {{/if}}
+            </div>
 
 
             <h3>Prereqs:</h3>

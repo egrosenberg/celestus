@@ -65,6 +65,16 @@
                 CD: {{item.system.cooldown.max}} rounds
             </span>
             {{/if}}
+            {{!-- components --}}
+            <div class="roll-tag">
+                Components: 
+                {{ifThen item.system.components.verbal "V " ""}}
+                {{ifThen item.system.components.somatic "S " ""}}
+                {{ifThen item.system.components.material "M " ""}}
+                {{#if item.system.components.materialFull}}
+                ({{item.system.components.materialFull}})
+                {{/if}}
+            </div>
         </div>
         {{#if flavor}}{{{flavor}}}{{/if}}
     </div>
