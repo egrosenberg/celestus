@@ -133,6 +133,9 @@ export class CharacterSheet extends ActorSheet {
         html.on('click', '#refresh-dawn', (ev) => {
             this.actor.refresh(true);
         })
+        html.on('click', '#initiative', () => {
+            this.actor.rollInitiative();
+        })
 
         // set action points
         html.on('click', '.ap-interact', (ev) => {

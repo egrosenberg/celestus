@@ -81,6 +81,37 @@
             {{/with}}
             {{/if}}
             {{/each}}
+            {{!-- Misc. bonuses --}}
+            {{!-- Crit Chance --}}
+            {{#if system.bonuses.crit_chance}}
+            <div class="quick-reference">
+                {{percent system.bonuses.crit_chance symbol=true sign=true}} Crit Chance
+            </div>
+            {{!-- Crit Damage --}}
+            {{/if}}
+            {{#if system.bonuses.crit_bonus}}
+            <div class="quick-reference">
+                {{percent system.bonuses.crit_bonus symbol=true sign=true}} Crit Damage
+            </div>
+            {{/if}}
+            {{#if system.bonuses.accuracy}}
+            {{!-- Accuracy --}}
+            <div class="quick-reference">
+                {{percent system.bonuses.accuracy symbol=true sign=true}} Accuracy
+            </div>
+            {{/if}}
+            {{#if system.bonuses.evasion}}
+            {{!-- Evasion --}}
+            <div class="quick-reference">
+                {{percent system.bonuses.evasion symbol=true sign=true}} Evasion
+            </div>
+            {{/if}}
+            {{#if system.bonuses.initiative}}
+            {{!-- Initiative --}}
+            <div class="quick-reference">
+                {{numberFormat system.bonuses.initiative sign=true}} Initiative
+            </div>
+            {{/if}}
             {{!-- Resistances --}}
             <h3>Resistances</h3>
             {{#each system.bonuses.resistance as |value skill|}}

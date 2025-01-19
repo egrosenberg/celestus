@@ -33,6 +33,9 @@
                             data-dtype="Number" />
                             ({{system.attributes.movement.value}})
                     </span>
+                    <a class="level" id="initiative">
+                        Initiative: {{numberFormat (sum system.abilities.wit.total system.attributes.bonuses.initiative.value) sign=true}}
+                    </a>
                     <br/>
                     <a class="control refresh" title="refresh resources" id="refresh-all"><i class="icon-cycle"></i></a>
                     <a class="control refresh" title="new day" id="refresh-dawn"><i class="icon-sunrise"></i></a>

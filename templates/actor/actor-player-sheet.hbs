@@ -25,11 +25,16 @@
                     <span class="level">
                         Movement: {{system.attributes.movement.value}}
                     </span>
+                    <a class="level" id="initiative">
+                        Initiative: {{numberFormat (sum system.abilities.wit.total system.attributes.bonuses.initiative.value) sign=true}}
+                    </a>
+                    <br />
                     <a class="control refresh" title="refresh resources" id="refresh-all"><i class="icon-cycle"></i></a>
                     <a class="control refresh" title="new day" id="refresh-dawn"><i class="icon-sunrise"></i></a>
-                    <a class="control refresh" title="toggle combat state" id="toggle-combat"><i
-                            class="{{ifThen actor.inCombat " icon-swords-emblem-solid" "icon-swords-emblem-outline"
-                            }}"></i></a>
+                    <a class="control refresh" title="toggle combat state" id="toggle-combat">
+                        <i class="{{ifThen actor.inCombat " icon-swords-emblem-solid" "icon-swords-emblem-outline"}}">
+                        </i>
+                    </a>
 
                 </span>
                 <h2>Resources</h2>
@@ -108,7 +113,13 @@
                             data-dtype="Number" />
                         <span class="ability-mod rollable" data-label="{{ability.label}}">
                             {{numberFormat ability.bonus decimals=0 sign=true}} = {{ability.total}}
+                            {{#with (lookup ../config.abilities key) as |configKey|}}
+                            {{#if configKey.percent}}
                             ({{percent ability.mod sign=true symbol=true}})
+                            {{else}}
+                            ({{numberFormat ability.mod sign=true}})
+                            {{/if}}
+                            {{/with}}
                         </span>
                     </div>
                     {{/each}}

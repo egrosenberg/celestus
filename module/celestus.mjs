@@ -150,12 +150,12 @@ Hooks.on("init", () => {
         },
         // character stats
         abilities: {
-            str: { label: "Strength", text: "str" },
-            dex: { label: "Dexterity", text: "dex" },
-            int: { label: "Intellect", text: "int" },
-            con: { label: "Constitution", text: "con" },
-            mind: { label: "Mind", text: "mind" },
-            wit: { label: "Wits", text: "wit" },
+            str: { label: "Strength", text: "str", percent: true },
+            dex: { label: "Dexterity", text: "dex", percent: true },
+            int: { label: "Intellect", text: "int", percent: true },
+            con: { label: "Constitution", text: "con", percent: true },
+            mind: { label: "Mind", text: "mind", percent: false },
+            wit: { label: "Wits", text: "wit", percent: true },
             none: { label: "None", text: "none" },
         },
         baseAbilityPoints: 1,
@@ -677,7 +677,14 @@ Handlebars.registerHelper("diff", (a, b) => {
     }
     return a - b;
 });
-
+Handlebars.registerHelper("sum", (a, b) => {
+    a = parseFloat(a);
+    b = parseFloat(b);
+    if (isNaN(a) || isNaN(b)) {
+        return "";
+    }
+    return a + b;
+});
 
 // attempt to bind to elevation ruler
 const timeout = 10000;

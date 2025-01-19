@@ -606,6 +606,30 @@ export class CelestusActor extends Actor {
     endTurn() {
 
     }
+
+    async rollInitiative() {
+        const tokens = this.getActiveTokens(false, true);
+        if (tokens.length < 1) {
+            return ui.notifications.warn("CELESTUS | Error: no active tokens");
+        }
+        for (const token of tokens) {
+            try {
+                if (!token.combatant) {
+                    await token.toggleCombatant();
+                }
+            
+                // create an initiative roll
+                let r = new Roll(game.system.initiative, this.system, { flavor: `${this.name} rolls initiative` });
+                await r.toMessage({
+                    speaker: { alias: this.name },
+                });
+                console
+                token.combatant.rollInitiative(r.total.toString());
+            } catch (error) {
+                return ui.notifications.warn(error)
+            }
+        }
+    }
 }
 
 export class CelestusToken extends Token {
