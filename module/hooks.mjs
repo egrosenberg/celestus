@@ -521,3 +521,79 @@ export function renderHotbarOverlay(render = true) {
         }
     });
 }
+
+/**
+ * Draws (or hides) token overlays on hovered token
+ * @param {Token} token 
+ * @param {Boolean} hovered 
+ */
+export function drawTokenHover(token, hovered) {
+    if (hovered && token) {
+        const tokenCenter = token.getCenterPoint();
+        /**
+         * Draw backstab overlay
+         */
+        let overlaySprite = CONFIG.CELESTUS.backstabOverlaySprite;
+
+        const size = Math.min(token.w, token.h) * 2;
+        let offsetY = tokenCenter.y; //token.w < token.h ? (token.h - token.w) / 2 : 0;
+        let offsetX = tokenCenter.x; //token.w > token.h ? (token.w - token.h) / 2 : 0;
+
+        
+        [overlaySprite.x, overlaySprite.y] = [offsetX, offsetY]
+        
+        overlaySprite.width = size;
+        overlaySprite.height = size;
+
+        overlaySprite.anchor.x = 0.5;
+        overlaySprite.anchor.y = 0.5;
+        overlaySprite.rotation = token.document.rotation * Math.PI/180;
+
+        overlaySprite.blendMode = PIXI.BLEND_MODES.EXCLUSION;
+
+        canvas.effects.addChild(overlaySprite); 
+
+        /**
+         * Draw attack range
+         */
+        // get grid scale
+        const pixelPerFoot = game.canvas.grid.size / 5;
+        // convert reach to pixels
+        const rangePx = token.actor.system.reach * pixelPerFoot;
+        const radius = rangePx + (Math.min(token.w, token.h) / 2);
+        let reachOverlay = new PIXI.Graphics();
+        // draw circle
+        reachOverlay.beginFill(CONFIG.CELESTUS.rangeOverlayCol);
+        reachOverlay.drawCircle(0, 0, radius);
+        reachOverlay.endFill();
+        reachOverlay.alpha = 0.2;
+        reachOverlay.zIndex = -1;
+
+        // set position
+        [reachOverlay.x, reachOverlay.y] = [tokenCenter.x, tokenCenter.y];
+
+        // add to scene and store in config
+        canvas.effects.addChild(reachOverlay); 
+        CONFIG.CELESTUS.reachOverlay = reachOverlay;
+    }
+    else {
+        canvas.effects.removeChild(CONFIG.CELESTUS.backstabOverlaySprite); 
+        canvas.effects.removeChild(CONFIG.CELESTUS.reachOverlay); 
+    }
+}
+
+/**
+ * Rotates tokens towards the position they move to
+ * @param {Token} token 
+ * @param {Object} changed 
+ * @param {Object} options 
+ */
+export function rotateOnMove(token, changed, options) {
+    // if token moved, rotate towards position
+    if (changed.x && changed.y) {
+        const distX = changed.x - token.x;
+        const distY = changed.y - token.y;
+        const newAngle = Math.atan(distY / distX) * (180/Math.PI) + (distX > 0 ? 180 : 0);
+        token.object.rotate(newAngle - 90);
+    }
+}

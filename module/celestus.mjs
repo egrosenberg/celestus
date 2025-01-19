@@ -1,6 +1,6 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
@@ -530,6 +530,8 @@ Hooks.on("init", () => {
             weapon: itemWeaponPlugsJson.plugs,
         },
         itemSockets: itemSocketJson.sockets,
+        // canvas constants
+        rangeOverlayCol: 0xffffff,
     };
 
     // set up data models
@@ -595,6 +597,11 @@ Hooks.on("init", () => {
 
     CONFIG.statusEffects = statuses;
 
+    // set up PIXI stuff
+    CONFIG.CELESTUS.backstabOverlayTexture = PIXI.Texture.from('systems/celestus/svg/backstab-overlay.svg');
+    CONFIG.CELESTUS.backstabOverlaySprite = new PIXI.Sprite(CONFIG.CELESTUS.backstabOverlayTexture);
+
+
     // preload handlebars templates
     return preloadHandlebarsTemplates();
 
@@ -638,6 +645,10 @@ Hooks.on("preDeleteCombat", cleanupCombat);
 
 // handle combat end
 Hooks.on("updateToken", spreadAura);
+Hooks.on("preUpdateToken", rotateOnMove);
+
+// draw backstab overlay
+Hooks.on("hoverToken", drawTokenHover);
 
 // hbs helpers
 Handlebars.registerHelper("repeat", (n, options) => {

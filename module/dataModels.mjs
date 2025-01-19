@@ -365,6 +365,13 @@ export class ActorData extends foundry.abstract.TypeDataModel {
             return "onehand";
         }
     }
+
+    /**
+     * check actor's reach in feet
+     */
+    get reach() {
+        return 5;
+    }
 };
 
 
