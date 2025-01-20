@@ -460,7 +460,9 @@ export function cleanupCombat(document, options, userId) {
     }
     // make all combatants in combat
     for (const combatant of document.combatants) {
-        combatant.actor.refresh(false);
+        if (combatant.actor.type === "player") {
+            combatant.actor.refresh(false);
+        }
     }
 }
 
