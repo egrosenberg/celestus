@@ -598,8 +598,16 @@ Hooks.on("init", () => {
     CONFIG.statusEffects = statuses;
 
     // set up PIXI stuff
+    CONFIG.CELESTUS.reachOverlay = new PIXI.Graphics();
     CONFIG.CELESTUS.backstabOverlayTexture = PIXI.Texture.from('systems/celestus/svg/backstab-overlay.svg');
     CONFIG.CELESTUS.backstabOverlaySprite = new PIXI.Sprite(CONFIG.CELESTUS.backstabOverlayTexture);
+    CONFIG.CELESTUS.backstabAreaTexture = PIXI.Texture.from('systems/celestus/svg/backstab-area.svg');
+    CONFIG.CELESTUS.backstabAreaSprite = new PIXI.Sprite(CONFIG.CELESTUS.backstabAreaTexture);
+    CONFIG.CELESTUS.backstabAreaSprite.tint = 0x0000FF;
+    CONFIG.CELESTUS.backstabAreaSprite.alpha = 0.4;
+    CONFIG.CELESTUS.backstabAreaSprite.zIndex = 1;
+    CONFIG.CELESTUS.backstabAreaSprite.anchor.x = 0.5;
+    CONFIG.CELESTUS.backstabAreaSprite.anchor.y = 0.5;
 
 
     // preload handlebars templates

@@ -536,8 +536,8 @@ export function drawTokenHover(token, hovered) {
         let overlaySprite = CONFIG.CELESTUS.backstabOverlaySprite;
 
         const size = Math.min(token.w, token.h) * 2;
-        let offsetY = tokenCenter.y; //token.w < token.h ? (token.h - token.w) / 2 : 0;
-        let offsetX = tokenCenter.x; //token.w > token.h ? (token.w - token.h) / 2 : 0;
+        let offsetY = tokenCenter.y;
+        let offsetX = tokenCenter.x;
 
         
         [overlaySprite.x, overlaySprite.y] = [offsetX, offsetY]
@@ -549,11 +549,20 @@ export function drawTokenHover(token, hovered) {
         overlaySprite.anchor.y = 0.5;
         overlaySprite.rotation = token.document.rotation * Math.PI/180;
 
-        overlaySprite.blendMode = PIXI.BLEND_MODES.EXCLUSION;
+        overlaySprite.zIndex = 2;
 
-        overlaySprite.zIndex = 1;
+        canvas.effects.addChild(overlaySprite);
 
-        canvas.effects.addChild(overlaySprite); 
+        /**
+         * Draw backstab area
+         */
+        let areaSprite = CONFIG.CELESTUS.backstabAreaSprite;
+        [areaSprite.x, areaSprite.y] = [offsetX, offsetY]
+        areaSprite.width = size * 2;
+        areaSprite.height = size * 2;
+        areaSprite.rotation = token.document.rotation * Math.PI/180;
+        canvas.effects.addChild(areaSprite);
+
 
         /**
          * Draw attack range
@@ -563,7 +572,7 @@ export function drawTokenHover(token, hovered) {
         // convert reach to pixels
         const rangePx = token.actor.system.reach * pixelPerFoot;
         const radius = rangePx + (Math.min(token.w, token.h) / 2);
-        let reachOverlay = new PIXI.Graphics();
+        let reachOverlay = CONFIG.CELESTUS.reachOverlay;
         // draw circle
         reachOverlay.beginFill(CONFIG.CELESTUS.rangeOverlayCol);
         reachOverlay.drawCircle(0, 0, radius);
@@ -579,6 +588,8 @@ export function drawTokenHover(token, hovered) {
     }
     else {
         canvas.effects.removeChild(CONFIG.CELESTUS.backstabOverlaySprite); 
+        canvas.effects.removeChild(CONFIG.CELESTUS.backstabAreaSprite);
+        CONFIG.CELESTUS.reachOverlay.clear();
         canvas.effects.removeChild(CONFIG.CELESTUS.reachOverlay); 
     }
 }
