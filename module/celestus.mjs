@@ -12,6 +12,7 @@ import itemSocketSpreadJson from './data/item-socket-spreads.mjs';
 import itemArmorPlugsJson from './data/item-armor-plugs.mjs';
 import itemWeaponPlugsJson from './data/item-weapon-plugs.mjs';
 import itemSocketJson from './data/item-sockets.mjs';
+import { scripts } from "./resources/skill-scripts.mjs"
 
 // import * as itemSocketSpreadJson from './data/item-socket-spreads.json' with { type: "json" };
 // import * as itemArmorPlugsJson from './data/item-armor-plugs.json' with { type: "json" };
@@ -614,6 +615,8 @@ Hooks.on("init", () => {
     CONFIG.CELESTUS.backstabAreaSprite.anchor.x = 0.5;
     CONFIG.CELESTUS.backstabAreaSprite.anchor.y = 0.5;
 
+    // skill scripts
+    CONFIG.CELESTUS.scripts = scripts;
 
     // preload handlebars templates
     return preloadHandlebarsTemplates();

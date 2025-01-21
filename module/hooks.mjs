@@ -1,4 +1,4 @@
-import { applyWeaponStatus, calcMult, itemizeDamage, promptCrit, rollWeaponDamage } from "./helpers.mjs";
+import { applyWeaponStatus, calcMult, executeSkillScript, itemizeDamage, promptCrit, rollWeaponDamage } from "./helpers.mjs";
 
 const RED = '#e29292';
 const GREEN = '#92e298';
@@ -272,6 +272,14 @@ export async function addChatButtons(msg, html, options) {
         const targetOptions = CONFIG.CELESTUS.targetTypes[skill.system.targets.type]?.options;
         if (targetOptions && targetOptions.find(o => o === "size")) {
             html.append(`<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="draw-template"${disabled}>Draw Template</button>`)
+        }
+        // execute script
+        if (skill.system.hasScript && game.user.isGM) {
+            console.log("test");
+            html.append(`<button data-skill-id="${skill.system.scriptId}" data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="execute-skill">Execute Skill</button>`);
+            html.on('click', '.execute-skill', (ev) => {
+                executeSkillScript(actor, skill);
+            });
         }
 
     }

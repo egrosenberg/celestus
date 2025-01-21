@@ -250,6 +250,18 @@
                                 <input type="text" name="system.lifesteal" value="{{system.lifesteal}}"
                                     data-dtype="Number" style="width: 50px;" />
                             </div>
+                            {{!-- custom script info --}}
+                            <div class="general attribute">
+                                <label for="system.hasScript" class="resource-label">Has Script:
+                                </label>
+                                <input class="check-input" name="system.hasScript" type="checkbox" {{checked
+                                    system.hasScript}} />
+                                {{#if system.hasScript}}
+                                Script ID:
+                                <input type="text" name="system.scriptId" value="{{system.scriptId}}"
+                                    style="width: 50px;" />
+                                {{/if}}
+                            </div>
                         </div>
                         <h3>Prerequisites</h3>
                         {{#if (eq system.type "civil")}}

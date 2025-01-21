@@ -537,7 +537,7 @@ export class CelestusActor extends Actor {
 
         // reset all cooldowns
         for (let item of this.items) {
-            if (item.type === "skill" && (dawn || item.system.cooldown.value > 0)) {
+            if (item.type === "skill" && (dawn || item.system.type !== "civil" || item.system.cooldown.max > 0)) {
                 item.update({ "system.cooldown.value": 0 });
             }
         }

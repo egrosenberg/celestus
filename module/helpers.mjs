@@ -263,7 +263,7 @@ export function itemizeDamage(msg) {
             total += term.total;
         }
     }
-    return {total: total, terms: damage};
+    return { total: total, terms: damage };
 }
 
 export async function applyWeaponStatus(ev) {
@@ -282,6 +282,30 @@ export async function applyWeaponStatus(ev) {
         "ActiveEffect",
         [statusEffect]
     );
+}
+
+export async function executeSkillScript(origin, skill) {
+    const selected = canvas.tokens.controlled;
+    if (skill.system.targets.type === "creature" && selected.length !== skill.system.targets.count) {
+        return ui.notifications.warn(`CELESTUS | Error: please select ${skill.system.targets.count} targets`);
+    }
+    if (skill.system.targets.type !== "self" && selected.length < 1) {
+        return ui.notifications.warn("CELESTUS | Error: please select targets to affect.")
+    }
+    // prompt for confirmation
+    const proceed = await foundry.applications.api.DialogV2.confirm({
+        content: "Are you sure you want to execute? This action cannot be undone.",
+        rejectClose: false,
+        modal: true
+    });
+    if (!proceed) {
+        return;
+    }
+    // attempt to find script and execute it
+    if (!CONFIG.CELESTUS.scripts[skill.system.scriptId]) {
+        return ui.notifications.warn(`CELESTUS | Error: could not find script with id "${skill.system.scriptId}"`)
+    }
+    CONFIG.CELESTUS.scripts[skill.system.scriptId](origin, selected);
 }
 
 /**
