@@ -1,0 +1,132 @@
+<div class="dice-flavor celestus roll description">
+    <header class="summary">
+        {{#if portrait}}
+        <img class="roll-icon" src="{{portrait}}" title="{{name}}" />
+        {{/if}}
+        <div class="name-stacked">
+            <div class="title">{{name}}</div>
+            <div class="subtitle">
+                {{ifThen system.twoHanded "Two-Handed" "One-Handed"}} |
+                {{ifThen (gt system.range 0) "Ranged" "Melee"}}
+            </div>
+        </div>
+    </header>
+    <div class="roll-tags">
+        {{!-- weapon type --}}
+        <span class="roll-tag">
+            {{ifThen system.twoHanded "Two-Handed" "One-Handed"}}
+        </span>
+        <span class="roll-tag">
+            {{ifThen (gt system.range 0) "Ranged" "Melee"}}
+        </span>
+
+        {{!-- damage --}}
+        {{#with (lookup config.damageTypes item.system.damage.type) as |damageType|}}
+        <span class="roll-tag">
+            <i class="{{damageType.glyph}}"></i>
+            {{../item.system.damage.min}}-{{../item.system.damage.max}} {{damageType.label}}
+        </span>
+        {{/with}}
+        {{#each item.system.bonusDamage as |damage|}}
+        {{#with (lookup ../config.damageTypes damage.type) as |damageType|}}
+        <span class="roll-tag">
+            <i class="{{damageType.glyph}}"></i>
+            {{damage.min}}-{{damage.max}} {{damageType.label}}
+        </span>
+        {{/with}}
+        {{/each}}
+
+        {{!-- statuses --}}
+        {{#each item.system.statusApplyRolls as |status|}}
+        <div class="roll-tag">
+            {{status.id}} {{status.chance}}%
+        </div>
+        {{/each}}
+
+        {{!-- range --}}
+        <span class="roll-tag">
+            Range: {{#if system.range}}{{system.range}} ft.{{else}}Melee{{/if}}
+        </span>
+
+        {{!-- Combat Abilities --}}
+        {{#each system.bonuses.combat as |value skill|}}
+        {{#if value}}
+        {{#with (lookup ../config.combatSkills skill)}}
+        <div class="roll-tag" title="{{label}}">
+            {{numberFormat value sign=true decimals=0}}
+            {{label}}
+        </div>
+        {{/with}}
+        {{/if}}
+        {{/each}}
+
+        {{!-- Civil Abilities --}}
+        {{#each system.bonuses.civil as |value skill|}}
+        {{#if value}}
+        {{#with (lookup ../config.civilSkills skill)}}
+        <div class="roll-tag" title="{{skill}}">
+            {{numberFormat value sign=true decimals=0}}
+            {{label}}
+        </div>
+        {{/with}}
+        {{/if}}
+        {{/each}}
+
+        {{!-- Attributes --}}
+        {{#each system.bonuses.abilities as |value skill|}}
+        {{#if value}}
+        {{#with (lookup ../config.abilities skill)}}
+        <div class="roll-tag" title="{{skill}}">
+            {{numberFormat value sign=true decimals=0}}
+            {{label}}
+        </div>
+        {{/with}}
+        {{/if}}
+        {{/each}}
+
+        {{!-- Resistances --}}
+        {{#each system.bonuses.resistance as |value skill|}}
+        {{#if value}}
+        {{#with (lookup ../config.damageTypes skill)}}
+        <div class="roll-tag" title="{{skill}}">
+            {{numberFormat value decimals=2}}
+            {{label}}
+        </div>
+        {{/with}}
+        {{/if}}
+        {{/each}}
+
+        {{!-- Misc. bonuses --}}
+        {{!-- Crit Chance --}}
+        {{#if system.bonuses.crit_chance}}
+        <div class="roll-tag">
+            {{percent system.bonuses.crit_chance symbol=true sign=true}} Crit Chance
+        </div>
+        {{/if}}
+        {{#if system.bonuses.crit_bonus}}
+        {{!-- Crit Damage --}}
+        <div class="roll-tag">
+            {{percent system.bonuses.crit_bonus symbol=true sign=true}} Crit Damage
+        </div>
+        {{/if}}
+        {{#if system.bonuses.accuracy}}
+        {{!-- Accuracy --}}
+        <div class="roll-tag">
+            {{percent system.bonuses.accuracy symbol=true sign=true}} Accuracy
+        </div>
+        {{/if}}
+        {{#if system.bonuses.evasion}}
+        {{!-- Evasion --}}
+        <div class="roll-tag">
+            {{percent system.bonuses.evasion symbol=true sign=true}} Evasion
+        </div>
+        {{/if}}
+        {{#if system.bonuses.initiative}}
+        {{!-- Initiative --}}
+        <div class="roll-tag">
+            {{numberFormat system.bonuses.initiative sign=true}} Initiative
+        </div>
+        {{/if}}
+    </div>
+    {{#if flavor}}{{{flavor}}}{{/if}}
+</div>

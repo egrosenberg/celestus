@@ -714,6 +714,14 @@
     border: thin black solid;
 }
 
+/* Item hover */
+.celestus .item-hover {
+    width: 270px;
+    position: fixed;
+    background-color: rgba(255, 231, 195);
+    border: var(--color-warm-3) thin solid;
+}
+
 /* Effects */
 .celestus .effect-image {
     width: 25px;
@@ -843,11 +851,7 @@
     z-index: 1;
 }
 
-.celestus.roll.description {
-    margin-top: -1.25em;
-}
-
-.celestus .dice-flavor {
+.dice-flavor {
     border: thin solid var(--color-warm-1);
     box-shadow: var(--shadow-bevel);
     background-color: rgba(255, 231, 195, 0.5);
@@ -855,6 +859,7 @@
 }
 
 .celestus.roll.description .message-header {
+    margin-top: -1.25em;
     margin-bottom: 0.3em;
 }
 

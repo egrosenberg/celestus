@@ -33,7 +33,12 @@ const preloadHandlebarsTemplates = async function () {
         // Item partials
         'systems/celestus/templates/item/parts/item-creation.hbs',
         'systems/celestus/templates/item/parts/item-bonuses.hbs',
-        //'systems/celestus/templates/item/parts/item-effects.hbs',
+        // item descriptions
+        'systems/celestus/templates/rolls/item-parts/armor-description.hbs',
+        'systems/celestus/templates/rolls/item-parts/feature-description.hbs',
+        'systems/celestus/templates/rolls/item-parts/offhand-description.hbs',
+        'systems/celestus/templates/rolls/item-parts/skill-description.hbs',
+        'systems/celestus/templates/rolls/item-parts/weapon-description.hbs',
     ]);
 };
 

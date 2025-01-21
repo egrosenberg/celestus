@@ -122,6 +122,52 @@ export class CharacterSheet extends ActorSheet {
             }
         });
 
+        // item hover
+        html.on('mouseover', '.item', async (ev) => {
+            if ($('.item-hover').length) return;
+            // get item from object
+            const item = this.actor.items.get($(ev.currentTarget).data('item-id'));
+            if (!item) return;
+            // render item description to html
+            const path = `./systems/celestus/templates/rolls/item-parts/${item.type}-description.hbs`;
+            const msgData = {
+                name: item.name,
+                flavor: item.system.description,
+                portrait: item.img,
+                item: item,
+                system: item.system,
+                config: CONFIG.CELESTUS,
+            }
+            let msg = await renderTemplate(path, msgData);
+            // do text enrichment
+            msg = await TextEditor.enrichHTML(
+                msg,
+                {
+                    // Only show secret blocks to owner
+                    secrets: item.isOwner,
+                    async: true,
+                    // For Actors and Items
+                    rollData: item.getRollData()
+                }
+            );
+            // add item description to document
+            const div = $(msg);
+            div.addClass("item-hover");
+            const uiPosition = $("#ui-middle").offset();
+            div.css("left", uiPosition.left + $("#ui-middle").width() - 270);
+            div.css("top", uiPosition.top);
+            const popup = $(html).append(div);
+        })
+
+        // item hover leave
+        html.on('mouseleave', '.item', () => {
+            if ($(".item-hover").length) {
+                $(".item-hover").remove();
+                return;
+            }
+        })
+
+        
         // -------------------------------------------------------------
         // Everything below here is only needed if the sheet is editable
         if (!this.isEditable) return;
