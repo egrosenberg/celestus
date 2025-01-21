@@ -1,0 +1,11 @@
+<ul class="celestus damage-breakdown">
+    {{#each terms as |term|}}
+    {{#with (lookup ../damageTypes term.type)}}
+    <li class="damage-component" style="background-color: {{color}};">
+        <i class="{{glyph}}"></i>
+        <span class="value">{{term.amount}}</span>
+        <span class="type">{{label}}</span>
+    </li>
+    {{/with}}
+    {{/each}}
+</ul>

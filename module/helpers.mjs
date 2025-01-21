@@ -148,52 +148,92 @@ export async function promptCrit() {
 /**
  * 
  * @param {Actor} actor 
- * @param {Object} damage Damage element for base damage
- * @param {Object[]} bonusDamage Array of bonus damage elements
- * @param {Object[]} statuses statusApplyRolls from weapon
+ * @param {Object[]} damage array of damage elements for base damage
+ * @param {Object[][]} bonusDamage Array of bonus damage element arrays
+ * @param {Object[][]} statuses array of statusApplyRolls from weapons
  * @param {Boolean} isCrit
  * @param {Number} scalar Overall weapon damage scalar
+ * @param {String} typeOverride damage type id of damage type override (empty string or otherwise falsy for none)
  */
-export async function rollWeaponDamage(actor, damage, bonusDamage, statuses, isCrit, scalar) {
-    const type = damage.type;
-    const formula = `floor((${isCrit ? damage.crit : damage.roll})*${scalar})`
+export async function rollWeaponDamage(actor, damage, bonusDamage, statuses, isCrit, scalar, typeOverride) {
+    const type = damage[0].type;
 
     // roll to apply statuses
-    if (statuses) {
+    if (statuses && statuses.length > 0) {
+        let statusList = statuses.length > 1 ? statuses[0].concat(statuses[1]) : statuses[0];
         let statusRolls = [];
-        for (const status of statuses) {
-            const roll = new Roll("1d100");
-            await roll.evaluate();
-            const statusEffect = CONFIG.statusEffects.find(s => s.id === status.id);
-            statusRolls.push({
-                name: statusEffect.name,
-                icon: statusEffect.img,
-                roll: roll.total,
-                success: roll.total > 100 - status.chance,
-                id: status.id
-            })
-        }
 
-        const path = './systems/celestus/templates/rolls/weapon-roll-statuses.hbs';
-        const msgData = {
-            statuses: statusRolls,
-            actorId: actor.uuid,
-        }
-        let msg = await renderTemplate(path, msgData);
-        // do text enrichment
-        msg = await TextEditor.enrichHTML(
-            msg,
-            {
-                async: true,
+        if (statusList.length > 0) {
+            for (const status of statusList) {
+                const roll = new Roll("1d100");
+                await roll.evaluate();
+                const statusEffect = CONFIG.statusEffects.find(s => s.id === status.id);
+                statusRolls.push({
+                    name: statusEffect.name,
+                    icon: statusEffect.img,
+                    roll: roll.total,
+                    success: roll.total > 100 - status.chance,
+                    id: status.id
+                })
             }
-        );
-        await ChatMessage.create({
-            content: msg,
-            'system.type': "weaponStatuses",
-            'system.actorID': actor.uuid,
-        });
+
+            const path = './systems/celestus/templates/rolls/weapon-roll-statuses.hbs';
+            const msgData = {
+                statuses: statusRolls,
+                actorId: actor.uuid,
+            }
+            let msg = await renderTemplate(path, msgData);
+            // do text enrichment
+            msg = await TextEditor.enrichHTML(
+                msg,
+                {
+                    async: true,
+                }
+            );
+            await ChatMessage.create({
+                speaker: { alias: `${actor.name} - Weapon Statuses` },
+                content: msg,
+                'system.type': "weaponStatuses",
+                'system.actorID': actor.uuid,
+            });
+        }
     }
 
+    // create a roll formula
+    let formula = ""// = `floor((${isCrit ? damage.crit : damage.roll})*${scalar})`
+    if (damage && damage.length > 0) {
+        if (damage.length === 1) {
+            formula += `floor((${isCrit ? damage[0].crit : damage[0].roll})*${scalar})[${typeOverride || damage[0].type}]`;
+            // roll any bonus damage types
+            if (bonusDamage[0]) {
+                for (const element of bonusDamage[0]) {
+                    const elementType = typeOverride || element.type;
+                    formula += ` + floor((${isCrit ? element.crit : element.roll})*${scalar})[${elementType}]`;
+                }
+            }
+        }
+        else {
+            const dType1 = typeOverride || damage[0].type
+            formula += `floor((${isCrit ? damage[0].crit : damage[0].roll})*${scalar})[${dType1}]`;
+            // roll any bonus damage types
+            if (bonusDamage[0]) {
+                for (const element of bonusDamage[0]) {
+                    const elementType = typeOverride || element.type;
+                    formula += ` + floor((${isCrit ? element.crit : element.roll})*${scalar})[${elementType}]`;
+                }
+            }
+            const dType2 = typeOverride || damage[1].type
+            formula += ` + floor((${isCrit ? damage[1].crit : damage[1].roll})*${scalar * CONFIG.CELESTUS.dualwieldMult})[${dType2}]`;
+            // roll any bonus damage types
+            if (bonusDamage[1]) {
+                for (const element of bonusDamage[1]) {
+                    const elementType = typeOverride || element.type;
+                    formula += ` + floor((${isCrit ? element.crit : element.roll})*${scalar})[${elementType}]`;
+                }
+            }
+        }
+    }
+    // create final roll
     const r = new Roll(formula);
     await r.toMessage({
         speaker: { alias: `${actor.name} - Weapon Damage` },
@@ -201,22 +241,29 @@ export async function rollWeaponDamage(actor, damage, bonusDamage, statuses, isC
         'system.damageType': type,
         'system.actorID': actor.uuid,
     });
+}
 
-    // roll any bonus damage types
-    if (bonusDamage) {
-        for (const element of bonusDamage) {
-            const type = element.type;
-            const formula = `floor((${isCrit ? element.crit : element.roll})*${scalar})`
-
-            const r = new Roll(formula);
-            await r.toMessage({
-                speaker: { alias: `${actor.name} - Bonus Weapon Damage` },
-                'system.isDamage': true,
-                'system.damageType': type,
-                'system.actorID': actor.uuid,
+/**
+ * extracts damage types and subtotals from a message object
+ * @param {Message} msg 
+ * @returns {Object}
+ */
+export function itemizeDamage(msg) {
+    let total = 0;
+    let damage = [];
+    // iterate through rolls
+    for (const roll of msg.rolls) {
+        // iterate through components of roll
+        for (const term of roll.terms) {
+            if (isNaN(term.total)) continue;
+            damage.push({
+                amount: term.total,
+                type: term.options?.flavor || "none"
             });
+            total += term.total;
         }
     }
+    return {total: total, terms: damage};
 }
 
 export async function applyWeaponStatus(ev) {
@@ -227,10 +274,10 @@ export async function applyWeaponStatus(ev) {
     const t = ev.currentTarget;
     const statusId = $(t).data("statusId");
     const actorId = $(t).data("actorId");
-    
+
     // apply status effect
     const statusEffect = await ActiveEffect.fromStatusEffect(statusId);
-    statusEffect.updateSource({"origin": actorId})
+    statusEffect.updateSource({ "origin": actorId })
     await target.createEmbeddedDocuments(
         "ActiveEffect",
         [statusEffect]

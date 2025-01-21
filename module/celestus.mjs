@@ -1,6 +1,6 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
@@ -639,6 +639,7 @@ Hooks.on("hotbarDrop", (bar, data, slot) => {
 
 // append apply damage button to damage rolls for GM
 Hooks.on("renderChatMessage", addChatButtons);
+Hooks.on("renderChatMessage", renderDamageComponents);
 // remove author from roll chat messages
 Hooks.on("renderChatMessage", removeRollAuthor);
 

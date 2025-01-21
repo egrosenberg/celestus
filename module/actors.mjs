@@ -580,7 +580,7 @@ export class CelestusActor extends Actor {
 
                     const mult = calcMult(this, type, "0", part.value, false, 0);
 
-                    const r = new Roll(`floor((${base})[${type}] * ${mult})`)
+                    const r = new Roll(`floor((${base}) * ${mult})[${type}]`)
                     await r.toMessage({
                         speaker: { alias: `${this.name} - Status Damage` },
                         'system.isDamage': true,

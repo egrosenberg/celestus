@@ -1,4 +1,4 @@
-import { applyWeaponStatus, calcMult, promptCrit, rollWeaponDamage } from "./helpers.mjs";
+import { applyWeaponStatus, calcMult, itemizeDamage, promptCrit, rollWeaponDamage } from "./helpers.mjs";
 
 const RED = '#e29292';
 const GREEN = '#92e298';
@@ -98,6 +98,7 @@ export async function rollDamage(e) {
     const isCrit = await promptCrit();
 
     if (item.system.type === "magic" || item.system.overridesWeaponDamage) {
+        let formula = "";
         // iterate through damage array
         for (let part of item.system.damage) {
             // damage type
@@ -108,16 +109,16 @@ export async function rollDamage(e) {
             const base = CONFIG.CELESTUS.baseDamage.formula[actor.system.attributes.level];
 
             const mult = calcMult(actor, type, ability, part.value, isCrit, 0);
-
-            const r = new Roll(`floor((${base})[${type}] * ${mult})`)
-            await r.toMessage({
-                speaker: { alias: actor.name },
-                'system.isDamage': true,
-                'system.damageType': type,
-                'system.actorID': actorID,
-                'system.itemID': itemID,
-            });
+            formula += `+ floor((${base}) * ${mult})[${type}]`
         }
+        const r = new Roll(formula)
+        await r.toMessage({
+            speaker: { alias: `${actor.name} - ${item.name} (damage)` },
+            'system.isDamage': true,
+            'system.damageType': item.system.damage[0].type,
+            'system.actorID': actorID,
+            'system.itemID': itemID,
+        });
     }
     else if (item.system.type === "weapon") {
         let weaponScalar = item.system.weaponEfficiency ?? 1;
@@ -127,13 +128,7 @@ export async function rollDamage(e) {
         if (!damage || damage.length === 0) {
             return;
         }
-        if (damage.length === 1) {
-            await rollWeaponDamage(actor, damage[0], bonusDamage[0], statuses[0], isCrit, weaponScalar);
-        }
-        else {
-            await rollWeaponDamage(actor, damage[0], bonusDamage[0], statuses[0], isCrit, weaponScalar);
-            await rollWeaponDamage(actor, damage[1], bonusDamage[1], statuses[1], isCrit, weaponScalar * CONFIG.CELESTUS.dualwieldMult);
-        }
+        await rollWeaponDamage(actor, damage, bonusDamage, statuses, isCrit, weaponScalar, "");
     }
 }
 
@@ -146,6 +141,13 @@ export async function applyDamageHook(e) {
     const type = e.currentTarget.dataset.damageType;
     const origin = await fromUuid(e.currentTarget.dataset.originActor);
     const item = await fromUuid(e.currentTarget.dataset.originItem);
+
+    const msg = await fromUuid(e.currentTarget.dataset.messageId);
+    if (!msg) return;
+
+    const dmgTerms = itemizeDamage(msg);
+    if (!dmgTerms.terms) return;
+
     let lifesteal = 0;
     if (item?.type === "skill") {
         lifesteal = item.system.lifesteal;
@@ -154,7 +156,10 @@ export async function applyDamageHook(e) {
     const selected = canvas.tokens.controlled;
     // iterate through each controlled token
     for (const token of selected) {
-        token.actor.applyDamage(damage, type, origin, lifesteal);
+        console.log(dmgTerms);
+        for (const term of dmgTerms.terms) {
+            await token.actor.applyDamage(term.amount, term.type, origin, lifesteal);
+        }
     }
 }
 
@@ -186,7 +191,7 @@ export async function applyStatusHook(e) {
         // go through actual statusEffects
         for (const id of item.system.statusEffects) {
             const statusEffect = await ActiveEffect.fromStatusEffect(id);
-            statusEffect.updateSource({"origin": origin.uuid})
+            statusEffect.updateSource({ "origin": origin.uuid })
             await target.actor.createEmbeddedDocuments(
                 "ActiveEffect",
                 [statusEffect]
@@ -275,14 +280,16 @@ export async function addChatButtons(msg, html, options) {
         const disabled = game.user.isGM ? "" : "disabled";
         // add damage type to damage text
         const dieTotal = html.find(".dice-total");
-        dieTotal.html(dieTotal.html() + ` (${CONFIG.CELESTUS.damageTypes[msg.system.damageType].label})`)
+        let label = CONFIG.CELESTUS.damageTypes[msg.system.damageType].label;
+        label += itemizeDamage(msg)?.terms?.length > 1 ? '*' : '';
+        dieTotal.html(dieTotal.html() + ` (${label})`)
         dieTotal.append(`<i class=${CONFIG.CELESTUS.damageTypes[msg.system.damageType].glyph}></i>`);
         dieTotal.css("background-color", CONFIG.CELESTUS.damageTypes[msg.system.damageType].color);
         let dmgTotal = 0;
         for (let roll of msg.rolls) {
             dmgTotal += roll.total;
         }
-        html.append(`<button data-origin-actor="${msg.system.actorID}" data-origin-item="${msg.system.itemID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\ ${disabled}">Apply Damage</button>`);
+        html.append(`<button data-origin-actor="${msg.system.actorID}" data-message-id="${msg.uuid}" data-origin-item="${msg.system.itemID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\ ${disabled}">Apply Damage</button>`);
     }
     html.on('click', '.status.success', applyWeaponStatus);
 }
@@ -300,9 +307,19 @@ export async function previewDamage(object, controlled) {
         // if selecting a token, show damage calc, otherwise show prompt
         if (controlled) {
             const origin = await fromUuid($(this).data("origin-actor"));
-            let damage = actor.calcDamage($(this).data("damage-total"), $(this).data("damage-type"), origin);
-            // invert damage preview if healing
-            damage = CONFIG.CELESTUS.damageTypes[$(this).data("damage-type")].style === "healing" ? -damage : damage;
+            const msg = await fromUuid($(this).data("message-id"));
+            if (!msg) return;
+            const damageParts = itemizeDamage(msg);
+            if (!damageParts) return;
+            // iterate through damage parts
+            let damage = 0;
+            for (const term of damageParts.terms) {
+                let part = actor.calcDamage(term.amount, term.type, origin);
+                // invert damage preview if healing
+                part = CONFIG.CELESTUS.damageTypes[term.type].style === "healing" ? -part : part;
+                damage += part;
+            }
+            
             const sign = damage > 0 ? "" : "+";
             damage *= -1;
             // set html
@@ -443,7 +460,7 @@ export function startCombat(combat, updateData) {
     // make all combatants in combat
     for (const combatant of combat.combatants) {
         combatant.actor.refresh(false);
-        combatant.actor.update({"system.resources.ap.value": 0})
+        combatant.actor.update({ "system.resources.ap.value": 0 })
     }
 }
 
@@ -541,15 +558,15 @@ export function drawTokenHover(token, hovered) {
         let offsetY = tokenCenter.y;
         let offsetX = tokenCenter.x;
 
-        
+
         [overlaySprite.x, overlaySprite.y] = [offsetX, offsetY]
-        
+
         overlaySprite.width = size;
         overlaySprite.height = size;
 
         overlaySprite.anchor.x = 0.5;
         overlaySprite.anchor.y = 0.5;
-        overlaySprite.rotation = token.document.rotation * Math.PI/180;
+        overlaySprite.rotation = token.document.rotation * Math.PI / 180;
 
         overlaySprite.zIndex = 2;
 
@@ -562,7 +579,7 @@ export function drawTokenHover(token, hovered) {
         [areaSprite.x, areaSprite.y] = [offsetX, offsetY]
         areaSprite.width = size * 2;
         areaSprite.height = size * 2;
-        areaSprite.rotation = token.document.rotation * Math.PI/180;
+        areaSprite.rotation = token.document.rotation * Math.PI / 180;
         canvas.effects.addChild(areaSprite);
 
 
@@ -585,14 +602,14 @@ export function drawTokenHover(token, hovered) {
         [reachOverlay.x, reachOverlay.y] = [tokenCenter.x, tokenCenter.y];
 
         // add to scene and store in config
-        canvas.effects.addChild(reachOverlay); 
+        canvas.effects.addChild(reachOverlay);
         CONFIG.CELESTUS.reachOverlay = reachOverlay;
     }
     else {
-        canvas.effects.removeChild(CONFIG.CELESTUS.backstabOverlaySprite); 
+        canvas.effects.removeChild(CONFIG.CELESTUS.backstabOverlaySprite);
         canvas.effects.removeChild(CONFIG.CELESTUS.backstabAreaSprite);
         CONFIG.CELESTUS.reachOverlay.clear();
-        canvas.effects.removeChild(CONFIG.CELESTUS.reachOverlay); 
+        canvas.effects.removeChild(CONFIG.CELESTUS.reachOverlay);
     }
 }
 
@@ -607,7 +624,28 @@ export function rotateOnMove(token, changed, options) {
     if (changed.x && changed.y) {
         const distX = changed.x - token.x;
         const distY = changed.y - token.y;
-        const newAngle = Math.atan(distY / distX) * (180/Math.PI) + (distX > 0 ? 180 : 0);
+        const newAngle = Math.atan(distY / distX) * (180 / Math.PI) + (distX > 0 ? 180 : 0);
         token.object.rotate(newAngle - 90);
     }
+}
+
+
+/**
+ * 
+ * @param { ChatMessage } msg : chatmessage object for message being rendered (readonly)
+ * @param { jQuery } html : jquery html data for chat
+ * @param { messageData } options 
+ */
+export async function renderDamageComponents(msg, html, options) {
+    if (!msg.system.isDamage) return;
+    const dmgInfo = itemizeDamage(msg);
+    // render item description to html
+    const path = `./systems/celestus/templates/rolls/damage-breakdown.hbs`;
+    const msgData = {
+        terms: dmgInfo.terms,
+        damageTypes: CONFIG.CELESTUS.damageTypes,
+    }
+    let content = await renderTemplate(path, msgData);
+    console.log(content, html.children(".dice-tooltip"));
+    html.find(".dice-tooltip").after(content);
 }
