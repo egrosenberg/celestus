@@ -1,4 +1,4 @@
-<div class="dice-flavor celestus roll description">
+<div class="dice-flavor celestus roll description {{ifThen (eq usedResources false) "no-resources" ""}}">
     <header class="summary">
         {{#if portrait}}
         <img class="roll-icon" src="{{portrait}}" title="{{name}}" />

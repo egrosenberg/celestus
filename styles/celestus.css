@@ -919,6 +919,13 @@
     padding: 0.4em;
 }
 
+.dice-flavor.no-resources {
+    border: thin solid var(--color-cool-3);
+    box-shadow: var(--shadow-bevel);
+    background-color: rgba(195, 255, 225, 0.5);
+    padding: 0.4em;
+}
+
 .celestus.roll.description .message-header {
     margin-top: -1.25em;
     margin-bottom: 0.3em;
@@ -940,7 +947,6 @@
 .celestus.roll.description .name-stacked {
     vertical-align: top;
     padding-right: 0.5rem;
-    border-right: 1px solid var(--color-border-light-1);
 }
 
 .celestus.roll.description .title {

@@ -909,19 +909,19 @@ export class SkillData extends foundry.abstract.TypeDataModel {
         }
         // can't use skills while incapacitated
         if (actor.getFlag("celestus", "incapacitated")) {
-            return "actor is incapacitated";
+            return "Actor is incapacitated!";
         }
         // check if skill on cooldown
         if (this.cooldown.value > 0 || this.cooldown.value < 0) {
-            return "on cooldown";
+            return "Skill is on cooldown!";
         }
         // check if skill is memorized
         if (this.memorized === "false" && actor.type === "player") {
-            return "not memorized";
+            return "Skill is not memorized!";
         }
         // dont use civil skills in combat?
         if (this.type === "civil" && actor.inCombat) {
-            return "can't use civil skill in combat";
+            return "Can't use civil skill in combat!";
         }
         // dont use skills that require verbal component if actor is silenced
         if (this.components.verbal && actor.getFlag("celestus", "silenced")) {
@@ -931,19 +931,19 @@ export class SkillData extends foundry.abstract.TypeDataModel {
         if (this.type === "weapon") {
             // needs a weapon to use a weapon skill
             if (!actor.system.equipped.left) {
-                return "requires a weapon";
+                return "Requires a weapon!";
             }
             // cant use weapon skills while disarmed
             if (actor.getFlag("celestus", "disarmed")) {
-                return "actor is disarmed";
+                return "Actor is disarmed!";
             }
         }
         // check if actor has available AP or FP
         if (this.ap > actor.system.resources.ap.value) {
-            return "insufficent action points available";
+            return "Insufficent action points available!";
         }
         if (this.fp > actor.system.resources.fp.value) {
-            return "insufficent focus points available";
+            return "Insufficent focus points available!";
         }
         return false;
     }

@@ -366,17 +366,34 @@ export class CelestusActor extends Actor {
      */
     async useSkill(skill) {
         // check if skill is disabled
+        let error = "";
         if (skill.system.disabled !== false) {
-            return ui.notifications.warn(`CELESTUS | Error: ${skill.system.disabled}`);
+            error = `<p class="notification warning">${skill.system.disabled}</p><br />`;
+        }
+
+        // prompt to see if user wants to use skill
+        const useResources = await foundry.applications.api.DialogV2.confirm({
+            window: {title: "Use Resources?"},
+            content: error,
+            rejectClose: false,
+            modal: true
+        });
+        if (typeof useResources !== "boolean") return;
+        if (useResources && error) {
+            return ui.notifications.info(`CELESTUS | Skill not used because ${skill.system.disabled}`);
         }
 
         const actor = this.system;
         // use resources
         // only use ap if in combat
         if (this.inCombat) {
-            await this.update({ "system.resources.ap.value": actor.resources.ap.value - skill.system.ap });
+            if (useResources) {
+                await this.update({ "system.resources.ap.value": actor.resources.ap.value - skill.system.ap });
+            }
         }
-        await this.update({ "system.resources.fp.value": actor.resources.fp.value - skill.system.fp });
+        if (useResources) {
+            await this.update({ "system.resources.fp.value": actor.resources.fp.value - skill.system.fp });
+        }
 
         const path = './systems/celestus/templates/rolls/skill-roll.hbs';
         const msgData = {
@@ -388,6 +405,7 @@ export class CelestusActor extends Actor {
             portrait: skill.img,
             item: skill,
             config: CONFIG.CELESTUS,
+            usedResources: useResources,
         }
         let msg = await renderTemplate(path, msgData);
         // do text enrichment
@@ -411,13 +429,15 @@ export class CelestusActor extends Actor {
             'system.skill.hasDamage': skill.system.damage.length > 0 || skill.system.type === "weapon",
         });
 
-        // civil skills set cd to -1
-        if (skill.system.type === "civil") {
-            skill.update({ "system.cooldown.value": (skill.system.cooldown.max !== 0 ? -1 : 0) });
-        }
-        // set skill on cooldown if in combat (currently set to true for debugging)
-        else if (this.inCombat) {
-            skill.update({ "system.cooldown.value": skill.system.cooldown.max });
+        if (useResources) {
+            // civil skills set cd to -1
+            if (skill.system.type === "civil") {
+                skill.update({ "system.cooldown.value": (skill.system.cooldown.max !== 0 ? -1 : 0) });
+            }
+            // set skill on cooldown if in combat (currently set to true for debugging)
+            else if (this.inCombat) {
+                skill.update({ "system.cooldown.value": skill.system.cooldown.max });
+            }
         }
     }
 
@@ -617,7 +637,7 @@ export class CelestusActor extends Actor {
                 if (!token.combatant) {
                     await token.toggleCombatant();
                 }
-            
+
                 // create an initiative roll
                 let r = new Roll(game.system.initiative, this.system, { flavor: `${this.name} rolls initiative` });
                 await r.toMessage({
