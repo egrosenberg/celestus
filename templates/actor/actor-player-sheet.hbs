@@ -172,8 +172,14 @@
                     <div class="armor-socket-label">{{lookup ../config.equipmentSlots slot}}</div>
                     <a class="armor-socket-browse item" data-slot="{{slot}}" data-item-id="{{piece._id}}">
                         <img class="armor-socket-icon" src="{{piece.img}}" title="{{piece.name}}"
-                            style="{{ifThen piece.img "" " opacity: 0.0;"}}" {{#if (and piece.system.twoHanded (eq
-                            slot "right" ))}}style="opacity: 0.5" {{/if}} />
+                            {{#if piece.img}}
+                                {{#if (and piece.system.twoHanded (eq slot "right" ))}}
+                                    style="opacity: 0.5;" 
+                                {{/if}}
+                            {{else}}
+                                style="opacity: 0.0;"
+                            {{/if}}
+                        />
                     </a>
                 </div>
                 {{/each}}
