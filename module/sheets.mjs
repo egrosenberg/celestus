@@ -167,7 +167,7 @@ export class CharacterSheet extends ActorSheet {
             }
         })
 
-        
+
         // -------------------------------------------------------------
         // Everything below here is only needed if the sheet is editable
         if (!this.isEditable) return;
@@ -318,7 +318,7 @@ export class CharacterSheet extends ActorSheet {
         // item previews
         html.on('contextmenu', '.armor-socket-browse', (ev) => {
             const item = this.actor.items.get($(ev.currentTarget).data('itemId'));
-            if(item) {
+            if (item) {
                 item.sheet.render(true);
             }
         });
@@ -493,7 +493,7 @@ export class CelestusItemSheet extends ItemSheet {
                     }
                 }
                 else {
-                    generation.validSockets[i] = {"none": "none"};
+                    generation.validSockets[i] = { "none": "none" };
                 }
             }
             else {
@@ -603,6 +603,36 @@ export class CelestusItemSheet extends ItemSheet {
         }
         // gear listeners
         else {
+            // granted skills
+            html.on('drop', '.tab.attributes', async (ev) => {
+                ev.preventDefault();
+                ev.stopPropagation();
+                const dragData = ev.originalEvent.dataTransfer.items;
+                for (const item of dragData) {
+                    item.getAsString(async (s) => {
+                        const obj = JSON.parse(s);
+                        const skills = this.object.system.grantedSkills;
+                        const item = await fromUuid(obj.uuid);
+                        skills.push({ uuid: obj.uuid, name: item.name });
+                        this.object.update({ "system.grantedSkills": skills });
+                    });
+                }
+            });
+            // handle deleting granted skills
+            html.on('click', '.skill-delete', (ev) => {
+                const t = ev.currentTarget;
+                const index = $(t).data("index");
+                let arr = this.object.system.grantedSkills;
+                arr.splice(index, 1);
+                this.object.update({ "system.grantedSkills": arr });
+            });
+            // handle expanding granted skills
+            html.on('click', '.expand-item', async (ev) => {
+                const t = ev.currentTarget;
+                const uuid = $(t).data("uuid");
+                const item = await fromUuid(uuid);
+                item.sheet.render(true);
+            });
             // remove status effect
             html.on('click', '.list-delete', (ev) => {
                 const t = ev.currentTarget;

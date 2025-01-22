@@ -141,3 +141,16 @@
     </li>
     {{/each}}
 </div>
+{{!-- Granted Skills --}}
+<div id="granted-skills">
+    <h3>Grants Skills</h3>
+    <div class="tags input-element-tags">
+        {{#each system.grantedSkills as |item|}}
+        <div class="tag" data-key="{{item.uuid}}">
+            <a class="expand-item" data-uuid="{{item.uuid}}">{{item.name}}</a>
+            <a class="remove skill-delete fa-solid fa-times" data-index="{{@index}}" data-tooltip="Remove Skill"
+                aria-label="Remove Skill"></a>
+        </div>
+        {{/each}}
+    </div>
+</div>

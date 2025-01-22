@@ -819,7 +819,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             school: new StringField({ required: true, initial: "none" }), // type of school skill is
             tier: new NumberField({ required: true, integer: true, initial: 0 }),
             hasScript: new BooleanField({ required: true, initial: false }), // toggle for custom script
-            scriptId: new StringField({required: true, initial: ""}), // id of skill script to execute
+            scriptId: new StringField({ required: true, initial: "" }), // id of skill script to execute
         };
     }
 
@@ -1035,23 +1035,33 @@ export class GearData extends foundry.abstract.TypeDataModel {
             // for item generation
             socketTypes: new ArrayField(
                 new StringField(),
-                {required: true, initial: ["","","","","","","",""]}
+                { required: true, initial: ["", "", "", "", "", "", "", ""] }
             ),
             socketValues: new ArrayField(
                 new StringField(),
-                {required: true, initial: ["","","","","","","",""]}
+                { required: true, initial: ["", "", "", "", "", "", "", ""] }
             ),
             plugIds: new ArrayField(
                 new StringField(),
-                {required: true, initial: ["","","","","","","",""]}
+                { required: true, initial: ["", "", "", "", "", "", "", ""] }
             ),
             plugChanges: new ArrayField(
                 new ObjectField(),
-                {required: true, initial: [{},{},{},{},{},{},{},{}]}
+                { required: true, initial: [{}, {}, {}, {}, {}, {}, {}, {}] }
             ),
-            rarity: new StringField({required: true, initial: "Common"}),
-            level: new NumberField({required: true, initial: 1, integer: true, min: 1, max: 20}),
+            rarity: new StringField({ required: true, initial: "Common" }),
+            level: new NumberField({ required: true, initial: 1, integer: true, min: 1, max: 20 }),
             socketSpread: new StringField(),
+            grantedSkills: new ArrayField(new SchemaField({ // skills granted by this effect
+                    uuid: new StringField(),
+                    name: new StringField(),
+                }), 
+                { required: true, initial: [] }
+            ),
+            ownedItems: new ArrayField( // items that have been created by this effect
+                new StringField(),
+                { required: true, initial: [] }
+            ),
         };
     }
     /** @override */
@@ -1078,6 +1088,22 @@ export class GearData extends foundry.abstract.TypeDataModel {
                 }
             }
             options.system = { ownedEffects: grantedIds };
+        }
+        // grant skills
+        const grantedSkills = data.system?.grantedSkills;
+        if (grantedSkills && data.system?.equipped === true) {
+            const grantedIds = [];
+            for (const item of grantedSkills) {
+                const sourceItem = await fromUuid(item.uuid);
+                const newItems = await this.parent.parent?.createEmbeddedDocuments("Item", [sourceItem.toJSON()]);
+                if (newItems) {
+                    // mark new Item as always prepped
+                    await newItems[0].update({ "system.memorized": "always" });
+                    // record that this effect "owns" this item
+                    grantedIds.push(newItems[0].id);
+                }
+            }
+            options.system = { ownedItems: grantedIds };
         }
     }
     /**
@@ -1191,7 +1217,7 @@ export class WeaponData extends GearData {
             crit: `(${level}+${dice}d${dmgDie})*${multCrit}`,
         };
     }
-    
+
     /**
      * @returns {String} Melee | Ranged
      */
@@ -1239,7 +1265,7 @@ export class WeaponData extends GearData {
         multCrit *= 1 + ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
         multCrit = multCrit.toFixed(2);
         // final base dmg calcs
-        const baseAvg = (level + (nDice*dmgDieAvg));
+        const baseAvg = (level + (nDice * dmgDieAvg));
 
         // create an array to return
         let damage = []

@@ -59,6 +59,22 @@ export class CelestusItem extends Item {
                         this.updateSource({ "system.ownedEffects": grantedIds });
                     }
                 }
+                // grant skills
+                for (const item of this.system.grantedSkills) {
+                    const sourceItem = await fromUuid(item.uuid);
+                    const newItem = await this.parent?.createEmbeddedDocuments("Item", [sourceItem.toJSON()]);
+                    if (newItem) {
+                        // mark new Item as always prepped
+                        await newItem[0].update({ "system.memorized": "always" });
+                        // record that this effect "owns" this item
+                        let grantedArr = this.system.ownedItems;
+                        if (!grantedArr) {
+                            grantedArr = [];
+                        }
+                        grantedArr.push(newItem[0].id);
+                        this.updateSource({ "system.ownedItems": grantedArr })
+                    }
+                }
             }
             else if (changed.system?.equipped === false) { // remove all granted effects
                 for (const id of this.system.ownedEffects) {
@@ -71,6 +87,22 @@ export class CelestusItem extends Item {
                     }
                 }
                 this.updateSource({ "system.ownedEffects": [] });
+                // remove all items granted by this piece
+                for (const id of this.system.ownedItems) {
+                    const item = this.parent.items.find(i => i.id === id);
+                    if (item) {
+                        item.delete();
+                    }
+                    else {
+                        console.error(`Item not found: ${id}`)
+                    }
+                }
+                let system = changed.system;
+                if (!system) {
+                    changed.system = {};
+                    system = changed.system;
+                }
+                system.ownedItems = [];
             }
         }
 
@@ -114,6 +146,11 @@ export class CelestusItem extends Item {
     }
 
     /** @override */
+    _onCreate(data, options, userid) {
+        this.updateSource({ "system.ownedItems": options.system?.ownedItems ?? [] });
+    }
+
+    /** @override */
     _onDelete(options, userId) {
         const allowed = super._onDelete(options, userId);
         if (allowed === false) return;
@@ -126,6 +163,13 @@ export class CelestusItem extends Item {
                 else {
                     console.error(`CELESTUS | Effect not found: ${id}`)
                 }
+            }
+        }
+        if (this.system.ownedItems) {
+            // remove all skills granted by this item
+            for (const id of this.system.ownedItems) {
+                const item = this.parent.items.find(i => i.id === id);
+                if (item) item.delete();
             }
         }
     }
