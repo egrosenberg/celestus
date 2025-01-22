@@ -1,5 +1,5 @@
 import { calcMult, canvasPopupText } from "./helpers.mjs";
-import { renderHotbarOverlay } from "./hooks.mjs";
+import { renderHotbarOverlay, renderResourcesUi } from "./hooks.mjs";
 
 const BASE_AS = 10; // base ability score value
 
@@ -93,8 +93,9 @@ export class CelestusActor extends Actor {
                 effect.cleanupAura();
             }
         }
-        // render hotbar buttons
+        // render ui elements
         renderHotbarOverlay();
+        renderResourcesUi();
     }
 
     /**

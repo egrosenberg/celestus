@@ -1091,6 +1091,19 @@
     line-height: 48px;
 }
 
+/* resources overlay */
+.celestus.resources-ui {
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+    pointer-events: all;
+    padding: 10px;
+    border: solid medium black;
+    background-color: #00000088;
+    border-radius: 10px;
+    text-align: center;
+}
+
 /* Action Point Icons */
 .action-point.full {
     background: rgb(226, 244, 0);
@@ -1116,6 +1129,10 @@
     font-size: var(--font-size-18);
 }
 
+.action-point.large {
+    font-size: var(--font-size-28);
+}
+
 .focus-point.full {
     background: rgb(244, 228, 0);
     background: radial-gradient(circle at 60% 30%, rgb(255, 238, 0) 0%, rgb(145, 41, 0) 100%);
@@ -1138,4 +1155,8 @@
 
 .focus-point.small {
     font-size: var(--font-size-18);
+}
+
+.focus-point.large {
+    font-size: var(--font-size-28);
 }

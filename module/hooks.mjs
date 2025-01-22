@@ -657,3 +657,56 @@ export async function renderDamageComponents(msg, html, options) {
     console.log(content, html.children(".dice-tooltip"));
     html.find(".dice-tooltip").after(content);
 }
+
+/**
+ * Renders action points and other resources in ui overlay
+ */
+export async function renderResourcesUi() {
+    let actor = canvas?.tokens?.controlled[0]?.actor || game.user.character || null;
+
+    if (!actor){
+        document.getElementById("ui-resources").style.display = "none";
+        return;
+    }
+
+    const path = './systems/celestus/templates/resources-ui.hbs';
+    const msgData = {
+        actorId: actor._id,
+        resources: actor.system.resources
+    }
+    let msg = await renderTemplate(path, msgData);
+
+    document.getElementById("ui-resources").style.display = "";
+    document.getElementById("ui-resources").innerHTML = msg;
+}
+
+/**
+ * sets action points from clicking on resource ui
+ * @param {Event} ev event originating click
+ */
+export async function resourceInteractAp(ev) {
+    const actor = game.actors.get($(ev.currentTarget).parents('.resource').data('actorId'));
+    if (!actor) return console.warn("CELESTUS | Could not find actor to update AP");
+    const index = $(ev.currentTarget).data('index') + 1;
+    if (index === actor.system.resources.ap.value) {
+        await actor.update({ "system.resources.ap.value": actor.system.resources.ap.value - 1 });
+    }
+    else {
+        await actor.update({ "system.resources.ap.value": index });
+    }
+}
+/**
+ * sets focus points from clicking on resource ui
+ * @param {Event} ev event originating click
+ */
+export async function resourceInteractFp(ev) {
+    const actor = game.actors.get($(ev.currentTarget).parents('.resource').data('actorId'));
+    if (!actor) return console.warn("CELESTUS | Could not find actor to update FP");
+    const index = $(ev.currentTarget).data('index') + 1;
+    if (index === actor.system.resources.fp.value) {
+        await actor.update({ "system.resources.fp.value": actor.system.resources.fp.value - 1 });
+    }
+    else {
+        await actor.update({ "system.resources.fp.value": index });
+    }
+}

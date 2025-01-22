@@ -1,0 +1,30 @@
+<span class="resource" data-actor-id="{{actorId}}">
+    {{!-- only renders focus points if max focus points have been manually set --}}
+    {{#if resources.fp.max}}
+    {{!--<label class="resource-label">FP: </label>--}}
+    {{#repeat resources.fp.value}}
+    <a class="fp-interact" data-index="@index">
+        <i class="fa-solid fa-diamond focus-point full large"></i>
+    </a>
+    {{/repeat}}
+    {{#repeat (diff resources.fp.max resources.fp.value)
+    offset=resources.fp.value}}
+    <a class="fp-interact" data-index="@index">
+        <i class="fa-solid fa-diamond focus-point empty large"></i>
+    </a>
+    {{/repeat}}
+    {{/if}}
+    <br />
+    {{!--<label class="resource-label">AP: </label>--}}
+    {{#repeat resources.ap.value}}
+    <a class="ap-interact" data-index="@index">
+        <i class="fa-solid fa-circle action-point full large"></i>
+    </a>
+    {{/repeat}}
+    {{#repeat (diff resources.ap.max resources.ap.value)
+    offset=resources.ap.value}}
+    <a class="ap-interact" data-index="@index">
+        <i class="fa-solid fa-circle action-point empty large"></i>
+    </a>
+    {{/repeat}}
+</span>
