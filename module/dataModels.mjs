@@ -232,9 +232,11 @@ export class ActorData extends foundry.abstract.TypeDataModel {
         }
         // lone wolf modifiers
         if (this.parent.getFlag("celestus", "lone-wolf")) {
-            this.resources.ap.start += 2;
-            this.resources.hp.max *= 1.3;
-            this.resources.phys_armor.max *= CONFIG.CELESTUS.loneWolf.hpMult
+            this.resources.ap.start += CONFIG.CELESTUS.loneWolf.ap;
+            this.resources.ap.max += CONFIG.CELESTUS.loneWolf.ap;
+            this.resources.hp.max *= CONFIG.CELESTUS.loneWolf.hpMult;
+            this.resources.phys_armor.max *= CONFIG.CELESTUS.loneWolf.armorMult;
+            this.resources.mag_armor.max *= CONFIG.CELESTUS.loneWolf.armorMult;
         }
         // ensure all resources are back to int
         this.resources.phys_armor.max = parseInt(this.resources.phys_armor.max);

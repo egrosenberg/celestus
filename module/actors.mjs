@@ -119,7 +119,7 @@ export class CelestusActor extends Actor {
         if (this.getFlag("celestus", "marked")) {
             const mod = origin.system.combat.huntmaster.mod;
             if (mod > 0) {
-                damage *= 1 + mod;
+                damage *= 1 + mod + CONFIG.CELESTUS.baseMarkedBonus;
             }
         }
         return Math.floor(damage);
