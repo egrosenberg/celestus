@@ -166,11 +166,13 @@ Hooks.on("init", () => {
         },
         baseAbilityPoints: 1,
         baseAttributeScore: 10,
+        attributeMax: 40,
         npcAttributeScalar: 1.9 / 10,
         npcArmorScalar: 20 / 100,
         npcAbilityScalar: 0.173,
         npcAbilityBase: 0.4,
         combatSkillMod: 0.05,   // amount to increase damage by for combat skills per level
+        abilityMax: 10,
         baseCritBonus: 0.6,   // base critical damage bonus expressed as a percentage
         baseCritChance: 0.05,   // base critical hit chance expressed as a percentage
         baseAccuracy: 0.95,
@@ -506,6 +508,11 @@ Hooks.on("init", () => {
         durableMult: 1.1,
         naturalArmorScale: 0.5,
         renewingArmorScale: 0.25,
+        loneWolf: {
+            ap: 2,
+            hpMult: 1.3,
+            armorMult: 1.6,
+        },
         // item generation related constants
         itemRarities: {
             "Common": "Common",

@@ -124,7 +124,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
             combat: new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.combatSkills)).reduce((obj, ability) => {
                 obj[ability] = new SchemaField({
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total value
-                    base: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // base value from leveling
+                    base: new NumberField({ required: true, integer: true, min: 0, max: CONFIG.CELESTUS.abilityMax, initial: 0 }), // base value from leveling
                     bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
                     mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), //derived
                 })
@@ -134,7 +134,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
             civil: new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.civilSkills)).reduce((obj, ability) => {
                 obj[ability] = new SchemaField({
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total value
-                    base: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // base value from leveling
+                    base: new NumberField({ required: true, integer: true, min: 0, max: CONFIG.CELESTUS.abilityMax, initial: 0 }), // base value from leveling
                     bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
                 })
                 return obj;
@@ -142,7 +142,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
             // configure ability/attributes
             abilities: new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.abilities)).reduce((obj, ability) => {
                 obj[ability] = new SchemaField({
-                    value: new NumberField({ required: true, integer: false, min: 0, initial: 10 }), // base value
+                    value: new NumberField({ required: true, integer: false, min: 0, max: CONFIG.CELESTUS.attributeMax, initial: 10 }), // base value
                     mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // modifier value (percentage)
                     bonus: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // bonus to base value from items/features
                     total: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
@@ -166,7 +166,13 @@ export class ActorData extends foundry.abstract.TypeDataModel {
             }
         }
         // subtract from attributes based on exhaustion
-        for (let ability of [Object.entries(this.abilities)]) {
+        for (let [key, ability] of Object.entries(this.abilities)) {
+            // lone wolf modification
+            if (this.parent.getFlag("celestus", "lone-wolf")) {
+                let spent = ability.value - CONFIG.CELESTUS.baseAttributeScore;
+                spent = Math.min(spent*2, CONFIG.CELESTUS.attributeMax - CONFIG.CELESTUS.baseAttributeScore);
+                ability.total += spent + CONFIG.CELESTUS.baseAttributeScore - ability.value;
+            }
             ability.total -= this.attributes.exhaustion;
             ability.bonus -= this.attributes.exhaustion;
         }
@@ -223,6 +229,12 @@ export class ActorData extends foundry.abstract.TypeDataModel {
         this.resources.hp.max *= 1 + this.abilities.con.mod;
         if (this.parent.getFlag("celestus", "durable")) {
             this.resources.hp.max *= CONFIG.CELESTUS.durableMult;
+        }
+        // lone wolf modifiers
+        if (this.parent.getFlag("celestus", "lone-wolf")) {
+            this.resources.ap.start += 2;
+            this.resources.hp.max *= 1.3;
+            this.resources.phys_armor.max *= CONFIG.CELESTUS.loneWolf.hpMult
         }
         // ensure all resources are back to int
         this.resources.phys_armor.max = parseInt(this.resources.phys_armor.max);
@@ -484,8 +496,14 @@ export class PlayerData extends ActorData {
         // update combat ability values
         let spentCombat = 0;
         for (let [key, ability] of Object.entries(this.combat)) {
+            // check for lone wolf bonus
+            let base = ability.base;
+            if (this.parent.getFlag("celestus", "lone-wolf")) {
+                base *= 2;
+                base = Math.min(CONFIG.CELESTUS.abilityMax, base);
+            }
             // calculate total
-            ability.value += ability.base;
+            ability.value += base;
             spentCombat += ability.base;
         }
         this.attributes.unspentCombat = this.attributes.level + CONFIG.CELESTUS.baseAbilityPoints - spentCombat;
