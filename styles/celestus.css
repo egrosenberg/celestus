@@ -1107,11 +1107,13 @@
 /* Action Point Icons */
 .action-point.full {
     background: rgb(226, 244, 0);
-    background: radial-gradient(circle at 60% 30%, rgb(148, 201, 2) 0%, rgba(46, 77, 0, 1) 100%);
+    background: url('../img/milky-texture.webp'), radial-gradient(circle at 60% 30%, rgb(148, 201, 2) 0%, rgba(46, 77, 0, 1) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px rgb(0, 0, 0);
     background-clip: text;
+    background-blend-mode: multiply, normal;
+    background-size: cover;
     margin: 2px;
 }
 
@@ -1130,16 +1132,17 @@
 }
 
 .action-point.large {
-    font-size: var(--font-size-28);
+    font-size: var(--font-size-32);
 }
 
 .focus-point.full {
     background: rgb(244, 228, 0);
-    background: radial-gradient(circle at 60% 30%, rgb(255, 238, 0) 0%, rgb(145, 41, 0) 100%);
+    background: url('../img/milky-texture.webp'), radial-gradient(circle at 60% 30%, rgb(255, 238, 0) 0%, rgb(145, 41, 0) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px rgb(0, 0, 0);
     background-clip: text;
+    background-blend-mode: multiply, normal;
     margin: 2px;
 }
 
@@ -1158,5 +1161,5 @@
 }
 
 .focus-point.large {
-    font-size: var(--font-size-28);
+    font-size: var(--font-size-32);
 }
