@@ -813,7 +813,9 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             lifesteal: new NumberField({ required: true, initial: 0 }), // lifesteal that comes from skill
             weaponEfficiency: new NumberField({ required: true, initial: 1 }), // weapon damage scalar for weapon skills
             overridesWeaponDamage: new BooleanField({ required: true, initial: false }),
+            overridesWeaponType: new BooleanField({ required: true, initial: false }),
             overridesWeaponRange: new BooleanField({ required: true, initial: false }),
+            overrideDamageType: new StringField(),
             school: new StringField({ required: true, initial: "none" }), // type of school skill is
             tier: new NumberField({ required: true, integer: true, initial: 0 }),
             hasScript: new BooleanField({ required: true, initial: false }), // toggle for custom script

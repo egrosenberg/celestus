@@ -153,6 +153,21 @@
                                 <input class="check-input" name="system.overridesWeaponDamage" type="checkbox" {{checked
                                     system.overridesWeaponDamage}} />
                             </div>
+                            {{!-- overrides weapon damage type --}}
+                            {{#if (not system.overridesWeaponDamage)}}
+                            <div class="general attribute">
+                                <label for="system.overridesWeaponType" class="resource-label">Overrides dType:
+                                </label>
+                                <input class="check-input" name="system.overridesWeaponType" type="checkbox" {{checked
+                                    system.overridesWeaponType}} />
+                                {{#if system.overridesWeaponType}}
+                                Type: 
+                                <select class="damage-type-selector" name="system.overrideDamageType">
+                                    {{selectOptions config.damageTypes selected=item.system.overrideDamageType}}
+                                </select>
+                                {{/if}}
+                            </div>
+                            {{/if}}
                             {{!-- overrides weapon range --}}
                             <div class="general attribute">
                                 <label for="system.overridesWeaponRange" class="resource-label">Overrides Range:

@@ -238,7 +238,7 @@ export async function rollWeaponDamage(actor, damage, bonusDamage, statuses, isC
     await r.toMessage({
         speaker: { alias: `${actor.name} - Weapon Damage` },
         'system.isDamage': true,
-        'system.damageType': type,
+        'system.damageType': typeOverride || type,
         'system.actorID': actor.uuid,
     });
 }
@@ -256,10 +256,16 @@ export function itemizeDamage(msg) {
         // iterate through components of roll
         for (const term of roll.terms) {
             if (isNaN(term.total)) continue;
-            damage.push({
-                amount: term.total,
-                type: term.options?.flavor || "none"
-            });
+            const partial = damage.find(e => e.type === term.options?.flavor);
+            if (partial) {
+                partial.amount += term.total;
+            }
+            else {
+                damage.push({
+                    amount: term.total,
+                    type: term.options?.flavor || "none"
+                });
+            }
             total += term.total;
         }
     }

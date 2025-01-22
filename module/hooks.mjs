@@ -128,7 +128,8 @@ export async function rollDamage(e) {
         if (!damage || damage.length === 0) {
             return;
         }
-        await rollWeaponDamage(actor, damage, bonusDamage, statuses, isCrit, weaponScalar, "");
+        let overrideDamageType = item.system.overridesWeaponType ? item.system.overrideDamageType : "";
+        await rollWeaponDamage(actor, damage, bonusDamage, statuses, isCrit, weaponScalar, overrideDamageType);
     }
 }
 
@@ -156,7 +157,6 @@ export async function applyDamageHook(e) {
     const selected = canvas.tokens.controlled;
     // iterate through each controlled token
     for (const token of selected) {
-        console.log(dmgTerms);
         for (const term of dmgTerms.terms) {
             await token.actor.applyDamage(term.amount, term.type, origin, lifesteal);
         }
@@ -275,7 +275,6 @@ export async function addChatButtons(msg, html, options) {
         }
         // execute script
         if (skill.system.hasScript && game.user.isGM) {
-            console.log("test");
             html.append(`<button data-skill-id="${skill.system.scriptId}" data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="execute-skill">Execute Skill</button>`);
             html.on('click', '.execute-skill', (ev) => {
                 executeSkillScript(actor, skill);
@@ -654,7 +653,6 @@ export async function renderDamageComponents(msg, html, options) {
         damageTypes: CONFIG.CELESTUS.damageTypes,
     }
     let content = await renderTemplate(path, msgData);
-    console.log(content, html.children(".dice-tooltip"));
     html.find(".dice-tooltip").after(content);
 }
 
