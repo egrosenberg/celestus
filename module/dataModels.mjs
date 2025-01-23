@@ -1089,6 +1089,7 @@ export class GearData extends foundry.abstract.TypeDataModel {
         const allowed = await super._preCreate(data, options, user);
         if (allowed === false) return false;
 
+        options.system = {};
         const grantedEffects = data.effects;
         if (grantedEffects && data.system?.equipped) {
             const grantedIds = [];
@@ -1096,18 +1097,18 @@ export class GearData extends foundry.abstract.TypeDataModel {
                 if (effect.disabled) {
                     continue;
                 }
-                let effectData = effect.toJSON();
-                effectData.type = "status";
+                //let effectData = effect.toJSON();
+                //effectData.type = "status";
                 if (this.parent?.parent?.documentName === "Actor") {
-                    effectData.origin = this.parent.parent.uuid;
+                    effect.origin = this.parent.parent.uuid;
                 }
-                const [newEffect] = await this.parent.parent?.createEmbeddedDocuments("ActiveEffect", [effectData]);
+                const [newEffect] = await this.parent.parent?.createEmbeddedDocuments("ActiveEffect", [effect]);
                 if (newEffect) {
-                    // record that this effect "owns" this item
-                    grantedIds.push(newEffect[0].id);
+                    // record that this item "owns" this effect
+                    grantedIds.push(newEffect._id);
                 }
             }
-            options.system = { ownedEffects: grantedIds };
+            options.system.ownedEffects = grantedIds;
         }
         // grant skills
         const grantedSkills = data.system?.grantedSkills;
@@ -1123,7 +1124,7 @@ export class GearData extends foundry.abstract.TypeDataModel {
                     grantedIds.push(newItems[0].id);
                 }
             }
-            options.system = { ownedItems: grantedIds };
+            options.system.ownedItems = grantedIds;
         }
     }
     /**

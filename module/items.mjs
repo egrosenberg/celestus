@@ -41,7 +41,7 @@ export class CelestusItem extends Item {
         }
         // check if enabled status changed
         if (changed.system?.equipped !== this.system.equipped) {
-            if (changed.system?.equipped === true) { // enabling effects
+            if (changed.system?.equipped === true && this.parent?.documentName === "Actor") { // enabling effects
                 for (const effect of this.effects) {
                     if (effect.disabled) {
                         continue;
@@ -147,7 +147,10 @@ export class CelestusItem extends Item {
 
     /** @override */
     _onCreate(data, options, userid) {
+        const allowed = super._onCreate(data, options, userid);
+        if (allowed === false) return;
         this.updateSource({ "system.ownedItems": options.system?.ownedItems ?? [] });
+        this.updateSource({ "system.ownedEffects": options.system?.ownedEffects ?? [] });
     }
 
     /** @override */

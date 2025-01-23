@@ -328,8 +328,24 @@ export class CharacterSheet extends ActorSheet {
 
         // item previews
         html.on('contextmenu', '.item', (ev) => {
-            const item = this.actor.items.get($(ev.currentTarget).data('itemId'));
-            item.sheet.render(true);
+            if ($(ev.currentTarget).data('itemId')) {
+                const item = this.actor.items.get($(ev.currentTarget).data('itemId'));
+                if (item) {
+                    item.sheet.render(true);
+                }
+                else {
+                    console.error("CELESTUS | Unable to find item on sheet");
+                }
+            }
+            else if ($(ev.currentTarget).data('effectId')) {
+                const effect = this.actor.effects.get($(ev.currentTarget).data('effectId'));
+                if (effect) {
+                    effect.sheet.render(true);
+                }
+                else {
+                    console.error("CELESTUS | Unable to find effect on sheet");
+                }
+            }
         });
 
         // Drag events for macros.
