@@ -388,11 +388,12 @@ export async function createCelestusMacro(data, slot) {
  */
 export function rollItemMacro(name) {
     // check for token/actor
-    if (!_token) {
+    let actor = canvas.tokens?.controlled?.[0]?.actor ?? game.user.character ?? _token?.actor ?? null;
+    if (!actor) {
         return ui.notifications.warn("CELESTUS | Please select a token before executing a macro");
     }
     // find item on controlled actor
-    const item = _token.actor.items.find(i => i.name === name);
+    const item = actor.items.find(i => i.name === name);
     if (!item) {
         return ui.notifications.warn(`CELESTUS | Could not find item named ${name} on controlled actor`)
     }
@@ -522,17 +523,18 @@ export function removeRollAuthor(message, html, messageData) {
  * render overlays over hotbat
  */
 export function renderHotbarOverlay(render = true) {
+    let actor = canvas.tokens?.controlled?.[0]?.actor ?? game.user.character ?? _token?.actor ?? null;
     // check for token/actor
-    if (!_token) {
+    if (!actor) {
         return;
     }
     // clear all old hotbar overlays
     $(".macro-overlay").remove();
-    if (!render) return;
+    if (!render && !game.user.character) return;
     // find all active hotbar items
-    const active = $(".macro.active");
+    const active = $(".macro");
     active.each((i, e) => {
-        const item = _token.actor.items.find(i => i.name === game.macros.get(e.dataset.macroId).name);
+        const item = actor.items.find(i => i.name === game.macros?.get(e.dataset.macroId)?.name);
         if (item?.type === "skill") {
             const cooldown = item.system.cooldown.value;
             if (cooldown > 0) {
@@ -660,7 +662,7 @@ export async function renderDamageComponents(msg, html, options) {
  * Renders action points and other resources in ui overlay
  */
 export async function renderResourcesUi() {
-    let actor = canvas?.tokens?.controlled[0]?.actor || game.user.character || null;
+    let actor = canvas.tokens?.controlled?.[0]?.actor ?? game.user.character ?? _token?.actor ?? null;
 
     if (!actor){
         document.getElementById("ui-resources").style.display = "none";

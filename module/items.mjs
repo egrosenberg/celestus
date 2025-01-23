@@ -1,4 +1,5 @@
 import { byString, calcMult, matchIfPresent } from "./helpers.mjs";
+import { renderHotbarOverlay } from "./hooks.mjs";
 
 /**
  * Extends the basic item class for skills
@@ -143,6 +144,13 @@ export class CelestusItem extends Item {
                 this.updateSource({"system.plugIds": newPlugs})
             }
         }
+    }
+
+    /** @override */
+    _onUpdate(changed, options, userId) {
+        const allowed = super._onUpdate(changed, options, userId);
+        if (allowed === false) return;
+        renderHotbarOverlay();
     }
 
     /** @override */

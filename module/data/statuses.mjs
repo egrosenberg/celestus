@@ -545,7 +545,7 @@ export let statuses = [
         type: "status",
         duration: { rounds: 0 },
         system: {
-            removes: ["main", "atrophy", "blind", "prone", "bleed", "disease", "silence",],
+            removes: ["maim", "atrophy", "blind", "prone", "bleed", "disease", "silence",],
         }
     },
     {

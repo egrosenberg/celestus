@@ -1219,10 +1219,12 @@ export class WeaponData extends GearData {
         const dice = 1 + Math.round(CONFIG.CELESTUS.weaponDmgScalar * Math.pow(CONFIG.CELESTUS.e, level));
         const dmgDie = this.twoHanded ? 12 : 6;
         // calculate bonus from weapon combat ability
-        let abilityBonus = this.parent?.actor?.system?.combat[this.parent.actor.system.weaponType]?.mod ?? 0;
+        const weaponType = this.parent.actor?.system.weaponType;
+        let abilityBonus = weaponType ? this.parent?.actor?.system?.combat[weaponType]?.value * CONFIG.CELESTUS.combatSkillMod : 0;
+        let flatBonus = 1 +  abilityBonus + (this.parent?.actor?.system.attributes.bonuses.damage.value ?? 0);
         // calculate mult
-        let mult = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, false, abilityBonus) : 1;
-        let multCrit = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, true, abilityBonus) : 1;
+        let mult = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, false, flatBonus) : 1;
+        let multCrit = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, true, flatBonus) : 1;
         // optionally multiply by flat damage boost for npcs
         mult *= 1 + ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
         mult *= this.efficiency;
