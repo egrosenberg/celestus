@@ -653,6 +653,17 @@ export class PlayerData extends ActorData {
         };
     }
 
+    /** 
+     * Information about known skills count and max
+     */
+    get knownSkills() {
+        const skills = this.skills;
+        return {
+            count: skills.memorized.length + skills.unmemorized.length,
+            max: this.attributes.level * 2 + 2
+        };
+    }
+
 }
 
 /**
@@ -1221,15 +1232,15 @@ export class WeaponData extends GearData {
         // calculate bonus from weapon combat ability
         const weaponType = this.parent.actor?.system.weaponType;
         let abilityBonus = weaponType ? this.parent?.actor?.system?.combat[weaponType]?.value * CONFIG.CELESTUS.combatSkillMod : 0;
-        let flatBonus = 1 +  abilityBonus + (this.parent?.actor?.system.attributes.bonuses.damage.value ?? 0);
+        let flatBonus = abilityBonus + (this.parent?.actor?.system.attributes.bonuses.damage.value ?? 0);
+        flatBonus += ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
         // calculate mult
         let mult = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, false, flatBonus) : 1;
         let multCrit = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, true, flatBonus) : 1;
         // optionally multiply by flat damage boost for npcs
-        mult *= 1 + ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
         mult *= this.efficiency;
+        multCrit *= this.efficiency;
         mult = mult.toFixed(2);
-        multCrit *= 1 + ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
         multCrit = multCrit.toFixed(2);
         return {
             type: this.type,

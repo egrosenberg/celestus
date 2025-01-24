@@ -114,7 +114,7 @@
         </div>
     </li>
     {{/each}}
-    <h2>Not Memorized</h2>
+    <h2>Not Memorized (Known: {{actor.system.knownSkills.count}}/{{actor.system.knownSkills.max}})</h2>
     {{#each actor.system.skills.unmemorized as |skill|}}
     <li class='item skill' data-item-id='{{skill._id}}'>
         <div class='skill-frame'>

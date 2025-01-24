@@ -776,10 +776,10 @@
 }
 
 /* Item hover */
-.celestus .item-hover {
+.item-hover {
     width: 270px;
     position: fixed;
-    background-color: rgba(255, 231, 195);
+    background-color: rgba(255, 231, 195) !important;
     border: var(--color-warm-3) thin solid;
 }
 

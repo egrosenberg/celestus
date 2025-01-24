@@ -666,7 +666,54 @@ Hooks.on("renderChatMessage", renderDamageComponents);
 Hooks.on("renderChatMessage", removeRollAuthor);
 
 Hooks.on("renderHotbar", renderHotbarOverlay);
+Hooks.on("renderHotbar", (application, html, data) => {
+    // macro item hover
+    html.on('mouseover', '.macro', async (ev) => {
+        console.log("test");
+        let actor = canvas.tokens?.controlled?.[0]?.actor ?? game.user.character ?? _token?.actor ?? null;
+        if ($('.item-hover').length) return;
+        // get item from object
+        const item = actor.items.find(i => i.name === game.macros?.get($(ev.currentTarget).data("macroId"))?.name);
+        if (!item) return;
+        // render item description to html
+        const path = `./systems/celestus/templates/rolls/item-parts/${item.type}-description.hbs`;
+        const msgData = {
+            name: item.name,
+            flavor: item.system.description,
+            portrait: item.img,
+            item: item,
+            system: item.system,
+            config: CONFIG.CELESTUS,
+        }
+        let msg = await renderTemplate(path, msgData);
+        // do text enrichment
+        msg = await TextEditor.enrichHTML(
+            msg,
+            {
+                // Only show secret blocks to owner
+                secrets: item.isOwner,
+                async: true,
+                // For Actors and Items
+                rollData: item.getRollData()
+            }
+        );
+        // add item description to document
+        const div = $(msg);
+        div.addClass("item-hover");
+        const uiPosition = $("#ui-middle").offset();
+        div.css("left", uiPosition.left + $("#ui-middle").width() - 270);
+        div.css("top", uiPosition.top);
+        $("#ui-middle").append(div);
+    })
 
+    // item hover leave
+    html.on('mouseleave', '.macro', () => {
+        if ($(".item-hover").length) {
+            $(".item-hover").remove();
+            return;
+        }
+    })
+})
 // hook damage preview on token select
 Hooks.on("controlToken", previewDamage);
 Hooks.on("controlToken", (d, c) => { renderHotbarOverlay(c) });
