@@ -500,7 +500,7 @@ export class PlayerData extends ActorData {
         for (let [key, ability] of Object.entries(this.combat)) {
             // check for lone wolf bonus
             let base = ability.base;
-            if (this.parent.getFlag("celestus", "lone-wolf")) {
+            if (this.parent.getFlag("celestus", "lone-wolf") && key !== "formshifter") {
                 base *= 2;
                 base = Math.min(CONFIG.CELESTUS.abilityMax, base);
             }
@@ -1244,9 +1244,9 @@ export class WeaponData extends GearData {
         multCrit = multCrit.toFixed(2);
         return {
             type: this.type,
-            min: Math.floor(dice * mult),
-            max: Math.floor(dice * dmgDie * mult),
-            avg: Math.floor(dice * (dmgDie / 2 + 0.5) * mult),
+            min: Math.floor((level + dice) * mult),
+            max: Math.floor((level + dice * dmgDie) * mult),
+            avg: Math.floor((level + dice * (dmgDie / 2 + 0.5)) * mult),
             roll: `(${level}+${dice}d${dmgDie})*${mult}`,
             crit: `(${level}+${dice}d${dmgDie})*${multCrit}`,
         };
