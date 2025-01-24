@@ -315,6 +315,19 @@ export async function executeSkillScript(origin, skill) {
 }
 
 /**
+ * Rotates token to point towards a point on the canvas
+ * @param {Token} token 
+ * @param {Int,Int} point {x,y} values for point to rotate towards
+ */
+export function rotateTokenTowards(token, point) {
+    if (!point.x || !point.y) return;
+    const distX = point.x - token.x;
+    const distY = point.y - token.y;
+    const newAngle = Math.atan(distY / distX) * (180 / Math.PI) + (distX > 0 ? 180 : 0);
+    token.rotate(newAngle - 90);
+}
+
+/**
  * Checks if both a and b match or if a isn't present
  * @param {any} a
  * @param {any} b

@@ -1,3 +1,5 @@
+import { rotateTokenTowards } from "./helpers.mjs";
+
 export class CelestusMeasuredTemplate extends MeasuredTemplate {
     /**
      * Create a CelestusMeasuredTemplate from a skill
@@ -19,7 +21,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
         CONFIG.CELESTUS.activeMeasuredTemplatePreview = this._constructPreset(item);
 
         if (CONFIG.CELESTUS.activeMeasuredTemplatePreview) {
-            CONFIG.CELESTUS.activeMeasuredTemplatePreview.drawPreview();
+            CONFIG.CELESTUS.activeMeasuredTemplatePreview.drawPreview(item);
         }
     }
 
@@ -32,6 +34,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
         const templateData = {
             user: game.user?.id,
             distance: 0,
+            width: 5,
             direction: 0,
             x: 0,
             y: 0,
@@ -57,8 +60,9 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
 
     /**
      * Draws a preview of the template
+     * @param {Item} skill that is being used to draw the template
      */
-    drawPreview() {
+    drawPreview(skill) {
         // record starting layer
         const startingLayer = canvas.activeLayer;
 
@@ -68,13 +72,13 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
         this.layer.preview?.addChild(this);
 
         // Activate listeners for interactivity
-        this.activatePreviewListeners(startingLayer);
+        this.activatePreviewListeners(startingLayer, skill);
     }
 
     /**
      * Activate listeners for template preview
      */
-    activatePreviewListeners(startingLayer) {
+    activatePreviewListeners(startingLayer, skill) {
         if (!this.handlers) {
             this.handlers = {};
         }
@@ -114,6 +118,12 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
             canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [
                 this.document.toObject(),
             ]);
+            if (skill) {
+                const tokens = skill.actor.getActiveTokens();
+                for (const token of tokens) {
+                    rotateTokenTowards(token, {x: this.document.x, y: this.document.y})
+                }
+            }
         };
 
         // Rotate the template by 3 degree increments (mouse-wheel)

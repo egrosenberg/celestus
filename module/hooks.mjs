@@ -1,4 +1,4 @@
-import { applyWeaponStatus, calcMult, executeSkillScript, itemizeDamage, promptCrit, rollWeaponDamage } from "./helpers.mjs";
+import { applyWeaponStatus, calcMult, executeSkillScript, itemizeDamage, promptCrit, rollWeaponDamage, rotateTokenTowards } from "./helpers.mjs";
 
 const RED = '#e29292';
 const GREEN = '#92e298';
@@ -26,6 +26,17 @@ export async function rollAttack(e) {
     // verify targets amount
     if (targets.size < 1) {
         return ui.notifications.warn("ERROR: Please select at least one target to attack.");
+    }
+
+    // point token towards first target
+    if (targets.size === 1) {
+        const target = targets.values()?.next()?.value;
+        if (target) {
+            const tokens = actor.getActiveTokens();
+            for (const token of tokens) {
+                rotateTokenTowards(token, {x: target.x, y: target.y});
+            }
+        }
     }
 
     // threshold needed to exceed to count as a crit
@@ -631,10 +642,7 @@ export function drawTokenHover(token, hovered) {
 export function rotateOnMove(token, changed, options) {
     // if token moved, rotate towards position
     if (changed.x && changed.y) {
-        const distX = changed.x - token.x;
-        const distY = changed.y - token.y;
-        const newAngle = Math.atan(distY / distX) * (180 / Math.PI) + (distX > 0 ? 180 : 0);
-        token.object.rotate(newAngle - 90);
+        rotateTokenTowards(token.object, {x: changed.x, y: changed.y});
     }
 }
 
