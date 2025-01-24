@@ -669,12 +669,17 @@ Hooks.on("renderHotbar", renderHotbarOverlay);
 Hooks.on("renderHotbar", (application, html, data) => {
     // macro item hover
     html.on('mouseover', '.macro', async (ev) => {
-        console.log("test");
         let actor = canvas.tokens?.controlled?.[0]?.actor ?? game.user.character ?? _token?.actor ?? null;
         if ($('.item-hover').length) return;
         // get item from object
-        const item = actor.items.find(i => i.name === game.macros?.get($(ev.currentTarget).data("macroId"))?.name);
-        if (!item) return;
+        let item = actor?.items.find(i => i.name === game.macros?.get($(ev.currentTarget).data("macroId"))?.name);
+        if (!item) {
+            const id = game.packs.get("celestus.skills").index.find(i => i.name === game.macros?.get($(ev.currentTarget).data("macroId"))?.name)?.uuid;
+            if (id) {
+                item = await fromUuid(id);
+            }
+            if (!item) return;
+        }
         // render item description to html
         const path = `./systems/celestus/templates/rolls/item-parts/${item.type}-description.hbs`;
         const msgData = {
