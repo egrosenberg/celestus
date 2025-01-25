@@ -554,6 +554,7 @@ Hooks.on("init", () => {
         },
         // canvas constants
         rangeOverlayCol: 0xffffff,
+        tokenPointerAlpha: 1,
     };
 
     // set up data models

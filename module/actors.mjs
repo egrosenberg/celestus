@@ -756,7 +756,7 @@ export class CelestusToken extends Token {
         if (allowed === false) return false;
 
         if (this.pointerPixi) {
-            canvas.effects.removeChild(this.pointerPixi);
+            canvas.layers[4].removeChild(this.pointerPixi);
         }
     }
 
@@ -777,10 +777,11 @@ export class CelestusToken extends Token {
         pointer.rotation = rotation;
         [pointer.x, pointer.y] = [this.getCenterPoint().x, this.getCenterPoint().y];
         pointer.zIndex = 5;
+        pointer.alpha = CONFIG.CELESTUS.tokenPointerAlpha;
 
         // draw PIXI object
         this.pointerPixi = pointer;
-        canvas.effects.addChild(this.pointerPixi);
+        canvas.layers[4].addChild(this.pointerPixi);
     }
 
     /**
