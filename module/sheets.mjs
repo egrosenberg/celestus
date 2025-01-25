@@ -183,6 +183,13 @@ export class CharacterSheet extends ActorSheet {
             this.actor.rollInitiative();
         })
 
+        // toggle checkboxes
+        html.on('click', '.check-input', (ev) => {
+            const checked = ev.currentTarget.checked;
+            const name = ev.currentTarget.name;
+            this.actor.update({ [name]: checked });
+        });
+
         // set action points
         html.on('click', '.ap-interact', (ev) => {
             const index = $(ev.currentTarget).data('index') + 1;
@@ -249,6 +256,10 @@ export class CharacterSheet extends ActorSheet {
             onManageActiveEffect(ev, document);
         });
 
+        // change token pointer tint
+        html.on('change', '#pointer-tint', (ev) => {
+            this.actor.update({"system.pointerTint": $(ev.currentTarget).val()})
+        })
 
         // memorize or unmemorize a skill
         html.on('click', '.item-memorize', (ev) => {

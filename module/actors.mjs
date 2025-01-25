@@ -113,7 +113,7 @@ export class CelestusActor extends Actor {
             damage -= DR * damage;
         }
         else {
-            console.log(`CELESTUS | DR type "${type}" does not exist`);
+            console.warn(`CELESTUS | DR type "${type}" does not exist`);
         }
         // check if huntmaster is involved
         if (this.getFlag("celestus", "marked")) {
@@ -654,6 +654,71 @@ export class CelestusActor extends Actor {
 }
 
 export class CelestusToken extends Token {
+
+    /** @override */
+    _onCreate(data, options, userId) {
+        const allowed = super._onCreate(data, options, userId);
+        if (allowed == false) return false;
+    }
+
+    /**
+     * draws pointer overlay
+     */
+    drawPointer() {
+        if (this.drawing) return;
+        this.drawing = true;
+        if (!this.pointerPixi) {
+            this._createPointer();
+        }
+
+        [this.pointerPixi.x, this.pointerPixi.y] = [this.getCenterPoint().x, this.getCenterPoint().y];
+
+        const rotation = this.document.getFlag("celestus", "rotation") ?? 0;
+        this.pointerPixi.rotation = rotation;
+
+        if (this.actor.system.pointerTint) {
+            this.pointerPixi.tint =  Number("0x"+this.actor.system.pointerTint.substring(1));
+        }
+        else {
+            this.pointerPixi.tint =0xffffff;
+        }
+
+        this.drawing = false;
+    }
+
+    /** @override */
+    _onDelete(options, userId) {
+        const allowed = super._onDelete(options, userId);
+        if (allowed === false) return false;
+
+        if (this.pointerPixi) {
+            canvas.effects.removeChild(this.pointerPixi);
+        }
+    }
+
+    /**
+     * creates a pointer overlay for this token
+     */
+    _createPointer() {
+        if (this.pointerPixi) return;
+        // create PIXI object
+        const pointer = new PIXI.Sprite(CONFIG.CELESTUS.pointerTexture);
+        pointer.anchor.x = 0.5;
+        pointer.anchor.y = 0.5;
+        // set transforms
+        const size = Math.min(this.w, this.h) * 2;
+        pointer.width = size;
+        pointer.height = size;
+        const rotation = this.document.getFlag("celestus", "rotation") ?? 0;
+        pointer.rotation = rotation;
+        [pointer.x, pointer.y] = [this.getCenterPoint().x, this.getCenterPoint().y];
+        pointer.zIndex = 5;
+
+        // draw PIXI object
+        this.pointerPixi = pointer;
+        canvas.effects.addChild(this.pointerPixi);
+    }
+
     /**
      * Checks which tokens should have auras from this token's actor
      * @param {Number,Number} newPosition optional

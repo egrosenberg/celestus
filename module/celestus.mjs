@@ -1,4 +1,4 @@
-import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData } from "./dataModels.mjs"
+import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken } from "./actors.mjs"
 import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
@@ -612,16 +612,21 @@ Hooks.on("init", () => {
     CONFIG.statusEffects = statuses;
 
     // set up PIXI stuff
+    // reach overlay
     CONFIG.CELESTUS.reachOverlay = new PIXI.Graphics();
+    //backstab overlay
     CONFIG.CELESTUS.backstabOverlayTexture = PIXI.Texture.from('systems/celestus/svg/backstab-overlay.svg');
     CONFIG.CELESTUS.backstabOverlaySprite = new PIXI.Sprite(CONFIG.CELESTUS.backstabOverlayTexture);
+    // backstab area
     CONFIG.CELESTUS.backstabAreaTexture = PIXI.Texture.from('systems/celestus/svg/backstab-area.svg');
     CONFIG.CELESTUS.backstabAreaSprite = new PIXI.Sprite(CONFIG.CELESTUS.backstabAreaTexture);
     CONFIG.CELESTUS.backstabAreaSprite.tint = 0x0000FF;
     CONFIG.CELESTUS.backstabAreaSprite.alpha = 0.4;
-    CONFIG.CELESTUS.backstabAreaSprite.zIndex = 1;
+    CONFIG.CELESTUS.backstabAreaSprite.zIndex = 10;
     CONFIG.CELESTUS.backstabAreaSprite.anchor.x = 0.5;
     CONFIG.CELESTUS.backstabAreaSprite.anchor.y = 0.5;
+    // directional pointer texture
+    CONFIG.CELESTUS.pointerTexture = PIXI.Texture.from('systems/celestus/svg/direction-pointer.svg');
 
     // skill scripts
     CONFIG.CELESTUS.scripts = scripts;
@@ -738,6 +743,9 @@ Hooks.on("preUpdateToken", rotateOnMove);
 
 // draw backstab overlay
 Hooks.on("hoverToken", drawTokenHover);
+
+// token pointer overlay 
+Hooks.on("refreshToken", (t) => {if(!t._original) t.drawPointer()});
 
 // hbs helpers
 Handlebars.registerHelper("repeat", (n, options) => {

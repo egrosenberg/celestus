@@ -22,6 +22,8 @@ export class ActorData extends foundry.abstract.TypeDataModel {
         return {
             biography: new HTMLField(), // create biography field
             t: new StringField({ required: true, initial: "humanoid" }),
+            pointerTint: new StringField(),
+            portraitBorder: new BooleanField({required: true, initial: true}),
             // configure resources
             resources: new SchemaField({
                 // configure health as a schema field
@@ -1400,7 +1402,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
 
     /** @override */
     async _preCreate(data, options, user) {
-        const pre = await super._preCreate();
+        const pre = await super._preCreate(data, options, user);
         if (pre === false) {
             return false;
         }
@@ -1561,5 +1563,20 @@ export class ReferenceData extends foundry.abstract.TypeDataModel {
             // html description of armor
             description: new HTMLField()
         }
+    }
+}
+
+/**
+ * Data model / info for tokens
+ * @extends {TokenDocument}
+ */
+export class TokenData extends TokenDocument {
+    /** @override */
+    static defineSchema() {
+        let schema = super.defineSchema();
+        schema.pointerColor = new NumberField();
+        schema.direction = new NumberField({required: true, initial: 0}); // radians
+        schema.pointerPIXI = new ObjectField(); // pixi object
+        return schema;
     }
 }

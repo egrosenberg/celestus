@@ -364,6 +364,32 @@
     background: radial-gradient(circle, rgba(131, 0, 0, 1) 0%, rgba(55, 0, 0, 1) 0%, rgba(19, 0, 0, 1) 100%);
 }
 
+/* remove border from color swatch*/
+::-webkit-color-swatch,
+::-moz-color-swatch {
+    border-color: transparent;
+}
+
+input[type="color"] {
+    -webkit-appearance: none;
+    border: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+}
+
+.celestus input[type=color] {
+    padding: 0px;
+    border: medium solid var(--color-warm-3);
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
 /* styling for sheets */
 .celestus .window-content {
     padding: 0;
@@ -446,6 +472,18 @@
     border-style: none;
     background: rgb(255, 179, 0);
     background: radial-gradient(circle, rgba(255, 179, 0, 1) 0%, rgba(121, 9, 9, 1) 55%, rgba(36, 0, 0, 1) 100%);
+}
+
+.celestus.actor.sheet .portrait-input {
+    flex: 0 0 100px;
+}
+
+.celestus.actor.sheet .portrait-label {
+    display: inline-block;
+    color: white;
+    font-weight: bold;
+    font-size: var(--font-size-16);
+    flex-shrink: 0;
 }
 
 .celestus.actor.sheet .level {

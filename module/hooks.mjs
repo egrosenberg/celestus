@@ -586,9 +586,10 @@ export function drawTokenHover(token, hovered) {
 
         overlaySprite.anchor.x = 0.5;
         overlaySprite.anchor.y = 0.5;
-        overlaySprite.rotation = token.document.rotation * Math.PI / 180;
+        const rotation = token.document.getFlag("celestus", "rotation") ?? 0;
+        overlaySprite.rotation = rotation;
 
-        overlaySprite.zIndex = 2;
+        overlaySprite.zIndex = 20;
 
         canvas.effects.addChild(overlaySprite);
 
@@ -599,7 +600,7 @@ export function drawTokenHover(token, hovered) {
         [areaSprite.x, areaSprite.y] = [offsetX, offsetY]
         areaSprite.width = size * 2;
         areaSprite.height = size * 2;
-        areaSprite.rotation = token.document.rotation * Math.PI / 180;
+        areaSprite.rotation = rotation;
         canvas.effects.addChild(areaSprite);
 
 

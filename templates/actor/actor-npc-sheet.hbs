@@ -4,7 +4,22 @@
         <span class="sheet-header">
             <div class="portrait">
                 <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+                {{#if system.portraitBorder}}
                 <img class="portrait-overlay" src="systems/celestus/img/portrait-frame.webp" />
+                {{/if}}
+                <div>
+                    <span class="flexrow">
+                        <label class="portrait-label" for="system.pointerTint">Token Pointer Tint</label>
+                        <input class="portrait-input" type="color" id="pointer-tint" value="{{system.pointerTint}}" />
+                    </span>
+                </div>
+                <div>
+                    <span class="flexrow">
+                        <label class="portrait-label" for="system.portraitBorder">Portrait Frame</label>
+                        <input class="portrait-input check-input" type="checkbox" name="system.portraitBorder"{{ifThen system.portraitBorder "checked"}} />
+                    </span>
+                </div>
+            </div>
             </div>
             <div class="header-fields">
                 <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
