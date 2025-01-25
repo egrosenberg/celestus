@@ -20,7 +20,6 @@
                     </span>
                 </div>
             </div>
-            </div>
             <div class="header-fields">
                 <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
                 {{!-- NPC prefab stat spreads --}}
@@ -63,18 +62,35 @@
                 <h2>Resources</h2>
                 <div class="resources grid" id="action-points">
                     <span class="resource">
-                        <label class="resource-label">AP: </label>
+                        {{!--<label class="resource-label">AP: </label>--}}
                         {{#repeat system.resources.ap.value}}
                         <a class="ap-interact" data-index="@index">
                             <i class="fa-solid fa-circle action-point full small"></i>
                         </a>
                         {{/repeat}}
-                        {{#repeat (diff system.resources.ap.max system.resources.ap.value) offset=system.resources.ap.value}}
+                        {{#repeat (diff system.resources.ap.max system.resources.ap.value)
+                        offset=system.resources.ap.value}}
                         <a class="ap-interact" data-index="@index">
                             <i class="fa-solid fa-circle action-point empty small"></i>
                         </a>
                         {{/repeat}}
+                    <br/>
+                    {{!-- only renders focus points if max focus points have been manually set --}}
+                    {{#if system.resources.fp.max}}
+                        {{!--<label class="resource-label">FP: </label>--}}
+                        {{#repeat system.resources.fp.value}}
+                        <a class="fp-interact" data-index="@index">
+                            <i class="fa-solid fa-diamond focus-point full small"></i>
+                        </a>
+                        {{/repeat}}
+                        {{#repeat (diff system.resources.fp.max system.resources.fp.value)
+                        offset=system.resources.fp.value}}
+                        <a class="fp-interact" data-index="@index">
+                            <i class="fa-solid fa-diamond focus-point empty small"></i>
+                        </a>
+                        {{/repeat}}
                     </span>
+                    {{/if}}
                 </div>
                 <div class="resources grid" id="hp">
                     <span class="resource">
