@@ -374,7 +374,7 @@ export class CelestusActor extends Actor {
 
         // prompt to see if user wants to use skill
         const useResources = await foundry.applications.api.DialogV2.confirm({
-            window: {title: "Use Resources?"},
+            window: { title: "Use Resources?" },
             content: error,
             rejectClose: false,
             modal: true
@@ -451,7 +451,8 @@ export class CelestusActor extends Actor {
         const item = this.items.get(id);
         // if item is equipped, simply unequip
         if (item.system.equipped) {
-            item.update({ "system.equipped": false });
+            await item.update({ "system.equipped": false });
+            await this.setWeaponSkill();
             return;
         }
         // verify that actor meets prerequisites
@@ -466,6 +467,7 @@ export class CelestusActor extends Actor {
         }
         // track which piece is being removed
         let unequipping = [];
+        let rightChange = false;
         // unequip item in that slot
         const equipped = this.system.equipped;
         if (item.type === "armor") {
@@ -483,6 +485,7 @@ export class CelestusActor extends Actor {
             }
         }
         else if (item.type === "offhand") {
+            rightChange = true;
             // unequip current offhand
             if (equipped.right) {
                 equipped.right.update({ "system.equipped": false });
@@ -491,6 +494,7 @@ export class CelestusActor extends Actor {
         }
         else if (item.type === "weapon") {
             if (item.system.twoHanded) {
+                rightChange = true;
                 // unequip all hands
                 if (equipped.left) {
                     equipped.left.update({ "system.equipped": false });
@@ -510,6 +514,7 @@ export class CelestusActor extends Actor {
                 }
             }
             else {
+                rightChange = true;
                 //unequip right
                 if (equipped.right) {
                     equipped.right.update({ "system.equipped": false });
@@ -527,7 +532,66 @@ export class CelestusActor extends Actor {
             }
         }
         // equip this item
-        item.update({ "system.equipped": true });
+        await item.update({ "system.equipped": true });
+
+        // if right hand changed, grant appropriate skill and revoke previous skills
+        await this.setWeaponSkill();
+    }
+
+    /**
+     * Sets actor's weapon skill based on their equipped right hand
+     */
+    async setWeaponSkill() {
+        // delete old skill
+        const oldSkill = this.items.find(i => i.flags.celestus?.weaponSkill === true);
+        if (oldSkill) {
+            console.log(oldSkill);
+            await oldSkill.delete();
+        }
+
+        let wepSkill;
+        const right = this.system.equipped.right;
+        // determine weapon type
+        if (right) {
+            if (right.type === "offhand") {
+                if (right.system.spread === "shield") {
+                    wepSkill = "shield";
+                }
+            }
+            else if (right.type === "weapon" && right.system.range === 0) {
+                if (right.system.twoHanded) {
+                    if (right.system.ability === "str" || right.system.ability === "dex") {
+                        wepSkill = "twohand";
+                    }
+                    else if (right.system.ability === "int") {
+                        wepSkill = "staff";
+                    }
+                }
+                else {
+                    wepSkill = "dualwield";
+                }
+            }
+        }
+        else {
+            wepSkill = "unarmed";
+        }
+
+        if (wepSkill) {
+            console.log(wepSkill);
+            // find compendium entry appropriate for actor state
+            const skillId = CONFIG.CELESTUS.weaponSkills[wepSkill];
+            const cSkill = await fromUuid(skillId);
+            if (cSkill) {
+                await cSkill.updateSource({ "flags.celestus": { weaponSkill: true } });
+                const [newSkill] = await this.createEmbeddedDocuments("Item", [cSkill.toJSON()]);
+                if (newSkill) {
+                    await newSkill.update({ "system.memorized": "always" });
+                }
+            }
+            else {
+                console.warn("CELESTUS | Could not find weapon skill for equipped right hand.")
+            }
+        }
     }
 
     /**
@@ -677,10 +741,10 @@ export class CelestusToken extends Token {
         this.pointerPixi.rotation = rotation;
 
         if (this.actor.system.pointerTint) {
-            this.pointerPixi.tint =  Number("0x"+this.actor.system.pointerTint.substring(1));
+            this.pointerPixi.tint = Number("0x" + this.actor.system.pointerTint.substring(1));
         }
         else {
-            this.pointerPixi.tint =0xffffff;
+            this.pointerPixi.tint = 0xffffff;
         }
 
         this.drawing = false;

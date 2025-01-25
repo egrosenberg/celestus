@@ -544,6 +544,14 @@ Hooks.on("init", () => {
             weapon: itemWeaponPlugsJson.plugs,
         },
         itemSockets: itemSocketJson.sockets,
+        // weapon skills ids
+        weaponSkills: {
+            shield: "Compendium.celestus.skills.Item.S20Ma8U5X4zpZfND",
+            dualwield: "Compendium.celestus.skills.Item.pQaTbAEq1zVxwzBs",
+            twohand: "Compendium.celestus.skills.Item.Ing5GViqIILerFTF",
+            staff: "Compendium.celestus.skills.Item.2CzFu4GTEIo9AjvI",
+            unarmed: "Compendium.celestus.skills.Item.S6B6fMfqJCx3G4iZ",
+        },
         // canvas constants
         rangeOverlayCol: 0xffffff,
     };

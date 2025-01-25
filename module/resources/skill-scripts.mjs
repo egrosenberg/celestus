@@ -5,12 +5,33 @@
  * @param {Token[]} targets: array of tokens to target with the skill
  */
 export const scripts = {
+    /**
+     * Resets all cooldowns of combat skills that have positive cooldowns
+     */
     skinGraft: async function (origin, targets) {
-        // reset all cooldowns
         for (const item of origin.items) {
             if (item.type === "skill" && item.system.type !== "civil" && item.system.cooldown.max > 0) {
                 await item.update({ "system.cooldown.value": 0 });
             }
         }
-    }
+    },
+    /**
+     * Restore armor equal to the values granted by the equipped shield
+     */
+    shieldsUp: async function (origin, targets) {
+        const equipped = origin.system.equipped;
+        if (equipped.right?.type === "offhand") {
+            // get base values
+            const armor = equipped.right.system.value;
+            console.log(armor);
+            const cPhys = origin.system.resources.phys_armor;
+            const cMag = origin.system.resources.mag_armor;
+            // calculate new values
+            const newPhys = Math.min(cPhys.flat + armor.phys, cPhys.max);
+            const newMag = Math.min(cMag.flat + armor.mag, cMag.max);
+            // update values
+            await origin.update({"system.resources.phys_armor.flat": newPhys});
+            await origin.update({"system.resources.mag_armor.flat": newMag});
+        }
+    },
 }
