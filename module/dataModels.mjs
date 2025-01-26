@@ -853,6 +853,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             tier: new NumberField({ required: true, integer: true, initial: 0 }),
             hasScript: new BooleanField({ required: true, initial: false }), // toggle for custom script
             scriptId: new StringField({ required: true, initial: "" }), // id of skill script to execute
+            lingerDuration: new NumberField({ required: true, integer: true, initial: 0 }), 
         };
     }
 

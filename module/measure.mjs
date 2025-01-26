@@ -23,6 +23,8 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
         if (CONFIG.CELESTUS.activeMeasuredTemplatePreview) {
             CONFIG.CELESTUS.activeMeasuredTemplatePreview.drawPreview(item);
         }
+
+        return CONFIG.CELESTUS.activeMeasuredTemplatePreview;
     }
 
     /**
@@ -108,20 +110,29 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
         };
 
         // Confirm the workflow (left-click)
-        this.handlers.lc = (event) => {
+        this.handlers.lc = async (event) => {
             this.handlers.rc(event);
             const dest = canvas.grid.getSnappedPoint(this.document, {
                 mode: CONST.GRID_SNAPPING_MODES.CENTER,
                 resolution: 2,
             });
             this.document.updateSource(dest);
-            canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [
+            const [template] = await canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [
                 this.document.toObject(),
             ]);
             if (skill) {
                 const tokens = skill.actor.getActiveTokens();
                 for (const token of tokens) {
-                    rotateTokenTowards(token, {x: this.document.x, y: this.document.y})
+                    rotateTokenTowards(token, { x: this.document.x, y: this.document.y })
+                }
+                if (skill.system.lingerDuration && game.combat) {
+                    await template.setFlag("celestus", "linger", true);
+                    await template.setFlag("celestus", "lingerStartRound", game.combat.current.round);
+                    await template.setFlag("celestus", "lingerStartTurn", game.combat.current.turn);
+                    await template.setFlag("celestus", "lingerDuration", skill.system.lingerDuration);
+                }
+                else {
+                    await template.setFlag("celestus", "clearThis", true);
                 }
             }
         };

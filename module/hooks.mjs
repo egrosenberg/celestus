@@ -180,7 +180,7 @@ export async function applyDamageHook(e) {
  */
 export async function drawTemplate(e) {
     const skill = await fromUuid(e.currentTarget.dataset.itemUuid);
-    CONFIG.MeasuredTemplate.objectClass.fromSkill(skill)
+    CONFIG.MeasuredTemplate.objectClass.fromSkill(skill);
 }
 
 /**
@@ -448,13 +448,29 @@ export function onManageActiveEffect(event, owner) {
 /**
  * 
  * @param {Combat} combat 
- * @param {Number, Number} updateData round,turn
- * @param {Number, Number} updateOptions advanceTimer, direction
+ * @param {CombatHistoryData} prior
+ * @param {CombatHistoryData} current
  */
-export function triggerTurn(combat, updateData, updateOptions) {
+export function triggerTurn(combat, prior, current) {
     // only fire if user is a GM
     if (!game.user.isGM) {
         return;
+    }
+    // only fire if progressing forward
+    if (prior.round > current.round || (prior.turn > current.turn && prior.round === current.round)) return;
+    // check lingering templates
+    for (const template of canvas.scene.templates) {
+        if (template.getFlag("celestus", "clearThis")) {
+            template.delete();
+        }
+        if (template.getFlag("celestus", "linger") === true) {
+            const startRound = template.getFlag("celestus", "lingerStartRound");
+            const startTurn = template.getFlag("celestus", "lingerStartTurn");
+            const duration = template.getFlag("celestus", "lingerDuration");
+            if (current.round - startRound > duration || current.round - startRound >= duration && current.turn > startTurn) {
+                template.delete();
+            }
+        }
     }
     const endingId = combat.previous.combatantId;
     const startingId = combat.current.combatantId;

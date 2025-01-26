@@ -50,7 +50,7 @@
             </div>
             {{/if}}
             <div class="quick-reference">
-                Components: 
+                Components:
                 {{ifThen system.components.verbal "V " ""}}
                 {{ifThen system.components.somatic "S " ""}}
                 {{ifThen system.components.material "M " ""}}
@@ -62,26 +62,26 @@
 
             <h3>Prereqs:</h3>
             {{#if (eq system.type "civil")}}
-                {{!-- Civil Prereqs --}}
-                {{#each item.system.civilPrereqs as |ability|}}
-                    {{#if ability.[1]}}
-                        {{#with (lookup ../config.civilSkills ability.[0])}}
-                        <div class="quick-reference" style="background-color:{{color}};">
-                            {{ability.[1]}} {{label}} <i class="{{glyph}}"></i></div>
-                        {{/with}}
-                    {{/if}}
-                {{/each}}
+            {{!-- Civil Prereqs --}}
+            {{#each item.system.civilPrereqs as |ability|}}
+            {{#if ability.[1]}}
+            {{#with (lookup ../config.civilSkills ability.[0])}}
+            <div class="quick-reference" style="background-color:{{color}};">
+                {{ability.[1]}} {{label}} <i class="{{glyph}}"></i></div>
+            {{/with}}
+            {{/if}}
+            {{/each}}
             {{else}}
-                {{!-- Combat Prereqs --}}
-                {{#each item.system.combatPrereqs as |ability|}}
-                    {{#if ability.[1]}}
-                        {{#with (lookup ../config.combatSkills ability.[0])}}
-                        <div class="quick-reference" style="background-color: var(--color-{{damage}}-bg)">
-                            {{ability.[1]}} {{label}} <i class="{{glyph}}"></i>
-                        </div>
-                        {{/with}}
-                    {{/if}}
-                {{/each}}
+            {{!-- Combat Prereqs --}}
+            {{#each item.system.combatPrereqs as |ability|}}
+            {{#if ability.[1]}}
+            {{#with (lookup ../config.combatSkills ability.[0])}}
+            <div class="quick-reference" style="background-color: var(--color-{{damage}}-bg)">
+                {{ability.[1]}} {{label}} <i class="{{glyph}}"></i>
+            </div>
+            {{/with}}
+            {{/if}}
+            {{/each}}
             {{/if}}
 
             <h3>Damage:</h3>
@@ -161,7 +161,7 @@
                                 <input class="check-input" name="system.overridesWeaponType" type="checkbox" {{checked
                                     system.overridesWeaponType}} />
                                 {{#if system.overridesWeaponType}}
-                                Type: 
+                                Type:
                                 <select class="damage-type-selector" name="system.overrideDamageType">
                                     {{selectOptions config.damageTypes selected=item.system.overrideDamageType}}
                                 </select>
@@ -232,6 +232,17 @@
                                     {{selectOptions config.targetTypes selected=system.targets.type}}
                                 </select>
                             </div>
+                            {{!-- aoe linger --}}
+                            {{#with (lookup config.targetTypes system.targets.type)}}
+                            {{#if (eq options.[0] "size")}}
+                            <div class="general attribute">
+                                <label for="system.lingerDuration" class="resource-label">AOE Linger: </label>
+                                <input type="text" name="system.lingerDuration" value="{{../system.lingerDuration}}"
+                                    data-dtype="Number" />
+                                rounds
+                            </div>
+                            {{/if}}
+                            {{/with}}
                             {{!-- has attack? --}}
                             <div class="general attribute">
                                 <label for="system.attack" class="resource-label">Has Attack?: </label>
