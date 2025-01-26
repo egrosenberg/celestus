@@ -1,6 +1,6 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
@@ -647,6 +647,7 @@ Hooks.on("init", () => {
     resourceUi.classList.add("resources-ui");
     $(resourceUi).on('click', '.ap-interact', resourceInteractAp);
     $(resourceUi).on('click', '.fp-interact', resourceInteractFp);
+    $(resourceUi).on('change', '.resource-input', resourceInteractMisc);
     document.getElementById("ui-bottom").appendChild(resourceUi);
 
     renderResourcesUi();

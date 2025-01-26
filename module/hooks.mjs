@@ -1,4 +1,4 @@
-import { applyWeaponStatus, calcMult, executeSkillScript, itemizeDamage, promptCrit, rollWeaponDamage, rotateTokenTowards } from "./helpers.mjs";
+import { applyWeaponStatus, byString, calcMult, executeSkillScript, itemizeDamage, promptCrit, rollWeaponDamage, rotateTokenTowards } from "./helpers.mjs";
 
 const RED = '#e29292';
 const GREEN = '#92e298';
@@ -34,7 +34,7 @@ export async function rollAttack(e) {
         if (target) {
             const tokens = actor.getActiveTokens();
             for (const token of tokens) {
-                rotateTokenTowards(token, {x: target.x, y: target.y});
+                rotateTokenTowards(token, { x: target.x, y: target.y });
             }
         }
     }
@@ -337,7 +337,7 @@ export async function previewDamage(object, controlled) {
                 part = CONFIG.CELESTUS.damageTypes[term.type].style === "healing" ? -part : part;
                 damage += part;
             }
-            
+
             const sign = damage > 0 ? "" : "+";
             damage *= -1;
             // set html
@@ -643,7 +643,7 @@ export function drawTokenHover(token, hovered) {
 export function rotateOnMove(token, changed, options) {
     // if token moved, rotate towards position
     if (changed.x && changed.y) {
-        rotateTokenTowards(token.object, {x: changed.x, y: changed.y});
+        rotateTokenTowards(token.object, { x: changed.x, y: changed.y });
     }
 }
 
@@ -673,7 +673,7 @@ export async function renderDamageComponents(msg, html, options) {
 export async function renderResourcesUi() {
     let actor = canvas.tokens?.controlled?.[0]?.actor ?? game.user.character ?? _token?.actor ?? null;
 
-    if (!actor){
+    if (!actor) {
         document.getElementById("ui-resources").style.display = "none";
         return;
     }
@@ -687,6 +687,35 @@ export async function renderResourcesUi() {
 
     document.getElementById("ui-resources").style.display = "";
     document.getElementById("ui-resources").innerHTML = msg;
+    document.getElementById("ui-resources").dataset.actorId = actor.uuid;
+
+
+    // render progress bars for resources
+    $("#ui-resources").find('.resource-value').each((index, target) => {
+        const varPath = target.id;
+        const resourceVal = actor.system.resources[varPath.substring(varPath.lastIndexOf('.') + 1)].value;
+        const resourceMax = actor.system.resources[varPath.substring(varPath.lastIndexOf('.') + 1)].max;
+        const resourcePercent = (resourceVal / resourceMax);
+        // draw gradient depending on if overflowing or not
+        let gradient;
+        if (resourcePercent > 1) {
+            const gradientCol = "rgba(255,255,255,0.25)";
+            gradient = `linear-gradient(to left, ${gradientCol} ${((1 - resourcePercent) * -100)}%, rgba(0,0,0,0) 0%)`;
+        }
+        else if (resourcePercent > 0) {
+            const gradientCol = "#404040";
+            gradient = `linear-gradient(to left, ${gradientCol} ${((1 - resourcePercent) * 100)}%, rgba(0,0,0,0) 0%)`;
+        }
+        else {
+            const gradientCol = "#404040";
+            gradient = `linear-gradient(to right, ${gradientCol} ${((1 + resourcePercent) * 100)}%, rgba(0,0,0,0) 0%)`;
+        }
+        const curCSS = $(target).css("background-image");
+        $(target).css("background-image", `${curCSS}, ${gradient}`);
+        if (resourcePercent < 0) {
+            $(target).css("background-color", `#ff9999`);
+        }
+    });
 }
 
 /**
@@ -694,7 +723,7 @@ export async function renderResourcesUi() {
  * @param {Event} ev event originating click
  */
 export async function resourceInteractAp(ev) {
-    const actor = game.actors.get($(ev.currentTarget).parents('.resource').data('actorId'));
+    const actor = await fromUuid($(ev.currentTarget).parents('.resources-ui').data('actorId'));
     if (!actor) return console.warn("CELESTUS | Could not find actor to update AP");
     const index = $(ev.currentTarget).data('index') + 1;
     if (index === actor.system.resources.ap.value) {
@@ -709,7 +738,7 @@ export async function resourceInteractAp(ev) {
  * @param {Event} ev event originating click
  */
 export async function resourceInteractFp(ev) {
-    const actor = game.actors.get($(ev.currentTarget).parents('.resource').data('actorId'));
+    const actor = await fromUuid($(ev.currentTarget).parents('.resources-ui').data('actorId'));
     if (!actor) return console.warn("CELESTUS | Could not find actor to update FP");
     const index = $(ev.currentTarget).data('index') + 1;
     if (index === actor.system.resources.fp.value) {
@@ -718,4 +747,15 @@ export async function resourceInteractFp(ev) {
     else {
         await actor.update({ "system.resources.fp.value": index });
     }
+}
+/**
+ * updates resource based on changing input element
+ * @param {Event} ev event originating click
+ */
+export async function resourceInteractMisc(ev) {
+    const actor = await fromUuid($(ev.currentTarget).parents('.resources-ui').data('actorId'));
+    if (!actor) return console.warn("CELESTUS | Could not find actor to update resource");
+    const resourceName = `system.${$(ev.currentTarget).attr('name')}`;
+    const resourceValue = $(ev.currentTarget).val();
+    await actor.update({ [resourceName]: Number(resourceValue) });
 }

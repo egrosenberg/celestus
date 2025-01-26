@@ -279,7 +279,7 @@
     background-color: var(--color-air-bg);
 }
 
-.celestus.sheet .earth {
+.celestus .earth {
     background-color: var(--color-earth-bg);
 }
 
@@ -327,7 +327,7 @@
     background-color: var(--color-air-dark-bg);
 }
 
-.celestus.sheet .earth-dark {
+.celestus .earth-dark {
     background-color: var(--color-earth-dark-bg);
 }
 
@@ -1130,6 +1130,9 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 /* resources overlay */
+div#ui-resources {
+    display: block;
+}
 .celestus.resources-ui {
     position: absolute;
     right: 10px;
@@ -1140,6 +1143,64 @@ input[type="color"]::-webkit-color-swatch {
     background-color: #00000088;
     border-radius: 10px;
     text-align: center;
+}
+
+
+
+.celestus.resources-ui .resources.grid {
+    display: flex;
+    padding: 0px;
+}
+
+.celestus.resources-ui .resource {
+    border-radius: 10px;
+    display: inline-block;
+    padding: 6px;
+    margin: 2px;
+    flex: 1;
+    background-color: #0008;
+}
+
+.celestus.resources-ui label.resource-label {
+    font-size: var(--font-size-16);
+    font-weight: bold;
+    color: white;
+}
+
+.celestus.resources-ui label.resource-label.single {
+    width: 100%;
+}
+
+.celestus.resources-ui .resource-value {
+    border-style: solid;
+    border-width: thin;
+    border-radius: 5px;
+    border-color: black;
+
+    display: block;
+    text-align: center;
+    padding: 5px;
+    white-space: nowrap;
+
+    font-size: var(--font-size-16);
+    text-align: center;
+    color: white;
+    text-shadow: var(--text-outline-1);
+
+    box-shadow: var(--shadow-inset);
+    background-image: url('../img/milky-texture.webp');
+    background-blend-mode: multiply;
+
+    width: 100%;
+}
+
+.celestus.resources-ui .resource-input {
+    width: 100px;
+    font-size: var(--font-size-16);
+    text-align: center;
+    color: white;
+    text-shadow: var(--text-outline-1);
+    display: inline;
 }
 
 /* Action Point Icons */
