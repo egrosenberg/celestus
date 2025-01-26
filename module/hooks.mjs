@@ -723,7 +723,7 @@ export async function renderResourcesUi() {
  * @param {Event} ev event originating click
  */
 export async function resourceInteractAp(ev) {
-    const actor = await fromUuid($(ev.currentTarget).parents('.resources-ui').data('actorId'));
+    const actor = await fromUuid($(ev.currentTarget).parents('.resources-ui').attr('data-actor-id'));
     if (!actor) return console.warn("CELESTUS | Could not find actor to update AP");
     const index = $(ev.currentTarget).data('index') + 1;
     if (index === actor.system.resources.ap.value) {
@@ -738,7 +738,7 @@ export async function resourceInteractAp(ev) {
  * @param {Event} ev event originating click
  */
 export async function resourceInteractFp(ev) {
-    const actor = await fromUuid($(ev.currentTarget).parents('.resources-ui').data('actorId'));
+    const actor = await fromUuid($(ev.currentTarget).parents('.resources-ui').attr('data-actor-id'));
     if (!actor) return console.warn("CELESTUS | Could not find actor to update FP");
     const index = $(ev.currentTarget).data('index') + 1;
     if (index === actor.system.resources.fp.value) {
@@ -753,7 +753,7 @@ export async function resourceInteractFp(ev) {
  * @param {Event} ev event originating click
  */
 export async function resourceInteractMisc(ev) {
-    const actor = await fromUuid($(ev.currentTarget).parents('.resources-ui').data('actorId'));
+    const actor = await fromUuid($(ev.currentTarget).parents('.resources-ui').attr('data-actor-id'));
     if (!actor) return console.warn("CELESTUS | Could not find actor to update resource");
     const resourceName = `system.${$(ev.currentTarget).attr('name')}`;
     const resourceValue = $(ev.currentTarget).val();
