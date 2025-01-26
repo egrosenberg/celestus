@@ -65,7 +65,7 @@
             {{#if value}}
             {{#with (lookup ../config.damageTypes skill)}}
             <div class="quick-reference" style="background-color: {{color}};" title="{{skill}}">
-                {{numberFormat value decimals=2}}
+                {{percent value symbol=true}}
                 {{label}}
             </div>
             {{/with}}
