@@ -258,7 +258,7 @@ export class CharacterSheet extends ActorSheet {
 
         // change token pointer tint
         html.on('change', '#pointer-tint', (ev) => {
-            this.actor.update({"system.pointerTint": $(ev.currentTarget).val()})
+            this.actor.update({ "system.pointerTint": $(ev.currentTarget).val() })
         })
 
         // memorize or unmemorize a skill
@@ -915,5 +915,37 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
             arr.splice(index, 1);
             this.object.update({ "system.blocks": arr });
         });
+    }
+}
+
+/**
+ * @extends {MeasuredTemplateConfig}
+ */
+export class CelestusMeasuredTemplateConfig extends MeasuredTemplateConfig {
+    /** @override */
+    static get defaultOptions() {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+            template: "./systems/celestus/templates/template-config.hbs",
+        });
+    }
+
+    /** @override */
+    getData() {
+        return foundry.utils.mergeObject(super.getData(), {
+            surfaceTypes: CONFIG.CELESTUS.surfaceTypes,
+            surfaceType: this.document.getFlag("celestus", "surfaceType")
+        });
+    }
+
+    /** @override */
+    activateListeners(html) {
+        super.activateListeners(html);
+        
+        html.on("change", ".flag-selector", async (ev) => {
+            const flag = $(ev.currentTarget).attr("name");
+            if (flag) {
+                await this.document.setFlag("celestus", flag, $(ev.currentTarget).val());
+            }
+        })
     }
 }

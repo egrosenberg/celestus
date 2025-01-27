@@ -1,7 +1,7 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken } from "./actors.mjs"
 import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc } from "./hooks.mjs"
-import { CelestusActiveEffectSheet, CelestusItemSheet, CharacterSheet } from "./sheets.mjs"
+import { CelestusActiveEffectSheet, CelestusItemSheet, CelestusMeasuredTemplateConfig, CharacterSheet } from "./sheets.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
 import { statuses } from "./data/statuses.mjs"
@@ -702,6 +702,9 @@ Hooks.on("init", () => {
 
     CONFIG.MeasuredTemplate.objectClass = CelestusMeasuredTemplate;
     CONFIG.MeasuredTemplate.documentClass = CelestusMeasuredTemplateDocument;
+    // unregister old measured template sheet
+    DocumentSheetConfig.unregisterSheet(MeasuredTemplateDocument,'core', MeasuredTemplateConfig);
+    DocumentSheetConfig.registerSheet(MeasuredTemplateDocument, 'celestus', CelestusMeasuredTemplateConfig, { makeDefault: true, });
     CONFIG.Token.objectClass = CelestusToken;
 
     // set up sheets
