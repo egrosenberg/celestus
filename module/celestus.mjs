@@ -6,7 +6,7 @@ import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
 import { statuses } from "./data/statuses.mjs"
 import { npcStatSpread } from "./data/npc-stat-spreads.mjs"
-import { CelestusMeasuredTemplate } from "./measure.mjs"
+import { CelestusMeasuredTemplate, CelestusMeasuredTemplateDocument } from "./measure.mjs"
 // json
 import itemSocketSpreadJson from './data/item-socket-spreads.mjs';
 import itemArmorPlugsJson from './data/item-armor-plugs.mjs';
@@ -82,6 +82,130 @@ Hooks.on("init", () => {
             t_phys_armor: { label: "Temp Physical Armor", text: "t_phys_armor", style: "healing", skill: "duneshaper", color: "#ebccad", glyph: "icon-edged-shield" },
             t_mag_armor: { label: "Temp Magic Armor", text: "t_mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
             none: { label: "None", text: "none", style: "none", skill: "none", color: "black", glyph: "" },
+        },
+        /**
+         * Types of surfaces
+         * label: text for display
+         * color: color to use for measuredTemplates representing it
+         * school: skill school associated with surface
+         * duration: default duration in rounds to linger when created from combination
+         * onEnd: surface type to change to on duration max instead of dying
+         * statuses: ids of statusEffects this gives
+         * combines: object of surfaces it interacts with and interaction mode
+         *              corrupt: if intersect, change other type
+         *              override: if other is contained within this, delete other
+         *              combine: Object describing combination mode
+         *                  makes: product
+         *                  corrupts: boolean, if this transforms whole target surface to type
+         *                                  if this is fully within other shape this goes away
+         * texture: path to tileable texture to render over template
+         */
+        surfaceTypes: {
+            none: {
+                label: "None",
+                color: "#ffffff"
+            },
+            fire: {
+                label: "Fire",
+                color: "#ff4000",
+                school: "flamespeaker",
+                duration: 2,
+                statuses: ["burn"],
+                combines: {
+                    oil: {mode: "corrupt"},
+                    poison: {mode: "corrupt"},
+                    water: {mode: "combine", makes: "fog"},
+                    ice: {mode: "combine", makes: "water", corrupts: true},
+                },
+                texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements/Elements_01-512x512-25.webp"
+            },
+            spritfire: {
+                label: "Spirit Fire",
+                color: "#00ffff",
+                school: "flamespeaker",
+                duration: 2,
+                statuses: ["burn+"],
+                combines: {
+                    oil: {mode: "corrupt"},
+                    poison: {mode: "corrupt"},
+                    fire: {mode: "override"},
+                    water: {mode: "override"},
+                    ice: {mode: "override"},
+                },
+                texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Spiritfire-2-25.webp"
+            },
+            water: {
+                label: "Water",
+                color: "#3333cc",
+                school: "tidecaller",
+                duration: 4,
+                combines: {
+                    oil: {mode: "override"},
+                    fire: {mode: "override"},
+                    blood: {mode: "override"},
+                    poison: {mode: "override"},
+                },
+                texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements/Elements_20-512x512-25.webp"
+            },
+            ice: {
+                label: "Ice",
+                color: "#99ccff",
+                school: "tidecaller",
+                duration: 4,
+                onEnd: "water",
+                combines: {
+                    oil: {mode: "corrupt"},
+                    fire: {mode: "override"},
+                    water: {mode: "corrupt"},
+                    poison: {mode: "corrupt"},
+                },
+                texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements/Elements_17-512x512-25.webp"
+            },
+            oil: {
+                label: "Oil",
+                color: "#d28f79",
+                school: "duneshaper",
+                duration: 2,
+                statuses: ["oil"],
+                combines: {
+                    ice: {mode: "override"},
+                    water: {mode: "override"},
+                    blood: {mode: "override"},
+                    poison: {mode: "override"},
+                },
+                texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Oil-mud-25.webp"
+            },
+            poison: {
+                label: "Poison",
+                color: "#33cc33",
+                school: "duneshaper",
+                duration: 2,
+                statuses: ["poison"],
+                combines: {
+                    ice: {mode: "override"},
+                    water: {mode: "override"},
+                    blood: {mode: "override"},
+                    oil: {mode: "override"},
+                },
+                texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Poison-25.webp"
+            },
+            blood: {
+                label: "Blood",
+                color: "#cc0000",
+                school: "deathbringer",
+                combines: {
+                    ice: {mode: "override"},
+                    water: {mode: "override"},
+                    fire: {mode: "override"},
+                },
+                texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Blood-3-25.webp"
+            },
+            fog: {
+                label: "Fog",
+                color: "#cccccc",
+                school: "stormseeker",
+                texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Fog-2-25.webp"
+            },
         },
         /**
          * combat skills
@@ -577,6 +701,7 @@ Hooks.on("init", () => {
     }
 
     CONFIG.MeasuredTemplate.objectClass = CelestusMeasuredTemplate;
+    CONFIG.MeasuredTemplate.documentClass = CelestusMeasuredTemplateDocument;
     CONFIG.Token.objectClass = CelestusToken;
 
     // set up sheets
@@ -619,6 +744,7 @@ Hooks.on("init", () => {
     CONFIG.ChatMessage.dataModels.base = ChatDataModel;
 
     CONFIG.statusEffects = statuses;
+    CONFIG.specialStatusEffects.BLIND = null; // remove special vision blocking from blinded
 
     // set up PIXI stuff
     // reach overlay
@@ -747,15 +873,15 @@ Hooks.on("combatStart", startCombat);
 // handle combat end
 Hooks.on("preDeleteCombat", cleanupCombat);
 
-// handle combat end
-Hooks.on("updateToken", spreadAura);
+// handle tokens moving
+Hooks.on("preUpdateToken", spreadAura);
 Hooks.on("preUpdateToken", rotateOnMove);
 
 // draw backstab overlay
 Hooks.on("hoverToken", drawTokenHover);
 
 // token pointer overlay 
-Hooks.on("refreshToken", (t) => {if(!t._original) t.drawPointer()});
+Hooks.on("refreshToken", (t) => { if (!t._original) t.drawPointer() });
 
 // hbs helpers
 Handlebars.registerHelper("repeat", (n, options) => {

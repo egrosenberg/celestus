@@ -853,7 +853,19 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             tier: new NumberField({ required: true, integer: true, initial: 0 }),
             hasScript: new BooleanField({ required: true, initial: false }), // toggle for custom script
             scriptId: new StringField({ required: true, initial: "" }), // id of skill script to execute
-            lingerDuration: new NumberField({ required: true, integer: true, initial: 0 }), 
+            aoeLinger: new BooleanField({ required: true, initial: false }),
+            linger: new SchemaField({
+                duration: new  NumberField({ required: true, integer: true, initial: 0 }),
+                effects: new BooleanField({ required: true, initial: false }),
+                targets: new StringField({ required: true, initial: "any" }),
+                targetType: new StringField({ required: true, initial: "humanoid" }),
+                clearOnLeave: new BooleanField({ required: true, initial: true }),
+                lingerDuration: new NumberField({ required: true, integer: true, initial: 0 }), // 0 = store as non-temp
+                surfaceType: new StringField({required: true, initial: "none"}),
+                children: new ArrayField( // array of ids of owned effects created by the aura
+                    new StringField()
+                ),
+            }),
         };
     }
 
@@ -1447,9 +1459,6 @@ export class EffectData extends foundry.abstract.TypeDataModel {
                     resisted = false;
                     if (data.duration) {
                         this.parent.updateSource({ "duration.rounds": data.duration.rounds + 1 })
-                    }
-                    else {
-                        data.duration = { rounds: 1 };
                     }
                 }
             }

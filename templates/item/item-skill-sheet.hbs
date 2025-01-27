@@ -232,17 +232,6 @@
                                     {{selectOptions config.targetTypes selected=system.targets.type}}
                                 </select>
                             </div>
-                            {{!-- aoe linger --}}
-                            {{#with (lookup config.targetTypes system.targets.type)}}
-                            {{#if (eq options.[0] "size")}}
-                            <div class="general attribute">
-                                <label for="system.lingerDuration" class="resource-label">AOE Linger: </label>
-                                <input type="text" name="system.lingerDuration" value="{{../system.lingerDuration}}"
-                                    data-dtype="Number" />
-                                rounds
-                            </div>
-                            {{/if}}
-                            {{/with}}
                             {{!-- has attack? --}}
                             <div class="general attribute">
                                 <label for="system.attack" class="resource-label">Has Attack?: </label>
@@ -288,6 +277,72 @@
                                     style="width: 50px;" />
                                 {{/if}}
                             </div>
+                            {{!-- aoe linger --}}
+                            <div class="form-group">
+                                <label>Has Lingering AOE</label>
+                                <div class="form-fields">
+                                    <input type="checkbox" class="check-input" name="system.aoeLinger" {{checked
+                                        system.aoeLinger}} />
+                                </div>
+                            </div>
+                            {{#if system.aoeLinger}}
+                            <div class="form-group">
+                                <label>Linger duration</label>
+                                <div class="form-fields">
+                                    <input type="text" name="system.linger.duration" value="{{system.linger.duration}}"
+                                        data-dtype="Number" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Surface Type</label>
+                                <div class="form-fields">
+                                    <select class="aura-type-selector" name="system.linger.surfaceType">
+                                        {{selectOptions config.surfaceTypes selected=system.linger.surfaceType}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Linger propagates effects</label>
+                                <div class="form-fields">
+                                    <input type="checkbox" class="check-input" name="system.linger.effects" {{checked
+                                        system.linger.effects}} />
+                                </div>
+                            </div>
+                            {{#if system.linger.effects}}
+                            <div class="form-group">
+                                <label>Effect Linger Duration (negative = don't change)</label>
+                                <div class="form-fields">
+                                    <input type="text" name="system.linger.lingerDuration" value="{{system.linger.lingerDuration}}"
+                                        data-dtype="Number" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Clear on Leave</label>
+                                <div class="form-fields">
+                                    <input type="checkbox" class="check-input" name="system.linger.clearOnLeave"
+                                        {{checked system.linger.clearOnLeave}} />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Linger Targets</label>
+                                <div class="form-fields">
+                                    <select class="aura-type-selector" name="system.linger.targets">
+                                        {{selectOptions config.auraTargets selected=system.linger.targets}}
+                                    </select>
+                                </div>
+                            </div>
+                            {{#if (eq system.linger.targets "type")}}
+                            <div class="form-group">
+                                <label>Targets Type</label>
+                                <div class="form-fields">
+                                    <select class="aura-type-selector" name="system.linger.targetType">
+                                        {{selectOptions config.creatureTypes selected=system.linger.targetType}}
+                                    </select>
+                                </div>
+                            </div>
+                            {{/if}}
+                            {{/if}}
+                            {{/if}}
                         </div>
                         <h3>Prerequisites</h3>
                         {{#if (eq system.type "civil")}}

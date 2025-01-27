@@ -451,7 +451,7 @@ export function onManageActiveEffect(event, owner) {
  * @param {CombatHistoryData} prior
  * @param {CombatHistoryData} current
  */
-export function triggerTurn(combat, prior, current) {
+export async function triggerTurn(combat, prior, current) {
     // only fire if user is a GM
     if (!game.user.isGM) {
         return;
@@ -461,14 +461,31 @@ export function triggerTurn(combat, prior, current) {
     // check lingering templates
     for (const template of canvas.scene.templates) {
         if (template.getFlag("celestus", "clearThis")) {
-            template.delete();
+            await template.delete();
         }
         if (template.getFlag("celestus", "linger") === true) {
             const startRound = template.getFlag("celestus", "lingerStartRound");
             const startTurn = template.getFlag("celestus", "lingerStartTurn");
             const duration = template.getFlag("celestus", "lingerDuration");
             if (current.round - startRound > duration || current.round - startRound >= duration && current.turn > startTurn) {
-                template.delete();
+                // check if surface turns to something else on death
+                const onEnd = CONFIG.CELESTUS.surfaceTypes[template.getFlag("celestus", "surfaceType")]?.onEnd;
+                if (onEnd && CONFIG.CELESTUS.surfaceTypes[onEnd]) {
+                    await template.setFlag("celestus", "lingerStartRound", current.round);
+                    await template.setFlag("celestus", "lingerStartTurn", current.turn);
+                    await template.setFlag("celestus", "lingerDuration", CONFIG.CELESTUS.surfaceTypes[onEnd].duration);
+                    await template.setFlag("celestus", "surfaceType", onEnd);
+                }
+                else {
+                    await template.delete();
+                }
+            }
+        }
+        // trigger auras
+        if (template) {
+            for (const t of canvas.scene.templates) {
+                const spread = await template.object.combineSurface(t.object);
+                if (spread === false) break;
             }
         }
     }
@@ -521,18 +538,24 @@ export function cleanupCombat(document, options, userId) {
 /**
  * 
  * @param {Object} token: token object on canvas to spread aura from 
+ * @param {Object} changed: changed values
  */
 export async function spreadAura(token, changed, options, userId) {
     if (!game.users.activeGM.isSelf) return;
+    if (!(changed.x && changed.y)) return;
     // get new coords as an object
     const tokenCoords = {
-        x: changed.x || token.x,
-        y: changed.y || token.y,
+        x: changed.x + token.object.w / 2,
+        y: changed.y + token.object.h / 2,
     }
     // spread from this token
     await token.object.spreadAuraFrom(tokenCoords);
     // spread from other tokens
     await token.object.spreadAuraTo(tokenCoords);
+    // check if token is inside a measuredTemplate
+    for (const t of canvas.scene.templates) {
+        await t.object.spreadEffectsTo(token, tokenCoords);
+    }
 }
 
 /**
