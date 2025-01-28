@@ -969,19 +969,16 @@ awaitElevationRuler(timeout).then(function () {
         {
             name: "Maximum",
             color: Color.from(0x0000ff),
-            multiplier: 5
+            multiplier: Number.POSITIVE_INFINITY
         }
     ]
     CONFIG.elevationruler.SPEED.tokenSpeed = function (token) {
-        return token.actor?.system?.attributes?.movement.value ?? 0;
+        return Number(token.actor?.system?.attributes?.movement.value ?? 0);
     }
     CONFIG.elevationruler.SPEED.maximumCategoryDistance = function (token, speedCategory, tokenSpeed) {
         tokenSpeed ??= SPEED.tokenSpeed(token);
-        if (tokenSpeed <= 1) {
-            return Number.POSITIVE_INFINITY;
-        }
         const mult = speedCategory?.multiplier ?? Number.POSITIVE_INFINITY;
-        const mobile = (token.actor.getFlag("celestus", "mobile") ?? false) ? 1 : 0;
-        return Math.min(mult + mobile, 5) * tokenSpeed;
+        const mobile = (token.actor.flags.celestus?.mobile ?? false) ? 1 : 0;
+        return (mult + mobile) * tokenSpeed;
     };
 });
