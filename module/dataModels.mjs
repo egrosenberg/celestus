@@ -157,6 +157,60 @@ export class ActorData extends foundry.abstract.TypeDataModel {
 
     /** override */
     prepareDerivedData() {
+        // iterate through items
+        for (const item of this.parent.items) {
+            // check if item is an armor piece and equipped
+            if (item.type === "armor" && item.system.equipped) {
+                // calculate armor values
+                const phys = item.system.value.phys;
+                const mag = item.system.value.mag;
+                // increase max armor
+                this.resources.phys_armor.max += item.system.value.phys;
+                this.resources.mag_armor.max += item.system.value.mag;
+            }
+            else if (item.type === "offhand" && item.system.equipped) {
+                // increase max armor
+                this.resources.phys_armor.max += item.system.value.phys;
+                this.resources.mag_armor.max += item.system.value.mag;
+            }
+            else if (item.type === "skill" && item.system.memorized === "true") {
+                this.attributes.memory.spent += item.system.memSlots;
+            }
+
+            if (item.type !== "skill" && item.system.equipped) {
+                // apply bonuses
+                for (let [ability, value] of Object.entries(item.system.bonuses.combat)) {
+                    this.combat[ability].bonus += value;
+                    this.combat[ability].value += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.civil)) {
+                    this.civil[ability].bonus += value;
+                    this.civil[ability].value += value;
+                }
+                for (let [ability, value] of Object.entries(item.system.bonuses.abilities)) {
+                    this.abilities[ability].bonus += value;
+                    this.abilities[ability].total += value;
+                }
+                for (let [type, value] of Object.entries(item.system.bonuses.resistance)) {
+                    this.attributes.resistance[type].value += value;
+                }
+                for (let status of item.system.bonuses.statusImmune) {
+                    if (typeof this.attributes.statusImmune[status] !== "undefined") {
+                        this.attributes.statusImmune[status] = true;
+                    }
+                }
+                this.attributes.bonuses.crit_chance.value += item.system.bonuses.crit_chance;
+                this.attributes.bonuses.crit_bonus.value += item.system.bonuses.crit_bonus;
+                this.attributes.bonuses.accuracy.value += item.system.bonuses.accuracy;
+                this.attributes.bonuses.initiative.value += item.system.bonuses.initiative;
+                this.attributes.bonuses.evasion.value += item.system.bonuses.evasion;
+            }
+        }
+        // iterate through resistances
+        for (let [type, resist] of Object.entries(this.attributes.resistance)) {
+            this.attributes.resistance[type].value += resist.bonus;
+        }
+
         /**
          * perform final operations
          */
@@ -524,56 +578,6 @@ export class PlayerData extends ActorData {
             damageType.value += damageType.bonus;
         }
 
-        // iterate through items
-        for (const item of this.parent.items) {
-            // check if item is an armor piece and equipped
-            if (item.type === "armor" && item.system.equipped) {
-                // calculate armor values
-                const phys = item.system.value.phys;
-                const mag = item.system.value.mag;
-                // increase max armor
-                this.resources.phys_armor.max += item.system.value.phys;
-                this.resources.mag_armor.max += item.system.value.mag;
-            }
-            else if (item.type === "offhand" && item.system.equipped) {
-                // increase max armor
-                this.resources.phys_armor.max += item.system.value.phys;
-                this.resources.mag_armor.max += item.system.value.mag;
-            }
-            else if (item.type === "skill" && item.system.memorized === "true") {
-                this.attributes.memory.spent += item.system.memSlots;
-            }
-
-            if (item.type !== "skill" && item.system.equipped) {
-                // apply bonuses
-                for (let [ability, value] of Object.entries(item.system.bonuses.combat)) {
-                    this.combat[ability].bonus += value;
-                    this.combat[ability].value += value;
-                }
-                for (let [ability, value] of Object.entries(item.system.bonuses.civil)) {
-                    this.civil[ability].bonus += value;
-                    this.civil[ability].value += value;
-                }
-                for (let [ability, value] of Object.entries(item.system.bonuses.abilities)) {
-                    this.abilities[ability].bonus += value;
-                    this.abilities[ability].total += value;
-                }
-                for (let [ability, value] of Object.entries(item.system.bonuses.resistance)) {
-                    this.attributes.resistance[ability].value += value;
-                }
-                for (let status of item.system.bonuses.statusImmune) {
-                    if (typeof this.attributes.statusImmune[status] !== "undefined") {
-                        this.attributes.statusImmune[status] = true;
-                    }
-                }
-                this.attributes.bonuses.crit_chance.value += item.system.bonuses.crit_chance;
-                this.attributes.bonuses.crit_bonus.value += item.system.bonuses.crit_bonus;
-                this.attributes.bonuses.accuracy.value += item.system.bonuses.accuracy;
-                this.attributes.bonuses.initiative.value += item.system.bonuses.initiative;
-                this.attributes.bonuses.evasion.value += item.system.bonuses.evasion;
-            }
-        }
-
         /**
          * call final operations from super
          */
@@ -762,6 +766,8 @@ export class NpcData extends ActorData {
                 rightHand = leftHand;
             }
         }
+        const offhands = this.offhand.filter(o => o.system.equipped === true);
+        rightHand = offhands[0] ?? rightHand;
         return {
             left: leftHand,
             right: rightHand,
