@@ -220,7 +220,15 @@ export class CharacterSheet extends ActorSheet {
         });
 
         // Delete Inventory Item
-        html.on('click', '.item-delete', (ev) => {
+        html.on('click', '.item-delete', async (ev) => {
+            const proceed = await foundry.applications.api.DialogV2.confirm({
+                window: {title: "Confirm Delete?"},
+                content: "Are you sure you want to delete this item? This action cannot be undone",
+                rejectClose: false,
+                modal: true
+            });
+            if (!proceed) return;
+
             const li = $(ev.currentTarget).parents('.item');
             const item = this.actor.items.get(li.data('itemId'));
             item.delete();
@@ -940,7 +948,7 @@ export class CelestusMeasuredTemplateConfig extends MeasuredTemplateConfig {
     /** @override */
     activateListeners(html) {
         super.activateListeners(html);
-        
+
         html.on("change", ".flag-selector", async (ev) => {
             const flag = $(ev.currentTarget).attr("name");
             if (flag) {
