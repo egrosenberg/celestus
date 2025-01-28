@@ -545,8 +545,8 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                 if (old.length > 0) {
                     for (const e of old) {
                         // if aura lingers, reset lingering timer
-                        if (skill.system.linger.lingerDuration !== 0) {
-                            await e.update({ "duration.rounds": effect.system.aura.lingerDuration });
+                        if (skill && skill.system.linger.lingerDuration !== 0) {
+                            await e.update({ "duration.rounds": skill.system.linger.lingerDuration });
                         }
                     }
                 }
@@ -602,9 +602,6 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                             const statusEffect = await ActiveEffect.fromStatusEffect(id);
                             if (actor) {
                                 statusEffect.updateSource({ "origin": actor.uuid });
-                            }
-                            else {
-                                statusEffect.updateSource({ "origin": token.actor.uuid });
                             }
                             statusEffect.updateSource({ "flags.celestus.isChild": true });
                             statusEffect.updateSource({ "flags.celestus.parentId": this.id });
@@ -720,6 +717,16 @@ export class CelestusMeasuredTemplateDocument extends MeasuredTemplateDocument {
                 if (config.texture) {
                     changes.texture = config.texture;
                 }
+                else if (this.texture) {
+                    changes.texture = "";
+                }
+            }
+        }
+
+        if (changes.x || changes.y || changes.direction || changes.angle || changes.width) {
+            // propagate effects
+            for (const token of canvas.scene.tokens) {
+                await this.object.spreadEffectsTo(token);
             }
         }
     }
