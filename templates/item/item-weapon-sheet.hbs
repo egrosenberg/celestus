@@ -24,13 +24,13 @@
                 {{/each}}
             </div>
             {{/if}}
-            {{#with (lookup config.damageTypes item.system.damage.type) as |damageType|}}
+            {{#with (lookup config.damageTypes item.system.displayDamage.type) as |damageType|}}
             <div class="quick-reference" style="background-color: {{damageType.color}};">
                 <i class="{{damageType.glyph}}"></i> 
-                {{../item.system.damage.min}}-{{../item.system.damage.max}} {{damageType.label}}
+                {{../item.system.displayDamage.min}}-{{../item.system.displayDamage.max}} {{damageType.label}}
             </div>
             {{/with}}
-            {{#each item.system.bonusDamage as |damage|}}
+            {{#each item.system.displayBonusDamage as |damage|}}
             {{#with (lookup ../config.damageTypes damage.type) as |damageType|}}
             <div class="quick-reference" style="background-color: {{damageType.color}};">
                 <i class="{{damageType.glyph}}"></i> 

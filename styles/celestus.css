@@ -241,14 +241,14 @@
     --color-phys_armor-bg: rgb(235, 204, 173);
     --color-mag_armor-bg: rgb(134, 223, 223);
 
-    --color-physical-dark-bg: rgb(59, 63, 66);
-    --color-fire-dark-bg: rgb(73, 0, 0);
+    --color-physical-dark-bg: rgb(17, 18, 19);
+    --color-fire-dark-bg: rgb(107, 0, 0);
     --color-water-dark-bg: rgb(0, 53, 82);
     --color-air-dark-bg: rgb(63, 36, 143);
-    --color-earth-dark-bg: rgb(104, 74, 43);
+    --color-earth-dark-bg: rgb(94, 69, 46);
     --color-poison-dark-bg: rgb(116, 150, 16);
-    --color-psychic-dark-bg: rgb(223, 134, 223);
-    --color-piercing-dark-bg: rgb(88, 53, 53);
+    --color-psychic-dark-bg: rgb(121, 0, 121);
+    --color-piercing-dark-bg: rgb(138, 32, 55);
     --color-shadow-dark-bg: rgb(34, 42, 68);
     --color-healing-dark-bg: rgb(51, 175, 61);
     --color-phys_armor-dark-bg: rgb(46, 24, 1);
@@ -1022,7 +1022,7 @@ input[type="color"]::-webkit-color-swatch {
     margin-bottom: 0.6em;
 }
 
-.celestus.roll.description .roll-tag {
+.roll-tag {
     display: inline-block;
     background-color: var(--color-warm-3);
     color: white;

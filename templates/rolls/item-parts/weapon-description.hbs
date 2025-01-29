@@ -21,15 +21,15 @@
         </span>
 
         {{!-- damage --}}
-        {{#with (lookup config.damageTypes item.system.damage.type) as |damageType|}}
-        <span class="roll-tag">
+        {{#with (lookup config.damageTypes item.system.displayDamage.type) as |damageType|}}
+        <span class="roll-tag {{../item.system.displayDamage.type}}-dark">
             <i class="{{damageType.glyph}}"></i>
-            {{../item.system.damage.min}}-{{../item.system.damage.max}} {{damageType.label}}
+            {{../item.system.displayDamage.min}}-{{../item.system.displayDamage.max}} {{damageType.label}}
         </span>
         {{/with}}
-        {{#each item.system.bonusDamage as |damage|}}
+        {{#each item.system.displayBonusDamage as |damage|}}
         {{#with (lookup ../config.damageTypes damage.type) as |damageType|}}
-        <span class="roll-tag">
+        <span class="roll-tag {{damage.type}}-dark">
             <i class="{{damageType.glyph}}"></i>
             {{damage.min}}-{{damage.max}} {{damageType.label}}
         </span>

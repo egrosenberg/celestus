@@ -1,4 +1,4 @@
-<div class="dice-flavor celestus roll description {{ifThen (eq usedResources false) "no-resources" ""}}">
+<div class="dice-flavor celestus roll description {{ifThen (eq usedResources false) " no-resources" "" }}">
     <header class="summary">
         {{#if portrait}}
         <img class="roll-icon" src="{{portrait}}" title="{{name}}" />
@@ -64,6 +64,31 @@
             ({{item.system.components.materialFull}})
             {{/if}}
         </div>
+        {{!-- damage components --}}
+        {{#each rollData.dmg as |damage type|}}
+        {{#with (lookup ../config.damageTypes type)}}
+        <div class="roll-tag {{type}}-dark">
+            <i class="{{glyph}}"></i>
+            {{damage.min}}-{{damage.max}}
+        </div>
+        {{/with}}
+        {{/each}}
+        {{#if weaponDamage}}
+        {{#with (lookup config.damageTypes weaponDamage.base.type) as |damageType|}}
+        <span class="roll-tag {{../item.system.displayDamage.type}}-dark">
+            <i class="{{damageType.glyph}}"></i>
+            {{../item.system.displayDamage.min}}-{{../item.system.displayDamage.max}} {{damageType.label}}
+        </span>
+        {{/with}}
+        {{#each weaponDamage.bonus as |damage|}}
+        {{#with (lookup ../config.damageTypes damage.type) as |damageType|}}
+        <span class="roll-tag {{damage.type}}-dark">
+            <i class="{{damageType.glyph}}"></i>
+            {{damage.min}}-{{damage.max}} {{damageType.label}}
+        </span>
+        {{/with}}
+        {{/each}}
+        {{/if}}
     </div>
     {{#if flavor}}{{{flavor}}}{{/if}}
 </div>

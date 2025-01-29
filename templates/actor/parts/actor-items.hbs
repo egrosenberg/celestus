@@ -66,7 +66,21 @@
             <h4>{{item.name}}</h4>
         </div>
         <div class='item-formula item-prop'>
-            {{item.system.damage.roll}} {{system.type}}
+            {{#with (lookup ../config.damageTypes item.system.displayDamage.type) as |damageType|}}
+            <span class="roll-tag {{damageType.text}}-dark">
+                <i class="{{damageType.glyph}}"></i>
+                {{item.system.displayDamage.min}}-{{item.system.displayDamage.max}}
+            </span>
+            {{/with}}
+            {{#each item.system.displayBonusDamage as |damage|}}
+            {{#with (lookup ../../config.damageTypes damage.type) as |damageType|}}
+            <b>+ </b>
+            <span class="roll-tag {{damage.type}}-dark">
+                <i class="{{damageType.glyph}}"></i>
+                {{damage.min}}-{{damage.max}}
+            </span>
+            {{/with}}
+            {{/each}}
         </div>
         <div class='item-controls'>
             <a class='item-control item-edit' title='edit'>

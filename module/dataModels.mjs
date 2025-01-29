@@ -1286,9 +1286,38 @@ export class WeaponData extends GearData {
         const dice = 1 + Math.round(CONFIG.CELESTUS.weaponDmgScalar * Math.pow(CONFIG.CELESTUS.e, level));
         const dmgDie = this.twoHanded ? 12 : 6;
         // calculate bonus from weapon combat ability
-        const weaponType = this.parent.actor?.system.weaponType;
+        let weaponType = this.parent.actor?.system.weaponType;
         let abilityBonus = weaponType ? this.parent?.actor?.system?.combat[weaponType]?.value * CONFIG.CELESTUS.combatSkillMod : 0;
         let flatBonus = abilityBonus + (this.parent?.actor?.system.attributes.bonuses.damage.value ?? 0);
+        flatBonus += ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
+        // calculate mult
+        let mult = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, false, flatBonus) : 1;
+        let multCrit = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, true, flatBonus) : 1;
+        // optionally multiply by flat damage boost for npcs
+        mult *= this.efficiency;
+        multCrit *= this.efficiency;
+        mult = mult.toFixed(2);
+        multCrit = multCrit.toFixed(2);
+        return {
+            type: this.type,
+            min: Math.floor((level + dice) * mult),
+            max: Math.floor((level + dice * dmgDie) * mult),
+            avg: Math.floor((level + dice * (dmgDie / 2 + 0.5)) * mult),
+            roll: `(${level}+${dice}d${dmgDie})*${mult}`,
+            crit: `(${level}+${dice}d${dmgDie})*${multCrit}`,
+        };
+    }
+
+    /** 
+     * Calculates damage irrespective of equipment status and weapon style
+     */
+    get displayDamage() {
+        // get actor level if it exists
+        const level = this.parent.actor ? this.parent.actor.system.attributes.level : 1;
+        const dice = 1 + Math.round(CONFIG.CELESTUS.weaponDmgScalar * Math.pow(CONFIG.CELESTUS.e, level));
+        const dmgDie = this.twoHanded ? 12 : 6;
+        
+        let flatBonus = (this.parent?.actor?.system.attributes.bonuses.damage.value ?? 0);
         flatBonus += ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
         // calculate mult
         let mult = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, false, flatBonus) : 1;
@@ -1344,10 +1373,61 @@ export class WeaponData extends GearData {
         const nDice = 1 + Math.round(CONFIG.CELESTUS.weaponDmgScalar * Math.pow(CONFIG.CELESTUS.e, level));
         const dmgDieAvg = this.twoHanded ? 6.5 : 3.5;
         // calculate bonus from weapon combat ability
-        let abilityBonus = this.parent?.actor?.system?.combat[this.parent.actor.system.weaponType]?.mod ?? 0;
+        let weaponType = this.parent.actor?.system.weaponType;
+        let abilityBonus = weaponType ? this.parent?.actor?.system?.combat[weaponType]?.value * CONFIG.CELESTUS.combatSkillMod : 0;
+        let flatBonus = abilityBonus + (this.parent?.actor?.system.attributes.bonuses.damage.value ?? 0);
+        flatBonus += ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
         // calculate mult
-        let mult = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, false, abilityBonus) : 1;
-        let multCrit = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, true, abilityBonus) : 1;
+        let mult = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, false, flatBonus) : 1;
+        let multCrit = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, true, flatBonus) : 1;
+        // optionally multiply by flat damage boost for npcs
+        mult *= 1 + ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
+        mult *= this.efficiency;
+        mult = mult.toFixed(2);
+        multCrit *= 1 + ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
+        multCrit = multCrit.toFixed(2);
+        // final base dmg calcs
+        const baseAvg = (level + (nDice * dmgDieAvg));
+
+        // create an array to return
+        let damage = []
+        // iterate through bonus damage
+        for (const element of this.bonusElements) {
+            if (element.type === "none") continue;
+            const flat = baseAvg * element.value;
+            damage.push({
+                type: element.type,
+                min: Math.max(Math.floor(flat * mult), 1),
+                max: Math.max(Math.floor((flat + CONFIG.CELESTUS.weaponBonusDmgDie) * mult) - 1, 1),
+                avg: Math.max(Math.floor((flat + (CONFIG.CELESTUS.weaponBonusDmgDie / 2 + 0.5)) * mult) - 1, 1),
+                roll: `((${flat}*${mult}-1)+1d${CONFIG.CELESTUS.weaponBonusDmgDie})`,
+                crit: `((${flat}*${multCrit}-1)+1d${CONFIG.CELESTUS.weaponBonusDmgDie})`,
+            });
+        }
+        return damage;
+    }
+
+
+    /**
+     * Calculate damage rolls for all bonus elements irrespective of weapon type
+     * used for display
+     * @returns {Object[]} array of objects containing type, min, max, average, and roll formula
+     */
+    get displayBonusDamage() {
+        // base case
+        if (this.bonusElements.length < 1) return [];
+
+        // Calculate base damage first
+        // get actor level if it exists
+        const level = this.parent.actor ? this.parent.actor.system.attributes.level : 1;
+        const nDice = 1 + Math.round(CONFIG.CELESTUS.weaponDmgScalar * Math.pow(CONFIG.CELESTUS.e, level));
+        const dmgDieAvg = this.twoHanded ? 6.5 : 3.5;
+
+        let flatBonus = (this.parent?.actor?.system.attributes.bonuses.damage.value ?? 0);
+        flatBonus += ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
+        // calculate mult
+        let mult = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, false, flatBonus) : 1;
+        let multCrit = this.parent.actor ? calcMult(this.parent.actor, this.type, this.ability, this.efficiency, true, flatBonus) : 1;
         // optionally multiply by flat damage boost for npcs
         mult *= 1 + ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
         mult *= this.efficiency;

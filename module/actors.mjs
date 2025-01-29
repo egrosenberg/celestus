@@ -436,6 +436,7 @@ export class CelestusActor extends Actor {
             item: skill,
             config: CONFIG.CELESTUS,
             usedResources: useResources,
+            rollData: skill.getRollData(),
         }
         let msg = await renderTemplate(path, msgData);
         // do text enrichment

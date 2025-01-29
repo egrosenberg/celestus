@@ -885,14 +885,15 @@ Hooks.on("renderHotbar", (application, html, data) => {
         }
         // render item description to html
         const path = `./systems/celestus/templates/rolls/item-parts/${item.type}-description.hbs`;
-        const msgData = {
+        let msgData = {
             name: item.name,
             flavor: item.system.description,
             portrait: item.img,
             item: item,
             system: item.system,
             config: CONFIG.CELESTUS,
-        }
+            rollData: item.getRollData(),
+        };
         let msg = await renderTemplate(path, msgData);
         // do text enrichment
         msg = await TextEditor.enrichHTML(
