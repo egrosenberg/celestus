@@ -1,4 +1,4 @@
-import { rotateTokenTowards } from "./helpers.mjs";
+import { polyCircleTest, polyPointTest, polyPolyTest, rectToPoly, rotateTokenTowards } from "./helpers.mjs";
 
 export class CelestusMeasuredTemplate extends MeasuredTemplate {
     /**
@@ -218,39 +218,39 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
          * https://wrfranklin.org/Research/Short_Notes/pnpoly.html
          */
         if (shape.type === 0) {
-            const nPoints = shape.points.length / 2;
-            let intersects = false;
-            let i, j;
-            // check if point is within bounds
-            let minX, minY, maxX, maxY;
-            for (let n = 0; n < nPoints; n++) {
-                let x = shape.points[n * 2];
-                let y = shape.points[n * 2 + 1];
-                if (x < minX) {
-                    minX = x;
-                }
-                else if (x > maxX) {
-                    maxX = x;
-                }
-                if (y < minY) {
-                    minY = y;
-                }
-                else if (y > maxY) {
-                    maxY = y;
-                }
-            }
-            if (testX < minX || testX > maxX || testY < minY || testY > maxY) return false;
-
-            for (i = 0, j = nPoints - 1; i < nPoints; j = i++) {
-                let x1 = shape.points[i * 2];
-                let y1 = shape.points[i * 2 + 1];
-                let x2 = shape.points[j * 2];
-                let y2 = shape.points[j * 2 + 1];
-                if (((y1 > testY) != (y2 > testY)) &&
-                    (testX < (x2 - x1) * (testY - y1) / (y2 - y1) + x1))
-                    intersects = !intersects;
-            }
-            return intersects;
+            return polyPointTest(this.shape.points, {x: testX, y: testY});
+            //const nPoints = shape.points.length / 2;
+            //let intersects = false;
+            //let i, j;
+            //// check if point is within bounds
+            //let minX, minY, maxX, maxY;
+            //for (let n = 0; n < nPoints; n++) {
+            //    let x = shape.points[n * 2];
+            //    let y = shape.points[n * 2 + 1];
+            //    if (x < minX) {
+            //        minX = x;
+            //    }
+            //    else if (x > maxX) {
+            //        maxX = x;
+            //    }
+            //    if (y < minY) {
+            //        minY = y;
+            //    }
+            //    else if (y > maxY) {
+            //        maxY = y;
+            //    }
+            //}
+            //if (testX < minX || testX > maxX || testY < minY || testY > maxY) return false;
+            //for (i = 0, j = nPoints - 1; i < nPoints; j = i++) {
+            //    let x1 = shape.points[i * 2];
+            //    let y1 = shape.points[i * 2 + 1];
+            //    let x2 = shape.points[j * 2];
+            //    let y2 = shape.points[j * 2 + 1];
+            //    if (((y1 > testY) != (y2 > testY)) &&
+            //        (testX < (x2 - x1) * (testY - y1) / (y2 - y1) + x1))
+            //        intersects = !intersects;
+            //}
+            //return intersects;
         }
         // rect
         else if (shape.type === 1) {
@@ -297,21 +297,10 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
         const testX2 = testX1 + testTemplate.bounds.width;
         const testY2 = testY1 + testTemplate.bounds.height;
 
-
         // quick AABB test to continue
         const AABB = (x1 < testX2 && x2 > testX1 &&
             y2 > testY1 && y1 < testY2);
         if (AABB === false) return false;
-
-        // check if bounding boxes fully contain
-        if (testX1 > x1 && testX2 < x2 && testY1 > y1 && testY2 < y2) {
-            // testShape is entirely within shape
-            return 1;
-        }
-        if (testX1 < x1 && testX2 > x2 && testY1 < y1 && testY2 > y2) {
-            // shape is entirely within testShape
-            return -1;
-        }
 
         // two circles
         if (shape.type === 2 && testShape.type === 2) {
@@ -348,10 +337,54 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
             // they just intersect
             return 0;
         }
+        // two polygons
+        else if (shape.type === 0 && testShape.type === 0) {
+            const offset = {
+                x: testTemplate.x - this.x,
+                y: testTemplate.y - this.y
+            }
+            return polyPolyTest(shape.points, testShape.points, offset);
+        }
         else {
+            const offset = {
+                x: testTemplate.x - this.x,
+                y: testTemplate.y - this.y
+            }
+            // automatically convert rects to points
+            let shapePoints;
+            let testShapePoints;
+            if (shape.type === 0) {
+                shapePoints = shape.points;
+            }
+            else if (shape.type === 1) {
+                shapePoints = rectToPoly(shape.x, shape.y, shape.width, shape.height);
+            }
+            if (testShape.type === 0) {
+                testShapePoints = testShape.points;
+            }
+            else if (testShape.type === 1) {
+                testShapePoints = rectToPoly(testShape.x, testShape.y, testShape.width, testShape.height);
+            }
+
+            // rect and poly (turn rect to poly)
+            if (shape.type !== 2 && testShape.type !== 2) {
+                return polyPolyTest(shapePoints, testShapePoints, offset);
+            }
+            // circle and poly/rect
+            if (shape.type !== 2) {
+                return polyCircleTest(shapePoints, offset, testShape.radius);
+            }
+            if (testShape.type !== 2) {
+                const center = {
+                    x: -offset.x,
+                    y: -offset.y
+                }
+                const inter = polyCircleTest(testShapePoints, center, shape.radius);
+                if (inter === false) return false;
+                return -inter;
+            }
             // resort to bounds checking result
             return 0;
-            // TODO: further refining intersections
         }
     }
 

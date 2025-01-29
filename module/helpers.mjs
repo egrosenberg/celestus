@@ -325,7 +325,7 @@ export async function rotateTokenTowards(token, point) {
     const distY = point.y - token.y;
     const newAngle = Math.atan(distY / distX) + (distX > 0 ? Math.PI : 0);
 
-    await token.document.setFlag("celestus", "rotation", newAngle - Math.PI/2);
+    await token.document.setFlag("celestus", "rotation", newAngle - Math.PI / 2);
     token.drawPointer();
 }
 
@@ -339,7 +339,279 @@ export function matchIfPresent(a, b) {
     return typeof a === "undefined" || a === b;
 }
 
+/**
+ * Find the closest point on a line to a point in space
+ * @param {Point} point to find base calculation on
+ * @param {Line} line to find closest point on
+ * @returns {Point}
+ */
+export function closestPoint(point, line) {
+    var AB = { x: line.x2 - line.x1, y: line.y2 - line.y1 };
+    var AP = { x: point.x - line.x1, y: point.y - line.y1 };
+    var len = AB.x * AB.x + AB.y * AB.y;
+    var dot = AP.x * AB.x + AP.y * AB.y;
+    var t = Math.min(1, Math.max(0, dot / len));
+    dot = (line.x2 - line.x1) * (point.y - line.y1) - (line.y2 - line.y1) * (point.x - line.x1);
+    return {
+        x: line.x1 + AB.x * t,
+        y: line.y1 + AB.y * t
+    };
+}
 
+/**
+ * Tests if two line segments intersect
+ * each line contains x1, x2, y1, y2 coordinates
+ * @param {Object} line1 
+ * @param {Object} line2 
+ * @returns {Boolean}
+ */
+export function lineLineTest(line1, line2) {
+    // calculate distance to point of intersection
+    const uA1 = (line2.x2 - line2.x1) * (line1.y1 - line2.y1) - (line2.y2 - line2.y1) * (line1.x1 - line2.x1);
+    const uA2 = (line2.y2 - line2.y1) * (line1.x2 - line1.x1) - (line2.x2 - line2.x1) * (line1.y2 - line1.y1);
+    const uA = uA1 / uA2;
+    const uB1 = (line1.x2 - line1.x1) * (line1.y1 - line2.y1) - (line1.y2 - line1.y1) * (line1.x1 - line2.x1);
+    const uB2 = (line2.y2 - line2.y1) * (line1.x2 - line1.x1) - (line2.x2 - line2.x1) * (line1.y2 - line1.y1);
+    const uB = uB1 / uB2;
+
+    // uA and uB should both be in the range 0-1 for a collision
+    return uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1;
+}
+
+/**
+ * Tests if point is inside polygon
+ * @param {Number[]} shape as an array of numbers x0,y0,x1,y1,...
+ * @param {Object} point x, y
+ * @param {Object} offset x,y offset of points for shape
+ * @returns {Boolean}
+ */
+export function polyPointTest(shape, point, offset) {
+    offset = {
+        x: offset?.x ?? 0,
+        y: offset?.y ?? 0,
+    }
+
+    const testX = point.x - offset.x;
+    const testY = point.y - offset.y;
+
+    const nPoints = shape.length / 2;
+    let intersects = false;
+    let i, j;
+    // check if point is within bounds
+    let minX, minY, maxX, maxY;
+    for (let n = 0; n < nPoints; n++) {
+        let x = shape[n * 2];
+        let y = shape[n * 2 + 1];
+        if (x < minX) {
+            minX = x;
+        }
+        else if (x > maxX) {
+            maxX = x;
+        }
+        if (y < minY) {
+            minY = y;
+        }
+        else if (y > maxY) {
+            maxY = y;
+        }
+    }
+    if (testX < minX || testX > maxX || testY < minY || testY > maxY) return false;
+
+    for (i = 0, j = nPoints - 1; i < nPoints; j = i++) {
+        let x1 = shape[i * 2];
+        let y1 = shape[i * 2 + 1];
+        let x2 = shape[j * 2];
+        let y2 = shape[j * 2 + 1];
+        if (((y1 > testY) != (y2 > testY)) &&
+            (testX < (x2 - x1) * (testY - y1) / (y2 - y1) + x1))
+            intersects = !intersects;
+    }
+    return intersects;
+}
+
+/**
+ * Tests if line segment intersects a polygon
+ * @param {Number[]} points as an array of numbers x0,y0,x1,y1,...
+ * @param {Object} line x1,y1,x2,y2
+ * @param {Object?} offset x,y offset of points for shape
+ * @returns {Boolean}
+ */
+export function polyLineTest(points, line, offset) {
+    offset = {
+        x: offset?.x ?? 0,
+        y: offset?.y ?? 0,
+    }
+    // iterate through each point
+    const nPoints = points.length / 2;
+    let j = 0;
+    for (let i = 0; i < nPoints; i++) {
+        // get next vertex (loop back at end)
+        j = i + 1;
+        if (j === nPoints) j = 0;
+
+        // create a line from points i and j
+        const testLine = {
+            x1: points[i * 2] + offset.x,
+            y1: points[i * 2 + 1] + offset.y,
+            x2: points[j * 2] + offset.x,
+            y2: points[j * 2 + 1] + offset.y,
+        }
+
+        // test for line-line intersection
+        const intersect = lineLineTest(line, testLine);
+        if (intersect) return true;
+    }
+    return false;
+}
+
+/**
+ * Tests if two polygons intersect
+ * @param {Number[]} shape1 as an array of numbers x0,y0,x1,y1,...
+ * @param {Number[]} shape2 as an array of numbers x0,y0,x1,y1,...
+ * @param {Object?} offset distance between shape1 and shape2 origins (shape2x-shape1x, shape2y-shape1y)
+ * @returns {Number|Boolean} 0 = intersect, > 0 = shape2 inside shape1, < 0 = shape1 inside shape2, false = no interaction
+ */
+export function polyPolyTest(shape1, shape2, offset) {
+    offset = {
+        x: offset?.x ?? 0,
+        y: offset?.y ?? 0,
+    }
+    // iterate through each point in shape1
+    const nPoints1 = shape1.length / 2;
+    let j = 0;
+    for (let i = 0; i < nPoints1; i++) {
+        // get next vertex (loop back at end)
+        j = i + 1;
+        if (j === nPoints1) j = 0;
+
+        // create a line from points i and j
+        const testLine = {
+            x1: shape1[i * 2] - offset.x,
+            y1: shape1[i * 2 + 1] - offset.y,
+            x2: shape1[j * 2] - offset.x,
+            y2: shape1[j * 2 + 1] - offset.y,
+        }
+
+        // test for line-poly intersection
+        const intersect = polyLineTest(shape2, testLine);
+        if (intersect) return 0;
+    }
+
+    let inside2 = true;
+    // check if shape1 is inside shape2
+    for (let i = 0; i < nPoints1; i++) {
+        // create a test point
+        const testPoint = {
+            x: shape1[i * 2] - offset.x,
+            y: shape1[i * 2 + 1] - offset.y,
+        }
+
+        // test for line-poly intersection
+        const inside = polyPointTest(shape2, testPoint);
+        if (!inside) {
+            inside2 = false;
+            break;
+        }
+    }
+    if (inside2) return -1;
+    // check if shape2 is inside shape1
+    const nPoints2 = shape2.length / 2;
+    let inside1 = true;
+    for (let i = 0; i < nPoints2; i++) {
+        // create a test point
+        const testPoint = {
+            x: shape2[i * 2] + offset.x,
+            y: shape2[i * 2 + 1] + offset.y,
+        }
+
+        // test for line-poly intersection
+        const inside = polyPointTest(shape1, testPoint);
+        if (!inside) {
+            inside1 = false;
+            break;
+        }
+    }
+    if (inside1) return 1;
+
+    return false;
+}
+
+/**
+ * Tests for intersection between circle and polygon
+ * @param {Number[]} points of polygon x1,y1 x2,y2 ...
+ * @param {Point} center x,y position of circle
+ * @param {Number} radius of circle
+ * @returns {Number|Boolean} 0 = intersect, > 0 = circle inside polygon, < 0 = polygon inside circle, false = no interaction
+ */
+export function polyCircleTest(points, center, radius) {
+    let lineIntersect = false;
+    let pointsInCircle = 0;
+    let verticalIntersect = 0;
+    // iterate through all points / lines
+    const nPoints = points.length / 2;
+    let j = 1;
+    for (let i = 0; i < nPoints; i++) {
+        // get next vertex (loop back at end)
+        j = i + 1;
+        if (j === nPoints) j = 0;
+
+        // test if point is inside circle
+        const dist = Math.sqrt((points[i * 2] - center.x) ** 2 + (points[i * 2 + 1] - center.y) ** 2);
+        if (dist <= radius) pointsInCircle++;
+
+        // create a line from points i and j
+        const testLine = {
+            x1: points[i * 2],
+            y1: points[i * 2 + 1],
+            x2: points[j * 2],
+            y2: points[j * 2 + 1],
+        }
+
+        // test if upwards ray from center intersects with line
+        const vert = {
+            x1: center.x,
+            y1: center.y,
+            x2: center.x,
+            y2: canvas?.scene?.height ?? Math.pow(10,100)
+        }
+        if (lineLineTest(vert, testLine)) verticalIntersect++;
+
+        // only test for line intersection if we haven't already
+        if (!lineIntersect) {
+
+                // find closest point to center
+                const closest = closestPoint(center, testLine);
+                // find distance
+                const distX = closest.x - center.x;
+                const distY = closest.y - center.y;
+                const distance = Math.sqrt(distX ** 2 + distY ** 2);
+
+                if (distance <= radius) lineIntersect = true;
+            }
+    }
+    console.log(verticalIntersect);
+    if (pointsInCircle === nPoints) return -1;
+    if (lineIntersect) return 0;
+    if (verticalIntersect % 2 !== 0) return 1;
+    return false;
+}
+
+/**
+ * Transforms rectangle dimensions to polygon points
+ * @param {Number} x base x position of rectangle
+ * @param {Number} y base y position of rectangle
+ * @param {Number} width width of rectangle
+ * @param {Number} height height of rectangle
+ * @returns {Number[]} points as an array of numbers x0,y0,x1,y1,...
+ */
+export function rectToPoly(x, y, width, height) {
+    return [
+        x, y,
+        x, y + height,
+        x + width, y + height,
+        x + width, y
+    ]
+}
 
 
 /**
