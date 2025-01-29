@@ -874,21 +874,22 @@ let teleporting = false;
  * @param {Event} ev 
  */
 async function teleportTokenConfirm(ev) {
+    const token = canvas.scene.tokens.get(CONFIG.CELESTUS.teleportTargetId);
+    if (!token) return;
     // get canvas position
-    const center = ev.data.getLocalPosition(canvas.getLayerByEmbeddedName("Token"));
+    let center = ev.data.getLocalPosition(canvas.getLayerByEmbeddedName("Token"));
+    center.x = parseInt(center.x - token.object.w / 2);
+    center.y = parseInt(center.y - token.object.h / 2);
     const dest = canvas.grid.getSnappedPoint(center, {
         mode: CONST.GRID_SNAPPING_MODES.CENTER,
         resolution: 2,
     });
 
     // update token position
-    const token = canvas.scene.tokens.get(CONFIG.CELESTUS.teleportTargetId);
-    if (token) {
-        await token.update(dest, {
-            animate: false,
-            teleport: true,
-        });
-    }
+    await token.update(dest, {
+        animate: false,
+        teleport: true,
+    });
 
     teleporting = false;
     // remove listeners
