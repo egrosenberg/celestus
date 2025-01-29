@@ -837,11 +837,11 @@ export async function renderTokenInfo(token, hovered, force) {
         effects: effects ? token.actor.effects : false,
     }
     let msg = await renderTemplate(path, msgData);
-    
+
     ui.style.display = "";
     ui.innerHTML = msg;
     ui.dataset.actorId = token.actor.uuid;
-    
+
     // render progress bars for resources
     $("#ui-token-hover").find('.resource-value').each((index, target) => {
         const varPath = target.id;
@@ -868,4 +868,115 @@ export async function renderTokenInfo(token, hovered, force) {
             $(target).parents(".resource").css("background-color", `#ff9999`);
         }
     });
+}
+
+let teleporting = false;
+
+/**
+ * Confirms token teleport command
+ * @param {Event} ev 
+ */
+async function teleportTokenConfirm(ev) {
+    // get canvas position
+    const center = ev.data.getLocalPosition(canvas.getLayerByEmbeddedName("Token"));
+    const dest = canvas.grid.getSnappedPoint(center, {
+        mode: CONST.GRID_SNAPPING_MODES.CENTER,
+        resolution: 2,
+    });
+
+    // update token position
+    const token = canvas.scene.tokens.get(CONFIG.CELESTUS.teleportTargetId);
+    if (token) {
+        await token.update(dest, {
+            animate: false,
+            teleport: true,
+        });
+    }
+
+    teleporting = false;
+    // remove listeners
+    canvas.stage.off('mousedown', teleportTokenConfirm);
+    canvas.stage.off('mousemove', teleportTokenCursor);
+    canvas.app.view.oncontextmenu = null;
+    // remove teleport cursor
+    canvas.effects.removeChild(CONFIG.CELESTUS.teleportCursor);
+}
+
+/**
+ * Moves teleport cursor
+ * @param {Event} ev 
+ */
+function teleportTokenCursor(ev) {
+    // get canvas position
+    const center = ev.data.getLocalPosition(canvas.getLayerByEmbeddedName("Token"));
+    // update teleport cursor position
+    const snapped = canvas.grid.getSnappedPoint(center, {
+        mode: CONST.GRID_SNAPPING_MODES.CENTER,
+        resolution: 2,
+    });
+    CONFIG.CELESTUS.teleportCursor.x = snapped?.x ?? 0;
+    CONFIG.CELESTUS.teleportCursor.y = snapped?.y ?? 0;
+}
+
+/**
+ * Cancels token teleport command
+ * @param {Event} ev 
+ */
+function teleportTokenCancel(ev) {
+    ui.notifications.notify("CELESTUS | Canceled teleport operation");
+    teleporting = false;
+    // remove listeners
+    canvas.stage.off('mousedown', teleportTokenConfirm);
+    canvas.stage.off('mousemove', teleportTokenCursor);
+    canvas.app.view.oncontextmenu = null;
+    // remove teleport cursor
+    canvas.effects.removeChild(CONFIG.CELESTUS.teleportCursor);
+}
+
+/**
+ * awaits some amount of time in ms
+ * @param {Number} ms 
+ */
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms || DEF_DELAY));
+}
+
+/**
+ * rotates teleport cursor
+ */
+async function teleportTicker() {
+    while (teleporting) {
+        await sleep(20);
+        CONFIG.CELESTUS.teleportCursor.rotation += CONFIG.CELESTUS.teleportCursorRotationSpeed;
+    }
+}
+
+/**
+ * Teleport Token for hook keybinding
+ * @param {Token?} token optional token to teleport
+ */
+export function teleportTokenStart(token) {
+    if (token) {
+        CONFIG.CELESTUS.teleportTargetId = token.id;
+    }
+    else {
+        const t = canvas.tokens.controlled[0];
+        if (t) {
+            CONFIG.CELESTUS.teleportTargetId = t.id;
+        }
+        else {
+            return ui.notifications.warn("CELESTUS | Please select a token to teleport");
+        }
+    }
+    ui.notifications.notify("CELESTUS | Starting teleport operation, left click to confirm");
+    teleporting = true;
+    // turn on event listeners
+    canvas.stage.on('mousedown', teleportTokenConfirm);
+    canvas.stage.on('mousemove', teleportTokenCursor);
+    canvas.app.view.oncontextmenu = teleportTokenCancel;
+    // render teleport cursor
+    CONFIG.CELESTUS.teleportCursor.width = canvas.scene.grid.size;
+    CONFIG.CELESTUS.teleportCursor.height = canvas.scene.grid.size;
+    canvas.effects.addChild(CONFIG.CELESTUS.teleportCursor);
+    teleportTicker();
 }

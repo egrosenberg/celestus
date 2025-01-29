@@ -1,6 +1,6 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc, teleportTokenStart } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CelestusMeasuredTemplateConfig, CharacterSheet } from "./sheets.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
@@ -112,10 +112,10 @@ Hooks.on("init", () => {
                 duration: 2,
                 statuses: ["burn"],
                 combines: {
-                    oil: {mode: "corrupt"},
-                    poison: {mode: "corrupt"},
-                    water: {mode: "combine", makes: "fog"},
-                    ice: {mode: "combine", makes: "water", corrupts: true},
+                    oil: { mode: "corrupt" },
+                    poison: { mode: "corrupt" },
+                    water: { mode: "combine", makes: "fog" },
+                    ice: { mode: "combine", makes: "water", corrupts: true },
                 },
                 texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements/Elements_01-512x512-25.webp"
             },
@@ -126,11 +126,11 @@ Hooks.on("init", () => {
                 duration: 2,
                 statuses: ["burn+"],
                 combines: {
-                    oil: {mode: "corrupt"},
-                    poison: {mode: "corrupt"},
-                    fire: {mode: "override"},
-                    water: {mode: "override"},
-                    ice: {mode: "override"},
+                    oil: { mode: "corrupt" },
+                    poison: { mode: "corrupt" },
+                    fire: { mode: "override" },
+                    water: { mode: "override" },
+                    ice: { mode: "override" },
                 },
                 texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Spiritfire-2-25.webp"
             },
@@ -140,10 +140,10 @@ Hooks.on("init", () => {
                 school: "tidecaller",
                 duration: 4,
                 combines: {
-                    oil: {mode: "override"},
-                    fire: {mode: "override"},
-                    blood: {mode: "override"},
-                    poison: {mode: "override"},
+                    oil: { mode: "override" },
+                    fire: { mode: "override" },
+                    blood: { mode: "override" },
+                    poison: { mode: "override" },
                 },
                 texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements/Elements_20-512x512-25.webp"
             },
@@ -154,10 +154,10 @@ Hooks.on("init", () => {
                 duration: 4,
                 onEnd: "water",
                 combines: {
-                    oil: {mode: "corrupt"},
-                    fire: {mode: "override"},
-                    water: {mode: "corrupt"},
-                    poison: {mode: "corrupt"},
+                    oil: { mode: "corrupt" },
+                    fire: { mode: "override" },
+                    water: { mode: "corrupt" },
+                    poison: { mode: "corrupt" },
                 },
                 texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements/Elements_17-512x512-25.webp"
             },
@@ -168,10 +168,10 @@ Hooks.on("init", () => {
                 duration: 2,
                 statuses: ["oil"],
                 combines: {
-                    ice: {mode: "override"},
-                    water: {mode: "override"},
-                    blood: {mode: "override"},
-                    poison: {mode: "override"},
+                    ice: { mode: "override" },
+                    water: { mode: "override" },
+                    blood: { mode: "override" },
+                    poison: { mode: "override" },
                 },
                 texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Oil-mud-25.webp"
             },
@@ -182,10 +182,10 @@ Hooks.on("init", () => {
                 duration: 2,
                 statuses: ["poison"],
                 combines: {
-                    ice: {mode: "override"},
-                    water: {mode: "override"},
-                    blood: {mode: "override"},
-                    oil: {mode: "override"},
+                    ice: { mode: "override" },
+                    water: { mode: "override" },
+                    blood: { mode: "override" },
+                    oil: { mode: "override" },
                 },
                 texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Poison-25.webp"
             },
@@ -194,9 +194,9 @@ Hooks.on("init", () => {
                 color: "#cc0000",
                 school: "deathbringer",
                 combines: {
-                    ice: {mode: "override"},
-                    water: {mode: "override"},
-                    fire: {mode: "override"},
+                    ice: { mode: "override" },
+                    water: { mode: "override" },
+                    fire: { mode: "override" },
                 },
                 texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Blood-3-25.webp"
             },
@@ -679,6 +679,7 @@ Hooks.on("init", () => {
         // canvas constants
         rangeOverlayCol: 0xffffff,
         tokenPointerAlpha: 1,
+        teleportCursorRotationSpeed: Math.PI * 0.005, // radians to rotate per 20ms
     };
 
     // set up data models
@@ -703,7 +704,7 @@ Hooks.on("init", () => {
     CONFIG.MeasuredTemplate.objectClass = CelestusMeasuredTemplate;
     CONFIG.MeasuredTemplate.documentClass = CelestusMeasuredTemplateDocument;
     // unregister old measured template sheet
-    DocumentSheetConfig.unregisterSheet(MeasuredTemplateDocument,'core', MeasuredTemplateConfig);
+    DocumentSheetConfig.unregisterSheet(MeasuredTemplateDocument, 'core', MeasuredTemplateConfig);
     DocumentSheetConfig.registerSheet(MeasuredTemplateDocument, 'celestus', CelestusMeasuredTemplateConfig, { makeDefault: true, });
     CONFIG.Token.objectClass = CelestusToken;
 
@@ -765,6 +766,15 @@ Hooks.on("init", () => {
     CONFIG.CELESTUS.backstabAreaSprite.anchor.y = 0.5;
     // directional pointer texture
     CONFIG.CELESTUS.pointerTexture = PIXI.Texture.from('systems/celestus/svg/direction-pointer.svg');
+    // teleport cursor follower
+    CONFIG.CELESTUS.teleportCursorTexture = PIXI.Texture.from('systems/celestus/svg/teleport-cursor.svg');
+    CONFIG.CELESTUS.teleportCursor = new PIXI.Sprite(CONFIG.CELESTUS.teleportCursorTexture);
+    CONFIG.CELESTUS.teleportCursor.alpha = 0.5;
+    CONFIG.CELESTUS.teleportCursor.zIndex = 20;
+    CONFIG.CELESTUS.teleportCursor.anchor.x = 0.5;
+    CONFIG.CELESTUS.teleportCursor.anchor.y = 0.5;
+    CONFIG.CELESTUS.teleportCursor.width = 75;
+    CONFIG.CELESTUS.teleportCursor.height = 75;
 
     // skill scripts
     CONFIG.CELESTUS.scripts = scripts;
@@ -781,7 +791,7 @@ Hooks.on("init", () => {
 
     renderResourcesUi();
 
-    
+
     // create token hover ui
     let tokenInfo = document.createElement("div");
     tokenInfo.id = "ui-token-hover";
@@ -795,6 +805,22 @@ Hooks.on("init", () => {
         tokenInfo.dataset.persist = false;
     });
 
+
+    // register keybindings
+    game.keybindings.register("celestus", "showNotification", {
+        name: "Teleport controlled token",
+        hint: "When pressed will teleport currently controlled token to wherever the cursor is.",
+        editable: [
+            {
+                key: "KeyT",
+                modifiers: ["Control", "Alt"]
+            }
+        ],
+        onDown: () => { teleportTokenStart() },
+        onUp: () => { },
+        restricted: false,
+        precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
+    });
 
     // preload handlebars templates
     return preloadHandlebarsTemplates();
