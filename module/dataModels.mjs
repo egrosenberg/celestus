@@ -1028,10 +1028,10 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             }
         }
         // check if actor has available AP or FP
-        if (this.ap > actor.system.resources.ap.value) {
+        if (this.finalAP > actor.system.resources.ap.value) {
             return "Insufficent action points available!";
         }
-        if (this.fp > actor.system.resources.fp.value) {
+        if (this.finalFP > actor.system.resources.fp.value) {
             return "Insufficent focus points available!";
         }
         return false;
