@@ -418,11 +418,11 @@ export class CelestusActor extends Actor {
         // only use ap if in combat
         if (this.inCombat) {
             if (useResources) {
-                await this.update({ "system.resources.ap.value": actor.resources.ap.value - skill.system.ap });
+                await this.update({ "system.resources.ap.value": actor.resources.ap.value - skill.system.finalAP });
             }
         }
         if (useResources) {
-            await this.update({ "system.resources.fp.value": actor.resources.fp.value - skill.system.fp });
+            await this.update({ "system.resources.fp.value": actor.resources.fp.value - skill.system.finalFP });
         }
 
         const path = './systems/celestus/templates/rolls/skill-roll.hbs';

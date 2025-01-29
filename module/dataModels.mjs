@@ -908,6 +908,41 @@ export class SkillData extends foundry.abstract.TypeDataModel {
         }
     }
     /**
+     * Calculate final AP cost, after any other modifiers
+     */
+    get finalAP() {
+        const actor = this.parent.actor;
+        if (!actor) return this.ap;
+        let ap = this.ap;
+        if (actor.getFlag("celestus", "elementalist")) {
+            const standingOn = actor.getFlag("celestus", "standingOn");
+            const surfaceSchool = CONFIG.CELESTUS.surfaceTypes[standingOn]?.school;
+            if (surfaceSchool) {
+                if (this.prereqs[surfaceSchool] > 0 && ap > 1) {
+                    ap--;
+                }
+            }
+        }
+        const discount = actor.getFlag("celestus", "apDiscount");
+        if (this.type !== "civil" && !isNaN(Number(discount)) && ap > 0) {
+            ap -= Math.min(Number(discount), ap-1);
+        } 
+        return ap;
+    }
+    /**
+     * Calculate final FP cost, after any other modifiers
+     */
+    get finalFP() {
+        const actor = this.parent.actor;
+        if (!actor) return this.fp;
+        let fp = this.fp;
+        const discount = actor.getFlag("celestus", "fpDiscount");
+        if (!isNaN(Number(discount)) && fp > 0) {
+            fp -= Math.min(Number(discount), fp);
+        } 
+        return Math.max(fp, 0);
+    }
+    /**
      * prepares targeting mode for display
      * @returns {String | false}
      */
