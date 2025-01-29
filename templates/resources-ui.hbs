@@ -41,9 +41,9 @@
             </span>
         </span>
     </div>
-    {{#if (or resources.phys_armor.value resources.mag_armor.value)}}
+    {{#if (or (or resources.phys_armor.value resources.phys_armor.max) (or resources.mag_armor.value resources.mag_armor.max))}}
     <div class="resources grid">
-        {{#if resources.phys_armor.value}}
+        {{#if (or resources.phys_armor.value resources.phys_armor.max)}}
         <span class="resource" id="ui-physical-armor">
             <label class="resource-label armor">Physical Armor</label>
             <span class="phys_armor resource-value" id="resources.phys_armor">
@@ -54,7 +54,7 @@
             </span>
         </span>
         {{/if}}
-        {{#if resources.mag_armor.value}}
+        {{#if (or resources.mag_armor.value resources.mag_armor.max)}}
         <span class="resource" id="ui-magic-armor">
             <label class="resource-label">Magic Armor</label><br />
             <span class="resource-value mag_armor" id="resources.mag_armor">

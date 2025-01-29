@@ -781,6 +781,21 @@ Hooks.on("init", () => {
 
     renderResourcesUi();
 
+    
+    // create token hover ui
+    let tokenInfo = document.createElement("div");
+    tokenInfo.id = "ui-token-hover";
+    tokenInfo.classList.add("celestus");
+    tokenInfo.classList.add("token-info");
+    document.getElementById("interface").appendChild(tokenInfo);
+    tokenInfo.style.display = "none";
+    tokenInfo.dataset.persist = false;
+    $(tokenInfo).on('click', '.close-info', () => {
+        tokenInfo.style.display = "none";
+        tokenInfo.dataset.persist = false;
+    });
+
+
     // preload handlebars templates
     return preloadHandlebarsTemplates();
 

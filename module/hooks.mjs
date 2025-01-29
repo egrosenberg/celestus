@@ -606,6 +606,8 @@ export function renderHotbarOverlay(render = true) {
  * @param {Boolean} hovered 
  */
 export function drawTokenHover(token, hovered) {
+    // render token info in hud
+    renderTokenInfo(token, hovered);
     if (hovered && token) {
         const tokenCenter = token.getCenterPoint();
         /**
@@ -797,4 +799,73 @@ export async function resourceInteractMisc(ev) {
     const resourceName = `system.${$(ev.currentTarget).attr('name')}`;
     const resourceValue = $(ev.currentTarget).val();
     await actor.update({ [resourceName]: Number(resourceValue) });
+}
+
+/**
+ * Renders token hover info ui
+ * or hides ui if hover leave
+ * @param {Token} token
+ * @param {Boolean} hovered
+ * @param {Boolean} force: force to render
+ */
+export async function renderTokenInfo(token, hovered, force) {
+    let ui = document.getElementById("ui-token-hover");
+
+    if (ui.dataset.persist === "true" && !force) {
+        return;
+    }
+
+    if (!hovered && ui.dataset.persist === "false") {
+        ui.style.display = "none";
+        return;
+    }
+
+    let effects = false;
+    for (const e of token.actor.effects) {
+        if (e.isTemporary === true) {
+            effects = true;
+            break;
+        }
+    }
+
+    const path = './systems/celestus/templates/token-info.hbs';
+    const msgData = {
+        name: token.name,
+        creatureType: CONFIG.CELESTUS.creatureTypes[token.actor.system.t],
+        portrait: token.document.texture.src,
+        resources: token.actor.system.resources,
+        effects: effects ? token.actor.effects : false,
+    }
+    let msg = await renderTemplate(path, msgData);
+    
+    ui.style.display = "";
+    ui.innerHTML = msg;
+    ui.dataset.actorId = token.actor.uuid;
+    
+    // render progress bars for resources
+    $("#ui-token-hover").find('.resource-value').each((index, target) => {
+        const varPath = target.id;
+        const resourceVal = token.actor.system.resources[varPath.substring(varPath.lastIndexOf('.') + 1)].value;
+        const resourceMax = token.actor.system.resources[varPath.substring(varPath.lastIndexOf('.') + 1)].max;
+        const resourcePercent = (resourceVal / resourceMax);
+        // draw gradient depending on if overflowing or not
+        let gradient;
+        if (resourcePercent > 1) {
+            const gradientCol = "rgba(255,255,255,0.25)";
+            gradient = `linear-gradient(to left, ${gradientCol} ${((1 - resourcePercent) * -100)}%, rgba(0,0,0,0) 0%)`;
+        }
+        else if (resourcePercent > 0) {
+            const gradientCol = "#404040";
+            gradient = `linear-gradient(to left, ${gradientCol} ${((1 - resourcePercent) * 100)}%, rgba(0,0,0,0) 0%)`;
+        }
+        else {
+            const gradientCol = "#404040";
+            gradient = `linear-gradient(to right, ${gradientCol} ${((1 + resourcePercent) * 100)}%, rgba(0,0,0,0) 0%)`;
+        }
+        const curCSS = $(target).css("background-image");
+        $(target).parents(".resource").css("background-image", `${curCSS}, ${gradient}`);
+        if (resourcePercent < 0) {
+            $(target).parents(".resource").css("background-color", `#ff9999`);
+        }
+    });
 }

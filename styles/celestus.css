@@ -255,6 +255,7 @@
     --color-mag_armor-dark-bg: rgb(0, 100, 100);
 
     --color-cream-50: rgba(250, 246, 239, 0.5);
+    --color-tan: rgba(255, 231, 195);
 
     --shadow-bevel: inset 0.2em 0.2em 0.2em 0 rgba(255, 255, 255, 0.3), inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.3);
     --shadow-inset: inset 0.2em 0.2em 0.2em 0 rgba(0, 0, 0, 0.3), inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.3);
@@ -372,6 +373,7 @@
 
 input[type="color"] {
     -webkit-appearance: none;
+    appearance: inherit;
     border: none;
 }
 
@@ -817,7 +819,7 @@ input[type="color"]::-webkit-color-swatch {
 .item-hover {
     width: 270px;
     position: fixed;
-    background-color: rgba(255, 231, 195) !important;
+    background-color: var(--color-tan) !important;
     border: var(--color-warm-3) thin solid;
 }
 
@@ -1133,6 +1135,7 @@ input[type="color"]::-webkit-color-swatch {
 div#ui-resources {
     display: block;
 }
+
 .celestus.resources-ui {
     position: absolute;
     right: 10px;
@@ -1261,4 +1264,131 @@ div#ui-resources {
 
 .focus-point.large {
     font-size: var(--font-size-32);
+}
+
+/* Token Info on hover */
+.celestus.token-info {
+    position: absolute;
+    left: 0;
+    right: 0; 
+    margin-top: 10px;
+    margin-inline: auto;
+    width: 250px;
+    background-color: var(--color-tan);
+    background: url(/ui/parchment.jpg) repeat;
+    box-shadow: var(--shadow-bevel);
+    padding: 10px;
+    border-radius: 10px;
+    border: medium solid var(--color-warm-3);
+    z-index: calc(var(--z-index-ui) + 1);
+}
+
+.celestus.token-info .close-info{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: var(--font-size-16);
+}
+
+.celestus.token-info .token-header {
+    margin-bottom: 5px;
+    border-bottom: thin black solid;
+}
+
+.celestus.token-info .actor-img {
+    width: 50px;
+    height: 50px;
+    background: none;
+    display: inline;
+    border: none;
+}
+
+.celestus.token-info .token-name {
+    vertical-align: top;
+    display: inline-block;
+}
+
+.celestus.token-info .token-name .name{
+    font-size: var(--font-size-20);
+    font-weight: bold;
+}
+
+.celestus.token-info .token-name .type{
+    font-size: var(--font-size-16);
+}
+
+.celestus.token-info .resources {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        "phys-armor mag-armor"
+        "hp hp";
+    width: 100%;
+    min-width: 100%;
+}
+
+.celestus.token-info .resources .resource { 
+    border-style: solid;
+    border-width: thin;
+    border-radius: 5px;
+    border-color: black;
+    display: block;
+    text-align: center;
+    padding: 2px;
+    white-space: nowrap;
+    font-size: var(--font-size-16);
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    text-shadow: var(--text-outline-1);
+    box-shadow: var(--shadow-inset);
+    background-image: url('../img/milky-texture.webp');
+    background-blend-mode: multiply;
+    width: 100%;
+}
+
+.celestus.token-info .mag-armor {
+    grid-area: mag-armor;
+}
+
+.celestus.token-info .phys-armor {
+    grid-area: phys-armor;
+}
+
+.celestus.token-info .hp {
+    grid-area: hp;
+}
+
+.celestus.token-info .effects {
+    list-style-type: none;
+    width: 100%;
+    padding: 0px;
+}
+
+.celestus.token-info .effect {
+    margin-top: -1px;
+    border: 1px black solid;
+    width: 100%;
+    color: black;
+    font-weight: bold;
+    font-size: var(--font-size-16);
+    padding: 3px;
+    border-radius: 5px;
+    background-color: rgb(221, 216, 195);
+    display: flex;
+}
+
+.celestus.token-info .effect-label {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.celestus.token-info .effect-icon {
+    width: 25px;
+    height: 25px;
+    border: none;
+    background-color: black;
+    margin-bottom: 0px;
 }

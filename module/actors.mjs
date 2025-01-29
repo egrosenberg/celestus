@@ -1,5 +1,5 @@
 import { calcMult, canvasPopupText } from "./helpers.mjs";
-import { renderHotbarOverlay, renderResourcesUi } from "./hooks.mjs";
+import { renderHotbarOverlay, renderResourcesUi, renderTokenInfo } from "./hooks.mjs";
 
 const BASE_AS = 10; // base ability score value
 
@@ -83,6 +83,7 @@ export class CelestusActor extends Actor {
         }
     }
 
+    /** @override */
     _onUpdate(changed, options, userId) {
         super._onUpdate(changed, options, userId);
         // update auras
@@ -96,6 +97,34 @@ export class CelestusActor extends Actor {
         // render ui elements
         renderHotbarOverlay();
         renderResourcesUi();
+
+        if (document.getElementById("ui-token-hover").dataset.actorId === this.uuid) {
+            renderTokenInfo(this.getActiveTokens(true)[0], null, true);
+        }
+    }
+
+    /** @override */
+    _onCreateDescendantDocuments(parent, collection, documents, data, options, userId) {
+        super._onCreateDescendantDocuments(parent, collection, documents, data, options, userId);
+        if (document.getElementById("ui-token-hover").dataset.actorId === this.uuid) {
+            renderTokenInfo(this.getActiveTokens(true)[0], null, true);
+        }
+    }
+
+    /** @override */
+    _onUpdateDescendantDocuments(parent, collection, documents, changes, options, userId) {
+        super._onUpdateDescendantDocuments(parent, collection, documents, changes, options, userId);
+        if (document.getElementById("ui-token-hover").dataset.actorId === this.uuid) {
+            renderTokenInfo(this.getActiveTokens(true)[0], null, true);
+        }
+    }
+
+    /** @override */
+    _onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId) {
+        super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
+        if (document.getElementById("ui-token-hover").dataset.actorId === this.uuid) {
+            renderTokenInfo(this.getActiveTokens(true)[0], null, true);
+        }
     }
 
     /**
@@ -758,6 +787,27 @@ export class CelestusToken extends Token {
         if (this.pointerPixi) {
             canvas.layers[4].removeChild(this.pointerPixi);
         }
+    }
+
+    /** @override */
+    _onClickRight(event) {
+        if (this.isOwner) super._onClickRight(event);
+        else {
+            event.stopPropagation();
+        }
+        let ui = document.getElementById("ui-token-hover");
+        if (ui.style.display === "none") return;
+        if (ui.dataset.persist === "true") {
+            renderTokenInfo(this, false, true);
+        }
+        else {
+            ui.dataset.persist = "true";
+        }
+    }
+
+    /** @override */
+    _canHUD(user, event) {
+        return true;
     }
 
     /**

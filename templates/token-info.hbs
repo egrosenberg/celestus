@@ -1,0 +1,51 @@
+<a class="close-info">
+    <i class="fa-solid fa-xmark"></i>
+</a>
+<header class="token-header">
+    <img class="actor-img" src="{{portrait}}" title="{{name}}" />
+    <span class="token-name">
+        <div class="name">{{name}}</div>
+        <div class="type">{{creatureType}}</div>
+    </span>
+</header>
+<div class="resources">
+    {{#if (or resources.phys_armor.value resources.phys_armor.value)}}
+    <div class="phys-armor resource phys_armor">
+        <span class="resource-value" id="resources.phys_armor">
+            <span class="total">
+                {{resources.phys_armor.value}}/{{resources.phys_armor.max}}
+            </span>
+        </span>
+    </div>
+    {{/if}}
+    {{#if (or resources.mag_armor.value resources.mag_armor.value)}}
+    <div class="mag-armor resource mag_armor">
+        <span class="resource-value" id="resources.mag_armor">
+            <span class="total">
+                {{resources.mag_armor.value}}/{{resources.mag_armor.max}}
+            </span>
+        </span>
+    </div>
+    {{/if}}
+    <div class="hp resource healing">
+        <span class="resource-value" id="resources.hp">
+            <span class="total">
+                {{resources.hp.flat}}/{{resources.hp.max}}
+            </span>
+        </span>
+    </div>
+</div>
+{{#if effects}}
+<ul class="effects">
+    {{#each effects as |effect|}}
+    {{#if effect.isTemporary}}
+    <li class="effect">
+        <img class="effect-icon" src="{{effect.img}}" />
+        <span class="effect-label">
+            {{effect.name}}
+        </span>
+    </li>
+    {{/if}}
+    {{/each}}
+</ul>
+{{/if}}
