@@ -483,10 +483,7 @@ export async function triggerTurn(combat, prior, current) {
         }
         // trigger auras
         if (template) {
-            for (const t of canvas.scene.templates) {
-                const spread = await template.object.combineSurface(t.object);
-                if (spread === false) break;
-            }
+            await template.testAll();
         }
     }
     const endingId = combat.previous.combatantId;

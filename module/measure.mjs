@@ -122,38 +122,33 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                 for (const token of tokens) {
                     rotateTokenTowards(token, { x: this.document.x, y: this.document.y })
                 }
-                await template.setFlag("celestus", "surfaceType", skill.system.linger.surfaceType);
-                await template.setFlag("celestus", "origin", skill.actor.uuid);
+                await template?.setFlag("celestus", "surfaceType", skill.system.linger.surfaceType);
+                await template?.setFlag("celestus", "origin", skill.actor.uuid);
                 if (skill.system.linger.effects) {
                     await template.setFlag("celestus", "hasEffects", true);
                     await template.setFlag("celestus", "skillId", skill.uuid);
                 }
                 if (skill.system.aoeLinger && game.combat) {
-                    await template.setFlag("celestus", "linger", true);
-                    await template.setFlag("celestus", "lingerStartRound", game.combat.current.round);
-                    await template.setFlag("celestus", "lingerStartTurn", game.combat.current.turn);
-                    await template.setFlag("celestus", "lingerDuration", skill.system.linger.duration);
+                    await template?.setFlag("celestus", "linger", true);
+                    await template?.setFlag("celestus", "lingerStartRound", game.combat.current.round);
+                    await template?.setFlag("celestus", "lingerStartTurn", game.combat.current.turn);
+                    await template?.setFlag("celestus", "lingerDuration", skill.system.linger.duration);
                 }
                 else {
-                    await template.setFlag("celestus", "clearThis", true);
+                    await template?.setFlag("celestus", "clearThis", true);
                 }
 
                 // wait until shape exists, then propagate effects
                 async function checkShape() {
-                    if (!template.object.shape) {
+                    if (!template?.object.shape) {
                         window.setTimeout(checkShape, 100);
                     } else {
-                        for (const token of template.parent.tokens) {
-                            await template.object.spreadEffectsTo(token);
-                        }
-                        // interact with other surfaces
-                        for (const t of canvas.scene.templates) {
-                            const spread = await template.object.combineSurface(t.object);
-                            if (spread === false) return false;
+                        if (template) {
+                            await template?.testAll();
                         }
                     }
                 }
-                checkShape();
+                await checkShape();
             }
         };
 
@@ -218,39 +213,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
          * https://wrfranklin.org/Research/Short_Notes/pnpoly.html
          */
         if (shape.type === 0) {
-            return polyPointTest(this.shape.points, {x: testX, y: testY});
-            //const nPoints = shape.points.length / 2;
-            //let intersects = false;
-            //let i, j;
-            //// check if point is within bounds
-            //let minX, minY, maxX, maxY;
-            //for (let n = 0; n < nPoints; n++) {
-            //    let x = shape.points[n * 2];
-            //    let y = shape.points[n * 2 + 1];
-            //    if (x < minX) {
-            //        minX = x;
-            //    }
-            //    else if (x > maxX) {
-            //        maxX = x;
-            //    }
-            //    if (y < minY) {
-            //        minY = y;
-            //    }
-            //    else if (y > maxY) {
-            //        maxY = y;
-            //    }
-            //}
-            //if (testX < minX || testX > maxX || testY < minY || testY > maxY) return false;
-            //for (i = 0, j = nPoints - 1; i < nPoints; j = i++) {
-            //    let x1 = shape.points[i * 2];
-            //    let y1 = shape.points[i * 2 + 1];
-            //    let x2 = shape.points[j * 2];
-            //    let y2 = shape.points[j * 2 + 1];
-            //    if (((y1 > testY) != (y2 > testY)) &&
-            //        (testX < (x2 - x1) * (testY - y1) / (y2 - y1) + x1))
-            //        intersects = !intersects;
-            //}
-            //return intersects;
+            return polyPointTest(this.shape.points, { x: testX, y: testY });
         }
         // rect
         else if (shape.type === 1) {
@@ -482,7 +445,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                 }
                 return false;
             }
-            if (mode === "override" && intersect > 0) {
+            if (mode === "override" && intersect < 0) {
                 await this.document.delete();
                 return false;
             }
@@ -617,7 +580,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                                 statusEffect.documentName,
                                 [statusEffect]
                             );
-    
+
                             if (child) {
                                 let children = this.document.getFlag("celestus", "childEffects");
                                 if (!children) children = [];
@@ -740,6 +703,7 @@ export class CelestusMeasuredTemplateDocument extends MeasuredTemplateDocument {
     async _preUpdate(changes, options, user) {
         const allowed = await super._preUpdate(changes, options, user);
         if (allowed === false) return false;
+        if (!game.user.isGM) return;
 
         const surfaceType = changes.flags?.celestus?.surfaceType;
         if (surfaceType) {
@@ -755,12 +719,29 @@ export class CelestusMeasuredTemplateDocument extends MeasuredTemplateDocument {
                 }
             }
         }
+    }
+    
+    /**
+     * Tests all interactions with this template and other template surfaces
+     * @param {Object?} changes if sourced from an update
+     * @returns {void | false}
+     */
+    async testAll() {
+        // ensure this can only run at once
+        if (this.testing) return;
+        this.testing = true;
 
-        if (changes.x || changes.y || changes.direction || changes.angle || changes.width) {
-            // propagate effects
-            for (const token of canvas.scene.tokens) {
-                await this.object.spreadEffectsTo(token);
-            }
+        // interact with other surfaces
+        for (const t of this.parent.templates) {
+            const spread = await this.object.combineSurface(t.object);
+            if (spread === false) return false;
         }
+        // propagate effects
+        const tokens = this.parent?.tokens
+        for (const token of tokens) {
+            await this.object.spreadEffectsTo(token);
+        }
+
+        this.testing = false;
     }
 }

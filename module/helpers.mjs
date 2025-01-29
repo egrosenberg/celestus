@@ -589,7 +589,6 @@ export function polyCircleTest(points, center, radius) {
                 if (distance <= radius) lineIntersect = true;
             }
     }
-    console.log(verticalIntersect);
     if (pointsInCircle === nPoints) return -1;
     if (lineIntersect) return 0;
     if (verticalIntersect % 2 !== 0) return 1;

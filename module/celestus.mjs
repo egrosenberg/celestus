@@ -49,6 +49,11 @@ Hooks.on("init", () => {
     // important things for roll data
     game.celestus = {
         rollItemMacro,
+        checkSurfaces: async () => {
+            for (const template of canvas?.scene?.templates) {
+                await template.testAll();
+            }
+        }
     }
     // override initiative rolls
     game.system.initiative = "1d20+@abilities.wit.total+@attributes.bonuses.initiative.value";
@@ -817,7 +822,19 @@ Hooks.on("init", () => {
             }
         ],
         onDown: () => { teleportTokenStart() },
-        onUp: () => { },
+        restricted: false,
+        precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
+    });
+    game.keybindings.register("celestus", "checkSurface", {
+        name: "Force surfaces to re-interact",
+        hint: "When pressed will have all measured template surfaces test interactions with other surfaces and tokens.",
+        editable: [
+            {
+                key: "KeyS",
+                modifiers: ["Control", "Alt"]
+            }
+        ],
+        onDown: game.celestus.checkSurfaces,
         restricted: false,
         precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
     });
