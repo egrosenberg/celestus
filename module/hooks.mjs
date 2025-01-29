@@ -606,12 +606,21 @@ export function drawTokenHover(token, hovered) {
     // render token info in hud
     renderTokenInfo(token, hovered);
     if (hovered && token) {
-        const tokenCenter = token.getCenterPoint();
+        const tokenCenter = token.getCenterPoint();;
+
+        // add to scene and store in config
+        let reachOverlay = CONFIG.CELESTUS.reachOverlay;
+        let overlaySprite = CONFIG.CELESTUS.backstabOverlaySprite;
+        let areaSprite = CONFIG.CELESTUS.backstabAreaSprite;
+
+        CONFIG.CELESTUS.reachOverlay = reachOverlay
+        canvas.effects.addChild(overlaySprite);
+        canvas.effects.addChild(reachOverlay);
+        canvas.effects.addChild(areaSprite);
+
         /**
          * Draw backstab overlay
          */
-        let overlaySprite = CONFIG.CELESTUS.backstabOverlaySprite;
-
         const size = Math.min(token.w, token.h) * 2;
         let offsetY = tokenCenter.y;
         let offsetX = tokenCenter.x;
@@ -629,17 +638,13 @@ export function drawTokenHover(token, hovered) {
 
         overlaySprite.zIndex = 20;
 
-        canvas.effects.addChild(overlaySprite);
-
         /**
          * Draw backstab area
          */
-        let areaSprite = CONFIG.CELESTUS.backstabAreaSprite;
         [areaSprite.x, areaSprite.y] = [offsetX, offsetY]
         areaSprite.width = size * 2;
         areaSprite.height = size * 2;
         areaSprite.rotation = rotation;
-        canvas.effects.addChild(areaSprite);
 
 
         /**
@@ -650,7 +655,6 @@ export function drawTokenHover(token, hovered) {
         // convert reach to pixels
         const rangePx = token.actor.system.reach * pixelPerFoot;
         const radius = rangePx + (Math.min(token.w, token.h) / 2);
-        let reachOverlay = CONFIG.CELESTUS.reachOverlay;
         // draw circle
         reachOverlay.beginFill(CONFIG.CELESTUS.rangeOverlayCol);
         reachOverlay.drawCircle(0, 0, radius);
@@ -659,10 +663,6 @@ export function drawTokenHover(token, hovered) {
 
         // set position
         [reachOverlay.x, reachOverlay.y] = [tokenCenter.x, tokenCenter.y];
-
-        // add to scene and store in config
-        canvas.effects.addChild(reachOverlay);
-        CONFIG.CELESTUS.reachOverlay = reachOverlay;
     }
     else {
         canvas.effects.removeChild(CONFIG.CELESTUS.backstabOverlaySprite);
