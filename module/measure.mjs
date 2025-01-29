@@ -33,7 +33,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
         const templateData = {
             user: game.user?.id,
             distance: 0,
-            width: 5,
+            width: item.system.targets.type === "cube" ? item.system.targets.size : 5,
             direction: 0,
             x: 0,
             y: 0,
