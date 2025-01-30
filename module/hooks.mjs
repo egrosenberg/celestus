@@ -462,6 +462,7 @@ export async function triggerTurn(combat, prior, current) {
     for (const template of canvas.scene.templates) {
         if (template.getFlag("celestus", "clearThis")) {
             await template.delete();
+            continue;
         }
         if (template.getFlag("celestus", "linger") === true) {
             const startRound = template.getFlag("celestus", "lingerStartRound");
@@ -479,6 +480,7 @@ export async function triggerTurn(combat, prior, current) {
                 else {
                     await template.delete();
                 }
+                continue;
             }
         }
         // trigger auras
@@ -566,6 +568,7 @@ export function removeRollAuthor(message, html, messageData) {
     html.find("h4.message-sender").remove();
 }
 
+let renderingHotbar = false;
 /**
  * render overlays over hotbat
  */
@@ -578,19 +581,20 @@ export function renderHotbarOverlay(render = true) {
     // clear all old hotbar overlays
     $(".macro-overlay").remove();
     if (!render && !game.user.character) return;
+    const skills = actor.system.allSkills;
     // find all active hotbar items
     const active = $(".macro");
     active.each((i, e) => {
-        const item = actor.items.find(i => i.name === game.macros?.get(e.dataset.macroId)?.name);
-        if (item?.type === "skill") {
-            const cooldown = item.system.cooldown.value;
+        const skill = skills.find(i => i.name === game.macros?.get(e.dataset.macroId)?.name);
+        if (skill) {
+            const cooldown = skill.system.cooldown.value;
             if (cooldown > 0) {
                 $(e).append(`<div class=macro-overlay>${cooldown}</div>`);
             }
             else if (cooldown < 0) {
                 $(e).append(`<div class=macro-overlay><i class="icon-sunrise"></i></div>`);
             }
-            else if (item.system.disabled) {
+            else if (skill.system.disabled) {
                 $(e).append(`<div class=macro-overlay></div>`);
             }
         }
