@@ -11,6 +11,7 @@ export class CelestusActor extends Actor {
         const allowed = await super._preUpdate(changed, options, user);
         if (allowed === false) return false;
 
+        const broadcast = CONFIG.CELESTUS.broadcastPopups;
         // offset resource values
         const resources = changed.system?.resources;
         if (resources) {
@@ -49,14 +50,14 @@ export class CelestusActor extends Actor {
                             else {
                                 resources.mag_armor = { flat: newMag };
                             }
-                            canvasPopupText(this, `+${newPhys - oldPhys}`, CONFIG.CELESTUS.damageCol.phys_armor.gain);
-                            canvasPopupText(this, `+${newMag - oldMag}`, CONFIG.CELESTUS.damageCol.mag_armor.gain);
+                            canvasPopupText(this, `+${newPhys - oldPhys}`, CONFIG.CELESTUS.damageCol.phys_armor.gain, broadcast);
+                            canvasPopupText(this, `+${newMag - oldMag}`, CONFIG.CELESTUS.damageCol.mag_armor.gain, broadcast);
                         }
                     }
                     const diff = val.flat - old;
                     if (diff !== 0) {
                         const str = (diff > 0) ? "+" + diff.toString() : diff.toString();
-                        canvasPopupText(this, str, CONFIG.CELESTUS.damageCol[key][diff > 0 ? "gain" : "lose"]);
+                        canvasPopupText(this, str, CONFIG.CELESTUS.damageCol[key][diff > 0 ? "gain" : "lose"], broadcast);
                     }
                 }
             }

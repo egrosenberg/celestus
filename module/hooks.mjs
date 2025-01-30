@@ -568,7 +568,6 @@ export function removeRollAuthor(message, html, messageData) {
     html.find("h4.message-sender").remove();
 }
 
-let renderingHotbar = false;
 /**
  * render overlays over hotbat
  */

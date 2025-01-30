@@ -1589,8 +1589,9 @@ export class EffectData extends foundry.abstract.TypeDataModel {
                 }
             }
         }
+        const broadcast = CONFIG.CELESTUS.broadcastPopups;
         if (resisted === true && !actor.getFlag("celestus", "glasscannon")) {
-            canvasPopupText(actor, `Resisted ${data.name}`);
+            canvasPopupText(actor, `Resisted ${data.name}`, "#fff", broadcast);
             return false;
         }
 
@@ -1605,7 +1606,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
                 // check if status is blocked
                 for (let effect of actor.effects) {
                     if (effect.system.blocks.find(b => b === status)) {
-                        canvasPopupText(actor, `${data.name} blocked by ${effect.name}`);
+                        canvasPopupText(actor, `${data.name} blocked by ${effect.name}`, "#fff", broadcast);
                         return false;
                     }
                 }
@@ -1648,10 +1649,10 @@ export class EffectData extends foundry.abstract.TypeDataModel {
         }
         // if status has no duration, instantly remove it after applying its combinations and blocks
         if (data.duration.rounds === 0) {
-            await canvasPopupText(actor, data.name);
+            await canvasPopupText(actor, data.name, "#fff", broadcast);
             return false;
         }
-        canvasPopupText(actor, `+${data.name}`);
+        canvasPopupText(actor, `+${data.name}`, "#fff", broadcast);
         return pre;
     }
 }

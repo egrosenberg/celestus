@@ -36,9 +36,11 @@ export function calcMult(actor, type, ability, base, crit, flat = 0) {
  * copies the effect done by statusEffects
  * @param {Actor} actor to display text on
  * @param {String} text to display
+ * @param {Color} color for display
+ * @param {Boolean} broadcast should this message be broadcast to all clients?
  */
-export function canvasPopupText(actor, text, color = "#ffffff") {
-    const tokens = actor.getActiveTokens(true);
+export function canvasPopupText(actor, text, color = "#ffffff", broadcast = false) {
+    const tokens = actor?.getActiveTokens(true);
     for (let t of tokens) {
         if (!t.visible || !t.renderable) continue;
         canvas.interface.createScrollingText(t.center, text, {
@@ -51,6 +53,17 @@ export function canvasPopupText(actor, text, color = "#ffffff") {
             jitter: 0.25,
             fill: color
         });
+        if (broadcast) {
+            game.socket.emit("system.celestus", {
+                type: "canvasPopupText",
+                data: {
+                    position: t.center,
+                    text: text,
+                    distance: 2 * t.h,
+                    color: color,
+                }
+            });
+        }
     }
 }
 /**
@@ -572,22 +585,22 @@ export function polyCircleTest(points, center, radius) {
             x1: center.x,
             y1: center.y,
             x2: center.x,
-            y2: canvas?.scene?.height ?? Math.pow(10,100)
+            y2: canvas?.scene?.height ?? Math.pow(10, 100)
         }
         if (lineLineTest(vert, testLine)) verticalIntersect++;
 
         // only test for line intersection if we haven't already
         if (!lineIntersect) {
 
-                // find closest point to center
-                const closest = closestPoint(center, testLine);
-                // find distance
-                const distX = closest.x - center.x;
-                const distY = closest.y - center.y;
-                const distance = Math.sqrt(distX ** 2 + distY ** 2);
+            // find closest point to center
+            const closest = closestPoint(center, testLine);
+            // find distance
+            const distX = closest.x - center.x;
+            const distY = closest.y - center.y;
+            const distance = Math.sqrt(distX ** 2 + distY ** 2);
 
-                if (distance <= radius) lineIntersect = true;
-            }
+            if (distance <= radius) lineIntersect = true;
+        }
     }
     if (pointsInCircle === nPoints) return -1;
     if (lineIntersect) return 0;

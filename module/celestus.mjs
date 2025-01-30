@@ -7,6 +7,7 @@ import { CelestusEffect } from "./effects.mjs"
 import { statuses } from "./data/statuses.mjs"
 import { npcStatSpread } from "./data/npc-stat-spreads.mjs"
 import { CelestusMeasuredTemplate, CelestusMeasuredTemplateDocument, CelestusTemplateLayer } from "./measure.mjs"
+import { registerSocketHandlers } from "./socket-handler.mjs"
 // json
 import itemSocketSpreadJson from './data/item-socket-spreads.mjs';
 import itemArmorPlugsJson from './data/item-armor-plugs.mjs';
@@ -720,6 +721,20 @@ Hooks.on("init", () => {
         precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
     });
 
+    // register settings
+    game.settings.register('celestus', 'broadcastPopups', {
+        name: 'Broadcast Canvas Popups',
+        hint: 'Should all canvas popups be displayed on all clients or just the user triggering them (often the GM).',
+        scope: 'world',
+        type: Boolean,
+        default: true,
+        requiresReload: true,
+    });
+    CONFIG.CELESTUS.broadcastPopups = game.settings.get('celestus', 'broadcastPopups');
+
+    // set up websocket handling
+    registerSocketHandlers();
+
     // preload handlebars templates
     return preloadHandlebarsTemplates();
 
@@ -749,8 +764,8 @@ Hooks.on("renderChatMessage", renderDamageComponents);
 Hooks.on("renderChatMessage", removeRollAuthor);
 
 // raise template layer when activated
-Hooks.on("activateTemplateLayer", (layer) => {layer.zIndex = 400;})
-Hooks.on("deactivateTemplateLayer", (layer) => {layer.zIndex = CelestusTemplateLayer.layerOptions.zIndex;})
+Hooks.on("activateTemplateLayer", (layer) => { layer.zIndex = 400; })
+Hooks.on("deactivateTemplateLayer", (layer) => { layer.zIndex = CelestusTemplateLayer.layerOptions.zIndex; })
 
 Hooks.on("renderHotbar", renderHotbarOverlay);
 Hooks.on("renderHotbar", (application, html, data) => {
@@ -822,7 +837,7 @@ Hooks.on("preDeleteCombat", cleanupCombat);
 
 // handle tokens moving
 Hooks.on("updateToken", spreadAura);
-Hooks.on("updateToken", rotateOnMove);
+Hooks.on("preUpdateToken", rotateOnMove);
 
 // draw backstab overlay
 Hooks.on("hoverToken", drawTokenHover);
