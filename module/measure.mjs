@@ -1,4 +1,4 @@
-import { polyCircleTest, polyPointTest, polyPolyTest, rectToPoly, rotateTokenTowards } from "./helpers.mjs";
+import { closestPoint, polyCircleTest, polyLineTest, polyPointTest, polyPolyTest, rectToPoly, rotateTokenTowards } from "./helpers.mjs";
 
 export class CelestusMeasuredTemplate extends MeasuredTemplate {
     /**
@@ -195,7 +195,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
     }
 
     /**
-     * Tests wether a point intersects with the are of this template
+     * Tests wether a point intersects with the area of this template
      * @param {Number} x 
      * @param {Number} y 
      */
@@ -232,6 +232,46 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
             if (dx ** 2 + dy ** 2 <= shape.radius ** 2) return true;
         }
         return false;
+    }
+
+    /**
+     * Test wether a line intersects with the area of this template
+     * @param {Line} line
+     * @returns {Boolean}
+     */
+    testLine(line) {
+        const shape = this.shape;
+        if (!shape) return;
+        line = {
+            x1: line.x1 - this.x,
+            y1: line.y1 - this.y,
+            x2: line.x2 - this.x,
+            y2: line.y2 - this.y,
+        }
+        /**
+         * Turn rect to polygon
+         */
+        let points;
+        if (shape.type === 1) {
+            points = rectToPoly(shape.x, shape.y, shape.width, shape.height);
+        }
+        if (shape.type === 0) {
+            points = shape.points;
+        }
+        // circle
+        if (shape.type === 2) {
+            const center = {
+                x: 0,
+                y: 0
+            }
+            const closest = closestPoint(center, line);
+            const dist = Math.sqrt((closest.x - center.x) ** 2 + (closest.y - center.y) ** 2);
+            return dist <= shape.radius;
+        }
+        // polygon
+        else {
+            return polyLineTest(points, line);
+        }
     }
 
     /**
@@ -483,12 +523,22 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
         // check if this has auras to propagate
         if (!this.document.getFlag("celestus", "hasEffects") && !this.document.getFlag("celestus", "surfaceType")) return false;
 
-        // get position of token
-        const x = newPos?.x || token.object.center.x;
-        const y = newPos?.y || token.object.center.y;
+        let intersects = false;
+        // check for intersection, if newPos is provided check test with line
+        if (newPos) {
+            const line = {
+                x1: token.object.center.x,
+                y1: token.object.center.y,
+                x2: newPos.x,
+                y2: newPos.y
+            }
+            intersects = this.testLine(line);
+        }
+        else {
+            intersects = this.testPoint(token.object.center.x, token.object.center.y)
+        }
 
         // surfaceType doesn't require skill
-        const intersects = this.testPoint(x, y);
         const surfaceType = this.document.getFlag("celestus", "surfaceType");
         if (surfaceType) {
             if (intersects) {
