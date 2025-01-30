@@ -124,6 +124,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                 }
                 await template?.setFlag("celestus", "surfaceType", skill.system.linger.surfaceType);
                 await template?.setFlag("celestus", "origin", skill.actor.uuid);
+                await template?.setFlag("celestus", "temporary", true);
                 if (skill.system.linger.effects) {
                     await template.setFlag("celestus", "hasEffects", true);
                     await template.setFlag("celestus", "skillId", skill.uuid);
@@ -143,8 +144,50 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                     if (!template?.object.shape) {
                         window.setTimeout(checkShape, 100);
                     } else {
-                        if (template) {
-                            await template?.testAll();
+                        await template?.testAll({ tokens: true });
+                        // attempt to interact via this skill's damage
+                        if (skill.system.damage.length > 0) {
+                            for (const t of template.parent.templates) {
+                                if (t.id === template.id) continue;
+                                let surfaceData = CONFIG.CELESTUS.surfaceTypes[t.getFlag("celestus", "surfaceType")];
+                                if (!surfaceData) continue;
+
+                                // attempt to combine with damage types of this skill until there are no matches
+                                let cont = true;
+                                let intersects = false;
+                                let intersectChecked = false;
+                                const timeout = 10;
+                                let count = 0;
+                                while (cont && count < timeout) {
+                                    cont = false;
+                                    for (const damage of skill.system.damage) {
+                                        const match = surfaceData.damageCombines?.[damage.type];
+                                        if (match) {
+                                            // check for intersection if not checked
+                                            if (!intersectChecked) {
+                                                intersects = template.object.testTemplate(t.object);
+                                                intersectChecked = true;
+                                                // if no intersection, this template is useless
+                                                if (intersects === false) {
+                                                    cont = false;
+                                                    break;
+                                                }
+                                            }
+                                            await t.combineDamage(damage.type);
+                                            await t.setFlag("celestus", "origin", skill.actor.uuid);
+                                            // update surfaceData
+                                            surfaceData = CONFIG.CELESTUS.surfaceTypes[t.getFlag("celestus", "surfaceType")];
+                                            count++;
+                                            cont = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                // spread effects from changed template if it changed
+                                if (count > 0) {
+                                    await t.testAll({ tokens: true, templates: true })
+                                }
+                            }
                         }
                     }
                 }
@@ -433,6 +476,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
             const makes = surface.combines[testType].makes;
             const mode = surface.combines[testType].mode;
             if (mode === "corrupt") {
+                await template.document.setFlag("celestus", "temporary", true);
                 await template.document.setFlag("celestus", "surfaceType", thisType);
                 if (intersect > 0) {
                     await template.document.delete();
@@ -449,6 +493,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
             }
             if (mode === "combine") {
                 if (surface.combines[testType].corrupts) {
+                    await template.document.setFlag("celestus", "temporary", true);
                     await template.document.setFlag("celestus", "surfaceType", makes);
                     if (intersect < 0) {
                         await this.document.delete();
@@ -461,10 +506,12 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                 }
                 else {
                     if (intersect > 0) {
+                        await template.document.setFlag("celestus", "temporary", true);
                         await template.document.setFlag("celestus", "surfaceType", makes);
                         return;
                     }
                     else if (intersect < 0) {
+                        await this.document.setFlag("celestus", "temporary", true);
                         await this.document.setFlag("celestus", "surfaceType", makes);
                         return false;
                     }
@@ -476,6 +523,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
             const makes = testSurface.combines[thisType].makes;
             const mode = testSurface.combines[thisType].mode;
             if (mode === "corrupt") {
+                await this.document.setFlag("celestus", "temporary", true);
                 await this.document.setFlag("celestus", "surfaceType", testType);
                 if (intersect < 0) {
                     await this.document.delete();
@@ -491,6 +539,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
             }
             if (mode === "combine") {
                 if (testSurface.combines[thisType].corrupts) {
+                    await this.document.setFlag("celestus", "temporary", true);
                     await this.document.setFlag("celestus", "surfaceType", makes);
                     if (intersect > 0) {
                         await template.document.delete();
@@ -502,9 +551,11 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                 }
                 else {
                     if (intersect > 0) {
+                        await template.document.setFlag("celestus", "temporary", true);
                         await template.document.setFlag("celestus", "surfaceType", makes);
                     }
                     else if (intersect < 0) {
+                        await this.document.setFlag("celestus", "temporary", true);
                         await this.document.setFlag("celestus", "surfaceType", makes);
                         return false;
                     }
@@ -524,6 +575,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
         if (!this.document.getFlag("celestus", "hasEffects") && !this.document.getFlag("celestus", "surfaceType")) return false;
 
         let intersects = false;
+        let standingOn = false;
         // check for intersection, if newPos is provided check test with line
         if (newPos) {
             const line = {
@@ -533,19 +585,36 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                 y2: newPos.y
             }
             intersects = this.testLine(line);
+            standingOn = this.testPoint(newPos.x, newPos.y);
         }
         else {
-            intersects = this.testPoint(token.object.center.x, token.object.center.y)
+            intersects = this.testPoint(token.object.center.x, token.object.center.y);
+            standingOn = intersects;
         }
 
         // surfaceType doesn't require skill
         const surfaceType = this.document.getFlag("celestus", "surfaceType");
         if (surfaceType) {
-            if (intersects) {
-                await token.actor.setFlag("celestus", "standingOn", surfaceType);
-                await token.actor.setFlag("celestus", "surfaceId", this.document.id);
+            if (standingOn) {
+                const standingId = token.actor.getFlag("celestus", "surfaceId");
+                const cSurface = this.scene?.templates.find(t => t.uuid === standingId);
+                const thisStartRound = this.document.getFlag("celestus", "lingerStartRound") ?? 0;
+                const thisStartTurn = this.document.getFlag("celestus", "lingerStartTurn") ?? 0;
+                
+                // only set this as the standing surface if it is more recent then the actor's current
+                let setThis = true;
+                if (cSurface) {
+                    const testStartRound = cSurface.getFlag("celestus", "lingerStartRound");
+                    const testStartTurn = cSurface.getFlag("celestus", "lingerStartTurn");
+                    setThis = (thisStartRound > testStartRound);
+                    setThis ||= (thisStartRound === testStartRound && thisStartTurn > testStartTurn);
+                }
+                if (setThis) {
+                    await token.actor.setFlag("celestus", "standingOn", surfaceType);
+                    await token.actor.setFlag("celestus", "surfaceId", this.document.uuid);
+                }
             }
-            else if (token.actor.getFlag("celestus", "surfaceId") === this.document.id) {
+            else if (token.actor.getFlag("celestus", "surfaceId") === this.document.uuid) {
                 await token.actor.unsetFlag("celestus", "standingOn");
                 await token.actor.unsetFlag("celestus", "surfaceId");
             }
@@ -637,9 +706,6 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                                 children.push(child.uuid);
                                 await this.document.setFlag("celestus", "childEffects", children);
                             }
-                            else {
-                                console.warn("CELESTUS | Error in propagating template effect, no child created");
-                            }
                         }
                     }
                     // apply status effects from surface type
@@ -661,9 +727,6 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                                 if (!children) children = [];
                                 children.push(child.uuid);
                                 await this.document.setFlag("celestus", "childEffects", children);
-                            }
-                            else {
-                                console.warn("CELESTUS | Error in propagating template effect, no child created");
                             }
                         }
                     }
@@ -720,7 +783,7 @@ export class CelestusMeasuredTemplateDocument extends MeasuredTemplateDocument {
         const tokens = this.parent?.tokens;
         if (tokens) {
             for (const token of tokens) {
-                if (token.actor.getFlag("celestus", "surfaceId") === this.id) {
+                if (token.actor.getFlag("celestus", "surfaceId") === this.uuid) {
                     await token.actor.unsetFlag("celestus", "standingOn");
                     await token.actor.unsetFlag("celestus", "surfaceId");
                 }
@@ -767,31 +830,104 @@ export class CelestusMeasuredTemplateDocument extends MeasuredTemplateDocument {
                 else if (this.texture) {
                     changes.texture = "";
                 }
+                // update duration
+                if (this.getFlag("celestus", "temporary") && config.duration) {
+                    const combat = game.combats.find(c => !c.scene || c.scene.uuid === this.parent.uuid);
+                    // if there is a valid combat for this surface and its temporary, update duration
+                    if (combat) {
+                        changes.flags.celestus.linger = true;
+                        changes.flags.celestus.lingerStartRound = combat.current.round;
+                        changes.flags.celestus.lingerStartTurn = combat.current.turn;
+                        changes.flags.celestus.lingerDuration = config.duration;
+                    }
+                }
+                // change standingOn from all tokens in scene if they were standing on this
+                const tokens = this.parent?.tokens;
+                if (tokens) {
+                    for (const token of tokens) {
+                        if (token.actor.getFlag("celestus", "surfaceId") === this.uuid) {
+                            await token.actor.setFlag("celestus", "standingOn", surfaceType);
+                        }
+                    }
+                }
+                // cleanup effects
+                let cleanup = true;
+                const skill = await fromUuid(this.getFlag("celestus", "skillId"));
+                if (skill) {
+                    if (skill.system.linger.lingerDuration !== 0) {
+                        cleanup = false;
+                    }
+                }
+                else if (CONFIG.CELESTUS.surfaceTypes[this.getFlag("celestus", "surfaceType")]?.statuses) {
+                    cleanup = false;
+                }
+                if (cleanup) {
+                    const children = this.getFlag("celestus", "childEffects");
+                    if (children) {
+                        for (const id of children) {
+                            const effect = await fromUuid(id);
+                            if (effect) await effect.delete();
+                        }
+                    }
+                }
+                // this is a new surface so it should no longer own lingering effects
+                else {
+                    // empty childEffects array
+                    changes.flags.celestus.childEffects = [];
+                }
             }
         }
     }
-    
+
     /**
      * Tests all interactions with this template and other template surfaces
-     * @param {Object?} changes if sourced from an update
+     * @param {Object?} options wether it should test tokens/templates
      * @returns {void | false}
      */
-    async testAll() {
+    async testAll(options) {
         // ensure this can only run at once
         if (this.testing) return;
         this.testing = true;
 
-        // interact with other surfaces
-        for (const t of this.parent.templates) {
-            const spread = await this.object.combineSurface(t.object);
-            if (spread === false) return false;
+        if (options?.templates !== false) {
+            // interact with other surfaces
+            for (const t of this.parent?.templates) {
+                const spread = await this.object.combineSurface(t.object);
+                if (spread === false) return false;
+            }
         }
         // propagate effects
-        const tokens = this.parent?.tokens
-        for (const token of tokens) {
-            await this.object.spreadEffectsTo(token);
+        if (options?.tokens === true) {
+            const tokens = this.parent?.tokens
+            for (const token of tokens) {
+                await this.object.spreadEffectsTo(token);
+            }
         }
 
         this.testing = false;
+    }
+
+    /**
+     * Attempts to combine this surface with a damage type
+     * @param {String} type 
+     */
+    async combineDamage(type) {
+        const surface = CONFIG.CELESTUS.surfaceTypes[this.getFlag("celestus", "surfaceType")];
+        const product = surface?.damageCombines?.[type];
+        if (!product) return;
+        await this.setFlag("celestus", "temporary", true);
+        await this.setFlag("celestus", "surfaceType", product);
+    }
+}
+
+/**
+ * @extends {TemplateLayer}
+ */
+export class CelestusTemplateLayer extends TemplateLayer {
+    /** @inheritdoc */
+    static get layerOptions() {
+        return foundry.utils.mergeObject(super.layerOptions, {
+            zIndex: 150
+        });
     }
 }

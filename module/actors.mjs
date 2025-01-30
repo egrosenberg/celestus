@@ -388,6 +388,14 @@ export class CelestusActor extends Actor {
                 burn.update({ "origin": origin.uuid })
             }
         }
+
+        // attempt to transfer damage to standing surface
+        if (this.getFlag("celestus", "surfaceId")) {
+            const surface = await fromUuid(this.getFlag("celestus", "surfaceId"));
+            if (surface) {
+                surface.combineDamage(type);
+            }
+        }
     }
 
     /**
@@ -795,14 +803,14 @@ export class CelestusToken extends Token {
         if (this.isOwner) super._onClickRight(event);
         else {
             event.stopPropagation();
-        }
-        let ui = document.getElementById("ui-token-hover");
-        if (ui.style.display === "none") return;
-        if (ui.dataset.persist === "true") {
-            renderTokenInfo(this, false, true);
-        }
-        else {
-            ui.dataset.persist = "true";
+            let ui = document.getElementById("ui-token-hover");
+            if (ui.style.display === "none") return;
+            if (ui.dataset.persist === "true") {
+                renderTokenInfo(this, false, true);
+            }
+            else {
+                ui.dataset.persist = "true";
+            }
         }
     }
 
@@ -829,6 +837,7 @@ export class CelestusToken extends Token {
         [pointer.x, pointer.y] = [this.getCenterPoint().x, this.getCenterPoint().y];
         pointer.zIndex = 5;
         pointer.alpha = CONFIG.CELESTUS.tokenPointerAlpha;
+        pointer.eventMode = "none";
 
         // draw PIXI object
         this.pointerPixi = pointer;

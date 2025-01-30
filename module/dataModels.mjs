@@ -23,7 +23,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
             biography: new HTMLField(), // create biography field
             t: new StringField({ required: true, initial: "humanoid" }),
             pointerTint: new StringField(),
-            portraitBorder: new BooleanField({required: true, initial: true}),
+            portraitBorder: new BooleanField({ required: true, initial: true }),
             // configure resources
             resources: new SchemaField({
                 // configure health as a schema field
@@ -226,7 +226,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
             // lone wolf modification
             if (this.parent.getFlag("celestus", "lone-wolf")) {
                 let spent = ability.value - CONFIG.CELESTUS.baseAttributeScore;
-                spent = Math.min(spent*2, CONFIG.CELESTUS.attributeMax - CONFIG.CELESTUS.baseAttributeScore);
+                spent = Math.min(spent * 2, CONFIG.CELESTUS.attributeMax - CONFIG.CELESTUS.baseAttributeScore);
                 ability.total += spent + CONFIG.CELESTUS.baseAttributeScore - ability.value;
             }
             ability.total -= this.attributes.exhaustion;
@@ -659,6 +659,14 @@ export class PlayerData extends ActorData {
         };
     }
 
+    /**
+     * All skills owned by actor, uncategorized
+     * @returns {Item[]}
+     */
+    get allSkills() {
+        return this.parent.items.filter(i => i.type === "skill");
+    }
+
     /** 
      * Information about known skills count and max
      */
@@ -861,13 +869,13 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             scriptId: new StringField({ required: true, initial: "" }), // id of skill script to execute
             aoeLinger: new BooleanField({ required: true, initial: false }),
             linger: new SchemaField({
-                duration: new  NumberField({ required: true, integer: true, initial: 0 }),
+                duration: new NumberField({ required: true, integer: true, initial: 0 }),
                 effects: new BooleanField({ required: true, initial: false }),
                 targets: new StringField({ required: true, initial: "any" }),
                 targetType: new StringField({ required: true, initial: "humanoid" }),
                 clearOnLeave: new BooleanField({ required: true, initial: true }),
                 lingerDuration: new NumberField({ required: true, integer: true, initial: 0 }), // 0 = store as non-temp
-                surfaceType: new StringField({required: true, initial: "none"}),
+                surfaceType: new StringField({ required: true, initial: "none" }),
                 children: new ArrayField( // array of ids of owned effects created by the aura
                     new StringField()
                 ),
@@ -916,17 +924,14 @@ export class SkillData extends foundry.abstract.TypeDataModel {
         let ap = this.ap;
         if (actor.getFlag("celestus", "elementalist")) {
             const standingOn = actor.getFlag("celestus", "standingOn");
-            const surfaceSchool = CONFIG.CELESTUS.surfaceTypes[standingOn]?.school;
-            if (surfaceSchool) {
-                if (this.prereqs[surfaceSchool] > 0 && ap > 1) {
-                    ap--;
-                }
+            if (this.school === CONFIG.CELESTUS.surfaceTypes[standingOn]?.school && ap > 1) {
+                ap--;
             }
         }
         const discount = actor.getFlag("celestus", "apDiscount");
         if (this.type !== "civil" && !isNaN(Number(discount)) && ap > 0) {
-            ap -= Math.min(Number(discount), ap-1);
-        } 
+            ap -= Math.min(Number(discount), ap - 1);
+        }
         return ap;
     }
     /**
@@ -939,7 +944,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
         const discount = actor.getFlag("celestus", "fpDiscount");
         if (!isNaN(Number(discount)) && fp > 0) {
             fp -= Math.min(Number(discount), fp);
-        } 
+        }
         return Math.max(fp, 0);
     }
     /**
@@ -1140,9 +1145,9 @@ export class GearData extends foundry.abstract.TypeDataModel {
             level: new NumberField({ required: true, initial: 1, integer: true, min: 1, max: 20 }),
             socketSpread: new StringField(),
             grantedSkills: new ArrayField(new SchemaField({ // skills granted by this effect
-                    uuid: new StringField(),
-                    name: new StringField(),
-                }), 
+                uuid: new StringField(),
+                name: new StringField(),
+            }),
                 { required: true, initial: [] }
             ),
             ownedItems: new ArrayField( // items that have been created by this effect
@@ -1316,7 +1321,7 @@ export class WeaponData extends GearData {
         const level = this.parent.actor ? this.parent.actor.system.attributes.level : 1;
         const dice = 1 + Math.round(CONFIG.CELESTUS.weaponDmgScalar * Math.pow(CONFIG.CELESTUS.e, level));
         const dmgDie = this.twoHanded ? 12 : 6;
-        
+
         let flatBonus = (this.parent?.actor?.system.attributes.bonuses.damage.value ?? 0);
         flatBonus += ((this.parent?.actor?.system.dmgBoost ?? 0) * 0.5);
         // calculate mult
@@ -1706,7 +1711,7 @@ export class TokenData extends TokenDocument {
     static defineSchema() {
         let schema = super.defineSchema();
         schema.pointerColor = new NumberField();
-        schema.direction = new NumberField({required: true, initial: 0}); // radians
+        schema.direction = new NumberField({ required: true, initial: 0 }); // radians
         schema.pointerPIXI = new ObjectField(); // pixi object
         return schema;
     }
