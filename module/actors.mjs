@@ -1,4 +1,4 @@
-import { calcMult, canvasPopupText } from "./helpers.mjs";
+import { calcMult, canvasPopupText, findSpreadStat } from "./helpers.mjs";
 import { renderHotbarOverlay, renderResourcesUi, renderTokenInfo } from "./hooks.mjs";
 
 const BASE_AS = 10; // base ability score value
@@ -67,37 +67,36 @@ export class CelestusActor extends Actor {
         if (this.type === "npc") {
             const statSpread = changed.system?.spread;
             if (statSpread && this.system.spread != statSpread) {
-                const spread = CONFIG.CELESTUS.npcStats[statSpread];
-                if (spread) {
+                if (CONFIG.CELESTUS.npcStats[statSpread]) {
                     let abilities = {};
                     for (let key of ["str", "dex", "con", "int", "mind", "wit"]) {
-                        abilities[key] = spread[key] || spread.parent?.[key] || 0;
+                        abilities[key] = findSpreadStat(statSpread, key) || 0;
                     }
                     changed.system.abilitySpread = abilities;
                     changed.system.armorSpread = {
-                        phys: spread.phys_armor || spread.parent?.phys_armor || 0,
-                        mag: spread.mag_armor || spread.parent?.mag_armor || 0,
+                        phys: findSpreadStat(statSpread, "phys_armor") || 0,
+                        mag: findSpreadStat(statSpread, "mag_armor") || 0,
                     }
                     let resists = {};
                     for (const key of Object.keys(CONFIG.CELESTUS.damageTypes)) {
-                        resists[key] = {base: spread[`${key}Resistance`] || spread.parent?.[`${key}Resistance`] || 0};
+                        resists[key] = {base: findSpreadStat(statSpread, `${key}Resistance`) || 0};
                     }
                     let combatAbilities = {};
                     for (const key of Object.keys(CONFIG.CELESTUS.combatSkills)) {
-                        combatAbilities[key] = {base: spread[key] || spread.parent?.[key] || 0};
+                        combatAbilities[key] = {base: findSpreadStat(statSpread, key) || 0};
                     }
                     changed.system.combat = combatAbilities;
-                    
-                    changed.system.dmgBoost = spread.dmg || spread.parent?.dmg || 1;
+
+                    changed.system.dmgBoost = findSpreadStat(statSpread, "dmg") || 1;
                     if (!changed.system.attributes) changed.system.attributes = {};
                     if (!changed.system.attributes.bonuses) changed.system.attributes.bonuses = {};
                     if (!changed.system.attributes.bonuses.initiative) changed.system.attributes.bonuses.initiative = {};
-                    changed.system.attributes.bonuses.initiative.bonus = spread.initiative || spread.parent?.initiative || 1;
+                    changed.system.attributes.bonuses.initiative.bonus = findSpreadStat(statSpread, "initiative") || 1;
                     
                     if (!changed.system.resources) changed.system.resources = {};
                     if (!changed.system.resources.ap) changed.system.resources.ap = {};
-                    changed.system.resources.ap.max = spread.apMax || spread.parent?.apMax || 6;
-                    changed.system.resources.ap.start = spread.apStart || spread.parent?.apStart || 4;
+                    changed.system.resources.ap.max = findSpreadStat(statSpread, "apMax") || 6;
+                    changed.system.resources.ap.start = findSpreadStat(statSpread, "apStart") || 4;
                 }
             }
         }

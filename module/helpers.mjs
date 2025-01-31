@@ -353,6 +353,28 @@ export function matchIfPresent(a, b) {
 }
 
 /**
+ * Finds a specific key value of a stat spread, checking parents until it finds a value
+ * @param {String} name stat spread name
+ * @param {String} key which stat to grab
+ * @returns {any|undefined}
+ */
+export function findSpreadStat(name, key) {
+    const spreads = CONFIG.CELESTUS.npcStats;
+    let target = name;
+    while (true) {
+        let current = spreads[target];
+        if (!current) return null;
+        // check for key
+        if (typeof current[key] !== "undefined") {
+            return current[key];
+        }
+        // if no key value, check parent
+        target = current.parent;
+        if (!target) return null;
+    }
+}
+
+/**
  * Find the closest point on a line to a point in space
  * @param {Point} point to find base calculation on
  * @param {Line} line to find closest point on
