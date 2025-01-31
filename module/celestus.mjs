@@ -565,6 +565,7 @@ Hooks.on("init", () => {
         rangeOverlayCol: 0xffffff,
         tokenPointerAlpha: 1,
         teleportCursorRotationSpeed: Math.PI * 0.005, // radians to rotate per 20ms
+        tokenPointerZ: 950,
     };
 
     // set up data models

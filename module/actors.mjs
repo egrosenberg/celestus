@@ -813,7 +813,7 @@ export class CelestusToken extends Token {
         if (allowed === false) return false;
 
         if (this.pointerPixi) {
-            canvas.layers[4].removeChild(this.pointerPixi);
+            canvas.stage.removeChild(this.pointerPixi);
         }
     }
 
@@ -854,13 +854,12 @@ export class CelestusToken extends Token {
         const rotation = this.document.getFlag("celestus", "rotation") ?? 0;
         pointer.rotation = rotation;
         [pointer.x, pointer.y] = [this.getCenterPoint().x, this.getCenterPoint().y];
-        pointer.zIndex = 5;
+        pointer.zIndex = CONFIG.CELESTUS.tokenPointerZ;
         pointer.alpha = CONFIG.CELESTUS.tokenPointerAlpha;
         pointer.eventMode = "none";
-
         // draw PIXI object
         this.pointerPixi = pointer;
-        canvas.layers[4].addChild(this.pointerPixi);
+        canvas.stage.addChild(this.pointerPixi);
     }
 
     /**
