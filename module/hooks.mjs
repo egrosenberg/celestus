@@ -298,11 +298,13 @@ export async function addChatButtons(msg, html, options) {
         const disabled = game.user.isGM ? "" : "disabled";
         // add damage type to damage text
         const dieTotal = html.find(".dice-total");
-        let label = CONFIG.CELESTUS.damageTypes[msg.system.damageType].label;
+        let label = CONFIG.CELESTUS.damageTypes[msg.system.damageType]?.label ?? msg.system.damageType;
         label += itemizeDamage(msg)?.terms?.length > 1 ? '*' : '';
         dieTotal.html(dieTotal.html() + ` (${label})`)
-        dieTotal.append(`<i class=${CONFIG.CELESTUS.damageTypes[msg.system.damageType].glyph}></i>`);
-        dieTotal.css("background-color", CONFIG.CELESTUS.damageTypes[msg.system.damageType].color);
+        if (CONFIG.CELESTUS.damageTypes[msg.system.damageType]) {
+            dieTotal.append(`<i class=${CONFIG.CELESTUS.damageTypes[msg.system.damageType].glyph}></i>`);
+            dieTotal.css("background-color", CONFIG.CELESTUS.damageTypes[msg.system.damageType].color);
+        }
         let dmgTotal = 0;
         for (let roll of msg.rolls) {
             dmgTotal += roll.total;

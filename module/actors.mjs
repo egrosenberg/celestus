@@ -79,11 +79,11 @@ export class CelestusActor extends Actor {
                     }
                     let resists = {};
                     for (const key of Object.keys(CONFIG.CELESTUS.damageTypes)) {
-                        resists[key] = {base: findSpreadStat(statSpread, `${key}Resistance`) || 0};
+                        resists[key] = { base: findSpreadStat(statSpread, `${key}Resistance`) || 0 };
                     }
                     let combatAbilities = {};
                     for (const key of Object.keys(CONFIG.CELESTUS.combatSkills)) {
-                        combatAbilities[key] = {base: findSpreadStat(statSpread, key) || 0};
+                        combatAbilities[key] = { base: findSpreadStat(statSpread, key) || 0 };
                     }
                     changed.system.combat = combatAbilities;
 
@@ -92,7 +92,7 @@ export class CelestusActor extends Actor {
                     if (!changed.system.attributes.bonuses) changed.system.attributes.bonuses = {};
                     if (!changed.system.attributes.bonuses.initiative) changed.system.attributes.bonuses.initiative = {};
                     changed.system.attributes.bonuses.initiative.bonus = findSpreadStat(statSpread, "initiative") || 1;
-                    
+
                     if (!changed.system.resources) changed.system.resources = {};
                     if (!changed.system.resources.ap) changed.system.resources.ap = {};
                     changed.system.resources.ap.max = findSpreadStat(statSpread, "apMax") || 6;
@@ -713,6 +713,9 @@ export class CelestusActor extends Actor {
         const maxAp = this.system.resources.ap.max;
         this.update({ "system.resources.ap.value": Math.min((ap + startAp), maxAp) });
         // go through all effects
+        let effectsDamageFormula = "";
+        let first = true;
+        let dType;
         for (let effect of this.effects) {
             if (effect.type === "status") {
                 for (let part of effect.system.damage) {
@@ -726,13 +729,12 @@ export class CelestusActor extends Actor {
 
                     const mult = calcMult(this, type, "0", part.value, false, 0);
 
-                    const r = new Roll(`floor((${base}) * ${mult})[${type}]`)
-                    await r.toMessage({
-                        speaker: { alias: `${this.name} - Status Damage` },
-                        'system.isDamage': true,
-                        'system.damageType': type,
-                        'system.actorID': this.uuid,
-                    });
+                    if (first) first = false;
+                    else effectsDamageFormula += " + "
+                    effectsDamageFormula += `floor((${base}) * ${mult})[${type}]`;
+
+                    if (!dType) dType = type;
+                    else dType = "Mixed";
                 }
             }
             if (effect.isTemporary) {
@@ -743,6 +745,15 @@ export class CelestusActor extends Actor {
                     await effect.delete();
                 }
             }
+        }
+        if (effectsDamageFormula) {
+            const r = new Roll(effectsDamageFormula)
+            await r.toMessage({
+                speaker: { alias: `${this.name} - Status Damage` },
+                'system.isDamage': true,
+                'system.damageType': dType,
+                'system.actorID': this.uuid,
+            });
         }
     }
 
