@@ -78,7 +78,26 @@ export class CelestusActor extends Actor {
                         phys: spread.phys_armor || spread.parent?.phys_armor || 0,
                         mag: spread.mag_armor || spread.parent?.mag_armor || 0,
                     }
+                    let resists = {};
+                    for (const key of Object.keys(CONFIG.CELESTUS.damageTypes)) {
+                        resists[key] = {base: spread[`${key}Resistance`] || spread.parent?.[`${key}Resistance`] || 0};
+                    }
+                    let combatAbilities = {};
+                    for (const key of Object.keys(CONFIG.CELESTUS.combatSkills)) {
+                        combatAbilities[key] = {base: spread[key] || spread.parent?.[key] || 0};
+                    }
+                    changed.system.combat = combatAbilities;
+                    
                     changed.system.dmgBoost = spread.dmg || spread.parent?.dmg || 1;
+                    if (!changed.system.attributes) changed.system.attributes = {};
+                    if (!changed.system.attributes.bonuses) changed.system.attributes.bonuses = {};
+                    if (!changed.system.attributes.bonuses.initiative) changed.system.attributes.bonuses.initiative = {};
+                    changed.system.attributes.bonuses.initiative.bonus = spread.initiative || spread.parent?.initiative || 1;
+                    
+                    if (!changed.system.resources) changed.system.resources = {};
+                    if (!changed.system.resources.ap) changed.system.resources.ap = {};
+                    changed.system.resources.ap.max = spread.apMax || spread.parent?.apMax || 6;
+                    changed.system.resources.ap.start = spread.apStart || spread.parent?.apStart || 4;
                 }
             }
         }

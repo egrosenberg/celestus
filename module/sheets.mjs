@@ -173,6 +173,13 @@ export class CharacterSheet extends ActorSheet {
         // Everything below here is only needed if the sheet is editable
         if (!this.isEditable) return;
 
+        // slimSelect
+        $('.npc-prefab-selector').each((i, e) => {
+            new SlimSelect({
+              select: e
+            })
+          });
+
         // refresh all resources
         html.on('click', '#refresh-all', (ev) => {
             this.actor.refresh(false);

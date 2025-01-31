@@ -175,9 +175,9 @@ Hooks.on("init", () => {
         baseAbilityPoints: 1,
         baseAttributeScore: 10,
         attributeMax: 40,
-        npcAttributeScalar: 1.9 / 10,
+        npcAttributeScalar: 1.9 / 100,
         npcArmorScalar: 20 / 100,
-        npcAbilityScalar: 0.173,
+        npcAbilityScalar: 0.173/2,
         npcAbilityBase: 0.4,
         combatSkillMod: 0.05,   // amount to increase damage by for combat skills per level
         abilityMax: 10,

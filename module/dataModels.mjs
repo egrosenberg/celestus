@@ -54,8 +54,8 @@ export class ActorData extends foundry.abstract.TypeDataModel {
                 }),
                 ap: new SchemaField({ // action points
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 4 }), // current ap amount
-                    max: new NumberField({ required: true, integer: true, min: 4, initial: 6 }), // max ap amount
-                    start: new NumberField({ required: true, integer: true, min: 4, initial: 4 }), // starting ap amount
+                    max: new NumberField({ required: true, integer: true, min: 0, initial: 6 }), // max ap amount
+                    start: new NumberField({ required: true, integer: true, min: 0, initial: 4 }), // starting ap amount
                 }),
                 fp: new SchemaField({ // focus points
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // current ap amount
@@ -97,6 +97,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
                     obj[type] = new SchemaField({
                         value: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // derived
                         bonus: new NumberField({ required: true, integer: false, min: -50, initial: 0 }),
+                        base: new NumberField({ required: true, integer: false, min: -50, initial: 0 }),
                     })
                     return obj;
                 }, {})),
@@ -208,7 +209,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
         }
         // iterate through resistances
         for (let [type, resist] of Object.entries(this.attributes.resistance)) {
-            this.attributes.resistance[type].value += resist.bonus;
+            this.attributes.resistance[type].value += resist.bonus + resist.base;
         }
 
         /**
@@ -486,6 +487,14 @@ export class ActorData extends foundry.abstract.TypeDataModel {
             return [left, right];
         }
     }
+
+    /**
+     * All skills owned by actor, uncategorized
+     * @returns {Item[]}
+     */
+    get allSkills() {
+        return this.parent.items.filter(i => i.type === "skill");
+    }
 };
 
 
@@ -657,14 +666,6 @@ export class PlayerData extends ActorData {
             unmemorized: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "false")),
             always: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "always")),
         };
-    }
-
-    /**
-     * All skills owned by actor, uncategorized
-     * @returns {Item[]}
-     */
-    get allSkills() {
-        return this.parent.items.filter(i => i.type === "skill");
     }
 
     /** 

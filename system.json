@@ -15,11 +15,16 @@
             "discord": "krostorm"
         }
     ],
+
     "esmodules": [
         "module/celestus.mjs"
     ],
+    "scripts" :[
+        "module/imports/slimselect.min.js"
+    ],
     "styles": [
-        "styles/celestus.css"
+        "styles/celestus.css",
+        "styles/slimselect.css"
     ],
     "packs": [ {
             "name": "rules",
@@ -50,6 +55,16 @@
             "name": "ancestry",
             "label": "Celestus Ancestries",
             "type": "Item",
+            "system": "celestus"
+        }, {
+            "name": "gear",
+            "label": "Celestus Gear",
+            "type": "Item",
+            "system": "celestus"
+        }, {
+            "name": "npc",
+            "label": "Celestus NPCs",
+            "type": "Actor",
             "system": "celestus"
         }
     ],
