@@ -1,4 +1,4 @@
-import { calcMult, canvasPopupText } from "./helpers.mjs";
+import { calcMult, calcWeaponDamage, canvasPopupText } from "./helpers.mjs";
 
 const {
     HTMLField, SchemaField, NumberField, StringField, FilePathField, ArrayField, BooleanField, ObjectField
@@ -676,6 +676,14 @@ export class PlayerData extends ActorData {
     }
 
     /**
+     * Calculates total damage from all equipped weapons and effects
+    * @returns {undefined | Object} containing types breakdown of damage and total damage {total, parts}
+     */
+    get totalWeaponDamage() {
+        return calcWeaponDamage(this.parent, 1, false);
+    }
+
+    /**
      * All skills owned by actor
      * @returns {Object} containing all skills, categorized as memorized, unmemorized, and always
      */
@@ -1077,6 +1085,48 @@ export class SkillData extends foundry.abstract.TypeDataModel {
     }
     get civilPrereqs() {
         return Object.entries(this.prereqs).filter(([k, v]) => CONFIG.CELESTUS.civilSkills[k]);
+    }
+
+    get totalDamage() {
+        const actorLevel = this.parent.actor?.system.attributes.level || 1;
+        if (this.needsDamageField) {
+            let total = {
+                min: 0,
+                max: 0,
+                avg: 0
+            };
+            let parts = {};
+            for (let part of this.damage) {
+                const type = part.type;
+                if (!parts[type]) {
+                    parts[type] = {
+                        min: 0,
+                        max: 0,
+                        avg: 0
+                    }
+                }
+                const mult = this.parent.actor ? calcMult(this.parent.actor, part.type, this.ability, part.value, false, 0) : 1;
+                const min = parseInt(CONFIG.CELESTUS.baseDamage.min[actorLevel] * mult);
+                const max = parseInt(CONFIG.CELESTUS.baseDamage.max[actorLevel] * mult);
+                const avg = parseInt(CONFIG.CELESTUS.baseDamage.avg[actorLevel] * mult);
+                
+                parts[type].min += min;
+                parts[type].max += max;
+                parts[type].avg += avg;
+                total.min += min;
+                total.max += max;
+                total.avg += avg;
+                
+            }
+            return {
+                total: total,
+                parts: parts
+            };
+        }
+        else {
+            if (!this.parent.actor) return;
+            return calcWeaponDamage(this.parent.actor, this.weaponEfficiency, this.overridesWeaponType ? this.overrideDamageType : false);
+        }
     }
 };
 

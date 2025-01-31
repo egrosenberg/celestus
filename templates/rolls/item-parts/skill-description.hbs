@@ -65,7 +65,7 @@
             {{/if}}
         </div>
         {{!-- damage components --}}
-        {{#each rollData.dmg as |damage type|}}
+        {{#each rollData.dmg.parts as |damage type|}}
         {{#with (lookup ../config.damageTypes type)}}
         <div class="roll-tag {{type}}-dark">
             <i class="{{glyph}}"></i>

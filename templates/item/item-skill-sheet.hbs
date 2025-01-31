@@ -85,7 +85,7 @@
             {{/if}}
 
             <h3>Damage:</h3>
-            {{#each rollData.dmg as |damage type|}}
+            {{#each rollData.dmg.parts as |damage type|}}
             {{#with (lookup ../config.damageTypes type)}}
             <div class="quick-reference" style="background-color: {{color}};" title="{{type}}">
                 {{damage.min}}-{{damage.max}} ({{damage.avg}})

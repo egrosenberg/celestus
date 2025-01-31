@@ -214,7 +214,7 @@ export async function rollWeaponDamage(actor, damage, bonusDamage, statuses, isC
 
     const damageRiders = actor.system.damageRiders;
     // create a roll formula
-    let formula = ""// = `floor((${isCrit ? damage.crit : damage.roll})*${scalar})`
+    let formula = "";
     if (damage && damage.length > 0) {
         if (damage.length === 1) {
             formula += `floor((${isCrit ? damage[0].crit : damage[0].roll})*${scalar})[${typeOverride || damage[0].type}]`;
@@ -230,7 +230,7 @@ export async function rollWeaponDamage(actor, damage, bonusDamage, statuses, isC
             }
         }
         else {
-            const dType1 = typeOverride || damage[0].type
+            const dType1 = typeOverride || damage[0].type;
             formula += `floor((${isCrit ? damage[0].crit : damage[0].roll})*${scalar})[${dType1}]`;
             // roll any bonus damage types
             if (bonusDamage[0]) {
@@ -242,7 +242,7 @@ export async function rollWeaponDamage(actor, damage, bonusDamage, statuses, isC
             for (const rider of damageRiders) {
                 formula += ` + floor((${isCrit ? damage[0].crit : damage[0].roll})*${scalar}*${rider.value})[${rider.type}]`;
             }
-            const dType2 = typeOverride || damage[1].type
+            const dType2 = typeOverride || damage[1].type;
             formula += ` + floor((${isCrit ? damage[1].crit : damage[1].roll})*${scalar * CONFIG.CELESTUS.dualwieldMult})[${dType2}]`;
             // roll any bonus damage types
             if (bonusDamage[1]) {
@@ -252,8 +252,7 @@ export async function rollWeaponDamage(actor, damage, bonusDamage, statuses, isC
                 }
             }
             for (const rider of damageRiders) {
-                const elementType = typeOverride || rider.type;
-                formula += ` + floor((${isCrit ? damage[1].crit : damage[1].roll})*${scalar * CONFIG.CELESTUS.dualwieldMult}*${rider.value})[${elementType}]`;
+                formula += ` + floor((${isCrit ? damage[1].crit : damage[1].roll})*${scalar * CONFIG.CELESTUS.dualwieldMult}*${rider.value})[${rider.type}]`;
             }
         }
     }
@@ -265,6 +264,188 @@ export async function rollWeaponDamage(actor, damage, bonusDamage, statuses, isC
         'system.damageType': typeOverride || type,
         'system.actorID': actor.uuid,
     });
+}
+
+/**
+ * Calculates min, max, and average damage values for an actor
+ * @param {Actor} actor 
+ * @param {Number} scalar Overall weapon damage scalar
+ * @param {String?} typeOverride damage type id of damage type override (empty string or otherwise falsy for none)
+ * @returns {undefined | Object} containing types breakdown of damage and total damage {total, parts}
+ */
+export function calcWeaponDamage(actor, scalar, typeOverride) {
+    if (!actor) return;
+    scalar ??= 1;
+    const damage = actor.system.weaponDamage;
+    const bonusDamage = actor.system.bonusWeaponDamage;
+    const damageRiders = actor.system.damageRiders;
+
+    if (!damage || damage.length === 0) {
+        return;
+    }
+
+    // initialize empty objects
+    let types = {};
+    let total = {
+        min: 0,
+        max: 0,
+        avg: 0,
+    };
+
+    if (damage && damage.length > 0) {
+        if (damage.length === 1) {
+            const type = typeOverride || damage[0].type;
+            if (!types[type]) {
+                types[type] = {
+                    min: 0,
+                    max: 0,
+                    avg: 0,
+                };
+            }
+            types[type].min += Math.floor((damage[0].min) * scalar);
+            types[type].max += Math.floor((damage[0].max) * scalar);
+            types[type].avg += Math.floor((damage[0].avg) * scalar);
+            total.min += Math.floor((damage[0].min) * scalar);
+            total.max += Math.floor((damage[0].max) * scalar);
+            total.avg += Math.floor((damage[0].avg) * scalar);
+            // roll any bonus damage types
+            if (bonusDamage[0]) {
+                for (const element of bonusDamage[0]) {
+                    const elementType = typeOverride || element.type;
+                    if (!types[elementType]) {
+                        types[elementType] = {
+                            min: 0,
+                            max: 0,
+                            avg: 0,
+                        };
+                    }
+                    types[elementType].min += Math.floor((element.min) * scalar);
+                    types[elementType].max += Math.floor((element.max) * scalar);
+                    types[elementType].avg += Math.floor((element.avg) * scalar);
+                    total.min += Math.floor((element.min) * scalar);
+                    total.max += Math.floor((element.max) * scalar);
+                    total.avg += Math.floor((element.avg) * scalar);
+                }
+            }
+            for (const rider of damageRiders) {
+                if (!types[rider.type]) {
+                    types[rider.type] = {
+                        min: 0,
+                        max: 0,
+                        avg: 0,
+                    };
+                }
+                types[rider.type].min += Math.floor((damage[0].min) * scalar * rider.value);
+                types[rider.type].max += Math.floor((damage[0].max) * scalar * rider.value);
+                types[rider.type].avg += Math.floor((damage[0].avg) * scalar * rider.value);
+                total.min += Math.floor((damage[0].min) * scalar * rider.value);
+                total.max += Math.floor((damage[0].max) * scalar * rider.value);
+                total.avg += Math.floor((damage[0].avg) * scalar * rider.value);
+            }
+        }
+        else {
+            const dType1 = typeOverride || damage[0].type;
+            if (!types[dType1]) {
+                types[dType1] = {
+                    min: 0,
+                    max: 0,
+                    avg: 0,
+                };
+            }
+            types[dType1].min += Math.floor((damage[0].min) * scalar);
+            types[dType1].max += Math.floor((damage[0].max) * scalar);
+            types[dType1].avg += Math.floor((damage[0].avg) * scalar);
+            total.min += Math.floor((damage[0].min) * scalar);
+            total.max += Math.floor((damage[0].max) * scalar);
+            total.avg += Math.floor((damage[0].avg) * scalar);
+            // roll any bonus damage types
+            if (bonusDamage[0]) {
+                for (const element of bonusDamage[0]) {
+                    const elementType = typeOverride || element.type;
+                    if (!types[elementType]) {
+                        types[elementType] = {
+                            min: 0,
+                            max: 0,
+                            avg: 0,
+                        };
+                    }
+                    types[elementType].min += Math.floor((element.min) * scalar);
+                    types[elementType].max += Math.floor((element.max) * scalar);
+                    types[elementType].avg += Math.floor((element.avg) * scalar);
+                    total.min += Math.floor((element.min) * scalar);
+                    total.max += Math.floor((element.max) * scalar);
+                    total.avg += Math.floor((element.avg) * scalar);
+                }
+            }
+            for (const rider of damageRiders) {
+                if (!types[rider.type]) {
+                    types[rider.type] = {
+                        min: 0,
+                        max: 0,
+                        avg: 0,
+                    };
+                }
+                types[rider.type].min += Math.floor((damage[0].min) * scalar * rider.value);
+                types[rider.type].max += Math.floor((damage[0].max) * scalar * rider.value);
+                types[rider.type].avg += Math.floor((damage[0].avg) * scalar * rider.value);
+                total.min += Math.floor((damage[0].min) * scalar * rider.value);
+                total.max += Math.floor((damage[0].max) * scalar * rider.value);
+                total.avg += Math.floor((damage[0].avg) * scalar * rider.value);
+            }
+            const dType2 = typeOverride || damage[1].type;
+            if (!types[dType2]) {
+                types[dType2] = {
+                    min: 0,
+                    max: 0,
+                    avg: 0,
+                };
+            }
+            types[dType2].min += Math.floor((damage[0].min) * scalar * CONFIG.CELESTUS.dualwieldMult);
+            types[dType2].max += Math.floor((damage[0].max) * scalar * CONFIG.CELESTUS.dualwieldMult);
+            types[dType2].avg += Math.floor((damage[0].avg) * scalar * CONFIG.CELESTUS.dualwieldMult);
+            total.min += Math.floor((damage[0].min) * scalar * CONFIG.CELESTUS.dualwieldMult);
+            total.max += Math.floor((damage[0].max) * scalar * CONFIG.CELESTUS.dualwieldMult);
+            total.avg += Math.floor((damage[0].avg) * scalar * CONFIG.CELESTUS.dualwieldMult);
+            // roll any bonus damage types
+            if (bonusDamage[1]) {
+                for (const element of bonusDamage[1]) {
+                    const elementType = typeOverride || element.type;
+                    if (!types[elementType]) {
+                        types[elementType] = {
+                            min: 0,
+                            max: 0,
+                            avg: 0,
+                        };
+                    }
+                    types[elementType].min += Math.floor((element.min) * scalar);
+                    types[elementType].max += Math.floor((element.max) * scalar);
+                    types[elementType].avg += Math.floor((element.avg) * scalar);
+                    total.min += Math.floor((element.min) * scalar);
+                    total.max += Math.floor((element.max) * scalar);
+                    total.avg += Math.floor((element.avg) * scalar);
+                }
+            }
+            for (const rider of damageRiders) {
+                if (!types[rider.type]) {
+                    types[rider.type] = {
+                        min: 0,
+                        max: 0,
+                        avg: 0,
+                    };
+                }
+                types[rider.type].min += Math.floor((damage[0].min) * scalar * rider.value);
+                types[rider.type].max += Math.floor((damage[0].max) * scalar * rider.value);
+                types[rider.type].avg += Math.floor((damage[0].avg) * scalar * rider.value);
+                total.min += Math.floor((damage[0].min) * scalar * rider.value);
+                total.max += Math.floor((damage[0].max) * scalar * rider.value);
+                total.avg += Math.floor((damage[0].avg) * scalar * rider.value);
+            }
+        }
+    }
+    return {
+        total: total,
+        parts: types
+    };
 }
 
 /**
