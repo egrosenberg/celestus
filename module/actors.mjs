@@ -114,9 +114,13 @@ export class CelestusActor extends Actor {
             }
         }
         // render ui elements
-        renderHotbarOverlay();
-        renderResourcesUi();
-
+        const selected = canvas.tokens?.controlled?.[0]?.actor ?? game.user.character ?? _token?.actor ?? null;
+        if (changed.system || changed.flags && selected?.uuid === this.uuid) {
+            renderHotbarOverlay();
+        }
+        if (document.getElementById("ui-resources").dataset.actorId === this.uuid) {
+            renderResourcesUi();
+        }
         if (document.getElementById("ui-token-hover").dataset.actorId === this.uuid) {
             renderTokenInfo(this.getActiveTokens(true)[0], null, true);
         }
