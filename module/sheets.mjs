@@ -16,6 +16,7 @@ export class CharacterSheet extends ActorSheet {
             height: 750,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "skills" }],
             scrollY: [".sheet-header", ".sheet-main"],
+            submitOnChange: true,
         });
     }
     /** @override */
@@ -888,13 +889,16 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
             this.object.update({ [name]: checked });
         });
         // operate changes on damage type
-        html.on('change', '.damage-type select', (ev) => {
+        html.on('change', '.damage-type-selector', (ev) => {
             const t = ev.currentTarget;
             const index = $(t).data("index");
             const type = $(t).val();
-            let damage = this.object.system.damage;
-            damage[index].type = type;
-            this.object.update({ "system.damage": damage });
+            const name = $(t).data("name");
+            let arr = byString(this.object, name);
+            console.log(name, index, type, arr);
+            arr[index].type = type;
+            console.log(arr);
+            this.object.update({ [name]: arr });
         });
         // operate changes on status block/remove
         html.on('change', '.status-type select', (ev) => {
@@ -910,7 +914,7 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
         html.on('change', '.aura-type-selector', (ev) => {
             const t = ev.currentTarget;
             const index = $(t).data("index");
-            const name = $(t).attr("name");
+            const name = $(t).data("name");
             const value = $(t).val();
             this.object.update({ [name]: value });
         });
@@ -919,23 +923,26 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
             const t = ev.currentTarget;
             const index = $(t).data("index");
             const value = $(t).val();
-            let damage = this.object.system.damage;
-            damage[index].value = value;
-            this.object.update({ "system.damage": damage });
+            const name = $(t).data("name");
+            let arr = byString(this.object, name);
+            arr[index].value = value;
+            this.object.update({ [name]: arr });
         });
         // remove damage element
         html.on('click', '.damage-delete', (ev) => {
             const t = ev.currentTarget;
             const index = $(t).data("index");
-            let damage = this.object.system.damage;
-            damage.splice(index, 1);
-            this.object.update({ "system.damage": damage });
+            const name = $(t).data("name");
+            let arr = byString(this.object, name);
+            arr.splice(index, 1);
+            this.object.update({ [name]: arr });
         });
         // add damage element
         html.on('click', '.damage-create', (ev) => {
-            let damage = this.object.system.damage;
-            damage.push({ type: "none", roll: "" });
-            this.object.update({ "system.damage": damage });
+            const name = $(ev.currentTarget).data("name");
+            let arr = byString(this.object, name);
+            arr.push({ type: "none", value: 0 });
+            this.object.update({ [name]: arr });
         });
         // add status removal element
         html.on('click', '.removes-create', (ev) => {

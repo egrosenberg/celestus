@@ -212,6 +212,7 @@ export async function rollWeaponDamage(actor, damage, bonusDamage, statuses, isC
         }
     }
 
+    const damageRiders = actor.system.damageRiders;
     // create a roll formula
     let formula = ""// = `floor((${isCrit ? damage.crit : damage.roll})*${scalar})`
     if (damage && damage.length > 0) {
@@ -224,6 +225,9 @@ export async function rollWeaponDamage(actor, damage, bonusDamage, statuses, isC
                     formula += ` + floor((${isCrit ? element.crit : element.roll})*${scalar})[${elementType}]`;
                 }
             }
+            for (const rider of damageRiders) {
+                formula += ` + floor((${isCrit ? damage[0].crit : damage[0].roll})*${scalar}*${rider.value})[${rider.type}]`;
+            }
         }
         else {
             const dType1 = typeOverride || damage[0].type
@@ -235,14 +239,21 @@ export async function rollWeaponDamage(actor, damage, bonusDamage, statuses, isC
                     formula += ` + floor((${isCrit ? element.crit : element.roll})*${scalar})[${elementType}]`;
                 }
             }
+            for (const rider of damageRiders) {
+                formula += ` + floor((${isCrit ? damage[0].crit : damage[0].roll})*${scalar}*${rider.value})[${rider.type}]`;
+            }
             const dType2 = typeOverride || damage[1].type
             formula += ` + floor((${isCrit ? damage[1].crit : damage[1].roll})*${scalar * CONFIG.CELESTUS.dualwieldMult})[${dType2}]`;
             // roll any bonus damage types
             if (bonusDamage[1]) {
                 for (const element of bonusDamage[1]) {
                     const elementType = typeOverride || element.type;
-                    formula += ` + floor((${isCrit ? element.crit : element.roll})*${scalar})[${elementType}]`;
+                    formula += ` + floor((${isCrit ? element.crit : element.roll})*${scalar * CONFIG.CELESTUS.dualwieldMult})[${elementType}]`;
                 }
+            }
+            for (const rider of damageRiders) {
+                const elementType = typeOverride || rider.type;
+                formula += ` + floor((${isCrit ? damage[1].crit : damage[1].roll})*${scalar * CONFIG.CELESTUS.dualwieldMult}*${rider.value})[${elementType}]`;
             }
         }
     }

@@ -380,6 +380,25 @@ export class ActorData extends foundry.abstract.TypeDataModel {
     }
 
     /**
+     * Retrieves total damage riders from all effects
+     * @returns {Object[]} type, value
+     */
+    get damageRiders() {
+        let riders = [];
+        for (const effect of this.parent.effects) {
+            if (effect.system?.damageRiders?.length) {
+                for (const damage of effect.system.damageRiders) {
+                    riders.push({
+                        type: damage.type,
+                        value: damage.value,
+                    });
+                }
+            }
+        }
+        return riders;
+    }
+
+    /**
      * all features owned by actor
      */
     get features() {
@@ -1501,6 +1520,10 @@ export class EffectData extends foundry.abstract.TypeDataModel {
             damage: new ArrayField(new SchemaField({
                 type: new StringField({ required: true, initial: "none" }), // damage type
                 value: new NumberField({ required: true, integer: false, initial: 0 }), // damage roll as %of base@lvl
+            })),
+            damageRiders: new ArrayField(new SchemaField({
+                type: new StringField({ required: true, initial: "none" }), // damage type
+                value: new NumberField({ required: true, integer: false, initial: 0 }), // damage roll as %of weapon damage
             })),
             // armor type that resists the effect, none/mag/phys/any
             resistedBy: new StringField({ required: true, initial: "none" }),
