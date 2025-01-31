@@ -467,6 +467,16 @@ input[type="color"]::-webkit-color-swatch {
     background: none;
 }
 
+.celestus.actor.sheet .portrait .appearance-edit {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: none;
+    z-index: 2;
+    color: white;
+    font-size: var(--font-size-18);
+}
+
 .celestus.actor.sheet .profile-img {
     width: 250px;
     height: 250px;
@@ -474,6 +484,11 @@ input[type="color"]::-webkit-color-swatch {
     border-style: none;
     background: rgb(255, 179, 0);
     background: radial-gradient(circle, rgba(255, 179, 0, 1) 0%, rgba(121, 9, 9, 1) 55%, rgba(36, 0, 0, 1) 100%);
+}
+
+.celestus.actor.sheet .character-attributes {
+    text-align: center;
+    display: block;
 }
 
 .celestus.actor.sheet .portrait-input {

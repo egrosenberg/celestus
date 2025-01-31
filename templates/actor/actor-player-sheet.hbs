@@ -7,18 +7,7 @@
                 {{#if system.portraitBorder}}
                 <img class="portrait-overlay" src="systems/celestus/img/portrait-frame.webp" />
                 {{/if}}
-                <div>
-                    <span class="flexrow">
-                        <label class="portrait-label" for="system.pointerTint">Token Pointer Tint</label>
-                        <input class="portrait-input" type="color" id="pointer-tint" value="{{system.pointerTint}}" />
-                    </span>
-                </div>
-                <div>
-                    <span class="flexrow">
-                        <label class="portrait-label" for="system.portraitBorder">Portrait Frame</label>
-                        <input class="portrait-input check-input" type="checkbox" name="system.portraitBorder"{{ifThen system.portraitBorder "checked"}} />
-                    </span>
-                </div>
+                <a class="appearance-edit"><i class="fa-solid fa-gear"></i></a>
             </div>
             <div class="header-fields">
                 <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
@@ -27,7 +16,7 @@
                         {{selectOptions config.creatureTypes selected=system.t}}
                     </select>
                 </div>
-                <span>
+                <span class="character-attributes">
                     <span class="level">
                         Level: <input type="number" name="system.attributes.level" value="{{system.attributes.level}}"
                             data-dtype="Number" />

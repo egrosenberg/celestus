@@ -7,18 +7,7 @@
                 {{#if system.portraitBorder}}
                 <img class="portrait-overlay" src="systems/celestus/img/portrait-frame.webp" />
                 {{/if}}
-                <div>
-                    <span class="flexrow">
-                        <label class="portrait-label" for="system.pointerTint">Token Pointer Tint</label>
-                        <input class="portrait-input" type="color" id="pointer-tint" value="{{system.pointerTint}}" />
-                    </span>
-                </div>
-                <div>
-                    <span class="flexrow">
-                        <label class="portrait-label" for="system.portraitBorder">Portrait Frame</label>
-                        <input class="portrait-input check-input" type="checkbox" name="system.portraitBorder"{{ifThen system.portraitBorder "checked"}} />
-                    </span>
-                </div>
+                <a class="appearance-edit"><i class="fa-solid fa-gear"></i></a>
             </div>
             <div class="header-fields">
                 <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
@@ -33,7 +22,7 @@
                         {{selectOptions config.npcStats selected=system.spread}}
                     </select>
                 </div>
-                <span>
+                <div class="character-attributes">
                     <span class="level">
                         Level: <input type="number" name="system.attributes.level" value="{{system.attributes.level}}"
                             data-dtype="Number" />
@@ -57,8 +46,7 @@
                         <i class="{{ifThen actor.inCombat " icon-swords-emblem-solid" "icon-swords-emblem-outline" }}">
                         </i>
                     </a>
-
-                </span>
+                </div>
                 <h2>Resources</h2>
                 <div class="resources grid" id="action-points">
                     <span class="resource">

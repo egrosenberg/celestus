@@ -13,7 +13,7 @@ export class CharacterSheet extends ActorSheet {
             classes: ["celestus", "sheet", "actor"],
             template: "./systems/celestus/templates/actor/actor-sheet.hbs",
             width: 900,
-            height: 700,
+            height: 750,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "skills" }],
             scrollY: [".sheet-header", ".sheet-main"],
         });
@@ -176,9 +176,12 @@ export class CharacterSheet extends ActorSheet {
         // slimSelect
         $('.npc-prefab-selector').each((i, e) => {
             new SlimSelect({
-              select: e
+                select: e
             })
-          });
+        });
+
+        // sheet appearance
+        html.on('click', '.appearance-edit', this._appearanceEdit.bind(this));
 
         // refresh all resources
         html.on('click', '#refresh-all', (ev) => {
@@ -230,7 +233,7 @@ export class CharacterSheet extends ActorSheet {
         // Delete Inventory Item
         html.on('click', '.item-delete', async (ev) => {
             const proceed = await foundry.applications.api.DialogV2.confirm({
-                window: {title: "Confirm Delete?"},
+                window: { title: "Confirm Delete?" },
                 content: "Are you sure you want to delete this item? This action cannot be undone",
                 rejectClose: false,
                 modal: true
@@ -407,6 +410,37 @@ export class CharacterSheet extends ActorSheet {
             if (item) item.roll();
             else console.error("CELESTUS | ERROR: item not found");
         }
+    }
+
+    _appearanceEdit() {
+        console.log("test");
+        new foundry.applications.api.DialogV2({
+            window: { title: "Change Sheet / Token Appearance", width: 400 },
+            content: `
+                <div class="form-group" style="min-width: 400px">
+                    <label>Token Pointer Tint</label>
+                    <div class="form-fields">
+                        <input type="color" name="pointerTint" value="${this.actor.system.pointerTint}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Portrait Frame</label>
+                    <div class="form-fields">
+                        <input type="checkbox" name="portraitBorder" ${this.actor.system.portraitBorder ? "checked" : ""} />
+                    </div>
+                </div>
+            `,
+            buttons: [{
+                action: "submit",
+                label: "Save Changes",
+                default: true,
+                callback: (event, button, dialog) => button.form.elements
+            }],
+            submit: async values => {
+                if (values.pointerTint) await this.actor.update({ "system.pointerTint": values.pointerTint.value });
+                if (values.portraitBorder) await this.actor.update({ "system.portraitBorder": values.portraitBorder.checked });
+            }
+        }).render({ force: true });
     }
 
 

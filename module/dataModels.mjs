@@ -22,7 +22,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
         return {
             biography: new HTMLField(), // create biography field
             t: new StringField({ required: true, initial: "humanoid" }),
-            pointerTint: new StringField(),
+            pointerTint: new StringField({required: true, default: "#fff"}),
             portraitBorder: new BooleanField({ required: true, initial: true }),
             // configure resources
             resources: new SchemaField({
