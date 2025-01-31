@@ -925,7 +925,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
         let ap = this.ap;
         if (actor.getFlag("celestus", "elementalist")) {
             const standingOn = actor.getFlag("celestus", "standingOn");
-            if (this.school === CONFIG.CELESTUS.surfaceTypes[standingOn]?.school && ap > 1) {
+            if (CONFIG.CELESTUS.surfaceTypes[standingOn]?.schools.includes(this.school)  && ap > 1) {
                 ap--;
             }
         }

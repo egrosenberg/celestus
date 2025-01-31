@@ -2,7 +2,7 @@
 * Types of surfaces
 * label: text for display
 * color: color to use for measuredTemplates representing it
-* school: skill school associated with surface
+* schools: skill schools associated with surface
 * duration: default duration in rounds to linger when created from combination
 * onEnd: surface type to change to on duration max instead of dying
 * statuses: ids of statusEffects this gives
@@ -24,7 +24,7 @@ export const surfaceTypes = {
     fire: {
         label: "Fire",
         color: "#ff4000",
-        school: "flamespeaker",
+        schools: ["flamespeaker"],
         duration: 2,
         statuses: ["burn"],
         combines: {
@@ -40,7 +40,7 @@ export const surfaceTypes = {
     spritfire: {
         label: "Spirit Fire",
         color: "#00ffff",
-        school: "flamespeaker",
+        schools: ["flamespeaker"],
         duration: 2,
         statuses: ["burn+"],
         combines: {
@@ -55,7 +55,7 @@ export const surfaceTypes = {
     water: {
         label: "Water",
         color: "#3333cc",
-        school: "tidecaller",
+        schools: ["tidecaller"],
         duration: 4,
         combines: {
             oil: { mode: "override" },
@@ -71,7 +71,7 @@ export const surfaceTypes = {
     ice: {
         label: "Ice",
         color: "#99ccff",
-        school: "tidecaller",
+        schools: ["tidecaller"],
         duration: 4,
         onEnd: "water",
         combines: {
@@ -91,7 +91,7 @@ export const surfaceTypes = {
     electric_water: {
         label: "Electrified Water",
         color: "#3333cc",
-        school: "stormseeker",
+        schools: ["stormseeker", "tidecaller"],
         duration: 4,
         statuses: ["shock"],
         combines: {
@@ -107,7 +107,7 @@ export const surfaceTypes = {
     oil: {
         label: "Oil",
         color: "#d28f79",
-        school: "duneshaper",
+        schools: ["duneshaper"],
         duration: 2,
         statuses: ["oil"],
         combines: {
@@ -124,7 +124,7 @@ export const surfaceTypes = {
     poison: {
         label: "Poison",
         color: "#33cc33",
-        school: "duneshaper",
+        schools: ["duneshaper"],
         duration: 2,
         statuses: ["poison"],
         combines: {
@@ -141,7 +141,7 @@ export const surfaceTypes = {
     frozen_poison: {
         label: "Frozen Poison",
         color: "#33cc33",
-        school: "duneshaper",
+        schools: ["duneshaper", "tidecaller"],
         duration: 2,
         combines: {
             ice: { mode: "override" },
@@ -160,7 +160,7 @@ export const surfaceTypes = {
     blood: {
         label: "Blood",
         color: "#cc0000",
-        school: "deathbringer",
+        schools: ["deathbringer"],
         combines: {
             ice: { mode: "override" },
             water: { mode: "override" },
@@ -174,7 +174,7 @@ export const surfaceTypes = {
     electric_blood: {
         label: "Electrified Blood",
         color: "#cc0000",
-        school: "stormseeker",
+        schools: ["stormseeker", "deathbringer"],
         statuses: ["shock"],
         combines: {
             ice: { mode: "override" },
@@ -188,7 +188,7 @@ export const surfaceTypes = {
     frozen_blood: {
         label: "Frozen Blood",
         color: "#cc0000",
-        school: "deathbringer",
+        schools: ["deathbringer", "tidecaller"],
         combines: {
             ice: { mode: "override" },
             fire: { mode: "override" },
@@ -203,7 +203,17 @@ export const surfaceTypes = {
     fog: {
         label: "Fog",
         color: "#cccccc",
-        school: "stormseeker",
+        schools: ["stormseeker"],
+        damageCombines: {
+            air: "electric_fog",
+        },
         texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Fog-2-50.webp"
+    },
+    electric_fog: {
+        label: "Electric Fog",
+        color: "#cccccc",
+        schools: ["stormseeker"],
+        statuses: ["shock"],
+        texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Lightning-cloud-2-50.webp"
     },
 };
