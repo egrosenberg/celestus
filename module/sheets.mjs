@@ -835,6 +835,7 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
             tabs: [{ navSelector: ".tabs", contentSelector: "form", initial: "details" }],
             dragdrop: [".tab.other"],
             submitOnChange: true,
+            closeOnSubmit: false,
         });
     }
 
@@ -898,9 +899,7 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
             const type = $(t).val();
             const name = $(t).data("name");
             let arr = byString(this.object, name);
-            console.log(name, index, type, arr);
             arr[index].type = type;
-            console.log(arr);
             this.object.update({ [name]: arr });
         });
         // operate changes on status block/remove
