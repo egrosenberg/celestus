@@ -1,6 +1,6 @@
 <form class="{{cssClass}}" autocomplete="off">
     <header class="sheet-header">
-        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+        <img class="profile-img" src="{{item.img}}" data-edit="img" data-tooltip="{{item.name}}" />
         <div class="header-fields">
             <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
             <h2 class="item-type">{{lookup config.skillTypes system.type}}</h2>
@@ -87,7 +87,7 @@
             <h3>Damage:</h3>
             {{#each rollData.dmg.parts as |damage type|}}
             {{#with (lookup ../config.damageTypes type)}}
-            <div class="quick-reference" style="background-color: {{color}};" title="{{type}}">
+            <div class="quick-reference" style="background-color: {{color}};" data-tooltip="{{type}}">
                 {{damage.min}}-{{damage.max}} ({{damage.avg}})
                 <i class="{{glyph}}"></i>
             </div>
@@ -390,7 +390,7 @@
                             <div class="damage-type">Type</div>
                             <div class="damage-amount">Amount (%)</div>
                             <div class="item-controls">
-                                <a class="item-control damage-create" title="Create New Damage Component"
+                                <a class="item-control damage-create" data-tooltip="Create New Damage Component"
                                     data-type="item">
                                     <i class="fas fa-plus"></i>
                                     Add Damage
@@ -415,7 +415,7 @@
                                     data-index="{{@index}}" />
                             </div>
                             <div class="item-controls">
-                                <a class="item-control damage-delete" title="Delete Damage Component" data-type="damage"
+                                <a class="item-control damage-delete" data-tooltip="Delete Damage Component" data-type="damage"
                                     data-index="{{@index}}">
                                     <i class="fas fa-trash"></i>
                                 </a>
@@ -430,7 +430,7 @@
                         <li class="item flexrow damage-header" draggable="true">
                             <div class="damage-type">Status Name</div>
                             <div class="item-controls">
-                                <a class="item-control status-create" title="Create New StatusEffect" data-type="item">
+                                <a class="item-control status-create" data-tooltip="Create New StatusEffect" data-type="item">
                                     <i class="fas fa-plus"></i>
                                     Add Status
                                 </a>
@@ -451,7 +451,7 @@
                                 </select>
                             </div>
                             <div class="item-controls">
-                                <a class="item-control status-delete" title="Delete StatusEffect"
+                                <a class="item-control status-delete" data-tooltip="Delete StatusEffect"
                                     data-type="statusEffect" data-index="{{@index}}">
                                     <i class="fas fa-trash"></i>
                                 </a>
@@ -473,7 +473,7 @@
                                 <div class="effect-source">Source</div>
                                 <div class="effect-source">Duration</div>
                                 <div class="item-controls effect-controls flexrow">
-                                    <a class="effect-control" data-action="create" title="Create New Effect">
+                                    <a class="effect-control" data-action="create" data-tooltip="Create New Effect">
                                         <i class="fas fa-plus"></i> Create New Effect
                                     </a>
                                 </div>
@@ -491,13 +491,13 @@
                                     <div class="effect-duration">{{#if effect.duration.rounds}}
                                         {{effect.duration.rounds}} rounds{{/if}}</div>
                                     <div class="effect-controls">
-                                        <a class="effect-control" data-action="toggle" title="disable/enable">
+                                        <a class="effect-control" data-action="toggle" data-tooltip="disable/enable">
                                             <i class="fas {{#if effect.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
                                         </a>
-                                        <a class="effect-control" data-action="edit" title="edit">
+                                        <a class="effect-control" data-action="edit" data-tooltip="edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a class="effect-control" data-action="delete" title="delete">
+                                        <a class="effect-control" data-action="delete" data-tooltip="delete">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </div>

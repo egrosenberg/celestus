@@ -1,7 +1,7 @@
 <div class="dice-flavor celestus roll description {{ifThen (eq usedResources false) " no-resources" "" }}">
     <header class="summary">
         {{#if portrait}}
-        <img class="roll-icon" src="{{portrait}}" title="{{name}}" />
+        <img class="roll-icon" src="{{portrait}}" data-tooltip="{{name}}" />
         {{/if}}
         <div class="name-stacked">
             <div class="title">{{name}}</div>

@@ -3,7 +3,7 @@
         {{!-- Sheet Header --}}
         <span class="sheet-header">
             <div class="portrait">
-                <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+                <img class="profile-img" src="{{actor.img}}" data-edit="img" data-tooltip="{{actor.name}}" />
                 {{#if system.portraitBorder}}
                 <img class="portrait-overlay" src="systems/celestus/img/portrait-frame.webp" />
                 {{/if}}
@@ -40,9 +40,9 @@
                         Initiative: {{numberFormat (sum system.abilities.wit.total system.attributes.bonuses.initiative.value) sign=true}}
                     </a>
                     <br/>
-                    <a class="control refresh" title="refresh resources" id="refresh-all"><i class="icon-cycle"></i></a>
-                    <a class="control refresh" title="new day" id="refresh-dawn"><i class="icon-sunrise"></i></a>
-                    <a class="control refresh" title="toggle combat state" id="toggle-combat">
+                    <a class="control refresh" data-tooltip="refresh resources" id="refresh-all"><i class="icon-cycle"></i></a>
+                    <a class="control refresh" data-tooltip="new day" id="refresh-dawn"><i class="icon-sunrise"></i></a>
+                    <a class="control refresh" data-tooltip="toggle combat state" id="toggle-combat">
                         <i class="{{ifThen actor.inCombat " icon-swords-emblem-solid" "icon-swords-emblem-outline" }}">
                         </i>
                     </a>
@@ -137,7 +137,7 @@
                 <div class="abilities flexcol">
                     {{#each actor.system.totalWeaponDamage.parts as |damage key|}}
                     {{#with (lookup ../config.damageTypes key)}}
-                    <div class="ability flexrow flex-group-center" style="background-color: {{color}};" title="{{label}} Damage">
+                    <div class="ability flexrow flex-group-center" style="background-color: {{color}};" data-tooltip="{{label}} Damage">
                         <b>
                         <span class="weapon-damage">
                             {{damage.min}}-{{damage.max}}

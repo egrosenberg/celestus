@@ -1,7 +1,7 @@
 <div class="dice-flavor celestus roll description">
     <header class="summary">
         {{#if portrait}}
-        <img class="roll-icon" src="{{portrait}}" title="{{name}}" />
+        <img class="roll-icon" src="{{portrait}}" data-tooltip="{{name}}" />
         {{/if}}
         <div class="name-stacked">
             <div class="title">{{name}}</div>
@@ -51,7 +51,7 @@
         {{#each system.bonuses.combat as |value skill|}}
         {{#if value}}
         {{#with (lookup ../config.combatSkills skill)}}
-        <div class="roll-tag" title="{{label}}">
+        <div class="roll-tag" data-tooltip="{{label}}">
             {{numberFormat value sign=true decimals=0}}
             {{label}}
         </div>
@@ -63,7 +63,7 @@
         {{#each system.bonuses.civil as |value skill|}}
         {{#if value}}
         {{#with (lookup ../config.civilSkills skill)}}
-        <div class="roll-tag" title="{{skill}}">
+        <div class="roll-tag" data-tooltip="{{skill}}">
             {{numberFormat value sign=true decimals=0}}
             {{label}}
         </div>
@@ -75,7 +75,7 @@
         {{#each system.bonuses.abilities as |value skill|}}
         {{#if value}}
         {{#with (lookup ../config.abilities skill)}}
-        <div class="roll-tag" title="{{skill}}">
+        <div class="roll-tag" data-tooltip="{{skill}}">
             {{numberFormat value sign=true decimals=0}}
             {{label}}
         </div>
@@ -87,7 +87,7 @@
         {{#each system.bonuses.resistance as |value skill|}}
         {{#if value}}
         {{#with (lookup ../config.damageTypes skill)}}
-        <div class="roll-tag" title="{{skill}}">
+        <div class="roll-tag" data-tooltip="{{skill}}">
             {{numberFormat value decimals=2}}
             {{label}}
         </div>

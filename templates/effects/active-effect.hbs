@@ -221,7 +221,7 @@
             <div class="damage-type">Type</div>
             <div class="damage-amount">Amount (%)</div>
             <div class="item-controls">
-                <a class="item-control damage-create" data-name="system.damage" title="Create New Damage Component" data-type="item">
+                <a class="item-control damage-create" data-name="system.damage" data-tooltip="Create New Damage Component" data-type="item">
                     <i class="fas fa-plus"></i>
                     Add Damage
                 </a>
@@ -243,7 +243,7 @@
                     <input type="text" data-name="system.damage" value="{{damage.value}}" data-index="{{@index}}" />
                 </div>
                 <div class="item-controls">
-                    <a class="item-control damage-delete" data-name="system.damage" title="Delete Damage Component" data-type="damage"
+                    <a class="item-control damage-delete" data-name="system.damage" data-tooltip="Delete Damage Component" data-type="damage"
                         data-index="{{@index}}">
                         <i class="fas fa-trash"></i>
                     </a>
@@ -256,7 +256,7 @@
             <div class="damage-type">Type</div>
             <div class="damage-amount">Amount (%)</div>
             <div class="item-controls">
-                <a class="item-control damage-create" data-name="system.damageRiders" title="Create New Damage Component" data-type="item">
+                <a class="item-control damage-create" data-name="system.damageRiders" data-tooltip="Create New Damage Component" data-type="item">
                     <i class="fas fa-plus"></i>
                     Add Rider
                 </a>
@@ -278,7 +278,7 @@
                     <input type="text" data-name="system.damageRiders" value="{{damage.value}}" data-index="{{@index}}" />
                 </div>
                 <div class="item-controls">
-                    <a class="item-control damage-delete" data-name="system.damageRiders" title="Delete Damage Component" data-type="damage"
+                    <a class="item-control damage-delete" data-name="system.damageRiders" data-tooltip="Delete Damage Component" data-type="damage"
                         data-index="{{@index}}">
                         <i class="fas fa-trash"></i>
                     </a>
@@ -290,7 +290,7 @@
         <li class="item flexrow damage-header" draggable="true">
             <div class="damage-type">Status</div>
             <div class="item-controls">
-                <a class="item-control removes-create" title="Add a new status" data-type="item">
+                <a class="item-control removes-create" data-tooltip="Add a new status" data-type="item">
                     <i class="fas fa-plus"></i>
                     Add Status
                 </a>
@@ -311,7 +311,7 @@
                     </select>
                 </div>
                 <div class="item-controls">
-                    <a class="item-control removes-delete" title="Remove status" data-type="damage"
+                    <a class="item-control removes-delete" data-tooltip="Remove status" data-type="damage"
                         data-name="system.removes" data-index="{{@index}}">
                         <i class="fas fa-trash"></i>
                     </a>
@@ -323,7 +323,7 @@
         <li class="item flexrow damage-header" draggable="true">
             <div class="damage-type">Status</div>
             <div class="item-controls">
-                <a class="item-control blocks-create" title="Add a new status" data-type="item">
+                <a class="item-control blocks-create" data-tooltip="Add a new status" data-type="item">
                     <i class="fas fa-plus"></i>
                     Add Status
                 </a>
@@ -345,7 +345,7 @@
                 </div>
                 <div class="item-controls">
                     <a class="item-control blocks-delete" data-name="system.blocks" data-index="{{@index}}"
-                        title="Remove status" data-type="damage">
+                        data-tooltip="Remove status" data-type="damage">
                         <i class="fas fa-trash"></i>
                     </a>
                 </div>
