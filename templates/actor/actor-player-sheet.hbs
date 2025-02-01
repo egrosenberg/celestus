@@ -104,6 +104,26 @@
                         </span>
                     </span>
                 </div>
+                <h2>Weapon Damage</h2>
+                <div class="abilities flexcol">
+                    {{#each actor.system.totalWeaponDamage.parts as |damage key|}}
+                    {{#with (lookup ../config.damageTypes key)}}
+                    <div class="ability flexrow flex-group-center" style="background-color: {{color}};" title="{{label}} Damage">
+                        <b>
+                        <span class="weapon-damage">
+                            {{damage.min}}-{{damage.max}}
+                        </span>
+                        <span class="weapon-damage">
+                            ({{damage.avg}})
+                        </span>
+                        <label class="resource-label rollable flexlarge align-right">
+                            <i class="{{glyph}}"></i>
+                        </label>
+                        </b>
+                    </div>
+                    {{/with}}
+                    {{/each}}
+                </div>
                 <h2>Attribute Totals</h2>
                 <div class="stats-grid">
                     <h4>Unspent: {{numberFormat system.attributes.unspentPoints sign=true}}</h4>
@@ -214,7 +234,7 @@
                                 <div class="ability flexrow flex-group-center"
                                     style="background-color: {{#with (lookup ../config.civilSkills key)}}{{color}}{{/with}}">
                                     <label for="system.civil.{{key}}.base"
-                                        class="resource-label ability-roll flexlarge align-left" data-label="{{key}}">
+                                        class="resource-label maxwidth-label ability-roll flexlarge align-left" data-label="{{key}}">
                                         {{#with (lookup ../config.civilSkills key)}}
                                         <i class="{{glyph}}"> </i>{{label}}
                                         {{/with}}
@@ -241,7 +261,7 @@
                                 <div class="ability flexrow flex-group-center"
                                     style="background-color: var(--color-{{#with (lookup ../config.combatSkills ability.[0])}}{{damage}}{{/with}}-bg)">
                                     <label for="system.combat.{{ability.[0]}}.base"
-                                        class="resource-label ability-roll flexlarge align-left"
+                                        class="resource-label maxwidth-label ability-roll flexlarge align-left"
                                         data-label="{{ability.[0]}}">
                                         {{#with (lookup ../config.combatSkills ability.[0])}}
                                         <i class="{{glyph}}"></i>{{label}}
@@ -268,7 +288,7 @@
                                 <div class="ability flexrow flex-group-center"
                                     style="background-color: var(--color-{{#with (lookup ../config.combatSkills ability.[0])}}{{damage}}{{/with}}-bg)">
                                     <label for="system.combat.{{ability.[0]}}.base"
-                                        class="resource-label ability-roll flexlarge align-left"
+                                        class="resource-label maxwidth-label ability-roll flexlarge align-left"
                                         data-label="{{ability.[0]}}">
                                         {{#with (lookup ../config.combatSkills ability.[0])}}
                                         <i class="{{glyph}}"></i>{{label}}

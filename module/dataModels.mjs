@@ -514,6 +514,14 @@ export class ActorData extends foundry.abstract.TypeDataModel {
     get allSkills() {
         return this.parent.items.filter(i => i.type === "skill");
     }
+
+    /**
+     * Calculates total damage from all equipped weapons and effects
+    * @returns {undefined | Object} containing types breakdown of damage and total damage {total, parts}
+     */
+    get totalWeaponDamage() {
+        return calcWeaponDamage(this.parent, 1, false);
+    }
 };
 
 
@@ -673,14 +681,6 @@ export class PlayerData extends ActorData {
             const right = equipped.right.system.damage;
             return [left, right];
         }
-    }
-
-    /**
-     * Calculates total damage from all equipped weapons and effects
-    * @returns {undefined | Object} containing types breakdown of damage and total damage {total, parts}
-     */
-    get totalWeaponDamage() {
-        return calcWeaponDamage(this.parent, 1, false);
     }
 
     /**

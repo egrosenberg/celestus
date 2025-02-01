@@ -636,6 +636,12 @@ input[type="color"]::-webkit-color-swatch {
     text-align: right;
 }
 
+.celestus.actor.sheet .weapon-damage {
+    font-size: var(--font-size-18);
+    padding: 3px;
+    text-align: left;
+}
+
 .celestus.actor.sheet .status-icon {
     width: 25px;
     height: 25px;
@@ -657,8 +663,11 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .celestus.actor.sheet .abilities label {
-    flex: 0 1 180px;
     padding: 3px;
+}
+
+.celestus.actor.sheet .abilities .maxwidth-label {
+    flex: 0 1 180px;
 }
 
 .celestus.actor.sheet .abilities input {

@@ -133,6 +133,26 @@
                     </span>
                 </div>
                 {{/if}}
+                <h2>Weapon Damage</h2>
+                <div class="abilities flexcol">
+                    {{#each actor.system.totalWeaponDamage.parts as |damage key|}}
+                    {{#with (lookup ../config.damageTypes key)}}
+                    <div class="ability flexrow flex-group-center" style="background-color: {{color}};" title="{{label}} Damage">
+                        <b>
+                        <span class="weapon-damage">
+                            {{damage.min}}-{{damage.max}}
+                        </span>
+                        <span class="weapon-damage">
+                            ({{damage.avg}})
+                        </span>
+                        <label class="resource-label rollable flexlarge align-right">
+                            <i class="{{glyph}}"></i>
+                        </label>
+                        </b>
+                    </div>
+                    {{/with}}
+                    {{/each}}
+                </div>
                 <h2>Attribute Totals</h2>
                 <div class="stats-grid">
                     {{#each system.abilities as |ability key|}}
