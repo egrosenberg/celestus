@@ -386,7 +386,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
     get damageRiders() {
         let riders = [];
         for (const effect of this.parent.effects) {
-            if (effect.system?.damageRiders?.length) {
+            if (effect.active && effect.system?.damageRiders?.length) {
                 for (const damage of effect.system.damageRiders) {
                     riders.push({
                         type: damage.type,
