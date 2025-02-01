@@ -27,7 +27,9 @@ export function calcMult(actor, type, ability, base, crit, flat = 0) {
     }
     const critBonus = crit ? actor.system.attributes.bonuses.crit_bonus.value : 1;
 
-    let mult = 1 * (base) * (1 + elementBonus) * (1 + abilityBonus) * (1 + flat + actor.system.attributes.bonuses.damage.value) * critBonus;
+    const damageBonus = CONFIG.CELESTUS.damageTypes[type]?.style === "healing" ? 0 :  actor.system.attributes.bonuses.damage.value;
+
+    let mult = 1 * (base) * (1 + elementBonus) * (1 + abilityBonus) * (1 + flat + damageBonus) * critBonus;
     return mult.toFixed(2);
 }
 
