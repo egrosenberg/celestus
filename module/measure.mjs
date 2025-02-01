@@ -125,6 +125,9 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                 await template?.setFlag("celestus", "surfaceType", skill.system.linger.surfaceType);
                 await template?.setFlag("celestus", "origin", skill.actor.uuid);
                 await template?.setFlag("celestus", "temporary", true);
+                if (skill.system.aoeLinger && skill.system.linger.texture) {
+                    await template.update({"texture": skill.system.linger.texture});
+                }
                 if (skill.system.linger.effects) {
                     await template.setFlag("celestus", "hasEffects", true);
                     await template.setFlag("celestus", "skillId", skill.uuid);

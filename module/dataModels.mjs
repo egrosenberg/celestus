@@ -907,6 +907,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
                 children: new ArrayField( // array of ids of owned effects created by the aura
                     new StringField()
                 ),
+                texture: new FilePathField({categories: ["IMAGE"]}),
             }),
         };
     }

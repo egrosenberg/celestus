@@ -494,6 +494,8 @@ export class CelestusItemSheet extends ItemSheet {
                 },
             ],
             scrollY: [".window-content"],
+            submitOnChange: true,
+            submitOnClose: true,
         });
     }
 
@@ -832,6 +834,7 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
             height: 580,
             tabs: [{ navSelector: ".tabs", contentSelector: "form", initial: "details" }],
             dragdrop: [".tab.other"],
+            submitOnChange: true,
         });
     }
 
@@ -983,6 +986,7 @@ export class CelestusMeasuredTemplateConfig extends MeasuredTemplateConfig {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             template: "./systems/celestus/templates/template-config.hbs",
+            submitOnChange: true,
         });
     }
 

@@ -301,7 +301,7 @@
             {{#each system.removes as |status|}}
             <li class="item flexrow">
                 <div class="status-type">
-                    <select class="damage-type-selector" name="system.removes[{{@index}}]" data-index="{{@index}}"
+                    <select data-name="system.removes" data-index="{{@index}}"
                         data-type="removes">
                         {{!-- create a dropdown option for each damage type --}}
                         {{#each ../statusEffects as |statusEffect|}}
@@ -312,7 +312,7 @@
                 </div>
                 <div class="item-controls">
                     <a class="item-control removes-delete" title="Remove status" data-type="damage"
-                        data-index="{{@index}}">
+                        data-name="system.removes" data-index="{{@index}}">
                         <i class="fas fa-trash"></i>
                     </a>
                 </div>
@@ -330,11 +330,11 @@
             </div>
         </li>
         <ol class="damage-list">
-            {{!-- create editor for each status it removes --}}
+            {{!-- create editor for each status it blocks --}}
             {{#each system.blocks as |status|}}
             <li class="item flexrow">
                 <div class="status-type">
-                    <select class="damage-type-selector" name="system.removes[{{@index}}]" data-index="{{@index}}"
+                    <select data-name="system.blocks" data-index="{{@index}}"
                         data-type="blocks">
                         {{!-- create a dropdown option for each damage type --}}
                         {{#each ../statusEffects as |statusEffect|}}
@@ -344,8 +344,8 @@
                     </select>
                 </div>
                 <div class="item-controls">
-                    <a class="item-control blocks-delete" title="Remove status" data-type="damage"
-                        data-index="{{@index}}">
+                    <a class="item-control blocks-delete" data-name="system.blocks" data-index="{{@index}}"
+                        title="Remove status" data-type="damage">
                         <i class="fas fa-trash"></i>
                     </a>
                 </div>
