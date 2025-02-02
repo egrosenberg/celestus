@@ -193,48 +193,14 @@ export class CelestusItem extends Item {
         const rollData = { ...super.getRollData() };
         rollData.config = CONFIG.CELESTUS;
 
+        // calculate damage if skill
+        if (this.type === "skill") {
+            rollData.dmg = this.system.totalDamage;
+        }
+
         // return if no parent actor
         if (!this.actor) return rollData;
 
-        // calculate damage if skill
-        if (this.type === "skill") {
-            //let damage = {
-            //    formula: "",
-            //    min: 0,
-            //    max: 0,
-            //    avg: 0,
-            //};
-            //let first = true;
-            //for (let part of this.system.damage) {
-            //    if (!first) {
-            //        damage.formula += " + "
-            //    }
-            //    else {
-            //        first = false;
-            //    }
-            //    const mult = calcMult(this.actor, part.type, this.system.ability, part.value, false, 0);
-            //    damage.formula += `((${CONFIG.CELESTUS.baseDamage.formula[this.actor.system.attributes.level]})*${part.value})[${part.type}]`;
-            //    const min = parseInt(CONFIG.CELESTUS.baseDamage.min[this.actor.system.attributes.level] * mult);
-            //    const max = parseInt(CONFIG.CELESTUS.baseDamage.max[this.actor.system.attributes.level] * mult);
-            //    const avg = parseInt(CONFIG.CELESTUS.baseDamage.avg[this.actor.system.attributes.level] * mult);
-            //    damage.min += min;
-            //    damage.max += max;
-            //    damage.avg += avg;
-            //    // itemized type
-            //    if (!damage[part.type]) {
-            //        damage[part.type] = {
-            //            min: 0,
-            //            max: 0,
-            //            avg: 0,
-            //        };
-            //    }
-            //    damage[part.type].min += min;
-            //    damage[part.type].max += max;
-            //    damage[part.type].avg += avg;
-            //}
-
-            rollData.dmg = this.system.totalDamage;
-        }
         else if (this.type === "armor") {
             if (this.system.type !== "none") {
                 rollData.armor = this.system.value;

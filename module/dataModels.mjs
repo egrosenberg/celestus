@@ -1089,7 +1089,8 @@ export class SkillData extends foundry.abstract.TypeDataModel {
     }
 
     get totalDamage() {
-        const actorLevel = this.parent.actor?.system.attributes.level || 1;
+        const actor = this.parent.actor ?? game.user.character ?? _token.actor;
+        const actorLevel = actor?.system.attributes.level || 1;
         if (this.needsDamageField) {
             let total = {
                 min: 0,
@@ -1106,7 +1107,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
                         avg: 0
                     }
                 }
-                const mult = this.parent.actor ? calcMult(this.parent.actor, part.type, this.ability, part.value, false, 0) : 1;
+                const mult = actor ? calcMult(actor, part.type, this.ability, part.value, false, 0) : 1;
                 const min = parseInt(CONFIG.CELESTUS.baseDamage.min[actorLevel] * mult);
                 const max = parseInt(CONFIG.CELESTUS.baseDamage.max[actorLevel] * mult);
                 const avg = parseInt(CONFIG.CELESTUS.baseDamage.avg[actorLevel] * mult);
@@ -1125,7 +1126,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             };
         }
         else {
-            if (!this.parent.actor) return;
+            if (!actor) return;
             return calcWeaponDamage(this.parent.actor, this.weaponEfficiency, this.overridesWeaponType ? this.overrideDamageType : false);
         }
     }
