@@ -636,10 +636,26 @@ input[type="color"]::-webkit-color-swatch {
     text-align: right;
 }
 
-.celestus.actor.sheet .weapon-damage {
+.celestus.actor.sheet .weapon-damage-minmax {
+    font-weight: bold;
+    font-size: var(--font-size-18);
+    padding: 3px;
+    text-align: right;
+    flex: 2;
+}
+
+.celestus.actor.sheet .weapon-damage-avg {
+    font-weight: bold;
     font-size: var(--font-size-18);
     padding: 3px;
     text-align: left;
+}
+
+.celestus.actor.sheet .weapon-damage-symbol {
+    font-weight: bold;
+    font-size: var(--font-size-18);
+    padding: 3px;
+    flex: none;
 }
 
 .celestus.actor.sheet .status-icon {
@@ -794,6 +810,7 @@ input[type="color"]::-webkit-color-swatch {
 
 .celestus.actor.sheet .item-formula {
     text-align: center;
+    flex: max-content;
 }
 
 .celestus.actor.sheet .item-image {

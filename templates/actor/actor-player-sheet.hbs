@@ -109,20 +109,27 @@
                     {{#each actor.system.totalWeaponDamage.parts as |damage key|}}
                     {{#with (lookup ../config.damageTypes key)}}
                     <div class="ability flexrow flex-group-center" style="background-color: {{color}};" data-tooltip="{{label}} Damage">
-                        <b>
-                        <span class="weapon-damage">
+                        <span class="weapon-damage-minmax">
                             {{damage.min}}-{{damage.max}}
                         </span>
-                        <span class="weapon-damage">
+                        <span class="weapon-damage-avg">
                             ({{damage.avg}})
                         </span>
-                        <label class="resource-label rollable flexlarge align-right">
+                        <label class="weapon-damage-symbol flexlarge align-right">
                             <i class="{{glyph}}"></i>
                         </label>
-                        </b>
                     </div>
                     {{/with}}
                     {{/each}}
+                    <h2>Total Damage</h2>
+                    <div class="ability flexrow flex-group-center physical" data-tooltip="Total Damage">
+                        <span class="weapon-damage-minmax">
+                            {{actor.system.totalWeaponDamage.total.min}}-{{actor.system.totalWeaponDamage.total.max}}
+                        </span>
+                        <span class="weapon-damage-avg">
+                            ({{actor.system.totalWeaponDamage.total.avg}})
+                        </span>
+                    </div>
                 </div>
                 <h2>Attribute Totals</h2>
                 <div class="stats-grid">

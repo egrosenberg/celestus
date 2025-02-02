@@ -74,7 +74,6 @@
             {{/with}}
             {{#each item.system.displayBonusDamage as |damage|}}
             {{#with (lookup ../../config.damageTypes damage.type) as |damageType|}}
-            <b>+ </b>
             <span class="roll-tag {{damage.type}}-dark">
                 <i class="{{damageType.glyph}}"></i>
                 {{damage.min}}-{{damage.max}}
