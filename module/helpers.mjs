@@ -347,8 +347,8 @@ export function calcWeaponDamage(actor, scalar, typeOverride, isCrit = false) {
             // roll any bonus damage types
             if (bonusDamage[0]) {
                 for (const element of bonusDamage[0]) {
-                    formula += ` + floor((${isCrit ? element.crit : element.roll})*${scalar})[${elementType}]`;
                     const elementType = typeOverride || element.type;
+                    formula += ` + floor((${isCrit ? element.crit : element.roll})*${scalar})[${elementType}]`;
                     if (!types[elementType]) {
                         types[elementType] = {
                             min: 0,
@@ -400,8 +400,8 @@ export function calcWeaponDamage(actor, scalar, typeOverride, isCrit = false) {
             // roll any bonus damage types
             if (bonusDamage[1]) {
                 for (const element of bonusDamage[1]) {
-                    formula += ` + floor((${isCrit ? element.crit : element.roll})*${scalar * CONFIG.CELESTUS.dualwieldMult})[${elementType}]`;
                     const elementType = typeOverride || element.type;
+                    formula += ` + floor((${isCrit ? element.crit : element.roll})*${scalar * CONFIG.CELESTUS.dualwieldMult})[${elementType}]`;
                     if (!types[elementType]) {
                         types[elementType] = {
                             min: 0,
