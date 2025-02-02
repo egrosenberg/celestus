@@ -34,4 +34,42 @@ export const scripts = {
             await origin.update({"system.resources.mag_armor.flat": newMag});
         }
     },
+    /**
+     * Restores all magic armor on targets
+     */
+    oceanBless: async function (origin, targets) {
+        for (const target of targets) {
+            await target.actor.update({"system.resources.mag_armor.flat": target.actor.system.resources.mag_armor.max});
+        }
+    },
+    /**
+     * Create an effect on the origin actor based on the amount of creature surrounding it
+     */
+    thickOfIt: async function (origin, targets) {
+        const active = origin.getActiveTokens()?.[0];
+        if (!active) return;
+        let count = 0;
+        const scene = active.scene;
+        const scale = scene.grid.distance / scene.grid.size;
+        for (const token of scene.tokens) {
+            const dist = Math.sqrt((active.x - token.x)**2 + (active.y - token.y)**2) * scale;
+            if (dist <= 15) count++;
+        }
+        if (count > 0) {
+            await origin.createEmbeddedDocuments("ActiveEffect", [{
+                name: "In The Thick Of It",
+                img: "icons/skills/social/diplomacy-unity-alliance.webp",
+                type: "status",
+                duration: { rounds: 3 },
+                origin: origin.uuid,
+                changes: [
+                    {
+                        key: "system.attributes.bonuses.damage.bonus",
+                        mode: 2,
+                        value: `+${count*0.1}`
+                    }
+                ]
+            }])
+        }
+    },
 }

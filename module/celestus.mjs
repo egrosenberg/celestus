@@ -511,6 +511,7 @@ Hooks.on("init", () => {
             "poison",
             "acid",
             "suffocate",
+            "psychosis",
             "root"
         ],
         farsightBonus: 15,

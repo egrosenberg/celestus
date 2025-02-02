@@ -46,9 +46,11 @@ export const surfaceTypes = {
         combines: {
             oil: { mode: "corrupt" },
             poison: { mode: "corrupt" },
-            fire: { mode: "override" },
+            fire: { mode: "corrupt" },
             water: { mode: "override" },
-            ice: { mode: "override" },
+            ice: { mode: "combine", makes: "water", corrupts: true },
+            frozen_blood: { mode: "combine", makes: "blood", corrupts: true },
+            frozen_poison: { mode: "combine", makes: "spiritfire", corrupts: true },
         },
         texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Spiritfire-2-25.webp"
     },

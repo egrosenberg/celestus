@@ -450,13 +450,31 @@ export let statuses = [
         ],
     },
     {
+        id: "psychosis",
+        name: "Psychosis",
+        img: "systems/celestus/svg/bleeding-eye.svg",
+        type: "status",
+        duration: { rounds: 2 },
+        system: {
+            damage: [{ type: "psychic", value: 1 }],
+            resistedBy: "mag",
+        },
+        changes: [
+            {
+                key: "system.attributes.resistance.psychic.bonus",
+                value: "-0.15",
+                mode: 2,
+            },
+        ],
+    },
+    {
         id: "enlighten",
         name: "Clear Minded",
         img: "systems/celestus/svg/third-eye.svg",
         type: "status",
         duration: { rounds: 5 },
         system: {
-            blocks: ["rage", "charm", "fear", "sleep", "taunt", "mad", "daze"],
+            blocks: ["rage", "charm", "fear", "sleep", "taunt", "mad", "daze", "psychosis"],
         },
         changes: [
             {
