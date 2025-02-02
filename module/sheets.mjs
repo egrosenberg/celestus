@@ -515,6 +515,9 @@ export class CelestusItemSheet extends ItemSheet {
         // Use a safe clone of the item data for further operations.
         const itemData = context.data;
 
+        // if user is gm
+        context.isGM = game.user.isGM;
+
         // Retrieve the roll data for editors.
         context.rollData = this.document.getRollData();
 
