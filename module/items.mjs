@@ -108,7 +108,7 @@ export class CelestusItem extends Item {
         }
 
         // socketing stuff
-        if (this.type === "armor" || this.type === "weapon") {
+        if (this.type === "armor" || this.type === "weapon" || this.type === "offhand") {
             // initialize spread when changing rarity
             const newRarity = changed.system?.rarity;
             if (newRarity && newRarity !== this.system.rarity) {
@@ -325,6 +325,7 @@ export class CelestusItem extends Item {
             s.type.includes(socketType) &&
             matchIfPresent(s.gearType, this.type) &&
             matchIfPresent(s.slot, this.system.slot) &&
+            matchIfPresent(s.spread, this.system.spread) &&
             matchIfPresent(s.weaponStyle, weaponStyle) &&
             matchIfPresent(s.twoHanded, this.system.twoHanded) &&
             matchIfPresent(s.primaryStat, this.system.ability) &&

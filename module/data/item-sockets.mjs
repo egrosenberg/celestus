@@ -1,6 +1,13 @@
 export default {
     "sockets": [
         {
+            "id": "Offhand_RuneEmpty",
+            "type": "RuneEmpty",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "plug": "Offhand_RuneEmpty"
+        },
+        {
             "id": "Armor_Amulet_RuneEmpty",
             "type": "RuneEmpty",
             "minLvl": 1,
@@ -12,7 +19,8 @@ export default {
             "id": "Armor_Belt_RuneEmpty",
             "type": "RuneEmpty",
             "minLvl": 1,
-            "gearType": "Belt",
+            "gearType": "armor",
+            "slot": "belt",
             "plug": "Armor_RuneEmpty"
         },
         {
@@ -4791,6 +4799,830 @@ export default {
             "minLvl": 1,
             "gearType": "weapon",
             "plug": "Armor_StatusApply_Bleeding"
+        },
+        {
+            "id": "Offhand_Shield_Ability_Retribution_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Ability_Retribution_T1"
+        },
+        {
+            "id": "Offhand_Shield_Bonus_Evasion_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Bonus_Evasion_T1"
+        },
+        {
+            "id": "Offhand_Shield_Bonus_Evasion_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Bonus_Evasion_T2"
+        },
+        {
+            "id": "Offhand_Shield_Bonus_Evasion_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Bonus_Evasion_T3"
+        },
+        {
+            "id": "Offhand_Shield_Bonus_Initiative_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Bonus_Initiative_T1"
+        },
+        {
+            "id": "Offhand_Shield_Bonus_Initiative_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Bonus_Initiative_T2"
+        },
+        {
+            "id": "Offhand_Shield_Bonus_Initiative_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Bonus_Initiative_T3"
+        },
+        {
+            "id": "Offhand_Shield_Boost_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Boost_T1"
+        },
+        {
+            "id": "Offhand_Shield_Boost_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Boost_T2"
+        },
+        {
+            "id": "Offhand_Shield_Boost_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Boost_T3"
+        },
+        {
+            "id": "Offhand_Shield_Resistance_Fire_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Resistance_Fire_T1"
+        },
+        {
+            "id": "Offhand_Shield_Resistance_Fire_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Resistance_Fire_T1"
+        },
+        {
+            "id": "Offhand_Shield_Resistance_Fire_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Resistance_Fire_T1"
+        },
+        {
+            "id": "Offhand_Shield_Resistance_Water_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Resistance_Water_T1"
+        },
+        {
+            "id": "Offhand_Shield_Resistance_Water_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Resistance_Water_T1"
+        },
+        {
+            "id": "Offhand_Shield_Resistance_Water_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Resistance_Water_T1"
+        },
+        {
+            "id": "Offhand_Shield_Resistance_Air_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Resistance_Air_T1"
+        },
+        {
+            "id": "Offhand_Shield_Resistance_Air_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Resistance_Air_T1"
+        },
+        {
+            "id": "Offhand_Shield_Resistance_Air_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Resistance_Air_T1"
+        },
+        {
+            "id": "Offhand_Shield_Resistance_Earth_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Resistance_Earth_T1"
+        },
+        {
+            "id": "Offhand_Shield_Resistance_Earth_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Resistance_Earth_T1"
+        },
+        {
+            "id": "Offhand_Shield_Resistance_Earth_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Resistance_Earth_T1"
+        },
+        {
+            "id": "Offhand_Shield_Resistance_Poison_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Resistance_Poison_T1"
+        },
+        {
+            "id": "Offhand_Shield_Resistance_Poison_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Resistance_Poison_T1"
+        },
+        {
+            "id": "Offhand_Shield_Resistance_Poison_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Resistance_Poison_T1"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Strength_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Strength_T1"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Strength_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Strength_T2"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Strength_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Strength_T3"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Constitution_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Constitution_T1"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Constitution_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Constitution_T2"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Constitution_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Constitution_T3"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Intellect_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Intellect_T1"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Intellect_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Intellect_T2"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Intellect_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Intellect_T3"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Strength_T1_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Strength_T1"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Strength_T2_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Strength_T2"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Strength_T3_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Strength_T3"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Constitution_T1_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Constitution_T1"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Constitution_T2_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Constitution_T2"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Constitution_T3_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Constitution_T3"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Intellect_T1_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Intellect_T1_Primary"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Intellect_T2_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Intellect_T2_Primary"
+        },
+        {
+            "id": "Offhand_Shield_Attribute_Intellect_T3_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Attribute_Intellect_T3_Primary"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Flamespeaker_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Flamespeaker_T1"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Flamespeaker_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Flamespeaker_T2"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Flamespeaker_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Flamespeaker_T3"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Flamespeaker_T4",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Flamespeaker_T3"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Tidecaller_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Tidecaller_T1"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Tidecaller_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Tidecaller_T2"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Tidecaller_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Tidecaller_T3"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Tidecaller_T4",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Tidecaller_T3"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Stormseeker_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Stormseeker_T1"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Stormseeker_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Stormseeker_T2"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Stormseeker_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Stormseeker_T3"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Stormseeker_T4",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Stormseeker_T3"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Duneshaper_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Duneshaper_T1"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Duneshaper_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Duneshaper_T2"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Duneshaper_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Duneshaper_T3"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Duneshaper_T4",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Duneshaper_T3"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Voidcantor_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Voidcantor_T1"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Voidcantor_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Voidcantor_T2"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Voidcantor_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Voidcantor_T3"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Voidcantor_T4",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Voidcantor_T3"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Deathbringer_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Deathbringer_T1"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Deathbringer_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Deathbringer_T2"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Deathbringer_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Deathbringer_T3"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Deathbringer_T4",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Deathbringer_T3"
+        },
+        {
+            "id": "Offhand_Focus_Ability_Deathbringer_T4",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Ability_Deathbringer_T3"
+        },
+        {
+            "id": "Offhand_Focus_Bonus_Initiative_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Bonus_Initiative_T1"
+        },
+        {
+            "id": "Offhand_Focus_Bonus_Initiative_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Bonus_Initiative_T2"
+        },
+        {
+            "id": "Offhand_Focus_Bonus_Initiative_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Bonus_Initiative_T3"
+        },
+        {
+            "id": "Offhand_Focus_Bonus_CritChance_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Bonus_CritChance_T1"
+        },
+        {
+            "id": "Offhand_Focus_Bonus_CritChance_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Bonus_CritChance_T2"
+        },
+        {
+            "id": "Offhand_Focus_Bonus_CritChance_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Bonus_CritChance_T3"
+        },
+        {
+            "id": "Offhand_Focus_Bonus_CritChance_T4",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Bonus_CritChance_T4"
+        },
+        {
+            "id": "Offhand_Focus_Bonus_CritBonus_T1",
+            "type": "Small",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Bonus_CritBonus_T1"
+        },
+        {
+            "id": "Offhand_Focus_Bonus_CritBonus_T2",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Bonus_CritBonus_T2"
+        },
+        {
+            "id": "Offhand_Focus_Bonus_CritBonus_T3",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Bonus_CritBonus_T3"
+        },
+        {
+            "id": "Offhand_Focus_Bonus_CritBonus_T4",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Bonus_CritBonus_T4"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Mind_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Mind_T1"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Mind_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Mind_T2"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Mind_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Mind_T3"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Constitution_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Constitution_T1"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Constitution_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Constitution_T2"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Constitution_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Constitution_T3"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Intellect_T1",
+            "type": "Normal",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Intellect_T1"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Intellect_T2",
+            "type": "Large",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Intellect_T2"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Intellect_T3",
+            "type": "Legendary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Intellect_T3"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Mind_T1_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Mind_T1"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Mind_T2_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Mind_T2"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Mind_T3_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Mind_T3"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Constitution_T1_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Constitution_T1"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Constitution_T2_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Constitution_T2"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Constitution_T3_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Constitution_T3"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Intellect_T1_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Intellect_T1_Primary"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Intellect_T2_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Intellect_T2_Primary"
+        },
+        {
+            "id": "Offhand_Focus_Attribute_Intellect_T3_Primary",
+            "type": "Primary",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Attribute_Intellect_T3_Primary"
+        },
+        {
+            "id": "Offhand_Shield_Base_Small",
+            "type": "BaseUncommon",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Boost_T1"
+        },
+        {
+            "id": "Offhand_Shield_Base_Medium",
+            "type": "BaseRare",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Boost_T2"
+        },
+        {
+            "id": "Offhand_Shield_Base_Large",
+            "type": "BaseEpic",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "shield",
+            "plug": "Offhand_Boost_T3"
+        },
+        {
+            "id": "Offhand_Focus_Base_Small",
+            "type": "BaseUncommon",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Boost_T1"
+        },
+        {
+            "id": "Offhand_Focus_Base_Medium",
+            "type": "BaseRare",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Boost_T2"
+        },
+        {
+            "id": "Offhand_Focus_Base_Large",
+            "type": "BaseEpic",
+            "minLvl": 1,
+            "gearType": "offhand",
+            "spread": "focus",
+            "plug": "Offhand_Boost_T3"
         }
     ]
 }

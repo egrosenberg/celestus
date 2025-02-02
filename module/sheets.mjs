@@ -561,6 +561,7 @@ export class CelestusItemSheet extends ItemSheet {
                     s.type.includes(type) &&
                     matchIfPresent(s.gearType, this.document.type) &&
                     matchIfPresent(s.slot, this.document.system.slot) &&
+                    matchIfPresent(s.spread, this.document.system.spread) &&
                     matchIfPresent(s.weaponStyle, weaponStyle) &&
                     matchIfPresent(s.twoHanded, this.document.system.twoHanded) &&
                     matchIfPresent(s.primaryStat, this.document.system.ability) &&

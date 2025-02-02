@@ -12,6 +12,7 @@ import { registerSocketHandlers } from "./socket-handler.mjs"
 import itemSocketSpreadJson from './data/item-socket-spreads.mjs';
 import itemArmorPlugsJson from './data/item-armor-plugs.mjs';
 import itemWeaponPlugsJson from './data/item-weapon-plugs.mjs';
+import itemOffhandPlugsJson from './data/item-offhand-plugs.mjs';
 import itemSocketJson from './data/item-sockets.mjs';
 import { scripts } from "./resources/skill-scripts.mjs"
 import { surfaceTypes } from "./data/surface-types.mjs"
@@ -394,7 +395,8 @@ Hooks.on("init", () => {
         offhand: {
             spreads: {
                 none: { label: "Custom", phys: 0, mag: 0 },
-                shield: { label: "Shield", phys: 90, mag: 60 }
+                shield: { label: "Shield", phys: 90, mag: 60 },
+                focus: { label: "Focus", phys: 0, mag: 90 }
             },
             scalar: 9.68,
         },
@@ -552,6 +554,7 @@ Hooks.on("init", () => {
         itemPlugs: {
             armor: itemArmorPlugsJson.plugs,
             weapon: itemWeaponPlugsJson.plugs,
+            offhand: itemOffhandPlugsJson.plugs,
         },
         itemSockets: itemSocketJson.sockets,
         // weapon skills ids
