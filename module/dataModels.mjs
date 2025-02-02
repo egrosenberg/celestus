@@ -327,14 +327,15 @@ export class ActorData extends foundry.abstract.TypeDataModel {
      */
     get armor() {
         return {
-            helmet: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "helmet")),
-            chest: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "chest")),
-            gloves: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "gloves")),
-            leggings: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "leggings")),
-            boots: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "boots")),
-            amulet: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "amulet")),
-            ring: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "ring")),
-            belt: this.parent.items.filter(i => (i.type === "armor" && i.system.slot == "belt")),
+            helmet: this.parent.items.filter(i => (i.type === "armor" && i.system.slot === "helmet")),
+            chest: this.parent.items.filter(i => (i.type === "armor" && i.system.slot === "chest")),
+            gloves: this.parent.items.filter(i => (i.type === "armor" && i.system.slot === "gloves")),
+            leggings: this.parent.items.filter(i => (i.type === "armor" && i.system.slot === "leggings")),
+            boots: this.parent.items.filter(i => (i.type === "armor" && i.system.slot === "boots")),
+            amulet: this.parent.items.filter(i => (i.type === "armor" && i.system.slot === "amulet")),
+            ring: this.parent.items.filter(i => (i.type === "armor" && i.system.slot === "ring")),
+            belt: this.parent.items.filter(i => (i.type === "armor" && i.system.slot === "belt")),
+            other: this.parent.items.filter(i => (i.type === "armor" && i.system.slot === "none")),
         };
     }
 
