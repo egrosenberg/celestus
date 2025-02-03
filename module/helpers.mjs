@@ -1,3 +1,56 @@
+/**
+ * Creates a prompt allowing a user to create a damage roll with no actor or sheet
+ */
+export function improviseDamage() {
+    let select = "";
+    for (const [type, info] of Object.entries(CONFIG.CELESTUS.damageTypes)) {
+        select += `<option value="${type}">${info.label}</option>`
+    }
+
+    new foundry.applications.api.DialogV2({
+        window: { title: "Improvise damage roll", width: 400 },
+        content: `
+        <div class="form-group" style="min-width: 400px">
+            <label>Damage Level</label>
+            <div class="form-fields">
+                <input type="text" name="level" value="1" />
+            </div>
+        </div>
+        <div class="form-group" style="min-width: 400px">
+            <label>Damage Multiplier</label>
+            <div class="form-fields">
+                <input type="text" name="mult" value="1" />
+            </div>
+        </div>
+        <div class="form-group" style="min-width: 400px">
+            <label>Damage Type</label>
+            <div class="form-fields">
+                <select name="damageType" />
+                    ${select}
+                </select>
+            </div>
+        </div>
+    `,
+        buttons: [{
+            action: "submit",
+            label: "Roll",
+            default: true,
+            callback: (event, button, dialog) => button.form.elements
+        }],
+        submit: async values => {
+            const level = values.level.value;
+            const type = values.damageType.value;
+            const scalar = (1 + (values.mult.value * (level - 1) * CONFIG.CELESTUS.flatDamageScalar)).toFixed(2);
+            const f = `floor((${CONFIG.CELESTUS.baseDamage.formula[level]})*${scalar})[${type}]`;
+            const r = new Roll(f);
+            await r.toMessage({
+                speaker: { alias: `${game.user.name} - Improvised Damage`},
+                'system.isDamage': true,
+                'system.damageType': type,
+            });
+        }
+    }).render({ force: true });
+}
 
 /**
  * Calculates the multiplier for a specified damage roll
@@ -27,7 +80,7 @@ export function calcMult(actor, type, ability, base, crit, flat = 0) {
     }
     const critBonus = crit ? actor.system.attributes.bonuses.crit_bonus.value : 1;
 
-    const damageBonus = CONFIG.CELESTUS.damageTypes[type]?.style === "healing" ? 0 :  actor.system.attributes.bonuses.damage.value;
+    const damageBonus = CONFIG.CELESTUS.damageTypes[type]?.style === "healing" ? 0 : actor.system.attributes.bonuses.damage.value;
 
     let mult = 1 * (base) * (1 + elementBonus) * (1 + abilityBonus) * (1 + flat + damageBonus) * critBonus;
     return mult.toFixed(2);
@@ -241,9 +294,9 @@ export function calcWeaponDamage(actor, scalar, typeOverride, isCrit = false) {
 
     // calculate rider damage rolls and stats
     const riderBase = CONFIG.CELESTUS.baseDamage.formula[actor.system.attributes.level];
-    const riderMin =  CONFIG.CELESTUS.baseDamage.min[actor.system.attributes.level];
-    const riderMax =  CONFIG.CELESTUS.baseDamage.max[actor.system.attributes.level];
-    const riderAvg =  CONFIG.CELESTUS.baseDamage.avg[actor.system.attributes.level];
+    const riderMin = CONFIG.CELESTUS.baseDamage.min[actor.system.attributes.level];
+    const riderMax = CONFIG.CELESTUS.baseDamage.max[actor.system.attributes.level];
+    const riderAvg = CONFIG.CELESTUS.baseDamage.avg[actor.system.attributes.level];
     let riderInfo = [];
     for (const rider of damageRiders) {
         // calculate bonus from weapon combat ability

@@ -389,26 +389,29 @@ export class CelestusActor extends Actor {
         newHealth = Math.min(newHealth, maxHealth);
         // update health value
         await this.update({ "system.resources.hp.flat": parseInt(newHealth) });
-        // check if hp was reduced to 0
-        if (value > 0 && newHealth < 1 && origin.getFlag("celestus", "executioner")) {
-            const ap = origin.system.resources.ap.value + CONFIG.CELESTUS.executeAp;
-            await origin.update({ "system.resources.ap.value": Math.min(ap, origin.system.resources.ap.max) });
-            canvasPopupText(origin, "Executioner");
-        }
-
-        // apply healing to origin based on lifesteal / apply retribution damage
-        if (origin.uuid != this.uuid && damage > 0 && CONFIG.CELESTUS.damageTypes[type].style !== "healing") {
-            const heal = (origin.system.attributes.bonuses.lifesteal.value + lifesteal) * damage;
-            await origin.update({ "system.resources.hp.flat": origin.system.resources.hp.flat + Math.round(heal) })
-            const retribution = this.system.combat.retributive.mod * damage;
-            await origin.applyDamage(retribution, type, origin)
-        }
-
-        // finally, check if actor is flammable and if damage is fire damage
-        if (type === "fire" && this.getFlag("celestus", "flammable")) {
-            const burn = await this.toggleStatusEffect("burn", { active: true });
-            if (typeof burn != "boolean") {
-                burn.update({ "origin": origin.uuid })
+        // the following only matters if there is an origin
+        if (origin) {
+            // check if hp was reduced to 0
+            if (value > 0 && newHealth < 1 && origin.getFlag("celestus", "executioner")) {
+                const ap = origin.system.resources.ap.value + CONFIG.CELESTUS.executeAp;
+                await origin.update({ "system.resources.ap.value": Math.min(ap, origin.system.resources.ap.max) });
+                canvasPopupText(origin, "Executioner");
+            }
+    
+            // apply healing to origin based on lifesteal / apply retribution damage
+            if (origin.uuid != this.uuid && damage > 0 && CONFIG.CELESTUS.damageTypes[type].style !== "healing") {
+                const heal = (origin.system.attributes.bonuses.lifesteal.value + lifesteal) * damage;
+                await origin.update({ "system.resources.hp.flat": origin.system.resources.hp.flat + Math.round(heal) })
+                const retribution = this.system.combat.retributive.mod * damage;
+                await origin.applyDamage(retribution, type, origin)
+            }
+    
+            // finally, check if actor is flammable and if damage is fire damage
+            if (type === "fire" && this.getFlag("celestus", "flammable")) {
+                const burn = await this.toggleStatusEffect("burn", { active: true });
+                if (typeof burn != "boolean") {
+                    burn.update({ "origin": origin.uuid })
+                }
             }
         }
 

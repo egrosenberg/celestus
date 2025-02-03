@@ -16,6 +16,7 @@ import itemOffhandPlugsJson from './data/item-offhand-plugs.mjs';
 import itemSocketJson from './data/item-sockets.mjs';
 import { scripts } from "./resources/skill-scripts.mjs"
 import { surfaceTypes } from "./data/surface-types.mjs"
+import { improviseDamage } from "./helpers.mjs"
 
 // import * as itemSocketSpreadJson from './data/item-socket-spreads.json' with { type: "json" };
 // import * as itemArmorPlugsJson from './data/item-armor-plugs.json' with { type: "json" };
@@ -56,7 +57,8 @@ Hooks.on("init", () => {
             for (const template of canvas?.scene?.templates) {
                 await template.testAll();
             }
-        }
+        },
+        improviseDamage,
     }
     // override initiative rolls
     game.system.initiative = "1d20+@abilities.wit.total+@attributes.bonuses.initiative.value";
@@ -752,6 +754,20 @@ Hooks.on("ready", () => {
     $(document).on("click", ".apply-damage", applyDamageHook);
     $(document).on("click", ".apply-status", applyStatusHook);
     $(document).on("click", ".draw-template", drawTemplate);
+    
+    // create chat-control button
+    let damageControlLabel = document.createElement("label");
+    damageControlLabel.classList.add("chat-control-icon");
+    damageControlLabel.style.fontSize = "var(--font-size-20)"
+    damageControlLabel.style.lineHeight = "28px"
+    damageControlLabel.dataset.tooltip = "Improvise Damage Roll";
+    damageControlLabel.innerHTML = `
+        <a id="roll-improvise-damage">
+            <i class="fa-solid fa-dice-d6"></i>
+        </a>
+        `;
+    $(damageControlLabel).on("click", "#roll-improvise-damage", game.celestus.improviseDamage);
+    document.getElementById("chat-controls").appendChild(damageControlLabel);
 
 });
 
