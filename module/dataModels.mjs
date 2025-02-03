@@ -610,10 +610,6 @@ export class PlayerData extends ActorData {
             spentCivil += ability.base;
         }
         this.attributes.unspentCivil = Math.floor(this.attributes.level / 3) + CONFIG.CELESTUS.baseAbilityPoints - spentCivil;
-        // update base damage resists
-        for (let [key, damageType] of Object.entries(this.attributes.resistance)) {
-            damageType.value += damageType.bonus;
-        }
 
         /**
          * call final operations from super
