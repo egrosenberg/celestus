@@ -1381,8 +1381,8 @@ export class WeaponData extends GearData {
             min: Math.floor((level + dice) * mult),
             max: Math.floor((level + dice * dmgDie) * mult),
             avg: Math.floor((level + dice * (dmgDie / 2 + 0.5)) * mult),
-            roll: `(${level}+${dice}d${dmgDie})*${mult}`,
-            crit: `(${level}+${dice}d${dmgDie})*${multCrit}`,
+            roll: `(${level}+${dice}d${dmgDie}[none])*${mult}`,
+            crit: `(${level}+${dice}d${dmgDie}[none])*${multCrit}`,
         };
     }
 
@@ -1478,8 +1478,8 @@ export class WeaponData extends GearData {
                 min: Math.max(Math.floor(flat * mult), 1),
                 max: Math.max(Math.floor((flat + CONFIG.CELESTUS.weaponBonusDmgDie) * mult) - 1, 1),
                 avg: Math.max(Math.floor((flat + (CONFIG.CELESTUS.weaponBonusDmgDie / 2 + 0.5)) * mult) - 1, 1),
-                roll: `((${flat}*${mult}-1)+1d${CONFIG.CELESTUS.weaponBonusDmgDie})`,
-                crit: `((${flat}*${multCrit}-1)+1d${CONFIG.CELESTUS.weaponBonusDmgDie})`,
+                roll: `((${flat}*${mult}-1)+1d${CONFIG.CELESTUS.weaponBonusDmgDie}[none])`,
+                crit: `((${flat}*${multCrit}-1)+1d${CONFIG.CELESTUS.weaponBonusDmgDie}[none])`,
             });
         }
         return damage;

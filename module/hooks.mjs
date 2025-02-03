@@ -117,7 +117,7 @@ export async function rollDamage(e) {
             const ability = item.system.ability;
 
             // base damage roll corresponding to actor level
-            const base = CONFIG.CELESTUS.baseDamage.formula[actor.system.attributes.level];
+            const base = CONFIG.CELESTUS.baseDamage.formula[actor.system.attributes.level].replace("none", type);
 
             const mult = calcMult(actor, type, ability, part.value, isCrit, 0);
             formula += `+ floor((${base}) * ${mult})[${type}]`
