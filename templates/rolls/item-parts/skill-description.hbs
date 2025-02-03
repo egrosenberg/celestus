@@ -8,6 +8,9 @@
             <div class="subtitle">{{lookup config.skillTypes item.system.type}}</div>
         </div>
     </header>
+    {{!-- action and focus points costs --}}
+    {{#repeat item.system.finalAP}}<i class="fa-solid fa-circle ap-icon"></i>{{/repeat}}
+    {{#repeat item.system.finalFP}}<i class="fa-solid fa-diamond fp-icon"></i>{{/repeat}}
     <div class="roll-tags">
         {{!-- skill tier --}}
         <span class="roll-tag">
@@ -34,18 +37,6 @@
         {{#if item.system.targetMode}}
         <span class="roll-tag">
             {{item.system.targetMode}}
-        </span>
-        {{/if}}
-        {{!-- action points --}}
-        {{#if (gt item.system.ap 0)}}
-        <span class="roll-tag">
-            {{item.system.ap}} AP
-        </span>
-        {{/if}}
-        {{!-- focus points --}}
-        {{#if (gt item.system.fp 0)}}
-        <span class="roll-tag">
-            {{item.system.fp}} FP
         </span>
         {{/if}}
         {{!-- cooldown --}}
