@@ -1086,7 +1086,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
     }
 
     get totalDamage() {
-        const actor = this.parent.actor ?? game.user.character ?? _token.actor;
+        const actor = this.parent.actor ?? game.user.character ?? _token?.actor;
         const actorLevel = actor?.system.attributes.level || 1;
         if (this.needsDamageField) {
             let total = {
