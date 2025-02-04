@@ -552,9 +552,6 @@ export async function executeSkillScript(origin, skill) {
     if (skill.system.targets.type === "creature" && selected.length !== skill.system.targets.count) {
         return ui.notifications.warn(`CELESTUS | Error: please select ${skill.system.targets.count} targets`);
     }
-    if (skill.system.targets.type !== "self" && selected.length < 1) {
-        return ui.notifications.warn("CELESTUS | Error: please select targets to affect.")
-    }
     // prompt for confirmation
     const proceed = await foundry.applications.api.DialogV2.confirm({
         content: "Are you sure you want to execute? This action cannot be undone.",

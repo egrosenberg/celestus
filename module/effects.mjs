@@ -133,10 +133,12 @@ export class CelestusEffect extends ActiveEffect {
 
     /** @override */
     _onDelete(options, userId) {
-        // remove all items granted by this skill
-        for (const id of this.system.ownedItems) {
-            const item = this.parent.items.find(i => i.id === id);
-            if (item) item.delete();
+        if (this.system?.ownedItems) {
+            // remove all items granted by this skill
+            for (const id of this.system.ownedItems) {
+                const item = this.parent.items.find(i => i.id === id);
+                if (item) item.delete();
+            }
         }
         // clean up all aura children
         this.cleanupAura();
