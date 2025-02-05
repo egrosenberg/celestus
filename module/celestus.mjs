@@ -569,7 +569,7 @@ Hooks.on("init", () => {
         },
         // canvas constants
         rangeOverlayCol: 0xffffff,
-        tokenPointerAlpha: 1,
+        tokenPointerAlpha: 0.5,
         teleportCursorRotationSpeed: Math.PI * 0.005, // radians to rotate per 20ms
         tokenPointerZ: 950,
     };

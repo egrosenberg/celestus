@@ -811,6 +811,11 @@ export class CelestusToken extends Token {
         }
 
         [this.pointerPixi.x, this.pointerPixi.y] = [this.getCenterPoint().x, this.getCenterPoint().y];
+        const size = Math.min(this.w, this.h) * 2;
+        this.pointerPixi.width = size;
+        this.pointerPixi.height = size;
+        this.pointerPixi.zIndex = CONFIG.CELESTUS.tokenPointerZ;
+        this.pointerPixi.alpha = CONFIG.CELESTUS.tokenPointerAlpha;
 
         const rotation = this.document.getFlag("celestus", "rotation") ?? 0;
         this.pointerPixi.rotation = rotation;
