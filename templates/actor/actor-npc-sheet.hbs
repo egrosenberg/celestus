@@ -28,19 +28,21 @@
                             data-dtype="Number" />
                     </span>
                     <span class="level">
-                        Exhaustion: <input type="number" name="system.attributes.exhaustion" value="{{system.attributes.exhaustion}}"
-                            data-dtype="Number" />
+                        Exhaustion: <input type="number" name="system.attributes.exhaustion"
+                            value="{{system.attributes.exhaustion}}" data-dtype="Number" />
                     </span>
                     <span class="level">
-                        Movement: <input type="number" name="system.attributes.movement.base" value="{{system.attributes.movement.base}}"
-                            data-dtype="Number" />
-                            ({{system.attributes.movement.value}})
+                        Movement: <input type="number" name="system.attributes.movement.base"
+                            value="{{system.attributes.movement.base}}" data-dtype="Number" />
+                        ({{system.attributes.movement.value}})
                     </span>
                     <a class="level" id="initiative">
-                        Initiative: {{numberFormat (sum system.abilities.wit.total system.attributes.bonuses.initiative.value) sign=true}}
+                        Initiative: {{numberFormat (sum system.abilities.wit.total
+                        system.attributes.bonuses.initiative.value) sign=true}}
                     </a>
-                    <br/>
-                    <a class="control refresh" data-tooltip="refresh resources" id="refresh-all"><i class="icon-cycle"></i></a>
+                    <br />
+                    <a class="control refresh" data-tooltip="refresh resources" id="refresh-all"><i
+                            class="icon-cycle"></i></a>
                     <a class="control refresh" data-tooltip="new day" id="refresh-dawn"><i class="icon-sunrise"></i></a>
                     <a class="control refresh" data-tooltip="toggle combat state" id="toggle-combat">
                         <i class="{{ifThen actor.inCombat " icon-swords-emblem-solid" "icon-swords-emblem-outline" }}">
@@ -62,9 +64,9 @@
                             <i class="fa-solid fa-circle action-point empty small"></i>
                         </a>
                         {{/repeat}}
-                    <br/>
-                    {{!-- only renders focus points if max focus points have been manually set --}}
-                    {{#if system.resources.fp.max}}
+                        <br />
+                        {{!-- only renders focus points if max focus points have been manually set --}}
+                        {{#if system.resources.fp.max}}
                         {{!--<label class="resource-label">FP: </label>--}}
                         {{#repeat system.resources.fp.value}}
                         <a class="fp-interact" data-index="@index">
@@ -77,8 +79,20 @@
                             <i class="fa-solid fa-diamond focus-point empty small"></i>
                         </a>
                         {{/repeat}}
+                        {{/if}}
+                        {{!-- Set AP and FP values --}}
+                        <div>
+                            AP: start 
+                            <input class="input-slim" type="number" name="system.resources.ap.start"
+                                value="{{system.resources.ap.start}}"/>
+                            max 
+                            <input class="input-slim" type="number" name="system.resources.ap.max"
+                                value="{{system.resources.ap.max}}"/>
+                            FP max:
+                            <input class="input-slim" type="number" name="system.resources.fp.max"
+                                value="{{system.resources.fp.max}}"/>
+                        </div>
                     </span>
-                    {{/if}}
                 </div>
                 <div class="resources grid" id="hp">
                     <span class="resource">
@@ -137,7 +151,8 @@
                 <div class="abilities flexcol">
                     {{#each actor.system.totalWeaponDamage.parts as |damage key|}}
                     {{#with (lookup ../config.damageTypes key)}}
-                    <div class="ability flexrow flex-group-center" style="background-color: {{color}};" data-tooltip="{{label}} Damage">
+                    <div class="ability flexrow flex-group-center" style="background-color: {{color}};"
+                        data-tooltip="{{label}} Damage">
                         <span class="weapon-damage-minmax">
                             {{damage.min}}-{{damage.max}}
                         </span>
@@ -175,7 +190,8 @@
                     </div>
                     {{/each}}
                     <div class="ability flexrow flex-group-center">
-                        <label for="system.dmgBoost" class="resource-label rollable flexlarge align-left" style="flex: 0 0 150px">
+                        <label for="system.dmgBoost" class="resource-label rollable flexlarge align-left"
+                            style="flex: 0 0 150px">
                             Damage Scalar
                         </label>
                         <input type="number" name="system.dmgBoost" value="{{system.dmgBoost}}" data-dtype="Number" />
@@ -197,7 +213,8 @@
                     {{#each system.attributes.statusImmune as |value status|}}
                     {{#if value}}
                     {{#with (lookup ../statusEffects status)}}
-                    <div class="ability flexrow flex-group-center" style="background-color: rgba(255, 255, 255, 0.719);">
+                    <div class="ability flexrow flex-group-center"
+                        style="background-color: rgba(255, 255, 255, 0.719);">
                         <label class="resource-label rollable flexlarge align-left" style="flex: 1">
                             Immune to {{name}}
                         </label>

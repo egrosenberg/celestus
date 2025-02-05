@@ -521,6 +521,12 @@ input[type="color"]::-webkit-color-swatch {
     text-align: center;
 }
 
+.celestus.actor.sheet .input-slim {
+    width: 25px;
+    height: 20px;
+    text-align: center;
+}
+
 .celestus.actor.sheet .npc-prefab-selector {
     display: flex;
     width: 90%;
