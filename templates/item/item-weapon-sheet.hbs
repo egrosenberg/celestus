@@ -26,14 +26,14 @@
             {{/if}}
             {{#with (lookup config.damageTypes item.system.displayDamage.type) as |damageType|}}
             <div class="quick-reference" style="background-color: {{damageType.color}};">
-                <i class="{{damageType.glyph}}"></i> 
+                <i class="{{damageType.glyph}}"></i>
                 {{../item.system.displayDamage.min}}-{{../item.system.displayDamage.max}} {{damageType.label}}
             </div>
             {{/with}}
             {{#each item.system.displayBonusDamage as |damage|}}
             {{#with (lookup ../config.damageTypes damage.type) as |damageType|}}
             <div class="quick-reference" style="background-color: {{damageType.color}};">
-                <i class="{{damageType.glyph}}"></i> 
+                <i class="{{damageType.glyph}}"></i>
                 {{damage.min}}-{{damage.max}} {{damageType.label}}
             </div>
             {{/with}}
@@ -46,7 +46,12 @@
             <div class="quick-reference">
                 Range: {{#if system.range}}{{system.range}} ft.{{else}}Melee{{/if}}
             </div>
-
+            {{#if system.reach}}
+            <div class="quick-reference">
+                Reach
+            </div>
+            {{/if}}
+            {{!-- Bonuses --}}
             <h3>Bonuses:</h3>
             {{!-- Combat Abilities --}}
             {{#each system.bonuses.combat as |value skill|}}
@@ -195,8 +200,16 @@
                             {{!-- range --}}
                             <div class="form-group">
                                 <label for="system.range" class="resource-label">Range (ft.): </label>
-                                <input type="text" name="system.range" value="{{system.range}}" data-dtype="Number"
-                                    style="width: 50px;" />
+                                <div class="form-fields">
+                                    <input type="text" name="system.range" value="{{system.range}}" data-dtype="Number"
+                                        style="width: 50px;" />
+                                    {{!-- reach --}}
+                                    {{#if (eq system.range 0)}}
+                                    <label for="system.reach" class="resource-label">Reach: </label>
+                                    <input class="check-input" name="system.reach" type="checkbox" {{#if
+                                        system.reach}}checked{{/if}} />
+                                    {{/if}}
+                                </div>
                             </div>
                             {{!-- Bonus Damage --}}
                             <h4>Bonus Damage:</h4>

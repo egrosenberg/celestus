@@ -111,6 +111,11 @@ export class ActorData extends foundry.abstract.TypeDataModel {
                     bonus: new NumberField({ required: true, integer: false, min: -500, initial: 0 }), // bonus as additive percent
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 }),
+                // reach
+                reach: new SchemaField({
+                    base: new NumberField({ required: true, integer: true, initial: 5 }),
+                    bonus: new NumberField({ required: true, integer: true, initial: 0 }),
+                }),
                 // xp & level
                 xp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 level: new NumberField({ required: true, integer: true, min: 1, max: 20, initial: 1 }),
@@ -461,7 +466,9 @@ export class ActorData extends foundry.abstract.TypeDataModel {
      * check actor's reach in feet
      */
     get reach() {
-        return 5;
+        const weapon = this.equipped.left;
+        if (weapon?.system.reach) return this.attributes.reach.base + this.attributes.reach.bonus + 5;
+        return this.attributes.reach.base + this.attributes.reach.bonus;
     }
 
     /**
@@ -1340,6 +1347,7 @@ export class WeaponData extends GearData {
         schema.ability = new StringField({ required: true, initial: "str" });
         schema.type = new StringField({ required: true, initial: "physical" });
         schema.range = new NumberField({ required: true, initial: 0 }); // range in feet
+        schema.reach = new BooleanField({ required: true, initial: false });
         schema.appliedStatuses = new ArrayField(
             new StringField(), // status to apply
         );
