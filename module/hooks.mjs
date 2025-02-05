@@ -392,7 +392,7 @@ export async function createCelestusMacro(data, slot) {
             flags: { "celestus.itemMacro": true }
         })
     }
-    game.user.assignHotbarMacro(macro, slot);
+    await game.user.assignHotbarMacro(macro, slot);
     return false;
 }
 
@@ -411,6 +411,43 @@ export function rollItemMacro(name) {
         return ui.notifications.warn(`CELESTUS | Could not find item named ${name} on controlled actor`)
     }
     item.roll();
+}
+
+/**
+ * Automatically populates hotbar with macros from the actor's skill list
+ */
+export async function populateHotbar(actor) {
+    // prompt for confirmation (if not auto populating)
+    if (!game.settings.get('celestus', 'autoPopulateHotbar')) {
+        const proceed = await foundry.applications.api.DialogV2.confirm({
+            content: `Are you sure you want to populate the hotbar? This will remove any existing hotbar macros
+                <br/>(If there is no current actor, it will just be cleared)`,
+            rejectClose: false,
+            modal: true
+        });
+        if (!proceed) return;
+    }
+    // clear user's hotbar
+    await game.user.update({ hotbar: {} }, {diff: false, recursive: false, noHook: true});
+    // get actor
+    actor = actor ?? canvas.tokens?.controlled?.[0]?.actor ?? game.user.character ?? _token?.actor ?? null;
+    if (!actor) return ui.notifications.warn("CELESTUS | No actor to populate hotbar from");
+    // iterate through active skills
+    let skills;
+    if (actor.type === "player") {
+        skills = actor.items.filter(i => (i.type === "skill" && i.system.memorized === "always"));
+        skills = skills.concat(actor.items.filter(i => (i.type === "skill" && i.system.memorized === "true")));
+    }
+    else {
+        skills = actor.items.filter(i => (i.type === "skill"));
+    }
+    let i = 1;
+    for (const skill of skills) {
+        if (i > 50) break;
+        const data = { type: "Item", uuid: skill.uuid };
+        await createCelestusMacro(data, i);
+        i++;
+    }
 }
 
 /**

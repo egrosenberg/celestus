@@ -1,6 +1,6 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc, teleportTokenStart } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc, teleportTokenStart, populateHotbar } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CelestusMeasuredTemplateConfig, CharacterSheet } from "./sheets.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
@@ -180,7 +180,7 @@ Hooks.on("init", () => {
         attributeMax: 40,
         npcAttributeScalar: 1.9 / 100,
         npcArmorScalar: 20 / 100,
-        npcAbilityScalar: 0.173/2,
+        npcAbilityScalar: 0.173 / 2,
         npcAbilityBase: 0.4,
         combatSkillMod: 0.05,   // amount to increase damage by for combat skills per level
         abilityMax: 10,
@@ -724,7 +724,7 @@ Hooks.on("init", () => {
             }
         ],
         onDown: game.celestus.checkSurfaces,
-        restricted: false,
+        restricted: true,
         precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
     });
 
@@ -735,7 +735,17 @@ Hooks.on("init", () => {
         scope: 'world',
         type: Boolean,
         default: true,
+        config: true,
         requiresReload: true,
+    });
+    game.settings.register('celestus', 'autoPopulateHotbar', {
+        name: 'Populate Hotbar on Token Select',
+        hint: 'Automatically clears and populates the hotbar when controlling a token. WARNING: This will remove your current hotbar.',
+        scope: 'client',
+        type: Boolean,
+        default: false,
+        config: true,
+        requiresReload: false,
     });
     CONFIG.CELESTUS.broadcastPopups = game.settings.get('celestus', 'broadcastPopups');
 
@@ -754,7 +764,7 @@ Hooks.on("ready", () => {
     $(document).on("click", ".apply-damage", applyDamageHook);
     $(document).on("click", ".apply-status", applyStatusHook);
     $(document).on("click", ".draw-template", drawTemplate);
-    
+
     // create chat-control button
     let damageControlLabel = document.createElement("label");
     damageControlLabel.classList.add("chat-control-icon");
@@ -842,11 +852,28 @@ Hooks.on("renderHotbar", (application, html, data) => {
             return;
         }
     })
+
+    // add populate macros button
+    const populateButton = document.createElement("div");
+    populateButton.classList.add("bar-controls");
+    populateButton.classList.add("flexcol");
+    populateButton.style.pointerEvents = "all";
+    populateButton.innerHTML = `
+        <a class="page-control" id="populate-hotbar" data-tooltip="Populate Hotbar" role="button" style="padding-top: 50%;">
+            <i class="fa-solid fa-brain"></i>
+        </a>`;
+    populateButton.addEventListener("click", () => populateHotbar());
+    html.append(populateButton);
 })
 // hook damage preview on token select
 Hooks.on("controlToken", previewDamage);
 Hooks.on("controlToken", (d, c) => { renderHotbarOverlay(c) });
 Hooks.on("controlToken", renderResourcesUi);
+Hooks.on("controlToken", (o, c) => {
+    if (c && game.settings.get('celestus', 'autoPopulateHotbar')) {
+        populateHotbar(o.actor);
+    }
+});
 
 // handle turn changes
 Hooks.on("combatTurnChange", triggerTurn);
