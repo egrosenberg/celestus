@@ -98,14 +98,14 @@
                         <h3>General</h3>
                         <div class="attribute-section">
                             {{!-- Feature Type --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.type" class="resource-label">Type: </label>
                                 <select class="armor-type-selector" name="system.type">
                                     {{selectOptions config.featureTypes selected=system.type}}
                                 </select>
                             </div>
                             {{!-- equipped --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.equipped" class="resource-label">Active: </label>
                                 <input class="check-input" name="system.equipped" type="checkbox" {{#if
                                     system.equipped}}checked{{/if}} />

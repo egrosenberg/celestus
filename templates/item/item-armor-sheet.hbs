@@ -112,13 +112,13 @@
                         <h3>General</h3>
                         <div class="attribute-section">
                             {{!-- Efficiency --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.efficiency" class="resource-label">Efficiency: </label>
                                 <input type="text" name="system.efficiency" value="{{system.efficiency}}"
                                     data-dtype="Number" />
                             </div>
                             {{!-- Preset Spreads --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.spread" class="resource-label">Armor Spread: </label>
                                 <select class="armor-type-selector" name="system.spread">
                                     {{!-- create a dropdown option for each damage type --}}
@@ -127,7 +127,7 @@
                             </div>
                             {{!-- Base Armor Spread (only show if not using a preset spread) --}}
                             {{#if (eq system.spread "none")}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.base" class="resource-label">Base Armor: </label>
                                 (P):
                                 <input type="text" name="system.base.phys" value="{{system.base.phys}}"
@@ -138,7 +138,7 @@
                             </div>
                             {{/if}}
                             {{!-- Armor Slot --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.slot" class="resource-label">Slot: </label>
                                 <select class="armor-type-selector" name="system.slot">
                                     {{!-- create a dropdown option for each damage type --}}
@@ -150,7 +150,7 @@
                                 </select>
                             </div>
                             {{!-- eqipped --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.equipped" class="resource-label">Equipped: </label>
                                 <input class="check-input" name="system.equipped" type="checkbox" {{#if
                                     system.equipped}}checked{{/if}} />

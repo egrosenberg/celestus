@@ -157,25 +157,25 @@
                         <h3>General</h3>
                         <div class="attribute-section">
                             {{!-- Efficiency --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.efficiency" class="resource-label">Efficiency: </label>
                                 <input type="text" name="system.efficiency" value="{{system.efficiency}}"
                                     data-dtype="Number" />
                             </div>
                             {{!-- Two Handed --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.twoHanded" class="resource-label">Two Handed?: </label>
                                 <input class="check-input" name="system.twoHanded" type="checkbox" {{#if
                                     system.twoHanded}}checked{{/if}} />
                             </div>
                             {{!-- eqipped --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.equipped" class="resource-label">Equipped: </label>
                                 <input class="check-input" name="system.equipped" type="checkbox" {{#if
                                     system.equipped}}checked{{/if}} />
                             </div>
                             {{!-- damage type --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.type" class="resource-label">Damage Type: </label>
                                 <select class="damage-type-selector" name="system.type">
                                     {{!-- create a dropdown option for each damage type --}}
@@ -186,14 +186,14 @@
                                 </select>
                             </div>
                             {{!-- ability --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.ability" class="resource-label">Ability: </label>
                                 <select class="damage-type-selector" name="system.ability">
                                     {{selectOptions config.abilities selected=system.ability}}
                                 </select>
                             </div>
                             {{!-- range --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.range" class="resource-label">Range (ft.): </label>
                                 <input type="text" name="system.range" value="{{system.range}}" data-dtype="Number"
                                     style="width: 50px;" />

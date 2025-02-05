@@ -115,167 +115,205 @@
                 {{!-- Attributes Tab --}}
                 <div class="tab attributes" data-group="primary" data-tab="attributes">
                     <div>
-                        <h3>General</h3>
+                        <h3>Info</h3>
                         <div class="attribute-section">
                             {{!-- skill type --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.type" class="resource-label">Type: </label>
                                 <select class="skill-type-selector" name="system.type">
                                     {{selectOptions config.skillTypes selected=system.type}}
                                 </select>
                             </div>
                             {{!-- skill school --}}
-                            <div class="general attribute">
-                                Type:
-                                <select class="skill-type-selector" name="system.school">
-                                    {{#if (eq system.type "civil")}}
-                                    {{selectOptions config.civilSkills selected=system.school}}
-                                    {{else}}
-                                    {{selectOptions config.combatSkills selected=system.school}}
+                            <div class="form-group">
+                                <label>School:</label>
+                                <div class="form-fields">
+                                    Type:
+                                    <select class="skill-type-selector" name="system.school">
+                                        {{#if (eq system.type "civil")}}
+                                        {{selectOptions config.civilSkills selected=system.school}}
+                                        {{else}}
+                                        {{selectOptions config.combatSkills selected=system.school}}
+                                        {{/if}}
+                                    </select>
+                                    Tier:
+                                    <select class="skill-type-selector" name="system.tier">
+                                        {{selectOptions config.skillTiers selected=system.tier}}
+                                    </select>
+                                </div>
+                            </div>
+                            {{!-- AP cost --}}
+                            <div class="form-group">
+                                <label for="system.ap" class="resource-label">Action Points: </label>
+                                <div class="form-fields">
+                                    <input type="text" name="system.ap" value="{{system.ap}}" data-dtype="Number" />
+                                </div>
+                            </div>
+                            {{!-- FP cost --}}
+                            <div class="form-group">
+                                <label for="system.fp" class="resource-label">Focus Points: </label>
+                                <div class="form-fields">
+                                    <input type="text" name="system.fp" value="{{system.fp}}" data-dtype="Number" />
+                                </div>
+                            </div>
+                            {{!-- Components --}}
+                            <div class="form-group">
+                                <label for="system.components.verbal" class="resource-label">Components: </label>
+                                <div class="form-fields">
+                                    V: <input class="check-input" name="system.components.verbal" type="checkbox"
+                                        {{checked system.components.verbal}} />
+                                    S: <input class="check-input" name="system.components.somatic" type="checkbox"
+                                        {{checked system.components.somatic}} />
+                                    M: <input class="check-input" name="system.components.material" type="checkbox"
+                                        {{checked system.components.material}} />
+                                    {{#if system.components.material}}
+                                    <input type="text" style="width: 200px" name="system.components.materialFull"
+                                        value="{{system.components.materialFull}}" data-dtype="Text" />
                                     {{/if}}
-                                </select>
-                                Tier:
-                                <select class="skill-type-selector" name="system.tier">
-                                    {{selectOptions config.skillTiers selected=system.tier}}
-                                </select>
+                                </div>
+                            </div>
+                            {{!-- cooldown --}}
+                            <div class="form-group">
+                                <label for="system.cooldown.value" class="resource-label">Cooldown (rounds): </label>
+                                <div class="form-fields">
+                                    <input type="text" name="system.cooldown.value" value="{{system.cooldown.value}}"
+                                        data-dtype="Number" />
+                                    / <input type="text" name="system.cooldown.max" value="{{system.cooldown.max}}"
+                                        data-dtype="Number" />
+                                </div>
+                            </div>
+                            {{!-- memory cost --}}
+                            <div class="form-group">
+                                <label for="system.memSlots" class="resource-label">Memory Slots: </label>
+                                <div class="form-fields">
+                                    <input type="text" name="system.memSlots" value="{{system.memSlots}}"
+                                        data-dtype="Number" />
+                                </div>
+                            </div>
+                            {{!-- ability --}}
+                            <div class="form-group">
+                                <label for="system.ability" class="resource-label">Ability: </label>
+                                <div class="form-fields">
+                                    <select class="damage-type-selector" name="system.ability" {{ifThen (ne
+                                        system.type "weapon" ) "" "disabled" }}>
+                                        {{selectOptions config.abilities selected=item.system.finalAbility}}
+                                    </select>
+                                </div>
+                            </div>
+                            {{!-- memorized? --}}
+                            <div class="form-group">
+                                <label for="system.memorized" class="resource-label">Memorized: </label>
+                                <div class="form-fields">
+                                    <select class="skill-type-selector" name="system.memorized">
+                                        {{selectOptions config.memTypes selected=system.memorized}}
+                                    </select>
+                                </div>
+                            </div>
+                            {{!-- lifesteal --}}
+                            <div class="form-group">
+                                <label for="system.lifesteal" class="resource-label">Lifesteal: </label>
+                                <div class="form-fields">
+                                    <input type="text" name="system.lifesteal" value="{{system.lifesteal}}"
+                                        data-dtype="Number" style="width: 50px;" />
+                                </div>
+                            </div>
+                            {{!-- custom script info --}}
+                            <div class="form-group">
+                                <label for="system.hasScript" class="resource-label">Has Script:
+                                </label>
+                                <div class="form-fields">
+                                    <input class="check-input" name="system.hasScript" type="checkbox" {{checked
+                                        system.hasScript}} />
+                                    {{#if system.hasScript}}
+                                    Script ID:
+                                    <input type="text" name="system.scriptId" value="{{system.scriptId}}"
+                                        style="width: 50px;" />
+                                    {{/if}}
+                                </div>
                             </div>
                             {{#if (eq system.type "weapon")}}
+                            <h3>Weapon Skill Info</h3>
                             {{!-- weapon efficiency --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.weaponEfficiency" class="resource-label">Weapon Efficiency: </label>
-                                <input type="text" name="system.weaponEfficiency" value="{{system.weaponEfficiency}}"
-                                    data-dtype="Number" style="width: 50px;" />
+                                <div class="form-fields">
+                                    <input type="text" name="system.weaponEfficiency"
+                                        value="{{system.weaponEfficiency}}" data-dtype="Number" style="width: 50px;" />
+                                </div>
                             </div>
                             {{!-- overrides weapon damage --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.overridesWeaponDamage" class="resource-label">Overrides Damage:
                                 </label>
-                                <input class="check-input" name="system.overridesWeaponDamage" type="checkbox" {{checked
-                                    system.overridesWeaponDamage}} />
+                                <div class="form-fields">
+                                    <input class="check-input" name="system.overridesWeaponDamage" type="checkbox"
+                                        {{checked system.overridesWeaponDamage}} />
+                                </div>
                             </div>
                             {{!-- overrides weapon damage type --}}
                             {{#if (not system.overridesWeaponDamage)}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.overridesWeaponType" class="resource-label">Overrides dType:
                                 </label>
-                                <input class="check-input" name="system.overridesWeaponType" type="checkbox" {{checked
-                                    system.overridesWeaponType}} />
-                                {{#if system.overridesWeaponType}}
-                                Type:
-                                <select class="damage-type-selector" name="system.overrideDamageType">
-                                    {{selectOptions config.damageTypes selected=item.system.overrideDamageType}}
-                                </select>
-                                {{/if}}
+                                <div class="form-fields">
+                                    <input class="check-input" name="system.overridesWeaponType" type="checkbox"
+                                        {{checked system.overridesWeaponType}} />
+                                    {{#if system.overridesWeaponType}}
+                                    Type:
+                                    <select class="damage-type-selector" name="system.overrideDamageType">
+                                        {{selectOptions config.damageTypes selected=item.system.overrideDamageType}}
+                                    </select>
+                                    {{/if}}
+                                </div>
                             </div>
                             {{/if}}
                             {{!-- overrides weapon range --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.overridesWeaponRange" class="resource-label">Overrides Range:
                                 </label>
-                                <input class="check-input" name="system.overridesWeaponRange" type="checkbox" {{checked
-                                    system.overridesWeaponRange}} />
+                                <div class="form-fields">
+                                    <input class="check-input" name="system.overridesWeaponRange" type="checkbox"
+                                        {{checked system.overridesWeaponRange}} />
+                                </div>
                             </div>
                             {{/if}}
-                            {{!-- AP cost --}}
-                            <div class="general attribute">
-                                <label for="system.ap" class="resource-label">Action Points: </label>
-                                <input type="text" name="system.ap" value="{{system.ap}}" data-dtype="Number" />
-                            </div>
-                            {{!-- FP cost --}}
-                            <div class="general attribute">
-                                <label for="system.fp" class="resource-label">Focus Points: </label>
-                                <input type="text" name="system.fp" value="{{system.fp}}" data-dtype="Number" />
-                            </div>
-                            {{!-- Components --}}
-                            <div class="general attribute">
-                                <label for="system.components.verbal" class="resource-label">Components: </label>
-                                V: <input class="check-input" name="system.components.verbal" type="checkbox" {{checked
-                                    system.components.verbal}} />
-                                S: <input class="check-input" name="system.components.somatic" type="checkbox" {{checked
-                                    system.components.somatic}} />
-                                M: <input class="check-input" name="system.components.material" type="checkbox"
-                                    {{checked system.components.material}} />
-                                {{#if system.components.material}}
-                                <input type="text" style="width: 200px" name="system.components.materialFull"
-                                    value="{{system.components.materialFull}}" data-dtype="Text" />
-                                {{/if}}
-                            </div>
-                            {{!-- cooldown --}}
-                            <div class="general attribute">
-                                <label for="system.cooldown.value" class="resource-label">Cooldown (rounds): </label>
-                                <input type="text" name="system.cooldown.value" value="{{system.cooldown.value}}"
-                                    data-dtype="Number" />
-                                / <input type="text" name="system.cooldown.max" value="{{system.cooldown.max}}"
-                                    data-dtype="Number" />
-                            </div>
-                            {{!-- memory cost --}}
-                            <div class="general attribute">
-                                <label for="system.memSlots" class="resource-label">Memory Slots: </label>
-                                <input type="text" name="system.memSlots" value="{{system.memSlots}}"
-                                    data-dtype="Number" />
-                            </div>
+                            <h3>Targets</h3>
                             {{!-- Targeting --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.targets.type" class="resource-label">Targets: </label>
-                                {{#if (eq system.targets.type "creature")}}
-                                <input type="text" name="system.targets.count" value="{{system.targets.count}}"
-                                    data-dtype="Number" />
-                                {{/if}}
-                                {{#with (lookup config.targetTypes system.targets.type)}}
-                                {{#if (eq options.[0] "size")}}
-                                <input type="text" name="system.targets.size" value="{{../system.targets.size}}"
-                                    data-dtype="Number" />
-                                ft.
-                                {{/if}}
-                                {{/with}}
-                                <select class="skill-type-selector" name="system.targets.type">
-                                    {{selectOptions config.targetTypes selected=system.targets.type}}
-                                </select>
+                                <div class="form-fields">
+                                    {{#if (or (eq system.targets.type "creature") (eq system.targets.type "point"))}}
+                                    <input type="text" name="system.targets.count" value="{{system.targets.count}}"
+                                        data-dtype="Number" />
+                                    {{/if}}
+                                    {{#with (lookup config.targetTypes system.targets.type)}}
+                                    {{#if (eq options.[0] "size")}}
+                                    <input type="text" name="system.targets.size" value="{{../system.targets.size}}"
+                                        data-dtype="Number" />
+                                    ft.
+                                    {{/if}}
+                                    {{/with}}
+                                    <select class="skill-type-selector" name="system.targets.type">
+                                        {{selectOptions config.targetTypes selected=system.targets.type}}
+                                    </select>
+                                </div>
                             </div>
                             {{!-- has attack? --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.attack" class="resource-label">Has Attack?: </label>
-                                <input class="check-input" name="system.attack" type="checkbox" {{#if
-                                    system.attack}}checked{{/if}} />
+                                <div class="form-fields">
+                                    <input class="check-input" name="system.attack" type="checkbox" {{#if
+                                        system.attack}}checked{{/if}} />
+                                </div>
                             </div>
                             {{!-- range --}}
-                            <div class="general attribute">
+                            <div class="form-group">
                                 <label for="system.range" class="resource-label">Range (ft.): </label>
-                                <input type="text" name="system.range" value="{{system.range}}" data-dtype="Number"
-                                    style="width: 50px;" {{ifThen item.system.needsRangeField "" "disabled" }} />
-                            </div>
-                            {{!-- ability --}}
-                            <div class="general attribute">
-                                <label for="system.ability" class="resource-label">Ability: </label>
-                                <select class="damage-type-selector" name="system.ability" {{ifThen (ne
-                                    system.type "weapon" ) "" "disabled" }}>
-                                    {{selectOptions config.abilities selected=item.system.finalAbility}}
-                                </select>
-                            </div>
-                            {{!-- memorized? --}}
-                            <div class="general attribute">
-                                <label for="system.memorized" class="resource-label">Memorized: </label>
-                                <select class="skill-type-selector" name="system.memorized">
-                                    {{selectOptions config.memTypes selected=system.memorized}}
-                                </select>
-                            </div>
-                            {{!-- lifesteal --}}
-                            <div class="general attribute">
-                                <label for="system.lifesteal" class="resource-label">Lifesteal: </label>
-                                <input type="text" name="system.lifesteal" value="{{system.lifesteal}}"
-                                    data-dtype="Number" style="width: 50px;" />
-                            </div>
-                            {{!-- custom script info --}}
-                            <div class="general attribute">
-                                <label for="system.hasScript" class="resource-label">Has Script:
-                                </label>
-                                <input class="check-input" name="system.hasScript" type="checkbox" {{checked
-                                    system.hasScript}} />
-                                {{#if system.hasScript}}
-                                Script ID:
-                                <input type="text" name="system.scriptId" value="{{system.scriptId}}"
-                                    style="width: 50px;" />
-                                {{/if}}
+                                <div class="form-fields">
+                                    <input type="text" name="system.range"
+                                        value="{{ifThen item.system.needsRangeField item.system.range item.system.finalRange}}"
+                                        style="width: 50px;" {{ifThen item.system.needsRangeField "" "disabled" }} />
+                                </div>
                             </div>
                             {{!-- aoe linger --}}
                             <div class="form-group">
@@ -304,7 +342,8 @@
                             <div class="form-group">
                                 <label>{{ localize "TEMPLATE.FillTexture" }}</label>
                                 <div class="form-fields">
-                                    <file-picker name="system.linger.texture" type="image" value="{{system.linger.texture}}"></file-picker>
+                                    <file-picker name="system.linger.texture" type="image"
+                                        value="{{system.linger.texture}}"></file-picker>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -415,8 +454,8 @@
                                     data-index="{{@index}}" />
                             </div>
                             <div class="item-controls">
-                                <a class="item-control damage-delete" data-tooltip="Delete Damage Component" data-type="damage"
-                                    data-index="{{@index}}">
+                                <a class="item-control damage-delete" data-tooltip="Delete Damage Component"
+                                    data-type="damage" data-index="{{@index}}">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </div>
@@ -430,7 +469,8 @@
                         <li class="item flexrow damage-header" draggable="true">
                             <div class="damage-type">Status Name</div>
                             <div class="item-controls">
-                                <a class="item-control status-create" data-tooltip="Create New StatusEffect" data-type="item">
+                                <a class="item-control status-create" data-tooltip="Create New StatusEffect"
+                                    data-type="item">
                                     <i class="fas fa-plus"></i>
                                     Add Status
                                 </a>
