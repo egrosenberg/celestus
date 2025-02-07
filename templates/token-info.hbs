@@ -9,7 +9,7 @@
     </span>
 </header>
 <div class="resources">
-    {{#if (or resources.phys_armor.value resources.phys_armor.value)}}
+    {{#if (or resources.phys_armor.max resources.phys_armor.value)}}
     <div class="phys-armor resource phys_armor">
         <span class="resource-value" id="resources.phys_armor">
             <span class="total">
@@ -18,7 +18,7 @@
         </span>
     </div>
     {{/if}}
-    {{#if (or resources.mag_armor.value resources.mag_armor.value)}}
+    {{#if (or resources.mag_armor.max resources.mag_armor.value)}}
     <div class="mag-armor resource mag_armor">
         <span class="resource-value" id="resources.mag_armor">
             <span class="total">
