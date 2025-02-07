@@ -549,7 +549,7 @@ export async function applyWeaponStatus(ev) {
 
 export async function executeSkillScript(origin, skill) {
     const selected = canvas.tokens.controlled;
-    if (skill.system.targets.type === "creature" && selected.length !== skill.system.targets.count) {
+    if (skill.system.targets.type === "creature" && selected.length > skill.system.targets.count) {
         return ui.notifications.warn(`CELESTUS | Error: please select ${skill.system.targets.count} targets`);
     }
     // prompt for confirmation

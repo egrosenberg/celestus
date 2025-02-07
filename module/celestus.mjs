@@ -59,6 +59,7 @@ Hooks.on("init", () => {
             }
         },
         improviseDamage,
+        pointers: [],
     }
     // override initiative rolls
     game.system.initiative = "1d20+@abilities.wit.total+@attributes.bonuses.initiative.value";
@@ -892,6 +893,11 @@ Hooks.on("hoverToken", drawTokenHover);
 
 // token pointer overlay 
 Hooks.on("refreshToken", (t) => { if (!t._original) t.drawPointer() });
+Hooks.on("canvasDraw", () => {
+    for (const object of game.celestus.pointers) {
+        canvas.stage.removeChild(object);
+    }
+});
 
 // hbs helpers
 Handlebars.registerHelper("repeat", (n, options) => {

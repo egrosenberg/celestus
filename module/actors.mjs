@@ -883,6 +883,7 @@ export class CelestusToken extends Token {
         // draw PIXI object
         this.pointerPixi = pointer;
         canvas.stage.addChild(this.pointerPixi);
+        game.celestus.pointers.push(this.pointerPixi);
     }
 
     /**

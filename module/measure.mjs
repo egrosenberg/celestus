@@ -29,15 +29,18 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
      * @returns {MeasuredTemplate}
      */
     static _constructPreset(item) {
+        let size = item.system.targets.size ?? 0;
+        if (item.system.targets.type === "radius") {
+            size += item.actor?.getActiveTokens()[0]?.w / ((canvas.scene.grid.size / canvas.scene.grid.distance) * 2);
+        }
         // prepare base template
         const templateData = {
             user: game.user?.id,
-            distance: 0,
             width: item.system.targets.type === "cube" ? item.system.targets.size : 5,
             direction: 0,
             x: 0,
             y: 0,
-            distance: item.system.targets.size ?? 0,
+            distance: size,
             fillColor: game.user?.color,
             t: CONFIG.CELESTUS.targetTypes[item.system.targets.type]?.measure ?? "circle",
             flags: { celestus: { origin: item.uuid } },
