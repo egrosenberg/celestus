@@ -558,9 +558,10 @@ export async function triggerTurn(combat, prior, current) {
     // only handle ending turn if there was a previous turn
     if (endingId) {
         const ending = combat.combatants.get(endingId);
+        await ending.actor.endTurn();
     }
     const starting = combat.combatants.get(startingId);
-    starting.actor.startTurn();
+    await starting.actor.startTurn();
 }
 
 /**

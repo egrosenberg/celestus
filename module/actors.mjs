@@ -742,10 +742,11 @@ export class CelestusActor extends Actor {
             }
             if (effect.isTemporary) {
                 if (effect.duration.rounds > 1) {
-                    effect.update({ "duration.rounds": effect.duration.rounds - 1 });
+                    await effect.update({ "duration.rounds": effect.duration.rounds - 1 });
                 }
                 else {
-                    await effect.delete();
+                    await effect.update({ "duration.rounds": 0 });
+                    await effect.update({ "duration.turns": 1 });
                 }
             }
         }
@@ -763,8 +764,13 @@ export class CelestusActor extends Actor {
     /**
      * handles cleanup of a combat turn
      */
-    endTurn() {
-
+    async endTurn() {
+        // clean up effects that end this turn
+        for (const effect of this.effects) {
+            if (effect.isTemporary && effect.duration.rounds === 0 && effect.duration.turns === 1) {
+                await effect.delete();
+            }
+        }
     }
 
     async rollInitiative() {
@@ -843,7 +849,7 @@ export class CelestusToken extends Token {
     /** @override */
     _onClickRight(event) {
         if (this.isOwner) super._onClickRight(event);
-        else {
+        {
             event.stopPropagation();
             let ui = document.getElementById("ui-token-hover");
             if (ui.style.display === "none") return;
