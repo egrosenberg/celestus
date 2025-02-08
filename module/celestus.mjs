@@ -1,6 +1,6 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc, teleportTokenStart, populateHotbar } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc, teleportTokenStart, populateHotbar, applyDamageComponent } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CelestusMeasuredTemplateConfig, CharacterSheet } from "./sheets.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
@@ -763,6 +763,7 @@ Hooks.on("ready", () => {
     $(document).on("click", ".roll-crit", rollCrit);
     $(document).on("click", ".damage", rollDamage);
     $(document).on("click", ".apply-damage", applyDamageHook);
+    $(document).on("click", ".damage-component", applyDamageComponent);
     $(document).on("click", ".apply-status", applyStatusHook);
     $(document).on("click", ".draw-template", drawTemplate);
 

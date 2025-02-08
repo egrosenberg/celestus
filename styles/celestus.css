@@ -1149,6 +1149,7 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .damage-component {
+    cursor: pointer;
     margin-top: -1px;
     border: 1px black solid;
     width: 100%;

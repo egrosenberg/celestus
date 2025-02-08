@@ -1,7 +1,10 @@
 <ul class="celestus damage-breakdown">
     {{#each terms as |term|}}
     {{#with (lookup ../damageTypes term.type)}}
-    <li class="damage-component" style="background-color: {{color}};">
+    <li class="damage-component" style="background-color: {{color}};"
+            data-origin-actor="{{../originActor}}" data-message-id="{{../msgId}}"
+            data-origin-item="{{../originItem}}" data-damage-total="{{term.amount}}"
+            data-damage-type="{{term.type}}">
         <i class="{{glyph}}"></i>
         <span class="value">{{term.amount}}</span>
         <span class="type">{{label}}</span>

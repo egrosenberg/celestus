@@ -124,7 +124,7 @@ export async function rollDamage(e) {
         }
         const r = new Roll(formula)
         await r.toMessage({
-            speaker: { alias: `${actor.name} - ${item.name} (damage)` },
+            speaker: { alias: `${actor.name} - ${item.name}` },
             'system.isDamage': true,
             'system.damageType': item.system.damage[0].type,
             'system.actorID': actorID,
@@ -149,8 +149,6 @@ export async function rollDamage(e) {
  * @param {event} e : event from button click
  */
 export async function applyDamageHook(e) {
-    const damage = e.currentTarget.dataset.damageTotal;
-    const type = e.currentTarget.dataset.damageType;
     const origin = await fromUuid(e.currentTarget.dataset.originActor);
     const item = await fromUuid(e.currentTarget.dataset.originItem);
 
@@ -172,6 +170,34 @@ export async function applyDamageHook(e) {
             await token.actor.applyDamage(term.amount, term.type, origin, lifesteal);
         }
     }
+
+    e.stopPropagation();
+    e.preventDefault();
+}
+
+/**
+ * 
+ * @param {event} e : event from button click
+ */
+export async function applyDamageComponent(e) {
+    const damage = e.currentTarget.dataset.damageTotal;
+    const type = e.currentTarget.dataset.damageType;
+    const origin = await fromUuid(e.currentTarget.dataset.originActor);
+    const item = await fromUuid(e.currentTarget.dataset.originItem);
+    
+    let lifesteal = 0;
+    if (item?.type === "skill") {
+        lifesteal = item.system.lifesteal;
+    }
+
+    const selected = canvas.tokens.controlled;
+    // iterate through each controlled token
+    for (const token of selected) {
+        await token.actor.applyDamage(damage, type, origin, lifesteal);
+    }
+
+    e.stopPropagation();
+    e.preventDefault();
 }
 
 /**
@@ -742,9 +768,12 @@ export async function renderDamageComponents(msg, html, options) {
     const msgData = {
         terms: dmgInfo.terms,
         damageTypes: CONFIG.CELESTUS.damageTypes,
+        originActor: msg.system.actorID,
+        originItem: msg.system.itemID,
+        msgId: msg.uuid,
     }
     let content = await renderTemplate(path, msgData);
-    html.find(".dice-tooltip").after(content);
+    html.find(".dice-roll").after(content);
 }
 
 /**
