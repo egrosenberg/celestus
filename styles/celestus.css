@@ -762,8 +762,12 @@ input[type="color"]::-webkit-color-swatch {
     width: 80px;
     left: 0px;
     top: 0px;
-    background-image: url('../svg/stopwatch.svg');
-    background-color: rgba(255, 255, 255, 0.5);
+    background-image: url(../svg/stopwatch.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: overlay;
+    background-color: rgba(0, 0, 0, 0.5);
     font-size: var(--font-size-36);
     text-align: center;
     line-height: 80px;
@@ -828,7 +832,6 @@ input[type="color"]::-webkit-color-swatch {
     height: 230px;
     background-color: rgb(32, 1, 1);
     border-bottom: rgb(255, 179, 0) thick ridge;
-    ;
 }
 
 .celestus.actor.sheet .armor-socket {
@@ -1322,12 +1325,9 @@ div#ui-resources {
     margin-top: 10px;
     margin-inline: auto;
     width: 250px;
-    background-color: var(--color-tan);
-    background: url(/ui/parchment.jpg) repeat;
-    box-shadow: var(--shadow-bevel);
     padding: 10px;
     border-radius: 10px;
-    border: medium solid var(--color-warm-3);
+    border: medium solid black;
     z-index: calc(var(--z-index-ui) + 1);
 }
 
@@ -1340,7 +1340,7 @@ div#ui-resources {
 
 .celestus.token-info .token-header {
     margin-bottom: 5px;
-    border-bottom: thin black solid;
+    border-bottom: thin white solid;
 }
 
 .celestus.token-info .actor-img {
@@ -1359,6 +1359,7 @@ div#ui-resources {
 .celestus.token-info .token-name .name{
     font-size: var(--font-size-20);
     font-weight: bold;
+    text-shadow: var(--text-outline-1);
 }
 
 .celestus.token-info .token-name .type{
@@ -1424,19 +1425,51 @@ div#ui-resources {
     font-size: var(--font-size-16);
     padding: 3px;
     border-radius: 5px;
-    background-color: rgb(221, 216, 195);
+    background-color: rgba(43, 41, 37, 1);
     display: flex;
 }
 
 .celestus.token-info .effect-label {
     margin-left: 5px;
     margin-right: 5px;
+    display: flex;
+    justify-content: space-between;
+    text-shadow: var(--text-outline-1);
+    color: white;
 }
 
 .celestus.token-info .effect-icon {
     width: 25px;
     height: 25px;
+    flex: 0;
     border: none;
-    background-color: black;
+    background: none;
     margin-bottom: 0px;
+}
+
+.celestus.token-info .effect-duration {
+    width: 25px;
+    height: 25px;
+    background-image: url(../svg/stopwatch.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    background-blend-mode: overlay;
+    background-color: rgba(43, 41, 37, 0.6);
+    line-height: 25px;
+}
+
+/* Generic Stone UI elements */
+
+.stone-ui {
+    background-image: url(../img/rock-texture-tile.jpg);
+    background-repeat: repeat;
+    background-size: auto;
+    color: white;
+    box-shadow: var(--shadow-inset);
+}
+
+.stone-ui :is(h1, h2, h3, h4, h5, h6) {
+    text-shadow: var(--text-outline-1);
 }

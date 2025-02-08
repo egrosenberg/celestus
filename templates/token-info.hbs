@@ -39,11 +39,17 @@
 <ul class="effects">
     {{#each effects as |effect|}}
     {{#if effect.isTemporary}}
-    <li class="effect">
-        <img class="effect-icon" src="{{effect.img}}" />
-        <span class="effect-label">
-            {{effect.name}}
-        </span>
+    <li class="effect flexrow">
+            <img class="effect-icon" src="{{effect.img}}" />
+            <span class="effect-label">
+                <span>
+                    {{effect.name}}
+                </span>
+                <span class="effect-duration">
+                    {{effect.duration.rounds}}
+                </span>
+            </span>
+
     </li>
     {{/if}}
     {{/each}}

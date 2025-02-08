@@ -679,6 +679,7 @@ Hooks.on("init", () => {
     resourceUi.id = "ui-resources";
     resourceUi.classList.add("celestus");
     resourceUi.classList.add("resources-ui");
+    resourceUi.classList.add("stone-ui");
     $(resourceUi).on('click', '.ap-interact', resourceInteractAp);
     $(resourceUi).on('click', '.fp-interact', resourceInteractFp);
     $(resourceUi).on('change', '.resource-input', resourceInteractMisc);
@@ -692,6 +693,7 @@ Hooks.on("init", () => {
     tokenInfo.id = "ui-token-hover";
     tokenInfo.classList.add("celestus");
     tokenInfo.classList.add("token-info");
+    tokenInfo.classList.add("stone-ui");
     document.getElementById("interface").appendChild(tokenInfo);
     tokenInfo.style.display = "none";
     tokenInfo.dataset.persist = false;
