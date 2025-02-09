@@ -508,13 +508,15 @@ export function calcWeaponDamage(actor, scalar, typeOverride, isCrit = false) {
 export function itemizeDamage(msg) {
     let total = 0;
     let damage = [];
+    const splitDamage = msg.getFlag("celestus", "splitDamage");
+    console.log(splitDamage);
     // iterate through rolls
     for (const roll of msg.rolls) {
         // iterate through components of roll
         for (const term of roll.terms) {
             if (isNaN(term.total)) continue;
             const partial = damage.find(e => e.type === term.options?.flavor);
-            if (partial) {
+            if (partial && !splitDamage) {
                 partial.amount += term.total;
             }
             else {

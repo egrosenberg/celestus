@@ -895,6 +895,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             overridesWeaponType: new BooleanField({ required: true, initial: false }),
             overridesWeaponRange: new BooleanField({ required: true, initial: false }),
             overrideDamageType: new StringField(),
+            itemizeDamage: new BooleanField(), // should the individual damage components be rolled separately
             school: new StringField({ required: true, initial: "none" }), // type of school skill is
             tier: new NumberField({ required: true, integer: true, initial: 0 }),
             hasScript: new BooleanField({ required: true, initial: false }), // toggle for custom script

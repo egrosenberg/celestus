@@ -129,6 +129,7 @@ export async function rollDamage(e) {
             'system.damageType': item.system.damage[0].type,
             'system.actorID': actorID,
             'system.itemID': itemID,
+            'flags.celestus.splitDamage': item.system.itemizeDamage,
         });
     }
     else if (item.system.type === "weapon") {
@@ -184,7 +185,7 @@ export async function applyDamageComponent(e) {
     const type = e.currentTarget.dataset.damageType;
     const origin = await fromUuid(e.currentTarget.dataset.originActor);
     const item = await fromUuid(e.currentTarget.dataset.originItem);
-    
+
     let lifesteal = 0;
     if (item?.type === "skill") {
         lifesteal = item.system.lifesteal;
