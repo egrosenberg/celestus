@@ -461,6 +461,13 @@
                             </div>
                         </li>
                         {{/each}}
+                        <div class="form-group">
+                            <label for="system.itemizeDamage" class="resource-label">Split Damage Rolls? </label>
+                            <div class="form-fields">
+                                <input class="check-input" name="system.itemizeDamage" type="checkbox"
+                                    {{checked system.itemizeDamage}} />
+                            </div>
+                        </div>
                     </div>
                     {{/if}}
                     {{!-- StatusEffects --}}
