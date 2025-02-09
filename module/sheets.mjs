@@ -155,6 +155,7 @@ export class CharacterSheet extends ActorSheet {
             // add item description to document
             const div = $(msg);
             div.addClass("item-hover");
+            div.addClass("stone-ui");
             const uiPosition = $("#ui-middle").offset();
             div.css("left", uiPosition.left + $("#ui-middle").width() - 270);
             div.css("top", uiPosition.top);

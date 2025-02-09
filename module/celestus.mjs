@@ -853,11 +853,13 @@ Hooks.on("renderHotbar", (application, html, data) => {
         // add item description to document
         const div = $(msg);
         div.addClass("item-hover");
+        div.addClass("stone-ui");
+        div.removeClass("dice-flavor");
         const uiPosition = $("#ui-middle").offset();
-        div.css("left", uiPosition.left + $("#ui-middle").width() - 270);
-        div.css("top", uiPosition.top);
+        div.css("left", uiPosition.left + $("#ui-middle").width() - 270 - 10);
+        div.css("top", uiPosition.top + 10);
         $("#ui-middle").append(div);
-    })
+    });
 
     // item hover leave
     html.on('mouseleave', '.macro', () => {
@@ -865,7 +867,7 @@ Hooks.on("renderHotbar", (application, html, data) => {
             $(".item-hover").remove();
             return;
         }
-    })
+    });
 
     // add populate macros button
     const populateButton = document.createElement("div");
@@ -878,7 +880,7 @@ Hooks.on("renderHotbar", (application, html, data) => {
         </a>`;
     populateButton.addEventListener("click", () => populateHotbar());
     html.append(populateButton);
-})
+});
 // hook damage preview on token select
 Hooks.on("controlToken", previewDamage);
 Hooks.on("controlToken", (d, c) => { renderHotbarOverlay(c) });
