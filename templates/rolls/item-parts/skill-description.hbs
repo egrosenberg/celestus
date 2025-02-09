@@ -45,6 +45,12 @@
             CD: {{item.system.cooldown.max}} rounds
         </span>
         {{/if}}
+        {{!-- Channeling --}}
+        {{#if item.system.channelDuration}}
+        <span class="roll-tag">
+            {{item.system.channelDuration}} Turn Channel
+        </span>
+        {{/if}}
         {{!-- components --}}
         <div class="roll-tag">
             Components:

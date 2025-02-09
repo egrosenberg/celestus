@@ -397,7 +397,7 @@ export class CelestusActor extends Actor {
                 await origin.update({ "system.resources.ap.value": Math.min(ap, origin.system.resources.ap.max) });
                 canvasPopupText(origin, "Executioner");
             }
-    
+
             // apply healing to origin based on lifesteal / apply retribution damage
             if (origin.uuid != this.uuid && damage > 0 && CONFIG.CELESTUS.damageTypes[type].style !== "healing") {
                 const heal = (origin.system.attributes.bonuses.lifesteal.value + lifesteal) * damage;
@@ -405,7 +405,7 @@ export class CelestusActor extends Actor {
                 const retribution = this.system.combat.retributive.mod * damage;
                 await origin.applyDamage(retribution, type, origin)
             }
-    
+
             // finally, check if actor is flammable and if damage is fire damage
             if (type === "fire" && this.getFlag("celestus", "flammable")) {
                 const burn = await this.toggleStatusEffect("burn", { active: true });
@@ -427,8 +427,9 @@ export class CelestusActor extends Actor {
     /**
      * 
      * @param {SkillData} skill : object containing info of the skill to use
+     * @param {Object} options: channeling: boolean
      */
-    async useSkill(skill) {
+    async useSkill(skill, options = {}) {
         // check if skill is disabled
         let error = "";
         if (skill.system.disabled !== false) {
@@ -436,25 +437,40 @@ export class CelestusActor extends Actor {
         }
 
         // prompt to see if user wants to use skill
-        const useResources = await foundry.applications.api.DialogV2.confirm({
-            window: { title: "Use Resources?" },
-            content: error,
-            rejectClose: false,
-            modal: true
-        });
-        if (typeof useResources !== "boolean") return;
-        if (useResources && error) {
-            return ui.notifications.info(`CELESTUS | Skill not used because ${skill.system.disabled}`);
+        let useResources;
+        if (!options.channeling) {
+            useResources = await foundry.applications.api.DialogV2.confirm({
+                window: { title: "Use Resources?" },
+                content: error,
+                rejectClose: false,
+                modal: true
+            });
+            if (typeof useResources !== "boolean") return;
+            if (useResources && error) {
+                return ui.notifications.info(`CELESTUS | Skill not used because ${skill.system.disabled}`);
+            }
         }
 
         const actor = this.system;
-        // use resources
-        // only use ap if in combat
         if (this.inCombat) {
+            // channel if in combat and has channel duration
+            if (skill.system.channelDuration > 0 && !options.channeling) {
+                // create an effect to channel this
+                const channelInfo = {
+                    name: `Channeling: ${skill.name}`,
+                    type: "status",
+                    img: skill.img,
+                    duration: { rounds: skill.system.channelDuration },
+                    system: { channeling: skill.uuid },
+                }
+                await this.createEmbeddedDocuments("ActiveEffect", [channelInfo]);
+            }
+            // only use ap if in combat
             if (useResources) {
                 await this.update({ "system.resources.ap.value": actor.resources.ap.value - skill.system.finalAP });
             }
         }
+        // use fp
         if (useResources) {
             await this.update({ "system.resources.fp.value": actor.resources.fp.value - skill.system.finalFP });
         }
@@ -464,7 +480,7 @@ export class CelestusActor extends Actor {
             owner: this.name,
             ownerPortrait: this.prototypeToken.texture.src,
             user: game.user.name,
-            name: skill.name,
+            name: `${options.channeling?"Channeling: ":""}${skill.name}`,
             flavor: skill.system.description,
             portrait: skill.img,
             item: skill,
@@ -491,7 +507,7 @@ export class CelestusActor extends Actor {
             'system.isSkill': true,
             'system.itemID': skill.uuid,
             'system.skill.hasAttack': skill.system.attack,
-            'system.skill.hasDamage': skill.system.damage.length > 0 || skill.system.type === "weapon",
+            'system.skill.hasDamage': skill.system.damage?.length > 0 || skill.system.type === "weapon",
         });
 
         if (useResources) {
@@ -739,6 +755,13 @@ export class CelestusActor extends Actor {
                     if (!dType) dType = type;
                     else dType = "Mixed";
                 }
+                // channel skills
+                if (effect.system.channeling) {
+                    const skill = await fromUuid(effect.system.channeling);
+                    if (skill) {
+                        this.useSkill(skill, { channeling: true });
+                    }
+                }
             }
             if (effect.isTemporary) {
                 if (effect.duration.rounds > 1) {
@@ -849,15 +872,15 @@ export class CelestusToken extends Token {
     /** @override */
     _onClickRight(event) {
         if (this.isOwner) super._onClickRight(event);
-         event.stopPropagation();
-         let ui = document.getElementById("ui-token-hover");
-         if (ui.style.display === "none") return;
-         if (ui.dataset.persist === "true") {
-             renderTokenInfo(this, false, true);
-         }
-         else {
-             ui.dataset.persist = "true";
-         }
+        event.stopPropagation();
+        let ui = document.getElementById("ui-token-hover");
+        if (ui.style.display === "none") return;
+        if (ui.dataset.persist === "true") {
+            renderTokenInfo(this, false, true);
+        }
+        else {
+            ui.dataset.persist = "true";
+        }
     }
 
     /** @override */

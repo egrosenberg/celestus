@@ -22,7 +22,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
         return {
             biography: new HTMLField(), // create biography field
             t: new StringField({ required: true, initial: "humanoid" }),
-            pointerTint: new StringField({required: true, default: "#fff"}),
+            pointerTint: new StringField({ required: true, default: "#fff" }),
             portraitBorder: new BooleanField({ required: true, initial: true }),
             // configure resources
             resources: new SchemaField({
@@ -912,8 +912,9 @@ export class SkillData extends foundry.abstract.TypeDataModel {
                 children: new ArrayField( // array of ids of owned effects created by the aura
                     new StringField()
                 ),
-                texture: new FilePathField({categories: ["IMAGE"]}),
+                texture: new FilePathField({ categories: ["IMAGE"] }),
             }),
+            channelDuration: new NumberField({ required: true, initial: 0, integer: true, min: 0 }),
         };
     }
 
@@ -958,7 +959,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
         let ap = this.ap;
         if (actor.getFlag("celestus", "elementalist")) {
             const standingOn = actor.getFlag("celestus", "standingOn");
-            if (CONFIG.CELESTUS.surfaceTypes[standingOn]?.schools.includes(this.school)  && ap > 1) {
+            if (CONFIG.CELESTUS.surfaceTypes[standingOn]?.schools.includes(this.school) && ap > 1) {
                 ap--;
             }
         }
@@ -1116,14 +1117,14 @@ export class SkillData extends foundry.abstract.TypeDataModel {
                 const min = parseInt(CONFIG.CELESTUS.baseDamage.min[actorLevel] * mult);
                 const max = parseInt(CONFIG.CELESTUS.baseDamage.max[actorLevel] * mult);
                 const avg = parseInt(CONFIG.CELESTUS.baseDamage.avg[actorLevel] * mult);
-                
+
                 parts[type].min += min;
                 parts[type].max += max;
                 parts[type].avg += avg;
                 total.min += min;
                 total.max += max;
                 total.avg += avg;
-                
+
             }
             return {
                 total: total,
@@ -1618,6 +1619,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
             ownedItems: new ArrayField( // items that have been created by this effect
                 new StringField()
             ),
+            channeling: new StringField(), // uuid of skill being channeled
         }
     }
 
@@ -1695,42 +1697,51 @@ export class EffectData extends foundry.abstract.TypeDataModel {
             }
         }
         // check if status needs to combine
-        for (let combination of data.system.combines) {
-            // check all effects on actor for status in combination
-            let combiner = actor.effects.find(e => e.statuses.has(combination.with));
-            // second incredient exists, combine
-            if (combiner) {
-                combiner.delete();
-                const product = await actor.toggleStatusEffect(combination.makes, { active: true });
-                if (typeof product != "boolean") {
-                    product.update({ "origin": this.parent.parent.uuid });
+        if (data.system?.combines) {
+            for (let combination of data.system.combines) {
+                // check all effects on actor for status in combination
+                let combiner = actor.effects.find(e => e.statuses.has(combination.with));
+                // second incredient exists, combine
+                if (combiner) {
+                    combiner.delete();
+                    const product = await actor.toggleStatusEffect(combination.makes, { active: true });
+                    if (typeof product != "boolean") {
+                        product.update({ "origin": this.parent.parent.uuid });
+                    }
+                    return false;
                 }
-                return false;
             }
         }
         // removes all things the status clears
-        for (let status of data.system.removes) {
-            let target = actor.effects.find(e => e.statuses.has(status));
-            if (target) {
-                target.delete();
+        if (data.system?.removes) {
+            for (let status of data.system.removes) {
+                let target = actor.effects.find(e => e.statuses.has(status));
+                if (target) {
+                    target.delete();
+                }
             }
         }
         // removes all things the status blocks
-        for (let status of data.system.blocks) {
-            let target = actor.effects.find(e => e.statuses.has(status));
-            if (target) {
-                target.delete();
+        if (data.system?.blocks) {
+            for (let status of data.system.blocks) {
+                let target = actor.effects.find(e => e.statuses.has(status));
+                if (target) {
+                    target.delete();
+                }
             }
         }
         // removes all other instances of this status
-        for (let status of data.statuses) {
-            let target = actor.effects.find(e => e.statuses.has(status));
-            if (target) {
-                target.delete();
+        if (data.statuses) {
+            for (let status of data.statuses) {
+                let target = actor.effects.find(e => e.statuses.has(status));
+                if (target) {
+                    target.delete();
+                }
+
             }
         }
         // if status has no duration, instantly remove it after applying its combinations and blocks
-        if (data.duration.rounds === 0) {
+        if (data.duration?.rounds === 0) {
             await canvasPopupText(actor, data.name, "#fff", broadcast);
             return false;
         }
