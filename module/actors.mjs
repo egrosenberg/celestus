@@ -849,17 +849,15 @@ export class CelestusToken extends Token {
     /** @override */
     _onClickRight(event) {
         if (this.isOwner) super._onClickRight(event);
-        {
-            event.stopPropagation();
-            let ui = document.getElementById("ui-token-hover");
-            if (ui.style.display === "none") return;
-            if (ui.dataset.persist === "true") {
-                renderTokenInfo(this, false, true);
-            }
-            else {
-                ui.dataset.persist = "true";
-            }
-        }
+         event.stopPropagation();
+         let ui = document.getElementById("ui-token-hover");
+         if (ui.style.display === "none") return;
+         if (ui.dataset.persist === "true") {
+             renderTokenInfo(this, false, true);
+         }
+         else {
+             ui.dataset.persist = "true";
+         }
     }
 
     /** @override */
@@ -890,6 +888,17 @@ export class CelestusToken extends Token {
         this.pointerPixi = pointer;
         canvas.stage.addChild(this.pointerPixi);
         game.celestus.pointers.push(this.pointerPixi);
+    }
+
+    /**
+     * updates pointer visibility to be congruous with this token's visibility
+     */
+    updatePointerVisibility() {
+        if (!this.pointerPixi) return;
+        canvas.stage.removeChild(this.pointerPixi);
+        if (this.visible) {
+            canvas.stage.addChild(this.pointerPixi);
+        }
     }
 
     /**

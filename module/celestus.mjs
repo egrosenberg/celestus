@@ -904,6 +904,9 @@ Hooks.on("preUpdateToken", rotateOnMove);
 // draw backstab overlay
 Hooks.on("hoverToken", drawTokenHover);
 
+// Handle token pointer visibility
+Hooks.on("refreshToken", (token) => { token.updatePointerVisibility() });
+
 // token pointer overlay 
 Hooks.on("refreshToken", (t) => { if (!t._original) t.drawPointer() });
 Hooks.on("canvasDraw", () => {
