@@ -444,7 +444,7 @@ export function rollItemMacro(name) {
  */
 export async function populateHotbar(actor) {
     // prompt for confirmation (if not auto populating)
-    if (!game.settings.get('celestus', 'autoPopulateHotbar')) {
+    if (!game.settings.get('celestus', 'autoPopulateHotbar') && game.settings.get('celestus', 'hotbarPopulateConfirmation')) {
         const proceed = await foundry.applications.api.DialogV2.confirm({
             content: `Are you sure you want to populate the hotbar? This will remove any existing hotbar macros
                 <br/>(If there is no current actor, it will just be cleared)`,

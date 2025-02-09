@@ -1176,7 +1176,7 @@ export class GearData extends foundry.abstract.TypeDataModel {
                     wit: new NumberField({ required: true, integer: true, initial: 0 }),
                 }),
                 resistance: new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.damageTypes)).reduce((obj, type) => {
-                    obj[type] = new NumberField({ required: true, integer: false, min: 0, initial: 0 });
+                    obj[type] = new NumberField({ required: true, integer: false, initial: 0 });
                     return obj;
                 }, {})),
                 statusImmune: new ArrayField(

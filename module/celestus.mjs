@@ -750,6 +750,15 @@ Hooks.on("init", () => {
         config: true,
         requiresReload: false,
     });
+    game.settings.register('celestus', 'hotbarPopulateConfirmation', {
+        name: 'Ask For Confirmation Before Populating Hotbar',
+        hint: 'Disabling this will cause the "Populate Hotbar" button to execute without asking for confirmation.',
+        scope: 'client',
+        type: Boolean,
+        default: true,
+        config: true,
+        requiresReload: false,
+    });
     CONFIG.CELESTUS.broadcastPopups = game.settings.get('celestus', 'broadcastPopups');
 
     // set up websocket handling
@@ -788,6 +797,7 @@ Hooks.on("ready", () => {
 
 // hook macro creation on hotbar drop
 Hooks.on("hotbarDrop", (bar, data, slot) => {
+    if (data.type === "Macro") return;
     createCelestusMacro(data, slot);
     return false;
 });
