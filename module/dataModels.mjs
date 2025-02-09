@@ -105,6 +105,11 @@ export class ActorData extends foundry.abstract.TypeDataModel {
                     obj[status.id] = new BooleanField({ required: true, initial: false });
                     return obj;
                 }, {})),
+                // language proficiencies
+                languages: new SchemaField(Object.keys(CONFIG.CELESTUS.languages).reduce((obj, language) => {
+                    obj[language] = new BooleanField({ required: true, initial: language === "Common" });
+                    return obj;
+                }, {})),
                 // movement
                 movement: new SchemaField({ // movement in map units (default ft)
                     base: new NumberField({ required: true, integer: false, min: 0, initial: 20 }),

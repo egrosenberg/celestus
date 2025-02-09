@@ -34,6 +34,8 @@ const preloadHandlebarsTemplates = async function () {
         'systems/celestus/templates/actor/parts/actor-items.hbs',
         'systems/celestus/templates/actor/parts/actor-skills.hbs',
         'systems/celestus/templates/actor/parts/actor-effects.hbs',
+        'systems/celestus/templates/actor/parts/actor-bonuses.hbs',
+        'systems/celestus/templates/actor/parts/actor-damage.hbs',
         'systems/celestus/templates/actor/parts/actor-npc-skills.hbs',
         // Item partials
         'systems/celestus/templates/item/parts/item-creation.hbs',
@@ -494,6 +496,17 @@ Hooks.on("init", () => {
             ooze: "Ooze",
             dragon: "Dragon",
             splinter: "Splinter",
+        },
+        languages: {
+            common: "Common",
+            abyssal: "Abyssal",
+            celestial: "Celestial",
+            derelict: "Derelict",
+            draconic: "Draconic",
+            infernal: "Infernal",
+            primal: "Primal",
+            snaketongue: "Snaketongue",
+            verdant: "Verdant",
         },
         effectResists: {
             none: "None",

@@ -147,34 +147,7 @@
                     </span>
                 </div>
                 {{/if}}
-                <h2>Weapon Damage</h2>
-                <div class="abilities flexcol">
-                    {{#each actor.system.totalWeaponDamage.parts as |damage key|}}
-                    {{#with (lookup ../config.damageTypes key)}}
-                    <div class="ability flexrow flex-group-center" style="background-color: {{color}};"
-                        data-tooltip="{{label}} Damage">
-                        <span class="weapon-damage-minmax">
-                            {{damage.min}}-{{damage.max}}
-                        </span>
-                        <span class="weapon-damage-avg">
-                            ({{damage.avg}})
-                        </span>
-                        <label class="weapon-damage-symbol flexlarge align-right">
-                            <i class="{{glyph}}"></i>
-                        </label>
-                    </div>
-                    {{/with}}
-                    {{/each}}
-                    <h2>Total Damage</h2>
-                    <div class="ability flexrow flex-group-center physical" data-tooltip="Total Damage">
-                        <span class="weapon-damage-minmax">
-                            {{actor.system.totalWeaponDamage.total.min}}-{{actor.system.totalWeaponDamage.total.max}}
-                        </span>
-                        <span class="weapon-damage-avg">
-                            ({{actor.system.totalWeaponDamage.total.avg}})
-                        </span>
-                    </div>
-                </div>
+                {{> "systems/celestus/templates/actor/parts/actor-damage.hbs"}}
                 <h2>Attribute Totals</h2>
                 <div class="stats-grid">
                     {{#each system.abilities as |ability key|}}
@@ -197,44 +170,7 @@
                         <input type="number" name="system.dmgBoost" value="{{system.dmgBoost}}" data-dtype="Number" />
                     </div>
                 </div>
-                <h2>Resistances</h2>
-                <div class="abilities flexcol">
-                    {{#each system.attributes.resistance as |ability key|}}
-                    {{#if ability.value}}
-                    {{#with (lookup ../config.damageTypes key)}}
-                    <div class="ability flexrow flex-group-center" style="background-color: {{color}};">
-                        <label class="resource-label rollable flexlarge align-left"><i
-                                class="{{glyph}}"></i>{{label}}</label>
-                        <span class="resist">{{percent ability.value symbol=true}}</span>
-                    </div>
-                    {{/with}}
-                    {{/if}}
-                    {{/each}}
-                    {{#each system.attributes.statusImmune as |value status|}}
-                    {{#if value}}
-                    {{#with (lookup ../statusEffects status)}}
-                    <div class="ability flexrow flex-group-center"
-                        style="background-color: rgba(255, 255, 255, 0.719);">
-                        <label class="resource-label rollable flexlarge align-left" style="flex: 1">
-                            Immune to {{name}}
-                        </label>
-                    </div>
-                    {{/with}}
-                    {{/if}}
-                    {{/each}}
-                </div>
-                <h2>Bonuses</h2>
-                <div class="abilities flexcol">
-                    {{#each system.attributes.bonuses as |ability key|}}
-                    <div class="ability flexrow flex-group-center"
-                        style="background-color: rgba(255, 255, 255, 0.719);">
-                        {{#with (lookup ../config.bonuses key)}}
-                        <label class="resource-label rollable flexlarge align-left">{{label}}</label>
-                        <span class="resist">{{percent ability.value symbol=true}}</span>
-                        {{/with}}
-                    </div>
-                    {{/each}}
-                </div>
+                {{> "systems/celestus/templates/actor/parts/actor-bonuses.hbs"}}
             </div>
         </span>
         <span class="sheet-main">

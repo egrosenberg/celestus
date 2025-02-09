@@ -29,13 +29,15 @@
                         Movement: {{system.attributes.movement.value}}
                     </span>
                     <a class="level" id="initiative">
-                        Initiative: {{numberFormat (sum system.abilities.wit.total system.attributes.bonuses.initiative.value) sign=true}}
+                        Initiative: {{numberFormat (sum system.abilities.wit.total
+                        system.attributes.bonuses.initiative.value) sign=true}}
                     </a>
                     <br />
-                    <a class="control refresh" data-tooltip="refresh resources" id="refresh-all"><i class="icon-cycle"></i></a>
+                    <a class="control refresh" data-tooltip="refresh resources" id="refresh-all"><i
+                            class="icon-cycle"></i></a>
                     <a class="control refresh" data-tooltip="new day" id="refresh-dawn"><i class="icon-sunrise"></i></a>
                     <a class="control refresh" data-tooltip="toggle combat state" id="toggle-combat">
-                        <i class="{{ifThen actor.inCombat " icon-swords-emblem-solid" "icon-swords-emblem-outline"}}">
+                        <i class="{{ifThen actor.inCombat " icon-swords-emblem-solid" "icon-swords-emblem-outline" }}">
                         </i>
                     </a>
 
@@ -55,9 +57,9 @@
                             <i class="fa-solid fa-circle action-point empty small"></i>
                         </a>
                         {{/repeat}}
-                    <br/>
-                    {{!-- only renders focus points if max focus points have been manually set --}}
-                    {{#if system.resources.fp.max}}
+                        <br />
+                        {{!-- only renders focus points if max focus points have been manually set --}}
+                        {{#if system.resources.fp.max}}
                         {{!--<label class="resource-label">FP: </label>--}}
                         {{#repeat system.resources.fp.value}}
                         <a class="fp-interact" data-index="@index">
@@ -104,33 +106,7 @@
                         </span>
                     </span>
                 </div>
-                <h2>Weapon Damage</h2>
-                <div class="abilities flexcol">
-                    {{#each actor.system.totalWeaponDamage.parts as |damage key|}}
-                    {{#with (lookup ../config.damageTypes key)}}
-                    <div class="ability flexrow flex-group-center" style="background-color: {{color}};" data-tooltip="{{label}} Damage">
-                        <span class="weapon-damage-minmax">
-                            {{damage.min}}-{{damage.max}}
-                        </span>
-                        <span class="weapon-damage-avg">
-                            ({{damage.avg}})
-                        </span>
-                        <label class="weapon-damage-symbol flexlarge align-right">
-                            <i class="{{glyph}}"></i>
-                        </label>
-                    </div>
-                    {{/with}}
-                    {{/each}}
-                    <h2>Total Damage</h2>
-                    <div class="ability flexrow flex-group-center physical" data-tooltip="Total Damage">
-                        <span class="weapon-damage-minmax">
-                            {{actor.system.totalWeaponDamage.total.min}}-{{actor.system.totalWeaponDamage.total.max}}
-                        </span>
-                        <span class="weapon-damage-avg">
-                            ({{actor.system.totalWeaponDamage.total.avg}})
-                        </span>
-                    </div>
-                </div>
+                {{> "systems/celestus/templates/actor/parts/actor-damage.hbs"}}
                 <h2>Attribute Totals</h2>
                 <div class="stats-grid">
                     <h4>Unspent: {{numberFormat system.attributes.unspentPoints sign=true}}</h4>
@@ -154,44 +130,7 @@
                     </div>
                     {{/each}}
                 </div>
-                <h2>Resistances</h2>
-                <div class="abilities flexcol">
-                    {{#each system.attributes.resistance as |ability key|}}
-                    {{#if ability.value}}
-                    {{#with (lookup ../config.damageTypes key)}}
-                    <div class="ability flexrow flex-group-center" style="background-color: {{color}};">
-                        <label class="resource-label rollable flexlarge align-left"><i
-                                class="{{glyph}}"></i>{{label}}</label>
-                        <span class="resist">{{percent ability.value symbol=true}}</span>
-                    </div>
-                    {{/with}}
-                    {{/if}}
-                    {{/each}}
-                    {{#each system.attributes.statusImmune as |value status|}}
-                    {{#if value}}
-                    {{#with (lookup ../statusEffects status)}}
-                    <div class="ability flexrow flex-group-center"
-                        style="background-color: rgba(255, 255, 255, 0.719);">
-                        <label class="resource-label rollable flexlarge align-left" style="flex: 1">
-                            Immune to {{name}}
-                        </label>
-                    </div>
-                    {{/with}}
-                    {{/if}}
-                    {{/each}}
-                </div>
-                <h2>Bonuses</h2>
-                <div class="abilities flexcol">
-                    {{#each system.attributes.bonuses as |ability key|}}
-                    <div class="ability flexrow flex-group-center"
-                        style="background-color: rgba(255, 255, 255, 0.719);">
-                        {{#with (lookup ../config.bonuses key)}}
-                        <label class="resource-label rollable flexlarge align-left">{{label}}</label>
-                        <span class="resist">{{percent ability.value symbol=true}}</span>
-                        {{/with}}
-                    </div>
-                    {{/each}}
-                </div>
+                {{> "systems/celestus/templates/actor/parts/actor-bonuses.hbs"}}
             </div>
         </span>
         <span class="sheet-main">
@@ -201,15 +140,9 @@
                 <div class="armor-socket">
                     <div class="armor-socket-label">{{lookup ../config.equipmentSlots slot}}</div>
                     <a class="armor-socket-browse item" data-slot="{{slot}}" data-item-id="{{piece._id}}">
-                        <img class="armor-socket-icon" src="{{piece.img}}" data-tooltip="{{piece.name}}"
-                            {{#if piece.img}}
-                                {{#if (and piece.system.twoHanded (eq slot "right" ))}}
-                                    style="opacity: 0.5;" 
-                                {{/if}}
-                            {{else}}
-                                style="opacity: 0.0;"
-                            {{/if}}
-                        />
+                        <img class="armor-socket-icon" src="{{piece.img}}" data-tooltip="{{piece.name}}" {{#if
+                            piece.img}} {{#if (and piece.system.twoHanded (eq slot "right" ))}} style="opacity: 0.5;"
+                            {{/if}} {{else}} style="opacity: 0.0;" {{/if}} />
                     </a>
                 </div>
                 {{/each}}
@@ -241,7 +174,8 @@
                                 <div class="ability flexrow flex-group-center"
                                     style="background-color: {{#with (lookup ../config.civilSkills key)}}{{color}}{{/with}}">
                                     <label for="system.civil.{{key}}.base"
-                                        class="resource-label maxwidth-label ability-roll flexlarge align-left" data-label="{{key}}">
+                                        class="resource-label maxwidth-label ability-roll flexlarge align-left"
+                                        data-label="{{key}}">
                                         {{#with (lookup ../config.civilSkills key)}}
                                         <i class="{{glyph}}"> </i>{{label}}
                                         {{/with}}

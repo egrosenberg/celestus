@@ -184,6 +184,7 @@ export class CharacterSheet extends ActorSheet {
 
         // sheet appearance
         html.on('click', '.appearance-edit', this._appearanceEdit.bind(this));
+        html.on('click', '.language-edit', this._languageEdit.bind(this));
 
         // refresh all resources
         html.on('click', '#refresh-all', (ev) => {
@@ -415,7 +416,6 @@ export class CharacterSheet extends ActorSheet {
     }
 
     _appearanceEdit() {
-        console.log("test");
         new foundry.applications.api.DialogV2({
             window: { title: "Change Sheet / Token Appearance", width: 400 },
             content: `
@@ -444,6 +444,36 @@ export class CharacterSheet extends ActorSheet {
             }
         }).render({ force: true });
     }
+
+    _languageEdit() {
+        let msg = "";
+        for (const [language, label] of Object.entries(CONFIG.CELESTUS.languages)) {
+            msg += `
+                <div class="form-group">
+                    <label>${label}: </label>
+                    <div class="form-fields">
+                        <input type="checkbox" name="${language}" ${this.actor.system.attributes.languages[language]?"checked":""} />
+                    </div>
+                </div>
+            `;
+        }
+        new foundry.applications.api.DialogV2({
+            window: { title: "Edit Language Proficiencies", width: 400 },
+            content: msg,
+            buttons: [{
+                action: "submit",
+                label: "Save Changes",
+                default: true,
+                callback: (event, button, dialog) => button.form.elements
+            }],
+            submit: async values => {
+                for (const [language] of Object.entries(CONFIG.CELESTUS.languages)) {
+                    await this.actor.update({ [`system.attributes.languages.${language}`]: values[language].checked })
+                }
+            }
+        }).render({ force: true });
+    }
+
 
 
     /**

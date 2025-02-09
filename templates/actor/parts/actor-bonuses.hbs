@@ -1,0 +1,49 @@
+<h2>Resistances</h2>
+<div class="abilities flexcol">
+    {{#each system.attributes.resistance as |ability key|}}
+    {{#if ability.value}}
+    {{#with (lookup ../config.damageTypes key)}}
+    <div class="ability flexrow flex-group-center" style="background-color: {{color}};">
+        <label class="resource-label  flexlarge align-left"><i class="{{glyph}}"></i>{{label}}</label>
+        <span class="resist">{{percent ability.value symbol=true}}</span>
+    </div>
+    {{/with}}
+    {{/if}}
+    {{/each}}
+    {{#each system.attributes.statusImmune as |value status|}}
+    {{#if value}}
+    {{#with (lookup ../statusEffects status)}}
+    <div class="ability flexrow flex-group-center pale">
+        <label class="resource-label  flexlarge align-left" style="flex: 1">
+            Immune to {{name}}
+        </label>
+    </div>
+    {{/with}}
+    {{/if}}
+    {{/each}}
+</div>
+<h2>Bonuses</h2>
+<div class="abilities flexcol">
+    {{#each system.attributes.bonuses as |ability key|}}
+    {{#with (lookup ../config.bonuses key)}}
+    <div class="ability flexrow flex-group-center pale">
+        <label class="resource-label  flexlarge align-left">{{label}}</label>
+        <span class="resist">{{percent ability.value symbol=true}}</span>
+    </div>
+    {{/with}}
+    {{/each}}
+</div>
+{{!-- Languages --}}
+<h2 style="justify-content: space-between; display: flex">
+    <span>Languages</span>
+    <a class="language-edit"><i class="fa-solid fa-gear"></i></a>
+</h2>
+<div class="abilities flexcol ">
+    {{#each system.attributes.languages as |known language|}}
+    {{#if known}}
+    <div class="ability flexrow flex-group-center pale">
+        <label class="resource-label flexlarge align-left">{{lookup ../config.languages language}}</label>
+    </div>
+    {{/if}}
+    {{/each}}
+</div>
