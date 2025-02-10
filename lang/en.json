@@ -1,2 +1,56 @@
 {
+    "CELESTUS": {
+        "attributes": {
+            "str": "Strength",
+            "dex": "Dexterity",
+            "con": "Constitution",
+            "int": "Intellect",
+            "mind": "Mind",
+            "wit": "Wits"
+        },
+        "abilities": {
+            "scoundrel": "Scoundrel",
+            "lore": "Lore",
+            "nature": "Nature",
+            "influence": "Influence",
+            "religion": "Religion",
+            "onehand": "Dueling",
+            "dualwield": "Dual Wielding",
+            "twohand": "Heavy-Handed",
+            "ranged": "Marksman",
+            "retributive": "Retributive",
+            "flamespeaker": "Flamespeaker",
+            "tidecaller": "Tidecaller",
+            "stormseeker": "Stormseeker",
+            "duneshaper": "Duneshaper",
+            "voidcantor": "Voidcantor",
+            "deathbringer": "Deathbringer",
+            "shroudstalker": "Shroudstalker",
+            "formshifter": "Formshifter",
+            "huntmaster": "Huntmaster",
+            "warlord": "Warlord"
+        },
+        "abilityDescriptions": {
+            "scoundrel": "Hiding, lock picking, and other sleight of hand.",
+            "lore": "Recalling relevant information and finding meaning in passages.",
+            "nature": "Finding your way through the wilds, tracking creatures, knowledge of wildlife.",
+            "influence": "Changing the opinions of those around you, deceiving others, and performing.",
+            "religion": "Knowledge of religious practices and attuning yourself to spiritual processes.",
+            "onehand": "Single-Handed: 5% weapon damage , 5% accuracy",
+            "dualwield": "Two one-handed weapons: 5% weapon damage, 1% evasion",
+            "twohand": "Two-Handed: 5% weapon damage, 5% critical hit damage",
+            "ranged": "Two-handed ranged weapon: 5% weapon damage, 1% critical hit chance",
+            "retributive": "Reflect 5% of incoming damage back to your attacker",
+            "flamespeaker": "5% Fire damage",
+            "tidecaller": "5% Water damage, Healing, and Magic Armor healing",
+            "stormseeker": "5% Air damage",
+            "duneshaper": "5% Earth damage, Poison damage, and Physical Armor healing",
+            "voidcantor": "5% Psychic damage",
+            "deathbringer": "Heal for 5% of damage dealt",
+            "shroudstalker": "5% Critical hit damage, 5% movement speed",
+            "formshifter": "You gain 2 unspent attribute points",
+            "huntmaster": "5% damage to marked targets",
+            "warlord": "5% Physical damage"
+        }
+    }
 }

@@ -30,6 +30,7 @@ import { improviseDamage } from "./helpers.mjs"
 const preloadHandlebarsTemplates = async function () {
     return loadTemplates([
         // Actor partials.
+        'systems/celestus/templates/actor/parts/actor-abilities.hbs',
         'systems/celestus/templates/actor/parts/actor-features.hbs',
         'systems/celestus/templates/actor/parts/actor-items.hbs',
         'systems/celestus/templates/actor/parts/actor-skills.hbs',
