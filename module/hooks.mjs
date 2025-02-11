@@ -272,14 +272,14 @@ export async function addChatButtons(msg, html, options) {
             total += roll.total;
         }
         // change color based on hit, miss, or crit
-        if (total > msg.getFlag("celestus", "critThreshold")) {
+        if (total < msg.getFlag("celestus", "hitThreshold")) {
+            html.find(".dice-total").css('background-color', RED);
+        }
+        else if (total > msg.getFlag("celestus", "critThreshold")) {
             html.find(".dice-total").css('background-color', BLUE);
         }
-        else if (total > msg.getFlag("celestus", "hitThreshold")) {
-            html.find(".dice-total").css('background-color', GREEN);
-        }
         else {
-            html.find(".dice-total").css('background-color', RED);
+            html.find(".dice-total").css('background-color', GREEN);
         }
     }
     // if message is a skill usage, add attack / damage buttons for owners
@@ -416,7 +416,8 @@ export async function createCelestusMacro(data, slot) {
             type: "script",
             img: item.img,
             command: command,
-            flags: { "celestus.itemMacro": true }
+            flags: { "celestus.itemMacro": true },
+            ownership: { "default": 3 }
         })
     }
     await game.user.assignHotbarMacro(macro, slot);
@@ -455,7 +456,7 @@ export async function populateHotbar(actor) {
         if (!proceed) return;
     }
     // clear user's hotbar
-    await game.user.update({ hotbar: {} }, {diff: false, recursive: false, noHook: true});
+    await game.user.update({ hotbar: {} }, { diff: false, recursive: false, noHook: true });
     // get actor
     actor = actor ?? canvas.tokens?.controlled?.[0]?.actor ?? game.user.character ?? _token?.actor ?? null;
     if (!actor) return ui.notifications.warn("CELESTUS | No actor to populate hotbar from");
