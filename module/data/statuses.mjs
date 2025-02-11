@@ -115,7 +115,7 @@ export let statuses = [
         name: "Stunned",
         img: "systems/celestus/svg/electric.svg",
         type: "status",
-        duration: { rounds: 2 },
+        duration: { rounds: 1 },
         system: {
             resistedBy: "mag",
             removes: ["wet"],
@@ -165,7 +165,7 @@ export let statuses = [
         name: "Petrified",
         img: "systems/celestus/svg/golem-head.svg",
         type: "status",
-        duration: { rounds: 2 },
+        duration: { rounds: 1 },
         system: {
             resistedBy: "mag",
             removes: ["wet", "oil"],
@@ -293,7 +293,7 @@ export let statuses = [
         name: "Maimed",
         img: "systems/celestus/svg/nailed-foot.svg",
         type: "status",
-        duration: { rounds: 2 },
+        duration: { rounds: 1 },
         system: {
             resistedBy: "phys",
         },
@@ -414,7 +414,7 @@ export let statuses = [
         name: "Frozen",
         img: "icons/svg/frozen.svg",
         type: "status",
-        duration: { rounds: 2 },
+        duration: { rounds: 1 },
         system: {
             damage: [],
             resistedBy: "mag",
@@ -472,7 +472,7 @@ export let statuses = [
         name: "Clear Minded",
         img: "systems/celestus/svg/third-eye.svg",
         type: "status",
-        duration: { rounds: 5 },
+        duration: { rounds: 3 },
         system: {
             blocks: ["rage", "charm", "fear", "sleep", "taunt", "mad", "daze", "psychosis"],
         },
@@ -489,7 +489,7 @@ export let statuses = [
         name: "Raging",
         img: "systems/celestus/svg/mighty-force.svg",
         type: "status",
-        duration: { rounds: 2 },
+        duration: { rounds: 1 },
         system: {
             blocks: ["charm", "fear", "sleep", "mad"],
         },
@@ -626,7 +626,7 @@ export let statuses = [
         name: "Charmed",
         img: "systems/celestus/svg/charm.svg",
         type: "status",
-        duration: { rounds: 3 },
+        duration: { rounds: 2 },
         system: {
             resistedBy: "mag",
         },
@@ -636,7 +636,7 @@ export let statuses = [
         name: "Atrophied",
         img: "systems/celestus/svg/drop-weapon.svg",
         type: "status",
-        duration: { rounds: 2 },
+        duration: { rounds: 1 },
         system: {
             resistedBy: "phys",
         },
@@ -692,10 +692,22 @@ export let statuses = [
         name: "Prone",
         img: "icons/svg/falling.svg",
         type: "status",
-        duration: { rounds: 2 },
+        duration: { rounds: 1 },
         system: {
             resistedBy: "phys",
         },
+        changes: [
+            {
+                key: "flags.celestus.incapacitated",
+                value: "true",
+                mode: 5,
+            },
+            {
+                key: "system.attributes.movement.mod",
+                value: "-1",
+                mode: 5,
+            },
+        ]
     },
     {
         id: "suffocate",
@@ -729,7 +741,7 @@ export let statuses = [
         name: "Terrified",
         img: "icons/svg/terror.svg",
         type: "status",
-        duration: { rounds: 2 },
+        duration: { rounds: 1 },
         system: {
             resistedBy: "mag",
             removes: ["charm", "mad"],
@@ -740,7 +752,7 @@ export let statuses = [
         name: "Mad",
         img: "systems/celestus/svg/delighted.svg",
         type: "status",
-        duration: { rounds: 2 },
+        duration: { rounds: 1 },
         system: {
             removes: ["charm", "fear"],
             resistedBy: "mag",
@@ -751,7 +763,7 @@ export let statuses = [
         name: "Asleep",
         img: "icons/svg/sleep.svg",
         type: "status",
-        duration: { rounds: 3 },
+        duration: { rounds: 2 },
         system: {
             resistedBy: "mag",
         },
@@ -795,7 +807,7 @@ export let statuses = [
         name: "Dazed",
         img: "systems/celestus/svg/knocked-out.svg",
         type: "status",
-        duration: { rounds: 2 },
+        duration: { rounds: 1 },
         system: {
             resistedBy: "mag",
             blocks: ["fear", "charm", "taunt", "sleep",],
