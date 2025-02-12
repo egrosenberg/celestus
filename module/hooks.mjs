@@ -168,7 +168,7 @@ export async function applyDamageHook(e) {
     // iterate through each controlled token
     for (const token of selected) {
         for (const term of dmgTerms.terms) {
-            await token.actor.applyDamage(term.amount, term.type, origin, lifesteal);
+            await token.actor.applyDamage(term.amount, term.type, origin, { lifesteal: lifesteal });
         }
     }
 
@@ -194,7 +194,7 @@ export async function applyDamageComponent(e) {
     const selected = canvas.tokens.controlled;
     // iterate through each controlled token
     for (const token of selected) {
-        await token.actor.applyDamage(damage, type, origin, lifesteal);
+        await token.actor.applyDamage(damage, type, origin, { lifesteal: lifesteal });
     }
 
     e.stopPropagation();

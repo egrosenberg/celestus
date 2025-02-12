@@ -252,7 +252,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
          * Perform final additive operations
          */
         // final unspent skill points update for formshifter
-        this.attributes.unspentPoints += this.combat.formshifter.value * 2;
+        this.attributes.unspentPoints += this.combat.formshifter.value;
         // calculate memory
         this.attributes.memory.total += parseInt(Math.floor((this.attributes.level) / 2) + (this.abilities.mind.total) - 7);
         // calculate modifiers

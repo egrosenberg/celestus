@@ -183,9 +183,12 @@ export class CelestusActor extends Actor {
      * @param {number} damage : amount of damage (pref int)
      * @param {string} type : type of damage (must exist in CONFIG.CELESTUS.damageTypes)
      * @param {CelestusActor} origin: actor that damage originates from
-     * @param {number} lifesteal: bonus lifesteal attached to damage source (decimal percent) (optional)
+     * @param {Object} options: lifesteal {number}, reflected {boolean}
      */
-    async applyDamage(damage, type, origin, lifesteal = 0) {
+    async applyDamage(damage, type, origin, options = {}) {
+        // handle default options
+        const lifesteal = options.lifesteal || 0;
+        // calculate damage
         damage = this.calcDamage(damage, type, origin);
 
         // remainder damage after armor
@@ -392,18 +395,22 @@ export class CelestusActor extends Actor {
         // the following only matters if there is an origin
         if (origin) {
             // check if hp was reduced to 0
-            if (value > 0 && newHealth < 1 && origin.getFlag("celestus", "executioner")) {
+            if (value > 0 && this.system.resources.hp.flat < 1 && origin.getFlag("celestus", "executioner")
+                && !origin.getFlag("celestus", "executedThisTurn") && this.uuid !== origin.uuid) {
                 const ap = origin.system.resources.ap.value + CONFIG.CELESTUS.executeAp;
                 await origin.update({ "system.resources.ap.value": Math.min(ap, origin.system.resources.ap.max) });
+                await origin.setFlag("celestus", "executedThisTurn", true);
                 canvasPopupText(origin, "Executioner");
             }
 
             // apply healing to origin based on lifesteal / apply retribution damage
-            if (origin.uuid != this.uuid && damage > 0 && CONFIG.CELESTUS.damageTypes[type].style !== "healing") {
+            if (CONFIG.CELESTUS.damageTypes[type].style !== "healing" && this.uuid !== origin.uuid) {
                 const heal = (origin.system.attributes.bonuses.lifesteal.value + lifesteal) * damage;
-                await origin.update({ "system.resources.hp.flat": origin.system.resources.hp.flat + Math.round(heal) })
-                const retribution = this.system.combat.retributive.mod * damage;
-                await origin.applyDamage(retribution, type, origin)
+                await origin.update({ "system.resources.hp.flat": origin.system.resources.hp.flat + Math.round(heal) });
+                if (!options.reflected) {
+                    const retribution = this.system.combat.retributive.mod * damage;
+                    await origin.applyDamage(retribution, type, this, { reflected: true })
+                }
             }
 
             // finally, check if actor is flammable and if damage is fire damage
@@ -480,7 +487,7 @@ export class CelestusActor extends Actor {
             owner: this.name,
             ownerPortrait: this.prototypeToken.texture.src,
             user: game.user.name,
-            name: `${options.channeling?"Channeling: ":""}${skill.name}`,
+            name: `${options.channeling ? "Channeling: " : ""}${skill.name}`,
             flavor: skill.system.description,
             portrait: skill.img,
             item: skill,
@@ -730,7 +737,7 @@ export class CelestusActor extends Actor {
         const ap = this.system.resources.ap.value;
         const startAp = this.system.resources.ap.start;
         const maxAp = this.system.resources.ap.max;
-        this.update({ "system.resources.ap.value": Math.min((ap + startAp), maxAp) });
+        await this.update({ "system.resources.ap.value": Math.min((ap + startAp), maxAp) });
         // go through all effects
         let effectsDamageFormula = "";
         let first = true;
@@ -782,6 +789,8 @@ export class CelestusActor extends Actor {
                 'system.actorID': this.uuid,
             });
         }
+        // unset executed this turn
+        await this.unsetFlag("celestus", "executedThisTurn");
     }
 
     /**
