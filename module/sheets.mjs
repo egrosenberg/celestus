@@ -1028,7 +1028,8 @@ export class CelestusMeasuredTemplateConfig extends MeasuredTemplateConfig {
     getData() {
         return foundry.utils.mergeObject(super.getData(), {
             surfaceTypes: CONFIG.CELESTUS.surfaceTypes,
-            surfaceType: this.document.getFlag("celestus", "surfaceType")
+            surfaceType: this.document.getFlag("celestus", "surfaceType"),
+            isGM: game.user.isGM,
         });
     }
 

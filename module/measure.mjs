@@ -822,7 +822,6 @@ export class CelestusMeasuredTemplateDocument extends MeasuredTemplateDocument {
     async _preUpdate(changes, options, user) {
         const allowed = await super._preUpdate(changes, options, user);
         if (allowed === false) return false;
-        if (!game.user.isGM) return;
 
         const surfaceType = changes.flags?.celestus?.surfaceType;
         if (surfaceType) {

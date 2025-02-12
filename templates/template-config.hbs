@@ -74,13 +74,14 @@
         <input type="checkbox" name="hidden" {{checked data.hidden}}/>
     </div>
 
+    {{#if isGM}}
     <div class="form-group">
         <label>Surface Type</label>
         <select class="flag-selector" name="surfaceType">
             {{selectOptions surfaceTypes selected=surfaceType}}
         </select>
     </div>
-
+    {{/if}}
 
     <button type="submit">
         <i class="far fa-save"></i> {{ localize submitText }}
