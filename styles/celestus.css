@@ -365,13 +365,17 @@
     background: radial-gradient(circle, rgba(131, 0, 0, 1) 0%, rgba(55, 0, 0, 1) 0%, rgba(19, 0, 0, 1) 100%);
 }
 
-.celestus a:disabled {
-    cursor: no-drop;
+.celestus .item-control.disabled {
+    cursor: default;
     opacity: 75%;
 }
 
+.celestus .item-control.disabled:hover {
+    text-shadow: none;
+}
+
 button:disabled {
-    cursor: no-drop;
+    cursor: default;
     opacity: 75%;
 }
 

@@ -173,7 +173,10 @@ export class CharacterSheet extends ActorSheet {
 
         // -------------------------------------------------------------
         // Everything below here is only needed if the sheet is editable
-        if (!this.isEditable) return;
+        if (!this.isEditable) {
+            $(".item-control").addClass('disabled');
+            return;
+        }
 
         // slimSelect
         $('.npc-prefab-selector').each((i, e) => {
@@ -640,6 +643,13 @@ export class CelestusItemSheet extends ItemSheet {
     activateListeners(html) {
         super.activateListeners(html);
 
+        // -------------------------------------------------------------
+        // Everything below here is only needed if the sheet is editable
+        if (!this.isEditable) {
+            $(".item-control").addClass('disabled');
+            return;
+        }
+
         // toggle checkboxes
         html.on('click', '.check-input', (ev) => {
             const checked = ev.currentTarget.checked;
@@ -888,6 +898,13 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
     /** @override */
     activateListeners(html) {
         super.activateListeners(html);
+
+        // -------------------------------------------------------------
+        // Everything below here is only needed if the sheet is editable
+        if (!this.isEditable) {
+            $(".item-control").addClass('disabled');
+            return;
+        }
 
         // handle displaying granted skills ui
         html.on('drop', '.tab.other', async (ev) => {
