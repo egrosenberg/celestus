@@ -1,4 +1,4 @@
-import { applyWeaponStatus, byString, calcMult, executeSkillScript, itemizeDamage, promptCrit, rollWeaponDamage, rotateTokenTowards } from "./helpers.mjs";
+import { applyWeaponStatus, byString, calcMult, executeSkillScript, itemizeDamage, promptDamage, rollWeaponDamage, rotateTokenTowards } from "./helpers.mjs";
 
 const RED = '#e29292';
 const GREEN = '#92e298';
@@ -106,7 +106,7 @@ export async function rollDamage(e) {
     const itemID = e.currentTarget.dataset.itemUuid;
     const item = await fromUuid(itemID);
 
-    const isCrit = await promptCrit();
+    const [isCrit, situational] = await promptDamage();
 
     if (item.system.type === "magic" || item.system.overridesWeaponDamage) {
         let formula = "";
@@ -120,7 +120,7 @@ export async function rollDamage(e) {
             const base = CONFIG.CELESTUS.baseDamage.formula[actor.system.attributes.level].replace("none", type);
 
             const mult = calcMult(actor, type, ability, part.value, isCrit, 0);
-            formula += `+ floor((${base}) * ${mult})[${type}]`
+            formula += `+ floor((${base}) * ${mult} * ${situational})[${type}]`
         }
         const r = new Roll(formula)
         await r.toMessage({
@@ -141,7 +141,7 @@ export async function rollDamage(e) {
             return;
         }
         let overrideDamageType = item.system.overridesWeaponType ? item.system.overrideDamageType : "";
-        await rollWeaponDamage(actor, damage, bonusDamage, statuses, isCrit, weaponScalar, overrideDamageType);
+        await rollWeaponDamage(actor, damage, bonusDamage, statuses, isCrit, weaponScalar, overrideDamageType, situational);
     }
 }
 

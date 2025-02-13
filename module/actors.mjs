@@ -623,6 +623,11 @@ export class CelestusActor extends Actor {
 
         // if right hand changed, grant appropriate skill and revoke previous skills
         await this.setWeaponSkill();
+
+        // spend AP if this token is in combat
+        if (this.inCombat && ["armor", "weapon", "offhand"].includes(item.type)) {
+            this.update({"system.resources.ap.value": Math.max(0, this.system.resources.ap.value - CONFIG.CELESTUS.equipApCost)});
+        }
     }
 
     /**
@@ -632,7 +637,6 @@ export class CelestusActor extends Actor {
         // delete old skill
         const oldSkill = this.items.find(i => i.flags.celestus?.weaponSkill === true);
         if (oldSkill) {
-            console.log(oldSkill);
             await oldSkill.delete();
         }
 
@@ -664,7 +668,6 @@ export class CelestusActor extends Actor {
         }
 
         if (wepSkill) {
-            console.log(wepSkill);
             // find compendium entry appropriate for actor state
             const skillId = CONFIG.CELESTUS.weaponSkills[wepSkill];
             const cSkill = await fromUuid(skillId);
