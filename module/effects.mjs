@@ -24,19 +24,10 @@ export class CelestusEffect extends ActiveEffect {
         // if the field is a number field, we perform calculations
         if (typeof field.options?.integer !== "undefined") {
             let value = change.value;
-            value = value.replaceAll(attribute, (s) => {
-                // get value from object
-                const val = byString(model, s.substring(1));
-                return val || "";
-            });
-            try {
-                change.value = calculate(value);
-                if (field.options.integer === true) {
-                    change.value = Math.round(change.value);
-                }
-            }
-            catch {
-                console.error("CELESTUS | ERROR: Unable to parse effect calculation: " + value);
+            const roll = new Roll(value, model.getRollData()).evaluateSync();
+            change.value = roll.total;
+            if (field.options.integer) {
+                change.value = Math.round(change.value);
             }
         }
         return super.applyField(model, change, field);

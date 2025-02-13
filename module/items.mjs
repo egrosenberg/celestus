@@ -198,9 +198,6 @@ export class CelestusItem extends Item {
             rollData.dmg = this.system.totalDamage;
         }
 
-        // return if no parent actor
-        if (!this.actor) return rollData;
-
         else if (this.type === "armor") {
             if (this.system.type !== "none") {
                 rollData.armor = this.system.value;
@@ -208,8 +205,9 @@ export class CelestusItem extends Item {
         }
 
         // add actor's roll data
-        rollData.actor = this.actor.getRollData();
-        rollData.item = this;
+        if (this.actor) {
+            rollData.actor = this.actor.getRollData();
+        }
 
         return rollData;
     }
