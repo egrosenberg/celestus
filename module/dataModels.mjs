@@ -155,10 +155,10 @@ export class ActorData extends foundry.abstract.TypeDataModel {
             // configure ability/attributes
             abilities: new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.abilities)).reduce((obj, ability) => {
                 obj[ability] = new SchemaField({
-                    value: new NumberField({ required: true, integer: false, min: 0, max: CONFIG.CELESTUS.attributeMax, initial: 10 }), // base value
-                    mod: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // modifier value (percentage)
-                    bonus: new NumberField({ required: true, integer: false, min: 0, initial: 0 }), // bonus to base value from items/features
-                    total: new NumberField({ required: true, integer: false, min: 0, initial: 0 }),
+                    value: new NumberField({ required: true, integer: true, min: 0, max: CONFIG.CELESTUS.attributeMax, initial: 10 }), // base value
+                    mod: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // modifier value (percentage)
+                    bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // bonus to base value from items/features
+                    total: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                     label: new StringField({ required: true, initial: ability }),
                 });
                 return obj;

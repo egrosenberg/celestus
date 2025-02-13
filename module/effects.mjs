@@ -21,17 +21,23 @@ export class CelestusEffect extends ActiveEffect {
 
     /**@override */
     static applyField(model, change, field) {
-        let value = change.value;
-        value = value.replaceAll(attribute, (s) => {
-            // get value from object
-            const val = byString(model, s.substring(1));
-            return val || "";
-        });
-        try {
-            change.value = calculate(value);
-        }
-        catch {
-            console.error("CELESTUS | ERROR: Unable to parse effect calculation: " + value);
+        // if the field is a number field, we perform calculations
+        if (typeof field.options?.integer !== "undefined") {
+            let value = change.value;
+            value = value.replaceAll(attribute, (s) => {
+                // get value from object
+                const val = byString(model, s.substring(1));
+                return val || "";
+            });
+            try {
+                change.value = calculate(value);
+                if (field.options.integer === true) {
+                    change.value = Math.round(change.value);
+                }
+            }
+            catch {
+                console.error("CELESTUS | ERROR: Unable to parse effect calculation: " + value);
+            }
         }
         return super.applyField(model, change, field);
     }
