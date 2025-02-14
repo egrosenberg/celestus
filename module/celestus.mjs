@@ -497,6 +497,7 @@ Hooks.on("init", () => {
             aberration: "Aberration",
             ooze: "Ooze",
             dragon: "Dragon",
+            construct: "Construct",
             splinter: "Splinter",
         },
         languages: {

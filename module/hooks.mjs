@@ -891,21 +891,13 @@ export async function renderTokenInfo(token, hovered, force) {
         return;
     }
 
-    let effects = false;
-    for (const e of token.actor.effects) {
-        if (e.isTemporary === true) {
-            effects = true;
-            break;
-        }
-    }
-
     const path = './systems/celestus/templates/token-info.hbs';
     const msgData = {
         name: token.name,
         creatureType: CONFIG.CELESTUS.creatureTypes[token.actor.system.t],
         portrait: token.document.texture.src,
         resources: token.actor.system.resources,
-        effects: effects ? token.actor.effects : false,
+        effects: token.actor.effects,
     }
     let msg = await renderTemplate(path, msgData);
 

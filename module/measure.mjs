@@ -579,6 +579,8 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
     async spreadEffectsTo(token, newPos) {
         // check if this has auras to propagate
         if (!this.document.getFlag("celestus", "hasEffects") && !this.document.getFlag("celestus", "surfaceType")) return false;
+        // ignore flying tokens
+        if (token.actor.getFlag("celestus", "flying")) return;
 
         let intersects = false;
         let standingOn = false;

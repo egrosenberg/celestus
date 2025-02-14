@@ -38,18 +38,20 @@
 {{#if effects}}
 <ul class="effects">
     {{#each effects as |effect|}}
-    {{#if effect.isTemporary}}
+    {{log effect.system.aura.has}}
+    {{#if (or effect.isTemporary effect.system.aura.has)}}
     <li class="effect flexrow">
             <img class="effect-icon" src="{{effect.img}}" />
             <span class="effect-label">
                 <span>
                     {{effect.name}}
                 </span>
+                {{#if effect.isTemporary}}
                 <span class="effect-duration">
                     {{effect.duration.rounds}}
                 </span>
+                {{/if}}
             </span>
-
     </li>
     {{/if}}
     {{/each}}
