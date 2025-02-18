@@ -1,15 +1,12 @@
-2025/02/02-10:31:33.845 14cf4 Recovering log #194
-2025/02/02-10:31:33.847 14cf4 Delete type=0 #194
-2025/02/02-10:31:33.847 14cf4 Delete type=3 #192
-2025/02/03-10:46:20.282 14dc8 Level-0 table #200: started
-2025/02/03-10:46:20.285 14dc8 Level-0 table #200: 160360 bytes OK
-2025/02/03-10:46:20.286 14dc8 Delete type=0 #198
-2025/02/03-10:46:20.286 14dc8 Manual compaction at level-0 from '!folders!0FB6TPLuvTxMgV22' @ 72057594037927935 : 1 .. '!items.effects!zcgSyG0KVz6BzCTZ.4YGhAMPhRVC5AL7l' @ 0 : 0; will stop at (end)
-2025/02/03-10:46:20.286 14dc8 Manual compaction at level-1 from '!folders!0FB6TPLuvTxMgV22' @ 72057594037927935 : 1 .. '!items.effects!zcgSyG0KVz6BzCTZ.4YGhAMPhRVC5AL7l' @ 0 : 0; will stop at '!items.effects!kpa7j88bSVPpbz0J.J1PK61lt51rB9e60' @ 4802 : 1
-2025/02/03-10:46:20.286 14dc8 Compacting 1@1 + 1@2 files
-2025/02/03-10:46:20.289 14dc8 Generated table #201@1: 289 keys, 151049 bytes
-2025/02/03-10:46:20.289 14dc8 Compacted 1@1 + 1@2 files => 151049 bytes
-2025/02/03-10:46:20.289 14dc8 compacted to: files[ 0 0 1 0 0 0 0 ]
-2025/02/03-10:46:20.290 14dc8 Delete type=2 #196
-2025/02/03-10:46:20.290 14dc8 Delete type=2 #200
-2025/02/03-10:46:20.292 14dc8 Manual compaction at level-1 from '!items.effects!kpa7j88bSVPpbz0J.J1PK61lt51rB9e60' @ 4802 : 1 .. '!items.effects!zcgSyG0KVz6BzCTZ.4YGhAMPhRVC5AL7l' @ 0 : 0; will stop at (end)
+2025/02/13-10:58:42.540 436c Recovering log #222
+2025/02/13-10:58:42.541 436c Level-0 table #224: started
+2025/02/13-10:58:42.542 436c Level-0 table #224: 43358 bytes OK
+2025/02/13-10:58:42.544 436c Delete type=0 #222
+2025/02/13-10:58:42.544 436c Delete type=3 #221
+2025/02/13-14:05:28.508 54d0 Moved #224 to level-1 43358 bytes OK: files[ 0 1 1 0 0 0 0 ]
+2025/02/13-15:16:46.009 54d0 Compacting 1@1 + 1@2 files
+2025/02/13-15:16:46.012 54d0 Generated table #226@1: 308 keys, 163670 bytes
+2025/02/13-15:16:46.012 54d0 Compacted 1@1 + 1@2 files => 163670 bytes
+2025/02/13-15:16:46.012 54d0 compacted to: files[ 0 0 1 0 0 0 0 ]
+2025/02/13-15:16:46.013 54d0 Delete type=2 #220
+2025/02/13-15:16:46.013 54d0 Delete type=2 #224

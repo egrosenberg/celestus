@@ -23,7 +23,6 @@ export const scripts = {
         if (equipped.right?.type === "offhand") {
             // get base values
             const armor = equipped.right.system.value;
-            console.log(armor);
             const cPhys = origin.system.resources.phys_armor;
             const cMag = origin.system.resources.mag_armor;
             // calculate new values
@@ -99,7 +98,11 @@ export const scripts = {
         const active = origin.getActiveTokens()?.[0];
         if (!active) return ui.notifications.warn("CELESTUS | Unable to find token to use skill");
 
-        const maxDist = 60;
+        // get max dist
+        let maxDist = 60;
+        if (origin.getFlag("celestus", "farsight")) {
+            maxDist += CONFIG.CELESTUS.farsightBonus;
+        }
 
         // iterate through all tokens on canvas
         for (const token of canvas.scene.tokens) {
@@ -130,5 +133,330 @@ export const scripts = {
                 template.toObject(),
             ]);
         }
-    }
+    },
+    /**
+     * Creates a 5-foot radius spiritfire surface under each target
+     */
+    narakanSpite: async function (origin, targets) {
+        const canvasScale = (canvas.scene.grid.size / canvas.scene.grid.distance) * 2;
+        for (const target of targets) {
+            // prepare base template
+            const templateData = {
+                user: game.user?.id,
+                x: target.center.x,
+                y: target.center.y,
+                distance: target.w / canvasScale + 2.5,
+                t: "circle",
+            };
+
+            // create template
+            const template = new CONFIG.MeasuredTemplate.documentClass(templateData, {
+                parent: canvas.scene,
+            });
+
+            const [surface] = await canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [
+                template.toObject(),
+            ]);
+
+            if (surface) {
+                await surface.setFlag("celestus", "origin", origin.uuid);
+                await surface.setFlag("celestus", "temporary", true);
+                if (game.combat) {
+                    await surface.setFlag("celestus", "linger", true);
+                    await surface.setFlag("celestus", "lingerStartRound", game.combat.current.round);
+                    await surface.setFlag("celestus", "lingerStartTurn", game.combat.current.turn);
+                }
+                await surface.setFlag("celestus", "surfaceType", "spiritfire");
+                await surface.testAll({ tokens: true });
+            }
+        }
+    },
+    /**
+     * Creates a 5-foot radius blood puddle under origin
+     */
+    bloodSac: async function (origin) {
+        if (!origin) return;
+        const canvasScale = (canvas.scene.grid.size / canvas.scene.grid.distance) * 2;
+        const combat = game.combat;
+        for (const token of origin.getActiveTokens()) {
+            // prepare base template
+            const templateData = {
+                user: game.user?.id,
+                x: token.center.x,
+                y: token.center.y,
+                distance: token.w / canvasScale + 2.5,
+                t: "circle",
+            };
+
+            // create template
+            const template = new CONFIG.MeasuredTemplate.documentClass(templateData, {
+                parent: canvas.scene,
+            });
+
+            const [surface] = await canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [
+                template.toObject(),
+            ]);
+
+            if (surface) {
+                await surface.setFlag("celestus", "origin", origin.uuid);
+                await surface.setFlag("celestus", "temporary", true);
+                if (combat) {
+                    await surface.setFlag("celestus", "linger", true);
+                    await surface.setFlag("celestus", "lingerStartRound", combat.current.round);
+                    await surface.setFlag("celestus", "lingerStartTurn", combat.current.turn);
+                }
+                await surface.setFlag("celestus", "surfaceType", "blood");
+                await surface.testAll({ tokens: true });
+            }
+        }
+    },
+    /**
+     * Restores target's hp to full and clears all temporary active effects
+     */
+    sacrifice: async function (origin, targets) {
+        if (!targets) return;
+        for (const target of targets) {
+            // set target's hp to max
+            await target.actor.update({ "system.resources.hp.flat": target.actor.system.resources.hp.max });
+            // clear all temporary statues effects
+            for (const effect of target.actor.effects) {
+                if (effect.isTemporary && !effect.getFlag("celestus", "isChild")) {
+                    await effect.delete();
+                }
+            }
+        }
+    },
+    /**
+     * Creates an oil surface under each hostile creature within a 60-foot radius of the origin
+     */
+    rockfall: async function (origin, targets) {
+        const canvasScale = (canvas.scene.grid.size / canvas.scene.grid.distance) * 2;
+
+        // iterate through all targets
+        for (const token of targets) {
+            // prepare base template
+            const templateData = {
+                user: game.user?.id,
+                x: token.center.x,
+                y: token.center.y,
+                distance: token.w / canvasScale + 5,
+                t: "circle",
+            };
+
+            // create template
+            const template = new CONFIG.MeasuredTemplate.documentClass(templateData, {
+                parent: canvas.scene,
+            });
+
+            const [surface] = await canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [
+                template.toObject(),
+            ]);
+
+            if (surface) {
+                await surface.setFlag("celestus", "origin", origin.uuid);
+                await surface.setFlag("celestus", "temporary", true);
+                if (game.combat) {
+                    await surface.setFlag("celestus", "linger", true);
+                    await surface.setFlag("celestus", "lingerStartRound", combat.current.round);
+                    await surface.setFlag("celestus", "lingerStartTurn", combat.current.turn);
+                }
+                await surface.setFlag("celestus", "surfaceType", "oil");
+                await surface.testAll({ tokens: true });
+            }
+        }
+    },
+    /**
+     * Creates an oil surface under each target
+     */
+    combust: async function (origin, targets) {
+        const canvasScale = (canvas.scene.grid.size / canvas.scene.grid.distance) * 2;
+
+        // iterate through all targets
+        for (const token of targets) {
+            // prepare base template
+            const templateData = {
+                user: game.user?.id,
+                x: token.center.x,
+                y: token.center.y,
+                distance: token.w / canvasScale + 10,
+                t: "circle",
+            };
+
+            // create template
+            const template = new CONFIG.MeasuredTemplate.documentClass(templateData, {
+                parent: canvas.scene,
+            });
+
+            const [surface] = await canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [
+                template.toObject(),
+            ]);
+
+            if (surface) {
+                await surface.setFlag("celestus", "origin", origin.uuid);
+                await surface.setFlag("celestus", "temporary", true);
+                if (game.combat) {
+                    await surface.setFlag("celestus", "linger", true);
+                    await surface.setFlag("celestus", "lingerStartRound", combat.current.round);
+                    await surface.setFlag("celestus", "lingerStartTurn", combat.current.turn);
+                }
+                await surface.setFlag("celestus", "surfaceType", "fire");
+                await surface.testAll({ tokens: true });
+            }
+        }
+    },
+    /**
+     * Sums up hp and armor percentages and redistributes them equally
+     */
+    redistribute: async function (origin, targets) {
+        if (!targets.length) return;
+        let numPhys = targets.length;
+        let numMag = targets.length;
+        let numHp = targets.length;
+        let physArmorTotal = 0;
+        let magArmorTotal = 0;
+        let hpTotal = 0;
+        for (const target of targets) {
+            if (target.actor?.system?.resources?.hp.flat < 1) {
+                numPhys--;
+                numMag--;
+                numHp--;
+                continue;
+            }
+            if (target.actor.system.resources.hp.max) {
+                hpTotal += target.actor.system.resources.hp.flat / target.actor.system.resources.hp.max;
+            }
+            else {
+                numHp--;
+            }
+            if (target.actor.system.resources.phys_armor.max) {
+                physArmorTotal += target.actor.system.resources.phys_armor.flat / target.actor.system.resources.phys_armor.max;
+            }
+            else {
+                numPhys--;
+            }
+            if (target.actor.system.resources.mag_armor.max) {
+                magArmorTotal += target.actor.system.resources.mag_armor.flat / target.actor.system.resources.mag_armor.max;
+            }
+            else {
+                numMag--;
+            }
+        }
+        // calculate new averages
+        const avgPhysArmor = physArmorTotal / numPhys;
+        const avgMagArmor = magArmorTotal / numMag;
+        const avgHp = hpTotal / numHp;
+        for (const target of targets) {
+            if (target.actor?.system?.resources?.hp.flat < 1) continue;
+            if (target.actor.system.resources.hp.max) {
+                await target.actor.update({ "system.resources.hp.flat": Math.round(target.actor.system.resources.hp.max * avgHp) });
+            }
+            if (target.actor.system.resources.hp.max) {
+                await target.actor.update({ "system.resources.phys_armor.flat": Math.round(target.actor.system.resources.phys_armor.max * avgPhysArmor) });
+            }
+            if (target.actor.system.resources.hp.max) {
+                await target.actor.update({ "system.resources.mag_armor.flat": Math.round(target.actor.system.resources.mag_armor.max * avgMagArmor) });
+            }
+        }
+    },
+    /**
+     * kill target if their hp percent is 20 or less
+     */
+    execute: async function (origin, targets) {
+        if (!targets.length) return;
+        for (const target of targets) {
+            if (target.actor.system.resources.hp.percent < 20) {
+                if (target.actor.type === "player") {
+                    await target.actor.update({ "system.resources.hp.flat": -target.actor.system.resources.hp.max });
+                }
+                else {
+                    await target.actor.update({ "system.resources.hp.flat": 0 });
+                }
+                await target.actor.toggleStatusEffect("dead", { active: true });
+            }
+        }
+    },
+    /**
+     * Draws a 5-foot radius circle under each token
+     */
+    draw5RadiusEach: async function (origin, targets) {
+        const canvasScale = (canvas.scene.grid.size / canvas.scene.grid.distance) * 2;
+
+        // iterate through all targets
+        for (const token of targets) {
+            // prepare base template
+            const templateData = {
+                user: game.user?.id,
+                x: token.center.x,
+                y: token.center.y,
+                distance: token.w / canvasScale + 5,
+                t: "circle",
+                flags: { celestus: { clearThis: true } },
+            };
+
+            // create template
+            const template = new CONFIG.MeasuredTemplate.documentClass(templateData, {
+                parent: canvas.scene,
+            });
+
+            const [surface] = await canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [
+                template.toObject(),
+            ]);
+
+            if (surface) {
+                await surface.setFlag("celestus", "temporary", true);
+                await surface.setFlag("celestus", "surfaceType", "none");
+                await surface.testAll({ tokens: true });
+            }
+        }
+    },
+    /**
+     * Modified draw5RadiusEach that creates blood surfaces
+     */
+    gorestorm: async function (origin, targets) {
+        const canvasScale = (canvas.scene.grid.size / canvas.scene.grid.distance) * 2;
+
+        // iterate through all targets
+        for (const token of targets) {
+            // prepare base template
+            const templateData = {
+                user: game.user?.id,
+                x: token.center.x,
+                y: token.center.y,
+                distance: token.w / canvasScale + 5,
+                t: "circle",
+            };
+
+            // create template
+            const template = new CONFIG.MeasuredTemplate.documentClass(templateData, {
+                parent: canvas.scene,
+            });
+
+            const [surface] = await canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [
+                template.toObject(),
+            ]);
+
+            if (surface) {
+                await surface.setFlag("celestus", "temporary", true);
+                if (game.combat) {
+                    await surface.setFlag("celestus", "linger", true);
+                    await surface.setFlag("celestus", "lingerStartRound", game.combat.current.round);
+                    await surface.setFlag("celestus", "lingerStartTurn", game.combat.current.turn);
+                }
+                await surface.setFlag("celestus", "surfaceType", "blood");
+                await surface.testAll({ tokens: true });
+            }
+        }
+    },
+    /**
+     * Destroy's targets' physical armor if it is lower than the origins
+     */
+    devastate: async function (origin, targets) {
+        const originArmor = origin.system.resources.phys_armor.value;
+        for (const token of targets) {
+            if (token.actor.system.resources.phys_armor.value <= originArmor) {
+                token.actor.update({ "system.resources.phys_armor.flat": 0 });
+                token.actor.update({ "system.resources.phys_armor.temp": 0 });
+            }
+        }
+    },
 }

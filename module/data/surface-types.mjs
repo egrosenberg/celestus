@@ -37,7 +37,7 @@ export const surfaceTypes = {
         },
         texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements/Elements_01-512x512-25.webp"
     },
-    spritfire: {
+    spiritfire: {
         label: "Spirit Fire",
         color: "#00ffff",
         schools: ["flamespeaker"],
@@ -58,7 +58,7 @@ export const surfaceTypes = {
         label: "Water",
         color: "#3333cc",
         schools: ["tidecaller"],
-        duration: 4,
+        duration: 99,
         combines: {
             oil: { mode: "override" },
             fire: { mode: "override" },
@@ -74,7 +74,7 @@ export const surfaceTypes = {
         label: "Ice",
         color: "#99ccff",
         schools: ["tidecaller"],
-        duration: 4,
+        duration: 3,
         onEnd: "water",
         combines: {
             oil: { mode: "override" },
@@ -111,7 +111,7 @@ export const surfaceTypes = {
         color: "#d28f79",
         schools: ["duneshaper"],
         duration: 2,
-        statuses: ["oil"],
+        statuses: ["slow"],
         combines: {
             ice: { mode: "override" },
             water: { mode: "override" },
@@ -163,6 +163,7 @@ export const surfaceTypes = {
         label: "Blood",
         color: "#cc0000",
         schools: ["deathbringer"],
+        duration: 99,
         combines: {
             ice: { mode: "override" },
             water: { mode: "override" },

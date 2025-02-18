@@ -82,7 +82,7 @@ export let statuses = [
         name: "Shocked",
         img: "systems/celestus/svg/round-struck.svg",
         type: "status",
-        duration: { rounds: 2 },
+        duration: { rounds: 1 },
         system: {
             resistedBy: "mag",
             combines: [{with: "wet", makes: "stun"}, {with: "shock", makes: "stun"}],
@@ -119,7 +119,7 @@ export let statuses = [
         system: {
             resistedBy: "mag",
             removes: ["wet"],
-            blocks: ["shocked", "frozen", "petrify", "sleep", "fear", "charm"],
+            blocks: ["shock", "frozen", "petrify", "sleep", "fear", "charm"],
         },
         changes: [
             {
