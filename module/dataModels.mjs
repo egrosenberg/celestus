@@ -948,6 +948,10 @@ export class SkillData extends foundry.abstract.TypeDataModel {
         }
         else {
             if (range > 0) {
+                // include overall range bonus
+                if (this.parent.actor?.getFlag("celestus", "rangeBonus")) {
+                    range += this.parent.actor.getFlag("celestus", "rangeBonus");
+                }
                 return `${range} ft.`;
             }
             else {
