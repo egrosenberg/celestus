@@ -132,6 +132,6 @@
     },
     "primaryTokenAttribute": "resources.hp",
     "url": "https://github.com/egrosenberg/celestus",
-    "manifest": "",
-    "download": ""
+    "manifest": "https://github.com/egrosenberg/celestus/releases/latest/download/system.json",
+    "download": "https://github.com/egrosenberg/celestus/releases/latest/download/celestus.zip"
 }
