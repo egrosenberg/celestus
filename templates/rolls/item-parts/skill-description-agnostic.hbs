@@ -1,0 +1,89 @@
+<div class="dice-flavor celestus roll description {{ifThen (eq usedResources false) " no-resources" "" }}">
+    <header class="summary">
+        <div class="name-stacked">
+            <div class="title">{{name}}</div>
+            <div class="subtitle">{{lookup config.skillTypes item.system.type}}</div>
+        </div>
+    </header>
+    {{!-- action and focus points costs --}}
+    {{#repeat item.system.finalAP}}<i class="fa-solid fa-circle ap-icon"></i>{{/repeat}}
+    {{#repeat item.system.finalFP}}<i class="fa-solid fa-diamond fp-icon"></i>{{/repeat}}
+    <div class="roll-tags">
+        {{!-- skill tier --}}
+        <span class="roll-tag">
+            {{lookup config.skillTiers item.system.tier}}
+        </span>
+        {{!-- skill school --}}
+        <span class="roll-tag">
+            {{#if (eq item.system.type "civil")}}
+            {{#with (lookup config.civilSkills item.system.school) as |school|}}
+            <i class="{{school.glyph}}"></i>{{school.label}}
+            {{/with}}
+            {{else}}
+            {{#with (lookup config.combatSkills item.system.school) as |school|}}
+            <i class="{{school.glyph}}"></i>{{school.label}}
+            {{/with}}
+            {{/if}}
+        </span>
+        {{!-- target type --}}
+        {{#if item.system.finalRange}}
+        <span class="roll-tag">
+            Range: {{item.system.finalRange}}
+        </span>
+        {{/if}}
+        {{#if item.system.targetMode}}
+        <span class="roll-tag">
+            {{item.system.targetMode}}
+        </span>
+        {{/if}}
+        {{!-- cooldown --}}
+        {{#if (gt item.system.cooldown.max 0)}}
+        <span class="roll-tag">
+            CD: {{item.system.cooldown.max}} rounds
+        </span>
+        {{/if}}
+        {{!-- Channeling --}}
+        {{#if item.system.channelDuration}}
+        <span class="roll-tag">
+            {{item.system.channelDuration}} Turn Channel
+        </span>
+        {{/if}}
+        {{!-- components --}}
+        <div class="roll-tag">
+            Components:
+            {{ifThen item.system.components.verbal "V " ""}}
+            {{ifThen item.system.components.somatic "S " ""}}
+            {{ifThen item.system.components.material "M " ""}}
+            {{#if item.system.components.materialFull}}
+            ({{item.system.components.materialFull}})
+            {{/if}}
+        </div>
+        {{!-- damage components --}}
+        {{#each item.system.damage as |damage|}}
+        {{log damage}}
+        {{#with (lookup ../config.damageTypes damage.type)}}
+        <div class="roll-tag {{damage.type}}-dark">
+            <i class="{{glyph}}"></i>
+            {{percent damage.value symbol=true}} {{label}}
+        </div>
+        {{/with}}
+        {{/each}}
+        {{#if weaponDamage}}
+        {{#with (lookup config.damageTypes weaponDamage.base.type) as |damageType|}}
+        <span class="roll-tag {{../item.system.displayDamage.type}}-dark">
+            <i class="{{damageType.glyph}}"></i>
+            {{../item.system.displayDamage.min}}-{{../item.system.displayDamage.max}} {{damageType.label}}
+        </span>
+        {{/with}}
+        {{#each weaponDamage.bonus as |damage|}}
+        {{#with (lookup ../config.damageTypes damage.type) as |damageType|}}
+        <span class="roll-tag {{damage.type}}-dark">
+            <i class="{{damageType.glyph}}"></i>
+            {{damage.min}}-{{damage.max}} {{damageType.label}}
+        </span>
+        {{/with}}
+        {{/each}}
+        {{/if}}
+    </div>
+    {{#if flavor}}{{{flavor}}}{{/if}}
+</div>

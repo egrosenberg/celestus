@@ -1,0 +1,24 @@
+{
+  "name": "celestus",
+  "version": "1.0.0",
+  "description": "Celestus vTTRPG Foundry System",
+  "main": "module/celestus.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pushLDBtoYML": "node ./tools/pushLDBtoYML.mjs",
+    "pullYMLtoLDB": "node ./tools/pullYMLtoLDB.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egrosenberg/celestus.git"
+  },
+  "author": "ethan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/egrosenberg/celestus/issues"
+  },
+  "homepage": "https://github.com/egrosenberg/celestus#readme",
+  "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "^1.0.4"
+  }
+}

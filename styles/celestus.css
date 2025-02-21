@@ -415,6 +415,10 @@ input[type="color"]::-webkit-color-swatch {
     flex: 0 0 100px;
 }
 
+.celestus.sheet .ability-mod {
+    padding-left: 2px;
+}
+
 /* styling for character sheets */
 .celestus.sheet .editor {
     margin: 5px;
@@ -1275,11 +1279,13 @@ div#ui-resources {
 }
 
 /* Action Point Icons */
-.action-point, .focus-point {
+.action-point,
+.focus-point {
     text-shadow: none;
 }
 
-.action-point:hover, .focus-point:hover {
+.action-point:hover,
+.focus-point:hover {
     text-shadow: inherit;
 }
 
@@ -1346,7 +1352,7 @@ div#ui-resources {
 .celestus.token-info {
     position: absolute;
     left: 0;
-    right: 0; 
+    right: 0;
     margin-top: 10px;
     margin-inline: auto;
     width: 250px;
@@ -1356,7 +1362,7 @@ div#ui-resources {
     z-index: calc(var(--z-index-ui) + 1);
 }
 
-.celestus.token-info .close-info{
+.celestus.token-info .close-info {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -1380,13 +1386,13 @@ div#ui-resources {
     display: inline-block;
 }
 
-.celestus.token-info .token-name .name{
+.celestus.token-info .token-name .name {
     font-size: var(--font-size-20);
     font-weight: bold;
     text-shadow: var(--text-outline-1);
 }
 
-.celestus.token-info .token-name .type{
+.celestus.token-info .token-name .type {
     font-size: var(--font-size-16);
 }
 
@@ -1402,7 +1408,7 @@ div#ui-resources {
     min-width: 100%;
 }
 
-.celestus.token-info .resources .resource { 
+.celestus.token-info .resources .resource {
     border-style: solid;
     border-width: thin;
     border-radius: 5px;
@@ -1500,7 +1506,7 @@ div#ui-resources {
     text-shadow: var(--text-outline-1);
 }
 
-.stone-ui .content-link{
+.stone-ui .content-link {
     background-color: rgba(0, 0, 0, 0.6);
 }
 

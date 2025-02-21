@@ -15,7 +15,6 @@
             "discord": "krostorm"
         }
     ],
-
     "esmodules": [
         "module/celestus.mjs"
     ],
@@ -131,5 +130,8 @@
         "distance": 5,
         "units": "ft"
     },
-    "primaryTokenAttribute": "resources.hp"
+    "primaryTokenAttribute": "resources.hp",
+    "url": "https://github.com/egrosenberg/celestus",
+    "manifest": "",
+    "download": ""
 }
