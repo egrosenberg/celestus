@@ -664,6 +664,7 @@ export class CelestusItemSheet extends ItemSheet {
             const name = $(t).attr("name");
             let current = byString(this.item, name);
             current[index] = value;
+            console.log(current);
             this.item.update({ [name]: current });
         });
 
@@ -772,7 +773,7 @@ export class CelestusItemSheet extends ItemSheet {
                 const t = ev.currentTarget;
                 const name = $(t).attr("name");
                 let statuses = byString(this.item, name);
-                statuses.push("death");
+                statuses.push("");
                 this.item.update({ [name]: statuses });
             });
             // operate changes on status effect

@@ -1,4 +1,16 @@
 <section class="grid grid-3col">
+    <div class="collapsible-container">
+    <div class="collapsible-header ability">
+        <span>You can always...</span>
+    </div>
+    <div class="collapsible-content">
+        <ul>
+            {{#each actor.system.youCanAlways as |option|}}
+            <li>{{option}}</li>
+            {{/each}}
+        </ul>
+    </div>
+    </div>
     <h2>
         Civil Abilities
         {{ifThen system.attributes.unspentCivil (concat "(Unspent: " (numberFormat

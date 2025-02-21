@@ -794,6 +794,23 @@ Hooks.on("ready", () => {
     $(document).on("click", ".apply-status", applyStatusHook);
     $(document).on("click", ".draw-template", drawTemplate);
 
+    // collapsible content
+    $(document).on("click", ".collapsible-header", function (ev) {
+        const $header = $(ev.currentTarget);
+        //getting the next element
+        const $content = $header.next();
+        //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+        $content.slideToggle(500, function () {
+            //execute this after slideToggle is done
+            //change text of header based on visibility of content div
+            //$header.text(function () {
+            //    //change text based on condition
+            //    return $content.is(":visible") ? "Collapse" : "Expand";
+            //});
+        });
+    
+    });
+
     // create chat-control button
     let damageControlLabel = document.createElement("label");
     damageControlLabel.classList.add("chat-control-icon");

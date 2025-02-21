@@ -406,6 +406,32 @@ input[type="color"]::-webkit-color-swatch {
     cursor: pointer;
 }
 
+/* Collapsible Content */
+.celestus .collapsible-container {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.celestus .collapsible-header {
+    cursor: pointer;
+    color: white;
+    background-color: var(--color-warm-3);
+    padding: 5px;
+    font-size: var(--font-size-18);
+}
+
+.celestus .collapsible-header:hover {
+    text-shadow: 0 0 3px white;
+}
+
+.celestus .collapsible-content {
+    display: none;
+    padding: 5px;
+    border-radius: 0px 0px 5px 5px;
+    box-shadow: var(--shadow-inset);
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
 /* styling for sheets */
 .celestus .window-content {
     padding: 0;
@@ -1016,6 +1042,10 @@ input[type="color"]::-webkit-color-swatch {
 
 .celestus .shuffle {
     flex: 0 0 20px;
+}
+
+.celestus.item.sheet .form-group {
+    align-items: start;
 }
 
 /* roll chat message */

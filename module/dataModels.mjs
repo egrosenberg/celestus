@@ -530,10 +530,25 @@ export class ActorData extends foundry.abstract.TypeDataModel {
 
     /**
      * Calculates total damage from all equipped weapons and effects
-    * @returns {undefined | Object} containing types breakdown of damage and total damage {total, parts}
+     * @returns {undefined | Object} containing types breakdown of damage and total damage {total, parts}
      */
     get totalWeaponDamage() {
         return calcWeaponDamage(this.parent, 1, false);
+    }
+
+    /**
+     * Compiles all "You can always..." options from features
+     * @returns {String[]}
+     */
+    get youCanAlways() {
+        const features = this.parent.items.filter(i => i.type === "feature");
+        const always = [];
+        for (const feature of features) {
+            for (const option of feature.system.canAlways) {
+                always.push(option);
+            }
+        }
+        return always;
     }
 };
 
@@ -1787,6 +1802,8 @@ export class ChatDataModel extends foundry.abstract.TypeDataModel {
 export class CelestusFeature extends GearData {
     static defineSchema() {
         let schema = super.defineSchema();
+        // You can always...
+        schema.canAlways = new ArrayField(new StringField());
         return schema;
     }
 }

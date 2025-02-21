@@ -110,6 +110,33 @@
                                 <input class="check-input" name="system.equipped" type="checkbox" {{#if
                                     system.equipped}}checked{{/if}} />
                             </div>
+                            {{!-- You can Always--}}
+                            <div class="form-group">
+                                <label for="system.canAlways">You can always...</label>
+                                <div class="attribute-section">
+                                    <li class="item flexrow damage-header" draggable="true">
+                                        <div class="item-controls">
+                                            <a class="item-control list-create" data-tooltip="Create new 'You Can Always...' option"
+                                                name="system.canAlways">
+                                                <i class="fas fa-plus"></i>
+                                                Add Option
+                                            </a>
+                                        </div>
+                                    </li>
+                                </div>
+                            </div>
+                                    {{#each system.canAlways as |always|}}
+                                    <li class="item flexrow">
+                                        <input class="select-index" type="text" name="system.canAlways" data-index="{{@index}}"
+                                            value="{{always}}">
+                                        <div class="item-controls">
+                                            <a class="item-control list-delete" data-tooltip="Delete Option"
+                                                name="system.canAlways" data-index="{{@index}}">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    {{/each}}
                         </div>
                         {{> "systems/celestus/templates/item/parts/item-bonuses.hbs"}}
                     </div>
