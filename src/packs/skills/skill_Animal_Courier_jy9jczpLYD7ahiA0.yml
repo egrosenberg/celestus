@@ -1,0 +1,76 @@
+folder: ZqdDZfz7Gpnb38n5
+name: Animal Courier
+type: skill
+_id: jy9jczpLYD7ahiA0
+img: icons/creatures/birds/dove-pigeon-flying-white.webp
+system:
+  description: >-
+    <p>Target level 1 or lower animal you can see within range delivers a
+    message for you. You can specify a location you have been to and a recipient
+    who matches a general description. You can also communicate a message of up
+    to 25 words. The animal travels for one day in an attempt to deliver your
+    message, traveling up to 25 miles on land, or 50 miles if it can
+    fly.</p><p>If the animal reaches its destination, it delivers your message
+    with your voice and tone. If the animal doesn't reach its destination, your
+    message is lost and the animal returns to where you cast the spell.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 1
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 15
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: nature
+  tier: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736290689535
+  modifiedTime: 1736290937345
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!jy9jczpLYD7ahiA0'
+

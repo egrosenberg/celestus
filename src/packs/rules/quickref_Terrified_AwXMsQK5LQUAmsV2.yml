@@ -1,0 +1,29 @@
+folder: QwCEgm0OD25Y0k3S
+name: Terrified
+type: quickref
+_id: AwXMsQK5LQUAmsV2
+img: icons/svg/terror.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>1 round.</p><p><strong>Resisted by:
+    </strong>Magic Armor</p><p><strong>Removes: </strong>Charmed,
+    Mad</p><p><strong>Description: </strong>A terrified creature mist spend its
+    turn moving away from its source of fear until it is out of line of sight or
+    until the creature can no longer move.</p>
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1739214205141
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!AwXMsQK5LQUAmsV2'
+

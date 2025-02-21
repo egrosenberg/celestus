@@ -1,0 +1,95 @@
+folder: rYR0vU6Odj998sWJ
+name: Programmed Illusion
+type: skill
+_id: qwYTLtSYd9UzCJHK
+img: icons/magic/symbols/triangle-glowing-green.webp
+system:
+  description: >-
+    <p>You create an illusion of some visual and/or auditory phenomenon that
+    comes into effect when a specified condition occurs. The condition must be
+    some auditory or visual condition that is objective. For example, "when an
+    ally enters within 5 feet" wouldn't work, but "when a creature wearing royal
+    regalia enters" would.</p><p>The illusion itself can fill up to a 30-foot
+    cube and last up to 5 minutes. You choose the appearance of the illusion and
+    can cause it to animate in any way you choose as you use this skill. After
+    the illusion's duration has elapsed it disappears and remains dormant for 5
+    minutes, after which it can be activated again.</p><p>The illusion itself
+    doesn't hold up to physical investigation as any creature or object that
+    would touch it instead passes through.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: true
+    materialFull: Jade dust worth at least 50gp
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 4
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: point
+    size: 0
+  range: 60
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: influence
+  tier: 3
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739813088644
+  modifiedTime: 1739826384226
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!qwYTLtSYd9UzCJHK'
+

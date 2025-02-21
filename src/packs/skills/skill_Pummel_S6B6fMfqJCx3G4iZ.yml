@@ -1,0 +1,78 @@
+folder: XMe9LTNJWvj4esY1
+name: Pummel
+type: skill
+_id: S6B6fMfqJCx3G4iZ
+img: icons/skills/melee/unarmed-punch-fist.webp
+system:
+  description: >-
+    <p>You Strike a creature with your offhand or some other natural weapon. On
+    a hit, deal 60% Physical damage.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.m4Sd3wSukc9j0o3h]{Prone} (Resisted by
+    Physical Armor)</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: false
+    somatic: false
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: weapon
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: physical
+      value: 0.6
+  ability: none
+  attack: true
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 0
+  statusEffects:
+    - prone
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: true
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  school: warlord
+  tier: 0
+  hasScript: false
+  scriptId: ''
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1737830603106
+  modifiedTime: 1737853768255
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!S6B6fMfqJCx3G4iZ'
+

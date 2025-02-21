@@ -1,0 +1,73 @@
+folder: uyUdT2u88419zkCE
+name: Everlasting Torch
+type: skill
+_id: SjSo4LXKkzQC7rjS
+img: icons/magic/fire/projectile-smoke-swirl-red.webp
+system:
+  description: >-
+    <p>You create a small, torch-sized flame on an object you touch as you use
+    this skill. The fire is magical, shedding no heat, causing no damage, and is
+    unable to be snuffed out. The flame sheds bright light in a 20-foot radius,
+    and dim light in a 40-foot radius. You can choose for the flame to appear as
+    a specific color.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 0
+  components:
+    verbal: true
+    somatic: true
+    material: true
+    materialFull: 25GP Ruby, which is consumed
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 2
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: none
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: religion
+  tier: 1
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736296215033
+  modifiedTime: 1736296379060
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!SjSo4LXKkzQC7rjS'
+

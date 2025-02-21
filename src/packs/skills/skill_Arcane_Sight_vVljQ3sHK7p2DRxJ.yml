@@ -1,0 +1,71 @@
+folder: H6VlYHpPBiNefQ3R
+name: Arcane Sight
+type: skill
+_id: vVljQ3sHK7p2DRxJ
+img: icons/magic/symbols/runes-star-pentagon-blue.webp
+system:
+  description: >-
+    <p>For 10 minutes, you can see magical effects or enchantments visibly.
+    Items and effects within 30 feet of you that are magical in nature appear as
+    glowing to you, and you are aware of the school of skill they belong to.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 1
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: lore
+  tier: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736284959620
+  modifiedTime: 1739135305281
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!vVljQ3sHK7p2DRxJ'
+

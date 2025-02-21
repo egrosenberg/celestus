@@ -1,0 +1,20 @@
+name: Wands
+sorting: a
+folder: Z1uUr57DgIv0jDsy
+type: Item
+_id: iHRejch7pfO43h1D
+description: ''
+sort: 0
+color: null
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: null
+  modifiedTime: null
+  lastModifiedBy: null
+_key: '!folders!iHRejch7pfO43h1D'
+

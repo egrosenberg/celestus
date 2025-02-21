@@ -1,0 +1,29 @@
+name: Skill Tiers
+type: quickref
+_id: wHJOjd5923zuwCZI
+img: systems/celestus/svg/lyre.svg
+system:
+  description: >-
+    <p><strong>Apprentice</strong> skills have no level
+    requirement.</p><p><strong>Novice</strong> skills require character level
+    4.</p><p><strong>Adept</strong> skills require character level
+    9.</p><p><strong>Expert</strong> skills require character level
+    13.</p><p><strong>Master</strong>  skills require character level 16.</p>
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739771688062
+  modifiedTime: 1739771721160
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!wHJOjd5923zuwCZI'
+

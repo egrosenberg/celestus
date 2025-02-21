@@ -1,0 +1,72 @@
+folder: dMPsVVnlMLxpMgjm
+name: Dragon Breath
+type: skill
+_id: bm9BYVU0JvdVXrzA
+img: icons/creatures/reptiles/lizard-mouth-glowing-red.webp
+system:
+  description: >-
+    <p>You exhale a cone of flame from your mouth, dealing 100% Fire Damage to
+    each creature in a 15-foot cone.</p><p><span title="Copy to Clipboard"
+    class="copy-the-code-shortcode" data-target data-button-text="★"
+    data-button-copy-text="Copied to Clipboard" data-content="★"
+    data-copy-as="text" data-link style="color:">★ </span>Sets
+    @UUID[Compendium.celestus.rules.5WnOnUhH4LYfPLlZ]{Burning} (Resisted by
+    Magic Amor).</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 1
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: fire
+      value: 1
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: cone
+    size: 15
+  range: 0
+  statusEffects:
+    - burn
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: flamespeaker
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736214229311
+  modifiedTime: 1736463281586
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!bm9BYVU0JvdVXrzA'
+

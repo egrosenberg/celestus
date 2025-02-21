@@ -1,0 +1,111 @@
+folder: RsHgIz0THZb3EG7V
+name: Gust
+type: skill
+_id: rkgF55h3wLgVssc8
+img: icons/magic/air/air-wave-gust-smoke-yellow.webp
+system:
+  description: >-
+    <p>You summon a powerful downward gust centered on a point you can see
+    within range damaging creatures, dispersing clouds, and dousing all flames
+    in a 20-foot radius. Each enemy within the radius takes 70% Air
+    Damage.</p><p>★ Removes
+    @UUID[Compendium.celestus.rules.5WnOnUhH4LYfPLlZ]{Burning}</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 2
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: air
+      value: 0.7
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: cylinder
+    size: 20
+  range: 90
+  statusEffects: []
+  school: stormseeker
+  tier: 2
+effects:
+  - name: Doused
+    img: systems/celestus/svg/flower-twirl.svg
+    origin: Compendium.celestus.skills.Item.rkgF55h3wLgVssc8
+    duration:
+      rounds: 0
+      startTime: null
+      seconds: null
+      combat: null
+      turns: 1
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: 8M0SUg6FBEr0ckry
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes:
+        - burn
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+    changes: []
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1736054634326
+      modifiedTime: 1736056080568
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!rkgF55h3wLgVssc8.8M0SUg6FBEr0ckry'
+sort: 200000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736054359384
+  modifiedTime: 1736276491391
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!rkgF55h3wLgVssc8'
+

@@ -1,0 +1,132 @@
+folder: Nd8Y4X5YuQ7zsaYv
+name: Sentinel
+type: feature
+_id: Abc4e3Q9D9fNtXmV
+img: icons/skills/melee/hand-grip-staff-blue.webp
+system:
+  equipped: false
+  description: >-
+    <p>Whenever a creature moves outside of your reach, you can make a Strike at
+    it with your equipped melee weapon. Once you take this special action you
+    can't do so again until your next turn.</p><p>★ Grants
+    @UUID[Compendium.celestus.skills.sMOJLlVWBNuVXzXt]{Opportunity Attack}</p>
+  type: talent
+  slot: none
+  efficiency: 1
+  bonuses:
+    combat:
+      onehand: 0
+      dualwield: 0
+      twohand: 0
+      ranged: 0
+      retributive: 0
+      flamespeaker: 0
+      tidecaller: 0
+      stormseeker: 0
+      duneshaper: 0
+      voidcantor: 0
+      deathbringer: 0
+      shroudstalker: 0
+      formshifter: 0
+      huntmaster: 0
+      warlord: 0
+    civil:
+      scoundrel: 0
+      lore: 0
+      nature: 0
+      influence: 0
+      religion: 0
+    abilities:
+      str: 0
+      dex: 0
+      con: 0
+      int: 0
+      mind: 0
+      wit: 0
+    resistance:
+      physical: 0
+      fire: 0
+      water: 0
+      air: 0
+      earth: 0
+      poison: 0
+      psychic: 0
+      piercing: 0
+      healing: 0
+      phys_armor: 0
+      mag_armor: 0
+      t_phys_armor: 0
+      t_mag_armor: 0
+  prereqs:
+    str: 0
+    dex: 0
+    con: 0
+    int: 0
+    mind: 0
+    wit: 0
+effects:
+  - name: Sentinel
+    img: icons/skills/melee/hand-grip-staff-blue.webp
+    origin: Compendium.celestus.talents.Item.Abc4e3Q9D9fNtXmV
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: Rmukm3Sefyr1oMRj
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+      grantedSkills:
+        - uuid: Compendium.celestus.skills.Item.sMOJLlVWBNuVXzXt
+          name: Opportunity Attack
+      ownedItems: []
+    changes: []
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1736361496030
+      modifiedTime: 1736361523945
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!Abc4e3Q9D9fNtXmV.Rmukm3Sefyr1oMRj'
+sort: 100000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736361346845
+  modifiedTime: 1739306664799
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!Abc4e3Q9D9fNtXmV'
+

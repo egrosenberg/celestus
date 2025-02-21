@@ -1,0 +1,89 @@
+name: Exemplar
+type: feature
+_id: U9bMAz4zbmhV6HZB
+img: icons/magic/holy/barrier-shield-winged-blue.webp
+system:
+  equipped: true
+  description: >-
+    <p><strong>Brutal:</strong> You gain +1 to Warlord.</p><p><strong>Divine
+    Fortification: </strong>You learn the skill
+    @UUID[Compendium.celestus.skills.gbume9fvFJZtRXt3]{Fortify}. You always have
+    it memorized, it doesn't count against your skills known or memorized and
+    you don't need to meet its requirements.</p><p><strong>You can
+    always…</strong></p><ul><li><p>Offer someone the benefit of the
+    doubt</p></li><li><p>Ask: "Do you need a hand?"</p></li></ul>
+  type: occupation
+  slot: none
+  efficiency: 1
+  bonuses:
+    combat:
+      onehand: 0
+      dualwield: 0
+      twohand: 0
+      ranged: 0
+      retributive: 0
+      flamespeaker: 0
+      tidecaller: 0
+      stormseeker: 0
+      duneshaper: 0
+      voidcantor: 0
+      deathbringer: 0
+      shroudstalker: 0
+      formshifter: 0
+      huntmaster: 0
+      warlord: 1
+    civil:
+      scoundrel: 0
+      lore: 0
+      nature: 0
+      influence: 0
+      religion: 0
+    abilities:
+      str: 0
+      dex: 0
+      con: 0
+      int: 0
+      mind: 0
+      wit: 0
+    resistance:
+      physical: 0
+      fire: 0
+      water: 0
+      air: 0
+      earth: 0
+      poison: 0
+      psychic: 0
+      piercing: 0
+      healing: 0
+      phys_armor: 0
+      mag_armor: 0
+      t_phys_armor: 0
+      t_mag_armor: 0
+  prereqs:
+    str: 0
+    dex: 0
+    con: 0
+    int: 0
+    mind: 0
+    wit: 0
+  grantedSkills:
+    - uuid: Compendium.celestus.skills.gbume9fvFJZtRXt3
+      name: Fortify
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736312065855
+  modifiedTime: 1737610660791
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!U9bMAz4zbmhV6HZB'
+

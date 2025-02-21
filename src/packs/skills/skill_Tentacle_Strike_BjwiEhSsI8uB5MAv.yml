@@ -1,0 +1,68 @@
+folder: bvSbXm3Odr4Y7TVk
+name: Tentacle Strike
+type: skill
+_id: BjwiEhSsI8uB5MAv
+img: icons/creatures/tentacles/tentacle-earth-green.webp
+system:
+  description: >-
+    <p>One of your appendages transforms into a tentacle that you use to lash
+    out at a creature within range, dealing 125% Physical damage.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.ApravHaqi2H9tSn2]{Atrophied} (Resisted by
+    Physical Armor)</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 1
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: physical
+      value: 1.25
+  ability: str
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 30
+  statusEffects:
+    - atrophy
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  school: formshifter
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736130197078
+  modifiedTime: 1739561268682
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!BjwiEhSsI8uB5MAv'
+

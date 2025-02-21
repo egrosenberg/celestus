@@ -1,0 +1,65 @@
+folder: BzK0VAATh5BcRaNt
+name: Electrostatic Grasp
+type: skill
+_id: a3EYauRJuTwOlgkO
+img: icons/magic/lightning/claws-unarmed-strike-teal.webp
+system:
+  description: >-
+    <p>You reach out and touch a creature within melee range and deal 110% Air
+    Damage to it.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.Y7nT6W1vQGzOCVwm]{Shocked} (Resisted by
+    Magic Armor)</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 1
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: air
+      value: 1.1
+  ability: int
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 0
+  statusEffects:
+    - shock
+  school: stormseeker
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736052929903
+  modifiedTime: 1736276364387
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!a3EYauRJuTwOlgkO'
+

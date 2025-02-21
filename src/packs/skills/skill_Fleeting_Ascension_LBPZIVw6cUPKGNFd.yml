@@ -1,0 +1,140 @@
+folder: dC225vKk9Zjvta98
+name: Fleeting Ascension
+type: skill
+_id: LBPZIVw6cUPKGNFd
+img: icons/magic/symbols/rune-sigil-green-purple.webp
+system:
+  description: >-
+    <p>You take on a temporary divine mantle. For 2 rounds your skills cost 3
+    less focus points.</p><p>This skill can only be used once each combat.</p>
+  ap: 2
+  fp: 3
+  cooldown:
+    value: 0
+    max: -1
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 3
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 5
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: formshifter
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects:
+  - name: Ascended
+    img: icons/magic/symbols/rune-sigil-green-purple.webp
+    origin: Compendium.celestus.skills.Item.LBPZIVw6cUPKGNFd
+    duration:
+      rounds: 2
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: FE6A9mB8YZ8J8DnC
+    system:
+      damage: []
+      damageRiders: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes:
+      - key: flags.celestus.fpDiscount
+        mode: 2
+        value: '3'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: true
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1739496835267
+      modifiedTime: 1739496989490
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!LBPZIVw6cUPKGNFd.FE6A9mB8YZ8J8DnC'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739496504099
+  modifiedTime: 1739497182149
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!LBPZIVw6cUPKGNFd'
+

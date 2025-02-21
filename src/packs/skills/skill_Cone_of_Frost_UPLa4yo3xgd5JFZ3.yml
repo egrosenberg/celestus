@@ -1,0 +1,92 @@
+folder: wC9ADq5ZibfkZFaW
+name: Cone of Frost
+type: skill
+_id: UPLa4yo3xgd5JFZ3
+img: icons/magic/water/projectile-icecicle.webp
+system:
+  description: >-
+    <p>You release frigid winds in a 30-foot cone originating from yourself.
+    Each creature within the cone is dealt 150% Water damage and is
+    frozen.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.OaOL5lw8fBtJDTz5]{Frozen} (Resisted by Magic
+    Armor).</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 6
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 3
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: water
+      value: 1.5
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: cone
+    size: 30
+  range: 0
+  statusEffects:
+    - frozen
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: tidecaller
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739571788615
+  modifiedTime: 1739572168627
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!UPLa4yo3xgd5JFZ3'
+

@@ -1,0 +1,78 @@
+folder: cnHDce9zLIGl2WTZ
+name: Magic Hut
+type: skill
+_id: 9SBairwGUj02ZFOK
+img: icons/magic/defensive/barrier-shield-dome-pink.webp
+system:
+  description: >-
+    <p>You create a 10-foot radius dome of force around you and it remains there
+    for 8 hours. The dome is opaque from the outside and can be any color you
+    choose as you use this skill. When the dome is created, choose any number of
+    creatures to be able to freely walk in and out of the dome, any creatures
+    inside the domes radius as it is created also are able to freely enter or
+    exit. Apprentice and Novice tier skills and their effects cannot pass
+    through the dome.</p><p>The dome comfortably fits 8 medium sized creatures.
+    The inside of the dome is comfortable and dry and you can command it to
+    cause the interior to shift between dim light and darkness.</p><p>The dome
+    vanishes early if you leave it.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 1
+    max: 0
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 2
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: none
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: lore
+  tier: 1
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736286546820
+  modifiedTime: 1736287059263
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!9SBairwGUj02ZFOK'
+

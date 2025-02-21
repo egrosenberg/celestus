@@ -1,0 +1,121 @@
+folder: DKZGrRHvHkHZ629s
+name: Teleport
+type: skill
+_id: pEPrIEcGLcluBK4C
+img: icons/magic/control/silhouette-hold-beam-blue.webp
+system:
+  description: >-
+    <p>You attempt to teleport yourself, as well as up to 9 additional willing
+    creatures within range to a destination on the same plane of existence as
+    you.</p><p>Roll a [[/r d100]] and consult the table below based on your
+    familiarity with the
+    place.</p><table><tbody><tr><td><p><strong>Familiarity</strong></p></td><td><p><strong>Mishap</strong></p></td><td><p><strong>Similar
+    Location</strong></p></td><td><p><strong>Off
+    Target</strong></p></td><td><p><strong>Success</strong></p></td></tr><tr><td><p>Doesn't
+    Exist</p></td><td><p>1-50</p></td><td><p>51-100</p></td><td><p>-</p></td><td><p>-</p></td></tr><tr><td><p>Heard
+    of</p></td><td><p>1-40</p></td><td><p>41-70</p></td><td><p>71-80</p></td><td><p>81-100</p></td></tr><tr><td><p>Seen</p></td><td><p>1-20</p></td><td><p>21-45</p></td><td><p>46-60</p></td><td><p>61-100</p></td></tr><tr><td><p>Visited</p></td><td><p>1-10</p></td><td><p>11-30</p></td><td><p>31-40</p></td><td><p>41-100</p></td></tr><tr><td><p>Familiar</p></td><td><p>-</p></td><td><p>1-10</p></td><td><p>11-20</p></td><td><p>21-100</p></td></tr><tr><td><p>Can
+    See</p></td><td><p>-</p></td><td><p>-</p></td><td><p>-</p></td><td><p>1-100</p></td></tr><tr><td><p>Object</p></td><td><p>-</p></td><td><p>-</p></td><td><p>-</p></td><td><p>1-100</p></td></tr></tbody></table><p><strong>Familiarity
+    </strong>is how familiar you are with the place and determines the rate of
+    success.</p><ul><li><p><strong>Doesn't Exist: </strong>This location does
+    not physically exist or is not on the same plane of existence as
+    you.</p></li><li><p><strong>Heard of: </strong>You have either heard of this
+    place or otherwise know of its
+    existence.</p></li><li><p><strong>Seen:</strong> You have seen this place,
+    either physically or by magical means such as
+    scrying.</p></li><li><p><strong>Visited: </strong>You have personally been
+    to this place before.</p></li><li><p><strong>Familiar: </strong>You have
+    been to this place many times and are intimately familiar with
+    it.</p></li><li><p><strong>Can See:</strong> You can currently physically
+    see the location you are attempting to teleport
+    to.</p></li><li><p><strong>Object:</strong> You have an object that has been
+    taken from the location some time in the past 6
+    months.</p></li></ul><p><strong>Mishap:</strong> Some sort of magical
+    disaster takes place as you attempt to teleport causing the spell to fail.
+    Each target (including yourself) gains 2 levels of
+    exhaustion.</p><p><strong>Similar Location: </strong>You teleport to some
+    location that matches a similar description but is not your actual
+    destination.</p><p><strong>Off Target: </strong>You teleport to a location
+    that is near your target but some distance away. The location you teleport
+    to is determined by the GM rolling two d10 and multiplying the results. That
+    number is the percentage of the total distance meant to be traveled the
+    target is off target by. For example, if you were teleporting 50 miles, and
+    the GM rolled a 4 and 6, you would arrive 24%, or 12 miles off target. The
+    direction should be determined randomly by the GM.</p><p><strong>Success:
+    </strong>You arrive at your destination unharmed.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: false
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 4
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 9
+    type: creature
+    size: 0
+  range: 15
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: lore
+  tier: 3
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739810419425
+  modifiedTime: 1740017604003
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!pEPrIEcGLcluBK4C'
+

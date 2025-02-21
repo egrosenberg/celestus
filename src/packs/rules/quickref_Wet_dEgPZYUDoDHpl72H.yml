@@ -1,0 +1,31 @@
+folder: QwCEgm0OD25Y0k3S
+name: Wet
+type: quickref
+_id: dEgPZYUDoDHpl72H
+img: systems/celestus/svg/drop.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>3 rounds.</p><p><strong>Resisted by:
+    </strong>None</p><p><strong>Removes: </strong>Warm, Burning, Invisible,
+    Oily</p><p><strong>Combines With:</strong></p><ul><li><p>Chilled =&gt;
+    Frozen</p></li><li><p>Shocked =&gt;
+    Stun</p></li></ul><p><strong>Changes:</strong></p><ul><li><p>+10% Fire
+    resistance</p></li><li><p>-10% Water resistance</p></li><li><p>-20% Air
+    resistance</p></li></ul>
+effects: []
+sort: 1100000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1735948079011
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!dEgPZYUDoDHpl72H'
+

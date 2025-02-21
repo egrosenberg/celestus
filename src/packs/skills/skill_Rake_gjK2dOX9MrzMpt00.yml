@@ -1,0 +1,67 @@
+folder: XNa6toqOQe9P98Nn
+name: Rake
+type: skill
+_id: gjK2dOX9MrzMpt00
+img: icons/skills/wounds/injury-triple-slash-bleed.webp
+system:
+  description: >-
+    <p>You pull your dagger through the flesh of a target within melee range,
+    dealing 100% weapon damage as Piercing damage.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.f9EgHLBdEVJ70oGg]{Bleeding} (Resisted by
+    Physical Armor).</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: false
+    somatic: false
+    material: true
+    materialFull: A Dagger
+  memorized: 'false'
+  type: weapon
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 2
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage: []
+  ability: none
+  attack: true
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 0
+  statusEffects:
+    - bleed
+  lifesteal: 0
+  weaponEfficiency: 1
+  school: shroudstalker
+  overridesWeaponType: true
+  overrideDamageType: piercing
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736118858479
+  modifiedTime: 1737510774233
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!gjK2dOX9MrzMpt00'
+

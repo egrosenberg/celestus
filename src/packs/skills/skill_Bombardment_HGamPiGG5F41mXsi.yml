@@ -1,0 +1,65 @@
+folder: AVi4UFgqLPrWIzEw
+name: Bombardment
+type: skill
+_id: HGamPiGG5F41mXsi
+img: icons/weapons/ammunition/arrows-barbed-white.webp
+system:
+  description: >-
+    <p>Fire three shots from your weapon, each dealing 60% Damage. Roll a
+    separate attack for each shot.</p>
+  ap: 3
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: false
+    somatic: false
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: weapon
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 2
+    warlord: 0
+  damage: []
+  ability: none
+  attack: true
+  targets:
+    count: 0
+    type: none
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 0.6
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: huntmaster
+  tier: 1
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736133976448
+  modifiedTime: 1736276257767
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!HGamPiGG5F41mXsi'
+

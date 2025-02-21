@@ -1,0 +1,113 @@
+folder: 2aKzLAvjkpaJDGEY
+name: Unholy Strength
+type: skill
+_id: f8KQokmtJATvyv4e
+img: icons/magic/unholy/silhouette-evil-horned-giant.webp
+system:
+  description: >-
+    <p>Instill target creature you can see within range with unholy power. For 2
+    Rounds, the target receives +1% Bonus Damage for each 2% of missing Health
+    they have. For example, a creature at 50% HP would get a 25% damage
+    bonus.</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 2
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 60
+  statusEffects: []
+  lifesteal: 0
+  school: deathbringer
+  tier: 1
+effects:
+  - name: Unholy Strength
+    img: icons/magic/unholy/silhouette-evil-horned-giant.webp
+    origin: Compendium.celestus.skills.Item.f8KQokmtJATvyv4e
+    duration:
+      rounds: 2
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: sU2wLmJtkBpJgpuG
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+    changes:
+      - key: system.attributes.bonuses.damage.bonus
+        mode: 2
+        value: 0.5 - @resources.hp.percent * 0.5
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1736106348491
+      modifiedTime: 1739420763332
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!f8KQokmtJATvyv4e.sU2wLmJtkBpJgpuG'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736106324757
+  modifiedTime: 1739385400869
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!f8KQokmtJATvyv4e'
+

@@ -1,0 +1,91 @@
+folder: LMmyqnA0NHgGfzwp
+name: Hide Away
+type: skill
+_id: ge9CuyaEvMyawlAv
+img: icons/magic/control/silhouette-hold-change-blue.webp
+system:
+  description: >-
+    <p>You cause target object or willing creature to magically disappear until
+    a set condition occurs, this magical effect is dispelled, or the target
+    takes damage. As long as this spell persists, the creature is invisible and
+    can't be perceived physically or by magic.</p><p>If the target is a
+    creature, it becomes unconscious and temporarily inanimate. It doesn't age,
+    and doesn't need resources such as food, water, or air.</p><p>The condition
+    for ending this effect can be as vague or specific as you like.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: true
+    materialFull: Gem dust worth at least 1000GP, consumed
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 4
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: scoundrel
+  tier: 3
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739843739156
+  modifiedTime: 1739844099097
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!ge9CuyaEvMyawlAv'
+

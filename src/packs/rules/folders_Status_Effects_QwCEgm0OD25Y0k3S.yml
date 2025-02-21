@@ -1,0 +1,20 @@
+name: Status Effects
+sorting: a
+folder: null
+type: Item
+_id: QwCEgm0OD25Y0k3S
+description: ''
+sort: 100000
+color: null
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948078997
+  modifiedTime: 1735948078997
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!folders!QwCEgm0OD25Y0k3S'
+

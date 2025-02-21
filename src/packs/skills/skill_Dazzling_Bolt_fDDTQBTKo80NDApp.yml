@@ -1,0 +1,67 @@
+folder: PJMmmMgCKsdel3Im
+name: Dazzling Bolt
+type: skill
+_id: fDDTQBTKo80NDApp
+img: icons/magic/lightning/orb-ball-purple.webp
+system:
+  description: >-
+    <p>You send an orb of technicolor electricity at a point you can see within
+    range. Each creature within a 10-foot radius of the point takes 110% Air
+    Damage.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.Y7nT6W1vQGzOCVwm]{Shocked} (Resisted by
+    Magic Armor)</p>
+  ap: 3
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 2
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: air
+      value: 1.2
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: sphere
+    size: 10
+  range: 90
+  statusEffects:
+    - shock
+  school: stormseeker
+  tier: 1
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736053500604
+  modifiedTime: 1736732622213
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!fDDTQBTKo80NDApp'
+

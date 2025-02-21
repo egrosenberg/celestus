@@ -1,0 +1,136 @@
+folder: U37QlqYPVlVbQTiW
+name: Toxic Coat
+type: skill
+_id: X6gr5btetMkIwDuT
+img: icons/skills/melee/blade-tip-acid-poison-green.webp
+system:
+  description: >-
+    <p>You coat your equipped weapons with deadly poison. For 2 rounds, your
+    weapon attacks deal an additional 60% Poison damage.</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 1
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 1
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  school: duneshaper
+  tier: 1
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+effects:
+  - name: Toxic Coat
+    img: icons/skills/melee/blade-tip-acid-poison-green.webp
+    origin: Compendium.celestus.skills.Item.X6gr5btetMkIwDuT
+    duration:
+      rounds: 2
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: lDUSMLqNhtdnb50Q
+    system:
+      damage: []
+      damageRiders:
+        - type: poison
+          value: 0.6
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes: []
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1738388942828
+      modifiedTime: 1738696801273
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!X6gr5btetMkIwDuT.lDUSMLqNhtdnb50Q'
+sort: 600000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1738388691205
+  modifiedTime: 1738698022619
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!X6gr5btetMkIwDuT'
+

@@ -1,0 +1,67 @@
+folder: QKlvKbK9J8bNciXj
+name: Battle Slam
+type: skill
+_id: 49EAMkWq9FDD4Wum
+img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
+system:
+  description: >-
+    <p>Slamming your weapon into the ground, creating a shockwave in a 15-foot
+    cone. Each enemy in the shockwave takes 65% of your Weapon Damage.</p><p>★
+    Sets @UUID[Compendium.celestus.rules.m4Sd3wSukc9j0o3h]{Prone} (Resisted by
+    Physical Armor)</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: false
+    somatic: true
+    material: true
+    materialFull: A Melee Weapon
+  memorized: 'false'
+  type: weapon
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 1
+  damage: []
+  ability: none
+  attack: true
+  targets:
+    count: 0
+    type: cone
+    size: 15
+  range: 0
+  statusEffects:
+    - prone
+  lifesteal: 0
+  weaponEfficiency: 0.65
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: warlord
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736135629105
+  modifiedTime: 1736276738539
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!49EAMkWq9FDD4Wum'
+

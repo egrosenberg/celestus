@@ -1,0 +1,62 @@
+folder: XNa6toqOQe9P98Nn
+name: Shade Step
+type: skill
+_id: 7jmE8bX2xdqIpy1C
+img: icons/magic/movement/trail-streak-impact-blue.webp
+system:
+  description: >-
+    <p>In a wisp of shadows you teleport to target point you can see within 60
+    feet.</p><p>★ Using this skill doesn't remove invisible.</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: true
+    somatic: false
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 2
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 60
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  school: shroudstalker
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736118386258
+  modifiedTime: 1736306952246
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!7jmE8bX2xdqIpy1C'
+

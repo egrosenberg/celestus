@@ -1,0 +1,81 @@
+folder: U37QlqYPVlVbQTiW
+name: Fog Cloud
+type: skill
+_id: a0CA64WCiaeZznOD
+img: icons/magic/air/fog-gas-smoke-blue-gray.webp
+system:
+  description: >-
+    <p>Dense fog spreads from a point you can see within range up to a 15-foot
+    radius. The fog lingers for 2 rounds or until dispersed by strong winds. The
+    fog blocks all vision, limiting all characters' range to their reach.</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 1
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 1
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: sphere
+    size: 15
+  range: 60
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  school: stormseeker
+  tier: 1
+  hasScript: false
+  scriptId: ''
+  lingerDuration: 2
+  aoeLinger: true
+  linger:
+    duration: 2
+    surfaceType: fog
+    effects: false
+    lingerDuration: 1
+effects: []
+sort: 800000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1737919243400
+  modifiedTime: 1738698022619
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!a0CA64WCiaeZznOD'
+

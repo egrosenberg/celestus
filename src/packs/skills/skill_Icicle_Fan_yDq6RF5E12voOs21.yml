@@ -1,0 +1,68 @@
+folder: Sw4lnymZOxC5YzUS
+name: Icicle Fan
+type: skill
+_id: yDq6RF5E12voOs21
+img: icons/magic/water/projectiles-ice-faceted-salvo-blue.webp
+system:
+  description: >-
+    <p>Launch 3 shards of Ice at 3 points you can see within range. For each
+    point, each creature within a 5-foot radius of that point takes 45% Water
+    Damage (A creature can be damaged by multiple shards from the same
+    spell.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.jZ7bYqFX2qfNWzwz]{Chilled} (Resisted by
+    Magic Armor)</p>
+  ap: 3
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 2
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: water
+      value: 0.45
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: none
+    size: 0
+  range: 90
+  statusEffects:
+    - chill
+  school: tidecaller
+  tier: 1
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735972374614
+  modifiedTime: 1736276548649
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!yDq6RF5E12voOs21'
+

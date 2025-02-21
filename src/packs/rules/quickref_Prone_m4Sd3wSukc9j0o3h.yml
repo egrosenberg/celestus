@@ -1,0 +1,27 @@
+name: Prone
+type: quickref
+_id: m4Sd3wSukc9j0o3h
+img: icons/svg/falling.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>1 round.</p><p><strong>Resisted by:
+    </strong>Physical Armor</p><p><strong>Description: </strong>A prone creature
+    must spend their turn standing back up.</p>
+effects: []
+folder: QwCEgm0OD25Y0k3S
+sort: 1525000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1739214499942
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!m4Sd3wSukc9j0o3h'
+

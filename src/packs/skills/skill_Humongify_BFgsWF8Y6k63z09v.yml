@@ -1,0 +1,129 @@
+folder: xFAMCg3jOSOY2gqG
+name: Humongify
+type: skill
+_id: BFgsWF8Y6k63z09v
+img: icons/magic/control/energy-stream-link-large-blue.webp
+system:
+  description: >-
+    <p>With a flex of your muscles you grow to double your size for 3 rounds.
+    For the duration, you gain +3 Warlord and your reach is increased by 5
+    feet.</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 2
+    huntmaster: 0
+    warlord: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: formshifter
+  tier: 2
+effects:
+  - name: Humongify
+    img: icons/magic/control/energy-stream-link-large-blue.webp
+    origin: Compendium.celestus.skills.Item.BFgsWF8Y6k63z09v
+    duration:
+      rounds: 3
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: AVYxJAwTsbrJCgtt
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+      grantedSkills: []
+      ownedItems: []
+    changes:
+      - key: system.combat.warlord.bonus
+        mode: 2
+        value: '+3'
+        priority: null
+      - key: ATL.width
+        mode: 2
+        value: '+1'
+        priority: null
+      - key: ATL.height
+        mode: 2
+        value: '+1'
+        priority: null
+      - key: system.attributes.reach.bonus
+        mode: 2
+        value: '+5'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1736217292412
+      modifiedTime: 1738720007514
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!BFgsWF8Y6k63z09v.AVYxJAwTsbrJCgtt'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736216996467
+  modifiedTime: 1736276199345
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!BFgsWF8Y6k63z09v'
+

@@ -1,0 +1,74 @@
+folder: dMPsVVnlMLxpMgjm
+name: Flaming Volley
+type: skill
+_id: TZ83JPNrXGUZkbt6
+img: icons/magic/fire/projectile-fireball-sparks-orange.webp
+system:
+  description: >-
+    <p>You fire three bolts of flame each bolt striking a point you can see
+    within range. Each bolt explodes on impact into a 5-foot diameter sphere,
+    dealing 25% Fire damage to each creature it touches.</p><p><span title="Copy
+    to Clipboard" class="copy-the-code-shortcode" data-target
+    data-button-text="★" data-button-copy-text="Copied to Clipboard"
+    data-content="★" data-copy-as="text" data-link style="color:">★ </span>Sets
+    @UUID[Compendium.celestus.rules.5WnOnUhH4LYfPLlZ]{Burning} (Resisted by
+    Magic Amor).</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 1
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: fire
+      value: 0.25
+    - type: fire
+      value: 0.25
+    - type: fire
+      value: 0.25
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: sphere
+    size: 2.5
+  range: 60
+  statusEffects:
+    - burn
+  school: flamespeaker
+  itemizeDamage: true
+effects: []
+sort: 125000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735963147772
+  modifiedTime: 1739388930772
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!TZ83JPNrXGUZkbt6'
+

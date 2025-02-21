@@ -1,0 +1,20 @@
+name: T1
+sorting: a
+folder: s69pBxwOFBaEh498
+type: Item
+_id: bvSbXm3Odr4Y7TVk
+description: ''
+sort: 0
+color: null
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: null
+  modifiedTime: null
+  lastModifiedBy: null
+_key: '!folders!bvSbXm3Odr4Y7TVk'
+

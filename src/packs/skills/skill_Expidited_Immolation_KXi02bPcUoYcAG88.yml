@@ -1,0 +1,67 @@
+folder: 7Vv8SnDp8Ix6VEN4
+name: Expidited Immolation
+type: skill
+_id: KXi02bPcUoYcAG88
+img: icons/magic/fire/beam-jet-stream-spiral-yellow.webp
+system:
+  description: >-
+    <p>You focus your pyrokinetic might on a creature you can see within range.
+    The target takes 75% Fire Damage, and then takes another 100% Fire Damage if
+    they're affected by Burning or Spiritfire.</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 2
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: fire
+      value: 0.75
+    - type: fire
+      value: 1
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: none
+    size: 0
+  range: 60
+  statusEffects: []
+  school: flamespeaker
+  tier: 1
+  itemizeDamage: true
+effects: []
+sort: 200000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735964782367
+  modifiedTime: 1739494214504
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!KXi02bPcUoYcAG88'
+

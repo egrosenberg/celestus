@@ -1,0 +1,68 @@
+folder: Yd4qGVrYV8BvUOvl
+name: Huntsman's Mark
+type: skill
+_id: rFnQDblsaLLg2PDn
+img: icons/skills/targeting/crosshair-pointed-orange.webp
+system:
+  description: >-
+    <p>Mark target creature you can see within range for 5 rounds. While that
+    creature is marked in this way you always know where it is located and it
+    cannot benefit from invisibility against you.</p><p>You cannot use this
+    skill if there is another creature you have marked with it that is
+    alive.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.oD1CwEHzs8lsejV7]{Marked}</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 0
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 1
+    warlord: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 90
+  statusEffects:
+    - mark
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  school: huntmaster
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736130918811
+  modifiedTime: 1736276236286
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!rFnQDblsaLLg2PDn'
+

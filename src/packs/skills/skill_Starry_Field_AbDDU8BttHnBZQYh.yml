@@ -1,0 +1,99 @@
+folder: wkTKGw7yqT2ufUnU
+name: Starry Field
+type: skill
+_id: AbDDU8BttHnBZQYh
+img: >-
+  systems/celestus/assets/CC/Screaming%20Brain%20Studios/Purple%20Nebula/Purple_Nebula_06-512x512.webp
+system:
+  description: >-
+    <p>You open a temporary rift to the void. A star-filled blackness envelops a
+    15-foot radius sphere originating at a point you can see within range and
+    lingers for 2 turns. Each creature in the sphere as it appears takes 100%
+    Psychic damage. Any creature that enters the area is overcome by
+    madness.</p><p><span title="Copy to Clipboard"
+    class="copy-the-code-shortcode" data-target data-button-text="★"
+    data-button-copy-text="Copied to Clipboard" data-content="★"
+    data-copy-as="text" data-link style="color:">★ </span>Sets
+    @UUID[Compendium.celestus.rules.0rJCQrvNUPq3scYd]{Mad} and
+    @UUID[Compendium.celestus.rules.gVlbuZ3CMlbP1qRN]{Psychosis} (Resisted by
+    Magic Amor)</p>
+  ap: 3
+  fp: 1
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: false
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 2
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 3
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: psychic
+      value: 1
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: sphere
+    size: 15
+  range: 0
+  statusEffects:
+    - mad
+    - psychosis
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  school: voidcantor
+  tier: 2
+  hasScript: false
+  scriptId: ''
+  aoeLinger: true
+  linger:
+    duration: 2
+    effects: true
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 1
+    surfaceType: none
+    children: []
+    texture: >-
+      systems/celestus/assets/CC/Screaming%20Brain%20Studios/Purple%20Nebula/Purple_Nebula_01-512x512-75.webp
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1738381003235
+  modifiedTime: 1739585370664
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!AbDDU8BttHnBZQYh'
+

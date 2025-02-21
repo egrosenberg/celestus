@@ -1,0 +1,63 @@
+folder: f2NqGCtUzET9sI12
+name: Hide
+type: skill
+_id: NLA4uEPpppecZcYK
+img: icons/svg/invisible.svg
+system:
+  description: >-
+    <p>Attempt to hide from enemies. Make a Scoundrel check with Dexterity. The
+    difficulty of this check is increased by the number of enemies who have line
+    of sight on you:</p><ul><li><p>An enemy you have no-cover from increases the
+    difficulty by 100</p></li><li><p>An enemy you have half-cover from increases
+    the difficulty by 50</p></li><li><p>An enemy you have three-quarters cover
+    from increases the difficulty by 25</p></li></ul>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 0
+  components:
+    verbal: false
+    somatic: false
+    material: false
+    materialFull: ''
+  memorized: always
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    min: 0
+    max: 0
+  range: 0
+  statusEffects: []
+  school: onehand
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948174729
+  modifiedTime: 1736277960800
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!NLA4uEPpppecZcYK'
+

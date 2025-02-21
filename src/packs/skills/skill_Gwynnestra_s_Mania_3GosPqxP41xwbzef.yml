@@ -1,0 +1,70 @@
+folder: 3CPz3jqC2ko0N7Td
+name: Gwynnestra's Mania
+type: skill
+_id: 3GosPqxP41xwbzef
+img: icons/magic/control/hypnosis-mesmerism-swirl.webp
+system:
+  description: >-
+    <p>you open a creature's eyes to the untold horror that is the void. Choose
+    a creature you can see within range. The target takes 100% Psychic damage
+    and is overcome by mania.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.tUIK3QRY3bhGjHsg]{Dazed} (Resisted by Magic
+    Armor).</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: false
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 1
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: psychic
+      value: 1
+  ability: int
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 80
+  statusEffects:
+    - daze
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: voidcantor
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736214732634
+  modifiedTime: 1736276636444
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!3GosPqxP41xwbzef'
+

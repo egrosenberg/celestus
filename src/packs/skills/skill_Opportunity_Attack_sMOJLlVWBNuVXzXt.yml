@@ -1,0 +1,65 @@
+folder: oo3Ii5RkAmRbfUHk
+name: Opportunity Attack
+type: skill
+_id: sMOJLlVWBNuVXzXt
+img: systems/celestus/svg/sharp-axe.svg
+system:
+  description: >-
+    <p>A special Strike you make with a melee weapon when a creature moves
+    outside of your reach, once you make an opportunity attack you must wait
+    until your next turn to take one again.</p>
+  ap: 0
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: false
+    somatic: false
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: weapon
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage: []
+  ability: none
+  attack: true
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: warlord
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736198888489
+  modifiedTime: 1737427713670
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!sMOJLlVWBNuVXzXt'
+

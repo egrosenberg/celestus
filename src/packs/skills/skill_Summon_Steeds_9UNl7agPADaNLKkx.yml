@@ -1,0 +1,74 @@
+folder: OnxupW4uuLx4oI89
+name: Summon Steeds
+type: skill
+_id: 9UNl7agPADaNLKkx
+img: icons/environment/creatures/horse-brown.webp
+system:
+  description: >-
+    <p>You call forth 4 nature spirits that take the form of a draft animal of
+    your choice that appear at points you can see within range. The steeds
+    persist for 8 hours, enough for one day of travel, or until their hp is
+    reduced to zero. The steeds have 1 hit point and cannot engage in
+    combat.</p><p>The steeds allow you to travel roughly 25% faster than you
+    would be able to travel by foot.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: false
+    somatic: false
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 2
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: point
+    size: 0
+  range: 30
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: nature
+  tier: 1
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736291113201
+  modifiedTime: 1736291422792
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!9UNl7agPADaNLKkx'
+

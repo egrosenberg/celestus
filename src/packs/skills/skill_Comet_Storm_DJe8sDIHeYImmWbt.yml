@@ -1,0 +1,92 @@
+folder: LT9F4D9ozSJ2JHDS
+name: Comet Storm
+type: skill
+_id: DJe8sDIHeYImmWbt
+img: icons/magic/fire/projectile-beams-salvo-red.webp
+system:
+  description: >-
+    <p>You summon a hail of fiery destruction in a 30-foot cylinder centered on
+    a point you can see within range. Each creature in the cylinder takes 300%
+    Fire damage.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.5WnOnUhH4LYfPLlZ]{Burning} (Resisted by
+    Magic Armor).</p>
+  ap: 4
+  fp: 3
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 3
+  prereqs:
+    flamespeaker: 5
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: fire
+      value: 3
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: cylinder
+    size: 30
+  range: 60
+  statusEffects:
+    - burn
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: flamespeaker
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: -100000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739492543425
+  modifiedTime: 1739572631392
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!DJe8sDIHeYImmWbt'
+

@@ -1,0 +1,88 @@
+folder: dC225vKk9Zjvta98
+name: Forced Redistribution
+type: skill
+_id: 5b8ysU3KsZPaxsxL
+img: icons/skills/social/trading-justice-scale-yellow.webp
+system:
+  description: >-
+    <p>You equalize the vital resources of all creatures within a 15-foot radius
+    of a point you can see within range. The HP and Armor percentages of each
+    creature (with more than 0 current hp) are summed up and then distributed
+    equally.</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 3
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: sphere
+    size: 15
+  range: 60
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: formshifter
+  tier: 4
+  hasScript: true
+  scriptId: redistribute
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739499895754
+  modifiedTime: 1739501025878
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!5b8ysU3KsZPaxsxL'
+

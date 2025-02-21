@@ -1,0 +1,138 @@
+name: Minotaur
+type: feature
+_id: nXHatPR1wSxfo50R
+img: >-
+  systems/celestus/assets/CC/Mariana%20Ruiz%20Villarreal%20LadyofHats%20CC0/DnD_Minotaur_icon.webp
+system:
+  equipped: false
+  description: >-
+    <p><strong>Shamanistic: </strong>You gain +1
+    Religion</p><p><strong>Powerful:</strong> You can lift, drag, and pull as
+    though your size category was one larger.</p><p><strong>Minotaur… Form…:
+    </strong>You permanently gain the effects of
+    @UUID[Compendium.celestus.skills.Zlj1EvcmmNRoU37t]{Minotaur Form}</p>
+  type: species
+  slot: none
+  efficiency: 1
+  bonuses:
+    combat:
+      onehand: 0
+      dualwield: 0
+      twohand: 0
+      ranged: 0
+      retributive: 0
+      flamespeaker: 0
+      tidecaller: 0
+      stormseeker: 0
+      duneshaper: 0
+      voidcantor: 0
+      deathbringer: 0
+      shroudstalker: 0
+      formshifter: 0
+      huntmaster: 0
+      warlord: 0
+    civil:
+      scoundrel: 0
+      lore: 0
+      nature: 0
+      influence: 0
+      religion: 1
+    abilities:
+      str: 0
+      dex: 0
+      con: 0
+      int: 0
+      mind: 0
+      wit: 0
+    resistance:
+      physical: 0
+      fire: 0
+      water: 0
+      air: 0
+      earth: 0
+      poison: 0
+      psychic: 0
+      piercing: 0
+      healing: 0
+      phys_armor: 0
+      mag_armor: 0
+      t_phys_armor: 0
+      t_mag_armor: 0
+  prereqs:
+    str: 0
+    dex: 0
+    con: 0
+    int: 0
+    mind: 0
+    wit: 0
+effects:
+  - name: Minotaur
+    img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
+    origin: Compendium.celestus.ancestry.Item.nXHatPR1wSxfo50R
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: v6RNCampyG3LjrWP
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+      grantedSkills:
+        - uuid: Compendium.celestus.skills.gwLcuAFEgdhXnwlx
+          name: Bull Rush
+      ownedItems: []
+    changes:
+      - key: system.combat.retributive.bonus
+        mode: 2
+        value: '+1'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1736459152362
+      modifiedTime: 1736459185941
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!nXHatPR1wSxfo50R.v6RNCampyG3LjrWP'
+folder: 80Gmx3VqYSLmv559
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736456123199
+  modifiedTime: 1737691332613
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!nXHatPR1wSxfo50R'
+

@@ -1,0 +1,92 @@
+folder: WRVBMwmz609T7roA
+name: Toxic Grasp
+type: skill
+_id: XVq5vAhz3BMqCnVc
+img: icons/skills/toxins/cauldron-bubbles-overflow-green.webp
+system:
+  description: >-
+    <p>Your nails turn to sharp claws coated in deadly toxins as you strike at
+    target creature within your reach. The target takes 250% poison
+    damage.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.pwMjhiGe1Q35osEy]{Poisoned} (Resisted by
+    Magic Armor).</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 3
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: poison
+      value: 2.5
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 0
+  statusEffects:
+    - poison
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: duneshaper
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739492238480
+  modifiedTime: 1739492493624
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!XVq5vAhz3BMqCnVc'
+

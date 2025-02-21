@@ -1,0 +1,20 @@
+name: Basic Actions
+sorting: a
+folder: null
+type: Item
+_id: f2NqGCtUzET9sI12
+description: ''
+sort: 1300000
+color: null
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948174723
+  modifiedTime: 1736270816358
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!folders!f2NqGCtUzET9sI12'
+

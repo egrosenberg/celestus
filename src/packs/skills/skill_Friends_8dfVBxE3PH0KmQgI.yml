@@ -1,0 +1,73 @@
+folder: PDetFIk7dIhEvmW3
+name: Friends
+type: skill
+_id: 8dfVBxE3PH0KmQgI
+img: icons/magic/control/mouth-smile-deception-purple.webp
+system:
+  description: >-
+    <p>You magically beguile a creature you can see within range for 1 minute.
+    For the duration, you have advantage on all influence checks made to
+    interact with them.</p><p>After the duration, the target knows they were
+    charmed and will likely be hostile.</p><p>Once you target a creature with
+    this skill, they are immune to it being used by you for 24 hours.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 0
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 1
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 60
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: influence
+  tier: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736292948328
+  modifiedTime: 1737597946470
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!8dfVBxE3PH0KmQgI'
+

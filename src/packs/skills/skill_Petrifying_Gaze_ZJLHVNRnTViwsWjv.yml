@@ -1,0 +1,69 @@
+folder: huo8cH28ASQZzJ3Z
+name: Petrifying Gaze
+type: skill
+_id: ZJLHVNRnTViwsWjv
+img: icons/magic/perception/eye-ringed-glow-angry-large-teal.webp
+system:
+  description: >-
+    <p>Deal 100% Earth damage and petrifies each creature within a 15-foot
+    radius.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.c4XtON9HzTtFXuO7]{Petrified} (Resisted by
+    Magic Armor)</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: earth
+      value: 1
+  ability: str
+  attack: false
+  targets:
+    count: 0
+    type: radius
+    size: 15
+  range: 0
+  statusEffects:
+    - petrify
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: formshifter
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736208216747
+  modifiedTime: 1736276224342
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!ZJLHVNRnTViwsWjv'
+

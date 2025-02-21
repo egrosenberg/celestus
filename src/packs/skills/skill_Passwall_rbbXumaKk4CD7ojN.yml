@@ -1,0 +1,75 @@
+folder: Xyz1PZUnye0qxD3L
+name: Passwall
+type: skill
+_id: rbbXumaKk4CD7ojN
+img: icons/sundries/misc/key-short-gold.webp
+system:
+  description: >-
+    <p>A passageway appears at target point you can see on a non-metallic
+    surface you can see within range. The passageway lasts for 1 hour. You
+    choose the dimensions of the passageway: it can be up to 5 feet wide, 10
+    feet tall, and 20-feet deep. A passage created this way doesn't cause any
+    structural instability in the surfaces surrounding it.</p><p>When the
+    passageway disappears, any creatures inside are safely ejected to the
+    nearest edge.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 3
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: point
+    size: 0
+  range: 30
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: scoundrel
+  tier: 2
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736280786470
+  modifiedTime: 1736284179983
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!rbbXumaKk4CD7ojN'
+

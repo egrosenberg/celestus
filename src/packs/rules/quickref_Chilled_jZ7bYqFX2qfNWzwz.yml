@@ -1,0 +1,32 @@
+folder: QwCEgm0OD25Y0k3S
+name: Chilled
+type: quickref
+_id: jZ7bYqFX2qfNWzwz
+img: systems/celestus/svg/thermometer-cold.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>2 rounds.</p><p><strong>Resisted by:
+    </strong>Magic Armor</p><p><strong>Removes: </strong>Warm,
+    Burning</p><p><strong>Combines With:</strong></p><ul><li><p>Wet =&gt;
+    Frozen</p></li><li><p>Chilled =&gt;
+    Frozen</p></li></ul><p><strong>Changes:</strong></p><ul><li><p>+10% Fire
+    resistance</p></li><li><p>-10% Air resistance</p></li><li><p>-20% Water
+    resistance</p></li><li><p>-30% Evasion</p></li><li><p>-35%
+    Movement</p></li></ul>
+effects: []
+sort: 1300000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1735948079011
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!jZ7bYqFX2qfNWzwz'
+

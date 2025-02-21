@@ -1,0 +1,70 @@
+folder: GQjthGcq8MKmvGzK
+name: Cooling Field
+type: skill
+_id: tiQILLBk5Aji6YaP
+img: icons/magic/water/snowflake-ice-blue-white.webp
+system:
+  description: >-
+    <p>Frosty winds flow out from you into a 60-foot radius around you. Each
+    enemy within range takes 50% Water Damage.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.jZ7bYqFX2qfNWzwz]{Chilled} (Resisted by
+    Magic Armor)</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 2
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: water
+      value: 0.5
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: radius
+    size: 60
+  range: 0
+  statusEffects:
+    - chill
+  school: tidecaller
+  tier: 2
+  aoeLinger: false
+  linger:
+    duration: 4
+    surfaceType: ice
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735972759728
+  modifiedTime: 1738012702824
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!tiQILLBk5Aji6YaP'
+

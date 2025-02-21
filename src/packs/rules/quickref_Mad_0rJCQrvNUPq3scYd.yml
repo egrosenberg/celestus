@@ -1,0 +1,28 @@
+folder: QwCEgm0OD25Y0k3S
+name: Mad
+type: quickref
+_id: 0rJCQrvNUPq3scYd
+img: systems/celestus/svg/delighted.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>1 round.</p><p><strong>Resisted by:
+    </strong>Magic Armor</p><p><strong>Removes: </strong>Charmed,
+    Terrified</p><p><strong>Description: </strong>A mad creature must spend its
+    turn attacking the nearest creature(s).</p>
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1739214617032
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!0rJCQrvNUPq3scYd'
+

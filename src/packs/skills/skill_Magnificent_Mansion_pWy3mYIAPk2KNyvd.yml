@@ -1,0 +1,107 @@
+folder: DKZGrRHvHkHZ629s
+name: Magnificent Mansion
+type: skill
+_id: pWy3mYIAPk2KNyvd
+img: icons/environment/settlement/watchtower-moonlit-blue.webp
+system:
+  description: >-
+    <p>You cause a magical door to appear at a point you can see within range
+    that lasts for 24 hours. The door leads to a pocket-dimension that houses a
+    dwelling brought up by your imagination. The door can be up to 10 feet in
+    height and width. When you use this skill you can choose any number of
+    creatures to be allowed to freely enter through the door. While you are
+    within 30 feet of the door you can cause it to open or close without using
+    an action. While the door is closed, it can't be perceived by any
+    means.</p><p>Beyond the door lies a dwelling that matches whatever you
+    fancy. The dwelling's atmosphere can be any that you choose, but it isn't
+    cold enough or hot enough to cause any damage or otherwise adverse
+    effects.</p><p>You can create any floor plan you choose but it's volume
+    can't exceed 100,000 cubic feet. The mansion is decorated and furnished
+    however you choose and contains enough food to luxuriously serve 100 people.
+    Objects created by this skill exploded into a harmless cloud of mist if they
+    are removed from the dwelling.</p><p>The mansion is staffed by 100 spectral
+    servants who attend to any who enters the mansion. You determine the
+    appearance of the servants and any attire they have. The servants are immune
+    to all damage and statuses. The servants can perform any tasks a standard
+    humanoid would be able to perform, but they cannot harm another
+    creature.</p><p>When the skill ends you can choose to either have any
+    objects left inside be left inside the mansion, waiting until the skill is
+    used again, or expelled safely to an unoccupied space nearest to the door's
+    previous location.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: true
+    materialFull: A silver spoon worth at least 5 GP
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 4
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 120
+    type: point
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: lore
+  tier: 3
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739770676170
+  modifiedTime: 1739813260864
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!pWy3mYIAPk2KNyvd'
+

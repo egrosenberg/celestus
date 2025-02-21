@@ -1,0 +1,29 @@
+folder: QwCEgm0OD25Y0k3S
+name: Blinded
+type: quickref
+_id: 1CbPWoPQr2EW4pzF
+img: systems/celestus/svg/sight-disabled.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>2 rounds.</p><p><strong>Resisted by:
+    </strong>Magic Armor</p><p><strong>Changes:</strong></p><ul><li><p>-35%
+    Accuracy</p></li><li><p>-50% Evasion</p></li></ul><p><strong>Description:
+    </strong>You cannot see and can only target creatures or surfaces within
+    melee range of you.</p>
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1735948079011
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!1CbPWoPQr2EW4pzF'
+

@@ -1,0 +1,102 @@
+folder: U0cIU2pjXnWU01x2
+name: Angelic Temple
+type: skill
+_id: jFS2K5tDRfCD06U0
+img: icons/environment/settlement/columned-forum.webp
+system:
+  description: >-
+    <p>You perform a 1 hour ritual that causes a temple to spring into existence
+    at a point on the ground you can see within range. The temple must fit into
+    unoccupied space within an 150-foot cube. The temple remains for 24
+    hours.</p><p>You decide the temple's appearance, including: how/if it is
+    lit, the temperature, as well as how many windows it has. The temple is
+    enclosed by a floor, walls, and a roof, and is secured by a single door that
+    can only be opened by any creatures you choose to allow as you perform this
+    ritual. Creatures cannot teleport into the temple unless you specifically
+    allow them to as part of the ritual.</p><p>You can cause the temple to ward
+    off particular types of creatures. Choose any from among the following,
+    Aberrations, Celestials, Elementals, Fey, Fiends, and Undead. Warded
+    creatures cannot enter the temple by any magical or nonmagical
+    means.</p><p>Additionally, effects such as the Scrying skill cannot be
+    created within the temple and creatures within the temple cannot be targeted
+    similar skills.</p><p>The temple is made of solidified magical energy, but
+    can appear however you so choose. This magical energy extends into the
+    shallows and similar half-dimensions.</p><p>Performing the ritual on the
+    same spot every day for a year makes its effects permanent.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: true
+    materialFull: A religious symbol
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 4
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: point
+    size: 0
+  range: 60
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: religion
+  tier: 3
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739841154614
+  modifiedTime: 1739843655752
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!jFS2K5tDRfCD06U0'
+

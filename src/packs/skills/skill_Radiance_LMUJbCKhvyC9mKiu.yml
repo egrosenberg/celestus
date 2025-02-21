@@ -1,0 +1,180 @@
+folder: BzK0VAATh5BcRaNt
+name: Radiance
+type: skill
+_id: LMUJbCKhvyC9mKiu
+img: icons/magic/light/orb-shadow-blue.webp
+system:
+  description: >-
+    <p>With a word, your form is bathed with light. You shine bright light in a
+    15 foot radius for 2 rounds. Each enemy within a 15-foot radius of you when
+    the light appears takes 90% Air Damage. For the duration, any enemy that
+    enters the light is blinded and you have gain +50% Air Resistance.</p><p>★
+    Sets @UUID[Compendium.celestus.rules.1CbPWoPQr2EW4pzF]{Blinded by Radiance}
+    (Resisted by Magic Armor)</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: true
+    somatic: false
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 1
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: air
+      value: 0.9
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: radius
+    size: 15
+  range: 0
+  statusEffects: []
+  school: stormseeker
+effects:
+  - name: Radiance
+    img: icons/magic/light/orb-shadow-blue.webp
+    origin: Compendium.celestus.skills.Item.LMUJbCKhvyC9mKiu
+    duration:
+      rounds: 2
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: UXqLdEJ0X1LNdr9i
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: false
+        radius: 10
+        targets: any
+        targetType: humanoid
+    changes:
+      - key: system.attributes.resistance.air.bonus
+        mode: 2
+        value: '0.5'
+        priority: null
+      - key: ATL.light.bright
+        mode: 5
+        value: '15'
+        priority: null
+      - key: ATL.light.animation.type
+        mode: 5
+        value: sunburst
+        priority: null
+      - key: ATL.animation.speed
+        mode: 5
+        value: '1'
+        priority: null
+      - key: ATL.light.color
+        mode: 5
+        value: '#dffffe'
+        priority: null
+      - key: ATL.light.alpha
+        mode: 5
+        value: '0.2'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1736038582314
+      modifiedTime: 1736551080856
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!LMUJbCKhvyC9mKiu.UXqLdEJ0X1LNdr9i'
+  - name: Blinded by Radiance
+    img: icons/svg/blind.svg
+    origin: Compendium.celestus.skills.Item.LMUJbCKhvyC9mKiu
+    duration:
+      rounds: 2
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: Vf080gTfTeSiDP4s
+    system:
+      damage: []
+      resistedBy: mag
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: true
+        targetsSelf: false
+        radius: 15
+        targets: enemy
+        targetType: humanoid
+        lingerDuration: 2
+    changes: []
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - blind
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1736040029395
+      modifiedTime: 1736551086643
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!LMUJbCKhvyC9mKiu.Vf080gTfTeSiDP4s'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736038117897
+  modifiedTime: 1736276379964
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!LMUJbCKhvyC9mKiu'
+

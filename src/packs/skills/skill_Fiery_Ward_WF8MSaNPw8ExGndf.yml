@@ -1,0 +1,104 @@
+folder: lbdz5Gn3RjyLCVdO
+name: Fiery Ward
+type: skill
+_id: WF8MSaNPw8ExGndf
+img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
+system:
+  description: >-
+    <p>A halo of flames surrounds you, damaging any enemy that approaches you.
+    Whenever an enemy moves within 5 feet of you, they take 100% Fire
+    Damage.</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 2
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: fire
+      value: 1
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  school: flamespeaker
+  tier: 2
+effects:
+  - name: Fiery Ward
+    img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
+    origin: Compendium.celestus.skills.Item.WF8MSaNPw8ExGndf
+    duration:
+      rounds: 3
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: Vstt3bwua1t7F9V1
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+    changes: []
+    description: >-
+      <p>Whenever an enemy moves within 5 feet of the affected creature it takes
+      100% Fire damage.</p>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1735966042867
+      modifiedTime: 1735966215195
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!WF8MSaNPw8ExGndf.Vstt3bwua1t7F9V1'
+sort: 200000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735965775956
+  modifiedTime: 1736276142987
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!WF8MSaNPw8ExGndf'
+

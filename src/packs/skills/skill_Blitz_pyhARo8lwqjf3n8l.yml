@@ -1,0 +1,67 @@
+folder: tjQgVDa1oK9aFN1z
+name: Blitz
+type: skill
+_id: pyhARo8lwqjf3n8l
+img: icons/skills/melee/maneuver-sword-katana-yellow.webp
+system:
+  description: >-
+    <p>Leap towards target creature you can see within range and strike them
+    with your weapon for 70% Damage. You may then leap to another target within
+    10 feet of the first, striking them as well. Roll an attack for each
+    target.</p><p></p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: false
+    somatic: false
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: weapon
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 2
+  damage: []
+  ability: none
+  attack: true
+  targets:
+    count: 2
+    type: creature
+    size: 0
+  range: 30
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 0.7
+  overridesWeaponDamage: false
+  overridesWeaponRange: true
+  school: warlord
+  tier: 2
+effects: []
+sort: 100000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736137723009
+  modifiedTime: 1736276794462
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!pyhARo8lwqjf3n8l'
+

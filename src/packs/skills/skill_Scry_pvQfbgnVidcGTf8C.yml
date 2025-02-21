@@ -1,0 +1,93 @@
+folder: zTpnycwEza5kSOLj
+name: Scry
+type: skill
+_id: pvQfbgnVidcGTf8C
+img: icons/magic/perception/eye-slit-pink.webp
+system:
+  description: >-
+    <p>You perform a 10 minute ritual that can allow you to peer in on a
+    creature or place.</p><p>If you are attempting to scry on a creature, roll a
+    [[/r 1d100]] to determine your success. You need to roll a 50 or higher, but
+    the roll can be modified (see attached tables) by your familiarity with the
+    target or any physical connection you have. If the skill fails, the target
+    is unaware that you tried to spy on them, but they feel a general sense of
+    unease wash over them.</p><p></p><h3>Your knowledge of the
+    target:</h3><table><tbody><tr><td data-colwidth="366"><p>You have heard of
+    the target</p></td><td data-colwidth="147"><p>-20</p></td></tr><tr><td
+    data-colwidth="366"><p>You have personally met the target</p></td><td
+    data-colwidth="147"><p>+0</p></td></tr><tr><td data-colwidth="366"><p>You
+    know the target well</p></td><td
+    data-colwidth="147"><p>+20</p></td></tr></tbody></table><h3>Your physical
+    connection to the target:</h3><table><tbody><tr><td data-colwidth="366"><p>A
+    picture or other likeness</p></td><td
+    data-colwidth="147"><p>+10</p></td></tr><tr><td data-colwidth="366"><p>A
+    garment or possession</p></td><td
+    data-colwidth="147"><p>+15</p></td></tr><tr><td data-colwidth="366"><p>A
+    body part (lock of hair, a nail, blood, etc.)</p></td><td
+    data-colwidth="147"><p>+40</p></td></tr></tbody></table><p></p><p>If you
+    succeed, you create an invisible sensor within 10 feet of the target. You
+    can see and hear through the sensor as if you were there. The sensor follows
+    the target, remaining within 10 feet of it for 1 hour, after which it
+    disappears. If something can see the sensor, it appears as a white
+    sphere.</p><p>If you targeted a location, the sensor does not move.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: true
+    materialFull: A Focus worth 1000GP
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 3
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: lore
+  tier: 2
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736288376395
+  modifiedTime: 1740073239897
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!pvQfbgnVidcGTf8C'
+

@@ -1,0 +1,20 @@
+name: Weapons
+sorting: a
+folder: null
+type: Item
+_id: nCHvzWVIezmujqZK
+description: ''
+sort: 200000
+color: null
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1737587330430
+  modifiedTime: 1737597708837
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!folders!nCHvzWVIezmujqZK'
+

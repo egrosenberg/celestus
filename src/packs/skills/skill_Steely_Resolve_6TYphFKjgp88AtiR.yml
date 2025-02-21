@@ -1,0 +1,117 @@
+folder: 5yWFOadUVILLXtTO
+name: Steely Resolve
+type: skill
+_id: 6TYphFKjgp88AtiR
+img: icons/magic/earth/strike-fist-stone-gray.webp
+system:
+  description: >-
+    <p>Your blood turns to liquid metal and your skin is coated in steel. You
+    gain 100% Temp Physical Armor now and 75% at the start of your turn for 3
+    rounds.</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 2
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: t_phys_armor
+      value: 1
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: formshifter
+  tier: 1
+effects:
+  - name: Steely Resolve
+    img: icons/magic/earth/strike-fist-stone-gray.webp
+    origin: Compendium.celestus.skills.Item.6TYphFKjgp88AtiR
+    duration:
+      rounds: 3
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: b72ouNeCv9BK7k9F
+    system:
+      damage:
+        - type: t_phys_armor
+          value: 0.75
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+      grantedSkills: []
+      ownedItems: []
+    changes: []
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1736210139534
+      modifiedTime: 1737692948387
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!6TYphFKjgp88AtiR.b72ouNeCv9BK7k9F'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736209945722
+  modifiedTime: 1737692939658
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!6TYphFKjgp88AtiR'
+

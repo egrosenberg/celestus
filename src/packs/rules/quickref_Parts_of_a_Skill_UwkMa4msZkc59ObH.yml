@@ -1,0 +1,48 @@
+name: Parts of a Skill
+type: quickref
+_id: UwkMa4msZkc59ObH
+img: systems/celestus/svg/book-cover.svg
+system:
+  description: >-
+    <ul><li><strong>Type:</strong> The type of skill
+    (Civil/Magic/Weapon).</li><li><strong>School:</strong> Skill school that the
+    skill belongs to (e.g. Flamespeaker).</li><li><strong>Tier:</strong> Skill
+    tier (Apprentice/Novice/Adept/Expert/Master) determines required character
+    level.</li><li><strong>Action Points:</strong> Amount of action points
+    required to use the skill.</li><li><strong>Focus Points:</strong> Amount of
+    focus points required to use the skill.</li><li><strong>Components:</strong>
+    Components required to use a skill (Verbal,Somatic,Material). Skill may
+    specify that the material component is
+    consumed.</li><li><strong>Cooldown:</strong> Cooldown in rounds for a combat
+    skill. Civil skills with any number in the cooldown field only recharge on
+    rest.</li><li><strong>Memory Slots:</strong> How many memory slots the skill
+    takes to memorize.</li><li><strong>Target Type:</strong> What type of target
+    the skill affects (Self/Creatures/Shape).</li><li><strong>Range:</strong>
+    How far the skill can target.</li><li><strong>Has Attack:</strong> If the
+    skill has an attack component.</li><li><strong>Attribute:</strong> Primary
+    attribute that the skill's damage scales off
+    of.</li><li><strong>Memorization Status:</strong> If the skill is memorized
+    (Always Memorized skills don't take up memory
+    slots).</li><li><strong>Prerequisites:</strong> Required combat or civil
+    abilities to memorize the skill.</li><li><strong>Damage:</strong> List of
+    damage types and percentages (of skill base damage) the skill
+    deals.</li><li><strong>Effects:</strong> Status effects inflicted by the
+    skill.</li></ul>
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1737228756932
+  modifiedTime: 1737228935024
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!UwkMa4msZkc59ObH'
+

@@ -1,0 +1,75 @@
+folder: a6fQY3YF1lip4veI
+name: Mislead
+type: skill
+_id: K9Iy6buMWiYDxK0I
+img: icons/magic/light/explosion-star-glow-silhouette.webp
+system:
+  description: >-
+    <p>You become invisible as you create an illusory copy of yourself. The
+    illusion lasts for 1 hour, or until you dismiss it, but the invisibility
+    only lasts until you use a combat skill or otherwise attempt to interact
+    physically with a creature.</p><p>For the duration, you can control the
+    illusion, make it gesture, speak in your voice, etc. The illusion is both
+    intangible and invulnerable. You can choose to sense through the illusion as
+    though you were in its space.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 3
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: influence
+  tier: 2
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736295024876
+  modifiedTime: 1736295246586
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!K9Iy6buMWiYDxK0I'
+

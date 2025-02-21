@@ -1,0 +1,75 @@
+folder: XMe9LTNJWvj4esY1
+name: Shields Up
+type: skill
+_id: S20Ma8U5X4zpZfND
+img: icons/equipment/shield/buckler-wooden-boss-glowing-blue.webp
+system:
+  description: >-
+    <p>Restore physical and magic armor equal to the amount granted by your
+    equipped shield.</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: false
+    somatic: false
+    material: true
+    materialFull: A Shield
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  school: retributive
+  tier: 0
+  hasScript: true
+  scriptId: shieldsUp
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags:
+  celestus:
+    weaponSkill: true
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1737692211314
+  modifiedTime: 1737832548029
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!S20Ma8U5X4zpZfND'
+

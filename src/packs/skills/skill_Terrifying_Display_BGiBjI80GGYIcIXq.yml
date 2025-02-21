@@ -1,0 +1,92 @@
+folder: 1AC64Dji1Jk5C9ry
+name: Terrifying Display
+type: skill
+_id: BGiBjI80GGYIcIXq
+img: icons/magic/unholy/silhouette-robe-evil-glow.webp
+system:
+  description: >-
+    <p>You slash at your target, making an attack that deals 110% Weapon damage
+    and incites a wound-induced panic.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.f9EgHLBdEVJ70oGg]{Bleeding} and
+    @UUID[Compendium.celestus.rules.AwXMsQK5LQUAmsV2]{Terrified} (Bleeding
+    resisted by Physical Armor, Terrified resisted by Magic Armor)</p><p>★ Can
+    Backstab</p>
+  ap: 3
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: false
+    somatic: true
+    material: true
+    materialFull: A dagger
+  memorized: 'false'
+  type: weapon
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 3
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: true
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 0
+  statusEffects:
+    - bleed
+    - fear
+  lifesteal: 0
+  weaponEfficiency: 1.1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: shroudstalker
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739556031523
+  modifiedTime: 1739556630608
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!BGiBjI80GGYIcIXq'
+

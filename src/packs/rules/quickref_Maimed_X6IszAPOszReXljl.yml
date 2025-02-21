@@ -1,0 +1,27 @@
+folder: QwCEgm0OD25Y0k3S
+name: Maimed
+type: quickref
+_id: X6IszAPOszReXljl
+img: systems/celestus/svg/nailed-foot.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>1 round.</p><p><strong>Resisted by:
+    </strong>Physical Armor</p><p><strong>Changes:</strong></p><ul><li><p>-30%
+    Evasion</p></li><li><p>Sets movement to 0</p></li></ul>
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736057706629
+  modifiedTime: 1739214610574
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!X6IszAPOszReXljl'
+

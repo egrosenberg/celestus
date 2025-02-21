@@ -1,0 +1,134 @@
+name: Aven
+type: feature
+_id: b7IClkRfl2MPpc0F
+img: >-
+  systems/celestus/assets/CC/Chamomile%20Has%20Illustrations/Deckydraws/Aaracokra_icon.webp
+system:
+  equipped: false
+  description: >-
+    <p><strong>Nature's Acolyte: </strong>You gain +1
+    Nature.</p><p><strong>Aerial: </strong>You permanently have
+    @UUID[Compendium.celestus.rules.LLH4JH8ymefXRf9R]{Flying}.</p>
+  type: species
+  slot: none
+  efficiency: 1
+  bonuses:
+    combat:
+      onehand: 0
+      dualwield: 0
+      twohand: 0
+      ranged: 0
+      retributive: 0
+      flamespeaker: 0
+      tidecaller: 0
+      stormseeker: 0
+      duneshaper: 0
+      voidcantor: 0
+      deathbringer: 0
+      shroudstalker: 0
+      formshifter: 0
+      huntmaster: 0
+      warlord: 0
+    civil:
+      scoundrel: 0
+      lore: 0
+      nature: 1
+      influence: 0
+      religion: 0
+    abilities:
+      str: 0
+      dex: 0
+      con: 0
+      int: 0
+      mind: 0
+      wit: 0
+    resistance:
+      physical: 0
+      fire: 0
+      water: 0
+      air: 0
+      earth: 0
+      poison: 0
+      psychic: 0
+      piercing: 0
+      healing: 0
+      phys_armor: 0
+      mag_armor: 0
+      t_phys_armor: 0
+      t_mag_armor: 0
+  prereqs:
+    str: 0
+    dex: 0
+    con: 0
+    int: 0
+    mind: 0
+    wit: 0
+effects:
+  - name: Aerial
+    img: icons/svg/wing.svg
+    origin: Compendium.celestus.ancestry.Item.b7IClkRfl2MPpc0F
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: XOgB1V6rI2WEV1aY
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+      grantedSkills: []
+      ownedItems: []
+    changes:
+      - key: flags.celestus.flying
+        mode: 5
+        value: 'true'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1736446036652
+      modifiedTime: 1736446088166
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!b7IClkRfl2MPpc0F.XOgB1V6rI2WEV1aY'
+folder: GwyuEfASwTVcACtO
+sort: 100000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736445954585
+  modifiedTime: 1737593440317
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!b7IClkRfl2MPpc0F'
+

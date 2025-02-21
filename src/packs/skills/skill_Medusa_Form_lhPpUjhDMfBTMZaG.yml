@@ -1,0 +1,208 @@
+folder: 5yWFOadUVILLXtTO
+name: Medusa Form
+type: skill
+_id: lhPpUjhDMfBTMZaG
+img: icons/magic/perception/eye-ringed-green.webp
+system:
+  description: >-
+    <p>Taking on this form, snakes sprout from your scalp like hair. This effect
+    persists for 2 rounds. For the duration, any creature within a 15-foot
+    radius becomes petrified, you can unleash a petrifying gaze and you receive
+    a +1 to Duneshaper.</p><p>★ Grants
+    @UUID[Compendium.celestus.skills.ZJLHVNRnTViwsWjv]{Petrifying Gaze} for the
+    duration</p><p>★ Incompatible with
+    @UUID[Compendium.celestus.skills.Zlj1EvcmmNRoU37t]{Minotaur Form}</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 2
+    huntmaster: 0
+    warlord: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: formshifter
+  tier: 1
+effects:
+  - name: Medusa Form
+    img: icons/magic/perception/eye-ringed-green.webp
+    origin: Compendium.celestus.skills.Item.lhPpUjhDMfBTMZaG
+    duration:
+      rounds: 2
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: dlgckJvLClQLAgrj
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+      grantedSkills:
+        - uuid: Compendium.celestus.skills.Item.ZJLHVNRnTViwsWjv
+          name: Petrifying Gaze
+      ownedItems: []
+    changes:
+      - key: system.combat.duneshape.bonus
+        mode: 2
+        value: '+1'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1736208862167
+      modifiedTime: 1736208960157
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!lhPpUjhDMfBTMZaG.dlgckJvLClQLAgrj'
+  - name: Petrifying Visage
+    img: systems/celestus/svg/golem-head.svg
+    origin: Compendium.celestus.skills.Item.lhPpUjhDMfBTMZaG
+    duration:
+      rounds: 2
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: T67BrQzfyHs2atqJ
+    system:
+      damage: []
+      resistedBy: mag
+      combines: []
+      removes:
+        - wet
+        - oil
+      blocks:
+        - frozen
+        - burn
+        - burn+
+        - stun
+        - poison
+        - fear
+        - prone
+        - chill
+        - warm
+        - sleep
+      triggers: []
+      aura:
+        has: true
+        targetsSelf: false
+        radius: 15
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 2
+      grantedSkills: []
+      ownedItems: []
+    changes:
+      - key: system.attributes.bonuses.evasion.mod
+        mode: 2
+        value: '-1'
+        priority: null
+      - key: system.attributes.movement.mod
+        mode: 5
+        value: '-1'
+        priority: null
+      - key: system.attributes.resistance.fire.bonus
+        mode: 2
+        value: '+0.1'
+        priority: null
+      - key: system.attributes.resistance.earth.bonus
+        mode: 2
+        value: '-0.2'
+        priority: null
+      - key: system.attributes.resistance.air.bonus
+        mode: 2
+        value: '+0.1'
+        priority: null
+      - key: flags.celestus.incapacitated
+        mode: 5
+        value: 'true'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: true
+    statuses:
+      - petrify
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1736209627494
+      modifiedTime: 1736551012408
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!lhPpUjhDMfBTMZaG.T67BrQzfyHs2atqJ'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736206635740
+  modifiedTime: 1736276186662
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!lhPpUjhDMfBTMZaG'
+

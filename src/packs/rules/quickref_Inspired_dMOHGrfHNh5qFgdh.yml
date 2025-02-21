@@ -1,0 +1,28 @@
+folder: QwCEgm0OD25Y0k3S
+name: Inspired
+type: quickref
+_id: dMOHGrfHNh5qFgdh
+img: icons/svg/light.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>3 rounds.</p><p><strong>Resisted by:
+    </strong>None.</p><p><strong>Notes: </strong>Increases Strength, Dexterity,
+    Constitution and Intellect by 1. This effect is increased to 2 at level 7
+    and 3 at level 14.</p>
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736444199344
+  modifiedTime: 1736444384414
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!dMOHGrfHNh5qFgdh'
+

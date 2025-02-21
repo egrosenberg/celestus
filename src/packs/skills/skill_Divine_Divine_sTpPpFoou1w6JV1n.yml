@@ -1,0 +1,75 @@
+folder: CgkXhds6wkHVjfjK
+name: Divine Divine
+type: skill
+_id: sTpPpFoou1w6JV1n
+img: icons/magic/holy/prayer-hands-glowing-yellow-green.webp
+system:
+  description: >-
+    <p>You perform a 1-minute log ritual that allows you to magically commune
+    with a divine entity. You may ask 3 questions, each must be a yes or no and
+    you will receive a correct answer.</p><p>Divine beings are not necessarily
+    omniscient and you may receive "unclear" as an answer if you ask a question
+    the entity is unable to answer. If a one-word answer would be misleading /
+    opposed to the entity's interests, the GM may have them answer with a short
+    phrase.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 3
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: religion
+  tier: 2
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736297124208
+  modifiedTime: 1736297375174
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!sTpPpFoou1w6JV1n'
+

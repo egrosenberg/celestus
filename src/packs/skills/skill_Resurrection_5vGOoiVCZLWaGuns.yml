@@ -1,0 +1,95 @@
+folder: aPrXALglrYTvMwhP
+name: Resurrection
+type: skill
+_id: 5vGOoiVCZLWaGuns
+img: icons/magic/holy/prayer-hands-glowing-yellow-white.webp
+system:
+  description: >-
+    <p>You perform a 1 hour ritual and touch a creature that has been dead for
+    no more than a century and died for any reason other than old age. The
+    creature returns to life with all resources.</p><p>The ritual heals all
+    wounds and cures/neutralizes any poisons or diseases afflicting the
+    creature. It also lifts any curses or other harmful magical effects
+    affecting the creature. It replaces / regrows any missing limbs, organs, or
+    bones. If the creature was undead, it is no longer.</p><p>Additionally, the
+    ritual can create a new body if the creature's original body no longer
+    exists. If the creatures body no longer exists, you must speak the
+    creature's name aloud and their new body will appear in an unoccupied space
+    within 30 feet of you.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: true
+    materialFull: A diamond worth at least 2500 GP
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 5
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: religion
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739907130329
+  modifiedTime: 1740017503767
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!5vGOoiVCZLWaGuns'
+

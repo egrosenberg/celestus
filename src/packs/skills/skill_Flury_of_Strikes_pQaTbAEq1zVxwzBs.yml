@@ -1,0 +1,71 @@
+folder: XMe9LTNJWvj4esY1
+name: Flury of Strikes
+type: skill
+_id: pQaTbAEq1zVxwzBs
+img: icons/skills/melee/spear-tips-triple-orange.webp
+system:
+  description: <p>Make three Strikes against one target, each doing 45% weapon damage.</p>
+  ap: 3
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: false
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: always
+  type: weapon
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  school: dualwield
+  tier: 0
+  hasScript: false
+  scriptId: ''
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1737830293965
+  modifiedTime: 1737831299671
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!pQaTbAEq1zVxwzBs'
+

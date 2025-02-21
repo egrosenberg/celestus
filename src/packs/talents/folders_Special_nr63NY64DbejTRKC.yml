@@ -1,0 +1,20 @@
+name: Special
+sorting: a
+folder: null
+type: Item
+_id: nr63NY64DbejTRKC
+description: ''
+sort: 0
+color: null
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1737567471597
+  modifiedTime: 1737567471597
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!folders!nr63NY64DbejTRKC'
+

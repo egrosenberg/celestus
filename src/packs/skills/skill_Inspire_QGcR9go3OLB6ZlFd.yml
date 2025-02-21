@@ -1,0 +1,72 @@
+folder: uMcjzqZPruT1kXeW
+name: Inspire
+type: skill
+_id: QGcR9go3OLB6ZlFd
+img: icons/magic/light/orb-lightbulb-gray.webp
+system:
+  description: >-
+    <p>Each creature of your choice within a 30-foot radius gains a bonus to all
+    their primary attributes based on their level.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.dMOHGrfHNh5qFgdh]{Inspired}</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: false
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: radius
+    size: 30
+  range: 0
+  statusEffects:
+    - inspire
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: warlord
+  tier: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736442968247
+  modifiedTime: 1736444654109
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!QGcR9go3OLB6ZlFd'
+

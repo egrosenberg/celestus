@@ -1,0 +1,155 @@
+folder: dC225vKk9Zjvta98
+name: Rend Flesh
+type: skill
+_id: mOfX5xB3vT3jY1tu
+img: icons/skills/wounds/injury-hand-blood-red.webp
+system:
+  description: >-
+    <p>You magically flay the flesh of a creature, destroying 100% Magic Armor.
+    Then, if the target has no Magic Armor, their fire, water, earth, air damage
+    resistances are reduced by 50% for 2 rounds.</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 3
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: mag_armor
+      value: -1
+  ability: str
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 60
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: formshifter
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects:
+  - name: Rend Flesh
+    img: icons/skills/wounds/injury-hand-blood-red.webp
+    origin: Compendium.celestus.skills.Item.mOfX5xB3vT3jY1tu
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: RmHFsgWb7u1O2oIW
+    system:
+      damage: []
+      damageRiders: []
+      resistedBy: mag
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes:
+      - key: system.attributes.resistance.fire.bonus
+        mode: 2
+        value: '-0.5'
+        priority: null
+      - key: system.attributes.resistance.water.bonus
+        mode: 2
+        value: '-0.5'
+        priority: null
+      - key: system.attributes.resistance.air.bonus
+        mode: 2
+        value: '-0.5'
+        priority: null
+      - key: system.attributes.resistance.earth.bonus
+        mode: 2
+        value: '-0.5'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1739497487620
+      modifiedTime: 1739499288604
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!mOfX5xB3vT3jY1tu.RmHFsgWb7u1O2oIW'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739497232219
+  modifiedTime: 1740098215904
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!mOfX5xB3vT3jY1tu'
+

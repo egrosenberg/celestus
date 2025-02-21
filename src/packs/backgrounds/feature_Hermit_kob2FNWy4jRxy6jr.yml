@@ -1,0 +1,84 @@
+name: Hermit
+type: feature
+_id: kob2FNWy4jRxy6jr
+img: icons/commodities/flowers/lily-yellow.webp
+system:
+  equipped: false
+  description: >-
+    <p><strong>Naturalist: </strong>You gain +1 Nature</p><p><strong>You can
+    always…</strong></p><ul><li><p>Stare off into the
+    distance</p></li><li><p>Say the quiet part out loud</p></li><li><p>Do
+    something out of the ordinary</p></li><li><p>Ask: "Can you
+    explain?"</p></li></ul>
+  type: origin
+  slot: none
+  efficiency: 1
+  bonuses:
+    combat:
+      onehand: 0
+      dualwield: 0
+      twohand: 0
+      ranged: 0
+      retributive: 0
+      flamespeaker: 0
+      tidecaller: 0
+      stormseeker: 0
+      duneshaper: 0
+      voidcantor: 0
+      deathbringer: 0
+      shroudstalker: 0
+      formshifter: 0
+      huntmaster: 0
+      warlord: 0
+    civil:
+      scoundrel: 0
+      lore: 0
+      nature: 1
+      influence: 0
+      religion: 0
+    abilities:
+      str: 0
+      dex: 0
+      con: 0
+      int: 0
+      mind: 0
+      wit: 0
+    resistance:
+      physical: 0
+      fire: 0
+      water: 0
+      air: 0
+      earth: 0
+      poison: 0
+      psychic: 0
+      piercing: 0
+      healing: 0
+      phys_armor: 0
+      mag_armor: 0
+      t_phys_armor: 0
+      t_mag_armor: 0
+  prereqs:
+    str: 0
+    dex: 0
+    con: 0
+    int: 0
+    mind: 0
+    wit: 0
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736302401900
+  modifiedTime: 1736302446764
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!kob2FNWy4jRxy6jr'
+

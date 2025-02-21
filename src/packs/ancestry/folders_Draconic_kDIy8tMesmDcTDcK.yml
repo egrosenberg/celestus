@@ -1,0 +1,20 @@
+name: Draconic
+sorting: a
+folder: GwyuEfASwTVcACtO
+type: Item
+_id: kDIy8tMesmDcTDcK
+description: ''
+sort: 100000
+color: null
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736461753114
+  modifiedTime: 1737610043756
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!folders!kDIy8tMesmDcTDcK'
+

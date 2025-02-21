@@ -1,0 +1,69 @@
+folder: WtHGj0HuxZtdNtMU
+name: Tar Ball
+type: skill
+_id: gO98OFeb9m38mRXI
+img: icons/magic/earth/projectile-stone-boulder-orange.webp
+system:
+  description: >-
+    <p>You launch a giant boulder covered in viscous oil at a point you can see
+    within range. Each creature within a 5-foot radius of the point takes 85%
+    Earth Damage leaving an oil surface behind.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.YGJz1dn22aKAq9ZA]{Oily}.</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 1
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: earth
+      value: 0.85
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: sphere
+    size: 5
+  range: 60
+  statusEffects:
+    - oil
+  school: duneshaper
+  aoeLinger: true
+  linger:
+    surfaceType: oil
+    duration: 2
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736057036171
+  modifiedTime: 1738016138570
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!gO98OFeb9m38mRXI'
+

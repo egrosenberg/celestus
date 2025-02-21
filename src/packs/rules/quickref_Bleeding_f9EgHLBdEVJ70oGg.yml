@@ -1,0 +1,27 @@
+name: Bleeding
+type: quickref
+_id: f9EgHLBdEVJ70oGg
+img: icons/svg/blood.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>2 rounds.</p><p><strong>Resisted by:
+    </strong>Physical Armor</p><p><strong>Damage:</strong> 100% Piercing damage
+    per turn.</p><p></p>
+effects: []
+folder: QwCEgm0OD25Y0k3S
+sort: 1800000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1736363689748
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!f9EgHLBdEVJ70oGg'
+

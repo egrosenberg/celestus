@@ -1,0 +1,122 @@
+folder: bvSbXm3Odr4Y7TVk
+name: Minotaur Form
+type: skill
+_id: Zlj1EvcmmNRoU37t
+img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
+system:
+  description: >-
+    <p>Taking on this form your head takes on a bovine form as you sprout two
+    curved horns from the top of your head which last for 4 rounds. For the
+    duration, you can charge at creatures with your horns and you gain a +1 to
+    Retributive.</p><p>★ Grants
+    @UUID[Compendium.celestus.skills.gwLcuAFEgdhXnwlx]{Bull Rush} for the
+    duration</p><p>★ Incompatible with
+    @UUID[Compendium.celestus.skills.lhPpUjhDMfBTMZaG]{Medusa Form}</p>
+  ap: 0
+  fp: 0
+  cooldown:
+    value: 0
+    max: 6
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 1
+    huntmaster: 0
+    warlord: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: formshifter
+effects:
+  - name: Minotaur Form
+    img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
+    origin: Compendium.celestus.skills.Item.Zlj1EvcmmNRoU37t
+    duration:
+      rounds: 4
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: fyOJHGsMfH3uJ1nJ
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+      grantedSkills:
+        - uuid: Compendium.celestus.skills.Item.gwLcuAFEgdhXnwlx
+          name: Bull Rush
+      ownedItems: []
+    changes:
+      - key: system.combat.retributive.bonus
+        mode: 2
+        value: '+1'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1736201914875
+      modifiedTime: 1736202049256
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!Zlj1EvcmmNRoU37t.fyOJHGsMfH3uJ1nJ'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736199617065
+  modifiedTime: 1736276166822
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!Zlj1EvcmmNRoU37t'
+

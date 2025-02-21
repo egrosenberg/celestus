@@ -1,0 +1,20 @@
+name: Formshifter
+sorting: a
+folder: sNZudXUDx8fo7Hpb
+type: Item
+_id: s69pBxwOFBaEh498
+description: ''
+sort: 600000
+color: null
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736130181027
+  modifiedTime: 1737682015339
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!folders!s69pBxwOFBaEh498'
+

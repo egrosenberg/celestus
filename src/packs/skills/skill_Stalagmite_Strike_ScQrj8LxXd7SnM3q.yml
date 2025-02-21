@@ -1,0 +1,67 @@
+folder: RuxLtKooOHD925p9
+name: Stalagmite Strike
+type: skill
+_id: ScQrj8LxXd7SnM3q
+img: icons/magic/earth/barrier-stone-explosion-debris.webp
+system:
+  description: >-
+    <p>Sharp stones jettison from the ground at a point you can see within range
+    in a 10-foot radius circle. Each creature within the radius takes 100% Earth
+    Damage.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.X6IszAPOszReXljl]{Maimed} (Resisted by
+    Physical Armor).</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 2
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: earth
+      value: 1
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: cylinder
+    size: 10
+  range: 60
+  statusEffects:
+    - maim
+  school: duneshaper
+  tier: 1
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736057403333
+  modifiedTime: 1736275991500
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!ScQrj8LxXd7SnM3q'
+

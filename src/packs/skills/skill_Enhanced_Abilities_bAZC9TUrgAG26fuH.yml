@@ -1,0 +1,70 @@
+folder: cnHDce9zLIGl2WTZ
+name: Enhanced Abilities
+type: skill
+_id: bAZC9TUrgAG26fuH
+img: icons/magic/symbols/chevron-elipse-circle-blue.webp
+system:
+  description: >-
+    <p>You grant target creature you touch advantage on all checks with on Civil
+    ability of your choice for 1 hour.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: false
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 2
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: lore
+  tier: 1
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736286054579
+  modifiedTime: 1736286492787
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!bAZC9TUrgAG26fuH'
+

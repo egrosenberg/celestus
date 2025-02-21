@@ -1,0 +1,28 @@
+name: Flying
+type: quickref
+_id: LLH4JH8ymefXRf9R
+img: icons/svg/wing.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>4 rounds.</p><p><strong>Resisted by:
+    </strong>None.</p><p><strong>Notes: </strong>You are able to fly with your
+    movement rather than walk. You are immune to special surfaces and effects
+    that target the ground.</p>
+effects: []
+folder: QwCEgm0OD25Y0k3S
+sort: 1150000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1735948079011
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!LLH4JH8ymefXRf9R'
+

@@ -1,0 +1,73 @@
+folder: VaMQ6Xir5XcYCahB
+name: Disguise Self
+type: skill
+_id: Q7aflEJSt6LVNK1C
+img: icons/equipment/head/mask-carved-scream-tan.webp
+system:
+  description: >-
+    <p>You take on a disguise, changing your appearance to look like that of
+    another creature. For 1 hour, your clothing, armor, weapons, and other
+    belongings take on a new, superficial form. You must take on a form that has
+    the same general arrangement of limbs and you cannot make yourself appear
+    more than 1 foot taller or shorter.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 1
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: scoundrel
+  tier: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736276941332
+  modifiedTime: 1736280170580
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!Q7aflEJSt6LVNK1C'
+

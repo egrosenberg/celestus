@@ -1,0 +1,27 @@
+folder: QwCEgm0OD25Y0k3S
+name: Silenced
+type: quickref
+_id: I9RkvpW5qGPRkeuv
+img: systems/celestus/svg/silenced.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>1 round.</p><p><strong>Resisted by:
+    </strong>Magic Armor</p><p><strong>Description: </strong>A silenced creature
+    cannot use skills with a verbal component.</p>
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1739214418106
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!I9RkvpW5qGPRkeuv'
+

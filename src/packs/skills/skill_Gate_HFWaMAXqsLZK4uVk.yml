@@ -1,0 +1,97 @@
+folder: FYPSohu3AR8M5nBB
+name: Gate
+type: skill
+_id: HFWaMAXqsLZK4uVk
+img: icons/magic/symbols/circle-ouroboros.webp
+system:
+  description: >-
+    <p>You open a gateway to another world. The portal can be a circle or square
+    opening between 10 and 20 feet in size. You can cause the portal to appear
+    in any orientation and it lasts for 1 minute or until you dismiss it (no
+    action required).</p><p>The portal has a front face and creatures can only
+    travel through its front. If a creature travels through the portal, it
+    appears in the nearest unoccupied space.</p><p>Some powerful creatures,
+    especially those who hold power over a plane of existence, can prevent a
+    gate from being opened near them or within their domain.</p><p>When you use
+    this skill, you can instead speak the true name of a creature and cause a
+    portal to open beside that creature, so long as it is on a different plane
+    of existence, and pull that creature through the portal, placing it beside
+    you. A creature transported this way has no special allegiance towards
+    you.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: true
+    materialFull: A gem encrusted tuning for worth at least 5000 GP
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 5
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: point
+    size: 0
+  range: 60
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: lore
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739907455226
+  modifiedTime: 1739918133328
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!HFWaMAXqsLZK4uVk'
+

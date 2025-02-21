@@ -1,0 +1,31 @@
+folder: QwCEgm0OD25Y0k3S
+name: Burning
+type: quickref
+_id: 5WnOnUhH4LYfPLlZ
+img: icons/svg/fire.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>2 rounds.</p><p><strong>Resisted by:
+    </strong>Magic Armor</p><p><strong>Removes: </strong>Warm, Wet, Chilled,
+    Oily</p><p><strong>Blocks:
+    </strong>Warm</p><p><strong>Changes:</strong></p><ul><li><p>+10% Water
+    resistance</p></li><li><p>-15% Fire
+    resistance</p></li></ul><p><strong>Damage:</strong> 100% Fire damage per
+    turn.</p><p></p>
+effects: []
+sort: 100000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1736363731719
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!5WnOnUhH4LYfPLlZ'
+

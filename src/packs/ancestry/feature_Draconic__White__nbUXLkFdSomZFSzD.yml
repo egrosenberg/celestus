@@ -1,0 +1,138 @@
+folder: kDIy8tMesmDcTDcK
+name: Draconic (White)
+type: feature
+img: >-
+  systems/celestus/assets/CC/Chamomile%20Has%20Illustrations/Deckydraws/Half-Dragon_icon.webp
+system:
+  equipped: false
+  description: >-
+    <p><strong>Draconic Resilience: </strong>You gain +20% Water
+    Resistance.</p><p><strong>Dragon's Breath: </strong>You learn the skill
+    @UUID[Compendium.celestus.skills.b8PPH887zYlKbt4p]{Ice Breath}. You always
+    have it memorized, it doesn't count against your skills known or memorized
+    and you don't need to</p>
+  type: species
+  slot: none
+  efficiency: 1
+  bonuses:
+    combat:
+      onehand: 0
+      dualwield: 0
+      twohand: 0
+      ranged: 0
+      retributive: 0
+      flamespeaker: 0
+      tidecaller: 0
+      stormseeker: 0
+      duneshaper: 0
+      voidcantor: 0
+      deathbringer: 0
+      shroudstalker: 0
+      formshifter: 0
+      huntmaster: 0
+      warlord: 0
+    civil:
+      scoundrel: 0
+      lore: 0
+      nature: 0
+      influence: 0
+      religion: 0
+    abilities:
+      str: 0
+      dex: 0
+      con: 0
+      int: 0
+      mind: 0
+      wit: 0
+    resistance:
+      physical: 0
+      fire: 0
+      water: 0.2
+      air: 0
+      earth: 0
+      poison: 0
+      psychic: 0
+      piercing: 0
+      healing: 0
+      phys_armor: 0
+      mag_armor: 0
+      t_phys_armor: 0
+      t_mag_armor: 0
+  prereqs:
+    str: 0
+    dex: 0
+    con: 0
+    int: 0
+    mind: 0
+    wit: 0
+effects:
+  - name: Dragonborn
+    img: icons/creatures/reptiles/dragon-horned-blue.webp
+    origin: Compendium.celestus.ancestry.Item.THlsr6cSz1Qp3qIC
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: Kovpes7eYSRx8HxW
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+      grantedSkills:
+        - uuid: Compendium.celestus.skills.Item.b8PPH887zYlKbt4p
+          name: Ice Breath
+      ownedItems: []
+    changes:
+      - key: system.attributes.resistance.water.mod
+        mode: 2
+        value: '+0.2'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: null
+      modifiedTime: 1736464416123
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!nbUXLkFdSomZFSzD.Kovpes7eYSRx8HxW'
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736464365283
+  modifiedTime: 1737610071357
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_id: nbUXLkFdSomZFSzD
+sort: 0
+_key: '!items!nbUXLkFdSomZFSzD'
+

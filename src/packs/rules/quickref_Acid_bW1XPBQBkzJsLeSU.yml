@@ -1,0 +1,27 @@
+folder: QwCEgm0OD25Y0k3S
+name: Acid
+type: quickref
+img: systems/celestus/svg/chemical-bolt.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>2 rounds.</p><p><strong>Resisted by:
+    </strong>None</p><p><strong>Damage:</strong> Destroys 100% Physical Armor
+    per turn.</p><p></p>
+effects: []
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1735948079011
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_id: bW1XPBQBkzJsLeSU
+sort: 1600000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+_key: '!items!bW1XPBQBkzJsLeSU'
+

@@ -1,0 +1,29 @@
+name: Charmed
+type: quickref
+_id: AOX1crEpU3tbBybY
+img: systems/celestus/svg/charm.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>2 rounds.</p><p><strong>Resisted by:
+    </strong>Magic Armor</p><p><strong>Description: </strong>A charmed creature
+    regards its charmer as an ally and fights alongside it. A charmed creature
+    must spend its turn in combat healing its charmer and/or attacking its
+    charmer's enemies.</p>
+effects: []
+folder: QwCEgm0OD25Y0k3S
+sort: 1750000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1739214812905
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!AOX1crEpU3tbBybY'
+

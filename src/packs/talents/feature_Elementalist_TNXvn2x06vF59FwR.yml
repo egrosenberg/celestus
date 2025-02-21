@@ -1,0 +1,187 @@
+folder: Nd8Y4X5YuQ7zsaYv
+name: Elementalist
+type: feature
+_id: TNXvn2x06vF59FwR
+img: icons/magic/symbols/elements-air-earth-fire-water.webp
+system:
+  equipped: false
+  description: >-
+    <p>While standing on an elemental surface (see table below) the AP cost of
+    your skills that utilize the corresponding school is reduced by one to a
+    minimum of
+    one.</p><p></p><p></p><table><tbody><tr><td><h3>Surface</h3></td><td><h3>School</h3></td></tr><tr><td><p>Fire</p></td><td><p>Flamespeaker</p></td></tr><tr><td><p>Spiritfire</p></td><td><p>Flamespeaker</p></td></tr><tr><td><p>Water</p></td><td><p>Tidecaller</p></td></tr><tr><td><p>Ice</p></td><td><p>Tidecaller</p></td></tr><tr><td><p>Oil</p></td><td><p>Duneshaper</p></td></tr><tr><td><p>Poison</p></td><td><p>Duneshaper</p></td></tr><tr><td><p>Blood</p></td><td><p>Deathbringer</p></td></tr><tr><td><p>Fog</p></td><td><p>Stormseeker</p></td></tr></tbody></table>
+  price: 0
+  quantity: 1
+  weight: 0
+  type: talent
+  slot: none
+  efficiency: 1
+  bonuses:
+    combat:
+      onehand: 0
+      dualwield: 0
+      twohand: 0
+      ranged: 0
+      retributive: 0
+      flamespeaker: 0
+      tidecaller: 0
+      stormseeker: 0
+      duneshaper: 0
+      voidcantor: 0
+      deathbringer: 0
+      shroudstalker: 0
+      formshifter: 0
+      huntmaster: 0
+      warlord: 0
+    civil:
+      scoundrel: 0
+      lore: 0
+      nature: 0
+      influence: 0
+      religion: 0
+    abilities:
+      str: 0
+      dex: 0
+      con: 0
+      int: 0
+      mind: 0
+      wit: 0
+    resistance:
+      physical: 0
+      fire: 0
+      water: 0
+      air: 0
+      earth: 0
+      poison: 0
+      psychic: 0
+      shadow: 0
+      piercing: 0
+      healing: 0
+      phys_armor: 0
+      mag_armor: 0
+      t_phys_armor: 0
+      t_mag_armor: 0
+    statusImmune: []
+    crit_bonus: 0
+    crit_chance: 0
+    accuracy: 0
+    evasion: 0
+    initiative: 0
+  prereqs:
+    str: 0
+    dex: 0
+    con: 0
+    int: 0
+    mind: 0
+    wit: 0
+  ownedEffects: []
+  socketTypes:
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  socketValues:
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  plugIds:
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  plugChanges:
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+  rarity: Common
+  level: 1
+  grantedSkills: []
+  ownedItems: []
+effects:
+  - name: Elementalist
+    img: icons/magic/symbols/elements-air-earth-fire-water.webp
+    origin: Compendium.celestus.talents.Item.TNXvn2x06vF59FwR
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: FmCYVmVL4JUIp8zb
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes:
+      - key: flags.celestus.elementalist
+        mode: 5
+        value: 'true'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1738183945509
+      modifiedTime: 1738183985959
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!TNXvn2x06vF59FwR.FmCYVmVL4JUIp8zb'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1738183829212
+  modifiedTime: 1738184390594
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!TNXvn2x06vF59FwR'
+

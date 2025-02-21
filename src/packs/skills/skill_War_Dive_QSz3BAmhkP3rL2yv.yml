@@ -1,0 +1,68 @@
+folder: tjQgVDa1oK9aFN1z
+name: War Dive
+type: skill
+_id: QSz3BAmhkP3rL2yv
+img: icons/skills/melee/sword-winged-holy-orange.webp
+system:
+  description: >-
+    <p>You leap into the air and strike downwards as you land a point you can
+    see within range, dealing 15% Physical Damage to each creature within a
+    5-foot radius of where you land.</p><p>Cannot be used while Grounded.</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: false
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 2
+  damage:
+    - type: physical
+      value: 0.15
+  ability: str
+  attack: false
+  targets:
+    count: 0
+    type: radius
+    size: 5
+  range: 60
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: warlord
+  tier: 2
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736137950804
+  modifiedTime: 1737666218583
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!QSz3BAmhkP3rL2yv'
+

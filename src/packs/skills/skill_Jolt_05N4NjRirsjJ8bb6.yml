@@ -1,0 +1,65 @@
+folder: BzK0VAATh5BcRaNt
+name: Jolt
+type: skill
+_id: 05N4NjRirsjJ8bb6
+img: icons/magic/lightning/bolt-strike-forked-sparks-blue.webp
+system:
+  description: >-
+    <p>You send a jolt of electric energy a target you can see within range,
+    dealing 90% Air Damage.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.Y7nT6W1vQGzOCVwm]{Shocked} (Resisted by
+    Magic Armor)</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 1
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: air
+      value: 0.9
+  ability: int
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 90
+  statusEffects:
+    - shock
+  school: stormseeker
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736052552300
+  modifiedTime: 1736276373065
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!05N4NjRirsjJ8bb6'
+

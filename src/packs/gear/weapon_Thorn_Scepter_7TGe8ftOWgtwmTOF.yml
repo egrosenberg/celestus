@@ -1,0 +1,130 @@
+folder: PmmpJmpfANPxBEUF
+name: Thorn Scepter
+type: weapon
+img: icons/weapons/staves/staff-forest-spiral.webp
+system:
+  equipped: false
+  description: >-
+    <p>★ Grants @UUID[Compendium.celestus.skills.2CzFu4GTEIo9AjvI]{Mage
+    Bolt}</p>
+  price: 0
+  quantity: 1
+  weight: 0
+  type: poison
+  slot: none
+  efficiency: 0.9
+  bonuses:
+    combat:
+      onehand: 0
+      dualwield: 0
+      twohand: 0
+      ranged: 0
+      retributive: 0
+      flamespeaker: 0
+      tidecaller: 0
+      stormseeker: 0
+      duneshaper: 0
+      voidcantor: 0
+      deathbringer: 0
+      shroudstalker: 0
+      formshifter: 0
+      huntmaster: 0
+      warlord: 0
+    civil:
+      scoundrel: 0
+      lore: 0
+      nature: 0
+      influence: 0
+      religion: 0
+    abilities:
+      str: 0
+      dex: 0
+      con: 0
+      int: 0
+      mind: 0
+      wit: 0
+    resistance:
+      physical: 0
+      fire: 0
+      water: 0
+      air: 0
+      earth: 0
+      poison: 0
+      psychic: 0
+      shadow: 0
+      piercing: 0
+      healing: 0
+      phys_armor: 0
+      mag_armor: 0
+      t_phys_armor: 0
+      t_mag_armor: 0
+    statusImmune: []
+    crit_bonus: 0
+    crit_chance: 0
+    accuracy: 0
+    evasion: 0
+    initiative: 0
+  prereqs:
+    str: 0
+    dex: 0
+    con: 0
+    int: 0
+    mind: 0
+    wit: 0
+  ownedEffects: []
+  socketTypes:
+    - None
+    - None
+    - None
+    - None
+    - None
+    - None
+    - None
+    - None
+  socketValues:
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  plugIds: []
+  plugChanges:
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+  rarity: Common
+  level: 1
+  grantedSkills: []
+  ownedItems: []
+  twoHanded: true
+  ability: int
+  range: 0
+  appliedStatuses: []
+  bonusElements: []
+  socketSpread: Common
+effects: []
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1737588089089
+  modifiedTime: 1738197974558
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_id: 7TGe8ftOWgtwmTOF
+sort: 50000
+_key: '!items!7TGe8ftOWgtwmTOF'
+

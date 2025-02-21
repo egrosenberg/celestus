@@ -1,0 +1,93 @@
+folder: UrcNtxWzWDsnPWxb
+name: Relentless Torment
+type: skill
+_id: UFzo04wIqNyctz0G
+img: icons/magic/unholy/orb-glowing-yellow-purple.webp
+system:
+  description: >-
+    <p>You spread fiery torment across the fray. Each creature of your choice
+    within 60 feet of you takes 75% Fire damage and 75% Psychic damage.</p><p>★
+    Sets @UUID[Compendium.celestus.rules.frCQo2l5BX8ljsNV]{Spiritfire} and
+    @UUID[Compendium.celestus.rules.gVlbuZ3CMlbP1qRN]{Psychosis} (Resisted by
+    Magic Armor).</p>
+  ap: 3
+  fp: 2
+  cooldown:
+    value: 0
+    max: 0
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 2
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 2
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: fire
+      value: 0.75
+    - type: psychic
+      value: 0.75
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: radius
+    size: 60
+  range: 0
+  statusEffects:
+    - psychosis
+    - burn+
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  school: flamespeaker
+  tier: 3
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+effects: []
+sort: 100000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1738627895556
+  modifiedTime: 1739138750023
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!UFzo04wIqNyctz0G'
+

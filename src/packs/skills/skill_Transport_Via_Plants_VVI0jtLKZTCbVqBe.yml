@@ -1,0 +1,73 @@
+folder: bll5hkHef5MSvggY
+name: Transport Via Plants
+type: skill
+_id: VVI0jtLKZTCbVqBe
+img: icons/environment/wilderness/tree-spruce-green.webp
+system:
+  description: >-
+    <p>You open a 2-foot wide, 5-foot tall, portal that links between target
+    plant you touch, and another plant you have seen. Both plants must be of
+    adequate size to accommodate the portal. The portal persists for 1 minute,
+    before disappearing. Any creature partially inside the portal as it
+    disappears remains on the side they started in.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 3
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: point
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: nature
+  tier: 2
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736292169180
+  modifiedTime: 1736294637298
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!VVI0jtLKZTCbVqBe'
+

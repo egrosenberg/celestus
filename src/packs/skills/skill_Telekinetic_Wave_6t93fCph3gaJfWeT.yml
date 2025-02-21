@@ -1,0 +1,71 @@
+folder: LMvWJ0i54NpQnVGW
+name: Telekinetic Wave
+type: skill
+_id: 6t93fCph3gaJfWeT
+img: icons/magic/sonic/projectile-sound-rings-wave.webp
+system:
+  description: >-
+    <p>You send out a telekinetic shockwave that hits each creature of your
+    choice within a 30-foot radius. Each affected creature takes 80% Psychic
+    damage and is knocked 10 feet away from you.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.m4Sd3wSukc9j0o3h]{Prone} (Resisted by
+    Physical Armor)</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: false
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 2
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: psychic
+      value: 0.8
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: radius
+    size: 30
+  range: 0
+  statusEffects:
+    - prone
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: voidcantor
+  tier: 1
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736216363279
+  modifiedTime: 1739739770940
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!6t93fCph3gaJfWeT'
+

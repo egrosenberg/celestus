@@ -1,0 +1,114 @@
+folder: PJMmmMgCKsdel3Im
+name: Uncanny Agility
+type: skill
+_id: DMXN3WFJbfEElRmS
+img: icons/magic/lightning/projectile-orb-blue.webp
+system:
+  description: >-
+    <p>Lightning courses through the veins of target creature you can see within
+    range. The target's evasion is increased by 90% and their movement is
+    increased by 20% for 2 rounds.</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 2
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 60
+  statusEffects: []
+  school: stormseeker
+  tier: 1
+effects:
+  - name: Uncanny Agility
+    img: icons/magic/lightning/projectile-orb-blue.webp
+    origin: Compendium.celestus.skills.Item.DMXN3WFJbfEElRmS
+    duration:
+      rounds: 2
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: Rq0K0R6IJSZIoiiN
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+    changes:
+      - key: system.attributes.movement.bonus
+        mode: 2
+        value: '+0.2'
+        priority: null
+      - key: system.attributes.bonuses.evasion.bonus
+        mode: 2
+        value: '+0.9'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1736055307245
+      modifiedTime: 1736056090149
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!DMXN3WFJbfEElRmS.Rq0K0R6IJSZIoiiN'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736055085178
+  modifiedTime: 1736276476662
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!DMXN3WFJbfEElRmS'
+

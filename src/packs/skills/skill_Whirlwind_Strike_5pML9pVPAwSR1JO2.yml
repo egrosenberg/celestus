@@ -1,0 +1,66 @@
+folder: QIyAB4EMzqqA8iBj
+name: Whirlwind Strike
+type: skill
+_id: 5pML9pVPAwSR1JO2
+img: icons/skills/melee/strike-sword-slashing-red.webp
+system:
+  description: >-
+    <p>You swing your weapon around you, Striking each enemy in a 10-foot radius
+    around you for 100% Weapon Damage. Roll a separate attack for each
+    creature.</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: false
+    somatic: true
+    material: true
+    materialFull: A Melee Weapon
+  memorized: 'false'
+  type: weapon
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 2
+  damage: []
+  ability: none
+  attack: true
+  targets:
+    count: 0
+    type: radius
+    size: 10
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: true
+  school: warlord
+  tier: 1
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736136532379
+  modifiedTime: 1738794954951
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!5pML9pVPAwSR1JO2'
+

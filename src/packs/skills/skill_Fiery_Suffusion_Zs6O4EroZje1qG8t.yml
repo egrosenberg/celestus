@@ -1,0 +1,139 @@
+folder: LT9F4D9ozSJ2JHDS
+name: Fiery Suffusion
+type: skill
+_id: Zs6O4EroZje1qG8t
+img: icons/skills/melee/weapons-crossed-swords-yellow.webp
+system:
+  description: >-
+    <p>You imbue yours and your allies weapons with potent flames. For 2 rounds,
+    each ally within a 30-foot radius of you deals an additional 50% Fire damage
+    with all weapon attacks and skills.</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: false
+    somatic: false
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 3
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: flamespeaker
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects:
+  - name: Fiery Suffusion
+    img: icons/skills/melee/weapons-crossed-swords-yellow.webp
+    origin: Compendium.celestus.skills.Item.Zs6O4EroZje1qG8t
+    duration:
+      rounds: 2
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: V8pxdx8MNzDM2f8N
+    system:
+      damage: []
+      damageRiders:
+        - type: fire
+          value: 0.5
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: true
+        targetsSelf: true
+        radius: 30
+        targets: ally
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes: []
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1739493235078
+      modifiedTime: 1739493409953
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!Zs6O4EroZje1qG8t.V8pxdx8MNzDM2f8N'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739492888348
+  modifiedTime: 1739493108524
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!Zs6O4EroZje1qG8t'
+

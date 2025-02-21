@@ -1,0 +1,161 @@
+folder: GQjthGcq8MKmvGzK
+name: Ocean's Blessing
+type: skill
+_id: 3uwGRgsS88Ibr6Y9
+img: icons/magic/water/orb-water-bubbles.webp
+system:
+  description: >-
+    <p>A shroud of divine water envelops a creature you can see within range,
+    fully restoring their magic armor and removing harmful effects from
+    them.</p><p><span title="Copy to Clipboard" class="copy-the-code-shortcode"
+    data-target data-button-text="★" data-button-copy-text="Copied to Clipboard"
+    data-content="★" data-copy-as="text" data-link style="color:">★
+    </span>Removes @UUID[Compendium.celestus.rules.OaOL5lw8fBtJDTz5]{Frozen},
+    @UUID[Compendium.celestus.rules.X7VhbdyKmLC7jiN3]{Stunned},
+    @UUID[Compendium.celestus.rules.c4XtON9HzTtFXuO7]{Petrified},
+    @UUID[Compendium.celestus.rules.znf7Y4pFLUGRvbO2]{Diseased},
+    @UUID[Compendium.celestus.rules.7wfkn72lnRhuwnk4]{Suffocating},
+    @UUID[Compendium.celestus.rules.pwMjhiGe1Q35osEy]{Poisoned},
+    @UUID[Compendium.celestus.rules.YGJz1dn22aKAq9ZA]{Oily},
+    @UUID[Compendium.celestus.rules.5WnOnUhH4LYfPLlZ]{Burning},
+    @UUID[Compendium.celestus.rules.frCQo2l5BX8ljsNV]{Spiritfire},
+    @UUID[Compendium.celestus.rules.AwXMsQK5LQUAmsV2]{Terrified},
+    @UUID[Compendium.celestus.rules.I9RkvpW5qGPRkeuv]{Silenced},
+    @UUID[Compendium.celestus.rules.0rJCQrvNUPq3scYd]{Mad},
+    @UUID[Compendium.celestus.rules.tUIK3QRY3bhGjHsg]{Dazed}</p>
+  ap: 3
+  fp: 1
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 2
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 3
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 60
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  school: tidecaller
+  tier: 2
+  hasScript: true
+  scriptId: oceanBless
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+effects:
+  - name: Ocean's Blessing
+    img: icons/magic/life/heart-cross-strong-flame-blue.webp
+    origin: Compendium.celestus.skills.Item.3uwGRgsS88Ibr6Y9
+    duration:
+      rounds: 0
+      startTime: null
+      seconds: null
+      combat: null
+      turns: 0
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: r8uCq7ruDIXO1HFY
+    system:
+      damage: []
+      damageRiders: []
+      resistedBy: none
+      combines: []
+      removes:
+        - frozen
+        - stun
+        - petrify
+        - disease
+        - suffocate
+        - poison
+        - burn
+        - burn+
+        - silence
+        - mad
+        - daze
+        - oil
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes: []
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1738376923687
+      modifiedTime: 1738377659462
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!3uwGRgsS88Ibr6Y9.r8uCq7ruDIXO1HFY'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1738376386193
+  modifiedTime: 1738433374047
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!3uwGRgsS88Ibr6Y9'
+

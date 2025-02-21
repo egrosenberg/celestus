@@ -1,0 +1,131 @@
+folder: xFAMCg3jOSOY2gqG
+name: Shed Skin
+type: skill
+_id: rrxB9WzXIzYMJUTW
+img: icons/creatures/reptiles/snake-poised-white.webp
+system:
+  description: >-
+    <p>You shed your skin and instantly regrow it, resetting all combat ability
+    cooldowns and removing
+    @UUID[Compendium.celestus.rules.5WnOnUhH4LYfPLlZ]{Burning},
+    @UUID[Compendium.celestus.rules.frCQo2l5BX8ljsNV]{Spiritfire},
+    @UUID[Compendium.celestus.rules.pwMjhiGe1Q35osEy]{Poisoned}, and
+    @UUID[Compendium.celestus.rules.f9EgHLBdEVJ70oGg]{Bleeding}.</p><p>This does
+    not reset the cooldown of once per combat skills.</p><p>This skill can only
+    be used once per combat.</p><p></p>
+  ap: 1
+  fp: 1
+  cooldown:
+    value: 0
+    max: -1
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 2
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 3
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: formshifter
+  tier: 2
+  hasScript: true
+  scriptId: skinGraft
+effects:
+  - name: Shedding
+    img: icons/creatures/reptiles/snake-poised-white.webp
+    origin: Compendium.celestus.skills.Item.rrxB9WzXIzYMJUTW
+    duration:
+      rounds: 0
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: 9TUraE8vnaKxcTPi
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes:
+        - burn
+        - burn+
+        - poison
+        - bleed
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes: []
+    description: ''
+    tint: '#ffffff'
+    transfer: true
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1737484135951
+      modifiedTime: 1737484210695
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!rrxB9WzXIzYMJUTW.9TUraE8vnaKxcTPi'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1737483871488
+  modifiedTime: 1737608944906
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!rrxB9WzXIzYMJUTW'
+

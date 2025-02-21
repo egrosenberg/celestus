@@ -1,0 +1,155 @@
+folder: EQZH2uG0sUFg1XqT
+name: Cleansing Wave
+type: skill
+_id: nYdWeKZcRqqsvZ1b
+img: icons/magic/life/cross-yellow-green.webp
+system:
+  description: >-
+    <p>You unleash a wave of healing waters that emanates out from you up to a
+    30-foot radius, cleansing allies and leaving a water surface behind. Each
+    ally in the radius receives 150% Healing.</p><p>★Remove
+    @UUID[Compendium.celestus.rules.frCQo2l5BX8ljsNV]{Spiritfire}, 
+    @UUID[Compendium.celestus.rules.5WnOnUhH4LYfPLlZ]{Burning},
+    @UUID[Compendium.celestus.rules.znf7Y4pFLUGRvbO2]{Diseased},
+    @UUID[Compendium.celestus.rules.hzPIPV1YdkdkSBHS]{Decaying},
+    @UUID[Compendium.celestus.rules.pwMjhiGe1Q35osEy]{Poisoned},
+    @UUID[Compendium.celestus.rules.YGJz1dn22aKAq9ZA]{Oily},
+    @UUID[Compendium.celestus.rules.7wfkn72lnRhuwnk4]{Suffocating},
+    @UUID[Compendium.celestus.rules.bW1XPBQBkzJsLeSU]{Acid}, and
+    @UUID[Compendium.celestus.rules.f9EgHLBdEVJ70oGg]{Bleeding}.</p>
+  ap: 2
+  fp: 1
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 2
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 2
+    stormseeker: 0
+    duneshaper: 2
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: healing
+      value: 1.5
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: radius
+    size: 30
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  school: tidecaller
+  tier: 2
+  hasScript: false
+  scriptId: ''
+  aoeLinger: true
+  linger:
+    duration: 10
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: water
+    children: []
+    texture: null
+effects:
+  - name: Cleansed
+    img: icons/magic/life/ankh-gold-blue.webp
+    origin: Compendium.celestus.skills.Item.nYdWeKZcRqqsvZ1b
+    duration:
+      rounds: 0
+      startTime: null
+      seconds: null
+      combat: null
+      turns: 0
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: BLvHk4dfqnxKkoAT
+    system:
+      damage: []
+      damageRiders: []
+      resistedBy: none
+      combines: []
+      removes:
+        - burn
+        - disease
+        - decay
+        - poison
+        - oil
+        - bleed
+        - suffocate
+        - acid
+        - burn+
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes: []
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1738698046288
+      modifiedTime: 1738803616957
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!nYdWeKZcRqqsvZ1b.BLvHk4dfqnxKkoAT'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1738697730765
+  modifiedTime: 1738698320594
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!nYdWeKZcRqqsvZ1b'
+

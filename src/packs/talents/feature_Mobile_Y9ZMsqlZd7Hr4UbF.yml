@@ -1,0 +1,132 @@
+folder: Nd8Y4X5YuQ7zsaYv
+name: Mobile
+type: feature
+_id: Y9ZMsqlZd7Hr4UbF
+img: icons/skills/movement/feet-winged-boots-brown.webp
+system:
+  equipped: false
+  description: >-
+    <p>On each of your turn, you can move up to 1 Action Point worth of movement
+    for free.</p>
+  type: talent
+  slot: none
+  efficiency: 1
+  bonuses:
+    combat:
+      onehand: 0
+      dualwield: 0
+      twohand: 0
+      ranged: 0
+      retributive: 0
+      flamespeaker: 0
+      tidecaller: 0
+      stormseeker: 0
+      duneshaper: 0
+      voidcantor: 0
+      deathbringer: 0
+      shroudstalker: 0
+      formshifter: 0
+      huntmaster: 0
+      warlord: 0
+    civil:
+      scoundrel: 0
+      lore: 0
+      nature: 0
+      influence: 0
+      religion: 0
+    abilities:
+      str: 0
+      dex: 0
+      con: 0
+      int: 0
+      mind: 0
+      wit: 0
+    resistance:
+      physical: 0
+      fire: 0
+      water: 0
+      air: 0
+      earth: 0
+      poison: 0
+      psychic: 0
+      piercing: 0
+      healing: 0
+      phys_armor: 0
+      mag_armor: 0
+      t_phys_armor: 0
+      t_mag_armor: 0
+  prereqs:
+    str: 0
+    dex: 0
+    con: 0
+    int: 0
+    mind: 0
+    wit: 0
+effects:
+  - name: Mobile
+    img: icons/skills/movement/feet-winged-boots-brown.webp
+    origin: Compendium.celestus.talents.Item.Y9ZMsqlZd7Hr4UbF
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: hrKLfzFRR1DHFjz7
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+      grantedSkills: []
+      ownedItems: []
+    changes:
+      - key: flags.celestus.mobile
+        mode: 5
+        value: 'true'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1736371668072
+      modifiedTime: 1736371693719
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!Y9ZMsqlZd7Hr4UbF.hrKLfzFRR1DHFjz7'
+sort: 800000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736371556332
+  modifiedTime: 1736376078313
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!Y9ZMsqlZd7Hr4UbF'
+

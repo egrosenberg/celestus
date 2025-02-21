@@ -1,0 +1,94 @@
+folder: wC9ADq5ZibfkZFaW
+name: Grasp of Frigid Depths
+type: skill
+_id: 2Gjsyv4ZZKgLmfHK
+img: icons/magic/water/water-elemental-blue-teeth.webp
+system:
+  description: >-
+    <p>Thousands of icy hands wrap around target creature you can see within
+    range. The target takes 100% Water damage as they're overwhelmed by
+    fear.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.jZ7bYqFX2qfNWzwz]{Chilled} and
+    @UUID[Compendium.celestus.rules.AwXMsQK5LQUAmsV2]{Terrified} (Resisted by
+    Magic Armor)</p>
+  ap: 3
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 3
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: water
+      value: 1
+  ability: int
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 60
+  statusEffects:
+    - chill
+    - fear
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: tidecaller
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739572931540
+  modifiedTime: 1739573198809
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!2Gjsyv4ZZKgLmfHK'
+

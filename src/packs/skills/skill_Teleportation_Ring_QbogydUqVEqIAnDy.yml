@@ -1,0 +1,76 @@
+folder: zTpnycwEza5kSOLj
+name: Teleportation Ring
+type: skill
+_id: QbogydUqVEqIAnDy
+img: icons/magic/symbols/runes-triangle-magenta.webp
+system:
+  description: >-
+    <p>You spend 10 minutes drawing a 5-foot radius circle onto the ground with
+    chalks. At the end, it sparks with magic, opening a temporary gateway to a
+    permanent teleportation ring who's sigils you know. The gateway remains open
+    for 10 seconds.</p><p>Any creature that enters the gateway is instantly
+    transported to the linked ring, and appears in the nearest unoccupied
+    space.</p><p>Many notable locations have teleportation rings. When you learn
+    this skill, you gain knowledge of 2 locations that you and the GM decide
+    make sense for you to know of.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 0
+  components:
+    verbal: true
+    somatic: true
+    material: true
+    materialFull: Chalks worth 25 GP, which the skill consumes
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 3
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: point
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: lore
+  tier: 2
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736291632781
+  modifiedTime: 1736291962451
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!QbogydUqVEqIAnDy'
+

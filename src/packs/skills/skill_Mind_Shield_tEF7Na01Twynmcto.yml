@@ -1,0 +1,147 @@
+folder: gXaSyzjqWdqphzc4
+name: Mind Shield
+type: skill
+_id: tEF7Na01Twynmcto
+img: icons/magic/defensive/barrier-shield-dome-pink.webp
+system:
+  description: >-
+    <p>You shield a creature's mind from mind altering magic. For 3 rounds, the
+    target gains +100% Psychic damage resistance and is immune mind affecting
+    statuses.</p><p>★ Blocks
+    @UUID[Compendium.celestus.rules.zD4uj511KZiI0LRA]{Asleep},
+    @UUID[Compendium.celestus.rules.AOX1crEpU3tbBybY]{Charmed},
+    @UUID[Compendium.celestus.rules.tUIK3QRY3bhGjHsg]{Dazed},
+    @UUID[Compendium.celestus.rules.0rJCQrvNUPq3scYd]{Mad},
+    @UUID[Compendium.celestus.rules.uTgAcAkST4Nrp87Y]{Taunted}, and
+    @UUID[Compendium.celestus.rules.AwXMsQK5LQUAmsV2]{Terrified}.</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 3
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 30
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: voidcantor
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects:
+  - name: Mind Shield
+    img: icons/magic/defensive/barrier-shield-dome-pink.webp
+    origin: Compendium.celestus.skills.Item.tEF7Na01Twynmcto
+    duration:
+      rounds: 3
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: eONHaeP4NOaQ11MB
+    system:
+      damage: []
+      damageRiders: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes:
+      - key: system.attributes.resistance.psychic.bonus
+        mode: 2
+        value: '1'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1739740080919
+      modifiedTime: 1739740187267
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!tEF7Na01Twynmcto.eONHaeP4NOaQ11MB'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739739709333
+  modifiedTime: 1739740134496
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!tEF7Na01Twynmcto'
+

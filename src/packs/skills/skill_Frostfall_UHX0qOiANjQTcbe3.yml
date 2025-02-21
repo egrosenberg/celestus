@@ -1,0 +1,67 @@
+folder: dMoE0X4PVZUY960v
+name: Frostfall
+type: skill
+_id: UHX0qOiANjQTcbe3
+img: icons/magic/water/projectile-ice-chunks-salvo.webp
+system:
+  description: >-
+    <p>Shards of ice fall from the sky in 5-foot radius cylinder originating at
+    a point you can see within range. Each affected creature takes 90% Water
+    damage.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.jZ7bYqFX2qfNWzwz]{Chilled} (Resisted by
+    Magic Armor)</p>
+  ap: 3
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 1
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: water
+      value: 0.9
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: sphere
+    size: 5
+  range: 90
+  statusEffects:
+    - chill
+  school: tidecaller
+  tier: 0
+effects: []
+sort: 125000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735968008532
+  modifiedTime: 1736276512141
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!UHX0qOiANjQTcbe3'
+

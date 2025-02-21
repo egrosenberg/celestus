@@ -1,0 +1,73 @@
+folder: VaMQ6Xir5XcYCahB
+name: Clue
+type: skill
+_id: L4j4P677tPEp0vOf
+img: icons/magic/symbols/question-stone-yellow.webp
+system:
+  description: >-
+    <p>You reveal secrets about the recent history of a location. All footprints
+    and fingerprints within a 45-foot radius of a point you touch faintly glow
+    for 10 minutes. As you use this skill, choose a period of time that has
+    occurred in the past 10 days. Each unique creature's prints glow a single
+    color.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 0
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 1
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: sphere
+    size: 45
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: scoundrel
+  tier: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736277665945
+  modifiedTime: 1736285762560
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!L4j4P677tPEp0vOf'
+

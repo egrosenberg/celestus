@@ -1,0 +1,27 @@
+folder: QwCEgm0OD25Y0k3S
+name: Fortified
+type: quickref
+_id: MUCGaqaP8I8nsgeO
+img: systems/celestus/svg/edged-shield.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>Instantaneous.</p><p><strong>Resisted by:
+    </strong>None.</p><p><strong>Removes: </strong>Poisoned, Bleeding, Burning,
+    Spiritfire, Acid, Decaying</p>
+effects: []
+sort: 300000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1735948079011
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!MUCGaqaP8I8nsgeO'
+

@@ -1,0 +1,70 @@
+folder: OnxupW4uuLx4oI89
+name: Water Breathing
+type: skill
+_id: F0YJvRv7Aqow2Krx
+img: icons/magic/water/bubbles-air-water-blue.webp
+system:
+  description: >-
+    <p>You grant 8 creatures of your choice within range the ability to breath
+    underwater for 24 hours.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 2
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 8
+    type: creature
+    size: 0
+  range: 30
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: nature
+  tier: 1
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736291447540
+  modifiedTime: 1736291509975
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!F0YJvRv7Aqow2Krx'
+

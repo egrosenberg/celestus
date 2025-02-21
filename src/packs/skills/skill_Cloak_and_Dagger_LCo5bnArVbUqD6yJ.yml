@@ -1,0 +1,89 @@
+folder: EATRyr5mqUVtHQ9a
+name: Cloak and Dagger
+type: skill
+_id: LCo5bnArVbUqD6yJ
+img: icons/magic/symbols/mask-metal-silver-white.webp
+system:
+  description: >-
+    <p>You cause yourself and up to 5 other creatures you can see within range
+    to magically become invisible for 1 hour. The invisibility ends for a
+    creature if it deals damage or uses a combat skill (unless that skill
+    specifies otherwise).</p><p>A creature made invisible by this effect makes
+    no sound from moving for as long as they remain invisible.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: false
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 5
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: scoundrel
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739918266334
+  modifiedTime: 1739918891029
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!LCo5bnArVbUqD6yJ'
+

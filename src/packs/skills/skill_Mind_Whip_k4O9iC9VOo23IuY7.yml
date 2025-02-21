@@ -1,0 +1,70 @@
+folder: wkTKGw7yqT2ufUnU
+name: Mind Whip
+type: skill
+_id: k4O9iC9VOo23IuY7
+img: icons/skills/melee/strike-blade-scimitar-green-purple.webp
+system:
+  description: >-
+    <p>You lash out with your mind at one creature you can see within range. The
+    target takes 155% Psychic damage and is left dazed.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.tUIK3QRY3bhGjHsg]{Dazed} (Resisted by Magic
+    Armor)</p>
+  ap: 3
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: false
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 2
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: psychic
+      value: 1.55
+  ability: int
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 60
+  statusEffects:
+    - daze
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: voidcantor
+  tier: 2
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736216619386
+  modifiedTime: 1736276686964
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!k4O9iC9VOo23IuY7'
+

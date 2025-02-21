@@ -1,0 +1,112 @@
+folder: QIyAB4EMzqqA8iBj
+name: Goad
+type: skill
+_id: v8dgT7p2wRt1tQqy
+img: icons/skills/social/intimidation-impressing.webp
+system:
+  description: >-
+    <p>You provoke the ire of all enemies around you in a 15-foot radius around
+    you, taunting them for 3 rounds.</p><p>A taunted enemy must spend their turn
+    attacking their taunter, or moving closer to their taunter in order to
+    attack them. They cannot target other creatures.</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: true
+    somatic: false
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 2
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: radius
+    size: 15
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: warlord
+  tier: 1
+effects:
+  - name: Taunted
+    img: systems/celestus/svg/angry-eyes.svg
+    origin: Compendium.celestus.skills.Item.v8dgT7p2wRt1tQqy
+    duration:
+      rounds: 3
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: nHKM00QSmIv7PcjV
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+    changes: []
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1736137336443
+      modifiedTime: 1737692384957
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!v8dgT7p2wRt1tQqy.nHKM00QSmIv7PcjV'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736136671780
+  modifiedTime: 1736276806028
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!v8dgT7p2wRt1tQqy'
+

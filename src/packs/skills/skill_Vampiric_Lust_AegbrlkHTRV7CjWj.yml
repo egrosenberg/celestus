@@ -1,0 +1,126 @@
+folder: U37QlqYPVlVbQTiW
+name: Vampiric Lust
+type: skill
+_id: AegbrlkHTRV7CjWj
+img: icons/magic/death/mouth-bite-fangs-vampire.webp
+system:
+  description: >-
+    <p>Grant target creature you touch vampiric power. The affected creature
+    gains 50% life steal for 2 rounds.</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 1
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 1
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  school: tidecaller
+  tier: 1
+  hasScript: false
+  scriptId: ''
+effects:
+  - name: Vampiric Lust
+    img: icons/magic/death/mouth-bite-fangs-vampire.webp
+    origin: Compendium.celestus.skills.Item.AegbrlkHTRV7CjWj
+    duration:
+      rounds: 3
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: 3gbl8yaXV2v3lGmR
+    system:
+      damage: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes:
+      - key: system.attributes.bonuses.lifesteal.bonus
+        mode: 2
+        value: '+0.5'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1737915101246
+      modifiedTime: 1738091830567
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!AegbrlkHTRV7CjWj.3gbl8yaXV2v3lGmR'
+sort: 300000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1737914708584
+  modifiedTime: 1738698022619
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!AegbrlkHTRV7CjWj'
+

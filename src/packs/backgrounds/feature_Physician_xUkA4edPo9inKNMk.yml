@@ -1,0 +1,84 @@
+name: Physician
+type: feature
+_id: xUkA4edPo9inKNMk
+img: icons/commodities/biological/organ-heart-red.webp
+system:
+  equipped: false
+  description: >-
+    <p><strong>Knowledgeable: </strong>You gain +1 Lore</p><p><strong>You can
+    always…</strong></p><ul><li><p>Tend to someone's
+    wounds</p></li><li><p>Scribble something down illegibly</p></li><li><p>Say:
+    "Everything's gonna be ok."</p></li><li><p>Ask: "Can you explain what's
+    wrong?"</p></li></ul>
+  type: origin
+  slot: none
+  efficiency: 1
+  bonuses:
+    combat:
+      onehand: 0
+      dualwield: 0
+      twohand: 0
+      ranged: 0
+      retributive: 0
+      flamespeaker: 0
+      tidecaller: 0
+      stormseeker: 0
+      duneshaper: 0
+      voidcantor: 0
+      deathbringer: 0
+      shroudstalker: 0
+      formshifter: 0
+      huntmaster: 0
+      warlord: 0
+    civil:
+      scoundrel: 0
+      lore: 1
+      nature: 0
+      influence: 0
+      religion: 0
+    abilities:
+      str: 0
+      dex: 0
+      con: 0
+      int: 0
+      mind: 0
+      wit: 0
+    resistance:
+      physical: 0
+      fire: 0
+      water: 0
+      air: 0
+      earth: 0
+      poison: 0
+      psychic: 0
+      piercing: 0
+      healing: 0
+      phys_armor: 0
+      mag_armor: 0
+      t_phys_armor: 0
+      t_mag_armor: 0
+  prereqs:
+    str: 0
+    dex: 0
+    con: 0
+    int: 0
+    mind: 0
+    wit: 0
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736303010646
+  modifiedTime: 1737596539421
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!xUkA4edPo9inKNMk'
+

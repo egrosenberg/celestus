@@ -1,0 +1,27 @@
+name: Patched Up
+type: quickref
+_id: NwtfEYxqaHPYil8K
+img: systems/celestus/svg/caduceus.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>Instantaneous.</p><p><strong>Resisted by:
+    </strong>None.</p><p><strong>Removes: </strong>Maimed, Atrophied, Blinded,
+    Prone, Bleeding, Diseased, Silenced</p>
+effects: []
+folder: QwCEgm0OD25Y0k3S
+sort: 1550000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1735948079011
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!NwtfEYxqaHPYil8K'
+

@@ -1,0 +1,20 @@
+name: Scepters
+sorting: a
+folder: Z1uUr57DgIv0jDsy
+type: Item
+_id: PmmpJmpfANPxBEUF
+description: ''
+sort: 0
+color: null
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: null
+  modifiedTime: 1737588727960
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!folders!PmmpJmpfANPxBEUF'
+

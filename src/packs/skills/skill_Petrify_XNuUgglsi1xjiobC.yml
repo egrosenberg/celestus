@@ -1,0 +1,66 @@
+folder: RuxLtKooOHD925p9
+name: Petrify
+type: skill
+_id: XNuUgglsi1xjiobC
+img: icons/magic/earth/strike-body-stone-crumble.webp
+system:
+  description: >-
+    <p>With a single touch, you turn a target to stone, dealing 100% Earth
+    damage and setting Petrified.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.c4XtON9HzTtFXuO7]{Petrified} (Resisted by
+    Magic Armor).</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: false
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 2
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: earth
+      value: 1
+  ability: int
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 0
+  statusEffects:
+    - petrify
+  school: duneshaper
+  tier: 1
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736058814791
+  modifiedTime: 1736275983387
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!XNuUgglsi1xjiobC'
+

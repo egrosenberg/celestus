@@ -1,0 +1,91 @@
+folder: kfmSfatuWFkut1fM
+name: Huntmaster's Mark
+type: skill
+_id: ygqf0fI2o8If8pcB
+img: icons/skills/targeting/crosshair-triple-strike-orange.webp
+system:
+  description: >-
+    <p>Mark target creature you can see within range for 5 rounds. While that
+    creature is marked in this way you always know where it is located and it
+    cannot benefit from invisibility against you.</p><p>You cannot use this
+    skill if there is another creature you have marked with it that is
+    alive.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.oD1CwEHzs8lsejV7]{Marked}</p>
+  ap: 0
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 10
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 90
+  statusEffects:
+    - mark
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: huntmaster
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739769484823
+  modifiedTime: 1739769580586
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!ygqf0fI2o8If8pcB'
+

@@ -1,0 +1,30 @@
+name: Warm
+type: quickref
+_id: oC1HaqlD9J7skg0B
+img: systems/celestus/svg/thermometer-hot.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>3 rounds.</p><p><strong>Resisted by:
+    </strong>None</p><p><strong>Removes: </strong>Wet,
+    Chilled</p><p><strong>Combines With:</strong></p><ul><li><p>Oily =&gt;
+    Burning</p></li><li><p>Warm =&gt;
+    Burning</p></li></ul><p><strong>Changes:</strong></p><ul><li><p>+10% Water
+    resistance</p></li><li><p>-15% Fire resistance</p></li></ul>
+effects: []
+folder: QwCEgm0OD25Y0k3S
+sort: 1500000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1735948079011
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!oC1HaqlD9J7skg0B'
+

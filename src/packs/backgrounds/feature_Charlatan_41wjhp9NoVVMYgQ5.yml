@@ -1,0 +1,83 @@
+name: Charlatan
+type: feature
+_id: 41wjhp9NoVVMYgQ5
+img: icons/commodities/currency/coin-embossed-ruby-gold.webp
+system:
+  equipped: false
+  description: >-
+    <p><strong>Persuasive: </strong>You gain +1 Influence</p><p><strong>You can
+    always…</strong></p><ul><li><p>Tell a little white lie</p></li><li><p>Say
+    something you're not supposed to.</p></li><li><p>Change the subject
+    abruptly.</p></li><li><p>Ask: "Are you sure about that?"</p></li></ul>
+  type: origin
+  slot: none
+  efficiency: 1
+  bonuses:
+    combat:
+      onehand: 0
+      dualwield: 0
+      twohand: 0
+      ranged: 0
+      retributive: 0
+      flamespeaker: 0
+      tidecaller: 0
+      stormseeker: 0
+      duneshaper: 0
+      voidcantor: 0
+      deathbringer: 0
+      shroudstalker: 0
+      formshifter: 0
+      huntmaster: 0
+      warlord: 0
+    civil:
+      scoundrel: 0
+      lore: 0
+      nature: 0
+      influence: 1
+      religion: 0
+    abilities:
+      str: 0
+      dex: 0
+      con: 0
+      int: 0
+      mind: 0
+      wit: 0
+    resistance:
+      physical: 0
+      fire: 0
+      water: 0
+      air: 0
+      earth: 0
+      poison: 0
+      psychic: 0
+      piercing: 0
+      healing: 0
+      phys_armor: 0
+      mag_armor: 0
+      t_phys_armor: 0
+      t_mag_armor: 0
+  prereqs:
+    str: 0
+    dex: 0
+    con: 0
+    int: 0
+    mind: 0
+    wit: 0
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736303214265
+  modifiedTime: 1737596581808
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!41wjhp9NoVVMYgQ5'
+

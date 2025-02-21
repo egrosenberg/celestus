@@ -1,0 +1,27 @@
+name: Invisible
+type: quickref
+_id: brQHLcMCTNNXxgGL
+img: icons/svg/invisible.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>5 rounds.</p><p><strong>Resisted by:
+    </strong>None.</p><p><strong>Notes: </strong>You cannot be seen or targeted
+    by enemies. Removed if you use a skill.</p>
+effects: []
+folder: QwCEgm0OD25Y0k3S
+sort: 1125000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735948079011
+  modifiedTime: 1735948079011
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!brQHLcMCTNNXxgGL'
+

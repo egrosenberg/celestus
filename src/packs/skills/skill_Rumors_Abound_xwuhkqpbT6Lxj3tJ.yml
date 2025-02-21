@@ -1,0 +1,72 @@
+folder: PDetFIk7dIhEvmW3
+name: Rumors Abound
+type: skill
+_id: xwuhkqpbT6Lxj3tJ
+img: icons/magic/defensive/illusion-evasion-echo-purple.webp
+system:
+  description: >-
+    <p>You magically spread a rumor to all intelligent creatures within range
+    that are near three or more other creatures. The rumor must be 10 words or
+    fewer. Each creature hears the rumor from a different point, so the actual
+    origin point of the rumor is impossible to discern.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 1
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 1
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: radius
+    size: 100
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: influence
+  tier: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736293108568
+  modifiedTime: 1736293385415
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!xwuhkqpbT6Lxj3tJ'
+

@@ -1,0 +1,69 @@
+folder: QKlvKbK9J8bNciXj
+name: Battering Rush
+type: skill
+_id: c8BImmuElkdZWOzp
+img: icons/magic/movement/abstract-ribbons-red-orange.webp
+system:
+  description: >-
+    <p>You charge 30 feet in a direction of your choice, dealing 50% Weapon
+    Damage and knocking down each enemy in your path, and 1 creature within
+    Melee range as you finish. Make a separate attack roll for each
+    creature.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.m4Sd3wSukc9j0o3h]{Prone} (Resisted by
+    Physical Armor)</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: false
+    somatic: true
+    material: true
+    materialFull: A Melee Weapon
+  memorized: 'false'
+  type: weapon
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 1
+  damage: []
+  ability: none
+  attack: true
+  targets:
+    count: 0
+    type: line
+    size: 30
+  range: 0
+  statusEffects:
+    - prone
+  lifesteal: 0
+  weaponEfficiency: 0.5
+  overridesWeaponDamage: false
+  overridesWeaponRange: false
+  school: warlord
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736134968421
+  modifiedTime: 1736736501405
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!c8BImmuElkdZWOzp'
+

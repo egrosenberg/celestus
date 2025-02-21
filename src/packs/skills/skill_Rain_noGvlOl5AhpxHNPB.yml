@@ -1,0 +1,70 @@
+folder: dMoE0X4PVZUY960v
+name: Rain
+type: skill
+_id: noGvlOl5AhpxHNPB
+img: icons/magic/water/projectile-beams-salvo-blue.webp
+system:
+  description: >-
+    <p>Rain clouds appear above a point on the ground you can see within range
+    and rain pours down in a 30-foot radius below the clouds, making creatures
+    wet, until three rounds pass or they are dispersed by a strong wind.</p><p>★
+    Sets @UUID[Compendium.celestus.rules.dEgPZYUDoDHpl72H]{Wet}</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 6
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 1
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: sphere
+    size: 30
+  range: 60
+  statusEffects:
+    - wet
+  school: tidecaller
+  aoeLinger: true
+  linger:
+    surfaceType: water
+    duration: 3
+    effects: true
+    lingerDuration: -1
+    clearOnLeave: false
+effects: []
+sort: 100000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735966739430
+  modifiedTime: 1738022105367
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!noGvlOl5AhpxHNPB'
+

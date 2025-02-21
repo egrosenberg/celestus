@@ -1,0 +1,29 @@
+folder: QwCEgm0OD25Y0k3S
+name: Taunted
+type: quickref
+_id: uTgAcAkST4Nrp87Y
+img: systems/celestus/svg/angry-eyes.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>2 rounds.</p><p><strong>Resisted by:
+    </strong>None.</p><p><strong>Notes:</strong> A taunted creature must spend
+    their turn attacking or moving towards the creature that taunted them. A
+    creature that is taunted can still use area of effect skills, but the point
+    they target must be the location of the taunter.</p>
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1738435572336
+  modifiedTime: 1739214225677
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!uTgAcAkST4Nrp87Y'
+

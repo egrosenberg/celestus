@@ -1,0 +1,71 @@
+folder: aUu63yNdPTqymXvS
+name: Sleep Dart
+type: skill
+_id: 5kOmo6e8u5lkpSVx
+img: icons/weapons/thrown/dart-feathered.webp
+system:
+  description: >-
+    <p>You fire a dart at target creature you can see within range. The target
+    takes 100% Magic Armor damage.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.zD4uj511KZiI0LRA]{Asleep} (Resisted by Magic
+    Armor).</p><p>★ Using this skill doesn't remove invisible.</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: false
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: weapon
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 1
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: mag_armor
+      value: -1
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: none
+    size: 0
+  range: 30
+  statusEffects:
+    - sleep
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponRange: true
+  overridesWeaponDamage: true
+  school: shroudstalker
+  overridesWeaponType: false
+  overrideDamageType: t_mag_armor
+effects: []
+sort: 100000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736114863319
+  modifiedTime: 1738433670655
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!5kOmo6e8u5lkpSVx'
+

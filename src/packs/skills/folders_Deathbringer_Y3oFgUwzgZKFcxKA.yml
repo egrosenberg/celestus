@@ -1,0 +1,20 @@
+name: Deathbringer
+sorting: a
+folder: sNZudXUDx8fo7Hpb
+type: Item
+_id: Y3oFgUwzgZKFcxKA
+description: ''
+sort: 1100000
+color: null
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1736094834004
+  modifiedTime: 1737914596536
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!folders!Y3oFgUwzgZKFcxKA'
+

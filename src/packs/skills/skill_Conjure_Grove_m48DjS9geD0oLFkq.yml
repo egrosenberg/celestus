@@ -1,0 +1,108 @@
+folder: L6pYos8zdAj1YXB2
+name: Conjure Grove
+type: skill
+_id: m48DjS9geD0oLFkq
+img: icons/environment/wilderness/tree-spruce.webp
+system:
+  description: >-
+    <p>You perform a 10-minute ritual that transforms an outdoor area into a
+    protected grove. The are can be as small as a 20-foot radius sphere, or as
+    large as a 50-foot radius sphere. Buildings and other structures are
+    excluded from the area. If you use this skill on the same area every day for
+    a year its effects become permanent (unless dispelled).</p><p>This skill
+    creates the effects included later in this description. When you perform
+    this ritual, you may designate any number of creatures as immune to its
+    effects. You can also specify a password that one can speak to become immune
+    to the effects.</p><p>The entire warded area is magical, but each singular
+    effect must be individually dispelled. Once each effect has been dispelled,
+    the spell ceases.</p><p><strong>Fog Cloud. </strong>You can fill any number
+    of 5-foot squares on the ground are with dense fog that reaches 10 feet
+    tall, blinding any creatures within the fog, and blocking any line of sight
+    that would pass through it. To a creature immune to this effect, the fog
+    appears as a thin mist.</p><p><strong>Entangling Vines. </strong>You can
+    fill any number of 5-foot squares on the ground (that aren't filled with
+    fog) with grasping vines. Any creature who walks over the area is
+    @UUID[Compendium.celestus.rules.9qo7qdEF3hIuvsXr]{Slowed} and
+    @UUID[Compendium.celestus.rules.V9M5OZ1zmCrxnpk8]{Rooted}. For a creature
+    immune to this, the vines feel reshape themselves to help the creature move,
+    rather than harm them, causing no statuses.</p><p><strong>Shift Earth.
+    </strong>You can reshape and terraform the plants and ground. Causing plants
+    to appear where there were none, and raise or lower the ground in 5-foot
+    squares up to 5 feet in either direction.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 0
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: nature
+  tier: 3
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1739826660950
+  modifiedTime: 1739841077849
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!m48DjS9geD0oLFkq'
+

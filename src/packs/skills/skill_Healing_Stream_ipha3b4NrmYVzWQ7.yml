@@ -1,0 +1,65 @@
+folder: GQjthGcq8MKmvGzK
+name: Healing Stream
+type: skill
+_id: ipha3b4NrmYVzWQ7
+img: icons/magic/water/wave-water-teal.webp
+system:
+  description: >-
+    <p>A stream of water springs from your hand to another target creature you
+    can see within range. You can then have the stream bounce to another target
+    with 30 feet of that target. You can have it bounce in this way a total of 3
+    times. Each creature that the water springs to regains 80% HP.</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 5
+    max: 0
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 2
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+  damage:
+    - type: healing
+      value: 0.8
+  ability: none
+  attack: false
+  targets:
+    count: 4
+    type: creature
+    size: 0
+  range: 60
+  statusEffects: []
+  school: tidecaller
+  tier: 2
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1735973049849
+  modifiedTime: 1736276612914
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!ipha3b4NrmYVzWQ7'
+

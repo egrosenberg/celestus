@@ -1,0 +1,28 @@
+folder: QwCEgm0OD25Y0k3S
+name: Psychosis
+type: quickref
+_id: gVlbuZ3CMlbP1qRN
+img: systems/celestus/svg/bleeding-eye.svg
+system:
+  description: >-
+    <p><strong>Duration: </strong>2 rounds.</p><p><strong>Resisted by:
+    </strong>Magic Armor</p><p><strong>Changes:</strong></p><ul><li><p>-15%
+    Psychic resistance</p></li></ul><p><strong>Damage:</strong> 100% Psychic
+    damage per turn.</p>
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1738435182339
+  modifiedTime: 1738436082524
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!gVlbuZ3CMlbP1qRN'
+
