@@ -69,6 +69,9 @@ system:
   grantedSkills:
     - uuid: Compendium.celestus.skills.Y418PUi56IfSGFhD
       name: Rage
+  canAlways:
+    - Perform a display of strength.
+    - Get angry.
 effects: []
 folder: null
 sort: 0
@@ -83,7 +86,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736305704084
-  modifiedTime: 1737610621283
+  modifiedTime: 1740175971651
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!zaKsRkj119zvnDRQ'
 

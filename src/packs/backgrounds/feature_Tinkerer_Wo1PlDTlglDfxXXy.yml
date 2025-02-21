@@ -64,6 +64,11 @@ system:
     int: 0
     mind: 0
     wit: 0
+  canAlways:
+    - Make a small and harmless contraption.
+    - Have the right tool for the job.
+    - Marvel at someone's creation.
+    - 'Ask: "Can I get a hand?"'
 effects: []
 folder: null
 sort: 0
@@ -78,7 +83,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736302778813
-  modifiedTime: 1736302871916
+  modifiedTime: 1740175931362
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!Wo1PlDTlglDfxXXy'
 

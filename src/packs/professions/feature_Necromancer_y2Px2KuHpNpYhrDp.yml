@@ -70,6 +70,9 @@ system:
   grantedSkills:
     - uuid: Compendium.celestus.skills.nZAuu0OqdLZRwgaD
       name: Speak with Dead
+  canAlways:
+    - Find yourself comfortable amongst death.
+    - Remind those around you that you would prefer them dead.
 effects: []
 folder: null
 sort: 0
@@ -84,7 +87,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736314168463
-  modifiedTime: 1737610757707
+  modifiedTime: 1740175971647
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!y2Px2KuHpNpYhrDp'
 

@@ -70,6 +70,9 @@ system:
   grantedSkills:
     - uuid: Compendium.celestus.skills.mggIHvTALbr1xAxH
       name: Augury
+  canAlways:
+    - Use the stars to navigate.
+    - Perform a minor magical trick.
 effects: []
 folder: null
 sort: 0
@@ -84,7 +87,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736304536168
-  modifiedTime: 1737610612783
+  modifiedTime: 1740175971633
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!oylBsHXrsUp2wnrL'
 

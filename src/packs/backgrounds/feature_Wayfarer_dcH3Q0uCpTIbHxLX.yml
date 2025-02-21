@@ -57,6 +57,11 @@ system:
     int: 0
     mind: 0
     wit: 0
+  canAlways:
+    - Find enough food for you and your party in the wilderness.
+    - Protect yourself from harsh weather.
+    - Continue onward.
+    - 'Ask: "Do you need a hand?"'
 effects: []
 folder: null
 sort: 0
@@ -71,7 +76,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736301442702
-  modifiedTime: 1736303374273
+  modifiedTime: 1740175931380
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!dcH3Q0uCpTIbHxLX'
 

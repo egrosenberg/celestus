@@ -56,6 +56,11 @@ system:
     int: 0
     mind: 0
     wit: 0
+  canAlways:
+    - Play a tune.
+    - Make an audience from a crowd.
+    - 'Say: “You remind me of someone.”.'
+    - 'Ask: “Can I stay here?”.'
 effects: []
 folder: null
 sort: 0
@@ -70,7 +75,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736301086783
-  modifiedTime: 1737308874867
+  modifiedTime: 1740175931348
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!UN8owc65gFEi7BeB'
 

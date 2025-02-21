@@ -64,6 +64,11 @@ system:
     int: 0
     mind: 0
     wit: 0
+  canAlways:
+    - Tend to someone's wounds.
+    - Scribble something down illegibly.
+    - 'Say: "Everything''s gonna be ok."'
+    - 'Ask: "Can you explain what''s wrong?"'
 effects: []
 folder: null
 sort: 0
@@ -78,7 +83,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736303010646
-  modifiedTime: 1737596539421
+  modifiedTime: 1740175931468
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!xUkA4edPo9inKNMk'
 

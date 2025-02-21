@@ -72,6 +72,9 @@ system:
   grantedSkills:
     - uuid: Compendium.celestus.skills.KR2CEJviLCUdgFJH
       name: Bind Familiar
+  canAlways:
+    - Reach out to your patron, in a plea for guidance.
+    - Strike a deal.
 effects: []
 folder: null
 sort: 0
@@ -86,7 +89,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736312974879
-  modifiedTime: 1737610743569
+  modifiedTime: 1740175971629
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!ebivE3YBEMFQ2NsB'
 

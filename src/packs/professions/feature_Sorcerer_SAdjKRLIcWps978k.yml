@@ -67,6 +67,9 @@ system:
     int: 0
     mind: 0
     wit: 0
+  canAlways:
+    - Lean on your innate magic.
+    - Perform a minor magical trick.
 effects: []
 folder: null
 sort: 0
@@ -81,7 +84,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736304911414
-  modifiedTime: 1737610716998
+  modifiedTime: 1740175971564
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!SAdjKRLIcWps978k'
 

@@ -69,6 +69,9 @@ system:
   grantedSkills:
     - uuid: Compendium.celestus.skills.zcgSyG0KVz6BzCTZ
       name: Blood Sacrament
+  canAlways:
+    - Find a way in.
+    - Speak the language of thieves.
 effects: []
 folder: null
 sort: 0
@@ -83,7 +86,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736312536148
-  modifiedTime: 1737610591891
+  modifiedTime: 1740175971536
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!8fU0Bc2QKLuWXRBn'
 

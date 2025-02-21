@@ -70,6 +70,9 @@ system:
   grantedSkills:
     - uuid: Compendium.celestus.skills.U0pM7O5jTAw0tdkb
       name: Restoration
+  canAlways:
+    - Offer a small prayer.
+    - Perform a minor miracle.
 effects: []
 folder: null
 sort: 0
@@ -84,7 +87,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736305203490
-  modifiedTime: 1737610641342
+  modifiedTime: 1740175971551
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!ISdezaxdDNcyap81'
 

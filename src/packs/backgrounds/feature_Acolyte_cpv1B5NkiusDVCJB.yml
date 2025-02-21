@@ -63,6 +63,11 @@ system:
     int: 0
     mind: 0
     wit: 0
+  canAlways:
+    - Offer a small prayer.
+    - Place your faith in those around you.
+    - Give someone the benefit of the doubt.
+    - Tell someone about your faith.
 effects: []
 folder: null
 sort: 0
@@ -77,7 +82,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736302465381
-  modifiedTime: 1736302630396
+  modifiedTime: 1740175931372
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!cpv1B5NkiusDVCJB'
 

@@ -70,6 +70,9 @@ system:
   grantedSkills:
     - uuid: Compendium.celestus.skills.KR2CEJviLCUdgFJH
       name: Bind Familiar
+  canAlways:
+    - Perform a minor magical trick.
+    - Identify a spell.
 effects: []
 folder: null
 sort: 0
@@ -84,7 +87,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736304151731
-  modifiedTime: 1737610676482
+  modifiedTime: 1740175971546
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!FHF14g3s5xLBkoMX'
 

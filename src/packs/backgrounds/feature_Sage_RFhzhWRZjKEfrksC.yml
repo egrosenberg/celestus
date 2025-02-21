@@ -57,6 +57,11 @@ system:
     int: 0
     mind: 0
     wit: 0
+  canAlways:
+    - Cite your sources, hoping they help your case.
+    - Locate something in a library, if it’s there.
+    - Jot something important down.
+    - 'Ask: “Could you explain?”.'
 effects: []
 folder: null
 sort: 0
@@ -71,7 +76,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736300568701
-  modifiedTime: 1737308894665
+  modifiedTime: 1740175931248
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!RFhzhWRZjKEfrksC'
 
