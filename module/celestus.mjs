@@ -200,6 +200,12 @@ Hooks.on("init", () => {
         },
         weaponBonusDmgDie: 4,
         equipApCost: 1,
+        maxFP: [
+            [[1,2,3,4,5,6,7,8], 0],
+            [[9,10], 1],
+            [[11,12], 2],
+            [[13,14,15,16,17,18,19,20], 3],
+        ],
         inspiredAttributes: ["str", "dex", "con", "int"],
         enlightenedBonus: { // bonus from enlightened flag
             1: { str: 1, dex: 1, int: 1, wit: 1 },

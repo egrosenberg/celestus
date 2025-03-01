@@ -100,6 +100,17 @@ export class CelestusActor extends Actor {
                 }
             }
         }
+
+        // handle setting max fp for players
+        if (this.type === "player") {
+            const level = changed.system?.attributes?.level;
+            if (level) {
+                const maxFP = CONFIG.CELESTUS.maxFP.find(i => i[0].includes(level))?.[1] ?? 0;
+                resources ??= {};
+                resources.fp ??= {};
+                resources.fp.max = maxFP;
+            }
+        }
     }
 
     /** @override */
