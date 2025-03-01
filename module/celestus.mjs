@@ -95,7 +95,8 @@ Hooks.on("init", () => {
             mag_armor: { label: "Magic Armor", text: "mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
             t_phys_armor: { label: "Temp Physical Armor", text: "t_phys_armor", style: "healing", skill: "duneshaper", color: "#ebccad", glyph: "icon-edged-shield" },
             t_mag_armor: { label: "Temp Magic Armor", text: "t_mag_armor", style: "healing", skill: "tidecaller", color: "#86dfdf", glyph: "icon-magic-shield" },
-            none: { label: "None", text: "none", style: "none", skill: "none", color: "black", glyph: "" },
+            none: { label: "None", text: "none", style: "none", skill: "none", color: "black", glyph: "", ignore: true },
+            special: { label: "Special", text: "none", style: "none", skill: "none", color: "#fccb00", glyph: "", ignore: true },
         },
         surfaceTypes: surfaceTypes,
         /**
@@ -122,6 +123,7 @@ Hooks.on("init", () => {
             formshifter: { label: "Formshifter", text: "formshifter", damage: "phys_armor", glyph: "icon-wolf-howl", type: "skill" },
             huntmaster: { label: "Huntmaster", text: "huntmaster", damage: "poison", glyph: "icon-pocket-bow", type: "skill" },
             warlord: { label: "Warlord", text: "warlord", damage: "physical", glyph: "icon-axe-sword", type: "skill" },
+            special: { label: "Special", text: "special", damage: "special", glyph: "icon-flower-twirl", type: "skill", ignore: true }
         },
         /**
          * civil skills
@@ -137,6 +139,7 @@ Hooks.on("init", () => {
             nature: { label: "Nature", text: "nature", color: "#b0e8b0", glyph: "icon-linden-leaf" },
             influence: { label: "Influence", text: "influence", color: "#ffccf1", glyph: "icon-lyre" },
             religion: { label: "Religion", text: "religion", color: "#fffbcd", glyph: "icon-angel-outfit" },
+            special: { label: "Special", text: "special", damage: "special", glyph: "icon-flower-twirl", type: "skill", ignore: true }
         },
         /**
          * bonuses

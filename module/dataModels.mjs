@@ -135,6 +135,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
             }),
             // combat abilities
             combat: new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.combatSkills)).reduce((obj, ability) => {
+                if (CONFIG.CELESTUS.combatSkills[ability]?.ignore) return obj;
                 obj[ability] = new SchemaField({
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total value
                     base: new NumberField({ required: true, integer: true, min: 0, max: CONFIG.CELESTUS.abilityMax, initial: 0 }), // base value from leveling
@@ -145,6 +146,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
             }, {})),
             // civil abilities
             civil: new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.civilSkills)).reduce((obj, ability) => {
+                if (CONFIG.CELESTUS.combatSkills[ability]?.ignore) return obj;
                 obj[ability] = new SchemaField({
                     value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }), // total value
                     base: new NumberField({ required: true, integer: true, min: 0, max: CONFIG.CELESTUS.abilityMax, initial: 0 }), // base value from leveling
@@ -381,7 +383,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
     get elementBonus() {
         let bonuses = {};
         for (let [key, type] of Object.entries(CONFIG.CELESTUS.damageTypes)) {
-            if (key === "none") {
+            if (type.ignore) {
                 bonuses[key] = 0;
                 continue;
             }
@@ -1186,10 +1188,12 @@ export class GearData extends foundry.abstract.TypeDataModel {
             bonuses: new SchemaField({
                 // combat abilities
                 combat: new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.combatSkills)).reduce((obj, type) => {
+                    if (CONFIG.CELESTUS.combatSkills[type]?.ignore) return obj;
                     obj[type] = new NumberField({ required: true, integer: false, min: 0, initial: 0 });
                     return obj;
                 }, {})),
                 civil: new SchemaField(Object.keys((({ none, ...o }) => o)(CONFIG.CELESTUS.civilSkills)).reduce((obj, type) => {
+                    if (CONFIG.CELESTUS.combatSkills[type]?.ignore) return obj;
                     obj[type] = new NumberField({ required: true, integer: false, min: 0, initial: 0 });
                     return obj;
                 }, {})),

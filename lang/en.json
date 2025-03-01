@@ -28,7 +28,8 @@
             "shroudstalker": "Shroudstalker",
             "formshifter": "Formshifter",
             "huntmaster": "Huntmaster",
-            "warlord": "Warlord"
+            "warlord": "Warlord",
+            "special": "Special"
         },
         "abilityDescriptions": {
             "scoundrel": "Hiding, lock picking, and other sleight of hand.",
@@ -50,7 +51,8 @@
             "shroudstalker": "5% Critical hit damage, 5% movement speed",
             "formshifter": "You gain 2 unspent attribute points",
             "huntmaster": "5% damage to marked targets",
-            "warlord": "5% Physical damage"
+            "warlord": "5% Physical damage",
+            "special": "For skills that don't fit into other categories"
         }
     }
 }
