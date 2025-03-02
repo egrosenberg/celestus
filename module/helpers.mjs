@@ -128,14 +128,19 @@ export function canvasPopupText(actor, text, color = "#ffffff", broadcast = fals
  * @param {String} ability for actor to roll with
  */
 export async function rollAbility(actor, ability) {
-    let label, abilityMod;
+    let label, abilityMod, isAttribute;
     if (CONFIG.CELESTUS.civilSkills[ability] !== undefined) {
-        label = CONFIG.CELESTUS.civilSkills[ability].label;
+        label = game.i18n.localize("CELESTUS.abilities." + ability);
         abilityMod = actor.system.civil[ability].value * 5;
     }
     else if (CONFIG.CELESTUS.combatSkills[ability] !== undefined) {
-        label = CONFIG.CELESTUS.combatSkills[ability].label;
+        label = game.i18n.localize("CELESTUS.abilities." + ability);
         abilityMod = actor.system.combat[ability].value;
+    }
+    else if (typeof CONFIG.CELESTUS.abilities[ability] !== undefined) {
+        label = game.i18n.localize("CELESTUS.attributes." + ability);
+        abilityMod = actor.system.abilities[ability].value - CONFIG.CELESTUS.baseAttributeScore;
+        isAttribute = true;
     }
     else {
         return;
@@ -144,6 +149,7 @@ export async function rollAbility(actor, ability) {
     const msgData = {
         attributes: CONFIG.CELESTUS.abilities,
         ability: label,
+        attributeSelect: !isAttribute,
     }
     let msg = await renderTemplate(path, msgData);
     new foundry.applications.api.DialogV2({
@@ -153,30 +159,47 @@ export async function rollAbility(actor, ability) {
             action: "normal",
             label: "Normal",
             default: true,
-            callback: (event, button, dialog) => ["normal", button.form.elements.attribute.value]
+            callback: (event, button, dialog) => [
+                "normal",
+                button.form.elements.attribute?.value,
+                button.form.elements.situational?.value
+            ]
         }, {
             action: "advantage",
             label: "Advantage",
-            callback: (event, button, dialog) => ["advantage", button.form.elements.attribute.value]
+            callback: (event, button, dialog) => [
+                "advantage",
+                button.form.elements.attribute?.value,
+                button.form.elements.situational?.value
+            ]
         }],
         submit: result => {
-            const [mode, attribute] = result;
-            let skillBonus = actor.system.abilities[attribute]?.value ?? 0;
-            if (skillBonus > 0) skillBonus -= CONFIG.CELESTUS.baseAttributeScore;
+            const [mode, attribute, situational] = result;
+            let attributeBonus = actor.system.abilities[attribute]?.value ?? 0;
+            if (attributeBonus > 0) attributeBonus -= CONFIG.CELESTUS.baseAttributeScore;
+            let flavor, rollBonus;
+            if (isAttribute) {
+                flavor = `${label} check`;
+                rollBonus = `${abilityMod} + ${situational}`;
+            }
+            else {
+                flavor = `${label} (${game.i18n.localize("CELESTUS.attributes." + attribute)}) check`;
+                rollBonus = `${abilityMod} + ${attributeBonus} + ${situational}`;
+            }
             if (mode === "normal") {
                 let r = new Roll(
-                    `1d100 + ${abilityMod} + ${skillBonus}`,
+                    `1d100 +  ${rollBonus}`,
                     {},
-                    { flavor: `${label} (${CONFIG.CELESTUS.abilities[attribute]?.label}) check` });
+                    { flavor });
                 r.toMessage({
                     speaker: { alias: actor.name },
                 })
             }
             else if (mode === "advantage") {
                 let r = new Roll(
-                    `2d100kh1 + ${abilityMod} + ${skillBonus}`,
+                    `2d100kh1 + ${rollBonus}`,
                     {},
-                    { flavor: `${label} (${CONFIG.CELESTUS.abilities[attribute]?.label}) check` });
+                    { flavor });
                 r.toMessage({
                     speaker: { alias: actor.name },
                 })

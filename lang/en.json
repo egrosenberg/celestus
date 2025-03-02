@@ -6,7 +6,23 @@
             "con": "Constitution",
             "int": "Intellect",
             "mind": "Mind",
-            "wit": "Wits"
+            "wit": "Wits",
+            "short": {
+                "str": "STR",
+                "dex": "DEX",
+                "con": "CON",
+                "int": "INT",
+                "mind": "MIND",
+                "wit": "WIT"
+            }
+        },
+        "attributeDescriptions": {
+            "str": "Strength: +5% damage to strength-based weapons and skills.",
+            "dex": "Dexterity: +5% damage to dexterity-based weapons and skills.",
+            "int": "Intellect: +5% damage to intellect-based weapons and skills.",
+            "con": "Constitution: +7% max health.",
+            "mind": "Mind: +1 Memory slot.",
+            "wit": "Wits: +1 initiative, +1% Critical Hit Chance."
         },
         "abilities": {
             "scoundrel": "Scoundrel",

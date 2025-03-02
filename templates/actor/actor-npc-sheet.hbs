@@ -152,8 +152,10 @@
                 <div class="stats-grid">
                     {{#each system.abilities as |ability key|}}
                     <div class="ability flexrow flex-group-center">
-                        <label for="system.abilities.{{key}}.value" class="resource-label rollable flexlarge align-left"
-                            data-label="{{ability.label}}">{{ability.label}}</label>
+                        <label for="system.abilities.{{key}}.value" data-tooltip="CELESTUS.attributeDescriptions.{{key}}"
+                            class="resource-label maxwidth-label ability-roll flexlarge align-left" data-label="{{key}}">
+                            </i>{{localize (concat "CELESTUS.attributes.short." key)}}
+                        </label>
                         <input type="number" name="system.abilitySpread.{{key}}"
                             value="{{lookup ../system.abilitySpread key}}" data-dtype="Number" />
                         <span class="ability-mod rollable" data-label="{{ability.label}}">

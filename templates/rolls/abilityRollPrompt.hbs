@@ -1,4 +1,14 @@
-<label for="attribute">Attribute: </label>
-<select name="attribute">
-    {{selectOptions attributes selected="none"}}
-</select>
+<div class="form-group">
+    <label for="situational">Situational Bonus: </label>
+    <div class="form-fields">
+        <input type="number" name="situational" value="0">
+    </div>
+</div>
+{{#if attributeSelect}}
+<div class="form-group">
+    <label for="attribute">Attribute: </label>
+    <select name="attribute">
+        {{selectOptions attributes selected="none"}}
+    </select>
+</div>
+{{/if}}

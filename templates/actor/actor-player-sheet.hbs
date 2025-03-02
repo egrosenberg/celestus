@@ -112,9 +112,10 @@
                     <h4>Unspent: {{numberFormat system.attributes.unspentPoints sign=true}}</h4>
                     {{#each system.abilities as |ability key|}}
                     <div class="ability flexrow flex-group-center">
-                        <label for="system.abilities.{{key}}.value" class="resource-label rollable flexlarge align-left"
-                            data-roll="d20+@abilities.{{key}}.mod"
-                            data-label="{{ability.label}}">{{ability.label}}</label>
+                        <label for="system.abilities.{{key}}.value" data-tooltip="CELESTUS.attributeDescriptions.{{key}}"
+                            class="resource-label maxwidth-label ability-roll flexlarge align-left" data-label="{{key}}">
+                            {{localize (concat "CELESTUS.attributes.short." key)}}
+                        </label>
                         <input type="number" name="system.abilities.{{key}}.value" value="{{ability.value}}"
                             data-dtype="Number" />
                         <span class="ability-mod rollable" data-label="{{ability.label}}">
