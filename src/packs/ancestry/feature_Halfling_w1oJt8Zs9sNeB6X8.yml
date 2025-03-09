@@ -32,7 +32,7 @@ system:
       huntmaster: 0
       warlord: 0
     civil:
-      scoundrel: 0
+      scoundrel: 1
       lore: 0
       nature: 0
       influence: 0
@@ -128,7 +128,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736445245557
-  modifiedTime: 1737593444072
+  modifiedTime: 1740591483255
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!w1oJt8Zs9sNeB6X8'
 

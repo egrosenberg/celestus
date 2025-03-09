@@ -8,9 +8,9 @@ system:
   description: >-
     <p><strong>Draconic Resilience: </strong>You gain +20% Fire
     Resistance.</p><p><strong>Dragon's Breath: </strong>You learn the skill
-    @UUID[Compendium.celestus.skills.Item.P1bTafsRgy0kyoSj]{Flame Breath}. You
-    always have it memorized, it doesn't count against your skills known or
-    memorized and you don't need to</p>
+    @UUID[Compendium.celestus.skills.P1bTafsRgy0kyoSj]{Flame Breath}. You always
+    have it memorized, it doesn't count against your skills known or memorized
+    and you don't need to</p>
   type: species
   slot: none
   efficiency: 1
@@ -130,7 +130,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736463018462
-  modifiedTime: 1737610066688
+  modifiedTime: 1740616707203
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _id: xJhDxsz6BerGAiaG
 sort: 0

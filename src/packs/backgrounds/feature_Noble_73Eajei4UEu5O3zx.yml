@@ -33,7 +33,7 @@ system:
       scoundrel: 0
       lore: 0
       nature: 0
-      influence: 0
+      influence: 1
       religion: 0
     abilities:
       str: 0
@@ -82,7 +82,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736302714081
-  modifiedTime: 1740175931047
+  modifiedTime: 1740541184864
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!73Eajei4UEu5O3zx'
 

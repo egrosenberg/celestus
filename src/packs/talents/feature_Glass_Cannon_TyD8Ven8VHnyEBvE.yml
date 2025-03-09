@@ -96,7 +96,7 @@ effects:
     changes:
       - key: system.resources.ap.start
         mode: 5
-        value: '@system.resources.ap.max'
+        value: '@resources.ap.max'
         priority: null
       - key: flags.celestus.glasscannon
         mode: 5
@@ -115,7 +115,7 @@ effects:
       systemId: celestus
       systemVersion: 0.0.1
       createdTime: 1736356963285
-      modifiedTime: 1736357240608
+      modifiedTime: 1741327904085
       lastModifiedBy: ZJKmiL4ZAI5FH4eV
     _key: '!items.effects!TyD8Ven8VHnyEBvE.sACxq29jv1ndyKnI'
 sort: 600000
