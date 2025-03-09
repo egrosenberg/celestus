@@ -49,7 +49,7 @@ system:
   weaponEfficiency: 1
   overridesWeaponDamage: false
   overridesWeaponRange: false
-  school: huntmaster
+  school: special
   tier: 0
 effects: []
 sort: 0
@@ -64,7 +64,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736446315173
-  modifiedTime: 1736446592346
+  modifiedTime: 1740870450754
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!FbZp3GjR8jhhB6di'
 

@@ -49,8 +49,8 @@ system:
   tier: 2
   aoeLinger: false
   linger:
-    duration: 4
-    surfaceType: ice
+    duration: null
+    surfaceType: none
 effects: []
 sort: 0
 ownership:
@@ -64,7 +64,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1735972759728
-  modifiedTime: 1738012702824
+  modifiedTime: 1741414743326
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!tiQILLBk5Aji6YaP'
 

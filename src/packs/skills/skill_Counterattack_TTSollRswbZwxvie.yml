@@ -49,7 +49,7 @@ system:
   weaponEfficiency: 1
   overridesWeaponDamage: false
   overridesWeaponRange: false
-  school: warlord
+  school: special
   tier: 0
 effects: []
 ownership:
@@ -63,7 +63,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736361265314
-  modifiedTime: 1736361330176
+  modifiedTime: 1740870421231
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _id: TTSollRswbZwxvie
 sort: 0

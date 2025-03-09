@@ -43,7 +43,7 @@ system:
     max: 0
   range: 0
   statusEffects: []
-  school: onehand
+  school: special
 effects: []
 sort: 0
 ownership:
@@ -57,7 +57,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1735948174729
-  modifiedTime: 1736277960800
+  modifiedTime: 1740870412754
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!NLA4uEPpppecZcYK'
 

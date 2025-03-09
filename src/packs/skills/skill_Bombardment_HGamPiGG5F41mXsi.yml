@@ -35,8 +35,8 @@ system:
   ability: none
   attack: true
   targets:
-    count: 0
-    type: none
+    count: 3
+    type: creature
     size: 0
   range: 0
   statusEffects: []
@@ -59,7 +59,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736133976448
-  modifiedTime: 1736276257767
+  modifiedTime: 1741330056310
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!HGamPiGG5F41mXsi'
 

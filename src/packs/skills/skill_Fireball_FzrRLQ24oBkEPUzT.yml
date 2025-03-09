@@ -5,8 +5,8 @@ _id: FzrRLQ24oBkEPUzT
 img: icons/magic/fire/barrier-shield-explosion-yellow.webp
 system:
   description: >-
-    <p>You sling a orb of flame at a point you can see within range and then
-    erupts into a ball of flame, leaving a fiery surface in its wake. Each
+    <p>You sling a orb of flame at a point you can see within range. It erupts
+    into a plume of fire that leaves a burning surface in its wake. Each
     creature within a 15-foot radius of that point takes 100% Fire
     Damage.</p><p><span title="Copy to Clipboard"
     class="copy-the-code-shortcode" data-target data-button-text="★"
@@ -69,7 +69,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1735963937511
-  modifiedTime: 1738374408008
+  modifiedTime: 1740897274308
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!FzrRLQ24oBkEPUzT'
 

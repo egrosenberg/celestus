@@ -48,7 +48,7 @@ system:
   school: duneshaper
   tier: 1
 effects: []
-sort: 0
+sort: 200000
 ownership:
   default: 0
   ZJKmiL4ZAI5FH4eV: 3
@@ -60,7 +60,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736058814791
-  modifiedTime: 1736275983387
+  modifiedTime: 1741328424180
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!XNuUgglsi1xjiobC'
 

@@ -39,7 +39,7 @@ system:
     material: false
     materialFull: ''
   statusEffects: []
-  school: warlord
+  school: special
 effects: []
 folder: f2NqGCtUzET9sI12
 flags: {}
@@ -50,7 +50,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1735948174729
-  modifiedTime: 1738193219624
+  modifiedTime: 1740870401746
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _id: 4DI2xsNKaTIXeJgB
 sort: 0

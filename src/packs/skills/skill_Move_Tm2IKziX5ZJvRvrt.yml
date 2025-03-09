@@ -50,7 +50,7 @@ system:
   overridesWeaponDamage: false
   overridesWeaponType: false
   overridesWeaponRange: false
-  school: onehand
+  school: special
   tier: 0
   hasScript: false
   scriptId: ''
@@ -67,7 +67,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1737673917856
-  modifiedTime: 1737673988790
+  modifiedTime: 1740870409050
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!Tm2IKziX5ZJvRvrt'
 
