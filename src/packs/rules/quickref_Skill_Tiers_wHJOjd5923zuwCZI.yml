@@ -4,14 +4,11 @@ _id: wHJOjd5923zuwCZI
 img: systems/celestus/svg/lyre.svg
 system:
   description: >-
-    <p><strong>Apprentice</strong> skills have no level
-    requirement.</p><p><strong>Novice</strong> skills require character level
-    4.</p><p><strong>Adept</strong> skills require character level
-    9.</p><p><strong>Expert</strong> skills require character level
-    13.</p><p><strong>Master</strong>  skills require character level 16.</p>
+    <table><tbody><tr><td><h3>Skill Tier</h3></td><td><h3>Minimum Character
+    Level</h3></td></tr><tr><td><p><strong>Apprentice</strong></p></td><td><p>1</p></td></tr><tr><td><p><strong>Novice</strong></p></td><td><p>4</p></td></tr><tr><td><p><strong>Adept</strong></p></td><td><p>9</p></td></tr><tr><td><p><strong>Expert</strong></p></td><td><p>13</p></td></tr><tr><td><p><strong>Master</strong></p></td><td><p>16</p></td></tr></tbody></table>
 effects: []
-folder: null
-sort: 0
+folder: pa9fsOd1f4K24GQ3
+sort: 400000
 ownership:
   default: 0
   ZJKmiL4ZAI5FH4eV: 3
@@ -23,7 +20,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1739771688062
-  modifiedTime: 1739771721160
+  modifiedTime: 1740787050063
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!wHJOjd5923zuwCZI'
 

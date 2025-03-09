@@ -7,25 +7,24 @@ system:
     <h3>Civil</h3><ul><li>Civil skills can only be used outside of combat and
     may require multiple minutes to hours to execute.</li><li>Civil skills
     either have no cooldown, or require taking a rest to
-    recharge.</li><li><p>Prerequisites for civil skills are based on Civil
-    abilities.</p></li></ul><h3>Magic (Combat)</h3><ul><li>Magic skills are
-    combat skills that are inherently magical.</li><li>These skills often will
-    not have any sort of material component.</li><li>If a magic skill has a
-    damage component, the base damage will be a value based on your
-    level</li><li><p>If a magic skill's damage component scales off an attribute
-    it will have a different base damage value than if it
-    didn't</p></li></ul><h3>Weapon (Combat)</h3><ul><li>Weapon skills are combat
-    skills that aren't inherently magical (though they can still
-    be).</li><li>All weapon skills require an equipped weapon to be able to be
-    used.</li><li>Some weapon skills may specify a type of weapon to be equipped
-    to be used (e.g. many shroudstalker skills require a dagger)</li><li>Weapon
-    skills' damage component is based on your equipped weapon
-    damage.</li><li>Some weapon skills do only a certain percent of your weapon
-    damage.</li><li><p>Some weapon skills may override the range of your
-    weapon.</p></li></ul>
+    recharge.</li><li>Prerequisites for civil skills are based on Civil
+    abilities.</li></ul><h3>Magic (Combat)</h3><ul><li>Magic skills are combat
+    skills that are inherently magical.</li><li>These skills often will not have
+    any sort of material component.</li><li>If a magic skill has a damage
+    component, the base damage will be a value based on your level</li><li>If a
+    magic skill's damage component scales off an attribute it will have a
+    different base damage value than if it didn't</li></ul><h3>Weapon
+    (Combat)</h3><ul><li>Weapon skills are combat skills that aren't inherently
+    magical (though they can still be).</li><li>All weapon skills require an
+    equipped weapon to be able to be used.</li><li>Some weapon skills may
+    specify a type of weapon to be equipped to be used (e.g. many shroudstalker
+    skills require a dagger)</li><li>Weapon skills' damage component is based on
+    your equipped weapon damage.</li><li>Some weapon skills do only a certain
+    percent of your weapon damage.</li><li>Some weapon skills may override the
+    range of your weapon.</li></ul>
 effects: []
 folder: null
-sort: 0
+sort: 100000
 ownership:
   default: 0
   ZJKmiL4ZAI5FH4eV: 3
@@ -37,7 +36,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1737228946038
-  modifiedTime: 1737228978696
+  modifiedTime: 1740891875334
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!8LxL22YMGHnMZ8MW'
 
