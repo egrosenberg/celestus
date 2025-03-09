@@ -31,28 +31,6 @@ export class CelestusActor extends Actor {
                         if (old < 1 && val.flat > 0) {
                             this.updateSource({ "system.attributes.exhaustion": this.system.attributes.exhaustion + 1 })
                         }
-                        // check if target has been healed and has renewing armor
-                        if (val.flat > old && this.getFlag("celestus", "renewing_armor")) {
-                            const armorHeal = (val.flat - old) * CONFIG.CELESTUS.renewingArmorScale;
-                            const oldPhys = this.system.resources.phys_armor.flat;
-                            const oldMag = this.system.resources.mag_armor.flat;
-                            const newPhys = Math.min(oldPhys + armorHeal, this.system.resources.phys_armor.max);
-                            const newMag = Math.min(oldMag + armorHeal, this.system.resources.mag_armor.max);
-                            if (resources.phys_armor) {
-                                resources.phys_armor.flat = newPhys
-                            }
-                            else {
-                                resources.phys_armor = { flat: newPhys };
-                            }
-                            if (resources.mag_armor) {
-                                resources.mag_armor.flat = newMag
-                            }
-                            else {
-                                resources.mag_armor = { flat: newMag };
-                            }
-                            canvasPopupText(this, `+${newPhys - oldPhys}`, CONFIG.CELESTUS.damageCol.phys_armor.gain, broadcast);
-                            canvasPopupText(this, `+${newMag - oldMag}`, CONFIG.CELESTUS.damageCol.mag_armor.gain, broadcast);
-                        }
                     }
                     const diff = val.flat - old;
                     if (diff !== 0) {
@@ -411,7 +389,7 @@ export class CelestusActor extends Actor {
                 const ap = origin.system.resources.ap.value + CONFIG.CELESTUS.executeAp;
                 await origin.update({ "system.resources.ap.value": Math.min(ap, origin.system.resources.ap.max) });
                 await origin.setFlag("celestus", "executedThisTurn", true);
-                canvasPopupText(origin, "Executioner");
+                await canvasPopupText(origin, "Executioner");
             }
 
             // apply healing to origin based on lifesteal / apply retribution damage
@@ -430,6 +408,20 @@ export class CelestusActor extends Actor {
                 if (typeof burn != "boolean") {
                     burn.update({ "origin": origin.uuid })
                 }
+            }
+        }
+
+        // if healed, apply renewing armor
+        if (!options.reflected && damage < 0 && origin.getFlag("celestus", "renewing_armor")
+            && !["phys_armor", "temp_phys_armor", "mag_armor", "temp_mag_armor"].includes(type)) {
+            const armorHeal = Math.floor((-damage) * CONFIG.CELESTUS.renewingArmorScale);
+            if (armorHeal > 0) {
+                const oldPhys = this.system.resources.phys_armor.flat;
+                const oldMag = this.system.resources.mag_armor.flat;
+                const newPhys = Math.min(oldPhys + armorHeal, this.system.resources.phys_armor.max);
+                const newMag = Math.min(oldMag + armorHeal, this.system.resources.mag_armor.max);
+                await this.update({ "system.resources.phys_armor.flat": newPhys });
+                await this.update({ "system.resources.mag_armor.flat": newMag });
             }
         }
 
@@ -637,7 +629,7 @@ export class CelestusActor extends Actor {
 
         // spend AP if this token is in combat
         if (this.inCombat && ["armor", "weapon", "offhand"].includes(item.type)) {
-            this.update({"system.resources.ap.value": Math.max(0, this.system.resources.ap.value - CONFIG.CELESTUS.equipApCost)});
+            this.update({ "system.resources.ap.value": Math.max(0, this.system.resources.ap.value - CONFIG.CELESTUS.equipApCost) });
         }
     }
 
