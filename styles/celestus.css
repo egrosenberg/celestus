@@ -210,7 +210,6 @@
 }
 
 .chat-message button.apply-damage {
-    flex: 0 0 100%;
     position: relative;
     margin: 0;
     line-height: 24px;
@@ -220,6 +219,26 @@
     box-shadow: 0 0 2px #FFF inset;
     word-break: break-all;
     flex: 0;
+}
+
+.chat-message button.apply-damage:hover {
+    box-shadow: 0px 0px 5px var(--color-shadow-primary);
+}
+
+.chat-message button.apply-damage-mult {
+    position: relative;
+    margin: 0;
+    line-height: 24px;
+    text-align: center;
+    border: 1px solid var(--color-border-light-2);
+    border-radius: 3px;
+    box-shadow: 0 0 2px #FFF inset;
+    font-weight: bold;
+    flex: 1;
+}
+
+.chat-message button.apply-damage-mult:hover {
+    box-shadow: 0px 0px 5px var(--color-shadow-primary);
 }
 
 .chat-message button.apply-damage.number {
@@ -1203,7 +1222,6 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .damage-component {
-    cursor: pointer;
     margin-top: -1px;
     border: 1px black solid;
     width: 100%;
@@ -1211,6 +1229,38 @@ input[type="color"]::-webkit-color-swatch {
     font-weight: bold;
     font-size: var(--font-size-16);
     padding: 3px;
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+}
+
+.damage-component .damage-mults {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.damage-component .damage-mult {
+    cursor: pointer;
+    flex: 0 0 50px;
+    padding: 0px;
+    display: none;
+    height: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;  border: none;
+    line-height: 100%;
+    box-shadow: 0px 0px 1px black;
+}
+
+.damage-component:hover .damage-mult {
+    display: flex;
+}
+
+
+.damage-component .damage-mult:hover {
+    box-shadow: 0px 0px 3px black;
 }
 
 .dice-formula {

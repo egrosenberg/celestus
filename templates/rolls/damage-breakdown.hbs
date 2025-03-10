@@ -2,12 +2,17 @@
     {{#each terms as |term|}}
     {{#with (lookup ../damageTypes term.type)}}
     <li class="damage-component" style="background-color: {{color}};"
-            data-origin-actor="{{../originActor}}" data-message-id="{{../msgId}}"
-            data-origin-item="{{../originItem}}" data-damage-total="{{term.amount}}"
+            data-origin-actor="{{../../originActor}}" data-message-id="{{../../msgId}}"
+            data-origin-item="{{../../originItem}}" data-damage-total="{{term.amount}}"
             data-damage-type="{{term.type}}">
         <i class="{{glyph}}"></i>
         <span class="value">{{term.amount}}</span>
         <span class="type">{{label}}</span>
+        <div class="damage-mults">
+            <button class="damage-mult healing" data-mult="-1">-1&times;</button>
+            <button class="damage-mult piercing" data-mult="0.5">0.5&times;</button>
+            <button class="damage-mult piercing" data-mult="1">1&times;</button>
+        </div>
     </li>
     {{/with}}
     {{/each}}

@@ -152,6 +152,7 @@ export async function rollDamage(e) {
 export async function applyDamageHook(e) {
     const origin = await fromUuid(e.currentTarget.dataset.originActor);
     const item = await fromUuid(e.currentTarget.dataset.originItem);
+    const multiplier = parseFloat(e.currentTarget.dataset.multiplier || 1);
 
     const msg = await fromUuid(e.currentTarget.dataset.messageId);
     if (!msg) return;
@@ -168,7 +169,7 @@ export async function applyDamageHook(e) {
     // iterate through each controlled token
     for (const token of selected) {
         for (const term of dmgTerms.terms) {
-            await token.actor.applyDamage(term.amount, term.type, origin, { lifesteal: lifesteal });
+            await token.actor.applyDamage(term.amount * multiplier, term.type, origin, { lifesteal: lifesteal });
         }
     }
 
@@ -181,10 +182,12 @@ export async function applyDamageHook(e) {
  * @param {event} e : event from button click
  */
 export async function applyDamageComponent(e) {
-    const damage = e.currentTarget.dataset.damageTotal;
-    const type = e.currentTarget.dataset.damageType;
-    const origin = await fromUuid(e.currentTarget.dataset.originActor);
-    const item = await fromUuid(e.currentTarget.dataset.originItem);
+    const parent = $(e.currentTarget).parents(".damage-component")[0];
+    if (!parent) return console.warn("CELESTUS | Could not find damage component parent");
+    const damage = parent.dataset.damageTotal * e.currentTarget.dataset.mult;;
+    const type = parent.dataset.damageType;
+    const origin = await fromUuid(parent.dataset.originActor);
+    const item = await fromUuid(parent.dataset.originItem);
 
     let lifesteal = 0;
     if (item?.type === "skill") {
@@ -300,7 +303,7 @@ export async function addChatButtons(msg, html, options) {
         }
         // add damage button if there is a damage roll
         if (msg.system.skill.hasDamage) {
-            html.append(`<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="damage" ${disabled}>Roll Damage</button>`)
+            html.append(`<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="damage" ${disabled}>Roll Damage</button>`);
         }
         // apply effects
         if (skill.effects.size > 0 || skill.system.statusEffects?.length > 0) {
@@ -336,7 +339,16 @@ export async function addChatButtons(msg, html, options) {
         for (let roll of msg.rolls) {
             dmgTotal += roll.total;
         }
-        html.append(`<button data-origin-actor="${msg.system.actorID}" data-message-id="${msg.uuid}" data-origin-item="${msg.system.itemID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\ ${disabled}">Apply Damage</button>`);
+        html.append(`<button data-origin-actor="${msg.system.actorID}" data-message-id="${msg.uuid}" data-origin-item="${msg.system.itemID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\" ${disabled}">Apply Damage</button>`);
+        html.append(`
+            <div class=flexrow>
+                <button data-origin-actor="${msg.system.actorID}" data-message-id="${msg.uuid}" data-origin-item="${msg.system.itemID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" data-multiplier="-1" class="apply-damage-mult" ${disabled}>-1</button>
+                <button data-origin-actor="${msg.system.actorID}" data-message-id="${msg.uuid}" data-origin-item="${msg.system.itemID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" data-multiplier="0.25" class="apply-damage-mult" ${disabled}>1/4</button>
+                <button data-origin-actor="${msg.system.actorID}" data-message-id="${msg.uuid}" data-origin-item="${msg.system.itemID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" data-multiplier="0.5" class="apply-damage-mult" ${disabled}>1/2</button>
+                <button data-origin-actor="${msg.system.actorID}" data-message-id="${msg.uuid}" data-origin-item="${msg.system.itemID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" data-multiplier="1" class="apply-damage-mult" ${disabled}>1</button>
+                <button data-origin-actor="${msg.system.actorID}" data-message-id="${msg.uuid}" data-origin-item="${msg.system.itemID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" data-multiplier="2" class="apply-damage-mult" ${disabled}>2</button>
+            </div>
+            `);
     }
     html.on('click', '.status.success', applyWeaponStatus);
 }

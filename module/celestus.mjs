@@ -798,8 +798,8 @@ Hooks.on("ready", () => {
     $(document).on("click", ".attack", rollAttack);
     $(document).on("click", ".roll-crit", rollCrit);
     $(document).on("click", ".damage", rollDamage);
-    $(document).on("click", ".apply-damage", applyDamageHook);
-    $(document).on("click", ".damage-component", applyDamageComponent);
+    $(document).on("click", ".apply-damage,.apply-damage-mult", applyDamageHook);
+    $(document).on("click", ".damage-component .damage-mult", applyDamageComponent);
     $(document).on("click", ".apply-status", applyStatusHook);
     $(document).on("click", ".draw-template", drawTemplate);
 
