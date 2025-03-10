@@ -66,7 +66,7 @@
         {{#with (lookup ../config.damageTypes type)}}
         <div class="roll-tag {{type}}-dark">
             <i class="{{glyph}}"></i>
-            {{damage.min}}-{{damage.max}}
+            {{damage.min}}-{{damage.max}} ({{damage.avg}})
         </div>
         {{/with}}
         {{/each}}
