@@ -209,6 +209,10 @@
     content: '\0075';
 }
 
+.chat-message .message-header .message-sender {
+    white-space: unset;
+}
+
 .chat-message button.apply-damage {
     position: relative;
     margin: 0;
@@ -864,8 +868,8 @@ input[type="color"]::-webkit-color-swatch {
 .celestus.actor.sheet .items-list .item.flexrow {
     border: thin black solid;
     margin: 2px;
-    padding: 6px;
-    border-radius: 12px;
+    padding: 3px;
+    border-radius: 5px;
     box-shadow: var(--shadow-bevel);
     font-size: var(--font-size-16);
 }
@@ -1065,6 +1069,17 @@ input[type="color"]::-webkit-color-swatch {
 
 .celestus.item.sheet .form-group {
     align-items: start;
+}
+
+.celestus.item.sheet .item-detail {
+    margin-bottom: 5px;
+    gap: 3px;
+}
+
+.celestus.item.sheet .detail-input {
+    flex: 0 0 3em;
+    height: auto;
+    padding: 0px 3px;
 }
 
 /* roll chat message */

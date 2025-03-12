@@ -18,6 +18,16 @@
         {{!-- quick view of important item info --}}
         <div class="item-quick">
             <h3>Details:</h3>
+            <div class="item-detail flexrow">
+                <span>Weight:</span>
+                <input  class="detail-input" type="number" name="system.weight" value="{{system.weight}}">
+                <span>lbs.</span>
+            </div>
+            <div class="item-detail flexrow">
+                <span>Price:</span>
+                <input  class="detail-input" type="number" name="system.price" value="{{system.price}}">
+                <span>gp</span>
+            </div>
             {{#if item.system.hasPrereqs}}
             <div class="quick-reference">
                 Requires:

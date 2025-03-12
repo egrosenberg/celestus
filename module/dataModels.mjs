@@ -1165,20 +1165,39 @@ export class SkillData extends foundry.abstract.TypeDataModel {
 };
 
 /**
- * Defines data model for all gear items
+ * Default item fields needed
  * @extends { TypeDataModel }
  */
-export class GearData extends foundry.abstract.TypeDataModel {
+export class CelestusItem extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
-            // equiped or not
-            equipped: new BooleanField({ required: true, initial: false }),
-            // html description of armor
             description: new HTMLField(),
-
             price: new NumberField({ required: true, initial: 0 }),
             quantity: new NumberField({ integer: true, required: true, initial: 1 }),
             weight: new NumberField({ required: true, initial: 0 }),
+        }
+    }
+
+    /** total price of item(s) */
+    get totalPrice() {
+        return this.price * this.quantity;
+    }
+
+    /** Total weight of item(s) */
+    get totalWeight() { 
+        return this.weight * this.quantity;
+    }
+}
+
+/**
+ * Defines data model for all gear items
+ * @extends { TypeDataModel }
+ */
+export class GearData extends CelestusItem {
+    static defineSchema() {
+        return foundry.utils.mergeObject(super.defineSchema(), {
+            // equiped or not
+            equipped: new BooleanField({ required: true, initial: false }),
             // type of armor (robes (int) / light (dex) / heavy (str))
             type: new StringField({ required: true, initial: "none" }),
             // slot of armor (helmet / chest / gloves / leggings / boots)
@@ -1260,7 +1279,7 @@ export class GearData extends foundry.abstract.TypeDataModel {
                 new StringField(),
                 { required: true, initial: [] }
             ),
-        };
+        });
     }
     /** @override */
     async _preCreate(data, options, user) {
@@ -1323,11 +1342,6 @@ export class GearData extends foundry.abstract.TypeDataModel {
             if (value > 0) return true;
         }
         return false;
-    }
-
-    /** total price of item(s) */
-    get totalPrice() {
-        return this.price * this.quantity;
     }
 };
 
@@ -1596,6 +1610,22 @@ export class OffhandData extends GearData {
     }
 }
 
+/**
+ * Consumable items, potions etc.
+ * @extends { CelestusItem }
+ */
+export class ConsumableItem extends CelestusItem {
+    static defineSchema() {
+        const schema = super.defineSchema();
+        schema.hasDamage = new BooleanField({ required: true, initial: false });
+        schema.damage = new ArrayField(new SchemaField({
+            type: new StringField({ required: true, initial: "physical" }),
+            formula: new StringField({ required: true, initial: "" })
+        }));
+
+        return schema;
+    }
+}
 
 /**
  * Defines data structure for active effects
@@ -1616,7 +1646,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
             resistedBy: new StringField({ required: true, initial: "none" }),
             combines: new ArrayField(new SchemaField({ // effect it combos with
                 with: new StringField({ required: true, initial: "none" }), // status id of status it combos with
-                makes: new StringField({ required: true, initial: "none " }) // status id of status the two create
+                makes: new StringField({ required: true, initial: "none" }) // status id of status the two create
             })
             ),
             removes: new ArrayField( // statuses it removes
