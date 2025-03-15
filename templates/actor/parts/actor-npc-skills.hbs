@@ -1,20 +1,21 @@
+
+<div class='item flexrow items-header'>
+    <div class='item-name'>
+        Skills
+    </div>
+    <div class='item-controls'>
+        <a class='item-control item-create' data-tooltip='' data-type='skill'>
+            <i class='fas fa-plus'></i>
+        </a>
+    </div>
+</div>
 <ol class='items-list'>
-    <li class='item flexrow items-header'>
-        <div class='item-name'>
-        </div>
-        <div class='item-controls'>
-            <a class='item-control item-create' title='' data-type='skill'>
-                <i class='fas fa-plus'></i>
-            </a>
-        </div>
-    </li>
-    <h2>Skills</h2>
     {{#each actor.system.skills as |skill|}}
-    <li class='item skill' style="display: inline-block; width: 80px" data-item-id='{{skill._id}}'>
+    <li class='item skill' data-item-id='{{skill._id}}'>
         <div class='skill-frame'>
             <div class='item-image'>
-                <a class='rollable' data-roll-type='skill' data-item-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
-                    height='80' /></a>
+                <a class='rollable' data-roll-type='skill' data-item-id="{{skill._id}}"><img src='{{skill.img}}'
+                        data-tooltip='{{skill.name}}' width='80' height='80' /></a>
                 {{#if (gt skill.system.cooldown.value 0)}}
                 <span class="item-overlay active">
                     {{skill.system.cooldown.value}}
@@ -32,16 +33,16 @@
         </div>
         <div class="skill-cost">
             {{#repeat skill.system.finalAP}}<i class="fa-solid fa-circle ap-icon"></i>{{/repeat}}
-            <br/>{{#repeat skill.system.finalFP}}<i class="fa-solid fa-diamond fp-icon"></i>{{/repeat}}
+            <br />{{#repeat skill.system.finalFP}}<i class="fa-solid fa-diamond fp-icon"></i>{{/repeat}}
         </div>
         <div class='item-controls'>
             <span>
-            <a class='item-control item-edit' title='edit'>
-                <i class='fas fa-edit'></i>
-            </a>
-            <a class='item-control item-delete' title='delete'>
-                <i class='fas fa-trash'></i>
-            </a>
+                <a class='item-control item-edit' data-tooltip='edit'>
+                    <i class='fas fa-edit'></i>
+                </a>
+                <a class='item-control item-delete' data-tooltip='delete'>
+                    <i class='fas fa-trash'></i>
+                </a>
             </span>
         </div>
     </li>

@@ -134,11 +134,11 @@ Hooks.on("init", () => {
          * glyph: glyphter icon to use for display
          */
         civilSkills: {
-            scoundrel: { label: "Scoundrel", text: "scoundrel", color: "#f0f0f4", glyph: "icon-pay-money" },
-            lore: { label: "Lore", text: "lore", color: "#ff9999", glyph: "icon-book-cover" },
-            nature: { label: "Nature", text: "nature", color: "#b0e8b0", glyph: "icon-linden-leaf" },
-            influence: { label: "Influence", text: "influence", color: "#ffccf1", glyph: "icon-lyre" },
-            religion: { label: "Religion", text: "religion", color: "#fffbcd", glyph: "icon-angel-outfit" },
+            scoundrel: { label: "Scoundrel", text: "scoundrel", color: "#f0f0f4", color_dark: "#2D2D30", glyph: "icon-pay-money" },
+            lore: { label: "Lore", text: "lore", color: "#FFCACA", color_dark: "#640000", glyph: "icon-book-cover" },
+            nature: { label: "Nature", text: "nature", color: "#b0e8b0", color_dark: "#053405", glyph: "icon-linden-leaf" },
+            influence: { label: "Influence", text: "influence", color: "#ffccf1", color_dark: "#80005D", glyph: "icon-lyre" },
+            religion: { label: "Religion", text: "religion", color: "#fffbcd", color_dark: "#6A6100", glyph: "icon-angel-outfit" },
             special: { label: "Special", text: "special", damage: "special", glyph: "icon-flower-twirl", type: "skill", ignore: true }
         },
         /**
@@ -993,6 +993,9 @@ Handlebars.registerHelper("sum", (a, b) => {
         return "";
     }
     return a + b;
+});
+Handlebars.registerHelper("capitalize", (a) => {
+    return String(a)[0].toUpperCase() + String(a).slice(1);
 });
 
 // attempt to bind to elevation ruler

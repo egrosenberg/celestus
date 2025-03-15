@@ -135,19 +135,6 @@
             </div>
         </span>
         <span class="sheet-main">
-            {{!-- Equipped Gear --}}
-            <div class="armor-section">
-                {{#each actor.system.equipped as |piece slot|}}
-                <div class="armor-socket">
-                    <div class="armor-socket-label">{{lookup ../config.equipmentSlots slot}}</div>
-                    <a class="armor-socket-browse item" data-slot="{{slot}}" data-item-id="{{piece._id}}">
-                        <img class="armor-socket-icon" src="{{piece.img}}" data-tooltip="{{piece.name}}" {{#if
-                            piece.img}} {{#if (and piece.system.twoHanded (eq slot "right" ))}} style="opacity: 0.5;"
-                            {{/if}} {{else}} style="opacity: 0.0;" {{/if}} />
-                    </a>
-                </div>
-                {{/each}}
-            </div>
             {{!-- Sheet Tab Navigation --}}
             <nav class="sheet-tabs tabs" data-group="primary">
                 {{!-- Default tab is specified in actor-sheet.mjs --}}
@@ -174,6 +161,20 @@
 
                 {{!-- Owned Items Tab --}}
                 <div class="tab items" data-group="primary" data-tab="items">
+                    
+            {{!-- Equipped Gear --}}
+            <div class="armor-section">
+                {{#each actor.system.equipped as |piece slot|}}
+                <div class="armor-socket">
+                    <div class="armor-socket-label">{{lookup ../config.equipmentSlots slot}}</div>
+                    <a class="armor-socket-browse item" data-slot="{{slot}}" data-item-id="{{piece._id}}">
+                        <img class="armor-socket-icon" src="{{piece.img}}" data-tooltip="{{piece.name}}" {{#if
+                            piece.img}} {{#if (and piece.system.twoHanded (eq slot "right" ))}} style="opacity: 0.5;"
+                            {{/if}} {{else}} style="opacity: 0.0;" {{/if}} />
+                    </a>
+                </div>
+                {{/each}}
+            </div>
                     {{> "systems/celestus/templates/actor/parts/actor-items.hbs"}}
                 </div>
 

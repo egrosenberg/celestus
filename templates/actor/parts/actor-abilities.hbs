@@ -20,7 +20,7 @@
         <div class="abilities flexcol">
             {{#each system.civil as |ability key|}}
             <div class="ability flexrow flex-group-center"
-                style="background-color: {{#with (lookup ../config.civilSkills key)}}{{color}}{{/with}}">
+                style="background-color: {{#with (lookup ../config.civilSkills key)}}{{color_dark}}{{/with}}">
                 <label for="system.civil.{{key}}.base" data-tooltip="CELESTUS.abilityDescriptions.{{key}}"
                     class="resource-label maxwidth-label ability-roll flexlarge align-left" data-label="{{key}}">
                     {{#with (lookup ../config.civilSkills key)}}
@@ -46,7 +46,7 @@
         <div class="abilities flexcol">
             {{#each actor.system.combatAbilities.weapon as |ability key|}}
             <div class="ability flexrow flex-group-center"
-                style="background-color: var(--color-{{#with (lookup ../config.combatSkills ability.[0])}}{{damage}}{{/with}}-bg)">
+                style="background-color: var(--color-{{#with (lookup ../config.combatSkills ability.[0])}}{{damage}}{{/with}}-dark-bg)">
                 <label for="system.combat.{{ability.[0]}}.base" data-tooltip="CELESTUS.abilityDescriptions.{{ability.[0]}}"
                     class="resource-label maxwidth-label ability-roll flexlarge align-left"
                     data-label="{{ability.[0]}}">
@@ -73,7 +73,7 @@
         <div class="abilities flexcol">
             {{#each actor.system.combatAbilities.skill as |ability key|}}
             <div class="ability flexrow flex-group-center"
-                style="background-color: var(--color-{{#with (lookup ../config.combatSkills ability.[0])}}{{damage}}{{/with}}-bg)">
+                style="background-color: var(--color-{{#with (lookup ../config.combatSkills ability.[0])}}{{damage}}{{/with}}-dark-bg)">
                 <label for="system.combat.{{ability.[0]}}.base" data-tooltip="CELESTUS.abilityDescriptions.{{ability.[0]}}"
                     class="resource-label maxwidth-label ability-roll flexlarge align-left"
                     data-label="{{ability.[0]}}">

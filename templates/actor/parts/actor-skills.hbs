@@ -1,167 +1,195 @@
-<ol class='items-list'>
-    <li class='item flexrow items-header'>
+<div class="item-section">
+    <div class='item flexrow items-header'>
         <div class='item-name'>
+            Always Memorized
         </div>
         <div class='item-controls'>
-            <a class='item-control item-create' title='' data-type='skill'>
+            <a class='item-control item-create' data-tooltip='' data-type='skill'>
                 <i class='fas fa-plus'></i>
             </a>
         </div>
-    </li>
-    <h2>Always Memorized</h2>
-    {{#each actor.system.skills.always as |skill|}}
-    <li class='item skill' style="display: inline-block; width: 80px" data-item-id='{{skill._id}}'>
-        <div class='skill-frame'>
-            <div class='item-image'>
-                <a class='rollable' data-roll-type='skill' data-item-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
-                    height='80' /></a>
-                {{#if (gt skill.system.cooldown.value 0)}}
-                <span class="item-overlay active">
-                    {{skill.system.cooldown.value}}
-                </span>
-                {{else if (lt skill.system.cooldown.value 0)}}
-                <span class="item-overlay active">
-                    <i class="icon-sunrise"></i>
-                </span>
-                {{else if skill.system.disabled}}
-                <span class="item-overlay active">
-                    <i class="fa-solid fa-ban"></i>
-                </span>
-                {{else}}
-                <span class="item-overlay">
-                    {{#if (eq skill.system.type "civil")}}
-                    {{#with (lookup ../config.civilSkills skill.system.school)}}
-                         <i class="{{glyph}}"></i>
-                    {{/with}}
+    </div>
+    <ol class='items-list'>
+        {{#each actor.system.skills.always as |skill|}}
+        <li class='item skill' data-item-id='{{skill._id}}'>
+            <div class='skill-frame'>
+                <div class='item-image'>
+                    <a class='rollable' data-roll-type='skill' data-item-id="{{skill._id}}"><img src='{{skill.img}}'
+                            data-tooltip='{{skill.name}}' width='80' height='80' /></a>
+                    {{#if (gt skill.system.cooldown.value 0)}}
+                    <span class="item-overlay active">
+                        {{skill.system.cooldown.value}}
+                    </span>
+                    {{else if (lt skill.system.cooldown.value 0)}}
+                    <span class="item-overlay active">
+                        <i class="icon-sunrise"></i>
+                    </span>
+                    {{else if skill.system.disabled}}
+                    <span class="item-overlay active">
+                        <i class="fa-solid fa-ban"></i>
+                    </span>
                     {{else}}
-                    {{#with (lookup ../config.combatSkills skill.system.school)}}
+                    <span class="item-overlay">
+                        {{#if (eq skill.system.type "civil")}}
+                        {{#with (lookup ../config.civilSkills skill.system.school)}}
                         <i class="{{glyph}}"></i>
-                    {{/with}}
-                    {{/if}}
-                </span>
-                {{/if}}
-                
-            </div>
-        </div>
-        <div class="skill-cost">
-            {{#repeat skill.system.finalAP}}<i class="fa-solid fa-circle ap-icon"></i>{{/repeat}}
-            <br/>{{#repeat skill.system.finalFP}}<i class="fa-solid fa-diamond fp-icon"></i>{{/repeat}}
-        </div>
-        <div class='item-controls'>
-            <span>
-            <a class='item-control item-edit' title='edit'>
-                <i class='fas fa-edit'></i>
-            </a>
-            <a class='item-control item-delete' title='delete'>
-                <i class='fas fa-trash'></i>
-            </a>
-            </span>
-        </div>
-    </li>
-    {{/each}}
-    <h2>Memorized {{numberFormat system.attributes.memory.spent}}/{{numberFormat system.attributes.memory.total}}</h2>
-    {{#each actor.system.skills.memorized as |skill|}}
-    <li class='item skill' style="display: inline-block; width: 80px" data-item-id='{{skill._id}}'>
-        <div class='skill-frame'>
-            <div class='item-image'>
-                <a class='rollable' data-roll-type='skill' data-item-id="{{skill._id}}"><img src='{{skill.img}}' title='{{skill.name}}' width='80'
-                    height='80' /></a>
-                {{#if (gt skill.system.cooldown.value 0)}}
-                <span class="item-overlay active">
-                    {{skill.system.cooldown.value}}
-                </span>
-                {{else if (lt skill.system.cooldown.value 0)}}
-                <span class="item-overlay active">
-                    <i class="icon-sunrise"></i>
-                </span>
-                {{else if skill.system.disabled}}
-                <span class="item-overlay active">
-                    <i class="fa-solid fa-ban"></i>
-                </span>
-                {{else}}
-                <span class="item-overlay">
-                    {{#if (eq skill.system.type "civil")}}
-                    {{#with (lookup ../config.civilSkills skill.system.school)}}
-                         <i class="{{glyph}}"></i>
-                    {{/with}}
-                    {{else}}
-                    {{#with (lookup ../config.combatSkills skill.system.school)}}
+                        {{/with}}
+                        {{else}}
+                        {{#with (lookup ../config.combatSkills skill.system.school)}}
                         <i class="{{glyph}}"></i>
-                    {{/with}}
+                        {{/with}}
+                        {{/if}}
+                    </span>
                     {{/if}}
-                </span>
-                {{/if}}
+
+                </div>
             </div>
+            <div class="skill-cost">
+                {{#repeat skill.system.finalAP}}<i class="fa-solid fa-circle ap-icon"></i>{{/repeat}}
+                <br />{{#repeat skill.system.finalFP}}<i class="fa-solid fa-diamond fp-icon"></i>{{/repeat}}
+            </div>
+            <div class='item-controls'>
+                <span>
+                    <a class='item-control item-edit' data-tooltip='edit'>
+                        <i class='fas fa-edit'></i>
+                    </a>
+                    <a class='item-control item-delete' data-tooltip='delete'>
+                        <i class='fas fa-trash'></i>
+                    </a>
+                </span>
+            </div>
+        </li>
+        {{/each}}
+    </ol>
+</div>
+<div class="item-section">
+    <div class='item flexrow items-header'>
+        <div class='item-name'>
+            Memorized {{numberFormat system.attributes.memory.spent}}/{{numberFormat system.attributes.memory.total}}
         </div>
-        <div class="skill-cost">
-            {{#repeat skill.system.finalAP}}<i class="fa-solid fa-circle ap-icon"></i>{{/repeat}}
-            <br/>{{#repeat skill.system.finalFP}}<i class="fa-solid fa-diamond fp-icon"></i>{{/repeat}}
-        </div>
-        <div class='item-controls'>
-            <span>
-            <a class='item-control item-memorize' title='memorize'>
-                <i class="fa-solid fa-brain"></i>
-            </a>
-            </span>
-            <span>
-            <a class='item-control item-edit' title='edit'>
-                <i class='fas fa-edit'></i>
-            </a>
-            <a class='item-control item-delete' title='delete'>
-                <i class='fas fa-trash'></i>
-            </a>
-            </span>
-        </div>
-    </li>
-    {{/each}}
-    <h2>Not Memorized (Known: {{actor.system.knownSkills.count}}/{{actor.system.knownSkills.max}})</h2>
-    {{#each actor.system.skills.unmemorized as |skill|}}
-    <li class='item skill' data-item-id='{{skill._id}}'>
-        <div class='skill-frame'>
-            <div class='item-image'>
-                <a class='rollable item' data-roll-type='skill' data-item-id="{{skill._id}}">
-                    <img src='{{skill.img}}' title='{{skill.name}}' width='80' height='80' />
-                </a>
-                <span class="item-overlay">
-                    {{#if (eq skill.system.type "civil")}}
-                    {{#each skill.system.civilPrereqs as |ability|}}
-                    {{#if ability.[1]}}
-                    {{#with (lookup ../../config.civilSkills ability.[0])}}
-                        <i class="{{glyph}}"></i>{{ability.[1]}}<br />
-                    {{/with}}
-                    {{/if}}
-                    {{/each}}
+    </div>
+    <ol class='items-list'>
+        {{#each actor.system.skills.memorized as |skill|}}
+        <li class='item skill' data-item-id='{{skill._id}}'>
+            <div class='skill-frame'>
+                <div class='item-image'>
+                    <a class='rollable' data-roll-type='skill' data-item-id="{{skill._id}}"><img src='{{skill.img}}'
+                            data-tooltip='{{skill.name}}' width='80' height='80' /></a>
+                    {{#if (gt skill.system.cooldown.value 0)}}
+                    <span class="item-overlay active">
+                        {{skill.system.cooldown.value}}
+                    </span>
+                    {{else if (lt skill.system.cooldown.value 0)}}
+                    <span class="item-overlay active">
+                        <i class="icon-sunrise"></i>
+                    </span>
+                    {{else if skill.system.disabled}}
+                    <span class="item-overlay active">
+                        <i class="fa-solid fa-ban"></i>
+                    </span>
                     {{else}}
-                    {{#each skill.system.combatPrereqs as |ability|}}
-                    {{#if ability.[1]}}
-                    {{#with (lookup ../../config.combatSkills ability.[0])}}
-                        <i class="{{glyph}}"></i>{{ability.[1]}}<br />
-                    {{/with}}
+                    <span class="item-overlay">
+                        {{#if (eq skill.system.type "civil")}}
+                        {{#with (lookup ../config.civilSkills skill.system.school)}}
+                        <i class="{{glyph}}"></i>
+                        {{/with}}
+                        {{else}}
+                        {{#with (lookup ../config.combatSkills skill.system.school)}}
+                        <i class="{{glyph}}"></i>
+                        {{/with}}
+                        {{/if}}
+                    </span>
                     {{/if}}
-                    {{/each}}
-                    {{/if}}
+                </div>
+                {{#repeat (diff skill.system.memSlots 1)}}
+                <div class='item-image'>
+                    <img class="mem" data-tooltip='{{skill.name}}' width='80' height='80' />
+                </div>
+                {{/repeat}}
+            </div>
+            <div class="skill-cost">
+                {{#repeat skill.system.finalAP}}<i class="fa-solid fa-circle ap-icon"></i>{{/repeat}}
+                <br />{{#repeat skill.system.finalFP}}<i class="fa-solid fa-diamond fp-icon"></i>{{/repeat}}
+            </div>
+            <div class='item-controls'>
+                <span>
+                    <a class='item-control item-memorize' data-tooltip='memorize'>
+                        <i class="fa-solid fa-brain"></i>
+                    </a>
+                </span>
+                <span>
+                    <a class='item-control item-edit' data-tooltip='edit'>
+                        <i class='fas fa-edit'></i>
+                    </a>
+                    <a class='item-control item-delete' data-tooltip='delete'>
+                        <i class='fas fa-trash'></i>
+                    </a>
                 </span>
             </div>
+        </li>
+        {{/each}}
+    </ol>
+</div>
+<div class="item-section">
+    <div class='item flexrow items-header'>
+        <div class='item-name'>
+            Not Memorized (Known: {{actor.system.knownSkills.count}}/{{actor.system.knownSkills.max}})
         </div>
-        <div class="skill-cost">
-            {{#repeat skill.system.finalAP}}<i class="fa-solid fa-circle ap-icon"></i>{{/repeat}}
-            <br/>{{#repeat skill.system.finalFP}}<i class="fa-solid fa-diamond fp-icon"></i>{{/repeat}}
-        </div>
-        <div class='item-controls'>
-            <span>
-            <a class='item-control item-memorize' title='memorize'>
-                <i class="fa-solid fa-brain"></i>
-            </a>
-            </span>
-            <span>
-            <a class='item-control item-edit' title='edit'>
-                <i class='fas fa-edit'></i>
-            </a>
-            <a class='item-control item-delete' title='delete'>
-                <i class='fas fa-trash'></i>
-            </a>
-            </span>
-        </div>
-    </li>
-    {{/each}}
-</ol>
+    </div>
+    <ol class='items-list'>
+        {{#each actor.system.skills.unmemorized as |skill|}}
+        <li class='item skill' data-item-id='{{skill._id}}'>
+            <div class='skill-frame'>
+                <div class='item-image'>
+                    <a class='rollable item' data-roll-type='skill' data-item-id="{{skill._id}}">
+                        <img src='{{skill.img}}' data-tooltip='{{skill.name}}' width='80' height='80' />
+                    </a>
+                    <span class="item-overlay">
+                        {{#if (eq skill.system.type "civil")}}
+                        {{#each skill.system.civilPrereqs as |ability|}}
+                        {{#if ability.[1]}}
+                        {{#with (lookup ../../config.civilSkills ability.[0])}}
+                        <i class="{{glyph}}"></i>{{ability.[1]}}<br />
+                        {{/with}}
+                        {{/if}}
+                        {{/each}}
+                        {{else}}
+                        {{#each skill.system.combatPrereqs as |ability|}}
+                        {{#if ability.[1]}}
+                        {{#with (lookup ../../config.combatSkills ability.[0])}}
+                        <i class="{{glyph}}"></i>{{ability.[1]}}<br />
+                        {{/with}}
+                        {{/if}}
+                        {{/each}}
+                        {{/if}}
+                    </span>
+                </div>
+                {{#repeat (diff skill.system.memSlots 1)}}
+                <div class='item-image'>
+                    <img class="mem" data-tooltip='{{skill.name}}' width='80' height='80' />
+                </div>
+                {{/repeat}}
+            </div>
+            <div class="skill-cost">
+                {{#repeat skill.system.finalAP}}<i class="fa-solid fa-circle ap-icon"></i>{{/repeat}}
+                <br />{{#repeat skill.system.finalFP}}<i class="fa-solid fa-diamond fp-icon"></i>{{/repeat}}
+            </div>
+            <div class='item-controls'>
+                <span>
+                    <a class='item-control item-memorize' data-tooltip='memorize'>
+                        <i class="fa-solid fa-brain"></i>
+                    </a>
+                </span>
+                <span>
+                    <a class='item-control item-edit' data-tooltip='edit'>
+                        <i class='fas fa-edit'></i>
+                    </a>
+                    <a class='item-control item-delete' data-tooltip='delete'>
+                        <i class='fas fa-trash'></i>
+                    </a>
+                </span>
+            </div>
+        </li>
+        {{/each}}
+    </ol>
+</div>

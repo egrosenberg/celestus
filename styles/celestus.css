@@ -280,7 +280,7 @@
     --color-cream-50: rgba(250, 246, 239, 0.5);
     --color-tan: rgba(255, 231, 195);
 
-    --shadow-bevel: inset 0.2em 0.2em 0.2em 0 rgba(255, 255, 255, 0.3), inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.3);
+    --shadow-bevel: inset 0.1em 0.1em 0.1em 0 rgba(255, 255, 255, 0.3), inset -0.1em -0.1em 0.1em 0 rgba(0, 0, 0, 0.3);
     --shadow-inset: inset 0.2em 0.2em 0.2em 0 rgba(0, 0, 0, 0.3), inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.3);
 
     --text-outline-1: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
@@ -452,7 +452,7 @@ input[type="color"]::-webkit-color-swatch {
     padding: 5px;
     border-radius: 0px 0px 5px 5px;
     box-shadow: var(--shadow-inset);
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* styling for sheets */
@@ -461,7 +461,7 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .celestus.sheet .attribute-section .item-controls {
-    flex: 0 0 100px;
+    flex: 0 0 60px;
 }
 
 .celestus.sheet .ability-mod {
@@ -476,7 +476,8 @@ input[type="color"]::-webkit-color-swatch {
     border-radius: 10px;
     box-shadow: var(--shadow-inset);
     min-height: 200px;
-    background-color: rgba(var(--color-warm-1), 0.5);
+    background: rgba(226, 214, 198, 0.747);
+    color: black;
 }
 
 .celestus.actor.sheet .sheet-inner {
@@ -485,14 +486,64 @@ input[type="color"]::-webkit-color-swatch {
     margin: 0px;
     padding: 0px;
     height: 100%;
+    background: rgb(47, 14, 14);
+    background: linear-gradient(135deg, rgba(47, 14, 14, 1) 0%, rgba(15, 15, 15, 1) 100%);
+    background-attachment: fixed;
+}
+
+.celestus.actor.sheet * {
+    scrollbar-color: var(--color-scrollbar) rgba(0, 0, 0, 0);
 }
 
 .celestus.actor.sheet .sheet-main {
     position: static;
     display: inline-block;
     overflow: scroll;
+    overflow-x: hidden;
     flex: 1;
     height: 100%;
+    color: lightgray;
+}
+
+.celestus.actor.sheet nav.sheet-tabs {
+    border: none;
+    background-color: none;
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding-top: 0.5em;
+    width: 50%;
+    position: absolute;
+    bottom: calc(100% - 30px);
+}
+
+
+.celestus.actor.sheet nav.sheet-tabs .item {
+    flex: 1;
+    background: rgb(20, 6, 6);
+    border-radius: 1.5em 1.5em  0px 0px;
+    opacity: 80%;
+}
+
+.celestus.actor.sheet nav.sheet-tabs .item.active {
+    opacity: 100%;
+    background: rgb(47, 14, 14);
+    background: linear-gradient(135deg, rgba(47, 14, 14, 1) 0%, rgba(15, 15, 15, 1) 100%);
+    background-attachment: fixed;
+}
+
+.celestus.actor.sheet nav.sheet-tabs .item:hover {
+    background: rgb(47, 14, 14);
+    background: linear-gradient(135deg, rgba(47, 14, 14, 1) 0%, rgba(15, 15, 15, 1) 100%);
+    background-attachment: fixed;
+}
+
+.celestus.actor.sheet .sheet-body { 
+    background: rgb(47, 14, 14);
+    background: linear-gradient(135deg, rgba(47, 14, 14, 1) 0%, rgba(15, 15, 15, 1) 100%);
+    background-attachment: fixed;
+    padding: 10px;
+    min-height: 100%;
 }
 
 .celestus.actor.sheet .sheet-header {
@@ -742,7 +793,7 @@ input[type="color"]::-webkit-color-swatch {
 
 /* abilities */
 .celestus.actor.sheet .abilities .flexrow {
-    border: black thin solid;
+    border: rgba(255, 255, 255, 0.1) thin solid;
     margin-bottom: -1px;
 }
 
@@ -763,6 +814,7 @@ input[type="color"]::-webkit-color-swatch {
     text-align: center;
     margin: 0px;
     background: inherit;
+    color: white;
 }
 
 .celestus.actor.sheet .pale {
@@ -787,8 +839,22 @@ input[type="color"]::-webkit-color-swatch {
 
 /* skills */
 .celestus.actor.sheet .skill-frame {
-    display: inline-block;
     position: relative;
+    border: 2px tan ridge;
+    height: 84px;
+}
+
+.celestus.actor.sheet .skill-frame .item-image img {
+    width: 80px;
+    height: 80px;
+    border: none;
+}
+
+.celestus.actor.sheet .skill-frame .mem {
+    content: url(../svg/brain.svg);
+    pointer-events: none;
+    opacity: 50%;
+    background: none;
 }
 
 .celestus.actor.sheet .skill-frame .item-overlay {
@@ -802,6 +868,7 @@ input[type="color"]::-webkit-color-swatch {
     font-size: 20px;
 }
 
+
 .celestus.actor.sheet .item.skill .skill-frame .item-overlay i {
     position: relative;
     top: 3px;
@@ -809,13 +876,14 @@ input[type="color"]::-webkit-color-swatch {
 
 .celestus.actor.sheet .item.skill {
     border: var(--color-cool-3) solid thin;
-    background: rgba(255, 255, 255, 0.5);
+    background-color: var(--color-dark-2);
     display: inline-block;
-    width: 80px;
+    padding: 5px;
 }
 
 .celestus.actor.sheet .item-controls {
-    flex: 0 0 110px;
+    flex: 0 0 130px;
+    text-align: right;
 }
 
 .celestus.actor.sheet .item.skill .skill-cost {
@@ -861,26 +929,52 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .celestus.actor.sheet .ability-roll:hover {
-    text-shadow: 0px 0px 5px var(--color-warm-3);
+    text-shadow: 0px 0px 5px var(--color-warm-1);
 }
 
 /* Items */
-.celestus.actor.sheet .items-list .item.flexrow {
-    border: thin black solid;
-    margin: 2px;
-    padding: 3px;
+.celestus.actor.sheet .item-section {
     border-radius: 5px;
-    box-shadow: var(--shadow-bevel);
+    margin: 0 0.5em 1em 0.5em;
+    box-shadow: 0px 0px 0.5em black;
+}
+
+.celestus.actor.sheet .items-list {
+    background-color: #252830;
+    padding: 0.5em;
+    margin: 0px;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.celestus.actor.sheet .items-list .item.flexrow {
+    border: thin #515a72 solid;
+    border-width: 0px 0px 1px 0px;
+    padding: 5px 5px 0px 5px;
     font-size: var(--font-size-16);
 }
 
-.celestus.actor.sheet .items-list .item.flexrow.items-header {
+.celestus.actor.sheet .items-list .item.flexrow:hover {
+    text-shadow: 0px 0px 0.3em var(--color-text-light-highlight);
+}
+
+.celestus.actor.sheet .items-list .item.flexrow:last-child {
+    border-width: 0;
+}
+
+.celestus.actor.sheet .item.flexrow.items-header {
     border-top: none;
     border-left: none;
     border-right: none;
-    border-radius: 0px;
+    border-radius: 5px 5px 0px 0px;
     box-shadow: none;
-    padding: 0px;
+    padding: 0.5em;
+    background-color: var(--color-warm-3);
+    font-size: var(--font-size-18);
+    gap: 10px;
+}
+
+.celestus.actor.sheet .items-list .item-name {
+    height: 30px;
 }
 
 .celestus.actor.sheet .item-name h4 {
@@ -891,25 +985,54 @@ input[type="color"]::-webkit-color-swatch {
 .celestus.actor.sheet .item-formula {
     text-align: center;
     flex: max-content;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+
+.celestus.actor.sheet .item-formula > * {
+    flex: 1;
+}
+
+.celestus.actor.sheet .item-formula .divider {
+    flex: 0 0 20px;
+}
+
+.celestus.actor.sheet .item-formula .part:first-child {
+    text-align: right;
+}
+
+.celestus.actor.sheet .item-formula .part:last-child {
+    text-align: left;
 }
 
 .celestus.actor.sheet .item-image {
     display: inline;
 }
 
+.celestus.actor.sheet .item-image:hover {
+    opacity: 50%;
+}
+
+.celestus.actor.sheet .item-image img {
+    border: 2px tan ridge;
+}
+
 /* Armor sockets preview */
 .celestus.actor.sheet .armor-section {
-    height: 230px;
-    background-color: rgb(32, 1, 1);
     border-bottom: rgb(255, 179, 0) thick ridge;
+    padding: 1.5em;
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    flex-wrap: wrap;
 }
 
 .celestus.actor.sheet .armor-socket {
-    margin-top: 15px;
-    margin-left: 30px;
+    flex: 0 0 auto;
     background-color: rgb(20, 0, 0);
     box-shadow: 0px 0px 20px rgb(131, 0, 0);
-    display: inline-block;
 }
 
 .celestus.actor.sheet .armor-socket-label {
@@ -945,13 +1068,10 @@ input[type="color"]::-webkit-color-swatch {
 
 /* Effects */
 .celestus .effect-image {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     display: inline;
-}
-
-.celestus .effect-source {
-    text-align: center;
+    border: 2px tan ridge;
 }
 
 .celestus h3.effect-name {
@@ -970,10 +1090,15 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .celestus .item.effect.flexrow {
-    border: thin black solid;
-    padding: 3px;
-    border-radius: 6px;
-    box-shadow: var(--shadow-bevel);
+    border: thin #515a72 solid;
+    border-width: 0px 0px 1px 0px;
+    padding: 5px 5px 0px 5px;
+    font-size: var(--font-size-16);
+}
+
+.celestus.actor.sheet .effect-controls {
+    flex: 0 0 130px;
+    text-align: right;
 }
 
 .celestus .effect-section {
@@ -1264,7 +1389,8 @@ input[type="color"]::-webkit-color-swatch {
     height: auto;
     flex-direction: column;
     justify-content: center;
-    align-items: center;  border: none;
+    align-items: center;
+    border: none;
     line-height: 100%;
     box-shadow: 0px 0px 1px black;
 }

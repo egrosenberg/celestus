@@ -12,7 +12,7 @@ export class CharacterSheet extends ActorSheet {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["celestus", "sheet", "actor"],
             template: "./systems/celestus/templates/actor/actor-sheet.hbs",
-            width: 900,
+            width: 1200,
             height: 750,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "skills" }],
             scrollY: [".sheet-header", ".sheet-main"],
