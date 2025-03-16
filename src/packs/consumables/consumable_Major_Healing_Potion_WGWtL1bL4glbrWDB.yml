@@ -1,0 +1,38 @@
+name: Major Healing Potion
+type: consumable
+img: icons/consumables/potions/potion-flask-corked-shiny-red.webp
+system:
+  description: >-
+    <p>A viscous red liquid that you can drink it or administer it to another
+    within your reach. A creature that drinks the potion gains [[/r 10d10+600]]
+    (~650) healing.</p>
+  price: 1000
+  quantity: 1
+  weight: 0.25
+  hasDamage: true
+  damage:
+    - type: healing
+      value: 10d10+650
+  statusEffects: []
+  itemizeDamage: false
+  hasStatuses: false
+  ap: 1
+effects: []
+folder: null
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1742076897503
+  modifiedTime: 1742094868267
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_id: WGWtL1bL4glbrWDB
+sort: 200000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+_key: '!items!WGWtL1bL4glbrWDB'
+

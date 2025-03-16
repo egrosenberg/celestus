@@ -61,6 +61,11 @@
             "type": "Item",
             "system": "celestus"
         }, {
+            "name": "consumables",
+            "label": "Celestus Consumables",
+            "type": "Item",
+            "system": "celestus"
+        }, {
             "name": "npc",
             "label": "Celestus NPCs",
             "type": "Actor",
