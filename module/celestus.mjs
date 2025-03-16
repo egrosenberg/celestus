@@ -1,4 +1,4 @@
-import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData } from "./dataModels.mjs"
+import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData, ConsumableItem } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken } from "./actors.mjs"
 import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc, teleportTokenStart, populateHotbar, applyDamageComponent } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CelestusMeasuredTemplateConfig, CharacterSheet } from "./sheets.mjs"
@@ -47,6 +47,7 @@ const preloadHandlebarsTemplates = async function () {
         'systems/celestus/templates/rolls/item-parts/offhand-description.hbs',
         'systems/celestus/templates/rolls/item-parts/skill-description.hbs',
         'systems/celestus/templates/rolls/item-parts/weapon-description.hbs',
+        'systems/celestus/templates/rolls/item-parts/consumable-description.hbs',
     ]);
 };
 
@@ -613,6 +614,7 @@ Hooks.on("init", () => {
         offhand: OffhandData,
         feature: CelestusFeature,
         quickref: ReferenceData,
+        consumable: ConsumableItem,
     }
 
     CONFIG.ActiveEffect.dataModels = {
@@ -809,15 +811,7 @@ Hooks.on("ready", () => {
         //getting the next element
         const $content = $header.next();
         //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
-        $content.slideToggle(500, function () {
-            //execute this after slideToggle is done
-            //change text of header based on visibility of content div
-            //$header.text(function () {
-            //    //change text based on condition
-            //    return $content.is(":visible") ? "Collapse" : "Expand";
-            //});
-        });
-    
+        $content.slideToggle(500);
     });
 
     // create chat-control button

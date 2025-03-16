@@ -1,0 +1,217 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" data-tooltip="{{item.name}}" />
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+        </div>
+    </header>
+
+    <div class="flexrow" style="align-items: stretch; height: 100%; padding-bottom: 10px">
+        {{!-- quick view of important item info --}}
+        <div class="item-quick">
+            <h3>Details:</h3>
+            <div class="item-detail flexrow">
+                <span>Weight:</span>
+                <input class="detail-input" type="number" name="system.weight" value="{{system.weight}}">
+                <span>lbs.</span>
+            </div>
+            <div class="item-detail flexrow">
+                <span>Price:</span>
+                <input class="detail-input" type="number" name="system.price" value="{{system.price}}">
+                <span>gp</span>
+            </div>
+            <div class="item-detail flexrow">
+                <span>Count</span>
+                <input class="detail-input" type="number" name="system.quantity" value="{{system.quantity}}">
+                <span></span>
+            </div>
+            {{#if (gt system.ap 0)}}
+            <div class="item-detail flexrow">
+                Costs {{system.ap}} AP
+            </div>
+            {{/if}}
+        </div>
+        <div class="item-main">
+            {{!-- Sheet Tab Navigation --}}
+            <nav class="sheet-tabs tabs" data-group="primary">
+                <a class="item" data-tab="description">Description</a>
+                <a class="item" data-tab="attributes">Attributes</a>
+                <a class="item" data-tab="effects">Effects</a>
+            </nav>
+
+            {{!-- Sheet Body --}}
+            <section class="sheet-body">
+                {{!-- Description Tab --}}
+                <div class="tab" data-group="primary" data-tab="description">
+                    {{editor enrichedDescription engine="prosemirror" target="system.description" rollData=rollData
+                    button=true owner=owner
+                    editable=editable}}
+                </div>
+
+                {{!-- Attributes Tab --}}
+                <div class="tab attributes" data-group="primary" data-tab="attributes">
+                    <div>
+                        <h3>General</h3>
+                        <div class="attribute-section">
+                            {{!-- AP cost --}}
+                            <div class="form-group">
+                                <label for="system.ap" class="resource-label">Action Points: </label>
+                                <div class="form-fields">
+                                    <input type="text" name="system.ap" value="{{system.ap}}" data-dtype="Number" />
+                                </div>
+                            </div>
+                            {{!-- has damage --}}
+                            <div class="form-group">
+                                <label for="system.hasDamage" class="resource-label">Has Damage: </label>
+                                <input class="check-input" name="system.hasDamage" type="checkbox"
+                                    {{checked system.hasDamage}} />
+                            </div>
+                            {{!-- has statuses --}}
+                            <div class="form-group">
+                                <label for="system.hasStatuses" class="resource-label">Applies Status(es): </label>
+                                <input class="check-input" name="system.hasStatuses" type="checkbox"
+                                    {{checked system.hasStatuses}} />
+                            </div>
+                        </div>
+                        {{!-- Damage Array --}}
+                        {{#if item.system.hasDamage}}
+                        <h3>Damage</h3>
+                        <div class="attribute-section">
+                            <li class="item flexrow damage-header" draggable="true">
+                                <div class="damage-type">Type</div>
+                                <div class="damage-amount">Roll Formula</div>
+                                <div class="item-controls">
+                                    <a class="item-control damage-create" data-tooltip="Create New Damage Component"
+                                        data-type="item">
+                                        <i class="fas fa-plus"></i>
+                                        Add Damage
+                                    </a>
+                                </div>
+                            </li>
+                            {{!-- create editor for each damage type --}}
+                            {{#each system.damage as |damage|}}
+                            <li class="item flexrow">
+                                <div class="damage-type">
+                                    <select class="damage-type-selector" name="system.damage[{{@index}}].type"
+                                        data-index="{{@index}}">
+                                        {{!-- create a dropdown option for each damage type --}}
+                                        {{#each ../config.damageTypes as |data type|}}
+                                        <option value="{{type}}" {{#if (eq type damage.type)}}selected{{/if}}>
+                                            {{data.label}}
+                                        </option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="damage-amount">
+                                    <input type="text" name="system.damage[{{@index}}].value" value="{{damage.value}}"
+                                        data-index="{{@index}}" />
+                                </div>
+                                <div class="item-controls">
+                                    <a class="item-control damage-delete" data-tooltip="Delete Damage Component"
+                                        data-type="damage" data-index="{{@index}}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </li>
+                            {{/each}}
+                            <div class="form-group">
+                                <label for="system.itemizeDamage" class="resource-label">Split Damage Rolls? </label>
+                                <div class="form-fields">
+                                    <input class="check-input" name="system.itemizeDamage" type="checkbox"
+                                        {{checked system.itemizeDamage}} />
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                        {{#if item.system.hasStatuses}}
+                        {{!-- StatusEffects --}}
+                        <h3>Status Effects</h3>
+                        <div class="attribute-section">
+                            <li class="item flexrow damage-header" draggable="true">
+                                <div class="damage-type">Status Name</div>
+                                <div class="item-controls">
+                                    <a class="item-control status-create" data-tooltip="Create New StatusEffect"
+                                        data-type="item">
+                                        <i class="fas fa-plus"></i>
+                                        Add Status
+                                    </a>
+                                </div>
+                            </li>
+                            {{!-- create editor for each damage type --}}
+                            {{#each system.statusEffects as |status|}}
+                            <li class="item flexrow">
+                                <div class="status-type flexrow">
+                                    <select class="status-type-selector" name="system.statusEffects[{{@index}}]"
+                                        data-index="{{@index}}">
+                                        {{#each ../statusEffects as |statusEffect|}}
+                                        <option value="{{statusEffect.id}}" {{ifThen (eq statusEffect.id
+                                            status) "selected" "" }}>
+                                            {{statusEffect.name}}
+                                        </option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="item-controls">
+                                    <a class="item-control status-delete" data-tooltip="Delete StatusEffect"
+                                        data-type="statusEffect" data-index="{{@index}}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </li>
+                            {{/each}}
+                        </div>
+                        {{/if}}
+                    </div>
+
+                </div>
+                {{!-- Active Effects Tab --}}
+                <div class="tab effects flexcol" data-group="primary" data-tab="effects">
+                    <ol class="items-list effects-list">
+                        {{#each item.system.effects as |section sid|}}
+                        <div class="flexcol effect-section">
+                            <h3 class="item-name effect-name flexrow">{{sid}}</h3>
+                            <li class="items-header flexrow" data-effect-type="{{section.type}}"
+                                data-parent-id="{{@root.item.id}}">
+                                <div class="effect-source">Name</div>
+                                <div class="effect-source">Source</div>
+                                <div class="effect-source">Duration</div>
+                                <div class="item-controls effect-controls flexrow">
+                                    <a class="effect-control" data-action="create" data-tooltip="Create New Effect">
+                                        <i class="fas fa-plus"></i> Create New Effect
+                                    </a>
+                                </div>
+                            </li>
+
+                            <ol class="item-list">
+                                {{#each section as |effect|}}
+                                <li class="item effect flexrow" data-effect-id="{{effect.id}}"
+                                    data-parent-id="{{effect.parent.id}}">
+                                    <div class="item-name">
+                                        <img class="effect-image" src="{{effect.img}}" />
+                                        <h4 class="effect-name">{{effect.name}}</h4>
+                                    </div>
+                                    <div class="effect-source">{{effect.sourceName}}</div>
+                                    <div class="effect-duration">{{#if effect.duration.rounds}}
+                                        {{effect.duration.rounds}} rounds{{/if}}</div>
+                                    <div class="effect-controls">
+                                        <a class="effect-control" data-action="toggle" data-tooltip="disable/enable">
+                                            <i class="fas {{#if effect.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
+                                        </a>
+                                        <a class="effect-control" data-action="edit" data-tooltip="edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="effect-control" data-action="delete" data-tooltip="delete">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                                {{/each}}
+                            </ol>
+                        </div>
+                        {{/each}}
+                    </ol>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>

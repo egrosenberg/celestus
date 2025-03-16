@@ -112,7 +112,7 @@ export class CelestusItem extends Item {
             // initialize spread when changing rarity
             const newRarity = changed.system?.rarity;
             if (newRarity && newRarity !== this.system.rarity) {
-                this.updateSource({"system.socketSpread": newRarity});
+                this.updateSource({ "system.socketSpread": newRarity });
             }
             // apply spread
             let socketSpread = changed.system?.socketSpread;
@@ -126,7 +126,7 @@ export class CelestusItem extends Item {
                     for (const [index, socket] of Object.entries(spread.boosts)) {
                         socketTypes.push(socket);
                     }
-                    this.updateSource({"system.socketTypes": socketTypes});
+                    this.updateSource({ "system.socketTypes": socketTypes });
                 }
             }
             // update plug id when selecting a socket
@@ -141,7 +141,7 @@ export class CelestusItem extends Item {
                         newPlugs.push(socket.plug);
                     }
                 }
-                this.updateSource({"system.plugIds": newPlugs})
+                this.updateSource({ "system.plugIds": newPlugs })
             }
         }
     }
@@ -249,11 +249,85 @@ export class CelestusItem extends Item {
                     rollData: this.getRollData()
                 }
             );
-            await ChatMessage.create({
+            const chatMessageData = {
                 content: msg,
-                'system.type': "roll",
-                'system.actorID': this.parent.uuid,
-            });
+                system: {
+                    type: "roll",
+                    actorID: this.parent.uuid
+                }
+            };
+            if (this.type === "consumable") {
+                chatMessageData.system.isConsumable = true;
+                chatMessageData.system.itemID = this.uuid;
+
+                /**
+                 * Dialog for resource and item usage
+                 */
+                // check if actor has enough action points
+                let error = "";
+                if (this.parent.system.resources.ap.value < this.system.ap) {
+                    error = `<p class="notification warning">Actor has insufficient </p>`;
+                }
+                const dialogContent = `${error}
+                        <div class="form-group">
+                            <label for="useItem" class="resource-label">Consume Item: </label>
+                            <input class="check-input" name="useItem" type="checkbox" checked/>
+                        </div>
+                        <div class="form-group">
+                            <label for="useResources" class="resource-label">Consume Resources: </label>
+                            <input class="check-input" name="useResources" type="checkbox" checked/>
+                        </div>
+                    `;
+
+                // prompt to see if user wants to use resources for item
+                new foundry.applications.api.DialogV2({
+                    window: { title: "Use Resources?" },
+                    content: dialogContent,
+                    buttons: [{
+                        action: "use",
+                        label: "Use Item",
+                        default: true,
+                        callback: (event, button, dialog) => [button.form.elements.useItem.checked, button.form.elements.useResources.checked]
+                    }, {
+                        action: "cancel",
+                        label: "Cancel"
+                    }],
+                    submit: async result => {
+                        if (result === "cancel") return;
+                        let [useItem, useResources] = result;
+                        let isCombatant = false;
+                        for (const token of this.parent.getActiveTokens()) {
+                            if (token.combatant) {
+                                isCombatant = true;
+                                break;
+                            }
+                        }
+                        if (!isCombatant) useResources = false;
+                        // use resources
+                        if (useItem) {
+                            if (this.system.quantity > 0) {
+                                await this.update({ "system.quantity": this.system.quantity - 1 });
+                            }
+                            else {
+                                return ui.notifications.info(`CELESTUS | Item not used because quantity less than 1`);
+                            }
+                        }
+                        if (useResources) {
+                            if (error) {
+                                return ui.notifications.info(`CELESTUS | Item not used because not enough action points`);
+                            }
+                            else {
+                                await this.parent.update({ "system.resources.ap.value": this.parent.system.resources.ap.value - this.system.ap })
+                            }
+                        }
+                        // create chat message
+                        await ChatMessage.create(chatMessageData);
+                    }
+                }).render({ force: true });
+            }
+            else {
+                await ChatMessage.create(chatMessageData);
+            }
         }
     }
     async generateAllFromRarity() {
@@ -279,7 +353,7 @@ export class CelestusItem extends Item {
         // select a random  element on the table
         const i = Math.floor(Math.random() * rollTable.length);
         // update socket spread
-        await this.update({"system.socketSpread": rollTable[i]});
+        await this.update({ "system.socketSpread": rollTable[i] });
     }
 
     // automatically selects all socket values and plug ids
@@ -300,10 +374,10 @@ export class CelestusItem extends Item {
         if (!socketType) {
             let curSockets = this.system.socketValues;
             curSockets[index] = "";
-            await this.update({"system.socketValues": curSockets});
+            await this.update({ "system.socketValues": curSockets });
             let curPlugs = this.system.plugIds;
             curPlugs[index] = "";
-            await this.update({"system.plugIds": curPlugs});
+            await this.update({ "system.plugIds": curPlugs });
             return;
         }
         // find all possible sockets
@@ -336,11 +410,11 @@ export class CelestusItem extends Item {
         // update socketValues
         let curSockets = this.system.socketValues;
         curSockets[index] = validSockets[i].id;
-        await this.update({"system.socketValues": curSockets});
+        await this.update({ "system.socketValues": curSockets });
         // update plugIds
         let curPlugs = this.system.plugIds;
         curPlugs[index] = validSockets[i].plug;
-        await this.update({"system.plugIds": curPlugs});
+        await this.update({ "system.plugIds": curPlugs });
     }
 
     /**
@@ -373,14 +447,14 @@ export class CelestusItem extends Item {
                     if (typeof current !== "undefined") {
                         // apply change based on applyMode
                         if (change.mode === "Add") {
-                            this.update({[change.id]: current + change.value});
+                            this.update({ [change.id]: current + change.value });
                         }
                         else if (change.mode === "Append") {
                             current.push(change.value);
-                            this.update({[change.id]: current});
+                            this.update({ [change.id]: current });
                         }
                         else if (change.mode === "Override") {
-                            this.update({[change.id]: change.value});
+                            this.update({ [change.id]: change.value });
                         }
                     }
                 }

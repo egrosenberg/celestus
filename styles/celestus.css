@@ -461,11 +461,14 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .celestus.sheet .attribute-section .item-controls {
-    flex: 0 0 60px;
+    flex: 0 0 auto;
+    text-align: right;
+    min-width: 90px;
 }
 
 .celestus.sheet .ability-mod {
     padding-left: 2px;
+    text-align: left;
 }
 
 /* styling for character sheets */
@@ -548,19 +551,21 @@ input[type="color"]::-webkit-color-swatch {
 
 .celestus.actor.sheet .sheet-header {
     display: inline-block;
-    padding: 0px;
+    padding: 0.5em;
     margin: 0px;
     background: rgb(0, 48, 3);
-    flex: 0 0 275px;
+    flex: 0 0 calc(275px + 1em);
     border-right: rgb(255, 179, 0) thick ridge;
     overflow: scroll;
     position: static;
     height: 100%;
+    text-align: center;
 }
 
 .celestus.actor.sheet .sheet-header :is(h1, h2) {
     color: white;
     text-shadow: var(--text-outline-1);
+    text-align: left;
 }
 
 .celestus.actor.sheet .sheet-header h2 {
@@ -569,10 +574,11 @@ input[type="color"]::-webkit-color-swatch {
 
 /* actor portrait */
 .celestus.actor.sheet .portrait {
-    margin: 12.5px;
     padding: 0px;
     display: inline-block;
     position: relative;
+    width: 250px;
+    height: 250px;  
 }
 
 .celestus.actor.sheet .portrait .portrait-overlay {
@@ -803,6 +809,7 @@ input[type="color"]::-webkit-color-swatch {
 
 .celestus.actor.sheet .abilities label {
     padding: 3px;
+    text-align: left;
 }
 
 .celestus.actor.sheet .abilities .maxwidth-label {
@@ -973,8 +980,23 @@ input[type="color"]::-webkit-color-swatch {
     gap: 10px;
 }
 
-.celestus.actor.sheet .items-list .item-name {
+.celestus.actor.sheet .item-name {
     height: 30px;
+    flex: 3;
+}
+
+.celestus.actor.sheet .item-quant-control.part {
+    padding: 3px;
+}
+
+.celestus.actor.sheet .item-count { 
+    color: lightgray;
+    box-shadow: none;
+    border: none;
+}
+
+.celestus.actor.sheet .item-count:hover:focus {
+    box-shadow: 0px 0px 5px var(--color-warm-2);
 }
 
 .celestus.actor.sheet .item-name h4 {
@@ -984,7 +1006,6 @@ input[type="color"]::-webkit-color-swatch {
 
 .celestus.actor.sheet .item-formula {
     text-align: center;
-    flex: max-content;
     display: flex;
     flex-direction: row;
     text-align: center;
@@ -995,7 +1016,8 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .celestus.actor.sheet .item-formula .divider {
-    flex: 0 0 20px;
+    flex: 0 0 auto;
+    min-width: 20px;
 }
 
 .celestus.actor.sheet .item-formula .part:first-child {
@@ -1137,6 +1159,7 @@ input[type="color"]::-webkit-color-swatch {
     align-content: top;
     margin-right: 6px;
     margin-top: -10px;
+    padding: 5px;
     padding-top: 10px;
     border-right: solid var(--color-cool-3) thin;
     height: 100%
@@ -1184,12 +1207,8 @@ input[type="color"]::-webkit-color-swatch {
     border-bottom: thin solid var(--color-warm-3);
 }
 
-.celestus.item.sheet .damage-amount input {
-    width: auto;
-}
-
 .celestus .shuffle {
-    flex: 0 0 20px;
+    flex: 0 0 auto;
 }
 
 .celestus.item.sheet .form-group {
@@ -1205,6 +1224,10 @@ input[type="color"]::-webkit-color-swatch {
     flex: 0 0 3em;
     height: auto;
     padding: 0px 3px;
+}
+
+.celestus.item.sheet .damage-type-selector {
+    width: 100%;
 }
 
 /* roll chat message */
@@ -1727,7 +1750,7 @@ div#ui-resources {
     text-shadow: var(--text-outline-1);
 }
 
-.stone-ui .content-link {
+.stone-ui,.celestus.actor.sheet .content-link {
     background-color: rgba(0, 0, 0, 0.6);
 }
 

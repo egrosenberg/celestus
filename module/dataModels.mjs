@@ -365,6 +365,12 @@ export class ActorData extends foundry.abstract.TypeDataModel {
         return this.parent.items.filter(i => i.type === "offhand");
     }
     /**
+     * finds and returns all consumable items
+     */
+    get consumable() {
+        return this.parent.items.filter(i => i.type === "consumable");
+    }
+    /**
      * Finds and returns all effects on character
      * @returns {Object} with categories for different states of effect
      */
@@ -1187,6 +1193,18 @@ export class CelestusItem extends foundry.abstract.TypeDataModel {
     get totalWeight() { 
         return this.weight * this.quantity;
     }
+
+    /**
+     * Finds and returns all effects on character
+     * @returns {Object} with categories for different states of effect
+     */
+    get effects() {
+        return {
+            temporary: this.parent.effects.filter(e => (!e.disabled && e.isTemporary)),
+            passive: this.parent.effects.filter(e => (!e.disabled && !e.isTemporary)),
+            disabled: this.parent.effects.filter(e => e.disabled),
+        };
+    }
 }
 
 /**
@@ -1323,17 +1341,6 @@ export class GearData extends CelestusItem {
             }
             options.system.ownedItems = grantedIds;
         }
-    }
-    /**
-     * Finds and returns all effects on character
-     * @returns {Object} with categories for different states of effect
-     */
-    get effects() {
-        return {
-            temporary: this.parent.effects.filter(e => (!e.disabled && e.isTemporary)),
-            passive: this.parent.effects.filter(e => (!e.disabled && !e.isTemporary)),
-            disabled: this.parent.effects.filter(e => e.disabled),
-        };
     }
 
     /** checks if gear piece has any actual prereqs */
@@ -1618,11 +1625,14 @@ export class ConsumableItem extends CelestusItem {
     static defineSchema() {
         const schema = super.defineSchema();
         schema.hasDamage = new BooleanField({ required: true, initial: false });
+        schema.hasStatuses = new BooleanField({ required: true, initial: false });
         schema.damage = new ArrayField(new SchemaField({
             type: new StringField({ required: true, initial: "physical" }),
-            formula: new StringField({ required: true, initial: "" })
+            value: new StringField({ required: true, initial: "" }) // formula
         }));
-
+        schema.itemizeDamage = new BooleanField({ required: true, initial: false });
+        schema.statusEffects = new ArrayField(new StringField());
+        schema.ap = new NumberField({ required: true, initial: false });
         return schema;
     }
 }
@@ -1821,6 +1831,7 @@ export class ChatDataModel extends foundry.abstract.TypeDataModel {
             isAttack: new BooleanField({ required: true, initial: false }),
             damageType: new StringField(),
             isSkill: new BooleanField({ required: true, initial: false }),
+            isConsumable: new BooleanField({ required: true, initial: false }),
             skill: new SchemaField({
                 hasAttack: new BooleanField({ required: true, initial: false }),
                 hasDamage: new BooleanField({ required: true, initial: true }),

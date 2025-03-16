@@ -106,21 +106,55 @@ export async function rollDamage(e) {
     const itemID = e.currentTarget.dataset.itemUuid;
     const item = await fromUuid(itemID);
 
-    const [isCrit, situational] = await promptDamage();
+    if (item.type === "skill") {
+        const [isCrit, situational] = await promptDamage();
+        if (item.system.type === "magic" || item.system.overridesWeaponDamage) {
+            let formula = "";
+            // iterate through damage array
+            for (let part of item.system.damage) {
+                // damage type
+                const type = part.type;
+                const ability = item.system.ability;
 
-    if (item.system.type === "magic" || item.system.overridesWeaponDamage) {
+                // base damage roll corresponding to actor level
+                const base = CONFIG.CELESTUS.baseDamage.formula[actor.system.attributes.level].replace("none", type);
+
+                const mult = calcMult(actor, type, ability, part.value, isCrit, 0);
+                formula += `+ floor((${base}) * ${mult} * ${situational})[${type}]`
+            }
+            const r = new Roll(formula)
+            await r.toMessage({
+                speaker: { alias: `${actor.name} - ${item.name}` },
+                'system.isDamage': true,
+                'system.damageType': item.system.damage[0].type,
+                'system.actorID': actorID,
+                'system.itemID': itemID,
+                'flags.celestus.splitDamage': item.system.itemizeDamage,
+            });
+        }
+        else if (item.system.type === "weapon") {
+            let weaponScalar = item.system.weaponEfficiency ?? 1;
+            const damage = actor.system.weaponDamage;
+            const bonusDamage = actor.system.bonusWeaponDamage;
+            const statuses = actor.system.weaponStatusRolls;
+            if (!damage || damage.length === 0) {
+                return;
+            }
+            let overrideDamageType = item.system.overridesWeaponType ? item.system.overrideDamageType : "";
+            await rollWeaponDamage(actor, damage, bonusDamage, statuses, isCrit, weaponScalar, overrideDamageType, situational);
+        }
+    }
+    else if (item.type === "consumable") {
         let formula = "";
         // iterate through damage array
         for (let part of item.system.damage) {
             // damage type
             const type = part.type;
-            const ability = item.system.ability;
 
             // base damage roll corresponding to actor level
-            const base = CONFIG.CELESTUS.baseDamage.formula[actor.system.attributes.level].replace("none", type);
-
-            const mult = calcMult(actor, type, ability, part.value, isCrit, 0);
-            formula += `+ floor((${base}) * ${mult} * ${situational})[${type}]`
+            const base = part.value;
+            const mult = calcMult(actor, type, "0", 1, false, 0);
+            formula += `+ floor((${base}) * ${mult})[${type}]`
         }
         const r = new Roll(formula)
         await r.toMessage({
@@ -132,18 +166,8 @@ export async function rollDamage(e) {
             'flags.celestus.splitDamage': item.system.itemizeDamage,
         });
     }
-    else if (item.system.type === "weapon") {
-        let weaponScalar = item.system.weaponEfficiency ?? 1;
-        const damage = actor.system.weaponDamage;
-        const bonusDamage = actor.system.bonusWeaponDamage;
-        const statuses = actor.system.weaponStatusRolls;
-        if (!damage || damage.length === 0) {
-            return;
-        }
-        let overrideDamageType = item.system.overridesWeaponType ? item.system.overrideDamageType : "";
-        await rollWeaponDamage(actor, damage, bonusDamage, statuses, isCrit, weaponScalar, overrideDamageType, situational);
-    }
 }
+
 
 /**
  * 
@@ -322,6 +346,19 @@ export async function addChatButtons(msg, html, options) {
             });
         }
 
+    }
+    // if message is a consumable item
+    if (msg.system.isConsumable) {
+        const actor = await fromUuid(msg.system.actorID);
+        const perms = actor.ownership;
+        const item = await fromUuid(msg.system.itemID);
+        // check if player has owner access on token associated with message
+        const disabled = (perms.default >= 3 || ((game.user.id in perms) && perms[game.user.id] >= 3)) ? "" : "disabled";
+
+        // add damage button if there is a damage roll
+        if (item.system.hasDamage) {
+            html.append(`<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="damage" ${disabled}>Roll Formula</button>`);
+        }
     }
     if (msg.system.isDamage) {
         // only gm can apply damage

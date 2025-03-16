@@ -118,6 +118,11 @@
                 "htmlFields": [
                     "description"
                 ]
+            },
+            "consumable": {
+                "htmlFields": [
+                    "description"
+                ]
             }
         },
         "ActiveEffect": {

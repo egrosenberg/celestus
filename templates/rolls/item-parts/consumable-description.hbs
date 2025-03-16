@@ -1,0 +1,12 @@
+<div class="dice-flavor celestus roll description">
+    <header class="summary">
+        {{#if portrait}}
+        <img class="roll-icon" src="{{portrait}}" data-tooltip="{{name}}" />
+        {{/if}}
+        <div class="name-stacked">
+            <span class="title">{{name}}</span>
+        </div>
+    </header>
+    {{#repeat item.system.ap}}<i class="fa-solid fa-circle ap-icon"></i>{{/repeat}}
+    {{#if flavor}}{{{flavor}}}{{/if}}
+</div>
