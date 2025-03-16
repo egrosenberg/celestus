@@ -185,6 +185,9 @@ export class CharacterSheet extends ActorSheet {
             })
         });
 
+        // auto select full inputs
+        $(html).on('click', 'input', function () { this.select(); });
+
         // sheet appearance
         html.on('click', '.appearance-edit', this._appearanceEdit.bind(this));
         html.on('click', '.language-edit', this._languageEdit.bind(this));
@@ -199,6 +202,48 @@ export class CharacterSheet extends ActorSheet {
         html.on('click', '#initiative', () => {
             this.actor.rollInitiative();
         })
+
+        // expand item descriptions
+        html.on('click', '.item.flexrow', async (ev) => {
+            const li = $(ev.currentTarget).closest('li');
+            $(".sheet-item-description").slideUp();
+            const expanded = li.hasClass("expanded");
+            $('li.item.flexrow').removeClass("expanded");
+            if (!expanded) {
+                const item = this.actor.items.get(li.data('itemId'));
+                li.addClass("expanded");
+                // render item description to html
+                const path = `./systems/celestus/templates/rolls/item-parts/${item.type}-description.hbs`;
+                let msgData = {
+                    name: item.name,
+                    flavor: item.system.description,
+                    portrait: item.img,
+                    item: item,
+                    system: item.system,
+                    config: CONFIG.CELESTUS,
+                    rollData: item.getRollData(),
+                };
+                let msg = await renderTemplate(path, msgData);
+                // do text enrichment
+                msg = await TextEditor.enrichHTML(
+                    msg,
+                    {
+                        // Only show secret blocks to owner
+                        secrets: item.isOwner,
+                        async: true,
+                        // For Actors and Items
+                        rollData: item.getRollData()
+                    }
+                );
+                // add item description to document
+                const div = $(msg);
+                div.css("display", "none");
+                div.removeClass("dice-flavor");
+                div.addClass("sheet-item-description");
+                div.insertAfter(ev.currentTarget);
+                div.slideDown();
+            }
+        });
 
         // toggle checkboxes
         html.on('click', '.check-input', (ev) => {
@@ -250,6 +295,24 @@ export class CharacterSheet extends ActorSheet {
             const item = this.actor.items.get(li.data('itemId'));
             item.delete();
             li.slideUp(200, () => this.render(false));
+        });
+
+        // item quantity controls
+        html.on('click', 'a.item-quant-control', async (ev) => {
+            const id = $(ev.currentTarget).closest('li').data('itemId');
+            const item = this.actor.items.get(id);
+            if ($(ev.currentTarget).data('action') === "subtract") {
+                await item.update({ "system.quantity": Math.max(item.system.quantity - 1, 0) })
+            }
+            else if ($(ev.currentTarget).data('action') === "add") {
+                await item.update({ "system.quantity": item.system.quantity + 1 })
+            }
+        });
+        html.on('focusout', 'input.item-quant-control', async (ev) => {
+            const id = $(ev.currentTarget).closest('li').data('itemId');
+            const item = this.actor.items.get(id);
+            const value = parseInt($(ev.currentTarget).val());
+            await item.update({ "system.quantity": value });
         });
 
         // Equip Inventory Item
@@ -455,7 +518,7 @@ export class CharacterSheet extends ActorSheet {
                 <div class="form-group">
                     <label>${label}: </label>
                     <div class="form-fields">
-                        <input type="checkbox" name="${language}" ${this.actor.system.attributes.languages[language]?"checked":""} />
+                        <input type="checkbox" name="${language}" ${this.actor.system.attributes.languages[language] ? "checked" : ""} />
                     </div>
                 </div>
             `;
@@ -670,7 +733,7 @@ export class CelestusItemSheet extends ItemSheet {
 
 
         // skill specific listeners
-        if (this.item.type === "skill") {
+        if (this.item.type === "skill" || this.item.type === "consumable") {
             // operate changes on damage type
             html.on('change', '.damage-type select', (ev) => {
                 const t = ev.currentTarget;
