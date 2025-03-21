@@ -85,7 +85,7 @@ export let statuses = [
         duration: { rounds: 1 },
         system: {
             resistedBy: "mag",
-            combines: [{with: "wet", makes: "stun"}, {with: "shock", makes: "stun"}],
+            combines: [{ with: "wet", makes: "stun" }, { with: "shock", makes: "stun" }],
         },
         changes: [
             {
@@ -211,7 +211,7 @@ export let statuses = [
         type: "status",
         duration: { rounds: 2 },
         system: {
-            damage: [{type: "poison", value: 1 }],
+            damage: [{ type: "poison", value: 1 }],
             resistedBy: "mag",
         },
     },
@@ -222,7 +222,7 @@ export let statuses = [
         type: "status",
         duration: { rounds: 2 },
         system: {
-            damage: [{type: "phys_armor", value: "-1" }]
+            damage: [{ type: "phys_armor", value: "-1" }]
         }
     },
     {
@@ -233,7 +233,7 @@ export let statuses = [
         duration: { rounds: 2 },
         system: {
             damage: [],
-            combines: [{"warm": "burn"}],
+            combines: [{ "warm": "burn" }],
             removes: ["wet"],
             blocks: ["invisible"],
             triggers: ["slow"],
@@ -327,7 +327,7 @@ export let statuses = [
         type: "status",
         duration: { rounds: 2 },
         system: {
-            damage: [{type: "healing", value: 1.25}],
+            damage: [{ type: "healing", value: 1.25 }],
             removes: ["bleed", "poison", "burn", "warm"],
         }
     },
@@ -338,7 +338,7 @@ export let statuses = [
         type: "status",
         duration: { rounds: 3 },
         system: {
-            damage: [{type: "healing", value: 1}],
+            damage: [{ type: "healing", value: 1 }],
         }
     },
     {
@@ -596,7 +596,7 @@ export let statuses = [
         duration: { rounds: 2 },
         system: {
             resistedBy: "phys",
-            damage: [{type: "piercing", value: 1}],
+            damage: [{ type: "piercing", value: 1 }],
         }
     },
     {
@@ -716,7 +716,7 @@ export let statuses = [
         type: "status",
         duration: { rounds: 2 },
         system: {
-            damage: [{type: "mag_armor", value: -1}],
+            damage: [{ type: "mag_armor", value: -1 }],
         },
     },
     {
@@ -847,6 +847,41 @@ export let statuses = [
                 value: "true",
                 mode: 5,
             },
+        ],
+    },
+    {
+        id: "torch",
+        name: "Torch",
+        img: "systems/celestus/svg/torch.svg",
+        type: "status",
+        duration: { },
+        temporary: false,
+        changes: [
+            {
+                key: "ATL.light.dim",
+                value: 40,
+                mode: 5,
+            },
+            {
+                key: "ATL.light.bright",
+                value: 20,
+                mode: 5,
+            },
+            {
+                key: "ATL.light.color",
+                value: "#f98026",
+                mode: 5,
+            },
+            {
+                key: "ATL.light.alpha",
+                value: 0.4,
+                mode: 5,
+            },
+            {
+                key: "ATL.light.animation",
+                value: '{"type": "torch","speed": 1,"intensity": 1}',
+                mode: 5,
+            }
         ],
     },
 ];
