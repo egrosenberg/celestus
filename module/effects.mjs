@@ -141,6 +141,13 @@ export class CelestusEffect extends ActiveEffect {
         this.cleanupAura();
     }
 
+    /** @override */
+    get isTemporary() {
+        if (this.duration.rounds !== null) return true;
+        if (this.duration.seconds !== null) return true;
+        if (this.duration.turns !== null) return true;
+    }
+
     /**
      * Cleans up all children belonging to this effect's aura if aura doesnt linger
      * @returns {Promise}
