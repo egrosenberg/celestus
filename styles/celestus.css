@@ -578,8 +578,8 @@ input[type="color"]::-webkit-color-swatch {
     position: static;
     height: 100%;
     text-align: center;
-    background: rgb(0,64,28);
-    background: linear-gradient(0deg, rgba(0,64,28,1) 0%, rgba(8,13,8,1) 94%); 
+    background: rgb(0,47,64);
+    background: linear-gradient(0deg, rgba(0,47,64,1) 0%, rgba(8,9,13,1) 94%); 
     color: lightgray;
 }
 
@@ -597,7 +597,7 @@ input[type="color"]::-webkit-color-swatch {
 .celestus.actor.sheet .sheet-header h2 {
     text-align: left;
     color: lightgray;
-    background-color: var(--color-warm-3);
+    background-color: #143c5d;
     border: none;
     margin-bottom: 0;
     padding: 0.3em;
@@ -748,7 +748,7 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .celestus.actor.sheet .sheet-header .resource-block > :not(:last-child) {
-    border-bottom: thin solid var(--color-border-dark-warm);
+    border-bottom: thin solid var(--color-border-dark-cool);
 }
 
 .celestus.actor.sheet .resource-value {
@@ -872,7 +872,7 @@ input[type="color"]::-webkit-color-swatch {
     border-radius: 0.3em;
 }
 .celestus.actor.sheet .sheet-header .abilities .flexrow {
-    border: thin var(--color-border-dark-warm) solid;
+    border: thin var(--color-border-dark-cool) solid;
     border-width: 0px 0px 1px 0px;
     padding: 2px 2px 0px 2px;
     font-size: var(--font-size-16);

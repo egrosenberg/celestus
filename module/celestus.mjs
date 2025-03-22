@@ -16,7 +16,7 @@ import itemOffhandPlugsJson from './data/item-offhand-plugs.mjs';
 import itemSocketJson from './data/item-sockets.mjs';
 import { scripts } from "./resources/skill-scripts.mjs"
 import { surfaceTypes } from "./data/surface-types.mjs"
-import { improviseDamage } from "./helpers.mjs"
+import { improviseDamage, rotateTokenTowards } from "./helpers.mjs"
 
 // import * as itemSocketSpreadJson from './data/item-socket-spreads.json' with { type: "json" };
 // import * as itemArmorPlugsJson from './data/item-armor-plugs.json' with { type: "json" };
@@ -60,6 +60,11 @@ Hooks.on("init", () => {
         checkSurfaces: async () => {
             for (const template of canvas?.scene?.templates) {
                 await template.testAll();
+            }
+        },
+        pointTowardsMouse: () => {
+            for (const token of game.canvas?.tokens.controlled) {
+                rotateTokenTowards(token, game.canvas.mousePosition);
             }
         },
         improviseDamage,
@@ -758,6 +763,19 @@ Hooks.on("init", () => {
         ],
         onDown: game.celestus.checkSurfaces,
         restricted: true,
+        precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
+    });
+    game.keybindings.register("celestus", "pointToken", {
+        name: "Point token towards cursor.",
+        hint: "When pressed will cause all selected tokens to point towards the current mouse cursor location.",
+        editable: [
+            {
+                key: "KeyD",
+                modifiers: ["Alt", "Control"]
+            }
+        ],
+        onDown: game.celestus.pointTowardsMouse,
+        restricted: false,
         precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
     });
 
