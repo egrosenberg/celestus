@@ -985,6 +985,11 @@ input[type="color"]::-webkit-color-swatch {
     flex: 3;
 }
 
+.celestus.actor.sheet .effect-section .item-name {
+    height: 30px;
+    flex: 2;
+}
+
 .celestus.actor.sheet .item-quant-control.part {
     padding: 3px;
 }
@@ -1090,8 +1095,8 @@ input[type="color"]::-webkit-color-swatch {
 
 /* Effects */
 .celestus .effect-image {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     display: inline;
     border: 2px tan ridge;
 }
@@ -1599,7 +1604,7 @@ div#ui-resources {
     right: 0;
     margin-top: 10px;
     margin-inline: auto;
-    width: 250px;
+    width: 300px;
     padding: 10px;
     border-radius: 10px;
     border: medium solid black;
@@ -1661,7 +1666,7 @@ div#ui-resources {
     text-align: center;
     padding: 2px;
     white-space: nowrap;
-    font-size: var(--font-size-16);
+    font-size: var(--font-size-14);
     text-align: center;
     color: white;
     font-weight: bold;

@@ -1,7 +1,7 @@
 {{#each actor.system.effects as |section sid|}}
 <div class="item-section">
     <li class="item items-header flexrow" data-effect-type="{{section.type}}" data-parent-id="{{@root.actor.id}}">
-        <div class="effect-source">{{capitalize sid}}</div>
+        <div class="effect-source item-name">{{capitalize sid}}</div>
         <div class="effect-source">Source</div>
         <div class="effect-source">Duration</div>
         <div class="item-controls effect-controls flexrow">
