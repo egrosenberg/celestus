@@ -204,7 +204,7 @@ export class CharacterSheet extends ActorSheet {
         })
 
         // expand item descriptions
-        html.on('click', '.item.flexrow', async (ev) => {
+        html.on('click', '.item.flexrow .item-name', async (ev) => {
             const li = $(ev.currentTarget).closest('li');
             $(".sheet-item-description").slideUp();
             const expanded = li.hasClass("expanded");
@@ -240,7 +240,7 @@ export class CharacterSheet extends ActorSheet {
                 div.css("display", "none");
                 div.removeClass("dice-flavor");
                 div.addClass("sheet-item-description");
-                div.insertAfter(ev.currentTarget);
+                div.insertAfter(li);
                 div.slideDown();
             }
         });
