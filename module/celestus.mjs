@@ -594,6 +594,9 @@ Hooks.on("init", () => {
             staff: "Compendium.celestus.skills.Item.2CzFu4GTEIo9AjvI",
             unarmed: "Compendium.celestus.skills.Item.S6B6fMfqJCx3G4iZ",
         },
+        // compendium containing all core data skills
+        skillsPack: "celestus.skills",
+        basicActionsFolder: "f2NqGCtUzET9sI12",
         // canvas constants
         rangeOverlayCol: 0xffffff,
         tokenPointerAlpha: 0.5,

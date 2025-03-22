@@ -6,6 +6,15 @@ const BASE_AS = 10; // base ability score value
 export class CelestusActor extends Actor {
 
     /** @override */
+    _onCreate(data, options, userId) {
+        // check super and if allowed
+        const allowed = super._onCreate(data, options, userId);
+        if (allowed === false) return false;
+        // give actor all basic actions
+        this._giveBasicActions();
+    }
+
+    /** @override */
     async _preUpdate(changed, options, user) {
         // call super
         const allowed = await super._preUpdate(changed, options, user);
@@ -834,6 +843,22 @@ export class CelestusActor extends Actor {
             }
         }
     }
+
+    /**
+     * Gives this actor all basic actions
+     */
+    async _giveBasicActions() {
+        // find all basic actions
+        const basicActions = [];
+        const pack = game.packs.get(CONFIG.CELESTUS.skillsPack);
+        for (const entry of pack.index) {
+            if (entry.folder !== CONFIG.CELESTUS.basicActionsFolder) continue;
+            const item = await fromUuid(entry.uuid);
+            basicActions.push(item.toJSON());
+        }
+        // add basic actions to actor
+        this.createEmbeddedDocuments("Item", basicActions);
+    }
 }
 
 export class CelestusToken extends Token {
@@ -886,7 +911,7 @@ export class CelestusToken extends Token {
 
     /** @override */
     _onClickRight(event) {
-        if (this.isOwner) super._onClickRight(event);
+        if (this.isOwner) return super._onClickRight(event);
         event.stopPropagation();
         let ui = document.getElementById("ui-token-hover");
         if (ui.style.display === "none") return;
