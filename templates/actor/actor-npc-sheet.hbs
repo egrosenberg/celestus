@@ -133,20 +133,6 @@
                         </span>
                     </span>
                 </div>
-                {{!-- only renders focus points if max focus points have been manually set --}}
-                {{#if system.resources.fp.max}}
-                <div class="resources grid" id="fp">
-                    <span class="resource">
-                        <label class="resource-label single">Focus Points</label><br />
-                        <span class="resource-value poison" id="system.resources.fp" style="flex: 2">
-                            <input class="resource-input" type="number" name="system.resources.fp.value"
-                                value="{{system.resources.fp.value}}" data-dtype="Number"
-                                data-max-value="{{system.resources.fp.max}}" /> <span
-                                class="total">/{{system.resources.fp.max}}</span>
-                        </span>
-                    </span>
-                </div>
-                {{/if}}
                 {{> "systems/celestus/templates/actor/parts/actor-damage.hbs"}}
                 <h2>Attribute Totals</h2>
                 <div class="stats-grid">
