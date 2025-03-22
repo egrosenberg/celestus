@@ -3,7 +3,8 @@
         {{!-- Sheet Header --}}
         <span class="sheet-header">
             <div class="portrait">
-                <img class="profile-img" src="{{actor.img}}" data-edit="img" data-tooltip="{{actor.name}}" />
+                <img class="profile-img" src="{{actor.img}}" data-edit="img" data-tooltip="{{actor.name}}"
+                    style="{{ifThen system.portraitBorder "" "background: none"}}" />
                 {{#if system.portraitBorder}}
                 <img class="portrait-overlay" src="systems/celestus/img/portrait-frame.webp" />
                 {{/if}}
@@ -42,94 +43,102 @@
                     </a>
 
                 </span>
-                <h2>Resources</h2>
-                <div class="resources grid" id="action-points" style="text-align: center;">
-                    <span class="resource">
-                        {{!--<label class="resource-label">AP: </label>--}}
-                        {{#repeat system.resources.ap.value}}
-                        <a class="ap-interact" data-index="@index">
-                            <i class="fa-solid fa-circle action-point full small"></i>
-                        </a>
-                        {{/repeat}}
-                        {{#repeat (diff system.resources.ap.max system.resources.ap.value)
-                        offset=system.resources.ap.value}}
-                        <a class="ap-interact" data-index="@index">
-                            <i class="fa-solid fa-circle action-point empty small"></i>
-                        </a>
-                        {{/repeat}}
-                        <br />
-                        {{!-- only renders focus points if max focus points have been manually set --}}
-                        {{#if system.resources.fp.max}}
-                        {{!--<label class="resource-label">FP: </label>--}}
-                        {{#repeat system.resources.fp.value}}
-                        <a class="fp-interact" data-index="@index">
-                            <i class="fa-solid fa-diamond focus-point full small"></i>
-                        </a>
-                        {{/repeat}}
-                        {{#repeat (diff system.resources.fp.max system.resources.fp.value)
-                        offset=system.resources.fp.value}}
-                        <a class="fp-interact" data-index="@index">
-                            <i class="fa-solid fa-diamond focus-point empty small"></i>
-                        </a>
-                        {{/repeat}}
-                    </span>
-                    {{/if}}
-                </div>
-                <div class="resources grid" id="hp">
-                    <span class="resource">
-                        <label class="resource-label hp">HP</label><br />
-                        <span class="resource-value healing" id="system.resources.hp" style="flex: 2">
-                            <input class="resource-input" type="number" name="system.resources.hp.flat"
-                                value="{{system.resources.hp.flat}}" data-dtype="Number"
-                                data-max-value="{{system.resources.hp.max}}" />
-                            <span class="total">/{{system.resources.hp.max}}</span>
-                        </span>
-                    </span>
-                </div>
-                <div class="resources grid" id="armor">
-                    <span class="resource" id="physical-armor">
-                        <label class="resource-label armor">Physical Armor</label>
-                        <span class="earth resource-value" id="system.resources.phys_armor">
-                            <input class="resource-input" type="number" name="system.resources.phys_armor.flat"
-                                data-max-value="{{system.resources.phys_armor.max}}"
-                                value="{{system.resources.phys_armor.flat}}" data-dtype="Number" /> <span
-                                class="total">+{{system.resources.phys_armor.temp}}/{{system.resources.phys_armor.max}}</span>
-                        </span>
-                    </span>
-                    <span class="resource" id="magic-armor">
-                        <label class="resource-label">Magic Armor</label><br />
-                        <span class="resource-value water" id="system.resources.mag_armor">
-                            <input class="resource-input" type="number" name="system.resources.mag_armor.flat"
-                                data-max-value="{{system.resources.mag_armor.max}}"
-                                value="{{system.resources.mag_armor.flat}}" data-dtype="Number" /> <span
-                                class="total">+{{system.resources.mag_armor.temp}}/{{system.resources.mag_armor.max}}</span>
-                        </span>
-                    </span>
+                <div class="head-section">
+                    <h2>Resources</h2>
+                    <div class="resource-block">
+                        <div class="resources grid" id="action-points" style="text-align: center;">
+                            <span class="resource">
+                                {{!--<label class="resource-label">AP: </label>--}}
+                                {{#repeat system.resources.ap.value}}
+                                <a class="ap-interact" data-index="@index">
+                                    <i class="fa-solid fa-circle action-point full small"></i>
+                                </a>
+                                {{/repeat}}
+                                {{#repeat (diff system.resources.ap.max system.resources.ap.value)
+                                offset=system.resources.ap.value}}
+                                <a class="ap-interact" data-index="@index">
+                                    <i class="fa-solid fa-circle action-point empty small"></i>
+                                </a>
+                                {{/repeat}}
+                                <br />
+                                {{!-- only renders focus points if max focus points have been manually set --}}
+                                {{#if system.resources.fp.max}}
+                                {{!--<label class="resource-label">FP: </label>--}}
+                                {{#repeat system.resources.fp.value}}
+                                <a class="fp-interact" data-index="@index">
+                                    <i class="fa-solid fa-diamond focus-point full small"></i>
+                                </a>
+                                {{/repeat}}
+                                {{#repeat (diff system.resources.fp.max system.resources.fp.value)
+                                offset=system.resources.fp.value}}
+                                <a class="fp-interact" data-index="@index">
+                                    <i class="fa-solid fa-diamond focus-point empty small"></i>
+                                </a>
+                                {{/repeat}}
+                            </span>
+                            {{/if}}
+                        </div>
+                        <div class="resources grid" id="hp">
+                            <span class="resource">
+                                <label class="resource-label hp">HP</label><br />
+                                <span class="resource-value healing" id="system.resources.hp" style="flex: 2">
+                                    <input class="resource-input" type="number" name="system.resources.hp.flat"
+                                        value="{{system.resources.hp.flat}}" data-dtype="Number"
+                                        data-max-value="{{system.resources.hp.max}}" />
+                                    <span class="total">/{{system.resources.hp.max}}</span>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="resources grid" id="armor">
+                            <span class="resource" id="physical-armor">
+                                <label class="resource-label armor">Physical Armor</label>
+                                <span class="earth resource-value" id="system.resources.phys_armor">
+                                    <input class="resource-input" type="number" name="system.resources.phys_armor.flat"
+                                        data-max-value="{{system.resources.phys_armor.max}}"
+                                        value="{{system.resources.phys_armor.flat}}" data-dtype="Number" /> <span
+                                        class="total">+{{system.resources.phys_armor.temp}}/{{system.resources.phys_armor.max}}</span>
+                                </span>
+                            </span>
+                            <span class="resource" id="magic-armor">
+                                <label class="resource-label">Magic Armor</label><br />
+                                <span class="resource-value water" id="system.resources.mag_armor">
+                                    <input class="resource-input" type="number" name="system.resources.mag_armor.flat"
+                                        data-max-value="{{system.resources.mag_armor.max}}"
+                                        value="{{system.resources.mag_armor.flat}}" data-dtype="Number" /> <span
+                                        class="total">+{{system.resources.mag_armor.temp}}/{{system.resources.mag_armor.max}}</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 {{> "systems/celestus/templates/actor/parts/actor-damage.hbs"}}
-                <h2>Attribute Totals</h2>
-                <div class="stats-grid">
-                    <h4>Unspent: {{numberFormat system.attributes.unspentPoints sign=true}}</h4>
-                    {{#each system.abilities as |ability key|}}
-                    <div class="ability flexrow flex-group-center">
-                        <label for="system.abilities.{{key}}.value" data-tooltip="CELESTUS.attributeDescriptions.{{key}}"
-                            class="resource-label maxwidth-label ability-roll flexlarge align-left" data-label="{{key}}">
-                            {{localize (concat "CELESTUS.attributes.short." key)}}
-                        </label>
-                        <input type="number" name="system.abilities.{{key}}.value" value="{{ability.value}}"
-                            data-dtype="Number" />
-                        <span class="ability-mod rollable" data-label="{{ability.label}}">
-                            {{numberFormat ability.bonus decimals=0 sign=true}} = {{ability.total}}
-                            {{#with (lookup ../config.abilities key) as |configKey|}}
-                            {{#if configKey.percent}}
-                            ({{percent ability.mod sign=true symbol=true}})
-                            {{else}}
-                            ({{numberFormat ability.mod sign=true}})
-                            {{/if}}
-                            {{/with}}
-                        </span>
+                <div class="head-section">
+                    <h2>Attribute Totals</h2>
+                    <div class="stats-grid">
+                        <h4>Unspent: {{numberFormat system.attributes.unspentPoints sign=true}}</h4>
+                        {{#each system.abilities as |ability key|}}
+                        <div class="ability flexrow flex-group-center">
+                            <label for="system.abilities.{{key}}.value"
+                                data-tooltip="CELESTUS.attributeDescriptions.{{key}}"
+                                class="resource-label maxwidth-label ability-roll flexlarge align-left"
+                                data-label="{{key}}">
+                                {{localize (concat "CELESTUS.attributes.short." key)}}
+                            </label>
+                            <input type="number" name="system.abilities.{{key}}.value" value="{{ability.value}}"
+                                data-dtype="Number" />
+                            <span class="ability-mod rollable" data-label="{{ability.label}}">
+                                {{numberFormat ability.bonus decimals=0 sign=true}} = {{ability.total}}
+                                {{#with (lookup ../config.abilities key) as |configKey|}}
+                                {{#if configKey.percent}}
+                                ({{percent ability.mod sign=true symbol=true}})
+                                {{else}}
+                                ({{numberFormat ability.mod sign=true}})
+                                {{/if}}
+                                {{/with}}
+                            </span>
+                        </div>
+                        {{/each}}
                     </div>
-                    {{/each}}
                 </div>
                 {{> "systems/celestus/templates/actor/parts/actor-bonuses.hbs"}}
             </div>
@@ -161,20 +170,20 @@
 
                 {{!-- Owned Items Tab --}}
                 <div class="tab items" data-group="primary" data-tab="items">
-                    
-            {{!-- Equipped Gear --}}
-            <div class="armor-section">
-                {{#each actor.system.equipped as |piece slot|}}
-                <div class="armor-socket">
-                    <div class="armor-socket-label">{{lookup ../config.equipmentSlots slot}}</div>
-                    <a class="armor-socket-browse item" data-slot="{{slot}}" data-item-id="{{piece._id}}">
-                        <img class="armor-socket-icon" src="{{piece.img}}" data-tooltip="{{piece.name}}" {{#if
-                            piece.img}} {{#if (and piece.system.twoHanded (eq slot "right" ))}} style="opacity: 0.5;"
-                            {{/if}} {{else}} style="opacity: 0.0;" {{/if}} />
-                    </a>
-                </div>
-                {{/each}}
-            </div>
+
+                    {{!-- Equipped Gear --}}
+                    <div class="armor-section">
+                        {{#each actor.system.equipped as |piece slot|}}
+                        <div class="armor-socket">
+                            <div class="armor-socket-label">{{lookup ../config.equipmentSlots slot}}</div>
+                            <a class="armor-socket-browse item" data-slot="{{slot}}" data-item-id="{{piece._id}}">
+                                <img class="armor-socket-icon" src="{{piece.img}}" data-tooltip="{{piece.name}}" {{#if
+                                    piece.img}} {{#if (and piece.system.twoHanded (eq slot "right" ))}}
+                                    style="opacity: 0.5;" {{/if}} {{else}} style="opacity: 0.0;" {{/if}} />
+                            </a>
+                        </div>
+                        {{/each}}
+                    </div>
                     {{> "systems/celestus/templates/actor/parts/actor-items.hbs"}}
                 </div>
 

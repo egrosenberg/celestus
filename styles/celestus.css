@@ -280,6 +280,11 @@
     --color-cream-50: rgba(250, 246, 239, 0.5);
     --color-tan: rgba(255, 231, 195);
 
+    --color-head-label-bg: #252830;/*rgba(255, 255, 255, 0.719);*/
+
+    --color-border-dark-warm: #725151;
+    --color-border-dark-cool: #515a72;
+
     --shadow-bevel: inset 0.1em 0.1em 0.1em 0 rgba(255, 255, 255, 0.3), inset -0.1em -0.1em 0.1em 0 rgba(0, 0, 0, 0.3);
     --shadow-inset: inset 0.2em 0.2em 0.2em 0 rgba(0, 0, 0, 0.3), inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.3);
 
@@ -455,6 +460,11 @@ input[type="color"]::-webkit-color-swatch {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+/* Flex things */
+.flexrow .flexlarge, .flexcol, .flexlarge {
+    flex: 2;
+}
+
 /* styling for sheets */
 .celestus .window-content {
     padding: 0;
@@ -472,6 +482,15 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 /* styling for character sheets */
+.celestus.actor.sheet input {
+    box-shadow: none;
+    border: none;
+}
+
+.celestus.actor.sheet input:focus {
+    box-shadow: 0px 0px 5px var(--color-dark-2);
+}
+
 .celestus.sheet .editor {
     margin: 5px;
     padding: 10px;
@@ -551,25 +570,50 @@ input[type="color"]::-webkit-color-swatch {
 
 .celestus.actor.sheet .sheet-header {
     display: inline-block;
-    padding: 0.5em;
+    padding: 1em 0.5em 0.5em calc(0.5em + 5px);
     margin: 0px;
-    background: rgb(0, 48, 3);
     flex: 0 0 calc(275px + 1em);
     border-right: rgb(255, 179, 0) thick ridge;
-    overflow: scroll;
+    overflow-y: scroll;
     position: static;
     height: 100%;
     text-align: center;
+    background: rgb(0,64,28);
+    background: linear-gradient(0deg, rgba(0,64,28,1) 0%, rgba(8,13,8,1) 94%); 
+    color: lightgray;
 }
 
-.celestus.actor.sheet .sheet-header :is(h1, h2) {
+.celestus.actor.sheet .sheet-header :is(.level,.head-section) {
+    margin-top: 0.5em;
+    box-shadow: 0px 0px 0.5em black;
+}
+
+.celestus.actor.sheet .sheet-header h1 {
     color: white;
     text-shadow: var(--text-outline-1);
     text-align: left;
 }
 
 .celestus.actor.sheet .sheet-header h2 {
-    margin-bottom: 0px;
+    text-align: left;
+    color: lightgray;
+    background-color: var(--color-warm-3);
+    border: none;
+    margin-bottom: 0;
+    padding: 0.3em;
+}
+
+.celestus.actor.sheet .sheet-header .head-section {
+    margin-top: 0.5em;
+    border-radius: 0.7em;
+}
+
+.celestus.actor.sheet .sheet-header .head-section > :first-child {
+    border-radius: 0.5em 0.5em 0 0;
+}
+
+.celestus.actor.sheet .sheet-header .head-section > :last-child {
+    border-radius: 0 0 0.5em 0.5em;
 }
 
 /* actor portrait */
@@ -628,12 +672,11 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .celestus.actor.sheet .level {
-    border: solid rgb(6, 43, 0);
-    background: rgba(255, 255, 255, 0.719);
+    background: var(--color-head-label-bg);
     border-radius: 10px;
     display: inline-block;
     padding: 6px;
-    margin: 2px;
+    margin: 0.3em;
     flex: 1;
     width: auto;
 }
@@ -643,6 +686,20 @@ input[type="color"]::-webkit-color-swatch {
     margin-top: -4px;
     margin-bottom: -4px;
     text-align: center;
+    color: lightgray;
+}
+
+.celestus.actor.sheet .level input:focus {
+    color: white;
+}
+
+.celestus.actor.sheet .sheet-header input[type="number"] {
+    color: lightgray;
+}
+
+.celestus.actor.sheet .sheet-header input[type="number"]:is(:focus,:hover) {
+    color: white;
+    box-shadow: 0px 0px 5px var(--color-warm-2);
 }
 
 .celestus.actor.sheet .input-slim {
@@ -670,12 +727,9 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .celestus.actor.sheet .resource {
-    border: solid rgb(6, 43, 0);
-    background: rgba(255, 255, 255, 0.719);
-    border-radius: 10px;
+    background: var(--color-head-label-bg);
     display: inline-block;
-    padding: 6px;
-    margin: 2px;
+    padding: 0.1em;
     flex: 1;
 }
 
@@ -686,6 +740,15 @@ input[type="color"]::-webkit-color-swatch {
 
 .celestus.actor.sheet .sheet-header label.resource-label.single {
     width: 100%;
+}
+
+.celestus.actor.sheet .sheet-header .resource-block {
+    background-color: var(--color-head-label-bg);
+    padding: 0.3em;
+}
+
+.celestus.actor.sheet .sheet-header .resource-block > :not(:last-child) {
+    border-bottom: thin solid var(--color-border-dark-warm);
 }
 
 .celestus.actor.sheet .resource-value {
@@ -728,10 +791,9 @@ input[type="color"]::-webkit-color-swatch {
 
 /* stats */
 .celestus.actor.sheet .stats-grid {
-    border: solid rgb(6, 43, 0);
-    background: rgba(255, 255, 255, 0.719);
+    background: var(--color-head-label-bg);
     font-size: var(--font-size-16);
-    margin: 2px;
+    margin: 0;
     padding: 5px;
     border-radius: 10px;
 }
@@ -739,9 +801,6 @@ input[type="color"]::-webkit-color-swatch {
 .celestus.actor.sheet .stats-grid label {
     text-align: right;
     margin-right: 10px;
-}
-
-.celestus.actor.sheet .stats-grid label {
     flex: 0 0 50px;
 }
 
@@ -750,10 +809,16 @@ input[type="color"]::-webkit-color-swatch {
     text-align: center;
     margin: 0px;
     background: inherit;
+    color: lightgray;
+}
+
+.celestus.actor.sheet .stats-grid input:focus {
+    color: white;
 }
 
 .celestus.actor.sheet .stats-grid div {
     display: flex;
+    align-items: baseline;
 }
 
 .celestus.actor.sheet .sheet-header .charname input {
@@ -772,6 +837,7 @@ input[type="color"]::-webkit-color-swatch {
     padding: 3px;
     text-align: right;
     flex: 2;
+    color: black;
 }
 
 .celestus.actor.sheet .weapon-damage-avg {
@@ -779,6 +845,7 @@ input[type="color"]::-webkit-color-swatch {
     font-size: var(--font-size-18);
     padding: 3px;
     text-align: left;
+    color: black;
 }
 
 .celestus.actor.sheet .weapon-damage-symbol {
@@ -786,6 +853,7 @@ input[type="color"]::-webkit-color-swatch {
     font-size: var(--font-size-18);
     padding: 3px;
     flex: none;
+    color: black;
 }
 
 .celestus.actor.sheet .status-icon {
@@ -798,6 +866,23 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 /* abilities */
+.celestus.actor.sheet .sheet-header .abilities {
+    padding: 0.2em;
+    background: var(--color-head-label-bg);
+    border-radius: 0.3em;
+}
+.celestus.actor.sheet .sheet-header .abilities .flexrow {
+    border: thin var(--color-border-dark-warm) solid;
+    border-width: 0px 0px 1px 0px;
+    padding: 2px 2px 0px 2px;
+    font-size: var(--font-size-16);
+    margin: 0px;
+}
+
+.celestus.actor.sheet .sheet-header .abilities .flexrow:last-child {
+    border-width: 0;
+}
+
 .celestus.actor.sheet .abilities .flexrow {
     border: rgba(255, 255, 255, 0.1) thin solid;
     margin-bottom: -1px;
@@ -824,8 +909,12 @@ input[type="color"]::-webkit-color-swatch {
     color: white;
 }
 
+.celestus.actor.sheet .abilities input:focus {
+    box-shadow: 0.;
+}
+
 .celestus.actor.sheet .pale {
-    background-color: rgba(255, 255, 255, 0.719);
+    background-color: var(--color-head-label-bg);
 }
 
 .celestus.actor.sheet .math {
@@ -954,7 +1043,7 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .celestus.actor.sheet .items-list .item.flexrow {
-    border: thin #515a72 solid;
+    border: thin var(--color-border-dark-cool) solid;
     border-width: 0px 0px 1px 0px;
     padding: 5px 5px 0px 5px;
     font-size: var(--font-size-16);
@@ -1117,7 +1206,7 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .celestus .item.effect.flexrow {
-    border: thin #515a72 solid;
+    border: thin var(--color-border-dark-cool) solid;
     border-width: 0px 0px 1px 0px;
     padding: 5px 5px 0px 5px;
     font-size: var(--font-size-16);
