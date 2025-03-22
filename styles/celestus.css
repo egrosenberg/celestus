@@ -1639,6 +1639,10 @@ div#ui-resources {
     margin: 2px;
 }
 
+.action-point.full:hover {
+    -webkit-text-fill-color: rgb(148, 201, 2);
+}
+
 .action-point.empty {
     background: rgb(27, 27, 27);
     background: radial-gradient(circle, rgb(107, 107, 107) 0%, rgb(20, 20, 20) 100%);
@@ -1647,6 +1651,10 @@ div#ui-resources {
     -webkit-text-stroke: 1px rgb(0, 0, 0);
     background-clip: text;
     margin: 2px;
+}
+
+.action-point.empty:hover , .focus-point.empty:hover {
+    -webkit-text-fill-color: rgb(107, 107, 107);
 }
 
 .action-point.small {
@@ -1666,6 +1674,10 @@ div#ui-resources {
     background-clip: text;
     background-blend-mode: multiply, normal;
     margin: 2px;
+}
+
+.focus-point.full:hover {
+    -webkit-text-fill-color: rgb(255, 238, 0);
 }
 
 .focus-point.empty {
