@@ -625,9 +625,8 @@ export function startCombat(combat, updateData) {
     if (!game.user.isGM) {
         return;
     }
-    // make all combatants in combat
+    // clear combatant ap
     for (const combatant of combat.combatants) {
-        combatant.actor.refresh(false);
         combatant.actor.update({ "system.resources.ap.value": 0 })
     }
 }
@@ -642,12 +641,6 @@ export function cleanupCombat(document, options, userId) {
     // only fire if user is a GM
     if (!game.user.isGM) {
         return;
-    }
-    // make all combatants in combat
-    for (const combatant of document.combatants) {
-        if (combatant.actor.type === "player") {
-            combatant.actor.refresh(false);
-        }
     }
 }
 
