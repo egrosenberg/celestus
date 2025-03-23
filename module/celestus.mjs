@@ -67,6 +67,11 @@ Hooks.on("init", () => {
                 rotateTokenTowards(token, game.canvas.mousePosition);
             }
         },
+        refreshSelected: () => {
+            for (const token of game.canvas?.tokens.controlled) {
+                token.actor?.refresh();
+            }
+        },
         improviseDamage,
         pointers: [],
     }
@@ -938,6 +943,19 @@ Hooks.on("renderHotbar", (application, html, data) => {
     populateButton.addEventListener("click", () => populateHotbar());
     html.append(populateButton);
 });
+
+// Render refresh tokens button on scene controls
+Hooks.on("renderSceneControls", (application, html) => {
+    // create refresh tokens button
+    let refreshTokenButton = document.createElement("li");
+    refreshTokenButton.classList.add("control-tool");
+    refreshTokenButton.id = "refresh-selected-tokens";
+    refreshTokenButton.dataset.tooltip = "Refresh Selected Tokens' Resources";
+    refreshTokenButton.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i>';
+    $(html).on("click", "#refresh-selected-tokens", game.celestus.refreshSelected);
+    $(html).find("#tools-panel-token").append(refreshTokenButton);
+});
+
 // hook damage preview on token select
 Hooks.on("controlToken", previewDamage);
 Hooks.on("controlToken", (d, c) => { renderHotbarOverlay(c) });
