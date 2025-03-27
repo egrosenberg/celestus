@@ -420,10 +420,12 @@ export class CelestusActor extends Actor {
             }
         }
 
+        const healed = (damage > 0 && CONFIG.CELESTUS.damageTypes[type].style === "healing") ||
+        (damage < 0 && CONFIG.CELESTUS.damageTypes[type].style !== "healing");
         // if healed, apply renewing armor
-        if (!options.reflected && damage < 0 && origin.getFlag("celestus", "renewing_armor")
-            && !["phys_armor", "temp_phys_armor", "mag_armor", "temp_mag_armor"].includes(type)) {
-            const armorHeal = Math.floor((-damage) * CONFIG.CELESTUS.renewingArmorScale);
+        if (!options.reflected && healed && this.getFlag("celestus", "renewing_armor")) {
+            const healAmount = CONFIG.CELESTUS.damageTypes[type].style === "healing" ? damage : -damage;
+            const armorHeal = Math.floor((healAmount) * CONFIG.CELESTUS.renewingArmorScale);
             if (armorHeal > 0) {
                 const oldPhys = this.system.resources.phys_armor.flat;
                 const oldMag = this.system.resources.mag_armor.flat;
