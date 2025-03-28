@@ -325,7 +325,7 @@
 }
 
 .celestus .shadow {
-    background-color: var(--color-shadow-light);
+    background-color: var(--color-shadow-bg);
 }
 
 .celestus .healing {
@@ -856,6 +856,14 @@ input[type="color"]::-webkit-color-swatch {
     color: black;
 }
 
+.celestus.actor.sheet .actor-resistance {
+    color: black;
+}
+
+.celestus.actor.sheet .actor-status-immune {
+    min-height: 28px;
+}
+
 .celestus.actor.sheet .status-icon {
     width: 25px;
     height: 25px;
@@ -892,7 +900,7 @@ input[type="color"]::-webkit-color-swatch {
     padding: 3px;
 }
 
-.celestus.actor.sheet .abilities label {
+.celestus.actor.sheet :is(.abilities,.ability) label {
     padding: 3px;
     text-align: left;
 }

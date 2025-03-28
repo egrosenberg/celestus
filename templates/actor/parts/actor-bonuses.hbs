@@ -1,28 +1,26 @@
 <div class="head-section">
     <h2>Resistances</h2>
-    <div class="abilities flexcol">
-        {{#each system.attributes.resistance as |ability key|}}
-        {{#if ability.value}}
-        {{#with (lookup ../config.damageTypes key)}}
-        <div class="ability flexrow flex-group-center" style="background-color: {{color}};">
-            <label class="resource-label  flexlarge align-left"><i class="{{glyph}}"></i>{{label}}</label>
-            <span class="resist">{{percent ability.value symbol=true}}</span>
-        </div>
-        {{/with}}
-        {{/if}}
-        {{/each}}
-        {{#each system.attributes.statusImmune as |value status|}}
-        {{#if value}}
-        {{#with (lookup ../statusEffects status)}}
-        <div class="ability flexrow flex-group-center pale">
-            <label class="resource-label  flexlarge align-left" style="flex: 1">
-                Immune to {{name}}
-            </label>
-        </div>
-        {{/with}}
-        {{/if}}
-        {{/each}}
+    {{#each system.attributes.resistance as |ability key|}}
+    {{#if ability.value}}
+    {{#with (lookup ../config.damageTypes key)}}
+    <div class="ability actor-resistance flexrow flex-group-center" style="background-color: {{color}};">
+        <label class="resource-label  flexlarge align-left"><i class="{{glyph}}"></i>{{label}}</label>
+        <span class="resist">{{percent ability.value symbol=true}}</span>
     </div>
+    {{/with}}
+    {{/if}}
+    {{/each}}
+    {{#each system.attributes.statusImmune as |value status|}}
+    {{#if value}}
+    {{#with (lookup ../statusEffects status)}}
+    <div class="ability actor-status-immune flexrow flex-group-center pale">
+        <label class="resource-label  flexlarge align-left" style="flex: 1">
+            Immune to {{name}}
+        </label>
+    </div>
+    {{/with}}
+    {{/if}}
+    {{/each}}
 </div>
 <div class="head-section">
     <h2>Bonuses</h2>
