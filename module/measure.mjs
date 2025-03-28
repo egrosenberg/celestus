@@ -494,7 +494,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                 }
             }
             if (mode === "override" && intersect > 0) {
-                await template.document.delete();
+                //await template.document.delete();
                 return;
             }
             if (mode === "combine") {
@@ -502,11 +502,11 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                     await template.document.setFlag("celestus", "temporary", true);
                     await template.document.setFlag("celestus", "surfaceType", makes);
                     if (intersect < 0) {
-                        await this.document.delete();
+                        //await this.document.delete();
                         return false;
                     }
                     else if (intersect > 0) {
-                        await template.document.delete();
+                        //await template.document.delete();
                     }
                     return;
                 }
@@ -540,7 +540,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                 return false;
             }
             if (mode === "override" && intersect < 0) {
-                await this.document.delete();
+                //await this.document.delete();
                 return false;
             }
             if (mode === "combine") {
@@ -548,10 +548,10 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                     await this.document.setFlag("celestus", "temporary", true);
                     await this.document.setFlag("celestus", "surfaceType", makes);
                     if (intersect > 0) {
-                        await template.document.delete();
+                        //await template.document.delete();
                     }
                     else if (intersect < 0) {
-                        await this.document.delete();
+                        //await this.document.delete();
                     }
                     return false;
                 }
