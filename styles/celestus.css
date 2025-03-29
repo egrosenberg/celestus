@@ -1711,47 +1711,86 @@ div#ui-resources {
     position: absolute;
     left: 0;
     right: 0;
-    margin-top: 10px;
+    top: 0px;
     margin-inline: auto;
-    width: 300px;
+    width: 600px;
     padding: 10px;
-    border-radius: 10px;
-    border: medium solid black;
     z-index: calc(var(--z-index-ui) + 1);
+    text-align: center;
+    pointer-events: none;
+    -webkit-filter: drop-shadow(1px 1px 5px #000);
+    filter: drop-shadow(1px 1px 5px #000);
+}
+
+.celestus.token-info .token-info-content {
+    position: relative;
 }
 
 .celestus.token-info .close-info {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 5px;
+    top: 5px;
     font-size: var(--font-size-16);
+    color: white;
+    text-shadow: var(--text-outline-1);
+    z-index: 20;
+}
+
+.celestus.token-info .close-info:hover {
+    text-shadow: 0 0 10px var(--color-warm-3);
 }
 
 .celestus.token-info .token-header {
     margin-bottom: 5px;
 }
 
+.celestus.token-info .portrait-frame {
+    position: relative;
+    width: 75px;
+    height: 75px;
+    padding: 0px;
+    left: calc(50% - 75px/2);
+    pointer-events: all;
+}
+
 .celestus.token-info .actor-img {
-    width: 50px;
-    height: 50px;
-    background: none;
-    display: inline;
+    width: 75px;
+    height: 75px;
+    clip-path: circle(50px at center);
+    border-radius: 37.5px;
+}
+
+.celestus.token-info .actor-img-overlay {
+    z-index: 10;
+    width: 75px;
+    height: 75px;
     border: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: url('/systems/celestus/img/token-info-portrait-frame.webp');
+    background-size: contain;
 }
 
 .celestus.token-info .token-name {
     vertical-align: top;
     display: inline-block;
+    color: white;
+    position: absolute;
+    top: 15px;
+    left: 0px;
+    text-align: left;
+    text-shadow: var(--text-outline-1);
 }
 
 .celestus.token-info .token-name .name {
-    font-size: var(--font-size-20);
+    font-size: var(--font-size-18);
     font-weight: bold;
     text-shadow: var(--text-outline-1);
 }
 
 .celestus.token-info .token-name .type {
-    font-size: var(--font-size-16);
+    font-size: var(--font-size-14);
 }
 
 .celestus.token-info .resources {
@@ -1764,6 +1803,8 @@ div#ui-resources {
         "hp hp";
     width: 100%;
     min-width: 100%;
+    margin-top: -20px;
+    pointer-events: all;
 }
 
 .celestus.token-info .resources .resource {
@@ -1777,13 +1818,19 @@ div#ui-resources {
     white-space: nowrap;
     font-size: var(--font-size-14);
     text-align: center;
-    color: white;
+    color: transparent;
     font-weight: bold;
-    text-shadow: var(--text-outline-1);
+    text-shadow: none;
     box-shadow: var(--shadow-inset);
     background-image: url('../img/milky-texture.webp');
     background-blend-mode: multiply;
     width: 100%;
+    height: 20px;
+}
+
+.celestus.token-info:hover .resources .resource {
+    color: white;
+    text-shadow: var(--text-outline-1);
 }
 
 .celestus.token-info .mag-armor {
@@ -1800,8 +1847,9 @@ div#ui-resources {
 
 .celestus.token-info .effects {
     list-style-type: none;
-    width: 100%;
+    width: 300px;
     padding: 0px;
+    margin-left: calc(50% - 300px/2);
 }
 
 .celestus.token-info .effect {
@@ -1813,8 +1861,9 @@ div#ui-resources {
     font-size: var(--font-size-16);
     padding: 3px;
     border-radius: 5px;
-    background-color: rgba(43, 41, 37, 1);
+    background-color: rgba(43, 41, 37, 0.5);
     display: flex;
+    pointer-events: none;
 }
 
 .celestus.token-info .effect-label {
@@ -1827,8 +1876,8 @@ div#ui-resources {
 }
 
 .celestus.token-info .effect-icon {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     flex: 0;
     border: none;
     background: none;
@@ -1836,16 +1885,15 @@ div#ui-resources {
 }
 
 .celestus.token-info .effect-duration {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     background-image: url(../svg/stopwatch.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     text-align: center;
     background-blend-mode: overlay;
-    background-color: rgba(43, 41, 37, 0.6);
-    line-height: 25px;
+    line-height: 20px;
 }
 
 /* Generic Stone UI elements */

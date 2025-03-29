@@ -1,46 +1,50 @@
-<a class="close-info">
-    <i class="fa-solid fa-xmark"></i>
-</a>
-<header class="token-header">
-    <img class="actor-img" src="{{portrait}}" data-tooltip="{{name}}" />
-    <span class="token-name">
-        <div class="name">{{name}}</div>
-        <div class="type">{{creatureType}}</div>
-    </span>
-</header>
-<div class="resources">
-    {{#if (or resources.phys_armor.max resources.phys_armor.value)}}
-    <div class="phys-armor resource phys_armor">
-        <span class="resource-value" id="resources.phys_armor">
-            <span class="total">
-                {{resources.phys_armor.value}}/{{resources.phys_armor.max}}
-            </span>
-        </span>
+<div class="token-info-content">
+    <div class="portrait-frame">
+        <div class="actor-img-overlay"></div>
+        <img class="actor-img" src="{{portrait}}" data-tooltip="{{name}}" />
+        <a class="close-info">
+            <i class="fa-solid fa-xmark"></i>
+        </a>
     </div>
-    {{/if}}
-    {{#if (or resources.mag_armor.max resources.mag_armor.value)}}
-    <div class="mag-armor resource mag_armor">
-        <span class="resource-value" id="resources.mag_armor">
-            <span class="total">
-                {{resources.mag_armor.value}}/{{resources.mag_armor.max}}
+    <div class="resources">
+        {{#if (or resources.phys_armor.max resources.phys_armor.value)}}
+        <div class="phys-armor resource phys_armor">
+            <span class="resource-value" id="resources.phys_armor">
+                <span class="total">
+                    {{resources.phys_armor.value}}/{{resources.phys_armor.max}}
+                </span>
             </span>
-        </span>
-    </div>
-    {{/if}}
-    <div class="hp resource healing">
-        <span class="resource-value" id="resources.hp">
-            <span class="total">
-                {{resources.hp.flat}}/{{resources.hp.max}}
+        </div>
+        {{/if}}
+        {{#if (or resources.mag_armor.max resources.mag_armor.value)}}
+        <div class="mag-armor resource mag_armor">
+            <span class="resource-value" id="resources.mag_armor">
+                <span class="total">
+                    {{resources.mag_armor.value}}/{{resources.mag_armor.max}}
+                </span>
             </span>
-        </span>
+        </div>
+        {{/if}}
+        <div class="hp resource healing">
+            <span class="resource-value" id="resources.hp">
+                <span class="total">
+                    {{resources.hp.flat}}/{{resources.hp.max}}
+                </span>
+            </span>
+        </div>
     </div>
-</div>
-{{#if effects}}
-<ul class="effects">
-    {{#each effects as |effect|}}
-    {{log effect.system.aura.has}}
-    {{#if (or effect.isTemporary effect.system.aura.has)}}
-    <li class="effect flexrow">
+    <header class="token-header">
+        <span class="token-name">
+            <div class="name">{{name}}</div>
+            <div class="type">{{creatureType}}</div>
+        </span>
+    </header>
+    {{#if effects}}
+    <ul class="effects">
+        {{#each effects as |effect|}}
+        {{log effect.system.aura.has}}
+        {{#if (or effect.isTemporary effect.system.aura.has)}}
+        <li class="effect flexrow">
             <img class="effect-icon" src="{{effect.img}}" />
             <span class="effect-label">
                 <span>
@@ -52,8 +56,9 @@
                 </span>
                 {{/if}}
             </span>
-    </li>
+        </li>
+        {{/if}}
+        {{/each}}
+    </ul>
     {{/if}}
-    {{/each}}
-</ul>
-{{/if}}
+</div>

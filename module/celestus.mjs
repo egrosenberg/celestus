@@ -1,6 +1,6 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData, ConsumableItem } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc, teleportTokenStart, populateHotbar, applyDamageComponent } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc, teleportTokenStart, populateHotbar, applyDamageComponent, renderTokenInfo } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CelestusMeasuredTemplateConfig, CharacterSheet } from "./sheets.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
@@ -612,6 +612,8 @@ Hooks.on("init", () => {
         tokenPointerAlpha: 0.5,
         teleportCursorRotationSpeed: Math.PI * 0.005, // radians to rotate per 20ms
         tokenPointerZ: 950,
+        // currently hovered token
+        hoveredToken: null,
     };
 
     // set up data models
@@ -733,7 +735,7 @@ Hooks.on("init", () => {
     tokenInfo.id = "ui-token-hover";
     tokenInfo.classList.add("celestus");
     tokenInfo.classList.add("token-info");
-    tokenInfo.classList.add("stone-ui");
+    //tokenInfo.classList.add("stone-ui");
     document.getElementById("interface").appendChild(tokenInfo);
     tokenInfo.style.display = "none";
     tokenInfo.dataset.persist = false;
@@ -854,6 +856,14 @@ Hooks.on("ready", () => {
     $(damageControlLabel).on("click", "#roll-improvise-damage", game.celestus.improviseDamage);
     document.getElementById("chat-controls").appendChild(damageControlLabel);
 
+    // allow middle click to lock in token hover ui
+    $(document).on("mousedown", (ev) => {
+        if (ev.button === 1 && CONFIG.CELESTUS.hoveredToken) {
+            let ui = document.getElementById("ui-token-hover")
+            renderTokenInfo(CONFIG.CELESTUS.hoveredToken, true, true);
+            ui.dataset.persist = "true";
+        }
+    })
 });
 
 

@@ -922,6 +922,9 @@ export async function resourceInteractMisc(ev) {
  * @param {Boolean} force: force to render
  */
 export async function renderTokenInfo(token, hovered, force) {
+    // update currently hovered token
+    CONFIG.CELESTUS.hoveredToken = hovered ? token : null;
+
     let ui = document.getElementById("ui-token-hover");
 
     if (ui.dataset.persist === "true" && !force) {
