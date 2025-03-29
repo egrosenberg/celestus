@@ -471,7 +471,7 @@ Hooks.on("init", () => {
             feature: "Feature",
             origin: "Background",
             species: "Ancestry",
-            occupation: "Occupation",
+            occupation: "Profession",
             talent: "Talent"
         },
         damageCol: {
