@@ -150,7 +150,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                     if (!template?.object.shape) {
                         window.setTimeout(checkShape, 100);
                     } else {
-                        await template?.testAll({ tokens: true });
+                        await template?.testAll({ tokens: true, canDelete: true });
                         // attempt to interact via this skill's damage
                         if (skill.system.damage.length > 0) {
                             for (const t of template.parent.templates) {
@@ -443,14 +443,15 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
     /**
      * Checks for interactions with another surface represented as a measured template
      * @param {MeasuredTemplate} template to test for interactions with
+     * @param {Boolean} canDelete if overriding / removing another template is allowed
      * @returns {Promise: Boolean | undefined} returns false if this surface has been destroyed
      */
-    async combineSurface(template) {
+    async combineSurface(template, canDelete = false) {
         if (this.id === template.id) return;
         const thisType = this.document.getFlag("celestus", "surfaceType");
         const testType = template.document.getFlag("celestus", "surfaceType");
         // check if both templates are surfaces
-        if (!thisType || !testType) return;
+        if (!thisType || !testType || thisType === "none" || testType === "none") return;
         // get surface type data
         const surface = CONFIG.CELESTUS.surfaceTypes[thisType];
         const testSurface = CONFIG.CELESTUS.surfaceTypes[testType];
@@ -465,14 +466,14 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
         // no intersection
         if (intersect === false) return;
 
-        // if both surfaces are same type, bigger eats smaller
-        if (thisType === testType) {
+        // if both surfaces are same type, bigger clears smaller next turn
+        if (thisType === testType && canDelete) {
             if (intersect > 0) {
-                await template.document.delete();
+                await template.document.setFlag("celestus", "clearThis", true);
                 return;
             }
             if (intersect < 0) {
-                await this.document.delete();
+                await this.document.setFlag("celestus", "clearThis", true);
                 return false;
             }
         }
@@ -493,8 +494,8 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                     return false;
                 }
             }
-            if (mode === "override" && intersect > 0) {
-                //await template.document.delete();
+            if (mode === "override" && intersect > 0 && canDelete) {
+                await template.document.delete();
                 return;
             }
             if (mode === "combine") {
@@ -503,10 +504,11 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                     await template.document.setFlag("celestus", "surfaceType", makes);
                     if (intersect < 0) {
                         //await this.document.delete();
+                        // TODO: set this's duration to 0 if can't delete???
                         return false;
                     }
-                    else if (intersect > 0) {
-                        //await template.document.delete();
+                    else if (intersect > 0 && canDelete) {
+                        await template.document.delete();
                     }
                     return;
                 }
@@ -539,19 +541,17 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                 }
                 return false;
             }
-            if (mode === "override" && intersect < 0) {
-                //await this.document.delete();
-                return false;
-            }
             if (mode === "combine") {
                 if (testSurface.combines[thisType].corrupts) {
                     await this.document.setFlag("celestus", "temporary", true);
                     await this.document.setFlag("celestus", "surfaceType", makes);
-                    if (intersect > 0) {
-                        //await template.document.delete();
+                    if (intersect > 0 && canDelete) {
+                        await template.document.delete();
                     }
                     else if (intersect < 0) {
                         //await this.document.delete();
+                        // queue deletion of this
+                        await this.document.setFlag("celestus", "clearThis", true);
                     }
                     return false;
                 }
@@ -891,7 +891,7 @@ export class CelestusMeasuredTemplateDocument extends MeasuredTemplateDocument {
      * @param {Object?} options wether it should test tokens/templates
      * @returns {void | false}
      */
-    async testAll(options) {
+    async testAll(options = {}) {
         // ensure this can only run at once
         if (this.testing) return;
         this.testing = true;
@@ -899,7 +899,7 @@ export class CelestusMeasuredTemplateDocument extends MeasuredTemplateDocument {
         if (options?.templates !== false) {
             // interact with other surfaces
             for (const t of this.parent?.templates) {
-                const spread = await this.object.combineSurface(t.object);
+                const spread = await this.object.combineSurface(t.object, options.canDelete);
                 if (spread === false) return false;
             }
         }
