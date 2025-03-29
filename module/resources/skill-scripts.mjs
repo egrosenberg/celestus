@@ -459,4 +459,60 @@ export const scripts = {
             }
         }
     },
+    /**
+     * Prompt user to select surface they are standing on from dropdown
+     * Create an AE on actor that has a damage rider associated with the surface
+     */
+    elementalArrows: function (origin) {
+        // prompt user
+        let selectOptions = "";
+        for (const [type, details] of Object.entries(CONFIG.CELESTUS.surfaceTypes)) {
+            selectOptions += `<option value="${type}">${details.label}</option>`;
+        }
+        
+        const duration = 3;
+        let effectiveness = 0.5 + 0.025 * origin.system.attributes.level;
+
+        // create application popup
+        new foundry.applications.api.DialogV2({
+            window: { title: "Elemental Arrowheads" },
+            content: `
+                <h3>What surface type is the character on?</h3>
+                <div class="form-group">
+                    <label>Surface Type</label>
+                    <div class="form-fields">
+                        <select name="surfaceType">
+                            ${selectOptions}
+                        </select>
+                    </div>
+                </div>
+            `,
+            buttons: [{
+                action: "submit",
+                label: "Confirm",
+                default: true,
+                callback: (event, button, dialog) => button.form.elements.surfaceType.value
+            }],
+            submit: async result => {
+                if(!result) return;
+                // get surface info
+                const surface = CONFIG.CELESTUS.surfaceTypes[result];
+                if (!surface) return;
+                // conditional half for blood surfaces
+                if (result.includes("blood")) effectiveness /= 2;
+                // create ActiveEffect data
+                const data = {
+                    name: surface.arrowheads.name,
+                    type: "status",
+                    duration: { rounds: duration },
+                    img: "icons/magic/symbols/elements-air-earth-fire-water.webp",
+                    system: {
+                        damageRiders: [{ type: surface.arrowheads.damage, value: effectiveness}]
+                    }
+                }
+                // create effect on actor
+                await origin.createEmbeddedDocuments("ActiveEffect", [data])
+            }
+        }).render({ force: true });
+    }
 }

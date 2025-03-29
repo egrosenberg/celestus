@@ -35,6 +35,7 @@ export const surfaceTypes = {
             frozen_blood: { mode: "combine", makes: "blood", corrupts: true },
             frozen_poison: { mode: "combine", makes: "fire", corrupts: true },
         },
+        arrowheads: { name: "Flaming Arrowheads", damage: "fire" },
         texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements/Elements_01-512x512-25.webp"
     },
     spiritfire: {
@@ -52,6 +53,7 @@ export const surfaceTypes = {
             frozen_blood: { mode: "combine", makes: "blood", corrupts: true },
             frozen_poison: { mode: "combine", makes: "spiritfire", corrupts: true },
         },
+        arrowheads: { name: "Flaming Arrowheads", damage: "fire" },
         texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Spiritfire-2-25.webp"
     },
     water: {
@@ -68,6 +70,7 @@ export const surfaceTypes = {
         damageCombines: {
             air: "electric_water",
         },
+        arrowheads: { name: "Frozen Arrowheads", damage: "water" },
         texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements/Elements_20-512x512-25.webp"
     },
     ice: {
@@ -88,6 +91,7 @@ export const surfaceTypes = {
         damageCombines: {
             fire: "water",
         },
+        arrowheads: { name: "Frozen Arrowheads", damage: "water" },
        texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Ice-25.webp"
     },
     electric_water: {
@@ -104,6 +108,7 @@ export const surfaceTypes = {
             water: { mode: "combine", makes: "electric_water", corrupts: true },
             blood: { mode: "combine", makes: "electric_blood", corrupts: true },
         },
+        arrowheads: { name: "Frozen Arrowheads", damage: "water" },
         texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Lightning-water-25-100.webp"
     },
     oil: {
@@ -121,6 +126,7 @@ export const surfaceTypes = {
         damageCombines: {
             fire: "fire",
         },
+        arrowheads: { name: "Oily Arrowheads", damage: "earth" },
         texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Oil-mud-50.webp"
     },
     poison: {
@@ -138,6 +144,7 @@ export const surfaceTypes = {
         damageCombines: {
             fire: "fire",
         },
+        arrowheads: { name: "Toxic Arrowheads", damage: "poison" },
         texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Poison-25.webp"
     },
     frozen_poison: {
@@ -157,6 +164,7 @@ export const surfaceTypes = {
         damageCombines: {
             fire: "fire",
         },
+        arrowheads: { name: "Toxic Arrowheads", damage: "poison" },
         texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Frozen-poison-25.webp"
     },
     blood: {
@@ -172,6 +180,7 @@ export const surfaceTypes = {
         damageCombines: {
             air: "electric_blood",
         },
+        arrowheads: { name: "Bloodied Arrowheads", damage: "piercing" },
         texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Blood-3-25.webp"
     },
     electric_blood: {
@@ -186,6 +195,7 @@ export const surfaceTypes = {
             water: { mode: "combine", makes: "electric_water", corrupts: true },
             blood: { mode: "combine", makes: "electric_blood", corrupts: true },
         },
+        arrowheads: { name: "BLoodied Arrowheads", damage: "piercing" },
         texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Lightning-blood-25-100.webp"
     },
     frozen_blood: {
@@ -201,6 +211,7 @@ export const surfaceTypes = {
             blood: { mode: "corrupt" },
             electric_blood: { mode: "corrupt" },
         },
+        arrowheads: { name: "Bloodied Arrowheads", damage: "piercing" },
         texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Frozen-blood-25.webp"
     },
     fog: {
@@ -217,6 +228,7 @@ export const surfaceTypes = {
         color: "#cccccc",
         schools: ["stormseeker"],
         statuses: ["shock"],
+        arrowheads: { name: "Electrified Arrowheads", damage: "air" },
         texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Lightning-cloud-2-50.webp"
     },
 };
