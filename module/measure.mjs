@@ -485,13 +485,16 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
             if (mode === "corrupt") {
                 await template.document.setFlag("celestus", "temporary", true);
                 await template.document.setFlag("celestus", "surfaceType", thisType);
-                if (intersect > 0) {
-                    await template.document.delete();
-                    return;
-                }
-                if (intersect < 0) {
-                    await this.document.delete();
-                    return false;
+                if (canDelete) {
+                    if (intersect > 0) {
+                        await template.document.delete();
+                        return;
+                    }
+                    if (intersect < 0) {
+                        //await this.document.delete();
+                        await this.document.setFlag("celestus", "clearThis", true);
+                        return false;
+                    }
                 }
             }
             if (mode === "override" && intersect > 0 && canDelete) {
@@ -533,11 +536,13 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
             if (mode === "corrupt") {
                 await this.document.setFlag("celestus", "temporary", true);
                 await this.document.setFlag("celestus", "surfaceType", testType);
-                if (intersect < 0) {
-                    await this.document.delete();
-                }
-                else if (intersect > 0) {
-                    await template.document.delete();
+                if (canDelete) {
+                    if (intersect < 0) {
+                        await this.document.setFlag("celestus", "clearThis", true);
+                    }
+                    else if (intersect > 0) {
+                        await template.document.delete();
+                    }
                 }
                 return false;
             }
