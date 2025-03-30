@@ -25,6 +25,7 @@
             </span>
         </div>
         {{/if}}
+        <div class="buffer"></div>
         <div class="hp resource healing">
             <span class="resource-value" id="resources.hp">
                 <span class="total">
@@ -36,7 +37,7 @@
     <header class="token-header">
         <span class="token-name">
             <div class="name">{{name}}</div>
-            <div class="type">{{creatureType}}</div>
+            {{!--<div class="type">{{creatureType}}</div>--}}
         </span>
     </header>
     {{#if effects}}

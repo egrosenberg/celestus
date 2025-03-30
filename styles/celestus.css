@@ -1566,8 +1566,6 @@ div#ui-resources {
     text-align: center;
 }
 
-
-
 .celestus.resources-ui .resources.grid {
     display: flex;
     padding: 0px;
@@ -1711,10 +1709,10 @@ div#ui-resources {
     position: absolute;
     left: 0;
     right: 0;
-    top: 0px;
+    top: 5px;
     margin-inline: auto;
     width: 600px;
-    padding: 10px;
+    padding: 5px;
     z-index: calc(var(--z-index-ui) + 1);
     text-align: center;
     pointer-events: none;
@@ -1749,7 +1747,7 @@ div#ui-resources {
     width: 75px;
     height: 75px;
     padding: 0px;
-    left: calc(50% - 75px/2);
+    left: calc(100% - 75px);
     pointer-events: all;
 }
 
@@ -1777,7 +1775,7 @@ div#ui-resources {
     display: inline-block;
     color: white;
     position: absolute;
-    top: 15px;
+    top: 13px;
     left: 0px;
     text-align: left;
     text-shadow: var(--text-outline-1);
@@ -1799,12 +1797,14 @@ div#ui-resources {
     grid-template-rows: 1fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
-        "phys-armor mag-armor"
-        "hp hp";
-    width: 100%;
-    min-width: 100%;
-    margin-top: -20px;
+        "phys-armor mag-armor buffer"
+        "hp hp hp";
+    width: auto;
+    margin-top: -40px;
+    margin-right: calc(75px/2);
     pointer-events: all;
+    padding-right: 15px;
+    clip-path: polygon( 92.166% 6.25%,92.166% 6.25%,92.166% 5.643%,92.166% 5.024%,92.166% 4.396%,92.167% 3.762%,92.168% 3.125%,92.17% 2.488%,92.172% 1.854%,92.175% 1.226%,92.179% 0.607%,92.184% 0%,0% 0%,0% 100%,96.313% 100%,96.313% 100%,95.597% 94.095%,94.934% 87.226%,94.328% 79.467%,93.786% 70.888%,93.313% 61.563%,92.914% 51.562%,92.595% 40.959%,92.36% 29.824%,92.215% 18.231%,92.166% 6.25% ); 
 }
 
 .celestus.token-info .resources .resource {
@@ -1835,6 +1835,12 @@ div#ui-resources {
 
 .celestus.token-info .mag-armor {
     grid-area: mag-armor;
+    border-radius: 5px 0px 5px 0px;
+}
+
+.celestus.token-info .buffer {
+    grid-area: buffer;
+    width: calc(75px/2 - 15px);
 }
 
 .celestus.token-info .phys-armor {
@@ -1849,7 +1855,6 @@ div#ui-resources {
     list-style-type: none;
     width: 300px;
     padding: 0px;
-    margin-left: calc(50% - 300px/2);
 }
 
 .celestus.token-info .effect {
