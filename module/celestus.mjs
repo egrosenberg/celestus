@@ -67,7 +67,13 @@ Hooks.on("init", () => {
                 rotateTokenTowards(token, game.canvas.mousePosition);
             }
         },
-        refreshSelected: () => {
+        refreshSelected: async () => {
+            const proceed = await foundry.applications.api.DialogV2.confirm({
+                content: "Are you sure you want to refresh all selected tokens?",
+                rejectClose: false,
+                modal: true
+            });
+            if (!proceed) return;
             for (const token of game.canvas?.tokens.controlled) {
                 token.actor?.refresh();
             }
