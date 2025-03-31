@@ -1,10 +1,10 @@
 <div class="token-info-content">
+    <a class="close-info">
+        <i class="fa-solid fa-xmark"></i>
+    </a>
     <div class="portrait-frame">
         <div class="actor-img-overlay"></div>
         <img class="actor-img" src="{{portrait}}" data-tooltip="{{name}}" />
-        <a class="close-info">
-            <i class="fa-solid fa-xmark"></i>
-        </a>
     </div>
     <div class="resources">
         {{#if (or resources.phys_armor.max resources.phys_armor.value)}}
@@ -34,12 +34,10 @@
             </span>
         </div>
     </div>
-    <header class="token-header">
-        <span class="token-name">
-            <div class="name">{{name}}</div>
-            {{!--<div class="type">{{creatureType}}</div>--}}
-        </span>
-    </header>
+    <span class="token-name">
+        <div class="name">{{name}}</div>
+        {{!--<div class="type">{{creatureType}}</div>--}}
+    </span>
     {{#if effects}}
     <ul class="effects">
         {{#each effects as |effect|}}

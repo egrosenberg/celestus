@@ -592,6 +592,8 @@ input[type="color"]::-webkit-color-swatch {
     color: white;
     text-shadow: var(--text-outline-1);
     text-align: left;
+    font-family: var(--font-h1);
+    font-size: var(--font-size-36);
 }
 
 .celestus.actor.sheet .sheet-header h2 {
@@ -1709,15 +1711,20 @@ div#ui-resources {
     position: absolute;
     left: 0;
     right: 0;
-    top: 5px;
+    top: -40px;
     margin-inline: auto;
-    width: 600px;
-    padding: 5px;
+    width: 800px;
+    height: 200px;
+    padding: calc((200px - 75px)/2) 95px calc((200px - 75px)/2) 105px;
     z-index: calc(var(--z-index-ui) + 1);
     text-align: center;
     pointer-events: none;
     -webkit-filter: drop-shadow(1px 1px 5px #000);
     filter: drop-shadow(1px 1px 5px #000);
+    background-image: url('../img/token-info-background.webp');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: 0 0;
 }
 
 .celestus.token-info .token-info-content {
@@ -1725,17 +1732,19 @@ div#ui-resources {
 }
 
 .celestus.token-info .close-info {
+    pointer-events: all;
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: 0px;
+    top: 0px;
     font-size: var(--font-size-16);
     color: white;
     text-shadow: var(--text-outline-1);
-    z-index: 20;
+    z-index: 50;
 }
 
 .celestus.token-info .close-info:hover {
-    text-shadow: 0 0 10px var(--color-warm-3);
+    text-shadow: var(--text-outline-1), 0 0 10px var(--color-warm-3);
+    cursor: pointer;
 }
 
 .celestus.token-info .token-header {
@@ -1772,23 +1781,29 @@ div#ui-resources {
 
 .celestus.token-info .token-name {
     vertical-align: top;
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
     color: white;
     position: absolute;
-    top: 13px;
+    top: 0px;
     left: 0px;
     text-align: left;
     text-shadow: var(--text-outline-1);
+    gap: 10px;
 }
 
 .celestus.token-info .token-name .name {
-    font-size: var(--font-size-18);
+    font-size: var(--font-size-24);
     font-weight: bold;
     text-shadow: var(--text-outline-1);
+    font-family: var(--font-h1);
 }
 
 .celestus.token-info .token-name .type {
-    font-size: var(--font-size-14);
+    font-size: var(--font-size-18);
+    font-family: var(--font-h2);
+    color: lightgray;
+    margin-top: -5px;
 }
 
 .celestus.token-info .resources {
@@ -1818,19 +1833,15 @@ div#ui-resources {
     white-space: nowrap;
     font-size: var(--font-size-14);
     text-align: center;
-    color: transparent;
     font-weight: bold;
     text-shadow: none;
+    color: white;
+    text-shadow: var(--text-outline-1);
     box-shadow: var(--shadow-inset);
     background-image: url('../img/milky-texture.webp');
     background-blend-mode: multiply;
     width: 100%;
     height: 20px;
-}
-
-.celestus.token-info:hover .resources .resource {
-    color: white;
-    text-shadow: var(--text-outline-1);
 }
 
 .celestus.token-info .mag-armor {
@@ -1855,6 +1866,7 @@ div#ui-resources {
     list-style-type: none;
     width: 300px;
     padding: 0px;
+    margin-top: 20px;
 }
 
 .celestus.token-info .effect {
