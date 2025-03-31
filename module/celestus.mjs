@@ -746,7 +746,7 @@ Hooks.on("init", () => {
     tokenInfo.style.display = "none";
     tokenInfo.dataset.persist = false;
     $(tokenInfo).on('click', '.close-info', () => {
-        tokenInfo.style.display = "none";
+        $(tokenInfo).fadeOut(150);
         tokenInfo.dataset.persist = false;
     });
 
