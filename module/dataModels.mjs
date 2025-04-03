@@ -726,11 +726,18 @@ export class PlayerData extends ActorData {
      * @returns {Object} containing all skills, categorized as memorized, unmemorized, and always
      */
     get skills() {
-        return {
+        const skills = {
             memorized: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "true")),
-            unmemorized: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "false")),
             always: this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "always")),
         };
+        if (this.parent.getFlag("celestus", "eiditic")) {
+            skills.eiditic = this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "false", i.system.type === "civil"));
+            skills.unmemorized = this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "false" && i.system.type !== "civil"));
+        }
+        else {
+            skills.unmemorized = this.parent.items.filter(i => (i.type === "skill", i.system.memorized === "false"));
+        }
+        return skills;
     }
 
     /** 
@@ -739,7 +746,7 @@ export class PlayerData extends ActorData {
     get knownSkills() {
         const skills = this.skills;
         return {
-            count: skills.memorized.length + skills.unmemorized.length,
+            count: skills.memorized.length + skills.unmemorized.length + (skills.eiditic ? skills.eiditic.length : 0),
             max: this.attributes.level * 2 + 2
         };
     }
@@ -1083,7 +1090,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
             return "Skill is on cooldown!";
         }
         // check if skill is memorized
-        if (this.memorized === "false" && actor.type === "player") {
+        if (this.memorized === "false" && actor.type === "player" && !(this.type === "civil" && actor.getFlag("celestus", "eiditic"))) {
             return "Skill is not memorized!";
         }
         // dont use civil skills in combat?
