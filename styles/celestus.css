@@ -280,7 +280,8 @@
     --color-cream-50: rgba(250, 246, 239, 0.5);
     --color-tan: rgba(255, 231, 195);
 
-    --color-head-label-bg: #252830;/*rgba(255, 255, 255, 0.719);*/
+    --color-head-label-bg: #252830;
+    /*rgba(255, 255, 255, 0.719);*/
 
     --color-border-dark-warm: #725151;
     --color-border-dark-cool: #515a72;
@@ -461,7 +462,9 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 /* Flex things */
-.flexrow .flexlarge, .flexcol, .flexlarge {
+.flexrow .flexlarge,
+.flexcol,
+.flexlarge {
     flex: 2;
 }
 
@@ -547,7 +550,7 @@ input[type="color"]::-webkit-color-swatch {
 .celestus.actor.sheet nav.sheet-tabs .item {
     flex: 1;
     background: rgb(20, 6, 6);
-    border-radius: 1.5em 1.5em  0px 0px;
+    border-radius: 1.5em 1.5em 0px 0px;
     opacity: 80%;
 }
 
@@ -564,7 +567,7 @@ input[type="color"]::-webkit-color-swatch {
     background-attachment: fixed;
 }
 
-.celestus.actor.sheet .sheet-body { 
+.celestus.actor.sheet .sheet-body {
     background: rgb(47, 14, 14);
     background: linear-gradient(135deg, rgba(47, 14, 14, 1) 0%, rgba(15, 15, 15, 1) 100%);
     background-attachment: fixed;
@@ -582,12 +585,12 @@ input[type="color"]::-webkit-color-swatch {
     position: static;
     height: 100%;
     text-align: center;
-    background: rgb(0,47,64);
-    background: linear-gradient(0deg, rgba(0,47,64,1) 0%, rgba(8,9,13,1) 94%); 
+    background: rgb(0, 47, 64);
+    background: linear-gradient(0deg, rgba(0, 47, 64, 1) 0%, rgba(8, 9, 13, 1) 94%);
     color: lightgray;
 }
 
-.celestus.actor.sheet .sheet-header :is(.level,.head-section) {
+.celestus.actor.sheet .sheet-header :is(.level, .head-section) {
     margin-top: 0.5em;
     box-shadow: 0px 0px 0.5em black;
 }
@@ -614,11 +617,11 @@ input[type="color"]::-webkit-color-swatch {
     border-radius: 0.7em;
 }
 
-.celestus.actor.sheet .sheet-header .head-section > :first-child {
+.celestus.actor.sheet .sheet-header .head-section> :first-child {
     border-radius: 0.5em 0.5em 0 0;
 }
 
-.celestus.actor.sheet .sheet-header .head-section > :last-child {
+.celestus.actor.sheet .sheet-header .head-section> :last-child {
     border-radius: 0 0 0.5em 0.5em;
 }
 
@@ -628,7 +631,7 @@ input[type="color"]::-webkit-color-swatch {
     display: inline-block;
     position: relative;
     width: 250px;
-    height: 250px;  
+    height: 250px;
 }
 
 .celestus.actor.sheet .portrait .portrait-overlay {
@@ -705,7 +708,7 @@ input[type="color"]::-webkit-color-swatch {
     color: lightgray;
 }
 
-.celestus.actor.sheet .sheet-header input[type="number"]:is(:focus,:hover) {
+.celestus.actor.sheet .sheet-header input[type="number"]:is(:focus, :hover) {
     color: white;
     box-shadow: 0px 0px 5px var(--color-warm-2);
 }
@@ -755,7 +758,7 @@ input[type="color"]::-webkit-color-swatch {
     padding: 0.3em;
 }
 
-.celestus.actor.sheet .sheet-header .resource-block > :not(:last-child) {
+.celestus.actor.sheet .sheet-header .resource-block> :not(:last-child) {
     border-bottom: thin solid var(--color-border-dark-cool);
 }
 
@@ -887,6 +890,7 @@ input[type="color"]::-webkit-color-swatch {
     background: var(--color-head-label-bg);
     border-radius: 0.3em;
 }
+
 .celestus.actor.sheet .sheet-header .abilities .flexrow {
     border: thin var(--color-border-dark-cool) solid;
     border-width: 0px 0px 1px 0px;
@@ -908,7 +912,7 @@ input[type="color"]::-webkit-color-swatch {
     padding: 3px;
 }
 
-.celestus.actor.sheet :is(.abilities,.ability) label {
+.celestus.actor.sheet :is(.abilities, .ability) label {
     padding: 3px;
     text-align: left;
 }
@@ -1099,7 +1103,7 @@ input[type="color"]::-webkit-color-swatch {
     padding: 3px;
 }
 
-.celestus.actor.sheet .item-count { 
+.celestus.actor.sheet .item-count {
     color: lightgray;
     box-shadow: none;
     border: none;
@@ -1121,7 +1125,7 @@ input[type="color"]::-webkit-color-swatch {
     text-align: center;
 }
 
-.celestus.actor.sheet .item-formula > * {
+.celestus.actor.sheet .item-formula>* {
     flex: 1;
 }
 
@@ -1148,6 +1152,62 @@ input[type="color"]::-webkit-color-swatch {
 
 .celestus.actor.sheet .item-image img {
     border: 2px tan ridge;
+}
+
+/* Currency */
+.celestus.actor.sheet .currency-section {
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    margin: 0.5em 0.5em 1em 0.5em;
+    -webkit-filter: drop-shadow(1px 1px 5px #000);
+    filter: drop-shadow(1px 1px 5px #000);
+}
+
+.celestus.actor.sheet .currency-type {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 100px;
+    padding: 5px;
+    background-color: var(--color-head-label-bg);
+    border-radius: 5px;
+    padding-left: 15px;
+    margin-left: 7.5px;
+    margin-top: 7.5px;
+}
+
+.celestus.actor.sheet .currency-input {
+    flex: 1;
+    color: lightgray;
+    text-align: right;
+}
+
+.celestus.actor.sheet .currency-section i {
+    -webkit-filter: drop-shadow(1px 1px 5px #000);
+    filter: drop-shadow(1px 1px 5px #000);
+}
+
+.celestus.actor.sheet i.currency {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-size: contain;
+    top: 0;
+    left: -7.5px;
+}
+
+.celestus i.gp {
+    background-image: url("/systems/celestus/svg/gold-coin-icon.svg");
+}
+
+.celestus i.sp {
+    background-image: url("/systems/celestus/svg/silver-coin-icon.svg");
+}
+
+.celestus i.cp {
+    background-image: url("/systems/celestus/svg/copper-coin-icon.svg");
 }
 
 /* Armor sockets preview */
@@ -1667,7 +1727,8 @@ div#ui-resources {
     margin: 2px;
 }
 
-.action-point.empty:hover , .focus-point.empty:hover {
+.action-point.empty:hover,
+.focus-point.empty:hover {
     -webkit-text-fill-color: rgb(107, 107, 107);
 }
 
@@ -1825,7 +1886,7 @@ div#ui-resources {
     margin-right: calc(75px/2);
     pointer-events: all;
     padding-right: 15px;
-    clip-path: polygon( 92.166% 6.25%,92.166% 6.25%,92.166% 5.643%,92.166% 5.024%,92.166% 4.396%,92.167% 3.762%,92.168% 3.125%,92.17% 2.488%,92.172% 1.854%,92.175% 1.226%,92.179% 0.607%,92.184% 0%,0% 0%,0% 100%,96.313% 100%,96.313% 100%,95.597% 94.095%,94.934% 87.226%,94.328% 79.467%,93.786% 70.888%,93.313% 61.563%,92.914% 51.562%,92.595% 40.959%,92.36% 29.824%,92.215% 18.231%,92.166% 6.25% ); 
+    clip-path: polygon(92.166% 6.25%, 92.166% 6.25%, 92.166% 5.643%, 92.166% 5.024%, 92.166% 4.396%, 92.167% 3.762%, 92.168% 3.125%, 92.17% 2.488%, 92.172% 1.854%, 92.175% 1.226%, 92.179% 0.607%, 92.184% 0%, 0% 0%, 0% 100%, 96.313% 100%, 96.313% 100%, 95.597% 94.095%, 94.934% 87.226%, 94.328% 79.467%, 93.786% 70.888%, 93.313% 61.563%, 92.914% 51.562%, 92.595% 40.959%, 92.36% 29.824%, 92.215% 18.231%, 92.166% 6.25%);
 }
 
 .celestus.token-info .resources .resource {
@@ -1935,7 +1996,8 @@ div#ui-resources {
     text-shadow: var(--text-outline-1);
 }
 
-.stone-ui,.celestus.actor.sheet .content-link {
+.stone-ui,
+.celestus.actor.sheet .content-link {
     background-color: rgba(0, 0, 0, 0.6);
 }
 
