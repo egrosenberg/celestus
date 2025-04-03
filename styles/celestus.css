@@ -527,6 +527,10 @@ input[type="color"]::-webkit-color-swatch {
     color: lightgray;
 }
 
+.celestus.actor.sheet a.inline-roll {
+    background-color: var(--color-dark-2);
+}
+
 .celestus.actor.sheet nav.sheet-tabs {
     border: none;
     background-color: none;
@@ -654,6 +658,8 @@ input[type="color"]::-webkit-color-swatch {
     border-style: none;
     background: rgb(255, 179, 0);
     background: radial-gradient(circle, rgba(255, 179, 0, 1) 0%, rgba(121, 9, 9, 1) 55%, rgba(36, 0, 0, 1) 100%);
+    -webkit-filter: drop-shadow(1px 1px 5px #000);
+    filter: drop-shadow(1px 1px 5px #000);
 }
 
 .celestus.actor.sheet .character-attributes {
