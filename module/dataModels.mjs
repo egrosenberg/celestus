@@ -165,6 +165,12 @@ export class ActorData extends foundry.abstract.TypeDataModel {
                 });
                 return obj;
             }, {})),
+            // money / other currencies
+            currency: new SchemaField({
+                gold: new NumberField({ required: true, initial: 0, integer: true }),
+                silver: new NumberField({ required: true, initial: 0, integer: true }),
+                copper: new NumberField({ required: true, initial: 0, integer: true }),
+            })
         };
     }
 

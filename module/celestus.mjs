@@ -38,6 +38,7 @@ const preloadHandlebarsTemplates = async function () {
         'systems/celestus/templates/actor/parts/actor-bonuses.hbs',
         'systems/celestus/templates/actor/parts/actor-damage.hbs',
         'systems/celestus/templates/actor/parts/actor-npc-skills.hbs',
+        'systems/celestus/templates/actor/parts/actor-currency.hbs',
         // Item partials
         'systems/celestus/templates/item/parts/item-creation.hbs',
         'systems/celestus/templates/item/parts/item-bonuses.hbs',

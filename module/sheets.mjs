@@ -315,6 +315,33 @@ export class CharacterSheet extends ActorSheet {
             await item.update({ "system.quantity": value });
         });
 
+        // currency controls
+        html.on('change', 'input.currency-input', async (ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            const currency = $(ev.currentTarget).attr("name");
+            const current = this.actor.system.currency[currency];
+            let input = $(ev.currentTarget).val();
+            let operator = "";
+            // check if given addition or subtraction
+            if (input[0] === "+" || input[0] === "-") {
+                operator = input[0];
+                input = input.slice(1);
+            }
+            // evaluate input
+            const roll = new Roll(input);
+            let total = roll.evaluateSync().total;
+            // perform math if needed
+            if (operator === "+") {
+                total = current + total;
+            }
+            else if (operator === "-") {
+                total = current - total;
+            }
+            // update currency value
+            await this.actor.update({["system.currency." + currency]: total });
+        });
+
         // Equip Inventory Item
         html.on('click', '.item-equip', (ev) => {
             const li = $(ev.currentTarget).parents('.item');
