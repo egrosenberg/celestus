@@ -572,6 +572,8 @@ export async function triggerTurn(combat, prior, current) {
     if (!game.user.isGM) {
         return;
     }
+    // skip if first turn of combat
+    if (prior.turn === null) return;
     // only fire if progressing forward
     if (prior.round > current.round || (prior.turn > current.turn && prior.round === current.round)) return;
     // check lingering templates
@@ -620,14 +622,19 @@ export async function triggerTurn(combat, prior, current) {
  * @param {Combat} combat 
  * @param {number,number} updateData {round, turn}
  */
-export function startCombat(combat, updateData) {
+export async function startCombat(combat, updateData) {
     // only fire if user is a GM
     if (!game.user.isGM) {
         return;
     }
     // clear combatant ap
     for (const combatant of combat.combatants) {
-        combatant.actor.update({ "system.resources.ap.value": 0 })
+        await combatant.actor.update({ "system.resources.ap.value": 0 });
+    }
+    // trigger first combatant's turn
+    const first = combat.combatants.get(combat.turns[0]?.id)?.actor;
+    if (first) {
+        await first.startTurn();
     }
 }
 
