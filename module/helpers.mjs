@@ -625,6 +625,36 @@ export function matchIfPresent(a, b) {
 }
 
 /**
+ * Updates a numberfield with an inputted string
+ * If string starts with +/- will add/subtract,
+ * otherwise will just evaluate string
+ * @param {Actor} actor to update
+ * @param {String} key: key in object to update / start with
+ * @param {String} input string from sheet
+ */
+export async function updateWithMath(actor, key, input) {
+    const current = byString(actor, key);
+    let operator = "";
+    // check if given addition or subtraction
+    if (input[0] === "+" || input[0] === "-") {
+        operator = input[0];
+        input = input.slice(1);
+    }
+    // evaluate input
+    const roll = new Roll(input);
+    let total = roll.evaluateSync().total;
+    // perform math if needed
+    if (operator === "+") {
+        total = current + total;
+    }
+    else if (operator === "-") {
+        total = current - total;
+    }
+    // update resource value
+    await actor.update({ [key]: Number(total) });
+}
+
+/**
  * Finds a specific key value of a stat spread, checking parents until it finds a value
  * @param {String} name stat spread name
  * @param {String} key which stat to grab

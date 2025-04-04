@@ -1,4 +1,4 @@
-import { applyWeaponStatus, byString, calcMult, executeSkillScript, itemizeDamage, promptDamage, rollWeaponDamage, rotateTokenTowards } from "./helpers.mjs";
+import { applyWeaponStatus, byString, calcMult, executeSkillScript, itemizeDamage, promptDamage, rollWeaponDamage, rotateTokenTowards, updateWithMath } from "./helpers.mjs";
 
 const RED = '#e29292';
 const GREEN = '#92e298';
@@ -917,8 +917,7 @@ export async function resourceInteractMisc(ev) {
     const actor = await fromUuid($(ev.currentTarget).parents('.resources-ui').attr('data-actor-id'));
     if (!actor) return console.warn("CELESTUS | Could not find actor to update resource");
     const resourceName = `system.${$(ev.currentTarget).attr('name')}`;
-    const resourceValue = $(ev.currentTarget).val();
-    await actor.update({ [resourceName]: Number(resourceValue) });
+    await updateWithMath(actor, resourceName, $(ev.currentTarget).val());
 }
 
 /**

@@ -1696,7 +1696,7 @@ div#ui-resources {
     border-radius: 5px;
     border-color: black;
 
-    display: block;
+    display: flex;
     text-align: center;
     padding: 5px 20px;
     white-space: nowrap;
@@ -1724,6 +1724,8 @@ div#ui-resources {
     padding: 0;
     border: none;
     height: auto;
+    width: 50%;
+    text-align: right;
 }
 
 /* Action Point Icons */

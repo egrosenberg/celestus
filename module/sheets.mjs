@@ -1,4 +1,4 @@
-import { byString, matchIfPresent, rollAbility } from "./helpers.mjs";
+import { byString, matchIfPresent, rollAbility, updateWithMath } from "./helpers.mjs";
 import { onManageActiveEffect } from "./hooks.mjs";
 
 /**
@@ -320,26 +320,15 @@ export class CharacterSheet extends ActorSheet {
             ev.preventDefault();
             ev.stopPropagation();
             const currency = $(ev.currentTarget).attr("name");
-            const current = this.actor.system.currency[currency];
-            let input = $(ev.currentTarget).val();
-            let operator = "";
-            // check if given addition or subtraction
-            if (input[0] === "+" || input[0] === "-") {
-                operator = input[0];
-                input = input.slice(1);
-            }
-            // evaluate input
-            const roll = new Roll(input);
-            let total = roll.evaluateSync().total;
-            // perform math if needed
-            if (operator === "+") {
-                total = current + total;
-            }
-            else if (operator === "-") {
-                total = current - total;
-            }
-            // update currency value
-            await this.actor.update({["system.currency." + currency]: total });
+            await updateWithMath(this.actor, "system.currency." + currency, $(ev.currentTarget).val());
+        });
+
+        // resource controls
+        html.on('change', '.resource-value input', async (ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            console.log(this.actor);
+            await updateWithMath(this.actor, $(ev.currentTarget).attr("name"), $(ev.currentTarget).val());
         });
 
         // Equip Inventory Item

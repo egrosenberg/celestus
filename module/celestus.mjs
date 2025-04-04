@@ -732,6 +732,7 @@ Hooks.on("init", () => {
     $(resourceUi).on('click', '.ap-interact', resourceInteractAp);
     $(resourceUi).on('click', '.fp-interact', resourceInteractFp);
     $(resourceUi).on('change', '.resource-input', resourceInteractMisc);
+    $(resourceUi).on('click', '.resource-input',  function () { this.select(); })
     document.getElementById("ui-bottom").appendChild(resourceUi);
 
     renderResourcesUi();
