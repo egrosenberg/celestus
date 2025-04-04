@@ -1310,7 +1310,7 @@ input[type="color"]::-webkit-color-swatch {
 
 .celestus.item.sheet .sheet-header {
     margin-bottom: 10px;
-    padding-bottom: 10px;
+    padding: 10px;
     border-bottom: solid thin var(--color-cool-3);
 }
 
@@ -1627,11 +1627,10 @@ div#ui-resources {
     right: 10px;
     bottom: 20px;
     pointer-events: all;
-    padding: 10px;
-    border: solid medium black;
-    background-color: #00000088;
-    border-radius: 10px;
     text-align: center;
+    --outline: drop-shadow(1px 1px 0px #000) drop-shadow(-1px 1px 0px #000) drop-shadow(-1px -1px 0px #000) drop-shadow(1px -1px 0px #000);
+    -webkit-filter: var(--outline) drop-shadow(1px 1px 5px #000);
+    filter: var(--outline) drop-shadow(1px 1px 5px #000);
 }
 
 .celestus.resources-ui .resources.grid {
@@ -1639,13 +1638,34 @@ div#ui-resources {
     padding: 0px;
 }
 
+.celestus.resources-ui .action-resources {
+    margin-bottom: -10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.celestus.resources-ui .action-resources .resource {
+    border-radius: 10px 10px 0px 0px;
+    padding: 0px 10px;
+    background-attachment: fixed;
+    display: block;
+    width: fit-content;
+    margin: 0px;
+    background-image: url(../img/rock-texture-tile.jpg);
+    background-repeat: repeat;
+    background-size: auto;
+}
+
+.celestus.resources-ui .action-resources .resource :is(.action-point,.focus-point) {
+    margin-top: -20px;
+    padding-bottom: 10px;
+}
+
 .celestus.resources-ui .resource {
     border-radius: 10px;
     display: inline-block;
-    padding: 6px;
-    margin: 2px;
     flex: 1;
-    background-color: #0008;
 }
 
 .celestus.resources-ui label.resource-label {
@@ -1658,6 +1678,18 @@ div#ui-resources {
     width: 100%;
 }
 
+.celestus.resources-ui .resources-ui-vital {
+    padding: 10px;
+    background-color: #00000088;
+    border-radius: 10px;
+    width: 450px;
+    margin: 3px;
+    background-image: url(../img/rock-texture-tile.jpg);
+    background-repeat: repeat;
+    background-size: auto;
+    background-attachment: fixed;
+}
+
 .celestus.resources-ui .resource-value {
     border-style: solid;
     border-width: thin;
@@ -1666,10 +1698,10 @@ div#ui-resources {
 
     display: block;
     text-align: center;
-    padding: 5px;
+    padding: 5px 20px;
     white-space: nowrap;
 
-    font-size: var(--font-size-16);
+    font-size: var(--font-size-14);
     text-align: center;
     color: white;
     text-shadow: var(--text-outline-1);
@@ -1683,11 +1715,15 @@ div#ui-resources {
 
 .celestus.resources-ui .resource-input {
     width: 100px;
-    font-size: var(--font-size-16);
+    font-size: var(--font-size-14);
     text-align: center;
     color: white;
     text-shadow: var(--text-outline-1);
     display: inline;
+    outline: none;
+    padding: 0;
+    border: none;
+    height: auto;
 }
 
 /* Action Point Icons */
@@ -1737,7 +1773,7 @@ div#ui-resources {
 }
 
 .action-point.large {
-    font-size: var(--font-size-32);
+    font-size: var(--font-size-24);
 }
 
 .focus-point.full {
@@ -1770,7 +1806,7 @@ div#ui-resources {
 }
 
 .focus-point.large {
-    font-size: var(--font-size-32);
+    font-size: var(--font-size-24);
 }
 
 /* Token Info on hover */
@@ -1990,6 +2026,7 @@ div#ui-resources {
     box-shadow: var(--shadow-inset);
     border: medium solid black;
     text-shadow: 0px 0px 4px rgb(0, 0, 0);
+    background-attachment: fixed;
 }
 
 .stone-ui :is(h1, h2, h3, h4, h5, h6) {

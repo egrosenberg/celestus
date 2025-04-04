@@ -728,7 +728,7 @@ Hooks.on("init", () => {
     resourceUi.id = "ui-resources";
     resourceUi.classList.add("celestus");
     resourceUi.classList.add("resources-ui");
-    resourceUi.classList.add("stone-ui");
+    //resourceUi.classList.add("stone-ui");
     $(resourceUi).on('click', '.ap-interact', resourceInteractAp);
     $(resourceUi).on('click', '.fp-interact', resourceInteractFp);
     $(resourceUi).on('change', '.resource-input', resourceInteractMisc);
