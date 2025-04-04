@@ -83,7 +83,7 @@ Hooks.on("init", () => {
         pointers: [],
     }
     // override initiative rolls
-    game.system.initiative = "1d20+@abilities.wit.total+@attributes.bonuses.initiative.value";
+    game.system.initiative = "1d20+@abilities.wit.total+@attributes.bonuses.initiative.value+(@abilities.wit.total*0.01)";
 
     // create Celestus entry in CONFIG
     CONFIG.CELESTUS = {
