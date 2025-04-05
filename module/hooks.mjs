@@ -842,7 +842,9 @@ export async function renderResourcesUi() {
     const path = './systems/celestus/templates/resources-ui.hbs';
     const msgData = {
         actorId: actor._id,
-        resources: actor.system.resources
+        resources: actor.system.resources,
+        portrait: actor.prototypeToken?.texture.src ?? actor.img,
+        name: actor.prototypeToken?.name ?? actor.name
     }
     let msg = await renderTemplate(path, msgData);
 

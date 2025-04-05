@@ -1633,6 +1633,46 @@ div#ui-resources {
     filter: var(--outline) drop-shadow(1px 1px 5px #000);
 }
 
+.celestus.resources-ui .relative-frame {
+    position: relative;
+    padding-right: 38px;
+}
+
+.celestus.resources-ui .portrait-frame {
+    cursor: pointer;
+    position: absolute;
+    width: calc(78px + 10px);
+    height: 78px;
+    padding: 1.5px;
+    padding-left: calc(1.5px + 10px);
+    left: calc(100% - 75px - 3px - 10px - 3px);
+    top: calc(100% - 75px - 3px);
+    pointer-events: all;
+    border-radius: 0% 50% 50% 0;
+    margin-bottom: -75px;
+    background-image: url(../img/rock-texture-tile.jpg);
+    background-repeat: repeat;
+    background-size: auto;
+    background-attachment: fixed;
+}
+
+.celestus.resources-ui .actor-img {
+    width: 75px;
+    height: 75px;
+    clip-path: circle(calc(75px / 2) at center);
+    border-radius: 37.5px;
+}
+
+.celestus.resources-ui .actor-img-overlay {
+    z-index: 10;
+    width: 75px;
+    height: 75px;
+    border: none;
+    position: absolute;
+    background: url('/systems/celestus/img/token-info-portrait-frame.webp');
+    background-size: contain;
+}
+
 .celestus.resources-ui .resources.grid {
     display: flex;
     padding: 0px;
@@ -1680,14 +1720,16 @@ div#ui-resources {
 
 .celestus.resources-ui .resources-ui-vital {
     padding: 10px;
+    padding-right: calc(10px + 20px);
     background-color: #00000088;
-    border-radius: 10px;
+    border-radius: 10px 0px 10px 10px;
     width: 450px;
     margin: 3px;
     background-image: url(../img/rock-texture-tile.jpg);
     background-repeat: repeat;
     background-size: auto;
     background-attachment: fixed;
+    clip-path: polygon( 90.222% 50%,90.222% 50%,90.285% 43.591%,90.469% 37.391%,90.768% 31.438%,91.174% 25.772%,91.681% 20.433%,92.281% 15.458%,92.969% 10.889%,93.738% 6.763%,94.58% 3.12%,95.489% 0%,0% 0%,0% 100%,95.489% 100%,95.489% 100%,94.58% 96.88%,93.738% 93.237%,92.969% 89.111%,92.281% 84.542%,91.681% 79.567%,91.174% 74.228%,90.768% 68.562%,90.469% 62.609%,90.285% 56.409%,90.222% 50% ); 
 }
 
 .celestus.resources-ui .resource-value {
@@ -1711,6 +1753,11 @@ div#ui-resources {
     background-blend-mode: multiply;
 
     width: 100%;
+}
+
+.celestus.resources-ui .resources-ui-vital :is(.mag_armor,.hp) {
+    border-radius: 5px 0px 5px 0px;
+    filter: drop-shadow(inset 2px 0px 0px #000);
 }
 
 .celestus.resources-ui .resource-input {

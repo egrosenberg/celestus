@@ -732,7 +732,10 @@ Hooks.on("init", () => {
     $(resourceUi).on('click', '.ap-interact', resourceInteractAp);
     $(resourceUi).on('click', '.fp-interact', resourceInteractFp);
     $(resourceUi).on('change', '.resource-input', resourceInteractMisc);
-    $(resourceUi).on('click', '.resource-input',  function () { this.select(); })
+    $(resourceUi).on('click', '.resource-input',  function () { this.select(); });
+    $(resourceUi).on('click', '.portrait-frame', async (ev) => {
+        game.actors.get($(ev.currentTarget).data("actor-id"))?.sheet?.render(true);
+    });
     document.getElementById("ui-bottom").appendChild(resourceUi);
 
     renderResourcesUi();

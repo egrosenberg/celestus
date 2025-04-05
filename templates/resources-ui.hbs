@@ -1,69 +1,77 @@
-<div class="grid action-resources">
-    <div class="resource" data-actor-id="{{actorId}}">
-        {{!-- only renders focus points if max focus points have been manually set --}}
-        {{#if resources.fp.max}}
-        {{!--<label class="resource-label">FP: </label>--}}
-        {{#repeat resources.fp.value}}
-        <a class="fp-interact" data-index="@index">
-            <i class="fa-solid fa-diamond focus-point full large"></i>
-        </a>
-        {{/repeat}}
-        {{#repeat (diff resources.fp.max resources.fp.value)
-        offset=resources.fp.value}}
-        <a class="fp-interact" data-index="@index">
-            <i class="fa-solid fa-diamond focus-point empty large"></i>
-        </a>
-        {{/repeat}}
+<div class="relative-frame">
+    <div class="portrait-frame" data-tooltip="Open Character Sheet" data-actor-id="{{actorId}}">
+        <div class="portrait-capsule">
+            <div class="actor-img-overlay"></div>
+            <img class="actor-img" src="{{portrait}}"/>
+        </div>
+    </div>
+    <div class="grid action-resources">
+        <div class="resource" data-actor-id="{{actorId}}">
+            {{!-- only renders focus points if max focus points have been manually set --}}
+            {{#if resources.fp.max}}
+            {{!--<label class="resource-label">FP: </label>--}}
+            {{#repeat resources.fp.value}}
+            <a class="fp-interact" data-index="@index">
+                <i class="fa-solid fa-diamond focus-point full large"></i>
+            </a>
+            {{/repeat}}
+            {{#repeat (diff resources.fp.max resources.fp.value)
+            offset=resources.fp.value}}
+            <a class="fp-interact" data-index="@index">
+                <i class="fa-solid fa-diamond focus-point empty large"></i>
+            </a>
+            {{/repeat}}
+            {{/if}}
+        </div>
+        <div class="resource" data-actor-id="{{actorId}}">
+            {{!--<label class="resource-label">AP: </label>--}}
+            {{#repeat resources.ap.value}}
+            <a class="ap-interact" data-index="@index">
+                <i class="fa-solid fa-circle action-point full large"></i>
+            </a>
+            {{/repeat}}
+            {{#repeat (diff resources.ap.max resources.ap.value)
+            offset=resources.ap.value}}
+            <a class="ap-interact" data-index="@index">
+                <i class="fa-solid fa-circle action-point empty large"></i>
+            </a>
+            {{/repeat}}
+        </div>
+    </div>
+    <div class="resources-ui-vital">
+        <div class="resources grid">
+            <span class="resource hp" id="ui-hp">
+                <span class="resource-value healing" id="resources.hp" style="flex: 2">
+                    <input class="resource-input" type="number" name="resources.hp.flat" value="{{resources.hp.flat}}"
+                        data-dtype="Number" data-max-value="{{resources.hp.max}}" />
+                    <span class="total">/{{resources.hp.max}}</span>
+                </span>
+            </span>
+        </div>
+        {{#if (or (or resources.phys_armor.value resources.phys_armor.max) (or resources.mag_armor.value
+        resources.mag_armor.max))}}
+        <div class="resources grid">
+            {{#if (or resources.phys_armor.value resources.phys_armor.max)}}
+            <span class="resource" id="ui-physical-armor">
+                <span class="phys_armor resource-value" id="resources.phys_armor">
+                    <input class="resource-input" type="number" name="resources.phys_armor.flat"
+                        data-max-value="{{resources.phys_armor.max}}" value="{{resources.phys_armor.flat}}"
+                        data-dtype="Number" /> <span
+                        class="total">+{{resources.phys_armor.temp}}/{{resources.phys_armor.max}}</span>
+                </span>
+            </span>
+            {{/if}}
+            {{#if (or resources.mag_armor.value resources.mag_armor.max)}}
+            <span class="resource" id="ui-magic-armor">
+                <span class="resource-value mag_armor" id="resources.mag_armor">
+                    <input class="resource-input" type="number" name="resources.mag_armor.flat"
+                        data-max-value="{{resources.mag_armor.max}}" value="{{resources.mag_armor.flat}}"
+                        data-dtype="Number" />
+                    <span class="total">+{{resources.mag_armor.temp}}/{{resources.mag_armor.max}}</span>
+                </span>
+            </span>
+            {{/if}}
+        </div>
         {{/if}}
     </div>
-    <div class="resource" data-actor-id="{{actorId}}">
-        {{!--<label class="resource-label">AP: </label>--}}
-        {{#repeat resources.ap.value}}
-        <a class="ap-interact" data-index="@index">
-            <i class="fa-solid fa-circle action-point full large"></i>
-        </a>
-        {{/repeat}}
-        {{#repeat (diff resources.ap.max resources.ap.value)
-        offset=resources.ap.value}}
-        <a class="ap-interact" data-index="@index">
-            <i class="fa-solid fa-circle action-point empty large"></i>
-        </a>
-        {{/repeat}}
-    </div>
-</div>
-<div class="resources-ui-vital">
-    <div class="resources grid">
-        <span class="resource" id="ui-hp">
-            <span class="resource-value healing" id="resources.hp" style="flex: 2">
-                <input class="resource-input" type="number" name="resources.hp.flat" value="{{resources.hp.flat}}"
-                    data-dtype="Number" data-max-value="{{resources.hp.max}}" />
-                <span class="total">/{{resources.hp.max}}</span>
-            </span>
-        </span>
-    </div>
-    {{#if (or (or resources.phys_armor.value resources.phys_armor.max) (or resources.mag_armor.value
-    resources.mag_armor.max))}}
-    <div class="resources grid">
-        {{#if (or resources.phys_armor.value resources.phys_armor.max)}}
-        <span class="resource" id="ui-physical-armor">
-            <span class="phys_armor resource-value" id="resources.phys_armor">
-                <input class="resource-input" type="number" name="resources.phys_armor.flat"
-                    data-max-value="{{resources.phys_armor.max}}" value="{{resources.phys_armor.flat}}"
-                    data-dtype="Number" /> <span
-                    class="total">+{{resources.phys_armor.temp}}/{{resources.phys_armor.max}}</span>
-            </span>
-        </span>
-        {{/if}}
-        {{#if (or resources.mag_armor.value resources.mag_armor.max)}}
-        <span class="resource" id="ui-magic-armor">
-            <span class="resource-value mag_armor" id="resources.mag_armor">
-                <input class="resource-input" type="number" name="resources.mag_armor.flat"
-                    data-max-value="{{resources.mag_armor.max}}" value="{{resources.mag_armor.flat}}"
-                    data-dtype="Number" />
-                <span class="total">+{{resources.mag_armor.temp}}/{{resources.mag_armor.max}}</span>
-            </span>
-        </span>
-        {{/if}}
-    </div>
-    {{/if}}
 </div>
