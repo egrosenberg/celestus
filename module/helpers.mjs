@@ -1,3 +1,6 @@
+/** awaits a certain time */
+export const delay = ms => new Promise(res => setTimeout(res, ms));
+
 /**
  * Creates a prompt allowing a user to create a damage roll with no actor or sheet
  */

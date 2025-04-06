@@ -1,4 +1,4 @@
-import { applyWeaponStatus, byString, calcMult, executeSkillScript, itemizeDamage, promptDamage, rollWeaponDamage, rotateTokenTowards, updateWithMath } from "./helpers.mjs";
+import { applyWeaponStatus, byString, calcMult, delay, executeSkillScript, itemizeDamage, promptDamage, rollWeaponDamage, rotateTokenTowards, updateWithMath } from "./helpers.mjs";
 
 const RED = '#e29292';
 const GREEN = '#92e298';
@@ -724,7 +724,10 @@ export function renderHotbarOverlay(render = true) {
  */
 export function drawTokenHover(token, hovered) {
     // render token info in hud
-    renderTokenInfo(token, hovered);
+    // only render token info if not boss
+    if (game.celestus.bossId !== token.actor?._id) {
+        renderTokenInfo(token, hovered);
+    }
     if (hovered && token) {
         const tokenCenter = token.getCenterPoint();;
 
@@ -984,6 +987,171 @@ export async function renderTokenInfo(token, hovered, force) {
             $(target).parents(".resource").css("background-color", `#ff9999`);
         }
     });
+}
+
+export async function activateBoss() {
+    const token = canvas.tokens.controlled[0];
+    if (!token) {
+        return ui.notifications.warn("CELESTUS | You must select a token in order to turn it into a boss");
+    }
+    game.socket.emit("system.celestus", {
+        type: "activateBoss",
+        data: { id: token.id }
+    });
+    await renderBossDisplay(token);
+    await showBossDisplay();
+}
+
+export function deactivateBoss() {
+    if (!game.user.isGM) return;
+    hideBossDisplay();
+    game.socket.emit("system.celestus", {
+        type: "deactivateBoss",
+        data: {  }
+    });
+}
+
+
+/**
+ * Renders boss display
+ */
+export async function renderBossDisplay(token) {
+    let ui = document.getElementById("ui-boss-display");
+    ui.dataset.actorId = token.actor._id;
+    game.celestus.bossId = token.actor._id;
+    $("#boss-display-control").addClass("toggle");
+
+    if (!token) return;
+    const effects = token.actor.effects.filter(effect => (effect.isTemporary || effect.system.aura.has) && !effect.disabled);
+    const resources = token.actor.system.resources;
+    // render handlebars template
+    const path = './systems/celestus/templates/boss-display.hbs';
+    const msgData = {
+        name: token.name,
+        creatureType: CONFIG.CELESTUS.creatureTypes[token.actor.system.t],
+        portrait: token.document.texture.src,
+        resources: resources,
+        resourcePercents: {
+            hp: resources.hp.value / resources.hp.max * 100,
+            phys_armor: resources.phys_armor.value / resources.phys_armor.max * 100,
+            mag_armor: resources.mag_armor.value / resources.mag_armor.max * 100,
+        },
+        effects: effects,
+        spacerIndex: Math.floor(effects.length / 2),
+        effectNeedsDummy: effects.length % 2 !== 0,
+    }
+    let msg = await renderTemplate(path, msgData);
+    // set inner html
+    ui.innerHTML = msg;
+
+    // set listeners
+    $(ui).on("click", ".hide-symbol", async (ev) => {
+        if (ui.classList.contains("up")) {
+            // first hide token info
+            $("#ui-token-hover").animate({ top: -220 }, 500, "swing");
+            // unhide this
+            $(ev.currentTarget).css({ top: 25 });
+            $(ev.currentTarget).html('<i class="fa-solid fa-caret-up"></i>');
+            $(ui).animate({ top: 0 }, 500, "swing");
+            ui.classList.remove("up")
+        }
+        else {
+            $(ev.currentTarget).css({ top: 20 });
+            $(ev.currentTarget).html('<i class="fa-solid fa-caret-down"></i>');
+            $(ui).animate({ top: -160 }, 500, "swing");
+            ui.classList.add("up");
+            // then reveal token info
+            $("#ui-token-hover").animate({ top: -20 }, 500, "swing");
+        }
+    });
+}
+
+/**
+ * Updates the resources of the boss display
+ * @param {Actor} actor data of boss
+ */
+export async function updateBossResources(actor) {
+    let ui = document.getElementById("ui-boss-display");
+
+    for (const key of ["phys_armor", "mag_armor", "hp"]) {
+        const current = actor.system.resources[key].value;
+        const max = actor.system.resources[key].max;
+        const percent = Math.round(current / max * 100);
+        // set resource numbers
+        $(ui).find(`#${key}-value`).html(`${current}/${max}`);
+        // animate bars
+        $(ui).find(`#${key} .foreground`).animate({ width: percent + "%" }, 750, "swing");
+        await sleep(250)
+        $(ui).find(`#${key} .trailer`).animate({ width: percent + "%" }, 1750, "swing");
+    }
+
+    const effects = actor.effects.filter(effect => (effect.isTemporary || effect.system.aura.has) && !effect.disabled);
+    const path = 'systems/celestus/templates/boss-display-effects.hbs';
+    const msgData = {
+        effects: effects,
+        spacerIndex: Math.floor(effects.length / 2),
+        effectNeedsDummy: effects.length % 2 !== 0,
+    }
+    let msg = await renderTemplate(path, msgData);
+    const effectList = $(ui).find("#boss-effects");
+    if (effectList.html() !== msg) {
+        effectList.fadeOut(500);
+        await sleep(500);
+        effectList.html(msg);
+        await sleep(250);
+        effectList.fadeIn(500);
+    }
+}
+
+/**
+ * Animates boss display coming onto the screen
+ * @returns {Promise} of when animations are completed
+ */
+export async function showBossDisplay() {
+    // first, hide token info
+    $("#ui-token-hover").animate({ top: -220 }, 1000, "swing");
+    await delay(1000);
+    // animate boss display
+    $("#boss-health-container").animate({ top: 0 }, 1000);
+    await delay(250);
+    $("#boss-phys-container").animate({ top: 0 }, 1000);
+    await delay(250);
+    $("#boss-mag-container").animate({ top: 0 }, 1000);
+    await delay(500);
+    $("#boss-portrait-container").animate({ top: 0 }, 1000);
+    await delay(250);
+    $("#boss-effects").animate({ top: 20 }, 1000);
+    await delay(1500);
+    $("#boss-name").fadeIn(5000);
+    await delay(5000);
+    $("#boss-hide-tab").slideDown(500);
+    return await delay(500);
+}
+
+/**
+ * Animates boss display leaving the screen
+ * @returns {Promise} of when animations are completed
+ */
+export async function hideBossDisplay() {
+    $("#boss-name").slideUp(500);
+    $("#boss-hide-tab").slideUp(500);
+    await delay(500);
+    $("#boss-effects").animate({ top: -200 }, 1000, "swing");
+    await delay(100);
+    $("#boss-portrait-container").animate({ top: -200 }, 1000, "swing");
+    await delay(100);
+    $("#boss-mag-container").animate({ top: -200 }, 1000, "swing");
+    await delay(100);
+    $("#boss-phys-container").animate({ top: -200 }, 1000, "swing");
+    await delay(100);
+    $("#boss-health-container").animate({ top: -200 }, 1000, "swing");
+    await delay(1000);
+    // finally, reveal token info
+    $("#ui-token-hover").animate({ top: -20 }, 1000, "swing");
+    await delay(1000);
+    // remove boss id from session storage
+    game.celestus.bossId = null;
+    $("#boss-display-control").removeClass("toggle");
 }
 
 let teleporting = false;

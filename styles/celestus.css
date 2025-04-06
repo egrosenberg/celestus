@@ -286,6 +286,8 @@
     --color-border-dark-warm: #725151;
     --color-border-dark-cool: #515a72;
 
+    --color-token-ui-dark: #221e1f;
+
     --shadow-bevel: inset 0.1em 0.1em 0.1em 0 rgba(255, 255, 255, 0.3), inset -0.1em -0.1em 0.1em 0 rgba(0, 0, 0, 0.3);
     --shadow-inset: inset 0.2em 0.2em 0.2em 0 rgba(0, 0, 0, 0.3), inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.3);
 
@@ -1863,7 +1865,7 @@ div#ui-resources {
     position: absolute;
     left: 0;
     right: 0;
-    top: -40px;
+    top: -20px;
     margin-inline: auto;
     width: 800px;
     height: 200px;
@@ -2063,6 +2065,351 @@ div#ui-resources {
     text-align: center;
     background-blend-mode: overlay;
     line-height: 20px;
+}
+
+
+/* Boss Bar / Display */
+.celestus.boss-display {
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin-inline: auto;
+    width: 1000px;
+    height: 150px;
+    padding: 0;
+    z-index: calc(var(--z-index-ui) + 10);
+    text-align: center;
+    -webkit-filter: drop-shadow(1px 1px 5px #000);
+    filter: drop-shadow(1px 1px 5px #000);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.celestus.boss-display .inner-relative {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.celestus.boss-display .inner-absolute {
+    position: absolute;
+    top: -200px;
+}
+
+.celestus.boss-display .name-container {
+    pointer-events: none;
+    position: absolute;
+    top: 131px;
+    width: 100%;
+    text-align: center;
+    font-family: var(--font-h1);
+    font-size: var(--font-size-32);
+    color: white;
+    text-shadow: var(--text-outline-1);
+    filter: drop-shadow(0 0 5px #000);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.celestus.boss-display .name-tab {
+    width: auto;
+    height: auto;
+    position: relative;
+}
+
+.celestus.boss-display .name-tab .hide-button {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: -10;
+    left: 0;
+    background-color: var(--color-token-ui-dark);
+    z-index: -1;
+    border-radius: 0px 0px 5px 5px;
+    border: thin solid gold;
+    border-top: none;
+}
+
+.celestus.boss-display .name-tab .hide-button .hide-symbol {
+    pointer-events: all;
+    cursor: pointer;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    height: 20px;
+    color: var(--color-dark-5);
+    top: 25px;
+    font-size: 30px;
+}
+
+.celestus.boss-display .name-tab .hide-button .hide-symbol:hover {
+    color: gold;
+    text-shadow: 0 0 5px goldenrod;
+}
+
+.celestus.boss-display .name {
+    padding: 0px 10px 15px 10px;
+}
+
+.celestus.boss-display .portrait-frame {
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    padding: 0px;
+    pointer-events: all;
+    left: calc(499px - (75px / 2));
+    top: calc(60px - (75px / 2));
+    filter: drop-shadow(0 0 2px var(--color-token-ui-dark));
+}
+
+.celestus.boss-display .actor-img {
+    width: 75px;
+    height: 75px;
+    clip-path: circle(50% at center);
+}
+
+.celestus.boss-display .actor-img-overlay {
+    z-index: 10;
+    width: 75px;
+    height: 75px;
+    border: none;
+    position: absolute;
+    background: url(../img/boss-display/portrait-frame.webp);
+    background-size: contain;
+}
+
+.celestus.boss-display .resource-wing {
+    position: absolute;
+    background-size: auto;
+    background-repeat: none;
+    background-position: center center;
+
+}
+
+.celestus.boss-display .resource-wing.phys-armor {
+    background-image: url(../img/boss-display/phys-armor-wing.webp);
+    width: 370px;
+    height: 44px;
+    left: calc(289px - (370px / 2));
+    top: calc(74px - (44px / 2));
+}
+
+.celestus.boss-display .resource-wing.mag-armor {
+    background-image: url(../img/boss-display/mag-armor-wing.webp);
+    width: 370px;
+    height: 44px;
+    left: calc(710px - (370px / 2));
+    top: calc(74px - (44px / 2));
+}
+
+.celestus.boss-display .resource-wing.health {
+    background-image: url(../img/boss-display/health-wings.webp);
+    width: 874px;
+    height: 44px;
+    left: calc(500px - (874px / 2));
+    top: calc(109px - (44px / 2));
+}
+
+.celestus.boss-display .digits {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 15;
+    color: white;
+    text-shadow: var(--text-outline-1);
+    font-weight: bold;
+    font-size: var(--font-size-14);
+    padding-top: calc(22px - (var(--font-size-14) / 2));
+}
+
+.celestus.boss-display .digits#phys_armor-value {
+    width: 370px;
+    height: 44px;
+    left: calc(289px - (370px / 2));
+    top: calc(74px - (44px / 2));
+}
+
+.celestus.boss-display .digits#mag_armor-value {
+    width: 370px;
+    height: 44px;
+    left: calc(710px - (370px / 2));
+    top: calc(74px - (44px / 2));
+}
+
+.celestus.boss-display .digits#hp-value {
+    width: 874px;
+    height: 44px;
+    left: calc(500px - (874px / 2));
+    top: calc(109px - (44px / 2));
+}
+
+.celestus.boss-display .resource-container {
+    position: absolute;
+    height: 20px;
+    filter: drop-shadow(0px 0px 1px black);
+    z-index: 1;
+}
+
+.celestus.boss-display .resource-container .background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.celestus.boss-display .resource-container .trailer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+}
+
+.celestus.boss-display .resource-container .foreground {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
+
+.celestus.boss-display .resource-container .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 13;
+    background-image: url(../img/boss-display/Grunge_D.webp);
+    background-repeat: repeat;
+    opacity: 15%;
+    background-size: 100px;
+}
+.celestus.boss-display .resource-container#hp {
+    width: 854.2px;
+    height: 20px;
+    clip-path: polygon( 0.468% 100%,0.468% 100%,0.425% 97.052%,0.376% 92.912%,0.321% 87.441%,0.265% 80.496%,0.208% 71.938%,0.153% 61.624%,0.103% 49.415%,0.059% 35.168%,0.024% 18.744%,0% 0%,47.003% 0%,47.003% 0%,47.277% 7.004%,47.559% 13.308%,47.847% 18.905%,48.141% 23.784%,48.44% 27.938%,48.744% 31.356%,49.053% 34.031%,49.366% 35.952%,49.682% 37.112%,50% 37.5%,50% 37.5%,50.319% 37.112%,50.635% 35.952%,50.949% 34.031%,51.259% 31.356%,51.564% 27.938%,51.864% 23.784%,52.159% 18.905%,52.446% 13.308%,52.726% 7.004%,52.997% 0%,100% 0%,100% 0%,99.976% 18.744%,99.941% 35.168%,99.897% 49.415%,99.847% 61.624%,99.792% 71.938%,99.735% 80.496%,99.679% 87.441%,99.624% 92.912%,99.575% 97.052%,99.532% 100%,0.468% 100% );
+    left: calc(500px - (854.2px / 2));
+    top: calc(111.2px - 10px);
+}
+
+.celestus.boss-display .resource-container#hp .trailer {
+    background-color: var(--color-piercing-bg);
+}
+
+.celestus.boss-display .resource-container#hp .foreground {
+    background-color: var(--color-healing-bg);
+}
+
+.celestus.boss-display .resource-container#hp .digits {
+    top: 5px;
+}
+
+.celestus.boss-display .resource-container#phys_armor {
+    width: 344.5px;
+    height: 20px;
+    clip-path: polygon( 1.161% 100%,1.161% 100%,1.055% 97.052%,0.932% 92.912%,0.797% 87.441%,0.656% 80.496%,0.515% 71.938%,0.379% 61.624%,0.254% 49.415%,0.146% 35.168%,0.059% 18.744%,0% 0%,98.026% 0%,98.026% 0%,98.102% 10.617%,98.206% 21.152%,98.339% 31.586%,98.499% 41.896%,98.687% 52.063%,98.9% 62.064%,99.138% 71.88%,99.402% 81.488%,99.689% 90.869%,100% 100%,1.161% 100% );
+    left: calc(287.3px - (344.5px / 2));
+    top: calc(76.2px - 10px);
+}
+
+.celestus.boss-display .resource-container#phys_armor .trailer {
+    background-color: var(--color-phys_armor-dark-bg);
+}
+
+.celestus.boss-display .resource-container#phys_armor .foreground {
+    background-color: var(--color-phys_armor-bg);
+}
+
+.celestus.boss-display .resource-container#mag_armor {
+    width: 344.5px;
+    height: 20px;
+    clip-path: polygon( 0% 100%,0% 100%,0.318% 90.869%,0.609% 81.488%,0.874% 71.88%,1.113% 62.064%,1.324% 52.063%,1.509% 41.896%,1.666% 31.586%,1.796% 21.152%,1.899% 10.617%,1.974% 0%,100% 0%,100% 0%,99.941% 18.744%,99.854% 35.168%,99.746% 49.415%,99.621% 61.624%,99.485% 71.938%,99.344% 80.496%,99.203% 87.441%,99.068% 92.912%,98.945% 97.052%,98.839% 100%,0% 100% ); 
+    left: calc(712.6px - (344.5px / 2));
+    top: calc(76.2px - 10px);
+}
+
+.celestus.boss-display .resource-container#mag_armor .trailer {
+    background-color: var(--color-mag_armor-dark-bg);
+}
+
+.celestus.boss-display .resource-container#mag_armor .foreground {
+    background-color: var(--color-mag_armor-bg);
+}
+
+
+.celestus.boss-display .effects {
+    position: absolute;
+    list-style-type: none;
+    padding: 0px;
+    left: 122px;
+    top: -200px;
+    width: calc(100% - (122px) * 2);
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    z-index: 40;
+    justify-content: center;
+}
+
+.celestus.boss-display .effects .spacer {
+    opacity: 0;
+    flex: 0 0 75px;
+}
+
+.celestus.boss-display .effects .effect.dummy {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.celestus.boss-display .effect {
+    border: 1px black solid;
+    color: black;
+    font-weight: bold;
+    font-size: var(--font-size-16);
+    border-radius: 5px;
+    background-color: rgba(43, 41, 37, 0.5);
+}
+
+.celestus.boss-display .effect-icon {
+    width: 25px;
+    height: 25px;
+    flex: 0;
+    border: none;
+    background: none;
+    margin-bottom: 0px;
+}
+
+#tooltip.boss-effect-tooltip {
+    display: flex;
+    flex-direction: row;
+    width: 150px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    text-shadow: var(--text-outline-1);
+}
+
+#tooltip.boss-effect-tooltip .effect-duration {
+    width: 20px;
+    height: 20px;
+    background-image: url(../img/boss-display/effect-stopwatch.webp);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    background-blend-mode: overlay;
+    line-height: 20px;
+    text-shadow: 0 0 5px #000;
 }
 
 /* Generic Stone UI elements */

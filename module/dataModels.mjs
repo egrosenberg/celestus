@@ -1,4 +1,5 @@
 import { calcMult, calcWeaponDamage, canvasPopupText } from "./helpers.mjs";
+import { updateBossResources } from "./hooks.mjs";
 
 const {
     HTMLField, SchemaField, NumberField, StringField, FilePathField, ArrayField, BooleanField, ObjectField

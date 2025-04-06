@@ -1,8 +1,16 @@
+import { hideBossDisplay, renderBossDisplay, showBossDisplay } from "./hooks.mjs";
+
 export function registerSocketHandlers() {
     game.socket.on("system.celestus", ({type, data}) => {
       switch (type) {
         case "canvasPopupText":
             canvasPopup(data);
+          break;
+        case "activateBoss":
+          activateBoss(data);
+          break;
+        case "deactivateBoss":
+          deactivateBoss(data);
           break;
         default:
           throw new Error("Unknown type");
@@ -44,4 +52,20 @@ function canvasPopup({position, text, distance, color}) {
         jitter: 0.25,
         fill: color
     });
+}
+/**
+ * Renders boss display
+ * @param {String} id of ttoken to turn into boss 
+ */
+async function activateBoss({id}) {
+  const token = canvas.tokens.get(id);
+  if (!token) return console.error(`CELESTUS | Unable to find token with ID ${id} in canvas`);
+  await renderBossDisplay(token);
+  await showBossDisplay();
+}
+/**
+ * Hides boss display
+ */
+async function deactivateBoss() {
+  await hideBossDisplay();
 }

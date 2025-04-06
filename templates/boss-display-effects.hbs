@@ -1,0 +1,19 @@
+{{#if effectNeedsDummy}}
+<li class="effect flexrow dummy">
+    <img class="effect-icon" />
+</li>
+{{/if}}
+{{#each effects as |effect|}}
+{{#if (eq @index ../spacerIndex)}} <li class="spacer"></li> {{/if}}
+<li class="effect flexrow">
+    <img class="effect-icon" src="{{effect.img}}" data-tooltip-class="boss-effect-tooltip" data-tooltip="
+                    <span>
+                        {{effect.name}}
+                    </span>
+                    {{#if effect.isTemporary}}
+                    <span class='effect-duration'>
+                        {{effect.duration.rounds}}
+                    </span>
+                    {{/if}}" />
+</li>
+{{/each}}

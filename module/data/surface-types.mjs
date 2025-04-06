@@ -195,7 +195,7 @@ export const surfaceTypes = {
             water: { mode: "combine", makes: "electric_water", corrupts: true },
             blood: { mode: "combine", makes: "electric_blood", corrupts: true },
         },
-        arrowheads: { name: "BLoodied Arrowheads", damage: "piercing" },
+        arrowheads: { name: "Bloodied Arrowheads", damage: "piercing" },
         texture: "systems/celestus/assets/CC/Screaming%20Brain%20Studios/Elements-Modified/Lightning-blood-25-100.webp"
     },
     frozen_blood: {

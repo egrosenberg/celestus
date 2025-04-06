@@ -1,5 +1,5 @@
 import { calcMult, canvasPopupText, findSpreadStat } from "./helpers.mjs";
-import { renderHotbarOverlay, renderResourcesUi, renderTokenInfo } from "./hooks.mjs";
+import { renderHotbarOverlay, renderResourcesUi, renderTokenInfo, updateBossResources } from "./hooks.mjs";
 
 const BASE_AS = 10; // base ability score value
 
@@ -24,6 +24,7 @@ export class CelestusActor extends Actor {
         // offset resource values
         const resources = changed.system?.resources;
         if (resources) {
+            options.resourceChange = {}
             for (const key of ["hp", "phys_armor", "mag_armor"]) {
                 const val = resources[key];
                 if (!val) continue;
@@ -42,6 +43,7 @@ export class CelestusActor extends Actor {
                         }
                     }
                     const diff = val.flat - old;
+                    options.resourceChange[key] = diff;
                     if (diff !== 0) {
                         const str = (diff > 0) ? "+" + diff.toString() : diff.toString();
                         canvasPopupText(this, str, CONFIG.CELESTUS.damageCol[key][diff > 0 ? "gain" : "lose"], broadcast);
@@ -122,6 +124,10 @@ export class CelestusActor extends Actor {
         if (document.getElementById("ui-token-hover").dataset.actorId === this.uuid) {
             renderTokenInfo(this.getActiveTokens(true)[0], null, true);
         }
+        // update boss display if applicable
+        if (this._id === game.celestus.bossId) {
+            updateBossResources(this);
+        }
     }
 
     /** @override */
@@ -129,6 +135,10 @@ export class CelestusActor extends Actor {
         super._onCreateDescendantDocuments(parent, collection, documents, data, options, userId);
         if (document.getElementById("ui-token-hover").dataset.actorId === this.uuid) {
             renderTokenInfo(this.getActiveTokens(true)[0], null, true);
+        }
+        // update boss display if applicable
+        if (this._id === game.celestus.bossId) {
+            updateBossResources(this);
         }
     }
 
@@ -138,6 +148,10 @@ export class CelestusActor extends Actor {
         if (document.getElementById("ui-token-hover").dataset.actorId === this.uuid) {
             renderTokenInfo(this.getActiveTokens(true)[0], null, true);
         }
+        // update boss display if applicable
+        if (this._id === game.celestus.bossId) {
+            updateBossResources(this);
+        }
     }
 
     /** @override */
@@ -145,6 +159,10 @@ export class CelestusActor extends Actor {
         super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
         if (document.getElementById("ui-token-hover").dataset.actorId === this.uuid) {
             renderTokenInfo(this.getActiveTokens(true)[0], null, true);
+        }
+        // update boss display if applicable
+        if (this._id === game.celestus.bossId) {
+            updateBossResources(this);
         }
     }
 
@@ -420,7 +438,7 @@ export class CelestusActor extends Actor {
             }
         }
 
-        const healed = (damage > 0 && type === "healing") || 
+        const healed = (damage > 0 && type === "healing") ||
             (damage < 0 && CONFIG.CELESTUS.damageTypes[type].style !== "healing");
         // if healed, apply renewing armor
         if (!options.reflected && healed && this.getFlag("celestus", "renewing_armor")) {

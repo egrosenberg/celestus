@@ -514,5 +514,12 @@ export const scripts = {
                 await origin.createEmbeddedDocuments("ActiveEffect", [data])
             }
         }).render({ force: true });
+    },
+    /**
+     * Give temp phys and mag armor equal to max
+     */
+    unshakeable: async function (origin) {
+        await origin.update({ "system.resources.phys_armor.temp": origin.system.resources.phys_armor.max});
+        await origin.update({ "system.resources.mag_armor.temp": origin.system.resources.mag_armor.max});
     }
 }

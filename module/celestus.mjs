@@ -1,6 +1,6 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData, ConsumableItem } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc, teleportTokenStart, populateHotbar, applyDamageComponent, renderTokenInfo } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc, teleportTokenStart, populateHotbar, applyDamageComponent, renderTokenInfo, renderBossDisplay, showBossDisplay, hideBossDisplay, updateBossResources, activateBoss, deactivateBoss } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CelestusMeasuredTemplateConfig, CharacterSheet } from "./sheets.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
@@ -49,6 +49,8 @@ const preloadHandlebarsTemplates = async function () {
         'systems/celestus/templates/rolls/item-parts/skill-description.hbs',
         'systems/celestus/templates/rolls/item-parts/weapon-description.hbs',
         'systems/celestus/templates/rolls/item-parts/consumable-description.hbs',
+        // boss display
+        'systems/celestus/templates/boss-display-effects.hbs',
     ]);
 };
 
@@ -81,6 +83,12 @@ Hooks.on("init", () => {
         },
         improviseDamage,
         pointers: [],
+        // current boss actorid
+        bossId: null,
+        showBossDisplay,
+        hideBossDisplay,
+        renderBossDisplay,
+        updateBossResources
     }
     // override initiative rolls
     game.system.initiative = "1d20+@abilities.wit.total+@attributes.bonuses.initiative.value+(@abilities.wit.total*0.01)";
@@ -755,6 +763,13 @@ Hooks.on("init", () => {
         tokenInfo.dataset.persist = false;
     });
 
+    // create boss display ui
+    let bossInfo = document.createElement("div");
+    bossInfo.id = "ui-boss-display";
+    bossInfo.classList.add("celestus");
+    bossInfo.classList.add("boss-display");
+    document.getElementById("interface").appendChild(bossInfo);
+    renderBossDisplay();
 
     // register keybindings
     game.keybindings.register("celestus", "showNotification", {
@@ -871,8 +886,11 @@ Hooks.on("ready", () => {
     $(document).on("mousedown", (ev) => {
         if (ev.button === 1 && CONFIG.CELESTUS.hoveredToken) {
             let ui = document.getElementById("ui-token-hover")
-            renderTokenInfo(CONFIG.CELESTUS.hoveredToken, true, true);
-            ui.dataset.persist = "true";
+            // only render token info if not boss
+            if (game.celestus.bossId !== CONFIG.CELESTUS.hoveredToken.actor?._id) {
+                renderTokenInfo(CONFIG.CELESTUS.hoveredToken, true, true);
+                ui.dataset.persist = "true";
+            }
         }
     })
 });
@@ -975,6 +993,23 @@ Hooks.on("renderSceneControls", (application, html) => {
     refreshTokenButton.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i>';
     $(html).on("click", "#refresh-selected-tokens", game.celestus.refreshSelected);
     $(html).find("#tools-panel-token").append(refreshTokenButton);
+    if (game.user.isGM) {
+        let bossDisplayButton = document.createElement("li");
+        bossDisplayButton.classList.add("control-tool");
+        if (game.celestus.bossId) bossDisplayButton.classList.add("toggle");
+        bossDisplayButton.id = "boss-display-control";
+        bossDisplayButton.dataset.tooltip = "Activate selected token as boss / Deactivate boss";
+        bossDisplayButton.innerHTML = '<i class="fa-solid fa-dragon"></i>';
+        $(html).on("click", "#boss-display-control", () => {
+            if (game.celestus.bossId) {
+                deactivateBoss();
+            }
+            else {
+                activateBoss();
+            }
+        });
+        $(html).find("#tools-panel-token").append(bossDisplayButton);
+    }
 });
 
 // hook damage preview on token select

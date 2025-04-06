@@ -1,0 +1,79 @@
+<div class="inner-relative">
+    <div class="inner-absolute" id="boss-portrait-container">
+        <div class="inner-relative">
+            <div class="portrait-frame" data-tooltip="{{name}}" data-actor-id="{{actorId}}">
+                <div class="inner-relative">
+                    <div class="actor-img-overlay"></div>
+                    <img class="actor-img" src="{{portrait}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="name-container">
+        <div class="name-tab">
+            <div class="hide-button" id="boss-hide-tab">
+                <div class="hide-symbol" data-tooltip="Click to hide / show.">
+                    <i class="fa-solid fa-caret-up"></i>
+                </div>
+            </div>
+            <div class="name" id="boss-name" style="display:none;">Death Priest</div>
+        </div>
+    </div>
+    {{!-- Physical Armor Wing --}}
+    {{#if (or resources.phys_armor.max resources.phys_armor.value)}}
+    <div class="inner-absolute" id="boss-phys-container">
+        <div class="inner-relative">
+            <div class="digits" id="phys_armor-value">
+                {{resources.phys_armor.value}}/{{resources.phys_armor.max}}
+            </div>
+            <div class="resource-wing phys-armor"></div>
+            <div class="resource-container" id="phys_armor">
+                <div class="inner-relative">
+                    <div class="background"></div>
+                    <div class="trailer" style="width: {{resourcePercents.phys_armor}}%"></div>
+                    <div class="foreground" style="width: {{resourcePercents.phys_armor}}%"></div>
+                    <div class="overlay"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+    {{!-- Magic Armor Wing --}}
+    {{#if (or resources.mag_armor.max resources.mag_armor.value)}}
+    <div class="inner-absolute" id="boss-mag-container">
+        <div class="inner-relative">
+            <div class="digits" id="mag_armor-value">
+                {{resources.mag_armor.value}}/{{resources.mag_armor.max}}
+            </div>
+            <div class="resource-wing mag-armor"></div>
+            <div class="resource-container" id="mag_armor">
+                <div class="inner-relative">
+                    <div class="background"></div>
+                    <div class="trailer" style="width: {{resourcePercents.mag_armor}}%"></div>
+                    <div class="foreground" style="width: {{resourcePercents.mag_armor}}%"></div>
+                    <div class="overlay"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+    <div class="inner-absolute" id="boss-health-container">
+        <div class="inner-relative">
+            <div class="digits" id="hp-value">
+                {{resources.hp.flat}}/{{resources.hp.max}}
+            </div>
+            <div class="resource-wing health"></div>
+            <div class="resource-container" id="hp">
+                <div class="inner-relative">
+                    <div class="background"></div>
+                    <div class="trailer" style="width: {{resourcePercents.hp}}%"></div>
+                    <div class="foreground" style="width: {{resourcePercents.hp}}%"></div>
+                    <div class="overlay"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="effects" id="boss-effects">
+        {{> 'systems/celestus/templates/boss-display-effects.hbs'}}
+    </ul>
+</div>
