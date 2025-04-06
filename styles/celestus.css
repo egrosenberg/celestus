@@ -2262,7 +2262,8 @@ div#ui-resources {
     position: absolute;
     left: 0;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: black;
+    opacity: 25%;
 }
 
 .celestus.boss-display .resource-container .trailer {
@@ -2309,6 +2310,10 @@ div#ui-resources {
     background-color: var(--color-healing-bg);
 }
 
+.celestus.boss-display .resource-container#hp .background {
+    background-color: var(--color-healing-dark-bg);
+}
+
 .celestus.boss-display .resource-container#hp .digits {
     top: 5px;
 }
@@ -2329,6 +2334,10 @@ div#ui-resources {
     background-color: var(--color-phys_armor-bg);
 }
 
+.celestus.boss-display .resource-container#phys_armor .background {
+    background-color: var(--color-phys_armor-dark-bg);
+}
+
 .celestus.boss-display .resource-container#mag_armor {
     width: 344.5px;
     height: 20px;
@@ -2345,6 +2354,9 @@ div#ui-resources {
     background-color: var(--color-mag_armor-bg);
 }
 
+.celestus.boss-display .resource-container#mag_armor .background {
+    background-color: var(--color-mag_armor-dark-bg);
+}
 
 .celestus.boss-display .effects {
     position: absolute;
