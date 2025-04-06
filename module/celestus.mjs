@@ -230,10 +230,10 @@ Hooks.on("init", () => {
         weaponBonusDmgDie: 4,
         equipApCost: 1,
         maxFP: [
-            [[1,2,3,4,5,6,7,8], 0],
-            [[9,10], 1],
-            [[11,12], 2],
-            [[13,14,15,16,17,18,19,20], 3],
+            [[1, 2, 3, 4, 5, 6, 7, 8], 0],
+            [[9, 10], 1],
+            [[11, 12], 2],
+            [[13, 14, 15, 16, 17, 18, 19, 20], 3],
         ],
         inspiredAttributes: ["str", "dex", "con", "int"],
         enlightenedBonus: { // bonus from enlightened flag
@@ -740,7 +740,7 @@ Hooks.on("init", () => {
     $(resourceUi).on('click', '.ap-interact', resourceInteractAp);
     $(resourceUi).on('click', '.fp-interact', resourceInteractFp);
     $(resourceUi).on('change', '.resource-input', resourceInteractMisc);
-    $(resourceUi).on('click', '.resource-input',  function () { this.select(); });
+    $(resourceUi).on('click', '.resource-input', function () { this.select(); });
     $(resourceUi).on('click', '.portrait-frame', async (ev) => {
         game.actors.get($(ev.currentTarget).data("actor-id"))?.sheet?.render(true);
     });
@@ -769,7 +769,28 @@ Hooks.on("init", () => {
     bossInfo.classList.add("celestus");
     bossInfo.classList.add("boss-display");
     document.getElementById("interface").appendChild(bossInfo);
-    renderBossDisplay();
+    // set listeners
+    $(bossInfo).on("click", ".hide-symbol", async (ev) => {
+        console.log("test");
+        ev.preventDefault();
+        if (bossInfo.classList.contains("up")) {
+            // first hide token info
+            $("#ui-token-hover").animate({ top: -220 }, 500, "swing");
+            // unhide this
+            $(ev.currentTarget).css({ top: 25 });
+            $(ev.currentTarget).html('<i class="fa-solid fa-caret-up"></i>');
+            $(bossInfo).animate({ top: 0 }, 500, "swing");
+            bossInfo.classList.remove("up")
+        }
+        else {
+            $(ev.currentTarget).css({ top: 20 });
+            $(ev.currentTarget).html('<i class="fa-solid fa-caret-down"></i>');
+            $(bossInfo).animate({ top: -160 }, 500, "swing");
+            bossInfo.classList.add("up");
+            // then reveal token info
+            $("#ui-token-hover").animate({ top: -20 }, 500, "swing");
+        }
+    });
 
     // register keybindings
     game.keybindings.register("celestus", "showNotification", {
@@ -998,7 +1019,7 @@ Hooks.on("renderSceneControls", (application, html) => {
         bossDisplayButton.classList.add("control-tool");
         if (game.celestus.bossId) bossDisplayButton.classList.add("toggle");
         bossDisplayButton.id = "boss-display-control";
-        bossDisplayButton.dataset.tooltip = "Activate selected token as boss / Deactivate boss";
+        bossDisplayButton.dataset.tooltip = "Activate / Deactivate boss";
         bossDisplayButton.innerHTML = '<i class="fa-solid fa-dragon"></i>';
         $(html).on("click", "#boss-display-control", () => {
             if (game.celestus.bossId) {

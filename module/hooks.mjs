@@ -1043,27 +1043,6 @@ export async function renderBossDisplay(token) {
     let msg = await renderTemplate(path, msgData);
     // set inner html
     ui.innerHTML = msg;
-
-    // set listeners
-    $(ui).on("click", ".hide-symbol", async (ev) => {
-        if (ui.classList.contains("up")) {
-            // first hide token info
-            $("#ui-token-hover").animate({ top: -220 }, 500, "swing");
-            // unhide this
-            $(ev.currentTarget).css({ top: 25 });
-            $(ev.currentTarget).html('<i class="fa-solid fa-caret-up"></i>');
-            $(ui).animate({ top: 0 }, 500, "swing");
-            ui.classList.remove("up")
-        }
-        else {
-            $(ev.currentTarget).css({ top: 20 });
-            $(ev.currentTarget).html('<i class="fa-solid fa-caret-down"></i>');
-            $(ui).animate({ top: -160 }, 500, "swing");
-            ui.classList.add("up");
-            // then reveal token info
-            $("#ui-token-hover").animate({ top: -20 }, 500, "swing");
-        }
-    });
 }
 
 /**
