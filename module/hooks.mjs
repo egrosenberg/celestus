@@ -532,7 +532,7 @@ export async function populateHotbar(actor) {
  * @param {MouseEvent} event: left-click event on the effect control
  * @param {Actor|Item} owner: document which manages this effect
  */
-export function onManageActiveEffect(event, owner) {
+export async function onManageActiveEffect(event, owner) {
     event.preventDefault();
     const a = event.currentTarget;
     const li = a.closest('li');
@@ -555,6 +555,12 @@ export function onManageActiveEffect(event, owner) {
         case 'edit':
             return effect.sheet.render(true);
         case 'delete':
+            const proceed = await foundry.applications.api.DialogV2.confirm({
+                content: "Are you sure you want to delete this effect? This action cannot be undone.",
+                rejectClose: false,
+                modal: true
+            });
+            if (!proceed) return;
             return effect.delete();
         case 'toggle':
             return effect.update({ disabled: !effect.disabled });
