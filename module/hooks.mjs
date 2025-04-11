@@ -302,15 +302,15 @@ export async function addChatButtons(msg, html, options) {
         // change color based on hit, miss, or crit
         if (total < msg.getFlag("celestus", "hitThreshold")) {
             html.find(".dice-total").css('background-color', RED);
-            html.find(".dice-total").html(total + ' <i class="fa-solid fa-xmark"></i>');
+            html.find(".dice-total").html(total + ' <i class="fa-solid fa-xmark attack-indicator"></i>');
         }
         else if (total > msg.getFlag("celestus", "critThreshold")) {
             html.find(".dice-total").css('background-color', BLUE);
-            html.find(".dice-total").html(total + ' <i class="fa-solid fa-star"></i>');
+            html.find(".dice-total").html(total + ' <i class="fa-solid fa-star attack-indicator"></i>');
         }
         else {
             html.find(".dice-total").css('background-color', GREEN);
-            html.find(".dice-total").html(total + ' <i class="fa-solid fa-check"></i>');
+            html.find(".dice-total").html(total + ' <i class="fa-solid fa-check attack-indicator"></i>');
         }
         html.find(".message-content").html(html.find(".message-content").html() + `
             <div class="attack-description">
