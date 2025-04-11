@@ -23,6 +23,7 @@
     ],
     "styles": [
         "styles/celestus.css",
+        "styles/glyphs.css",
         "styles/slimselect.css"
     ],
     "packs": [ {
