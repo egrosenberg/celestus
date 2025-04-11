@@ -1477,6 +1477,10 @@ input[type="color"]::-webkit-color-swatch {
     margin-bottom: 0.6em;
 }
 
+.dice-total i {
+    opacity: 60%;
+}
+
 .roll-tag {
     display: inline-block;
     background-color: var(--color-warm-3);
@@ -1599,9 +1603,10 @@ input[type="color"]::-webkit-color-swatch {
     box-shadow: 0px 0px 3px black;
 }
 
-.dice-formula {
-    overflow: scroll;
+.dice-roll .dice-formula {
+    overflow-y: auto;
     max-height: 60px;
+    line-height: 20px;
 }
 
 /* Macro Bar */

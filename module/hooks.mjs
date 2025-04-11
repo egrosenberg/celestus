@@ -52,13 +52,14 @@ export async function rollAttack(e) {
         // threshold needed to roll to count as a hit
         const hitThresh = 100 * (evasion + (1 - accuracy));
 
-        let r = new Roll("1d100", {}, { flavor: `${actor.name} attacking ${tActor.name}` });
+        let r = new Roll("1d100", {});
         r.toMessage({
             speaker: { alias: actor.name },
             flags: {
                 "celestus": {
                     hitThreshold: hitThresh,
                     critThreshold: critThresh,
+                    targetName: target.name
                 }
             },
             'system.isAttack': true,
@@ -301,13 +302,25 @@ export async function addChatButtons(msg, html, options) {
         // change color based on hit, miss, or crit
         if (total < msg.getFlag("celestus", "hitThreshold")) {
             html.find(".dice-total").css('background-color', RED);
+            html.find(".dice-total").html(total + ' <i class="fa-solid fa-xmark"></i>');
         }
         else if (total > msg.getFlag("celestus", "critThreshold")) {
             html.find(".dice-total").css('background-color', BLUE);
+            html.find(".dice-total").html(total + ' <i class="fa-solid fa-star"></i>');
         }
         else {
             html.find(".dice-total").css('background-color', GREEN);
+            html.find(".dice-total").html(total + ' <i class="fa-solid fa-check"></i>');
         }
+        html.find(".message-content").html(html.find(".message-content").html() + `
+            <div class="attack-description">
+                Attacking ${msg.getFlag("celestus", "targetName")}
+            </div>
+            <div class="attack-thresholds">
+                <b>Hit:</b> ${msg.getFlag("celestus", "hitThreshold").toFixed(0)},
+                <b>Crit:</b> ${msg.getFlag("celestus", "critThreshold").toFixed(0)}
+            </div>
+        `);
     }
     // if message is a skill usage, add attack / damage buttons for owners
     if (msg.system.isSkill) {
