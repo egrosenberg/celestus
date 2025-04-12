@@ -788,8 +788,7 @@ export class CelestusActor extends Actor {
                     // base damage roll corresponding to actor level
                     const base = CONFIG.CELESTUS.baseDamage.formula[level].replace("none", type);
 
-                    const mult = calcMult(this, type, "0", part.value, false, 0);
-
+                    const mult = calcMult(origin, type, "0", part.value, false, 0);
                     if (first) first = false;
                     else effectsDamageFormula += " + "
                     effectsDamageFormula += `floor((${base}) * ${mult})[${type}]`;

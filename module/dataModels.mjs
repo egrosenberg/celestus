@@ -1829,6 +1829,45 @@ export class EffectData extends foundry.abstract.TypeDataModel {
             return false;
         }
         canvasPopupText(actor, `+${data.name}`, "#fff", broadcast);
+        // if has parent and parent is combatant in the middle of turn, roll damage
+        if (this.parent.parent?.documentName === "Actor") {
+            // get current active combatant if exists
+            const active = canvas.scene?.tokens.get(game.combat.current?.tokenId);
+            if (active && active.actorId === this.parent.parent.id) {
+                // roll damage
+                const effect = this.parent;
+                let effectsDamageFormula = "";
+                let first = true;
+                let dType;
+                for (let part of effect.system.damage) {
+                    const origin = await fromUuid(effect.origin);
+                    const level = origin ? origin.system.attributes.level : this.parent.parent.system.attributes.level;
+                    // damage type
+                    const type = part.type;
+
+                    // base damage roll corresponding to actor level
+                    const base = CONFIG.CELESTUS.baseDamage.formula[level].replace("none", type);
+
+                    const mult = calcMult(origin, type, "0", part.value, false, 0);
+
+                    if (first) first = false;
+                    else effectsDamageFormula += " + "
+                    effectsDamageFormula += `floor((${base}) * ${mult})[${type}]`;
+
+                    if (!dType) dType = type;
+                    else dType = "Mixed";
+                }
+                if (effectsDamageFormula) {
+                    const r = new Roll(effectsDamageFormula)
+                    r.toMessage({
+                        speaker: { alias: `${this.parent.parent.name} - Status Damage` },
+                        'system.isDamage': true,
+                        'system.damageType': dType,
+                        'system.actorID': this.parent.parent.uuid,
+                    });
+                }
+            }
+        }
         return pre;
     }
 }
