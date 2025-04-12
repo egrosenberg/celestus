@@ -556,13 +556,14 @@ export async function onManageActiveEffect(event, owner) {
         case 'create':
             return owner.createEmbeddedDocuments('ActiveEffect', [
                 {
-                    name: "new effect",
-                    img: 'icons/svg/aura.svg',
+                    name: owner.name,
+                    img: owner.img,
                     origin: owner.uuid,
                     'duration.rounds':
                         li.dataset.effectType === 'temporary' ? 1 : undefined,
                     disabled: li.dataset.effectType === 'inactive',
                     type: "status",
+                    transfer: false,
                 },
             ]);
         case 'edit':
