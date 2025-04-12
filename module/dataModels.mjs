@@ -909,6 +909,7 @@ export class SkillData extends foundry.abstract.TypeDataModel {
                 voidcantor: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 deathbringer: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 shroudstalker: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+                lightbringer: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 formshifter: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 huntmaster: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
                 warlord: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
