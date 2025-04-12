@@ -779,6 +779,7 @@ export class CelestusActor extends Actor {
         let dType;
         for (let effect of this.effects) {
             if (effect.type === "status") {
+                const attr = this.damageFlatScalar ? "none" : 0;
                 for (let part of effect.system.damage) {
                     const origin = await fromUuid(effect.origin);
                     const level = origin ? origin.system.attributes.level : this.system.attributes.level;
@@ -788,7 +789,7 @@ export class CelestusActor extends Actor {
                     // base damage roll corresponding to actor level
                     const base = CONFIG.CELESTUS.baseDamage.formula[level].replace("none", type);
 
-                    const mult = calcMult(origin, type, "0", part.value, false, 0);
+                    const mult = calcMult(origin, type, attr, part.value, false, 0);
                     if (first) first = false;
                     else effectsDamageFormula += " + "
                     effectsDamageFormula += `floor((${base}) * ${mult})[${type}]`;

@@ -1659,6 +1659,8 @@ export class ConsumableItem extends CelestusItem {
 export class EffectData extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
+            // does damage use the no attr scalar?
+            damageFlatScalar: new BooleanField({ required: true, initial: false }),
             damage: new ArrayField(new SchemaField({
                 type: new StringField({ required: true, initial: "none" }), // damage type
                 value: new NumberField({ required: true, integer: false, initial: 0 }), // damage roll as %of base@lvl
@@ -1839,6 +1841,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
                 let effectsDamageFormula = "";
                 let first = true;
                 let dType;
+                const attr = this.damageFlatScalar ? "none" : 0;
                 for (let part of effect.system.damage) {
                     const origin = await fromUuid(effect.origin);
                     const level = origin ? origin.system.attributes.level : this.parent.parent.system.attributes.level;
@@ -1848,7 +1851,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
                     // base damage roll corresponding to actor level
                     const base = CONFIG.CELESTUS.baseDamage.formula[level].replace("none", type);
 
-                    const mult = calcMult(origin, type, "0", part.value, false, 0);
+                    const mult = calcMult(origin, type, attr, part.value, false, 0);
 
                     if (first) first = false;
                     else effectsDamageFormula += " + "
