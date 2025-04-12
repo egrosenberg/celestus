@@ -193,10 +193,24 @@ export class CharacterSheet extends ActorSheet {
         html.on('click', '.language-edit', this._languageEdit.bind(this));
 
         // refresh all resources
-        html.on('click', '#refresh-all', (ev) => {
+        html.on('click', '#refresh-all', async () => {
+            const proceed = await foundry.applications.api.DialogV2.confirm({
+                window: { title: "Continue?" },
+                content: "Are you sure you want to continue?<br>This action cannot be undone.",
+                rejectClose: false,
+                modal: true
+            });
+            if (!proceed) return;
             this.actor.refresh(false);
         })
-        html.on('click', '#refresh-dawn', (ev) => {
+        html.on('click', '#refresh-dawn', async () => {
+            const proceed = await foundry.applications.api.DialogV2.confirm({
+                window: { title: "Continue?" },
+                content: "Are you sure you want to continue?<br>This action cannot be undone.",
+                rejectClose: false,
+                modal: true
+            });
+            if (!proceed) return;
             this.actor.refresh(true);
         })
         html.on('click', '#initiative', () => {
