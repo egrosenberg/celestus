@@ -745,7 +745,8 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
                     }
                 }
             }
-            else {
+            // handle leaving location
+            if (!standingOn) {
                 // handle lingering effects
                 const lingering = token.actor.effects.filter(e => e.flags?.celestus?.parentId === this.id);
                 // reduce lingering duration (only if skill exists)
