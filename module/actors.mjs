@@ -207,6 +207,16 @@ export class CelestusActor extends Actor {
         // calculate damage
         damage = this.calcDamage(damage, type, origin);
 
+        // prevent any positive damage if invulnerable
+        if (this.getFlag("celestus", "invulnerable")) {
+            if (CONFIG.CELESTUS.damageTypes[type]?.style === "healing" && damage < 0) {
+                return await canvasPopupText(this, "Invulnerable");
+            }
+            if (CONFIG.CELESTUS.damageTypes[type]?.style !== "healing" && damage > 0) {
+                return await canvasPopupText(this, "Invulnerable");
+            }
+        }
+
         // remainder damage after armor
         let remaining = damage;
         // apply damage to armor if applicable
@@ -423,7 +433,7 @@ export class CelestusActor extends Actor {
             if (CONFIG.CELESTUS.damageTypes[type].style !== "healing" && this.uuid !== origin.uuid) {
                 const heal = (origin.system.attributes.bonuses.lifesteal.value + lifesteal) * damage;
                 await origin.update({ "system.resources.hp.flat": origin.system.resources.hp.flat + Math.round(heal) });
-                if (!options.reflected) {
+                if (!options.reflected && damage > 0) {
                     const retribution = this.system.combat.retributive.mod * damage;
                     await origin.applyDamage(retribution, type, this, { reflected: true })
                 }
