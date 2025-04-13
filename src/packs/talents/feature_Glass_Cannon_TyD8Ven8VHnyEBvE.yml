@@ -4,7 +4,7 @@ type: feature
 _id: TyD8Ven8VHnyEBvE
 img: icons/skills/ranged/cannon-barrel-firing-orange.webp
 system:
-  equipped: false
+  equipped: true
   description: >-
     <p>You start every round with max AP but your physical armor and magic armor
     don't protect you from statuses.</p>
@@ -118,7 +118,7 @@ effects:
       modifiedTime: 1741327904085
       lastModifiedBy: ZJKmiL4ZAI5FH4eV
     _key: '!items.effects!TyD8Ven8VHnyEBvE.sACxq29jv1ndyKnI'
-sort: 600000
+sort: 1000000
 ownership:
   default: 0
   ZJKmiL4ZAI5FH4eV: 3
@@ -130,7 +130,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736356671888
-  modifiedTime: 1736376078313
+  modifiedTime: 1743704242574
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!TyD8Ven8VHnyEBvE'
 

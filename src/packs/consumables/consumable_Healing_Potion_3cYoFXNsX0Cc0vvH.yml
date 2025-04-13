@@ -3,9 +3,9 @@ type: consumable
 img: icons/consumables/potions/bottle-round-corked-orante-red.webp
 system:
   description: >-
-    <p>A viscous red liquid that you can drink it or administer it to another
-    within your reach. A creature that drinks the potion gains [[/r 10d8+250]]
-    (~300) healing.</p>
+    <p>A viscous red liquid that you can drink or administer to another within
+    your reach. A creature that drinks the potion gains [[/r 10d8+250]] (~300)
+    healing.</p>
   price: 500
   quantity: 1
   weight: 0.25
@@ -27,7 +27,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1742076895678
-  modifiedTime: 1742094777812
+  modifiedTime: 1742230441869
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _id: 3cYoFXNsX0Cc0vvH
 sort: 300000

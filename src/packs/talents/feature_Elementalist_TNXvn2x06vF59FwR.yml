@@ -4,7 +4,7 @@ type: feature
 _id: TNXvn2x06vF59FwR
 img: icons/magic/symbols/elements-air-earth-fire-water.webp
 system:
-  equipped: false
+  equipped: true
   description: >-
     <p>While standing on an elemental surface (see table below) the AP cost of
     your skills that utilize the corresponding school is reduced by one to a
@@ -169,7 +169,7 @@ effects:
       modifiedTime: 1738183985959
       lastModifiedBy: ZJKmiL4ZAI5FH4eV
     _key: '!items.effects!TNXvn2x06vF59FwR.FmCYVmVL4JUIp8zb'
-sort: 0
+sort: 400000
 ownership:
   default: 0
   ZJKmiL4ZAI5FH4eV: 3
@@ -181,7 +181,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1738183829212
-  modifiedTime: 1738184390594
+  modifiedTime: 1743704248807
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!TNXvn2x06vF59FwR'
 

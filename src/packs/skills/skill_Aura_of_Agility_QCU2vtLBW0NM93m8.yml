@@ -71,7 +71,7 @@ effects:
     img: icons/magic/lightning/projectile-orb-blue.webp
     origin: Compendium.celestus.skills.Item.QCU2vtLBW0NM93m8
     duration:
-      rounds: null
+      rounds: 2
       startTime: null
       seconds: null
       combat: null
@@ -122,7 +122,7 @@ effects:
       systemId: celestus
       systemVersion: 0.0.1
       createdTime: 1738697417925
-      modifiedTime: 1738697464196
+      modifiedTime: 1743704562979
       lastModifiedBy: ZJKmiL4ZAI5FH4eV
     _key: '!items.effects!QCU2vtLBW0NM93m8.vKv82B09rlnG4ipQ'
 sort: 0

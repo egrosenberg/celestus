@@ -6,7 +6,7 @@ img: icons/skills/melee/sword-winged-holy-orange.webp
 system:
   description: >-
     <p>You leap into the air and strike downwards as you land a point you can
-    see within range, dealing 15% Physical Damage to each creature within a
+    see within 60 feet, dealing 15% Physical Damage to each creature within a
     5-foot radius of where you land.</p><p>Cannot be used while Grounded.</p>
   ap: 1
   fp: 0
@@ -62,7 +62,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736137950804
-  modifiedTime: 1737666218583
+  modifiedTime: 1742659107494
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!QSz3BAmhkP3rL2yv'
 

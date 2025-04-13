@@ -19,7 +19,7 @@ system:
     materialFull: A Melee Weapon
   memorized: 'false'
   type: weapon
-  memSlots: 1
+  memSlots: 2
   prereqs:
     flamespeaker: 0
     tidecaller: 0
@@ -78,7 +78,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1738562453670
-  modifiedTime: 1738562590826
+  modifiedTime: 1744495395650
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!tFCaJIzk5QOCGL0w'
 

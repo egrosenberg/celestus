@@ -71,7 +71,7 @@ system:
     - 'Ask: "Can you explain?"'
 effects: []
 folder: null
-sort: 0
+sort: 1200000
 ownership:
   default: 0
   ZJKmiL4ZAI5FH4eV: 3
@@ -83,7 +83,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736302401900
-  modifiedTime: 1740175931397
+  modifiedTime: 1742954690304
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!kob2FNWy4jRxy6jr'
 

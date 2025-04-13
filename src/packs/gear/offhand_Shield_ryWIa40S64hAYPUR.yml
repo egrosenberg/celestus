@@ -66,29 +66,29 @@ system:
   prereqs:
     str: 0
     dex: 0
-    con: 0
+    con: 10
     int: 0
     mind: 0
     wit: 0
   ownedEffects: []
   socketTypes:
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
+    - None
+    - None
+    - None
+    - None
+    - None
+    - None
+    - None
+    - None
   socketValues:
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
+    - none
+    - none
+    - none
+    - none
+    - none
+    - none
+    - none
+    - none
   plugIds:
     - ''
     - ''
@@ -115,6 +115,7 @@ system:
   base:
     phys: 90
     mag: 60
+  socketSpread: Common
 effects: []
 sort: 0
 ownership:
@@ -128,7 +129,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1737588411146
-  modifiedTime: 1737588427433
+  modifiedTime: 1743187125595
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!ryWIa40S64hAYPUR'
 

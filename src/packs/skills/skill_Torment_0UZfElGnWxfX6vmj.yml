@@ -14,7 +14,7 @@ system:
   fp: 0
   cooldown:
     value: 0
-    max: 4
+    max: 3
   components:
     verbal: true
     somatic: true
@@ -83,7 +83,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1738435922894
-  modifiedTime: 1738698022619
+  modifiedTime: 1744483709456
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!0UZfElGnWxfX6vmj'
 

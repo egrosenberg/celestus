@@ -6,14 +6,14 @@ img: icons/magic/earth/projectiles-stone-salvo.webp
 system:
   description: >-
     <p>You send a blast of dusty air at target creature you can see within
-    range, dealing 75% Earth damage and blinding them.</p><p>★ Sets
+    range, dealing 85% Earth damage and blinding them.</p><p>★ Sets
     @UUID[Compendium.celestus.rules.1CbPWoPQr2EW4pzF]{Blinded} (Resisted by
     Magic Armor)</p>
   ap: 2
   fp: 0
   cooldown:
     value: 0
-    max: 0
+    max: 3
   components:
     verbal: true
     somatic: true
@@ -83,7 +83,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1738388384952
-  modifiedTime: 1738698022619
+  modifiedTime: 1744483695824
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!Pdp1PSCLpreesvIT'
 

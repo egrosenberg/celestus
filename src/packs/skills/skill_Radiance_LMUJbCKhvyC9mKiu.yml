@@ -1,4 +1,4 @@
-folder: BzK0VAATh5BcRaNt
+folder: QQ5Mp3sqav813Qse
 name: Radiance
 type: skill
 _id: LMUJbCKhvyC9mKiu
@@ -7,9 +7,10 @@ system:
   description: >-
     <p>With a word, your form is bathed with light. You shine bright light in a
     15 foot radius for 2 rounds. Each enemy within a 15-foot radius of you when
-    the light appears takes 90% Air Damage. For the duration, any enemy that
-    enters the light is blinded and you have gain +50% Air Resistance.</p><p>★
-    Sets @UUID[Compendium.celestus.rules.1CbPWoPQr2EW4pzF]{Blinded by Radiance}
+    the light appears takes 90% Radiant Damage. For the duration, any enemy that
+    enters the light is blinded and you have gain +50% Radiant
+    Resistance.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.1CbPWoPQr2EW4pzF]{Blinded by Radiance}
     (Resisted by Magic Armor)</p>
   ap: 2
   fp: 0
@@ -27,7 +28,7 @@ system:
   prereqs:
     flamespeaker: 0
     tidecaller: 0
-    stormseeker: 1
+    stormseeker: 0
     duneshaper: 0
     voidcantor: 0
     deathbringer: 0
@@ -35,8 +36,9 @@ system:
     formshifter: 0
     huntmaster: 0
     warlord: 0
+    lightbringer: 1
   damage:
-    - type: air
+    - type: radiant
       value: 0.9
   ability: int
   attack: false
@@ -76,7 +78,7 @@ effects:
         targets: any
         targetType: humanoid
     changes:
-      - key: system.attributes.resistance.air.bonus
+      - key: system.attributes.resistance.radiant.bonus
         mode: 2
         value: '0.5'
         priority: null
@@ -94,7 +96,7 @@ effects:
         priority: null
       - key: ATL.light.color
         mode: 5
-        value: '#dffffe'
+        value: '#ffffaa'
         priority: null
       - key: ATL.light.alpha
         mode: 5
@@ -113,7 +115,7 @@ effects:
       systemId: celestus
       systemVersion: 0.0.1
       createdTime: 1736038582314
-      modifiedTime: 1736551080856
+      modifiedTime: 1744425159781
       lastModifiedBy: ZJKmiL4ZAI5FH4eV
     _key: '!items.effects!LMUJbCKhvyC9mKiu.UXqLdEJ0X1LNdr9i'
   - name: Blinded by Radiance
@@ -162,7 +164,7 @@ effects:
       modifiedTime: 1736551086643
       lastModifiedBy: ZJKmiL4ZAI5FH4eV
     _key: '!items.effects!LMUJbCKhvyC9mKiu.Vf080gTfTeSiDP4s'
-sort: 0
+sort: 100000
 ownership:
   default: 0
   ZJKmiL4ZAI5FH4eV: 3
@@ -174,7 +176,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736038117897
-  modifiedTime: 1736276379964
+  modifiedTime: 1744424991555
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!LMUJbCKhvyC9mKiu'
 

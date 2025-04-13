@@ -46,9 +46,9 @@ system:
   attack: false
   targets:
     count: 0
-    type: self
-    size: 0
-  range: 0
+    type: sphere
+    size: 30
+  range: 60
   statusEffects:
     - slow
   lifesteal: 0
@@ -86,7 +86,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1739585418336
-  modifiedTime: 1739739231214
+  modifiedTime: 1743281206070
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!UPkJ4xCeXHnWEFGa'
 

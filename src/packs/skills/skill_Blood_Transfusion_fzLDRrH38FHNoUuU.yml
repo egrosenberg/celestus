@@ -5,7 +5,7 @@ _id: fzLDRrH38FHNoUuU
 img: icons/magic/unholy/projectiles-binary-pink.webp
 system:
   description: >-
-    <p>You offer your blood to an ally you can see within range. You take 75%
+    <p>You offer your blood to an ally you can see within range. You take 100%
     Piercing Damage as your blood flows into the target, healing them for 250%
     Healing.</p>
   ap: 1
@@ -34,7 +34,7 @@ system:
     warlord: 0
   damage:
     - type: piercing
-      value: 0.75
+      value: 1
     - type: healing
       value: 2.5
   ability: none
@@ -61,7 +61,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736097944501
-  modifiedTime: 1738892744743
+  modifiedTime: 1743203686856
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!fzLDRrH38FHNoUuU'
 

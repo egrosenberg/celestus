@@ -36,6 +36,10 @@ system:
   damage:
     - type: psychic
       value: 0.45
+    - type: psychic
+      value: 0.45
+    - type: psychic
+      value: 0.45
   ability: int
   attack: false
   targets:
@@ -50,6 +54,7 @@ system:
   overridesWeaponRange: false
   school: voidcantor
   tier: 1
+  itemizeDamage: true
 effects: []
 sort: 0
 ownership:
@@ -63,7 +68,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736215477075
-  modifiedTime: 1736276680388
+  modifiedTime: 1743360303227
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!hS1bQTHvmXTAUTMI'
 

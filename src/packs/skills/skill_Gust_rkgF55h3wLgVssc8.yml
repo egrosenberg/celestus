@@ -7,7 +7,7 @@ system:
   description: >-
     <p>You summon a powerful downward gust centered on a point you can see
     within range damaging creatures, dispersing clouds, and dousing all flames
-    in a 20-foot radius. Each enemy within the radius takes 70% Air
+    in a 10-foot radius. Each enemy within the radius takes 60% Air
     Damage.</p><p>★ Removes
     @UUID[Compendium.celestus.rules.5WnOnUhH4LYfPLlZ]{Burning}</p>
   ap: 1
@@ -36,13 +36,13 @@ system:
     warlord: 0
   damage:
     - type: air
-      value: 0.7
+      value: 0.6
   ability: int
   attack: false
   targets:
     count: 0
     type: cylinder
-    size: 20
+    size: 10
   range: 90
   statusEffects: []
   school: stormseeker
@@ -105,7 +105,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736054359384
-  modifiedTime: 1736276491391
+  modifiedTime: 1743704373324
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!rkgF55h3wLgVssc8'
 

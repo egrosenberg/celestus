@@ -119,7 +119,7 @@ system:
   bonusElements: []
   socketSpread: Common
 effects: []
-sort: 0
+sort: 600000
 ownership:
   default: 0
   ZJKmiL4ZAI5FH4eV: 3
@@ -131,7 +131,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1738780163769
-  modifiedTime: 1739131671788
+  modifiedTime: 1743360368385
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!iL3ww6lhK9Wv3l9e'
 

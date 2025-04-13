@@ -3,9 +3,9 @@ type: consumable
 img: icons/consumables/potions/potion-tube-corked-red.webp
 system:
   description: >-
-    <p>A viscous red liquid that you can drink it or administer it to another
-    within your reach. A creature that drinks the potion gains [[/r 10d4+10]]
-    (~30) healing.</p>
+    <p>A viscous red liquid that you can drink or administer to another within
+    your reach. A creature that drinks the potion gains [[/r 10d4+10]] (~30)
+    healing.</p>
   price: 50
   quantity: 1
   weight: 0.5
@@ -27,7 +27,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1742076899236
-  modifiedTime: 1742094657155
+  modifiedTime: 1742230413022
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _id: HXoJ0M719amwO139
 sort: 0

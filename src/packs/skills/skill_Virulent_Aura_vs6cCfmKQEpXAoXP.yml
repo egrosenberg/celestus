@@ -71,7 +71,7 @@ effects:
     img: icons/skills/melee/strike-dagger-poison-green.webp
     origin: Compendium.celestus.skills.Item.vs6cCfmKQEpXAoXP
     duration:
-      rounds: null
+      rounds: 4
       startTime: null
       seconds: null
       combat: null
@@ -116,7 +116,7 @@ effects:
       systemId: celestus
       systemVersion: 0.0.1
       createdTime: 1738696897987
-      modifiedTime: 1738696964604
+      modifiedTime: 1744478965689
       lastModifiedBy: ZJKmiL4ZAI5FH4eV
     _key: '!items.effects!vs6cCfmKQEpXAoXP.Ivxh2azbq8ugdDfF'
 sort: 0

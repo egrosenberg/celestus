@@ -1,5 +1,5 @@
 [class*="icon-"] {
-    top: 0.1em;
+    top: 0.15em;
     position: relative;
     margin-right: 0.2em;
 }
@@ -54,7 +54,7 @@
     --color-psychic-bg: rgb(223, 134, 223);
     --color-piercing-bg: rgb(223, 134, 134);
     --color-shadow-bg: rgb(144, 161, 213);
-    --color-radiant-bg: rgb(255, 228, 77);
+    --color-radiant-bg: rgb(255, 237, 132);
     --color-healing-bg: rgb(146, 226, 152);
     --color-phys_armor-bg: rgb(235, 204, 173);
     --color-mag_armor-bg: rgb(134, 223, 223);
@@ -1153,6 +1153,7 @@ input[type="color"]::-webkit-color-swatch {
     margin-right: 10px;
     background-color: var(--color-cream-50);
     box-shadow: var(--shadow-bevel);
+    position: relative;
 }
 
 .celestus.item.sheet .attribute-section {

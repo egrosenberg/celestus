@@ -5,9 +5,9 @@ _id: EmCLdkP42INVykH6
 img: icons/magic/earth/explosion-lava-stone-yellow.webp
 system:
   description: >-
-    <p>You send tremors through the ground in a 60-foot radius, damage and
-    knocking down enemy creatures within range. Has no effect on flying
-    creatures.</p><p>★ Sets
+    <p>You send tremors through the ground in a 60-foot radius, dealing 100%
+    Earth damage to and knocking down enemy creatures within range. Has no
+    effect on flying creatures.</p><p>★ Sets
     @UUID[Compendium.celestus.rules.m4Sd3wSukc9j0o3h]{Prone} (Resisted by
     Physical Armor)</p>
   ap: 3
@@ -61,7 +61,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736058987014
-  modifiedTime: 1736276000107
+  modifiedTime: 1742959688891
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!EmCLdkP42INVykH6'
 

@@ -10,7 +10,7 @@ system:
     resistance.</p><p><strong>Alacrity:</strong> You learn the skill
     @UUID[Compendium.celestus.skills.9qriGN36RzE67jGc]{Haste}. You always have
     it memorized, it doesn't count against your skills known or memorized and
-    you don't need to</p>
+    you don't need to meet it's memorization requirements.</p>
   price: 0
   quantity: 1
   weight: 0
@@ -131,7 +131,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1737610193095
-  modifiedTime: 1737610329248
+  modifiedTime: 1743718032765
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!et0uUwE5QBKkuSAj'
 

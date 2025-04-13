@@ -9,7 +9,7 @@ system:
     Scoundrel</p><p><strong>Feline Agility: </strong>You learn the skill
     @UUID[Compendium.celestus.skills.FbZp3GjR8jhhB6di]{Cat Dash}. You always
     have it memorized, it doesn't count against your skills known or memorized
-    and you don't need to</p>
+    and you don't need to meet it's memorization requirements.</p>
   type: species
   slot: none
   efficiency: 1
@@ -127,7 +127,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736446201797
-  modifiedTime: 1737593465077
+  modifiedTime: 1743718117434
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!6aRBJljk0ArtO8PQ'
 

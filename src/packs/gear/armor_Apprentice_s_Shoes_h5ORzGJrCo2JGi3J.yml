@@ -67,7 +67,7 @@ system:
     str: 0
     dex: 0
     con: 0
-    int: 0
+    int: 10
     mind: 0
     wit: 0
   ownedEffects: []
@@ -129,7 +129,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1737585846207
-  modifiedTime: 1737585965306
+  modifiedTime: 1743187056443
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!h5ORzGJrCo2JGi3J'
 

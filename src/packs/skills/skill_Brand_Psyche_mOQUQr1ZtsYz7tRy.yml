@@ -40,7 +40,7 @@ system:
     count: 1
     type: creature
     size: 0
-  range: 0
+  range: 60
   statusEffects: []
   lifesteal: 0
   weaponEfficiency: 1
@@ -80,9 +80,9 @@ effects:
       grantedSkills: []
       ownedItems: []
     changes:
-      - key: system.attributes.resistance.psychic
+      - key: system.attributes.resistance.psychic.bonus
         mode: 2
-        value: '0.25'
+        value: '-0.25'
         priority: null
       - key: flags.celestus.marked
         mode: 5
@@ -101,7 +101,7 @@ effects:
       systemId: celestus
       systemVersion: 0.0.1
       createdTime: 1736226232199
-      modifiedTime: 1736226464814
+      modifiedTime: 1743361223458
       lastModifiedBy: ZJKmiL4ZAI5FH4eV
     _key: '!items.effects!mOQUQr1ZtsYz7tRy.H9GzH4bxhhuGU2ft'
 sort: 0
@@ -116,7 +116,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736225897960
-  modifiedTime: 1736276690917
+  modifiedTime: 1743361060711
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!mOQUQr1ZtsYz7tRy'
 

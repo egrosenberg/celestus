@@ -64,7 +64,7 @@ system:
     evasion: 0
     initiative: 0
   prereqs:
-    str: 0
+    str: 10
     dex: 0
     con: 0
     int: 0
@@ -129,7 +129,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1737586704984
-  modifiedTime: 1737586861794
+  modifiedTime: 1743734911014
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!lMGcjxDRvJlcx3oe'
 

@@ -25,11 +25,11 @@ system:
   memSlots: 1
   prereqs:
     flamespeaker: 0
-    tidecaller: 0
+    tidecaller: 1
     stormseeker: 0
     duneshaper: 0
     voidcantor: 0
-    deathbringer: 0
+    deathbringer: 1
     shroudstalker: 0
     formshifter: 0
     huntmaster: 0
@@ -81,7 +81,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1738021930930
-  modifiedTime: 1739486246832
+  modifiedTime: 1743111874103
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!2Ddym5A1hj6XLjPj'
 

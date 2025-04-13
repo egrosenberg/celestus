@@ -53,7 +53,7 @@ effects:
     img: systems/celestus/svg/angry-eyes.svg
     origin: Compendium.celestus.skills.Item.v8dgT7p2wRt1tQqy
     duration:
-      rounds: 3
+      rounds: 2
       startTime: null
       seconds: null
       combat: null
@@ -91,7 +91,7 @@ effects:
       systemId: celestus
       systemVersion: 0.0.1
       createdTime: 1736137336443
-      modifiedTime: 1737692384957
+      modifiedTime: 1742689941826
       lastModifiedBy: ZJKmiL4ZAI5FH4eV
     _key: '!items.effects!v8dgT7p2wRt1tQqy.nHKM00QSmIv7PcjV'
 sort: 0

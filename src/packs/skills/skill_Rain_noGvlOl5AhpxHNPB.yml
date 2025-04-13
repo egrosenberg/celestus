@@ -48,7 +48,7 @@ system:
   linger:
     surfaceType: water
     duration: 3
-    effects: true
+    effects: false
     lingerDuration: -1
     clearOnLeave: false
 effects: []
@@ -64,7 +64,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1735966739430
-  modifiedTime: 1738022105367
+  modifiedTime: 1742688859513
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!noGvlOl5AhpxHNPB'
 

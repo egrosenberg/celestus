@@ -3,7 +3,7 @@ type: feature
 _id: kYy2bLm1IDhXLZRd
 img: icons/magic/control/buff-strength-muscle-damage-orange.webp
 system:
-  equipped: false
+  equipped: true
   description: >-
     <p>You gain +10% Max Health and +5% Evasion.</p><p>(Max health calculation
     is multiplicative)</p>
@@ -118,7 +118,7 @@ effects:
       lastModifiedBy: ZJKmiL4ZAI5FH4eV
     _key: '!items.effects!kYy2bLm1IDhXLZRd.5YinE6pwO1BvFqZx'
 folder: Nd8Y4X5YuQ7zsaYv
-sort: 300000
+sort: 700000
 ownership:
   default: 0
   ZJKmiL4ZAI5FH4eV: 3
@@ -130,7 +130,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736375869338
-  modifiedTime: 1736376078297
+  modifiedTime: 1743704253458
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!kYy2bLm1IDhXLZRd'
 

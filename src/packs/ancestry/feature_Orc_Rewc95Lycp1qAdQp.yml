@@ -57,6 +57,8 @@ system:
       mag_armor: 0
       t_phys_armor: 0
       t_mag_armor: 0
+    crit_bonus: 0.1
+    crit_chance: 0.05
   prereqs:
     str: 0
     dex: 0
@@ -64,62 +66,7 @@ system:
     int: 0
     mind: 0
     wit: 0
-effects:
-  - name: Brutal
-    img: icons/skills/melee/strike-axe-blood-red.webp
-    origin: Compendium.celestus.ancestry.Item.Rewc95Lycp1qAdQp
-    duration:
-      rounds: null
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
-    disabled: false
-    type: status
-    _id: PRkk0K6GncpPZLLW
-    system:
-      damage: []
-      resistedBy: none
-      combines: []
-      removes: []
-      blocks: []
-      triggers: []
-      aura:
-        has: false
-        targetsSelf: true
-        radius: 0
-        targets: any
-        targetType: humanoid
-        clearOnLeave: true
-      grantedSkills: []
-      ownedItems: []
-    changes:
-      - key: system.attributes.bonuses.crit_bonus.bonus
-        mode: 2
-        value: '+0.1'
-        priority: null
-      - key: system.attributes.bonuses.crit_chance.bonus
-        mode: 2
-        value: '+0.05'
-        priority: null
-    description: ''
-    tint: '#ffffff'
-    transfer: false
-    statuses: []
-    sort: 0
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      coreVersion: '12.331'
-      systemId: celestus
-      systemVersion: 0.0.1
-      createdTime: 1736445805254
-      modifiedTime: 1736459479599
-      lastModifiedBy: ZJKmiL4ZAI5FH4eV
-    _key: '!items.effects!Rewc95Lycp1qAdQp.PRkk0K6GncpPZLLW'
+effects: []
 folder: GwyuEfASwTVcACtO
 sort: 475000
 ownership:
@@ -133,7 +80,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736445526507
-  modifiedTime: 1737593446758
+  modifiedTime: 1742666434045
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!Rewc95Lycp1qAdQp'
 
