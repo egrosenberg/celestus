@@ -1834,7 +1834,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
         // if has parent and parent is combatant in the middle of turn, roll damage
         if (this.parent.parent?.documentName === "Actor") {
             // get current active combatant if exists
-            const active = canvas.scene?.tokens.get(game.combat.current?.tokenId);
+            const active = canvas.scene?.tokens.get(game?.combat?.current?.tokenId);
             if (active && active.actorId === this.parent.parent.id) {
                 // roll damage
                 const effect = this.parent;
