@@ -295,6 +295,12 @@
                                         data-dtype="Number" />
                                     {{/if}}
                                     {{#with (lookup config.targetTypes system.targets.type)}}
+                                    {{#if (eq options.[1] "width")}}
+                                    width:  
+                                    <input type="text" name="system.targets.width" value="{{../system.targets.width}}"
+                                        data-dtype="Number" />
+                                    length:
+                                    {{/if}}
                                     {{#if (eq options.[0] "size")}}
                                     <input type="text" name="system.targets.size" value="{{../system.targets.size}}"
                                         data-dtype="Number" />

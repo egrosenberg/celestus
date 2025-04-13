@@ -36,7 +36,7 @@ export class CelestusMeasuredTemplate extends MeasuredTemplate {
         // prepare base template
         const templateData = {
             user: game.user?.id,
-            width: item.system.targets.type === "cube" ? item.system.targets.size : 5,
+            width: item.system.targets.type === "cube" ? item.system.targets.size : item.system.targets.width,
             direction: 0,
             x: 0,
             y: 0,

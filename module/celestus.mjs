@@ -515,7 +515,7 @@ Hooks.on("init", () => {
             cylinder: { label: "Cylinder", measure: "circle", options: ["size"] },
             cone: { label: "Cone", measure: "cone", options: ["size"], angle: 60 },
             cube: { label: "Cube", measure: "ray", options: ["size"] },
-            line: { label: "Line", measure: "ray", options: ["size"] },
+            line: { label: "Line", measure: "ray", options: ["size", "width"] },
         },
         auraTargets: {
             any: "All Creatures",
