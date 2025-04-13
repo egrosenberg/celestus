@@ -999,8 +999,10 @@ export class CelestusToken extends Token {
      * @param {Number,Number} newPosition optional
      */
     async spreadAuraFrom(newPosition = null) {
-        // only run if user owns token
-        if (!this.isOwner) return;
+        // only run if user is GM
+        if (!game.users.activeGM.isSelf) return;
+        if (this.isSpreadingFrom) return;
+        this.isSpreadingFrom = true;
         const tokenCoords = newPosition || { x: this.x, y: this.y }
         const token = this.document;
         // ignore if token is downed
@@ -1077,6 +1079,7 @@ export class CelestusToken extends Token {
                 }
             }
         }
+        this.isSpreadingFrom = false;
     }
 
     /**

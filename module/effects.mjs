@@ -35,7 +35,7 @@ export class CelestusEffect extends ActiveEffect {
 
     /** @override */
     async _preUpdate(changed, options, user) {
-        const allowed =  await super._preUpdate(changed, options, user);
+        const allowed = await super._preUpdate(changed, options, user);
         if (allowed === false) return false;
         // check if enabled status changed
         if (typeof changed.disabled !== "undefined" && changed.disabled !== this.disabled) {
@@ -95,41 +95,53 @@ export class CelestusEffect extends ActiveEffect {
                     grantedIds.push(newItems[0].id);
                 }
             }
-            options.system = {ownedItems: grantedIds};
+            options.system = { ownedItems: grantedIds };
         }
     }
     refreshing = false;
     /** @override */
-    async _onUpdate(documents, operation, user) {
-        const allowed = await super._onUpdate(documents, operation, user);
+    async _onUpdate(changed, options, userId) {
+        const allowed = await super._onUpdate(changed, options, userId);
         if (allowed === false || !game.users.activeGM.isSelf || this.refreshing) return false;
         this.refreshing = true;
         // cleanup and then re-spread aura
-        await this.cleanupAura();
-        const actor = this.parent;
-        if (this.system.aura?.has && actor && actor.documentName === "Actor") {
-            const tokens = actor.getActiveTokens();
-            for (const token of tokens) {
-                await token.spreadAuraFrom();
+        // only attempt to cleanup and re-spread if the update wasn't aura children
+        if (!changed.system?.aura?.children) {
+            await this.cleanupAura();
+            const actor = this.parent;
+            if (this.system.aura?.has && actor && actor.documentName === "Actor") {
+                const tokens = actor.getActiveTokens();
+                for (const token of tokens) {
+                    await token.spreadAuraFrom();
+                }
             }
         }
         this.refreshing = false;
     }
 
     /** @override */
-    _onCreate(data, options, userid) {
-        this.updateSource({ "system.ownedItems": options.system?.ownedItems ?? [] });
-        const actor = this.parent;
-        if (actor && actor.documentName === "Actor") {
-            const tokens = actor.getActiveTokens();
-            for (const token of tokens) {
-                token.spreadAuraFrom();
+    async _onCreate(data, options, userid) {
+        // call super
+        super._onCreate(data, options, userid);
+        // only proceed if active gm
+        if (!game.users.activeGM.isSelf) return;
+        await this.update({ "system.ownedItems": options.system?.ownedItems ?? [] });
+        // only spread aura if this has aura and isnt child
+        if (this.system.aura.has && !this.flags?.celestus?.isChild) {
+            const actor = this.parent;
+            if (actor && actor.documentName === "Actor") {
+                const tokens = actor.getActiveTokens();
+                for (const token of tokens) {
+                    token.spreadAuraFrom();
+                }
             }
         }
     }
 
     /** @override */
     _onDelete(options, userId) {
+        // only proceed if active gm
+        if (!game.users.activeGM.isSelf) return;
         if (this.system?.ownedItems) {
             // remove all items granted by this skill
             for (const id of this.system.ownedItems) {
@@ -163,6 +175,6 @@ export class CelestusEffect extends ActiveEffect {
             const child = await fromUuid(id);
             if (child) await child.delete();
         }
-        this.updateSource({"system.aura.children": []});
+        this.updateSource({ "system.aura.children": [] });
     }
 }

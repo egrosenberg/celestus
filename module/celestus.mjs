@@ -1054,7 +1054,7 @@ Hooks.on("combatStart", startCombat);
 Hooks.on("preDeleteCombat", cleanupCombat);
 
 // handle tokens moving
-Hooks.on("updateToken", spreadAura);
+Hooks.on("preUpdateToken", spreadAura);
 Hooks.on("preUpdateToken", rotateOnMove);
 
 // draw backstab overlay
