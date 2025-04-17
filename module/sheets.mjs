@@ -751,13 +751,14 @@ export class CelestusItemSheet extends ItemSheet {
         });
         // changing values in indexed select elements
         html.on('change', '.select-index', (ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
             const t = ev.currentTarget;
             const index = $(t).data("index");
             const value = $(t).val();
-            const name = $(t).attr("name");
+            const name = $(t).data("name");
             let current = byString(this.item, name);
             current[index] = value;
-            console.log(current);
             this.item.update({ [name]: current });
         });
 
