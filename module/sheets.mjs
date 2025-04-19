@@ -729,12 +729,54 @@ export class CelestusItemSheet extends ItemSheet {
             }
         );
 
+        // runes stuff
+        if (["armor", "offhand", "weapon"].includes(this.item.type) && this.item.parent?.documentName === "Actor") {
+            // prepare list of runes
+            context.runes = {
+                none: "No Rune"
+            };
+            const actorRunes = this.item.parent.items.filter(i => i.type === "rune");
+            for (const rune of actorRunes) {
+                context.runes[rune.id] = `${rune.name}${rune.system.slotted ? " (slotted)" : ""}`;
+            }
+        }
+
+        if (this.item.type === "rune") {
+            context.plugs = {};
+            for (const [type, plugs] of Object.entries(CONFIG.CELESTUS.itemPlugs)) {
+                console.log(type, plugs);
+                context.plugs[type] = [];
+                for (const plug of plugs) {
+                    if (!plug.rune) continue;
+                    context.plugs[type].push({
+                        id: plug.id,
+                        label: "CELESTUS.runeDescriptions." + plug.id
+                    });
+                }
+            }
+        }
+
         return context;
     }
 
     /** @override */
     activateListeners(html) {
         super.activateListeners(html);
+
+        // disable inputs if already being modified by a rune
+        if (this.item?.system?.slottedRunes?.length) {
+            const overridden = this.item.overriddenFields;
+            if (overridden) {
+                html.find("input,select").each(function () {
+                    for (const name of overridden) {
+                        if ($(this).attr("name")?.includes(name) || $(this).data("name")?.includes(name)) {
+                            $(this).prop("disabled", true);
+                            $(this).attr("data-tooltip", "Property is currently modified by a rune.");
+                        }
+                    }
+                });
+            }
+        }
 
         // -------------------------------------------------------------
         // Everything below here is only needed if the sheet is editable

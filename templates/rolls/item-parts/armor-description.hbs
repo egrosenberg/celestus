@@ -47,54 +47,7 @@
         </div>
         {{/if}}
 
-        {{!-- Combat Abilities --}}
-        {{#each system.bonuses.combat as |value skill|}}
-        {{#if value}}
-        {{#with (lookup ../config.combatSkills skill)}}
-        <div class="roll-tag" data-tooltip="{{label}}">
-            {{numberFormat value sign=true decimals=0}}
-            {{label}}
-        </div>
-        {{/with}}
-        {{/if}}
-        {{/each}}
-
-        {{!-- Civil Abilities --}}
-        {{#each system.bonuses.civil as |value skill|}}
-        {{#if value}}
-        {{#with (lookup ../config.civilSkills skill)}}
-        <div class="roll-tag" data-tooltip="{{skill}}">
-            {{numberFormat value sign=true decimals=0}}
-            {{label}}
-        </div>
-        {{/with}}
-        {{/if}}
-        {{/each}}
-
-        {{!-- Attributes --}}
-        {{#each system.bonuses.abilities as |value skill|}}
-        {{#if value}}
-        {{#with (lookup ../config.abilities skill)}}
-        <div class="roll-tag" data-tooltip="{{skill}}">
-            {{numberFormat value sign=true decimals=0}}
-            {{label}}
-        </div>
-        {{/with}}
-        {{/if}}
-        {{/each}}
-
-        {{!-- Resistances --}}
-        {{#each system.bonuses.resistance as |value skill|}}
-        {{#if value}}
-        {{#with (lookup ../config.damageTypes skill)}}
-        <div class="roll-tag" data-tooltip="{{skill}}">
-            {{percent value symbol=true sign=true}}
-            {{label}} Resist
-        </div>
-        {{/with}}
-        {{/if}}
-        {{/each}}
-
+        {{> 'systems/celestus/templates/rolls/parts/item-roll-tag-bonuses.hbs'}}
     </div>
     {{#if flavor}}{{{flavor}}}{{/if}}
 </div>

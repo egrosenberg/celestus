@@ -1,0 +1,71 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" data-tooltip="{{item.name}}" />
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+        </div>
+    </header>
+
+    <div class="flexrow" style="align-items: stretch; height: 100%; padding-bottom: 10px">
+        <div class="item-main">
+            {{!-- Sheet Tab Navigation --}}
+            <nav class="sheet-tabs tabs" data-group="primary">
+                <a class="item" data-tab="description">Info</a>
+            </nav>
+
+            {{!-- Sheet Body --}}
+            <section class="sheet-body">
+                {{!-- Description Tab --}}
+                {{editor enrichedDescription engine="prosemirror" target="system.description" rollData=rollData
+                button=true owner=owner
+                editable=editable}}
+
+                <div class="tab" data-group="primary" data-tab="description">
+                    <div class="form-group">
+                        <label>
+                            Weapon Plug
+                        </label>
+                        <div class="form-fields">
+                            <select data-name="system.plugs.weapon" data-index="0" class="select-index">
+                                <option disabled hidden selected>Select a modifier</option>
+                                {{selectOptions plugs.weapon nameAttr="id" labelAttr="label" localize=true selected=system.plugs.weapon.[0]}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Armor Plug
+                        </label>
+                        <div class="form-fields">
+                            <select data-name="system.plugs.armor" data-index="0" class="select-index">
+                                <option disabled hidden selected>Select a modifier</option>
+                                {{selectOptions plugs.armor nameAttr="id" labelAttr="label" localize=true selected=system.plugs.armor.[0]}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Amulet Plug
+                        </label>
+                        <div class="form-fields">
+                            <select data-name="system.plugs.amulet" data-index="0" class="select-index">
+                                <option disabled hidden selected>Select a modifier</option>
+                                {{selectOptions plugs.armor nameAttr="id" labelAttr="label" localize=true selected=system.plugs.amulet.[0]}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Offhand
+                        </label>
+                        <div class="form-fields">
+                            <select data-name="system.plugs.offhand" data-index="0" class="select-index">
+                                <option disabled hidden selected>Select a modifier</option>
+                                {{selectOptions plugs.offhand nameAttr="id" labelAttr="label" localize=true selected=system.plugs.offhand.[0]}}
+                            </select>
+                        </div>
+                    </div>
+            </section>
+        </div>
+    </div>
+</form>

@@ -23,39 +23,7 @@
             {{/if}}
 
             <h3>Bonuses:</h3>
-            {{!-- Combat Abilities --}}
-            {{#each system.bonuses.combat as |value skill|}}
-            {{#if value}}
-            {{#with (lookup ../config.combatSkills skill)}}
-            <div class="quick-reference {{damage}}" data-tooltip="{{label}}">
-                {{numberFormat value sign=true decimals=0}}
-                {{label}}
-            </div>
-            {{/with}}
-            {{/if}}
-            {{/each}}
-            {{!-- Civil Abilities --}}
-            {{#each system.bonuses.civil as |value skill|}}
-            {{#if value}}
-            {{#with (lookup ../config.civilSkills skill)}}
-            <div class="quick-reference" style="background-color: {{color}};" data-tooltip="{{skill}}">
-                {{numberFormat value sign=true decimals=0}}
-                {{label}}
-            </div>
-            {{/with}}
-            {{/if}}
-            {{/each}}
-            {{!-- Attributes --}}
-            {{#each system.bonuses.abilities as |value skill|}}
-            {{#if value}}
-            {{#with (lookup ../config.abilities skill)}}
-            <div class="quick-reference" data-tooltip="{{skill}}">
-                {{numberFormat value sign=true decimals=0}}
-                {{label}}
-            </div>
-            {{/with}}
-            {{/if}}
-            {{/each}}
+            {{> 'systems/celestus/templates/item/parts/item-quickref-bonuses.hbs'}}
             {{!-- Resistances --}}
             <h3>Resistances</h3>
             {{#each system.bonuses.resistance as |value skill|}}

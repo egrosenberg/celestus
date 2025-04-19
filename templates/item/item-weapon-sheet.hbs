@@ -63,70 +63,7 @@
             {{/if}}
             {{!-- Bonuses --}}
             <h3>Bonuses:</h3>
-            {{!-- Combat Abilities --}}
-            {{#each system.bonuses.combat as |value skill|}}
-            {{#if value}}
-            {{#with (lookup ../config.combatSkills skill)}}
-            <div class="quick-reference {{damage}}" data-tooltip="{{label}}">
-                {{numberFormat value sign=true decimals=0}}
-                {{label}}
-            </div>
-            {{/with}}
-            {{/if}}
-            {{/each}}
-            {{!-- Civil Abilities --}}
-            {{#each system.bonuses.civil as |value skill|}}
-            {{#if value}}
-            {{#with (lookup ../config.civilSkills skill)}}
-            <div class="quick-reference" style="background-color: {{color}};" data-tooltip="{{skill}}">
-                {{numberFormat value sign=true decimals=0}}
-                {{label}}
-            </div>
-            {{/with}}
-            {{/if}}
-            {{/each}}
-            {{!-- Attributes --}}
-            {{#each system.bonuses.abilities as |value skill|}}
-            {{#if value}}
-            {{#with (lookup ../config.abilities skill)}}
-            <div class="quick-reference" data-tooltip="{{skill}}">
-                {{numberFormat value sign=true decimals=0}}
-                {{label}}
-            </div>
-            {{/with}}
-            {{/if}}
-            {{/each}}
-            {{!-- Misc. bonuses --}}
-            {{!-- Crit Chance --}}
-            {{#if system.bonuses.crit_chance}}
-            <div class="quick-reference">
-                {{percent system.bonuses.crit_chance symbol=true sign=true}} Crit Chance
-            </div>
-            {{!-- Crit Damage --}}
-            {{/if}}
-            {{#if system.bonuses.crit_bonus}}
-            <div class="quick-reference">
-                {{percent system.bonuses.crit_bonus symbol=true sign=true}} Crit Damage
-            </div>
-            {{/if}}
-            {{#if system.bonuses.accuracy}}
-            {{!-- Accuracy --}}
-            <div class="quick-reference">
-                {{percent system.bonuses.accuracy symbol=true sign=true}} Accuracy
-            </div>
-            {{/if}}
-            {{#if system.bonuses.evasion}}
-            {{!-- Evasion --}}
-            <div class="quick-reference">
-                {{percent system.bonuses.evasion symbol=true sign=true}} Evasion
-            </div>
-            {{/if}}
-            {{#if system.bonuses.initiative}}
-            {{!-- Initiative --}}
-            <div class="quick-reference">
-                {{numberFormat system.bonuses.initiative sign=true}} Initiative
-            </div>
-            {{/if}}
+            {{> 'systems/celestus/templates/item/parts/item-quickref-bonuses.hbs'}}
             {{!-- Resistances --}}
             <h3>Resistances</h3>
             {{#each system.bonuses.resistance as |value skill|}}
@@ -263,6 +200,7 @@
                                 {{/each}}
                             </div>
                         </div>
+                        {{> "systems/celestus/templates/item/parts/item-runes.hbs"}}
                         {{> "systems/celestus/templates/item/parts/item-bonuses.hbs"}}
                         {{!-- applied statuses --}}
                         <h3>Applies Statuses</h3>

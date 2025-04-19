@@ -1,6 +1,13 @@
 export default {
     "sockets": [
         {
+            "id": "Weapon_RuneEmpty",
+            "type": "RuneEmpty",
+            "minLvl": 1,
+            "gearType": "weapon",
+            "plug": "Weapon_RuneEmpty"
+        },
+        {
             "id": "Offhand_RuneEmpty",
             "type": "RuneEmpty",
             "minLvl": 1,

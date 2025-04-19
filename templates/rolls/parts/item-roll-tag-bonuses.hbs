@@ -1,0 +1,91 @@
+{{!-- Combat Abilities --}}
+{{#each system.bonuses.combat as |value skill|}}
+{{#if value}}
+{{#with (lookup ../config.combatSkills skill)}}
+<div class="roll-tag" data-tooltip="{{label}}">
+    {{numberFormat value sign=true decimals=0}}
+    {{label}}
+</div>
+{{/with}}
+{{/if}}
+{{/each}}
+
+{{!-- Civil Abilities --}}
+{{#each system.bonuses.civil as |value skill|}}
+{{#if value}}
+{{#with (lookup ../config.civilSkills skill)}}
+<div class="roll-tag" data-tooltip="{{skill}}">
+    {{numberFormat value sign=true decimals=0}}
+    {{label}}
+</div>
+{{/with}}
+{{/if}}
+{{/each}}
+
+{{!-- Attributes --}}
+{{#each system.bonuses.abilities as |value skill|}}
+{{#if value}}
+{{#with (lookup ../config.abilities skill)}}
+<div class="roll-tag" data-tooltip="{{skill}}">
+    {{numberFormat value sign=true decimals=0}}
+    {{label}}
+</div>
+{{/with}}
+{{/if}}
+{{/each}}
+
+{{!-- Resistances --}}
+{{#each system.bonuses.resistance as |value skill|}}
+{{#if value}}
+{{#with (lookup ../config.damageTypes skill)}}
+<div class="roll-tag" data-tooltip="{{skill}}">
+    {{percent value symbol=true sign=true}}
+    {{label}} Resist
+</div>
+{{/with}}
+{{/if}}
+{{/each}}
+
+{{!-- Misc. bonuses --}}
+{{!-- Crit Chance --}}
+{{#if system.bonuses.crit_chance}}
+<div class="roll-tag">
+    {{percent system.bonuses.crit_chance symbol=true sign=true}} Crit Chance
+</div>
+{{/if}}
+{{#if system.bonuses.crit_bonus}}
+{{!-- Crit Damage --}}
+<div class="roll-tag">
+    {{percent system.bonuses.crit_bonus symbol=true sign=true}} Crit Damage
+</div>
+{{/if}}
+{{#if system.bonuses.accuracy}}
+{{!-- Accuracy --}}
+<div class="roll-tag">
+    {{percent system.bonuses.accuracy symbol=true sign=true}} Accuracy
+</div>
+{{/if}}
+{{#if system.bonuses.evasion}}
+{{!-- Evasion --}}
+<div class="roll-tag">
+    {{percent system.bonuses.evasion symbol=true sign=true}} Evasion
+</div>
+{{/if}}
+{{#if system.bonuses.movement}}
+{{!-- Movement --}}
+<div class="roll-tag">
+    {{numberFormat system.bonuses.movement sign=true}} Movement
+</div>
+{{/if}}
+{{#if system.bonuses.hp}}
+{{!-- Health --}}
+<div class="roll-tag">
+    {{numberFormat system.bonuses.hp sign=true}} Max Health
+</div>
+{{/if}}
+{{#if system.bonuses.initiative}}
+{{!-- Initiative --}}
+<div class="roll-tag">
+    {{numberFormat system.bonuses.initiative sign=true}} Initiative
+</div>
+{{/if}}

@@ -7,13 +7,12 @@
             <span class="title">{{name}}</span>
         </div>
     </header>
-    <div class="roll-tags">
-        {{!-- feature type --}}
-        <span class="roll-tag">
-            {{lookup config.featureTypes system.type}}
-        </span>
-
-        {{> 'systems/celestus/templates/rolls/parts/item-roll-tag-bonuses.hbs'}}
-    </div>
-    {{#if flavor}}{{{flavor}}}{{/if}}
+    {{#each item.system.plugs as |plugs type|}}
+    <b>{{capitalize type}}:</b>
+    {{#each plugs as |plug|}}
+    {{localize (concat "CELESTUS.runeDescriptions." plug)}}
+    {{ifThen @last "" ","}}
+    {{/each}}
+    {{{ifThen @last "" "<br/>"}}}
+    {{/each}}
 </div>

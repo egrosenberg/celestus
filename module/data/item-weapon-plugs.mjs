@@ -1,6 +1,16 @@
 export default {
     "plugs": [
         {
+            "id": "Weapon_RuneEmpty",
+            "changes": [
+                {
+                    "id": "system.runeSlots",
+                    "mode": "Add",
+                    "value": 1
+                }
+            ]
+        },
+        {
             "id": "Weapon_Ability_OneHand_T1",
             "changes": [
                 {
@@ -1079,6 +1089,398 @@ export default {
                     "id": "system.appliedStatuses",
                     "mode": "Append",
                     "value": "bleed"
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Fire_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "fire",
+                        "value": "0.09"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Fire_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "fire",
+                        "value": "0.11"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Fire_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "fire",
+                        "value": "0.13"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Fire_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "fire",
+                        "value": "0.15"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Water_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "water",
+                        "value": "0.09"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Water_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "water",
+                        "value": "0.11"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Water_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "water",
+                        "value": "0.13"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Water_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "water",
+                        "value": "0.15"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Air_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "air",
+                        "value": "0.09"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Air_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "air",
+                        "value": "0.11"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Air_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "air",
+                        "value": "0.13"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Air_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "air",
+                        "value": "0.15"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Earth_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "earth",
+                        "value": "0.09"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Earth_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "earth",
+                        "value": "0.11"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Earth_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "earth",
+                        "value": "0.13"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Earth_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "earth",
+                        "value": "0.15"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Poison_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "poison",
+                        "value": "0.09"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Poison_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "poison",
+                        "value": "0.11"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Poison_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "poison",
+                        "value": "0.13"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Poison_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "poison",
+                        "value": "0.15"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Psychic_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "psychic",
+                        "value": "0.09"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Psychic_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "psychic",
+                        "value": "0.11"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Psychic_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "psychic",
+                        "value": "0.13"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Psychic_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "psychic",
+                        "value": "0.15"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Physical_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "physical",
+                        "value": "0.09"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Physical_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "physical",
+                        "value": "0.11"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Physical_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "physical",
+                        "value": "0.13"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Weapon_Rune_Damage_Physical_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonusElements",
+                    "mode": "Append",
+                    "value": {
+                        "type": "physical",
+                        "value": "0.15"
+                    }
                 }
             ]
         }

@@ -3,6 +3,11 @@ export default {
         {
             "id": "Armor_RuneEmpty",
             "changes": [
+                {
+                    "id": "system.runeSlots",
+                    "mode": "Add",
+                    "value": 1
+                }
             ]
         },
         {
@@ -1147,6 +1152,534 @@ export default {
                     "id": "system.bonuses.statusImmune",
                     "mode": "Append",
                     "value": "maim"
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Fire_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.fire",
+                    "mode": "Add",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Fire_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.fire",
+                    "mode": "Add",
+                    "value": 0.07
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Fire_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.fire",
+                    "mode": "Add",
+                    "value": 0.09
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Fire_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.fire",
+                    "mode": "Add",
+                    "value": 0.11
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Water_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.water",
+                    "mode": "Add",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Water_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.water",
+                    "mode": "Add",
+                    "value": 0.07
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Water_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.water",
+                    "mode": "Add",
+                    "value": 0.09
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Water_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.water",
+                    "mode": "Add",
+                    "value": 0.11
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Air_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.air",
+                    "mode": "Add",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Air_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.air",
+                    "mode": "Add",
+                    "value": 0.07
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Air_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.air",
+                    "mode": "Add",
+                    "value": 0.09
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Air_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.air",
+                    "mode": "Add",
+                    "value": 0.11
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Earth_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.earth",
+                    "mode": "Add",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Earth_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.earth",
+                    "mode": "Add",
+                    "value": 0.07
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Earth_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.earth",
+                    "mode": "Add",
+                    "value": 0.09
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Earth_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.earth",
+                    "mode": "Add",
+                    "value": 0.11
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Poison_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.poison",
+                    "mode": "Add",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Poison_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.poison",
+                    "mode": "Add",
+                    "value": 0.07
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Poison_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.poison",
+                    "mode": "Add",
+                    "value": 0.09
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Poison_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.poison",
+                    "mode": "Add",
+                    "value": 0.11
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Psychic_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.psychic",
+                    "mode": "Add",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Psychic_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.psychic",
+                    "mode": "Add",
+                    "value": 0.07
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Psychic_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.psychic",
+                    "mode": "Add",
+                    "value": 0.09
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Resistance_Psychic_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.psychic",
+                    "mode": "Add",
+                    "value": 0.11
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Boost_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.efficiency",
+                    "mode": "Add",
+                    "value": 0.04
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Boost_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.efficiency",
+                    "mode": "Add",
+                    "value": 0.06
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Boost_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.efficiency",
+                    "mode": "Add",
+                    "value": 0.08
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Boost_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.efficiency",
+                    "mode": "Add",
+                    "value": 0.10
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_CritChance_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.crit_chance",
+                    "mode": "Add",
+                    "value": 0.03
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_CritChance_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.crit_chance",
+                    "mode": "Add",
+                    "value": 0.04
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_CritChance_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.crit_chance",
+                    "mode": "Add",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_CritChance_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.crit_chance",
+                    "mode": "Add",
+                    "value": 0.06
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Evasion_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.evasion",
+                    "mode": "Add",
+                    "value": 0.03
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Evasion_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.evasion",
+                    "mode": "Add",
+                    "value": 0.04
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Evasion_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.evasion",
+                    "mode": "Add",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Evasion_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.evasion",
+                    "mode": "Add",
+                    "value": 0.06
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Accuracy_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.accuracy",
+                    "mode": "Add",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Accuracy_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.accuracy",
+                    "mode": "Add",
+                    "value": 0.08
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Accuracy_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.accuracy",
+                    "mode": "Add",
+                    "value": 0.12
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Accuracy_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.accuracy",
+                    "mode": "Add",
+                    "value": 0.16
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Movement_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.movement",
+                    "mode": "Add",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Movement_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.movement",
+                    "mode": "Add",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Movement_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.movement",
+                    "mode": "Add",
+                    "value": 3
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Movement_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.movement",
+                    "mode": "Add",
+                    "value": 4
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Health_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.hp",
+                    "mode": "Add",
+                    "value": 10
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Health_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.hp",
+                    "mode": "Add",
+                    "value": 25
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Health_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.hp",
+                    "mode": "Add",
+                    "value": 85
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Health_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.hp",
+                    "mode": "Add",
+                    "value": 115
                 }
             ]
         }

@@ -1,0 +1,23 @@
+<h3>Runes</h3>
+<div class="attribute-section">
+    <div class="form-group">
+        <label>
+            Total Rune Slots
+        </label>
+        <div class="form-fields">
+            <input type="text" name="system.runeSlots" value="{{system.runeSlots}}">
+        </div>
+    </div>
+    {{#repeat system.runeSlots}}
+    <div class="form-group">
+        <label>
+            Rune {{@index}}
+        </label>
+        <div class="form-fields">
+            <select data-name="system.slottedRunes" data-index="{{@index}}" class="select-index">
+                {{selectOptions ../runes selected=(byIndex ../system.slottedRunes @index)}}
+            </select>
+        </div>
+    </div>
+    {{/repeat}}
+</div>

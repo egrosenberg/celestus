@@ -1,4 +1,4 @@
-import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData, ConsumableItem } from "./dataModels.mjs"
+import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData, ConsumableItem, RuneData } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken } from "./actors.mjs"
 import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc, teleportTokenStart, populateHotbar, applyDamageComponent, renderTokenInfo, renderBossDisplay, showBossDisplay, hideBossDisplay, updateBossResources, activateBoss, deactivateBoss } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CelestusMeasuredTemplateConfig, CharacterSheet } from "./sheets.mjs"
@@ -42,6 +42,8 @@ const preloadHandlebarsTemplates = async function () {
         // Item partials
         'systems/celestus/templates/item/parts/item-creation.hbs',
         'systems/celestus/templates/item/parts/item-bonuses.hbs',
+        'systems/celestus/templates/item/parts/item-runes.hbs',
+        'systems/celestus/templates/item/parts/item-quickref-bonuses.hbs',
         // item descriptions
         'systems/celestus/templates/rolls/item-parts/armor-description.hbs',
         'systems/celestus/templates/rolls/item-parts/feature-description.hbs',
@@ -49,6 +51,7 @@ const preloadHandlebarsTemplates = async function () {
         'systems/celestus/templates/rolls/item-parts/skill-description.hbs',
         'systems/celestus/templates/rolls/item-parts/weapon-description.hbs',
         'systems/celestus/templates/rolls/item-parts/consumable-description.hbs',
+        'systems/celestus/templates/rolls/parts/item-roll-tag-bonuses.hbs',
         // boss display
         'systems/celestus/templates/boss-display-effects.hbs',
     ]);
@@ -647,6 +650,7 @@ Hooks.on("init", () => {
         feature: CelestusFeature,
         quickref: ReferenceData,
         consumable: ConsumableItem,
+        rune: RuneData
     }
 
     CONFIG.ActiveEffect.dataModels = {
@@ -1072,12 +1076,15 @@ Hooks.on("canvasDraw", () => {
 });
 
 // hbs helpers
-Handlebars.registerHelper("repeat", (n, options) => {
+Handlebars.registerHelper("repeat", (n, block) => {
     let output = ""
-    let offset = parseInt(options.hash.offset);
+    let offset = parseInt(block.hash?.offset);
     offset = isNaN(offset) ? 0 : offset;
     for (let i = 0; i < n; i++) {
-        output += options.fn(this).replace('@index', i + offset);
+        block.data.index = i + offset;
+        block.data.first = i === 0;
+        block.data.last = i === (n - 1);
+        output += block.fn(this)?.replace('@index', i + offset);
     }
     return output;
 });
@@ -1108,6 +1115,9 @@ Handlebars.registerHelper("sum", (a, b) => {
 });
 Handlebars.registerHelper("capitalize", (a) => {
     return String(a)[0].toUpperCase() + String(a).slice(1);
+});
+Handlebars.registerHelper("byIndex", (arr, i) => {
+    return arr?.[i];
 });
 
 // attempt to bind to elevation ruler

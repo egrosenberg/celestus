@@ -5,14 +5,7 @@ const {
     HTMLField, SchemaField, NumberField, StringField, FilePathField, ArrayField, BooleanField, ObjectField
 } = foundry.data.fields;
 
-/**
- * helper function simplifying equipped armor
- */
-function armorSocket() {
-    return new SchemaField({
-        id: new StringField({}), // _id of item
-    });
-}
+
 
 /**
  * Define data model for player character
@@ -177,6 +170,8 @@ export class ActorData extends foundry.abstract.TypeDataModel {
 
     /** override */
     prepareDerivedData() {
+        let bonusMovement = 0;
+        let bonusHP = 0;
         // iterate through items
         for (const item of this.parent.items) {
             // check if item is an armor piece and equipped
@@ -224,6 +219,8 @@ export class ActorData extends foundry.abstract.TypeDataModel {
                 this.attributes.bonuses.accuracy.value += item.system.bonuses.accuracy;
                 this.attributes.bonuses.initiative.value += item.system.bonuses.initiative;
                 this.attributes.bonuses.evasion.value += item.system.bonuses.evasion;
+                bonusMovement += item.system.bonuses.movement;
+                bonusHP += item.system.bonuses.hp;
             }
         }
         // iterate through resistances
@@ -303,6 +300,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
             this.resources.mag_armor.max *= 1 + (this.abilities.con.mod * CONFIG.CELESTUS.naturalArmorScale);
         }
         this.resources.hp.max *= 1 + this.abilities.con.mod;
+        this.resources.hp.max += bonusHP;
         if (this.parent.getFlag("celestus", "durable")) {
             this.resources.hp.max *= CONFIG.CELESTUS.durableMult;
         }
@@ -320,7 +318,8 @@ export class ActorData extends foundry.abstract.TypeDataModel {
         this.resources.hp.max = parseInt(this.resources.hp.max);
         // movespeed
         this.attributes.movement.value *= (1 + this.attributes.movement.bonus) * (1 + this.combat.shroudstalker.mod);
-        this.attributes.movement.value = Math.round(this.attributes.movement.value)
+        this.attributes.movement.value += bonusMovement;
+        this.attributes.movement.value = Math.round(this.attributes.movement.value);
 
         /**
          * calculate final flat values from offsets
@@ -376,6 +375,12 @@ export class ActorData extends foundry.abstract.TypeDataModel {
      */
     get consumable() {
         return this.parent.items.filter(i => i.type === "consumable");
+    }
+    /**
+     * finds and returns all runes
+     */
+    get rune() {
+        return this.parent.items.filter(i => i.type === "rune");
     }
     /**
      * Finds and returns all effects on character
@@ -1206,7 +1211,7 @@ export class CelestusItem extends foundry.abstract.TypeDataModel {
     }
 
     /** Total weight of item(s) */
-    get totalWeight() { 
+    get totalWeight() {
         return this.weight * this.quantity;
     }
 
@@ -1269,6 +1274,8 @@ export class GearData extends CelestusItem {
                 crit_chance: new NumberField({ required: true, initial: 0 }),
                 accuracy: new NumberField({ required: true, initial: 0 }),
                 evasion: new NumberField({ required: true, initial: 0 }),
+                movement: new NumberField({ required: true, integer: true, initial: 0 }),
+                hp: new NumberField({ required: true, integer: true, initial: 0 }),
                 initiative: new NumberField({ required: true, integer: true, initial: 0 }),
             }),
             // prerequisite stats
@@ -1313,6 +1320,10 @@ export class GearData extends CelestusItem {
                 new StringField(),
                 { required: true, initial: [] }
             ),
+            // # of runes
+            runeSlots: new NumberField({ required: true, initial: 0, integer: true, min: 0 }),
+            // ids of slotted runes
+            slottedRunes: new ArrayField(new StringField(), {required: true, initial: []}),
         });
     }
     /** @override */
@@ -1648,7 +1659,7 @@ export class ConsumableItem extends CelestusItem {
         }));
         schema.itemizeDamage = new BooleanField({ required: true, initial: false });
         schema.statusEffects = new ArrayField(new StringField());
-        schema.ap = new NumberField({ required: true, initial: false });
+        schema.ap = new NumberField({ required: true, initial: 0 });
         return schema;
     }
 }
@@ -1922,6 +1933,41 @@ export class ReferenceData extends foundry.abstract.TypeDataModel {
             // html description of armor
             description: new HTMLField()
         }
+    }
+}
+
+/**
+ * runes
+ * @extends { TypeDataModel }
+ */
+export class RuneData extends foundry.abstract.TypeDataModel {
+    static defineSchema() {
+        return {
+            description: new HTMLField(),
+            // ids of plugs to apply for each slot
+            plugs: new SchemaField({
+                weapon: new ArrayField(new StringField({required: true, initial: "none"})),
+                armor: new ArrayField(new StringField({required: true, initial: "none"})),
+                amulet: new ArrayField(new StringField({required: true, initial: "none"})),
+                offhand: new ArrayField(new StringField({required: true, initial: "none"})),
+            }),
+            // All changes for specified type (set on update)
+            changes: new SchemaField({
+                weapon: new ArrayField(new ObjectField()),
+                armor: new ArrayField(new ObjectField()),
+                amulet: new ArrayField(new ObjectField()),
+                offhand: new ArrayField(new ObjectField()),
+            }),
+        }
+    }
+
+    /**
+     * Checks if this rune is currently slotted
+     * @returns {Item | Boolean | undefined} item that it is slotted in or some falsy value (may be undefined)
+     */
+    get slotted() {
+        if (!(this.parent.parent?.documentName === "Actor")) return false;
+        return this.parent.parent.items.find(i => i.system?.slottedRunes?.includes(this.parent.id));
     }
 }
 

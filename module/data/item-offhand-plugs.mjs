@@ -3,6 +3,11 @@ export default {
         {
             "id": "Offhand_RuneEmpty",
             "changes": [
+                {
+                    "id": "system.runeSlots",
+                    "mode": "Add",
+                    "value": 1
+                }
             ]
         },
         {
@@ -742,6 +747,324 @@ export default {
                     "id": "system.bonuses.crit_bonus",
                     "mode": "Add",
                     "value": 0.25
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Fire_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.fire",
+                    "mode": "Add",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Fire_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.fire",
+                    "mode": "Add",
+                    "value": 0.07
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Fire_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.fire",
+                    "mode": "Add",
+                    "value": 0.09
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Fire_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.fire",
+                    "mode": "Add",
+                    "value": 0.11
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Water_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.water",
+                    "mode": "Add",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Water_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.water",
+                    "mode": "Add",
+                    "value": 0.07
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Water_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.water",
+                    "mode": "Add",
+                    "value": 0.09
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Water_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.water",
+                    "mode": "Add",
+                    "value": 0.11
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Air_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.air",
+                    "mode": "Add",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Air_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.air",
+                    "mode": "Add",
+                    "value": 0.07
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Air_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.air",
+                    "mode": "Add",
+                    "value": 0.09
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Air_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.air",
+                    "mode": "Add",
+                    "value": 0.11
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Earth_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.earth",
+                    "mode": "Add",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Earth_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.earth",
+                    "mode": "Add",
+                    "value": 0.07
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Earth_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.earth",
+                    "mode": "Add",
+                    "value": 0.09
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Earth_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.earth",
+                    "mode": "Add",
+                    "value": 0.11
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Poison_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.poison",
+                    "mode": "Add",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Poison_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.poison",
+                    "mode": "Add",
+                    "value": 0.07
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Poison_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.poison",
+                    "mode": "Add",
+                    "value": 0.09
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Poison_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.poison",
+                    "mode": "Add",
+                    "value": 0.11
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Psychic_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.psychic",
+                    "mode": "Add",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Psychic_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.psychic",
+                    "mode": "Add",
+                    "value": 0.07
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Psychic_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.psychic",
+                    "mode": "Add",
+                    "value": 0.09
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Resistance_Psychic_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.resistance.psychic",
+                    "mode": "Add",
+                    "value": 0.11
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Boost_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.efficiency",
+                    "mode": "Add",
+                    "value": 0.04
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Boost_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.efficiency",
+                    "mode": "Add",
+                    "value": 0.06
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Boost_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.efficiency",
+                    "mode": "Add",
+                    "value": 0.08
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Rune_Boost_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.efficiency",
+                    "mode": "Add",
+                    "value": 0.10
+                }
+            ]
+        },
+        {
+            "id": "Offhand_Bonus_CritChance_T1",
+            "changes": [
+                {
+                    "id": "system.bonuses.crit_chance",
+                    "mode": "Add",
+                    "value": 0.03
                 }
             ]
         }

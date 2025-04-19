@@ -9,8 +9,39 @@ export class CelestusItem extends Item {
     /**
      * Prepare derived data
      */
-    prepareData() {
-
+    prepareDerivedData() {
+        super.prepareDerivedData();
+        // prevent double calls
+        if (this.system.preparing) return;
+        this.system.preparing = true;
+        // apply slotted runes
+        if (["armor", "offhand", "weapon"].includes(this.type)) {   
+            const plugType = ["amulet", "ring"].includes(this.system.spread??"") ? "amulet" : this.type;
+            this.overriddenFields = [];
+            if (!this.system.slottedRunes || !this.system.runeSlots) return;
+            // iterate through slotted runes
+            for (const r_id of this.system.slottedRunes) {
+                // skip if id is blank
+                if (r_id === "none") continue;
+                // find rune
+                const rune = this.actor?.items.get(r_id);
+                if (!rune) continue;
+                // apply changes
+                const changes = rune.system.changes[plugType];
+                if (changes) {
+                    for (const change of changes) {
+                        // mark field as changed
+                        this.overriddenFields.push(change.id);
+                        // get current value
+                        const key = change.id.startsWith("system.") ? change.id.slice(7) : change.id;
+                        const model = change.id.startsWith("system.") ? this.system : this;
+                        const mode = change.mode === "Override" ? CONST.ACTIVE_EFFECT_MODES.OVERRIDE : CONST.ACTIVE_EFFECT_MODES.ADD;
+                        const changeData = { key: key, value: change.value, mode: mode }
+                        ActiveEffect.applyField(model, changeData, model.schema.getField(key));
+                    }
+                }
+            }
+        }
     }
 
 
@@ -108,7 +139,7 @@ export class CelestusItem extends Item {
         }
 
         // socketing stuff
-        if (this.type === "armor" || this.type === "weapon" || this.type === "offhand") {
+        if (["armor", "offhand", "weapon"].includes(this.type)) {
             // initialize spread when changing rarity
             const newRarity = changed.system?.rarity;
             if (newRarity && newRarity !== this.system.rarity) {
@@ -142,6 +173,64 @@ export class CelestusItem extends Item {
                     }
                 }
                 this.updateSource({ "system.plugIds": newPlugs })
+            }
+        }
+
+        // when socketing a rune
+        if (["armor", "offhand", "weapon"].includes(this.type) && this.parent?.documentName === "Actor") {
+            const slotted = changed.system?.slottedRunes;
+            // unsocket runes from previous parents
+            if (slotted) {
+                for (let i = 0; i < slotted.length; ++i) {
+                    const id = slotted[i];
+                    if (id === "none" || id === this.system.slottedRunes[i]) continue;
+                    const rune = this.parent.items.get(id);
+                    if (!rune) continue;
+                    const runeOwner = rune.system.slotted?.id;
+                    console.log(runeOwner);
+                    // unsocket from previous parent
+                    if (runeOwner && runeOwner !== this.id) {
+                        const prevOwner = this.parent.items.get(runeOwner);
+                        const runeIds = prevOwner.system.slottedRunes;
+                        const index = runeIds.indexOf(id);
+                        if (index > -1) {
+                            runeIds[index] = "none";
+                            await prevOwner.update({ "system.slottedRunes": runeIds });
+                        }
+                    }
+                    if (runeOwner === this.id) {
+                        console.log("rune is slotted on current item");
+                        for (let j = 0; j < slotted.length; ++j) {
+                            if (j === i || slotted[j] === "none") continue;
+                            if (id === slotted[j]) slotted[j] = "none";
+                        }
+                    }
+                }
+            }
+        }
+
+        // rune stuff check if plug changed
+        if (this.type === "rune") {
+            const plugs = changed.system?.plugs;
+            if (plugs) {
+                changed.system.changes = {};
+                for (const type of ["weapon", "armor", "amulet", "offhand"]) {
+                    const plugType = type === "amulet" ? "armor" : type;
+                    if (!plugs[type]) continue;
+                    const plugsList = CONFIG.CELESTUS.itemPlugs[plugType];
+                    if (!plugsList) continue;
+                    let changes = [];
+                    for (const id of plugs[type]) {
+                        const plug = plugsList.find(p => p.id === id);
+                        if (plug) {
+                            changes = changes.concat(plug.changes);
+                        }
+                        else {
+                            console.error("CELESTUS | Could not find plug with id " + id);
+                        }
+                    }
+                    changed.system.changes[type] = changes;
+                }
             }
         }
     }
@@ -420,10 +509,10 @@ export class CelestusItem extends Item {
     /**
      * Applies all plugs from actor
      */
-    applyAllPlugs() {
+    async applyAllPlugs() {
         for (const id of this.system.plugIds) {
             if (id) {
-                this.applyPlug(id);
+                await this.applyPlug(id);
             }
         }
     }
@@ -432,7 +521,7 @@ export class CelestusItem extends Item {
      * apply bonuses from a plug
      * @param {String} id of plug to calculate
      */
-    applyPlug(id) {
+    async applyPlug(id) {
         const plugs = CONFIG.CELESTUS.itemPlugs[this.type];
         if (!plugs) return;
         // find plug from id
@@ -447,14 +536,14 @@ export class CelestusItem extends Item {
                     if (typeof current !== "undefined") {
                         // apply change based on applyMode
                         if (change.mode === "Add") {
-                            this.update({ [change.id]: current + change.value });
+                            await this.update({ [change.id]: current + change.value });
                         }
                         else if (change.mode === "Append") {
                             current.push(change.value);
-                            this.update({ [change.id]: current });
+                            await this.update({ [change.id]: current });
                         }
                         else if (change.mode === "Override") {
-                            this.update({ [change.id]: change.value });
+                            await this.update({ [change.id]: change.value });
                         }
                     }
                 }

@@ -290,7 +290,7 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .celestus.sheet .ability-mod {
-    padding-left: 2px;
+    padding: 3px;
     text-align: left;
 }
 
@@ -902,6 +902,19 @@ input[type="color"]::-webkit-color-swatch {
 .celestus.actor.sheet .item-name {
     height: 30px;
     flex: 3;
+    display: flex;
+    flex-direction: row;
+    gap: 0.3em;
+}
+
+.celestus.actor.sheet .rune-slots {
+    font-size: 0.5em;
+    position: relative;
+    display: inline-flex;
+    flex-direction: row;
+    gap: 0.2em;
+    align-items: center;
+    margin-bottom: 1em;
 }
 
 .celestus.actor.sheet .effect-section .item-name {
