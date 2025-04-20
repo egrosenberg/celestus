@@ -1,0 +1,32 @@
+name: Action Points
+type: quickref
+_id: 32cncHbHLvecLYmw
+img: systems/celestus/svg/spinning-sword.svg
+system:
+  description: >-
+    <p>Action points (represented as green circles) are the primary resource
+    needed for using skills in Initiative. Many skills require a certain amount
+    of action points to use. While in initiative, a character must spend that
+    many action points to use the skill, outside of initiative you can ignore
+    these costs.</p><p>Characters have a starting AP and max AP value. At the
+    start of each character’s turns they receive a number of action points equal
+    to their starting value. A character can never have more action points than
+    their max.</p>
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740789229556
+  modifiedTime: 1743631868255
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!32cncHbHLvecLYmw'
+

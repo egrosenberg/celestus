@@ -1,0 +1,31 @@
+name: Scenes
+type: quickref
+_id: EfufPpCvHHYaT2f5
+img: systems/celestus/svg/stopwatch.svg
+system:
+  description: >-
+    <p>A scene is any individual sequence of events. It can take any amount of
+    time but shouldn't ever exceed more than a day. Some examples of a scene
+    are: trying to escape a collapsing temple, a large uninterrupted stint of
+    travel, a combat. Most anything that constitutes rolling initiative would be
+    a scene.</p><p>After a scene concludes, characters are able to "refresh"
+    some resources, namely their health, armor, and
+    @UUID[Compendium.celestus.rules.yraIEBlqV1ui6lpV]{Focus Points.}</p>
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740788049283
+  modifiedTime: 1740788291507
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!EfufPpCvHHYaT2f5'
+

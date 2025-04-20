@@ -1,0 +1,35 @@
+name: Civil Abilities
+type: quickref
+_id: YLzjrNGr6Q1BXscc
+img: systems/celestus/svg/linden-leaf.svg
+system:
+  description: >-
+    <table><tbody><tr><td><h3>Ability</h3></td><td><h3>Bonus</h3></td></tr><tr><td><p><strong>Scoundrel</strong></p></td><td><p>Hiding,
+    lock picking, and other sleight of
+    hand.</p></td></tr><tr><td><p><strong>Lore</strong></p></td><td><p>Recalling
+    relevant information and finding meaning in
+    passages.</p></td></tr><tr><td><p><strong>Nature</strong></p></td><td><p>Finding
+    your way through the wilds, tracking creatures, knowledge of
+    wildlife.</p></td></tr><tr><td><p><strong>Influence</strong></p></td><td><p>Changing
+    the opinions of those around you, deceiving others, and
+    performing.</p></td></tr><tr><td><p><strong>Religion</strong></p></td><td><p>Knowledge
+    of religious practices and attuning yourself to spiritual
+    processes.</p></td></tr></tbody></table>
+effects: []
+folder: pa9fsOd1f4K24GQ3
+sort: 100000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740623585851
+  modifiedTime: 1740786953325
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!YLzjrNGr6Q1BXscc'
+

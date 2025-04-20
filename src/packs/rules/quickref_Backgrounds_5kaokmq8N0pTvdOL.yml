@@ -1,0 +1,30 @@
+name: Backgrounds
+type: quickref
+_id: 5kaokmq8N0pTvdOL
+img: systems/celestus/svg/book-cover.svg
+system:
+  description: >-
+    <p><a href="/browse/backgrounds/" title="Backgrounds">Backgrounds</a>
+    represent who your character was before they became an adventurer. These
+    often have very little numerical benefit, merely granting a +1 bonus to one
+    civil ability. The heart of backgrounds is in the
+    @UUID[Compendium.celestus.rules.QbdFbQkWYH788N2x]{You Can Always...}
+    section.</p>
+effects: []
+folder: null
+sort: 700000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740619171733
+  modifiedTime: 1740622708453
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!5kaokmq8N0pTvdOL'
+

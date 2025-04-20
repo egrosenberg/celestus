@@ -1,0 +1,29 @@
+name: Movement
+type: quickref
+_id: BYa7JKlivItrhsrr
+img: systems/celestus/svg/sprint.svg
+system:
+  description: >-
+    <p><span style="font-family:'gg sans', 'Noto Sans', 'Helvetica Neue',
+    Helvetica, Arial, sans-serif">Moving during combat takes 1 action point to
+    move a distance equal to your movement speed. This movement doesn't have to
+    be done entirely in continuous move and you can act between
+    moving.</span></p>
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740627820099
+  modifiedTime: 1740627890362
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!BYa7JKlivItrhsrr'
+

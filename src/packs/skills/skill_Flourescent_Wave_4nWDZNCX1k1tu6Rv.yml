@@ -1,0 +1,93 @@
+folder: 69Ks48oydPuofEu9
+name: Flourescent Wave
+type: skill
+_id: 4nWDZNCX1k1tu6Rv
+img: icons/magic/sonic/explosion-impact-shock-wave.webp
+system:
+  description: >-
+    <p>A wave of illuminant force crashes out from you into a 30-foot radius.
+    Each creature of your choice within the radius takes 90% Radiant damage and
+    is knocked prone.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.m4Sd3wSukc9j0o3h]{Prone} (Resisted by
+    Physical Armor)</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    lightbringer: 2
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: radiant
+      value: 0.9
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: radius
+    size: 30
+  range: 0
+  statusEffects:
+    - prone
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: lightbringer
+  tier: 2
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1744481000046
+  modifiedTime: 1744490187047
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!4nWDZNCX1k1tu6Rv'
+

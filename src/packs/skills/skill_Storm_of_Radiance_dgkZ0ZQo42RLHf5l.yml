@@ -1,0 +1,93 @@
+folder: rMCuqZIKE9YkxK00
+name: Storm of Radiance
+type: skill
+_id: dgkZ0ZQo42RLHf5l
+img: icons/magic/lightning/bolt-strike-explosion-yellow.webp
+system:
+  description: >-
+    <p>You summon a storm of radiant lightning at a point you can see within
+    range. Each creature within a 15-foot cylinder centered on that point takes
+    100% Radiant damage and is blinded.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.1CbPWoPQr2EW4pzF]{Blinded} (Resisted by
+    Magic Armor)</p><p>★ Channels for 2 turns.</p>
+  ap: 3
+  fp: 2
+  cooldown:
+    value: 0
+    max: 8
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 2
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    lightbringer: 3
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: radiant
+      value: 1
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: cylinder
+    size: 15
+  range: 0
+  statusEffects:
+    - blind
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: lightbringer
+  tier: 3
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 2
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1744494210678
+  modifiedTime: 1744495490538
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!dgkZ0ZQo42RLHf5l'
+

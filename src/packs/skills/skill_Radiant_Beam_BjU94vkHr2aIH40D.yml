@@ -1,0 +1,146 @@
+folder: QQ5Mp3sqav813Qse
+name: Radiant Beam
+type: skill
+_id: BjU94vkHr2aIH40D
+img: icons/magic/light/projectile-smoke-yellow.webp
+system:
+  description: >-
+    <p>You fire a beam of radiant light towards a creature you can see within
+    range. As it impacts the target it takes 100% Radiant damage and is sheathed
+    in golden light. For 2 rounds the target cannot become invisible and loses
+    -20% evasion.</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 3
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    lightbringer: 1
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: radiant
+      value: 1
+  ability: int
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 80
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: lightbringer
+  tier: 0
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects:
+  - name: Radiant Beam
+    img: icons/magic/light/projectile-smoke-yellow.webp
+    origin: Compendium.celestus.skills.Item.BjU94vkHr2aIH40D
+    duration:
+      rounds: 2
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: 2QC1U8aIw24MXlUF
+    system:
+      damage: []
+      damageRiders: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks:
+        - invisible
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes:
+      - key: system.attributes.bonuses.evasion.bonus
+        mode: 2
+        value: '-0.1'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1744426478733
+      modifiedTime: 1744426560213
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!BjU94vkHr2aIH40D.2QC1U8aIw24MXlUF'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1744426189998
+  modifiedTime: 1744426659012
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!BjU94vkHr2aIH40D'
+

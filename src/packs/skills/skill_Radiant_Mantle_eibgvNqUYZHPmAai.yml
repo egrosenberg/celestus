@@ -1,0 +1,143 @@
+folder: 1Fq3XeIRG0wpjufB
+name: Radiant Mantle
+type: skill
+img: icons/magic/fire/dagger-rune-enchant-flame-strong-orange.webp
+system:
+  description: >-
+    <p>A mantle of radiant light overcomes you and bolsters the attacks of your
+    and your allies. For 2 rounds, each ally within a 30-foot radius of you
+    gains a 50% radiant damage rider to their strikes.</p><p>This skill cannot
+    be used while @Item[DXPyThaav0t2raLS]{Holy Strikes} is active, nor can Holy
+    Strikes be used while this is active.</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 6
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    lightbringer: 2
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: lightbringer
+  tier: 1
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects:
+  - name: Holy Strikes
+    img: icons/skills/melee/strike-sword-steel-yellow.webp
+    origin: Compendium.celestus.skills.Item.ceUxpXWuzJFvbfl2
+    duration:
+      rounds: 2
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: DeOigWPVC613y6oR
+    system:
+      damageFlatScalar: false
+      damage: []
+      damageRiders:
+        - type: radiant
+          value: 0.5
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: true
+        targetsSelf: true
+        radius: 30
+        targets: ally
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes: []
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: null
+      modifiedTime: 1744569716733
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!eibgvNqUYZHPmAai.DeOigWPVC613y6oR'
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1744569511382
+  modifiedTime: 1744569836780
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_id: eibgvNqUYZHPmAai
+sort: 0
+_key: '!items!eibgvNqUYZHPmAai'
+

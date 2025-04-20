@@ -1,0 +1,29 @@
+name: Character Origins
+type: quickref
+_id: 8cfxxoH7Kydh4eW3
+img: systems/celestus/svg/pay-money.svg
+system:
+  description: >-
+    <p>A character's origin represents who they were before their adventure and
+    what they were as they began it. A character's origin is comprised of an
+    @UUID[Compendium.celestus.rules.1K7OPa5ikLITwkPK]{ancestry}, a
+    @UUID[Compendium.celestus.rules.5kaokmq8N0pTvdOL]{background}, and a
+    @UUID[Compendium.celestus.rules.kcJXtk5NcqeIWPf9]{profession}.</p>
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1743790199324
+  modifiedTime: 1743790275880
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!8cfxxoH7Kydh4eW3'
+

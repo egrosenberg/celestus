@@ -1,0 +1,89 @@
+folder: LF9bDKRw124OgzVG
+name: Crush
+type: skill
+_id: Ts2mjGfFAa0F1a5z
+img: icons/skills/melee/strike-flail-spiked-pink.webp
+system:
+  description: >-
+    <p>You strike a target with all your might, attacking dealing 150% weapon
+    damage on a hit.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.m4Sd3wSukc9j0o3h]{Prone} (Resisted by
+    Physical Armor).</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 0
+  components:
+    verbal: false
+    somatic: false
+    material: true
+    materialFull: A weapon that uses strength
+  memorized: 'false'
+  type: weapon
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: true
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 0
+  statusEffects:
+    - prone
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: warlord
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1744237891933
+  modifiedTime: 1744238028596
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!Ts2mjGfFAa0F1a5z'
+

@@ -1,0 +1,31 @@
+name: Attributes and Attribute Points
+type: quickref
+_id: 3hjf9cfosUYnnxtP
+img: systems/celestus/svg/third-eye.svg
+system:
+  description: >-
+    <p>Attributes, sometimes referred to as Primary Attributes, are
+    @UUID[Compendium.celestus.rules.S3EUjWbDbCFacOFo]{six different scores} that
+    represent a character's physical and mental characteristics.</p><p>Attribute
+    points are a character building currency that are invested into different
+    primary attributes. Attributes all start with a base value of 10 and you
+    cannot spend more than 30 points in an attribute (for a base total of
+    40).</p>
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740934190739
+  modifiedTime: 1740944481595
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!3hjf9cfosUYnnxtP'
+

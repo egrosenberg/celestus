@@ -1,0 +1,51 @@
+name: Ability Checks
+type: quickref
+_id: RhLk5CMny3L5KM6w
+img: systems/celestus/svg/knocked-out.svg
+system:
+  description: >-
+    <p>Ability checks test character's talents and skills in an attempt to
+    overcome adversity. The GM can ask for an ability check whenever a character
+    attempts to accomplish some task that has a chance of
+    uncertainty.</p><p>Often the GM will ask for a civil ability check, but in
+    rare occasions may ask for a combat ability check. The GM will determine a
+    suitable ability and attribute for the check. If they choose a civil ability
+    it is a civil ability check, if they choose a combat ability it is a combat
+    ability check. If the GM determines there is no suitable bonus, the
+    character will only utilize the chosen attribute.</p><p>In order to perform
+    an ability check, a character makes a
+    @UUID[Compendium.celestus.rules.0UljObhEHAo05oGI]{d100 check} and adds a
+    bonus that depends on the attribute and ability the GM determined.</p><p>For
+    civil ability checks, add 5 times the character's ability total for the
+    chosen ability.<br />For combat ability checks, add the character's ability
+    total for the chosen ability.<br />For attributes, add the character's
+    attribute total minus 10.</p><p>For example, a character makes a Nature
+    (Wits) check. The die rolls 56, they have a 3 in Nature, and a 24 in Wits.
+    They total would be 56 (die roll) + 3×5 (Nature) + 24-10 (Wits) for a total
+    of 85.</p><h3>Difficulty Class</h3><p>When a GM asks for an ability check,
+    they will determine a difficulty class (DC), they may choose not to share
+    this value. The DC is the number that the check's total needs to surpass in
+    order to succeed. Below are some example difficulty classes and how
+    difficult they are to
+    achieve.</p><table><tbody><tr><td><h3>Challenge</h3></td><td><h3>DC</h3></td></tr><tr><td><p>Very
+    easy</p></td><td><p>25</p></td></tr><tr><td><p>Easy</p></td><td><p>50</p></td></tr><tr><td><p>Average</p></td><td><p>75</p></td></tr><tr><td><p>Hard</p></td><td><p>100</p></td></tr><tr><td><p>Very
+    Hard</p></td><td><p>125</p></td></tr><tr><td><p>Nigh
+    Impossible</p></td><td><p>150</p></td></tr></tbody></table>
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740625014694
+  modifiedTime: 1740627758608
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!RhLk5CMny3L5KM6w'
+

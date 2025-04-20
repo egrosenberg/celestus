@@ -1,0 +1,194 @@
+folder: Nd8Y4X5YuQ7zsaYv
+name: Spellblade
+type: feature
+_id: KrPEt947A8Siir5m
+img: icons/magic/symbols/runes-etched-steel-blade.webp
+system:
+  description: >-
+    <p>You have mastered weaving sword and sorcery. Through performing a 1 hour
+    ritual, or as part of a rest, you can magically bind a melee weapon you
+    possess to your magic. While wielding the bound weapon, you may use
+    intelligence when calculating damage. Additionally, while wielding the bound
+    weapon, you cannot be disarmed or
+    @UUID[Compendium.celestus.rules.ApravHaqi2H9tSn2]{atrophied}.</p><p>For 1
+    action point, you can temporarily shunt to or retrieve your weapon from a
+    pocket dimension.</p><p>You can only have one weapon bound in this way at a
+    time, and attempting to bind another weapon will cause all other weapon's
+    you are bound to to unbind. If the bound weapon is ever not on your person
+    or in the pocket dimension for more than 24 hours the bond ceases.</p>
+  price: 0
+  quantity: 1
+  weight: 0
+  equipped: true
+  type: talent
+  slot: none
+  efficiency: 1
+  bonuses:
+    combat:
+      onehand: 0
+      dualwield: 0
+      twohand: 0
+      ranged: 0
+      retributive: 0
+      flamespeaker: 0
+      tidecaller: 0
+      stormseeker: 0
+      duneshaper: 0
+      voidcantor: 0
+      deathbringer: 0
+      shroudstalker: 0
+      formshifter: 0
+      huntmaster: 0
+      warlord: 0
+    civil:
+      scoundrel: 0
+      lore: 0
+      nature: 0
+      influence: 0
+      religion: 0
+    abilities:
+      str: 0
+      dex: 0
+      con: 0
+      int: 0
+      mind: 0
+      wit: 0
+    resistance:
+      physical: 0
+      fire: 0
+      water: 0
+      air: 0
+      earth: 0
+      poison: 0
+      psychic: 0
+      shadow: 0
+      piercing: 0
+      healing: 0
+      phys_armor: 0
+      mag_armor: 0
+      t_phys_armor: 0
+      t_mag_armor: 0
+      special: 0
+    statusImmune: []
+    crit_bonus: 0
+    crit_chance: 0
+    accuracy: 0
+    evasion: 0
+    initiative: 0
+  prereqs:
+    str: 0
+    dex: 0
+    con: 0
+    int: 0
+    mind: 0
+    wit: 0
+  ownedEffects: []
+  socketTypes:
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  socketValues:
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  plugIds:
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  plugChanges:
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+  rarity: Common
+  level: 1
+  grantedSkills: []
+  ownedItems: []
+  canAlways: []
+effects:
+  - name: Bound Weapon
+    img: icons/magic/symbols/runes-etched-steel-blade.webp
+    origin: Compendium.celestus.talents.Item.KrPEt947A8Siir5m
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: kW2zpSDR0bu1TbE9
+    system:
+      damage: []
+      damageRiders: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks:
+        - atrophy
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes: []
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1743090534505
+      modifiedTime: 1743090752502
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!KrPEt947A8Siir5m.kW2zpSDR0bu1TbE9'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1743090468058
+  modifiedTime: 1743090738283
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!KrPEt947A8Siir5m'
+

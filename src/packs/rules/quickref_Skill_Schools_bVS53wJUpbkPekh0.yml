@@ -1,0 +1,42 @@
+folder: pa9fsOd1f4K24GQ3
+name: Skill Schools
+type: quickref
+_id: bVS53wJUpbkPekh0
+img: systems/celestus/svg/stone-sphere.svg
+system:
+  description: >-
+    <table><tbody><tr><td><h3>School</h3></td><td><h3>Characteristics</h3></td></tr><tr><td><p><strong>Flamespeaker</strong></p></td><td><p>Fiery
+    destruction</p></td></tr><tr><td><p><strong>Tidecaller</strong></p></td><td><p>Healing
+    water and frigid
+    cold</p></td></tr><tr><td><p><strong>Stormspeaker</strong></p></td><td><p>Bolts
+    of lightning and billowing
+    gales</p></td></tr><tr><td><p><strong>Duneshaper</strong></p></td><td><p>Powerful
+    boulders, earthen armor, and deadly
+    poisons</p></td></tr><tr><td><p><strong>Voidcantor</strong></p></td><td><p>Psionic
+    wrath and heightened
+    senses</p></td></tr><tr><td><p><strong>Deathbringer</strong></p></td><td><p>Necromancy
+    and
+    blood</p></td></tr><tr><td><p><strong>Shroudstalker</strong></p></td><td><p>Shadowy
+    assassination</p></td></tr><tr><td><p><strong>Lightbringer</strong></p></td><td><p>Holy
+    radiance</p></td></tr><tr><td><p><strong>Formshifter</strong></p></td><td><p>Shapeshifting
+    magic</p></td></tr><tr><td><p><strong>Huntmaster</strong></p></td><td><p>Sylvan
+    magic and barrages of
+    arrows</p></td></tr><tr><td><p><strong>Warlord</strong></p></td><td><p>Masterful
+    battle tactics</p></td></tr></tbody></table>
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740878282781
+  modifiedTime: 1744491817719
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!bVS53wJUpbkPekh0'
+

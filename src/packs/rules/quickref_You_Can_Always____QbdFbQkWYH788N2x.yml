@@ -1,0 +1,36 @@
+folder: QwCEgm0OD25Y0k3S
+name: You Can Always...
+type: quickref
+_id: QbdFbQkWYH788N2x
+img: systems/celestus/svg/book-cover.svg
+system:
+  description: >-
+    <p class="MsoNormal">Some features (mainly backgrounds and professions) have
+    a section titled "You can always..." This is a list of actions your
+    character is considered capable of without needing to roll any dice. In
+    order to push the limits of these or use them under extraneous circumstances
+    your GM may require you to make an ability check.</p><p
+    class="MsoNormal">These are invitations, not instructions. If your character
+    "can always tell which direction is north," how can they do that? Do they
+    have a handy compass they always carry with them? Or maybe they look towards
+    the sun and stars for guidance. What if you're underground without your
+    tools though? Maybe there's something about on the walls of the ruins that
+    allows you to identify which direction they were facing. Get creative with
+    it.</p>
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740619228823
+  modifiedTime: 1740619474171
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!QbdFbQkWYH788N2x'
+

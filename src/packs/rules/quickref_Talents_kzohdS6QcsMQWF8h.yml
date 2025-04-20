@@ -1,0 +1,28 @@
+folder: QwCEgm0OD25Y0k3S
+name: Talents
+type: quickref
+_id: kzohdS6QcsMQWF8h
+img: systems/celestus/svg/croissants-pupil.svg
+system:
+  description: >-
+    <p><a href="/browse/talents" title="Talents">Talents</a> are features that
+    grant characters a variety of unique bonuses. Characters gain talents as
+    they level up, starting with one at level 1, and learning new talents at
+    levels 3, 8, 13, and 18.</p>
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740622088677
+  modifiedTime: 1740622833384
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!kzohdS6QcsMQWF8h'
+

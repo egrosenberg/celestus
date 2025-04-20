@@ -1,0 +1,52 @@
+folder: DiP6c7UovjGjSykk
+name: Medium Air Rune
+type: rune
+_id: N6BqlDYL0XihmmVo
+img: systems/celestus/assets/runes/air-rune-med.webp
+system:
+  description: ''
+  plugs:
+    weapon:
+      - Weapon_Rune_Damage_Air_T2
+    armor:
+      - Armor_Rune_Resistance_Air_T2
+    amulet:
+      - Armor_Rune_Bonus_Evasion_T2
+    offhand:
+      - Offhand_Rune_Resistance_Air_T2
+  changes:
+    weapon:
+      - id: system.bonusElements
+        mode: Append
+        value:
+          type: air
+          value: '0.11'
+    armor:
+      - id: system.bonuses.resistance.air
+        mode: Add
+        value: 0.07
+    amulet:
+      - id: system.bonuses.evasion
+        mode: Add
+        value: 0.04
+    offhand:
+      - id: system.bonuses.resistance.air
+        mode: Add
+        value: 0.07
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1745108901747
+  modifiedTime: 1745108992898
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!N6BqlDYL0XihmmVo'
+

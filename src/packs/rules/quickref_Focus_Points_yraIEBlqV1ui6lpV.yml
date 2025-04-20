@@ -1,0 +1,32 @@
+name: Focus Points
+type: quickref
+_id: yraIEBlqV1ui6lpV
+img: systems/celestus/svg/cycle.svg
+system:
+  description: >-
+    <p>Focus points (represented as yellow diamonds) represent a character
+    pulling on strength beyond their normal capacity. Focus points are spent in
+    the same way Action points are and some skills will require them as a cost.
+    The main difference between action points and focus points is that they
+    don’t refresh every round, instead they refresh at the beginning of each
+    @UUID[Compendium.celestus.rules.EfufPpCvHHYaT2f5]{scene.}</p><p><strong>Maximum
+    Focus Points</strong> are determined by character level and are granted at
+    @UUID[Compendium.celestus.rules.W89BHxXTdhVkFTBL]{levels 9, 11, and 13.}</p>
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740788231009
+  modifiedTime: 1740789622583
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!yraIEBlqV1ui6lpV'
+

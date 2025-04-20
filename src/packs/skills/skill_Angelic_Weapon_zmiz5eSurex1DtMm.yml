@@ -1,0 +1,144 @@
+folder: 69Ks48oydPuofEu9
+name: Angelic Weapon
+type: skill
+_id: zmiz5eSurex1DtMm
+img: icons/magic/fire/dagger-rune-enchant-blue-gray.webp
+system:
+  description: >-
+    <p>You summon a phantasmal weapon that is symbolic of your faith. The weapon
+    appears at a point you can see within range and persists for 3 rounds. Once
+    each turn you can move it and use it to strike a creature, dealing 60%
+    Radiant damage.</p><p>★ Grants
+    @UUID[Compendium.celestus.skills.49JVsvvkwrdh8t6W]{Angelic Weapon -
+    Strike}.</p>
+  ap: 0
+  fp: 0
+  cooldown:
+    value: 0
+    max: 0
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    lightbringer: 2
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: point
+    size: 5
+  range: 60
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: lightbringer
+  tier: 2
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects:
+  - name: Angelic Weapon
+    img: icons/magic/fire/dagger-rune-enchant-blue-gray.webp
+    origin: Compendium.celestus.skills.Item.zmiz5eSurex1DtMm
+    duration:
+      rounds: 2
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    transfer: false
+    _id: Vti4rcoW6dWOsZUe
+    system:
+      damageFlatScalar: false
+      damage: []
+      damageRiders: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills:
+        - uuid: Compendium.celestus.skills.Item.49JVsvvkwrdh8t6W
+          name: Angelic Weapon - Strike
+      ownedItems: []
+    changes: []
+    description: ''
+    tint: '#ffffff'
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1744490557365
+      modifiedTime: 1744490565215
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!zmiz5eSurex1DtMm.Vti4rcoW6dWOsZUe'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1744488676386
+  modifiedTime: 1744490545419
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!zmiz5eSurex1DtMm'
+

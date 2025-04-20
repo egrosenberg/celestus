@@ -1,0 +1,163 @@
+folder: 69Ks48oydPuofEu9
+name: Divine Shield
+type: skill
+_id: rFvHqggvNQL8QxaC
+img: icons/magic/holy/barrier-shield-winged-blue.webp
+system:
+  description: >-
+    <p>You summon a dome of protective light around a creature of your choice
+    within range. The target gains 75% temp physical and magic armor and gains
+    15% resistance to all elemental damage for 3 rounds.</p>
+  ap: 1
+  fp: 1
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 2
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    lightbringer: 3
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: t_mag_armor
+      value: 0.75
+    - type: t_phys_armor
+      value: 0.75
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: self
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: lightbringer
+  tier: 2
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects:
+  - name: Divine Shield
+    img: icons/magic/holy/barrier-shield-winged-blue.webp
+    origin: Compendium.celestus.skills.Item.rFvHqggvNQL8QxaC
+    duration:
+      rounds: 3
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: 1z8mtMeakVhfAeW8
+    system:
+      damageFlatScalar: false
+      damage: []
+      damageRiders: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes:
+      - key: system.attributes.resistance.fire.bonus
+        mode: 2
+        value: '0.15'
+        priority: null
+      - key: system.attributes.resistance.water.bonus
+        mode: 2
+        value: '0.15'
+        priority: null
+      - key: system.attributes.resistance.poison.bonus
+        mode: 2
+        value: '0.15'
+        priority: null
+      - key: system.attributes.resistance.earth.bonus
+        mode: 2
+        value: '0.15'
+        priority: null
+      - key: system.attributes.resistance.air.bonus
+        mode: 2
+        value: '0.15'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1744483024195
+      modifiedTime: 1744483125041
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!rFvHqggvNQL8QxaC.1z8mtMeakVhfAeW8'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1744482243160
+  modifiedTime: 1744483021534
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!rFvHqggvNQL8QxaC'
+

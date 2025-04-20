@@ -1,0 +1,33 @@
+name: Abilities
+type: quickref
+_id: CT3vGY7eiaSlCopQ
+img: systems/celestus/svg/d20.svg
+system:
+  description: >-
+    <p>Combat and Civil abilities determine your character's proficiency in
+    different aspects of combat and civil encounters. Both types of abilities
+    function as prerequisites for learning skills and provide bonuses to
+    @UUID[Compendium.celestus.rules.RhLk5CMny3L5KM6w]{Ability
+    Checks}.</p><p><strong>Civil Abilities</strong> are used solely to determine
+    modifiers for @UUID[Compendium.celestus.rules.RhLk5CMny3L5KM6w]{Ability
+    Checks} and skill prerequisites.<br /><strong>Combat Abilities</strong>
+    provide unique bonuses to different aspects of combat based on your total
+    ability score.</p>
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740623090450
+  modifiedTime: 1740944569298
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!CT3vGY7eiaSlCopQ'
+

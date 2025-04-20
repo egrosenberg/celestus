@@ -1,0 +1,52 @@
+folder: DiP6c7UovjGjSykk
+name: Huge Primal Rune
+type: rune
+_id: Bjj17rEdXIlwImX8
+img: systems/celestus/assets/runes/primal-rune-huge.webp
+system:
+  description: ''
+  plugs:
+    weapon:
+      - Weapon_Rune_Damage_Physical_T4
+    armor:
+      - Armor_Rune_Boost_T4
+    amulet:
+      - Armor_Rune_Boost_T4
+    offhand:
+      - Offhand_Rune_Boost_T4
+  changes:
+    weapon:
+      - id: system.bonusElements
+        mode: Append
+        value:
+          type: physical
+          value: '0.15'
+    armor:
+      - id: system.efficiency
+        mode: Add
+        value: 0.1
+    amulet:
+      - id: system.efficiency
+        mode: Add
+        value: 0.1
+    offhand:
+      - id: system.efficiency
+        mode: Add
+        value: 0.1
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1745109867955
+  modifiedTime: 1745109927646
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!Bjj17rEdXIlwImX8'
+

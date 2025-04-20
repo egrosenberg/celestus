@@ -1,0 +1,49 @@
+name: Damage Types
+type: quickref
+_id: 099jME2YXRgEoBm2
+img: systems/celestus/svg/candlebright.svg
+system:
+  description: >-
+    <table><tbody><tr><td data-colwidth="240"><h3>Damage
+    Type</h3></td><td><h3>Relevant Armor</h3></td><td><h3>Combat
+    Ability</h3></td></tr><tr><td
+    data-colwidth="240"><p><strong>Physical</strong></p></td><td><p>Physical
+    Armor</p></td><td><p>Warlord</p></td></tr><tr><td
+    data-colwidth="240"><p><strong>Fire</strong></p></td><td><p>Magic
+    Armor</p></td><td><p>Flamespeaker</p></td></tr><tr><td
+    data-colwidth="240"><p><strong>Water</strong></p></td><td><p>Magic
+    Armor</p></td><td><p>Tidecaller</p></td></tr><tr><td
+    data-colwidth="240"><p><strong>Healing</strong></p></td><td><p>None
+    (healing)</p></td><td><p>Tidecaller</p></td></tr><tr><td
+    data-colwidth="240"><p><strong>Magic Armor</strong></p></td><td><p>None
+    (healing)</p></td><td><p>Tidecaller</p></td></tr><tr><td
+    data-colwidth="240"><p><strong>Air</strong></p></td><td><p>Magic
+    Armor</p></td><td><p>Stormseeker</p></td></tr><tr><td
+    data-colwidth="240"><p><strong>Earth</strong></p></td><td><p>Magic
+    Armor</p></td><td><p>Duneshaper</p></td></tr><tr><td
+    data-colwidth="240"><p><strong>Poison</strong></p></td><td><p>Magic
+    Armor</p></td><td><p>Duneshaper</p></td></tr><tr><td
+    data-colwidth="240"><p><strong>Physical Armor</strong></p></td><td><p>None
+    (healing)</p></td><td><p>Duneshaper</p></td></tr><tr><td
+    data-colwidth="240"><p><strong>Psychic</strong></p></td><td><p>Magic
+    Armor</p></td><td><p>Voidcantor</p></td></tr><tr><td
+    data-colwidth="240"><p><strong>Piercing</strong></p></td><td><p>Ignores
+    Armor</p></td><td><p>Warlord</p></td></tr></tbody></table>
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740785134776
+  modifiedTime: 1740785509677
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!099jME2YXRgEoBm2'
+

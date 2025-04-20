@@ -1,0 +1,38 @@
+folder: pa9fsOd1f4K24GQ3
+name: The Six Primary Attributes
+type: quickref
+_id: S3EUjWbDbCFacOFo
+img: systems/celestus/svg/mighty-force.svg
+system:
+  description: >-
+    <table><tbody><tr><td><h3>Attribute</h3></td><td><h3>What it
+    Represents</h3></td><td><h3>Mechanical Bonus (per
+    level)</h3></td></tr><tr><td><p>Strength (STR)</p></td><td><p>Physical
+    might</p></td><td><p>+5% damage to strength-based weapons and
+    skills.</p></td></tr><tr><td><p>Dexterity (DEX)</p></td><td><p>Finesse and
+    agility</p></td><td><p>+5% damage to dexterity-based weapons and
+    skills.</p></td></tr><tr><td><p>Intellect (INT)</p></td><td><p>Ability to
+    reason</p></td><td><p>+5% damage to intellect-based weapons and
+    skills.</p></td></tr><tr><td><p>Constitution (CON)</p></td><td><p>Robustness
+    and stamina</p></td><td><p>+7% max health</p></td></tr><tr><td><p>Mind
+    (MIND)</p></td><td><p>Memory</p></td><td><p>+1 Memory
+    slot</p></td></tr><tr><td><p>Wits (WIT)</p></td><td><p>Perceptiveness and
+    awareness</p></td><td><p>+1 initiative, +1% Critical Hit
+    Chance</p></td></tr></tbody></table>
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740934217644
+  modifiedTime: 1740937123178
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!S3EUjWbDbCFacOFo'
+

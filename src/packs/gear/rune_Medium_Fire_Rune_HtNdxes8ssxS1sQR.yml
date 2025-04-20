@@ -1,0 +1,52 @@
+folder: DiP6c7UovjGjSykk
+name: Medium Fire Rune
+type: rune
+_id: HtNdxes8ssxS1sQR
+img: systems/celestus/assets/runes/fire-rune-med.webp
+system:
+  description: ''
+  plugs:
+    weapon:
+      - Weapon_Rune_Damage_Fire_T2
+    armor:
+      - Armor_Rune_Resistance_Fire_T2
+    amulet:
+      - Armor_Rune_Bonus_CritChance_T2
+    offhand:
+      - Offhand_Rune_Resistance_Fire_T2
+  changes:
+    weapon:
+      - id: system.bonusElements
+        mode: Append
+        value:
+          type: fire
+          value: '0.11'
+    armor:
+      - id: system.bonuses.resistance.fire
+        mode: Add
+        value: 0.07
+    amulet:
+      - id: system.bonuses.crit_chance
+        mode: Add
+        value: 0.04
+    offhand:
+      - id: system.bonuses.resistance.fire
+        mode: Add
+        value: 0.07
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1745109069177
+  modifiedTime: 1745109101230
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!HtNdxes8ssxS1sQR'
+

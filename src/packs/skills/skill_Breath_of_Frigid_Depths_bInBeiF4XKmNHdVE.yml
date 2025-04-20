@@ -1,0 +1,91 @@
+folder: LF9bDKRw124OgzVG
+name: Breath of Frigid Depths
+type: skill
+_id: bInBeiF4XKmNHdVE
+img: icons/magic/water/strike-ice-blade-fang.webp
+system:
+  description: >-
+    <p>A blast of icy winds expels from you into a 60 foot cone. Each creature
+    in that cone takes 100% Water damage and is frozen.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.OaOL5lw8fBtJDTz5]{Frozen} (Resisted by Magic
+    Armor).</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: null
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: water
+      value: 1
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: cone
+    size: 60
+  range: 0
+  statusEffects:
+    - frozen
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: tidecaller
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1743722959867
+  modifiedTime: 1743723947970
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!bInBeiF4XKmNHdVE'
+

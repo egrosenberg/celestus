@@ -1,0 +1,141 @@
+folder: nZctBb88FOKktz03
+name: Brutal
+type: feature
+_id: eOxInyR5MF4LgVJV
+img: icons/skills/melee/strike-flail-destructive-yellow.webp
+system:
+  description: >-
+    <p><strong>Requires 20 Strength.</strong></p><p>You are a master of
+    brutality, striking foes with unmatched strength. You gain the following
+    benefits:</p><ul><li><p>You gain 10% critical chance.</p></li><li><p>You
+    gain 10% critical damage.</p></li><li><p>You learn the skill
+    @UUID[Compendium.celestus.skills.Ts2mjGfFAa0F1a5z]{Crush}. You always have
+    it memorized, it doesn't count against your skills known or memorized and
+    you don't need to meet it's memorization requirements.</p></li></ul>
+  price: 0
+  quantity: 1
+  weight: 0
+  equipped: false
+  type: feature
+  slot: none
+  efficiency: 1
+  bonuses:
+    combat:
+      onehand: 0
+      dualwield: 0
+      twohand: 0
+      ranged: 0
+      retributive: 0
+      flamespeaker: 0
+      tidecaller: 0
+      stormseeker: 0
+      duneshaper: 0
+      voidcantor: 0
+      deathbringer: 0
+      shroudstalker: 0
+      formshifter: 0
+      huntmaster: 0
+      warlord: 0
+    civil:
+      scoundrel: 0
+      lore: 0
+      nature: 0
+      influence: 0
+      religion: 0
+    abilities:
+      str: 0
+      dex: 0
+      con: 0
+      int: 0
+      mind: 0
+      wit: 0
+    resistance:
+      physical: 0
+      fire: 0
+      water: 0
+      air: 0
+      earth: 0
+      poison: 0
+      psychic: 0
+      shadow: 0
+      piercing: 0
+      healing: 0
+      phys_armor: 0
+      mag_armor: 0
+      t_phys_armor: 0
+      t_mag_armor: 0
+      special: 0
+    statusImmune: []
+    crit_bonus: 0.1
+    crit_chance: 0.1
+    accuracy: 0
+    evasion: 0
+    initiative: 0
+  prereqs:
+    str: 0
+    dex: 0
+    con: 0
+    int: 0
+    mind: 0
+    wit: 0
+  ownedEffects: []
+  socketTypes:
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  socketValues:
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  plugIds:
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  plugChanges:
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+  rarity: Common
+  level: 1
+  grantedSkills:
+    - uuid: Compendium.celestus.skills.Item.Ts2mjGfFAa0F1a5z
+      name: Crush
+  ownedItems: []
+  canAlways: []
+effects: []
+sort: 175000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1744238049234
+  modifiedTime: 1744238161192
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!eOxInyR5MF4LgVJV'
+

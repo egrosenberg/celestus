@@ -1,0 +1,37 @@
+name: Professions
+type: quickref
+img: systems/celestus/svg/book-cover.svg
+system:
+  description: >-
+    <p><span style="font-family:'gg sans', 'Noto Sans', 'Helvetica Neue',
+    Helvetica, Arial, sans-serif"><a
+    href="https://celestus.info/browse/professions/"
+    title="Professions">Professions</a> represent the skills your character
+    maintains as they begin their adventure. These are the closest thing this
+    system has to traditional "character classes". Are you a powerful
+    @UUID[Compendium.celestus.professions.Kaip2yVYwrHcJU2X]{Warrior} who strikes
+    down foes with their martial prowess? Or perhaps you are
+    @UUID[Compendium.celestus.professions.ebivE3YBEMFQ2NsB]{Pactbound}, owing
+    your magic to a powerful entity. Professions are an essential building block
+    for your character's mechanical direction. Professions also have a
+    @UUID[Compendium.celestus.rules.QbdFbQkWYH788N2x]{You Can Always...}
+    section.</span></p>
+effects: []
+folder: null
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740622049834
+  modifiedTime: 1743790609331
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_id: kcJXtk5NcqeIWPf9
+sort: 200000
+_key: '!items!kcJXtk5NcqeIWPf9'
+

@@ -1,0 +1,29 @@
+name: Lifesteal
+type: quickref
+_id: bKI2wHDSnVkmvrk6
+img: systems/celestus/svg/death-zone.svg
+system:
+  description: >-
+    <p>Lifesteal is a percentage value that is derived from statuses, features,
+    and abilities (namely, the deathbringer
+    @UUID[Compendium.celestus.rules.iuH7zrOpg909VkOR]{combat ability}). When a
+    character deals damage, they also heal an amount equal to the total damage
+    dealt multiplied by their lifesteal percentage.</p>
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1743642823325
+  modifiedTime: 1743642958386
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!bKI2wHDSnVkmvrk6'
+

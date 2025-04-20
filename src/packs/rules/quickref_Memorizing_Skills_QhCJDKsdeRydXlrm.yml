@@ -1,0 +1,27 @@
+name: Memorizing Skills
+type: quickref
+_id: QhCJDKsdeRydXlrm
+img: systems/celestus/svg/oily-spiral.svg
+system:
+  description: >-
+    <p>In order to use a skill, you must memorize it first. Whenever you
+    complete a rest you choose a number of skills equal to Level / 2 + Mind - 8
+    (rounded down). Those skills are memorized until you complete a rest.</p>
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740622887728
+  modifiedTime: 1740622985902
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!QhCJDKsdeRydXlrm'
+

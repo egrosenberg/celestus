@@ -1,0 +1,97 @@
+folder: LF9bDKRw124OgzVG
+name: Falling Star
+type: skill
+_id: QniPNhrIl9prWmV7
+img: icons/magic/fire/projectile-embers-orange.webp
+system:
+  description: >-
+    <p>You call down a powerful orb of flame from the sky that impacts at a
+    point you can see within range. The orb engulfs all creatures within a
+    20-foot radius of the point in searing flames and leaves a fiery surface
+    behind. Each affected creature takes 200% Fire damage and is set
+    alight.</p><p><span title="Copy to Clipboard"
+    class="copy-the-code-shortcode" data-target data-button-text="★"
+    data-button-copy-text="Copied to Clipboard" data-content="★"
+    data-copy-as="text" data-link style="color:">★ </span>Sets
+    @UUID[Compendium.celestus.rules.5WnOnUhH4LYfPLlZ]{Burning} (Resisted by
+    Magic Amor).</p><p></p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: -1
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: fire
+      value: 1.5
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: sphere
+    size: 20
+  range: 60
+  statusEffects:
+    - burn
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: flamespeaker
+  tier: 4
+  hasScript: false
+  scriptId: ''
+  aoeLinger: true
+  linger:
+    duration: 2
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: fire
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1743717711363
+  modifiedTime: 1743723885240
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!QniPNhrIl9prWmV7'
+

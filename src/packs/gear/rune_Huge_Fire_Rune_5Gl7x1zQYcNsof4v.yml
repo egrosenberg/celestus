@@ -1,0 +1,52 @@
+folder: DiP6c7UovjGjSykk
+name: Huge Fire Rune
+type: rune
+_id: 5Gl7x1zQYcNsof4v
+img: systems/celestus/assets/runes/fire-rune-huge.webp
+system:
+  description: ''
+  plugs:
+    weapon:
+      - Weapon_Rune_Damage_Fire_T4
+    armor:
+      - Armor_Rune_Resistance_Fire_T4
+    amulet:
+      - Armor_Rune_Bonus_CritChance_T4
+    offhand:
+      - Offhand_Rune_Resistance_Fire_T4
+  changes:
+    weapon:
+      - id: system.bonusElements
+        mode: Append
+        value:
+          type: fire
+          value: '0.15'
+    armor:
+      - id: system.bonuses.resistance.fire
+        mode: Add
+        value: 0.11
+    amulet:
+      - id: system.bonuses.crit_chance
+        mode: Add
+        value: 0.06
+    offhand:
+      - id: system.bonuses.resistance.fire
+        mode: Add
+        value: 0.11
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1745109779487
+  modifiedTime: 1745109817929
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!5Gl7x1zQYcNsof4v'
+

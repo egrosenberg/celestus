@@ -1,0 +1,31 @@
+name: Lone Wolf
+type: quickref
+_id: TxMUBgsFoFVL4BNR
+img: systems/celestus/svg/wolf-howl.svg
+system:
+  description: >-
+    <p>When playing with 2 or fewer members in a party, each character gains +2
+    starting AP, +30% max HP, and +60% max physical and magic
+    armor.</p><p>Double all spent combat ability points and attribute points up
+    to the normal maximum of 10 and 40 respectively. For example, if a character
+    has spent 15 points in strength to a value of 25, they would have that
+    increased to 40. Any further points spent would not increase their total
+    strength score.</p>
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740625277854
+  modifiedTime: 1740625424740
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!TxMUBgsFoFVL4BNR'
+

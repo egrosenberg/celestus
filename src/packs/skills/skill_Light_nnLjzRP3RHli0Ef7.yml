@@ -1,0 +1,145 @@
+folder: jclxfJWw2Ux47hwm
+name: Light
+type: skill
+_id: nnLjzRP3RHli0Ef7
+img: icons/magic/light/explosion-star-blue-yellow.webp
+system:
+  description: >-
+    <p>You cause an object to glow with divine light for 1 minute. The object
+    glows with bright light in a 20-foot radius and dim light in a 40-foot
+    radius.</p>
+  ap: 4
+  fp: 0
+  cooldown:
+    value: 0
+    max: 0
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: civil
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 1
+  damage: []
+  ability: none
+  attack: false
+  targets:
+    count: 0
+    type: sphere
+    size: 40
+  range: 60
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: religion
+  tier: 0
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects:
+  - name: Light
+    img: icons/magic/light/explosion-star-blue-yellow.webp
+    origin: Compendium.celestus.skills.Item.nnLjzRP3RHli0Ef7
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: bAazK34LTkzO5lmB
+    system:
+      damage: []
+      damageRiders: []
+      resistedBy: none
+      combines: []
+      removes: []
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes:
+      - key: ATL.light.dim
+        mode: 5
+        value: '40'
+        priority: null
+      - key: ATL.light.bright
+        mode: 5
+        value: '20'
+        priority: null
+    description: ''
+    tint: '#ffffff'
+    transfer: true
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1744238724643
+      modifiedTime: 1744238792803
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!nnLjzRP3RHli0Ef7.bAazK34LTkzO5lmB'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1744238703679
+  modifiedTime: 1744239700601
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!nnLjzRP3RHli0Ef7'
+

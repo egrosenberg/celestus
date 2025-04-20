@@ -1,0 +1,52 @@
+folder: DiP6c7UovjGjSykk
+name: Large Earth Rune
+type: rune
+_id: VryRrNXfAB5p4Q4H
+img: systems/celestus/assets/runes/earth-rune-large.webp
+system:
+  description: ''
+  plugs:
+    weapon:
+      - Weapon_Rune_Damage_Earth_T3
+    armor:
+      - Armor_Rune_Resistance_Earth_T3
+    amulet:
+      - Armor_Rune_Bonus_Health_T3
+    offhand:
+      - Offhand_Rune_Resistance_Earth_T3
+  changes:
+    weapon:
+      - id: system.bonusElements
+        mode: Append
+        value:
+          type: earth
+          value: '0.13'
+    armor:
+      - id: system.bonuses.resistance.earth
+        mode: Add
+        value: 0.09
+    amulet:
+      - id: system.bonuses.hp
+        mode: Add
+        value: 85
+    offhand:
+      - id: system.bonuses.resistance.earth
+        mode: Add
+        value: 0.09
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1745109406932
+  modifiedTime: 1745109456175
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!VryRrNXfAB5p4Q4H'
+

@@ -1,0 +1,147 @@
+folder: QQ5Mp3sqav813Qse
+name: Healing Hands
+type: skill
+_id: G6pXezzE9qupIHrv
+img: icons/magic/light/orbs-firefly-hand-yellow.webp
+system:
+  description: >-
+    <p>You lay your hand on a creature within your reach, healing them 60% and
+    removing ailments.</p><p>★ Removes
+    @UUID[Compendium.celestus.rules.f9EgHLBdEVJ70oGg]{Bleeding},
+    @UUID[Compendium.celestus.rules.pwMjhiGe1Q35osEy]{Poisoned},
+    @UUID[Compendium.celestus.rules.znf7Y4pFLUGRvbO2]{Diseased}, and
+    @UUID[Compendium.celestus.rules.hzPIPV1YdkdkSBHS]{Decaying}.</p>
+  ap: 1
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 0
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    lightbringer: 1
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: healing
+      value: 0.6
+  ability: none
+  attack: false
+  targets:
+    count: 1
+    type: creature
+    size: 0
+  range: 0
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: lightbringer
+  tier: 0
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects:
+  - name: Healed
+    img: icons/magic/light/orbs-firefly-hand-yellow.webp
+    origin: Compendium.celestus.skills.Item.G6pXezzE9qupIHrv
+    duration:
+      rounds: 0
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    type: status
+    _id: bYdjEdzKVMLtULjy
+    system:
+      damage: []
+      damageRiders: []
+      resistedBy: none
+      combines: []
+      removes:
+        - poison
+        - disease
+        - decay
+        - bleed
+      blocks: []
+      triggers: []
+      aura:
+        has: false
+        targetsSelf: true
+        radius: 0
+        targets: any
+        targetType: humanoid
+        clearOnLeave: true
+        lingerDuration: 0
+        children: []
+      grantedSkills: []
+      ownedItems: []
+    changes: []
+    description: ''
+    tint: '#ffffff'
+    transfer: true
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: celestus
+      systemVersion: 0.0.1
+      createdTime: 1744428278822
+      modifiedTime: 1744428428356
+      lastModifiedBy: ZJKmiL4ZAI5FH4eV
+    _key: '!items.effects!G6pXezzE9qupIHrv.bYdjEdzKVMLtULjy'
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1744428057222
+  modifiedTime: 1744428275947
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!G6pXezzE9qupIHrv'
+

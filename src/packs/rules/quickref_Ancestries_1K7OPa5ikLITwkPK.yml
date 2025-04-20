@@ -1,0 +1,35 @@
+name: Ancestries
+type: quickref
+_id: 1K7OPa5ikLITwkPK
+img: systems/celestus/svg/book-cover.svg
+system:
+  description: >-
+    <p><span style="font-family:'gg sans', 'Noto Sans', 'Helvetica Neue',
+    Helvetica, Arial, sans-serif"><a
+    href="http://127.0.0.1:30012/browse/ancestries/" title="Ancestries
+    ">Ancestries</a> represent your character's heritage and their ties to their
+    blood kin. Some examples include Human, Elf, and Dwarf. Ancestries may grant
+    skills, ability bonuses, or other features.</span></p><p><span
+    style="font-family:'gg sans', 'Noto Sans', 'Helvetica Neue', Helvetica,
+    Arial, sans-serif"><strong>Mixed Ancestries.</strong> You may have a
+    character with parents of differing ancestries. If this is the case, choose
+    a single ancestry of the two to gain benefits from, you can choose to flavor
+    your character however you want beyond those mechanical benefits.</span></p>
+effects: []
+folder: null
+sort: 600000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740618867609
+  modifiedTime: 1740622686420
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!1K7OPa5ikLITwkPK'
+

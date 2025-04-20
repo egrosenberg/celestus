@@ -1,0 +1,26 @@
+folder: QwCEgm0OD25Y0k3S
+name: Learning Skills
+type: quickref
+_id: 1c0sqIcabm0mMIpT
+img: systems/celestus/svg/candlebright.svg
+system:
+  description: >-
+    <p>At level 1 you know 4 skills. Whenever you level up, you may learn two
+    new skills that you meet the level requirement for.</p>
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1740622998912
+  modifiedTime: 1740623036827
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!1c0sqIcabm0mMIpT'
+

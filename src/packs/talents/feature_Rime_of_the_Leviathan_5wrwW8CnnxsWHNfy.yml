@@ -1,0 +1,146 @@
+folder: nZctBb88FOKktz03
+name: Rime of the Leviathan
+type: feature
+_id: 5wrwW8CnnxsWHNfy
+img: icons/creatures/eyes/lizard-single-slit-blue.webp
+system:
+  description: >-
+    <p><strong>Requires Tidecaller 10.</strong></p><p>You have mastered the art
+    of cryomancy and have forever altered your physicality. You gain the
+    following benefits:</p><ul><li><p>You gain 50% Water
+    resistance.</p></li><li><p>You can breath water as though it were air and
+    can swim through any water unimpeded.</p></li><li><p>Whenever you reduce a
+    creature's hit points to 0 with a magic skill that does water damage, you
+    can cause that creature's body to permanently freeze over, trapping them in
+    a stasis between life and death.</p></li><li><p>You learn the skill
+    @UUID[Compendium.celestus.skills.bInBeiF4XKmNHdVE]{Breath of Frigid Depths}.
+    You always have it memorized, it doesn't count against your skills known or
+    memorized and you don't need to meet it's memorization
+    requirements.</p></li></ul>
+  price: 0
+  quantity: 1
+  weight: 0
+  equipped: true
+  type: talent
+  slot: none
+  efficiency: 1
+  bonuses:
+    combat:
+      onehand: 0
+      dualwield: 0
+      twohand: 0
+      ranged: 0
+      retributive: 0
+      flamespeaker: 0
+      tidecaller: 0
+      stormseeker: 0
+      duneshaper: 0
+      voidcantor: 0
+      deathbringer: 0
+      shroudstalker: 0
+      formshifter: 0
+      huntmaster: 0
+      warlord: 0
+    civil:
+      scoundrel: 0
+      lore: 0
+      nature: 0
+      influence: 0
+      religion: 0
+    abilities:
+      str: 0
+      dex: 0
+      con: 0
+      int: 0
+      mind: 0
+      wit: 0
+    resistance:
+      physical: 0
+      fire: 0
+      water: 0.5
+      air: 0
+      earth: 0
+      poison: 0
+      psychic: 0
+      shadow: 0
+      piercing: 0
+      healing: 0
+      phys_armor: 0
+      mag_armor: 0
+      t_phys_armor: 0
+      t_mag_armor: 0
+      special: 0
+    statusImmune: []
+    crit_bonus: 0
+    crit_chance: 0
+    accuracy: 0
+    evasion: 0
+    initiative: 0
+  prereqs:
+    str: 0
+    dex: 0
+    con: 0
+    int: 0
+    mind: 0
+    wit: 0
+  ownedEffects: []
+  socketTypes:
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  socketValues:
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  plugIds:
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  plugChanges:
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+    - {}
+  rarity: Common
+  level: 1
+  grantedSkills:
+    - uuid: Compendium.celestus.skills.Item.bInBeiF4XKmNHdVE
+      name: Breath of Frigid Depths
+  ownedItems: []
+  canAlways: []
+effects: []
+sort: 200000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1743718403558
+  modifiedTime: 1744237129114
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!5wrwW8CnnxsWHNfy'
+

@@ -1,0 +1,52 @@
+folder: DiP6c7UovjGjSykk
+name: Large Poison Rune
+type: rune
+_id: 6YaJEeEmW7AREGjH
+img: systems/celestus/assets/runes/poison-rune-large.webp
+system:
+  description: ''
+  plugs:
+    weapon:
+      - Weapon_Rune_Damage_Poison_T3
+    armor:
+      - Armor_Rune_Resistance_Poison_T3
+    amulet:
+      - Armor_Rune_Bonus_Accuracy_T3
+    offhand:
+      - Offhand_Rune_Resistance_Poison_T3
+  changes:
+    weapon:
+      - id: system.bonusElements
+        mode: Append
+        value:
+          type: poison
+          value: '0.13'
+    armor:
+      - id: system.bonuses.resistance.poison
+        mode: Add
+        value: 0.09
+    amulet:
+      - id: system.bonuses.accuracy
+        mode: Add
+        value: 0.12
+    offhand:
+      - id: system.bonuses.resistance.poison
+        mode: Add
+        value: 0.09
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1745109512709
+  modifiedTime: 1745109556269
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!6YaJEeEmW7AREGjH'
+
