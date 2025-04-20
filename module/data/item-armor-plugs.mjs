@@ -1682,6 +1682,50 @@ export default {
                     "value": 115
                 }
             ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Initiative_T1",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.initiative",
+                    "mode": "Add",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Initiative_T2",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.initiative",
+                    "mode": "Add",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Initiative_T3",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.initiative",
+                    "mode": "Add",
+                    "value": 3
+                }
+            ]
+        },
+        {
+            "id": "Armor_Rune_Bonus_Initiative_T4",
+            "rune": true,
+            "changes": [
+                {
+                    "id": "system.bonuses.initiative",
+                    "mode": "Add",
+                    "value": 4
+                }
+            ]
         }
     ]
 }
