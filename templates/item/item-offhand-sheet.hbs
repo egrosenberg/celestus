@@ -20,6 +20,12 @@
                 <input  class="detail-input" type="number" name="system.price" value="{{system.price}}">
                 <span>gp</span>
             </div>
+            <div class="item-detail flexrow">
+                <span>Rarity</span>
+                <select name="system.rarity">
+                    {{selectOptions config.itemRarities selected=system.rarity}}
+                </select>
+            </div>
             {{#if item.system.hasPrereqs}}
             <div class="quick-reference">
                 Requires:

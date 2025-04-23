@@ -20,13 +20,19 @@
             <h3>Details:</h3>
             <div class="item-detail flexrow">
                 <span>Weight:</span>
-                <input  class="detail-input" type="number" name="system.weight" value="{{system.weight}}">
+                <input class="detail-input" type="number" name="system.weight" value="{{system.weight}}">
                 <span>lbs.</span>
             </div>
             <div class="item-detail flexrow">
                 <span>Price:</span>
-                <input  class="detail-input" type="number" name="system.price" value="{{system.price}}">
+                <input class="detail-input" type="number" name="system.price" value="{{system.price}}">
                 <span>gp</span>
+            </div>
+            <div class="item-detail flexrow">
+                <span>Rarity</span>
+                <select name="system.rarity">
+                    {{selectOptions config.itemRarities selected=system.rarity}}
+                </select>
             </div>
             {{#if item.system.hasPrereqs}}
             <div class="quick-reference">

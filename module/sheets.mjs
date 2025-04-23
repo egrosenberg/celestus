@@ -945,17 +945,8 @@ export class CelestusItemSheet extends ItemSheet {
                 this.item.generateAllFromRarity();
             });
         }
-        // armor specific listeners
-        if (this.item.type === "armor") {
-            // armor classification listeners
-            html.on('change', '.armor-type-selector', (ev) => {
-                const key = $(ev.currentTarget).attr("name");
-                const value = $(ev.currentTarget).val();
-                this.item.update({ key: value });
-            });
-        }
         // weapon specific
-        else if (this.item.type === "weapon") {
+        if (this.item.type === "weapon") {
             // operate changes on damage type
             html.on('change', '.damage-type select', (ev) => {
                 const t = ev.currentTarget;

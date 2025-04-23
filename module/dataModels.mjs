@@ -1202,6 +1202,7 @@ export class CelestusItem extends foundry.abstract.TypeDataModel {
             price: new NumberField({ required: true, initial: 0 }),
             quantity: new NumberField({ integer: true, required: true, initial: 1 }),
             weight: new NumberField({ required: true, initial: 0 }),
+            rarity: new StringField({ required: true, initial: "Mundane" }),
         }
     }
 
@@ -1307,7 +1308,6 @@ export class GearData extends CelestusItem {
                 new ObjectField(),
                 { required: true, initial: [{}, {}, {}, {}, {}, {}, {}, {}] }
             ),
-            rarity: new StringField({ required: true, initial: "Common" }),
             level: new NumberField({ required: true, initial: 1, integer: true, min: 1, max: 20 }),
             socketSpread: new StringField(),
             grantedSkills: new ArrayField(new SchemaField({ // skills granted by this effect
@@ -1938,12 +1938,11 @@ export class ReferenceData extends foundry.abstract.TypeDataModel {
 
 /**
  * runes
- * @extends { TypeDataModel }
+ * @extends { CelestusItem }
  */
-export class RuneData extends foundry.abstract.TypeDataModel {
+export class RuneData extends CelestusItem {
     static defineSchema() {
-        return {
-            description: new HTMLField(),
+        return foundry.utils.mergeObject (super.defineSchema(), {
             // ids of plugs to apply for each slot
             plugs: new SchemaField({
                 weapon: new ArrayField(new StringField({required: true, initial: "none"})),
@@ -1958,7 +1957,7 @@ export class RuneData extends foundry.abstract.TypeDataModel {
                 amulet: new ArrayField(new ObjectField()),
                 offhand: new ArrayField(new ObjectField()),
             }),
-        }
+        });
     }
 
     /**

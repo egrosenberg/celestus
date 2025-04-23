@@ -25,6 +25,12 @@
                 <input class="detail-input" type="number" name="system.quantity" value="{{system.quantity}}">
                 <span></span>
             </div>
+            <div class="item-detail flexrow">
+                <span>Rarity</span>
+                <select name="system.rarity">
+                    {{selectOptions config.itemRarities selected=system.rarity}}
+                </select>
+            </div>
             {{#if (gt system.ap 0)}}
             <div class="item-detail flexrow">
                 Costs {{system.ap}} AP

@@ -587,6 +587,7 @@ Hooks.on("init", () => {
         },
         // item generation related constants
         itemRarities: {
+            "Mundane": "Mundane",
             "Common": "Common",
             "Uncommon": "Uncommon",
             "Rare": "Rare",
