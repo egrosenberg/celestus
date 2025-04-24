@@ -1,0 +1,52 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" data-tooltip="{{item.name}}" />
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+        </div>
+    </header>
+
+    <div class="flexrow" style="align-items: stretch; height: 100%; padding-bottom: 10px">
+        {{!-- quick view of important item info --}}
+        <div class="item-quick">
+            <h3>Details:</h3>
+            <div class="item-detail flexrow">
+                <span>Weight:</span>
+                <input class="detail-input" type="number" name="system.weight" value="{{system.weight}}">
+                <span>lbs.</span>
+            </div>
+            <div class="item-detail flexrow">
+                <span>Price:</span>
+                <input class="detail-input" type="number" name="system.price" value="{{system.price}}">
+                <span>gp</span>
+            </div>
+            <div class="item-detail flexrow">
+                <span>Count</span>
+                <input class="detail-input" type="number" name="system.quantity" value="{{system.quantity}}">
+                <span></span>
+            </div>
+            <div class="item-detail flexrow">
+                <span>Rarity</span>
+                <select name="system.rarity">
+                    {{selectOptions config.itemRarities selected=system.rarity}}
+                </select>
+            </div>
+        </div>
+        <div class="item-main">
+            {{!-- Sheet Tab Navigation --}}
+            <nav class="sheet-tabs tabs" data-group="primary">
+                <a class="item" data-tab="description">Description</a>
+            </nav>
+
+            {{!-- Sheet Body --}}
+            <section class="sheet-body">
+                {{!-- Description Tab --}}
+                <div class="tab" data-group="primary" data-tab="description">
+                    {{editor enrichedDescription engine="prosemirror" target="system.description" rollData=rollData
+                    button=true owner=owner
+                    editable=editable}}
+                </div>
+            </section>
+        </div>
+    </div>
+</form>

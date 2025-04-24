@@ -134,6 +134,11 @@
                 "htmlFields": [
                     "description"
                 ]
+            },
+            "loot": {
+                "htmlFields": [
+                    "description"
+                ]
             }
         },
         "ActiveEffect": {

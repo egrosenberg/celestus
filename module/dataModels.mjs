@@ -383,6 +383,12 @@ export class ActorData extends foundry.abstract.TypeDataModel {
         return this.parent.items.filter(i => i.type === "rune");
     }
     /**
+     * finds and returns all loot
+     */
+    get loot() {
+        return this.parent.items.filter(i => i.type === "loot");
+    }
+    /**
      * Finds and returns all effects on character
      * @returns {Object} with categories for different states of effect
      */
@@ -1195,10 +1201,11 @@ export class SkillData extends foundry.abstract.TypeDataModel {
  * Default item fields needed
  * @extends { TypeDataModel }
  */
-export class CelestusItem extends foundry.abstract.TypeDataModel {
+export class CelestusItemData extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
             description: new HTMLField(),
+            type: new StringField({ required: true, initial: "none" }),
             price: new NumberField({ required: true, initial: 0 }),
             quantity: new NumberField({ integer: true, required: true, initial: 1 }),
             weight: new NumberField({ required: true, initial: 0 }),
@@ -1233,13 +1240,11 @@ export class CelestusItem extends foundry.abstract.TypeDataModel {
  * Defines data model for all gear items
  * @extends { TypeDataModel }
  */
-export class GearData extends CelestusItem {
+export class GearData extends CelestusItemData {
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
             // equiped or not
             equipped: new BooleanField({ required: true, initial: false }),
-            // type of armor (robes (int) / light (dex) / heavy (str))
-            type: new StringField({ required: true, initial: "none" }),
             // slot of armor (helmet / chest / gloves / leggings / boots)
             slot: new StringField({ required: true, initial: "none" }),
             // effeciency stat multiplies by base value for that slot and type
@@ -1646,9 +1651,9 @@ export class OffhandData extends GearData {
 
 /**
  * Consumable items, potions etc.
- * @extends { CelestusItem }
+ * @extends { CelestusItemData }
  */
-export class ConsumableItem extends CelestusItem {
+export class ConsumableItem extends CelestusItemData {
     static defineSchema() {
         const schema = super.defineSchema();
         schema.hasDamage = new BooleanField({ required: true, initial: false });
@@ -1938,9 +1943,9 @@ export class ReferenceData extends foundry.abstract.TypeDataModel {
 
 /**
  * runes
- * @extends { CelestusItem }
+ * @extends { CelestusItemData }
  */
-export class RuneData extends CelestusItem {
+export class RuneData extends CelestusItemData {
     static defineSchema() {
         return foundry.utils.mergeObject (super.defineSchema(), {
             // ids of plugs to apply for each slot

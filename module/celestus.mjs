@@ -1,4 +1,4 @@
-import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData, ConsumableItem, RuneData } from "./dataModels.mjs"
+import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData, ConsumableItem, RuneData, CelestusItemData } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken } from "./actors.mjs"
 import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc, teleportTokenStart, populateHotbar, applyDamageComponent, renderTokenInfo, renderBossDisplay, showBossDisplay, hideBossDisplay, updateBossResources, activateBoss, deactivateBoss } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CelestusMeasuredTemplateConfig, CharacterSheet } from "./sheets.mjs"
@@ -52,6 +52,7 @@ const preloadHandlebarsTemplates = async function () {
         'systems/celestus/templates/rolls/item-parts/weapon-description.hbs',
         'systems/celestus/templates/rolls/item-parts/consumable-description.hbs',
         'systems/celestus/templates/rolls/parts/item-roll-tag-bonuses.hbs',
+        'systems/celestus/templates/rolls/item-parts/loot-description.hbs',
         // boss display
         'systems/celestus/templates/boss-display-effects.hbs',
     ]);
@@ -651,7 +652,8 @@ Hooks.on("init", () => {
         feature: CelestusFeature,
         quickref: ReferenceData,
         consumable: ConsumableItem,
-        rune: RuneData
+        rune: RuneData,
+        loot: CelestusItemData,
     }
 
     CONFIG.ActiveEffect.dataModels = {
