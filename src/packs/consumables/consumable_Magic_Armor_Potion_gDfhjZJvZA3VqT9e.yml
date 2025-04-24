@@ -1,0 +1,39 @@
+name: Magic Armor Potion
+type: consumable
+img: icons/consumables/potions/bottle-round-corked-blue.webp
+system:
+  description: >-
+    <p>A viscous red liquid that you can drink or administer to another within
+    your reach. A creature that drinks the potion gains [[/r 10d8+250]] (~300)
+    temporary magic armor.</p>
+  price: 400
+  quantity: 1
+  weight: 0.25
+  hasDamage: true
+  damage:
+    - type: t_mag_armor
+      value: 10d8+250
+  statusEffects: []
+  itemizeDamage: false
+  hasStatuses: false
+  ap: 0
+  rarity: Rare
+effects: []
+folder: null
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1745441763969
+  modifiedTime: 1745450465957
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+_id: gDfhjZJvZA3VqT9e
+sort: 500000
+_key: '!items!gDfhjZJvZA3VqT9e'
+

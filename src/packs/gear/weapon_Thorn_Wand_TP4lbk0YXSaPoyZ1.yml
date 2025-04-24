@@ -5,9 +5,9 @@ img: icons/weapons/wands/wand-gem-green.webp
 system:
   equipped: false
   description: ''
-  price: 0
+  price: 30
   quantity: 1
-  weight: 0
+  weight: 1
   type: poison
   slot: none
   efficiency: 0.85
@@ -98,7 +98,7 @@ system:
     - {}
     - {}
     - {}
-  rarity: Common
+  rarity: Mundane
   level: 1
   grantedSkills: []
   ownedItems: []
@@ -107,7 +107,7 @@ system:
   range: 60
   appliedStatuses: []
   bonusElements: []
-  socketSpread: Common
+  socketSpread: none
 effects: []
 ownership:
   default: 0
@@ -120,7 +120,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1737588262334
-  modifiedTime: 1738197951114
+  modifiedTime: 1745450708928
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _id: TP4lbk0YXSaPoyZ1
 sort: 500000

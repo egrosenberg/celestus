@@ -6,9 +6,9 @@ img: icons/equipment/hand/glove-tooled-leather-blue.webp
 system:
   equipped: false
   description: <p><em>A pair of leather gloves crafted for a mage.</em></p>
-  price: 0
+  price: 9
   quantity: 1
-  weight: 0
+  weight: 0.7
   type: none
   slot: gloves
   efficiency: 1
@@ -107,7 +107,7 @@ system:
     - {}
     - {}
     - {}
-  rarity: Common
+  rarity: Mundane
   level: 1
   grantedSkills: []
   ownedItems: []
@@ -115,7 +115,7 @@ system:
   base:
     phys: 15
     mag: 90
-  socketSpread: Common
+  socketSpread: none
 effects: []
 sort: 0
 ownership:
@@ -129,7 +129,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1737585573629
-  modifiedTime: 1743187063889
+  modifiedTime: 1745454475057
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!TWu47R4OD4E4fuYw'
 

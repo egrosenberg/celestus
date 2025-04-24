@@ -6,9 +6,9 @@ img: icons/weapons/polearms/glaive-hooked-steel.webp
 system:
   equipped: false
   description: ''
-  price: 0
+  price: 20
   quantity: 1
-  weight: 0
+  weight: 6
   type: physical
   slot: none
   efficiency: 0.9
@@ -107,7 +107,7 @@ system:
     - {}
     - {}
     - {}
-  rarity: Common
+  rarity: Mundane
   level: 1
   grantedSkills: []
   ownedItems: []
@@ -117,7 +117,7 @@ system:
   reach: true
   appliedStatuses: []
   bonusElements: []
-  socketSpread: Common
+  socketSpread: none
 effects: []
 sort: 1200000
 ownership:
@@ -131,7 +131,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1738780256034
-  modifiedTime: 1743360368385
+  modifiedTime: 1745450822100
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!y8AjJsbtkH8tWDyn'
 

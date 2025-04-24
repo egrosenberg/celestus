@@ -17,6 +17,7 @@ system:
   itemizeDamage: false
   hasStatuses: false
   ap: 1
+  rarity: Common
 effects: []
 folder: null
 flags: {}
@@ -26,13 +27,13 @@ _stats:
   coreVersion: '12.331'
   systemId: celestus
   systemVersion: 0.0.1
-  createdTime: 1742076899236
-  modifiedTime: 1742230413022
+  createdTime: 1745441184288
+  modifiedTime: 1745450451324
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
-_id: HXoJ0M719amwO139
-sort: 0
 ownership:
   default: 0
   ZJKmiL4ZAI5FH4eV: 3
-_key: '!items!HXoJ0M719amwO139'
+_id: TBkOnVREqzu03QWP
+sort: 100000
+_key: '!items!TBkOnVREqzu03QWP'
 

@@ -1,22 +1,23 @@
-name: Supreme Healing Potion
+name: Supreme Physical Armor Potion
 type: consumable
-img: icons/consumables/potions/flask-corked-red-glow.webp
+img: icons/consumables/potions/flask-corked-yellow-glow.webp
 system:
   description: >-
     <p>A viscous red liquid that you can drink or administer to another within
     your reach. A creature that drinks the potion gains [[/r 10d12+1150]]
-    (~1200) healing.</p>
-  price: 50
+    (~1200) temporary physical armor.</p>
+  price: 1250
   quantity: 1
   weight: 0.25
   hasDamage: true
   damage:
-    - type: healing
+    - type: t_phys_armor
       value: 10d12+1150
   statusEffects: []
   itemizeDamage: false
   hasStatuses: false
   ap: 1
+  rarity: Legendary
 effects: []
 folder: null
 flags: {}
@@ -27,10 +28,10 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1742076892047
-  modifiedTime: 1742230423928
+  modifiedTime: 1745450431157
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _id: nEjVt1fJNj84hKNt
-sort: 100000
+sort: 900000
 ownership:
   default: 0
   ZJKmiL4ZAI5FH4eV: 3

@@ -5,9 +5,9 @@ _id: Nz3CuHFLivYYmbyc
 img: icons/weapons/crossbows/handcrossbow-black.webp
 system:
   description: ''
-  price: 0
+  price: 75
   quantity: 1
-  weight: 0
+  weight: 3
   equipped: false
   type: physical
   slot: none
@@ -108,7 +108,7 @@ system:
     - {}
     - {}
     - {}
-  rarity: Common
+  rarity: Mundane
   level: 1
   grantedSkills: []
   ownedItems: []
@@ -118,7 +118,7 @@ system:
   reach: false
   appliedStatuses: []
   bonusElements: []
-  socketSpread: Common
+  socketSpread: none
 effects: []
 sort: 1100000
 ownership:
@@ -132,7 +132,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1743180839147
-  modifiedTime: 1743360368385
+  modifiedTime: 1745450792128
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!Nz3CuHFLivYYmbyc'
 

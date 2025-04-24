@@ -6,9 +6,9 @@ img: icons/equipment/leg/cuisses-quilted-blue.webp
 system:
   equipped: false
   description: <p><em>A pair of chain leggings.</em></p>
-  price: 0
+  price: 24
   quantity: 1
-  weight: 0
+  weight: 9
   type: none
   slot: leggings
   efficiency: 1
@@ -107,7 +107,7 @@ system:
     - {}
     - {}
     - {}
-  rarity: Common
+  rarity: Mundane
   level: 1
   grantedSkills: []
   ownedItems: []
@@ -115,7 +115,7 @@ system:
   base:
     phys: 90
     mag: 15
-  socketSpread: Common
+  socketSpread: none
 effects: []
 sort: 0
 ownership:
@@ -129,7 +129,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1737586704984
-  modifiedTime: 1743734911014
+  modifiedTime: 1745454167614
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!lMGcjxDRvJlcx3oe'
 

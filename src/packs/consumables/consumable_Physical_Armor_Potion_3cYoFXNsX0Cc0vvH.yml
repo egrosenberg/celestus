@@ -1,0 +1,39 @@
+name: Physical Armor Potion
+type: consumable
+img: icons/consumables/potions/potion-flask-corked-yellow.webp
+system:
+  description: >-
+    <p>A viscous red liquid that you can drink or administer to another within
+    your reach. A creature that drinks the potion gains [[/r 10d8+250]] (~300)
+    temporary physical armor.</p>
+  price: 400
+  quantity: 1
+  weight: 0.25
+  hasDamage: true
+  damage:
+    - type: t_phys_armor
+      value: 10d8+250
+  statusEffects: []
+  itemizeDamage: false
+  hasStatuses: false
+  ap: 0
+  rarity: Rare
+effects: []
+folder: null
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1742076895678
+  modifiedTime: 1745450438224
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_id: 3cYoFXNsX0Cc0vvH
+sort: 1100000
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+_key: '!items!3cYoFXNsX0Cc0vvH'
+

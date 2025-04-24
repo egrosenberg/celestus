@@ -6,9 +6,9 @@ img: icons/equipment/neck/amulet-carved-stone-hammer.webp
 system:
   equipped: false
   description: ''
-  price: 0
+  price: 45
   quantity: 1
-  weight: 0
+  weight: 0.15
   type: none
   slot: amulet
   efficiency: 1
@@ -107,7 +107,7 @@ system:
     - {}
     - {}
     - {}
-  rarity: Common
+  rarity: Mundane
   level: 1
   grantedSkills: []
   ownedItems: []
@@ -115,7 +115,7 @@ system:
   base:
     phys: 0
     mag: 100
-  socketSpread: Common
+  socketSpread: none
 effects: []
 sort: 0
 ownership:
@@ -129,7 +129,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1737586902149
-  modifiedTime: 1737586946781
+  modifiedTime: 1745455041468
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!0elX9Z8cqFHGBC7N'
 

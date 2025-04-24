@@ -1,22 +1,23 @@
-name: Moderate Healing Potion
+name: Supreme Healing Potion
 type: consumable
-img: icons/consumables/potions/bottle-corked-red.webp
+img: icons/consumables/potions/flask-corked-red-glow.webp
 system:
   description: >-
     <p>A viscous red liquid that you can drink or administer to another within
-    your reach. A creature that drinks the potion gains [[/r 10d6+100]] (~135)
-    healing.</p>
-  price: 200
+    your reach. A creature that drinks the potion gains [[/r 10d12+1150]]
+    (~1200) healing.</p>
+  price: 1500
   quantity: 1
   weight: 0.25
   hasDamage: true
   damage:
     - type: healing
-      value: 10d6+100
+      value: 10d12+1150
   statusEffects: []
   itemizeDamage: false
   hasStatuses: false
   ap: 1
+  rarity: Legendary
 effects: []
 folder: null
 flags: {}
@@ -26,13 +27,13 @@ _stats:
   coreVersion: '12.331'
   systemId: celestus
   systemVersion: 0.0.1
-  createdTime: 1742076900984
-  modifiedTime: 1742230429950
+  createdTime: 1745441190251
+  modifiedTime: 1745450426949
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
-_id: Y0sJ4RwMj9ZLri2P
-sort: 400000
 ownership:
   default: 0
   ZJKmiL4ZAI5FH4eV: 3
-_key: '!items!Y0sJ4RwMj9ZLri2P'
+_id: IBSAFyWBC3DHouqT
+sort: 400000
+_key: '!items!IBSAFyWBC3DHouqT'
 

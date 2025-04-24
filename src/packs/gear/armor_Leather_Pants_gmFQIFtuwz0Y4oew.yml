@@ -8,9 +8,9 @@ system:
   description: >-
     <p><em>A pair of leather leggings designed for thieves and rovers
     alike.</em></p>
-  price: 0
+  price: 9
   quantity: 1
-  weight: 0
+  weight: 5.5
   type: none
   slot: leggings
   efficiency: 1
@@ -109,7 +109,7 @@ system:
     - {}
     - {}
     - {}
-  rarity: Common
+  rarity: Mundane
   level: 1
   grantedSkills: []
   ownedItems: []
@@ -117,7 +117,7 @@ system:
   base:
     phys: 50
     mag: 30
-  socketSpread: Common
+  socketSpread: none
 effects: []
 sort: 0
 ownership:
@@ -131,7 +131,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1737586319684
-  modifiedTime: 1743187076641
+  modifiedTime: 1745454817911
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!gmFQIFtuwz0Y4oew'
 

@@ -8,9 +8,9 @@ system:
   description: >-
     <p>★ Grants @UUID[Compendium.celestus.skills.2CzFu4GTEIo9AjvI]{Mage
     Bolt}</p>
-  price: 0
+  price: 50
   quantity: 1
-  weight: 0
+  weight: 4
   type: earth
   slot: none
   efficiency: 0.9
@@ -109,7 +109,7 @@ system:
     - {}
     - {}
     - {}
-  rarity: Common
+  rarity: Mundane
   level: 1
   grantedSkills: []
   ownedItems: []
@@ -118,7 +118,7 @@ system:
   range: 0
   appliedStatuses: []
   bonusElements: []
-  socketSpread: Common
+  socketSpread: none
 effects: []
 sort: 100000
 ownership:
@@ -132,7 +132,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1737587921622
-  modifiedTime: 1738197964544
+  modifiedTime: 1745450682108
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!kfL1moI4jarB5UG1'
 

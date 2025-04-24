@@ -6,9 +6,9 @@ img: icons/weapons/polearms/pike-flared-brown.webp
 system:
   equipped: false
   description: ''
-  price: 0
+  price: 3
   quantity: 1
-  weight: 0
+  weight: 1
   type: physical
   slot: none
   efficiency: 0.9
@@ -107,7 +107,7 @@ system:
     - {}
     - {}
     - {}
-  rarity: Common
+  rarity: Mundane
   level: 1
   grantedSkills: []
   ownedItems: []
@@ -117,7 +117,7 @@ system:
   reach: true
   appliedStatuses: []
   bonusElements: []
-  socketSpread: Common
+  socketSpread: none
 effects: []
 sort: 600000
 ownership:
@@ -131,7 +131,7 @@ _stats:
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1738780163769
-  modifiedTime: 1743360368385
+  modifiedTime: 1745450935337
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
 _key: '!items!iL3ww6lhK9Wv3l9e'
 
