@@ -781,7 +781,6 @@ Hooks.on("init", () => {
     document.getElementById("interface").appendChild(bossInfo);
     // set listeners
     $(bossInfo).on("click", ".hide-symbol", async (ev) => {
-        console.log("test");
         ev.preventDefault();
         if (bossInfo.classList.contains("up")) {
             // first hide token info

@@ -24,7 +24,6 @@ export function registerSocketHandlers() {
  * @param {Object} data object containing all data needed for message
  */
 export function handleSocket(type, data) {
-    console.log(type, data);
     if (type === "canvasPopupText") {
         if (!data.position || !data.text || !data.distance) {
             return console.warn("CELESTUS | canvasPopupText message missing actor, text, or distance");

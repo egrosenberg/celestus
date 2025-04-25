@@ -126,7 +126,7 @@ export class CelestusItem extends Item {
                         item.delete();
                     }
                     else {
-                        console.error(`Item not found: ${id}`)
+                        console.error(`CELESTUS | Item not found: ${id}`)
                     }
                 }
                 let system = changed.system;
@@ -187,7 +187,6 @@ export class CelestusItem extends Item {
                     const rune = this.parent.items.get(id);
                     if (!rune) continue;
                     const runeOwner = rune.system.slotted?.id;
-                    console.log(runeOwner);
                     // unsocket from previous parent
                     if (runeOwner && runeOwner !== this.id) {
                         const prevOwner = this.parent.items.get(runeOwner);
@@ -199,7 +198,6 @@ export class CelestusItem extends Item {
                         }
                     }
                     if (runeOwner === this.id) {
-                        console.log("rune is slotted on current item");
                         for (let j = 0; j < slotted.length; ++j) {
                             if (j === i || slotted[j] === "none") continue;
                             if (id === slotted[j]) slotted[j] = "none";

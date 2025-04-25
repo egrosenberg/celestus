@@ -866,7 +866,6 @@ export class CelestusActor extends Actor {
                 await r.toMessage({
                     speaker: { alias: this.name },
                 });
-                console
                 token.combatant.rollInitiative(r.total.toString());
             } catch (error) {
                 return ui.notifications.warn(error)

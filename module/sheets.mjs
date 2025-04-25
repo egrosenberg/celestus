@@ -341,7 +341,6 @@ export class CharacterSheet extends ActorSheet {
         html.on('change', '.resource-value input', async (ev) => {
             ev.preventDefault();
             ev.stopPropagation();
-            console.log(this.actor);
             await updateWithMath(this.actor, $(ev.currentTarget).attr("name"), $(ev.currentTarget).val());
         });
 
@@ -744,7 +743,6 @@ export class CelestusItemSheet extends ItemSheet {
         if (this.item.type === "rune") {
             context.plugs = {};
             for (const [type, plugs] of Object.entries(CONFIG.CELESTUS.itemPlugs)) {
-                console.log(type, plugs);
                 context.plugs[type] = [];
                 for (const plug of plugs) {
                     if (!plug.rune) continue;

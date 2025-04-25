@@ -63,7 +63,7 @@ export class CelestusEffect extends ActiveEffect {
                         item.delete();
                     }
                     else {
-                        console.error(`Item not found: ${id}`)
+                        console.error(`CELESTUS | Item not found: ${id}`)
                     }
                 }
                 let system = changed.system;

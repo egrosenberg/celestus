@@ -60,7 +60,6 @@
         </div>
         {{!-- damage components --}}
         {{#each item.system.damage as |damage|}}
-        {{log damage}}
         {{#with (lookup ../config.damageTypes damage.type)}}
         <div class="roll-tag {{damage.type}}-dark">
             <i class="{{glyph}}"></i>
