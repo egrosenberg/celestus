@@ -1,5 +1,5 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData, ConsumableItem, RuneData, CelestusItemData } from "./dataModels.mjs"
-import { CelestusActor, CelestusToken } from "./actors.mjs"
+import { CelestusActor, CelestusToken, CelestusTokenDocument } from "./actors.mjs"
 import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc, teleportTokenStart, populateHotbar, applyDamageComponent, renderTokenInfo, renderBossDisplay, showBossDisplay, hideBossDisplay, updateBossResources, activateBoss, deactivateBoss } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CelestusMeasuredTemplateConfig, CharacterSheet } from "./sheets.mjs"
 import { CelestusItem } from "./items.mjs"
@@ -702,6 +702,7 @@ Hooks.on("init", () => {
 
     CONFIG.Actor.documentClass = CelestusActor;
     CONFIG.Item.documentClass = CelestusItem;
+    CONFIG.Token.documentClass = CelestusTokenDocument;
     CONFIG.ActiveEffect.documentClass = CelestusEffect;
 
     CONFIG.Canvas.layers.templates.layerClass = CelestusTemplateLayer;
@@ -1061,7 +1062,8 @@ Hooks.on("combatStart", startCombat);
 Hooks.on("preDeleteCombat", cleanupCombat);
 
 // handle tokens moving
-Hooks.on("preUpdateToken", spreadAura);
+Hooks.on("updateToken", spreadAura);
+Hooks.on("updateTokenDocument", spreadAura);
 Hooks.on("preUpdateToken", rotateOnMove);
 
 // draw backstab overlay

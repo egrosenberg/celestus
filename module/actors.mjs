@@ -891,6 +891,41 @@ export class CelestusActor extends Actor {
     }
 }
 
+export class CelestusTokenDocument extends TokenDocument {
+    /** @override */
+    async _preUpdate(changed, options, user) {
+        const allowed = await super._preUpdate(changed, options, user);
+        if (allowed === false) return false;
+        // if token is now hidden, cleanup aura
+        // if it is now visible, spread aura
+        if (changed.hidden === true) {
+            for (const effect of this.actor.effects) {
+                effect.cleanupAura();
+            }
+        }
+    }
+
+    /** @override */
+    _onUpdate(changed, options, userId) {
+        super._onUpdate(changed, options, userId);
+        // only spread aura as GM
+        if (!game.users.activeGM.isSelf) return;
+        this.object.spreadAuraFrom();
+    }
+
+    /** @override */
+    async _preDelete(options, user) {
+        const allowed = super._preDelete(options, user);
+        if (allowed === false) return;
+        // only cleanup aura as GM
+        if (!game.users.activeGM.isSelf) return;
+        // cleanup auras
+        for (const effect of this.actor.effects) {
+            effect.cleanupAura();
+        }
+    }
+}
+
 export class CelestusToken extends Token {
 
     /** @override */
@@ -933,7 +968,7 @@ export class CelestusToken extends Token {
     _onDelete(options, userId) {
         const allowed = super._onDelete(options, userId);
         if (allowed === false) return false;
-
+        // cleanup pointer
         if (this.pointerPixi) {
             canvas.stage.removeChild(this.pointerPixi);
         }
@@ -1001,15 +1036,15 @@ export class CelestusToken extends Token {
     async spreadAuraFrom(newPosition = null) {
         // only run if user is GM
         if (!game.users.activeGM.isSelf) return;
-        if (this.isSpreadingFrom) return;
-        this.isSpreadingFrom = true;
         const tokenCoords = newPosition || { x: this.x, y: this.y }
         const token = this.document;
-        // ignore if token is downed
+        // ignore if token is downed or if hidden
         const hp = token.actor.system?.resources?.hp?.value;
-        if (hp < 1) {
+        if (this.document.hidden || hp < 1) {
             return;
         }
+        if (this._isSpreadingFrom) return;
+        this._isSpreadingFrom = true;
         // get token effects with auras
         const effects = token.actor.effects.filter(e => (e.type === "status" && e.system.aura.has))
         // iterate through effects to spread aura
@@ -1017,7 +1052,7 @@ export class CelestusToken extends Token {
             // only worry about the effect if it is not a child
             if (effect.flags?.celestus?.isChild) continue;
             // iterate through all tokens on canvas
-            for (const target of canvas.scene.tokens) {
+            for (const target of token.parent?.tokens) {
                 // skip self
                 if (target === token) continue;
 
@@ -1079,7 +1114,7 @@ export class CelestusToken extends Token {
                 }
             }
         }
-        this.isSpreadingFrom = false;
+        delete this._isSpreadingFrom;
     }
 
     /**
@@ -1092,12 +1127,12 @@ export class CelestusToken extends Token {
         const tokenCoords = newPosition || { x: this.x, y: this.y }
         const token = this.document;
         // iterate through all tokens
-        for (const origin of canvas.scene.tokens) {
+        for (const origin of token.parent?.tokens) {
             // skip self
             if (origin === token) continue;
-            // ignore if token is downed
+            // ignore if token is downed or hidden
             const hp = origin.actor.system?.resources?.hp?.value;
-            if (hp < 1) {
+            if (origin.hidden || hp < 1) {
                 continue;
             }
             // check all effects on token
