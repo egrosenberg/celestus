@@ -1245,8 +1245,6 @@ export class GearData extends CelestusItemData {
         return foundry.utils.mergeObject(super.defineSchema(), {
             // equiped or not
             equipped: new BooleanField({ required: true, initial: false }),
-            // slot of armor (helmet / chest / gloves / leggings / boots)
-            slot: new StringField({ required: true, initial: "none" }),
             // effeciency stat multiplies by base value for that slot and type
             efficiency: new NumberField({ required: true, integer: false, initial: 1 }),
             bonuses: new SchemaField({
@@ -1392,6 +1390,8 @@ export class GearData extends CelestusItemData {
 export class ArmorData extends GearData {
     static defineSchema() {
         let schema = super.defineSchema();
+        // slot of armor (helmet / chest / gloves / leggings / boots)
+        schema.slot = new StringField({ required: true, initial: "none" }),
         schema.spread = new StringField({ required: true, initial: "none" });
         schema.base = new SchemaField({
             phys: new NumberField({ required: true, integer: true, initial: 0 }),
