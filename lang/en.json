@@ -181,6 +181,65 @@
             "Weapon_Rune_Damage_Physical_T2": "+11% damage as Physical damage",
             "Weapon_Rune_Damage_Physical_T3": "+13% damage as Physical damage",
             "Weapon_Rune_Damage_Physical_T4": "+15% damage as Physical damage"
+        },
+        "damageTypes": {
+            "physical": "Physical",
+            "fire": "Fire",
+            "water": "Water",
+            "air": "Air",
+            "earth": "Earth",
+            "poison": "Poison",
+            "psychic": "Psychic",
+            "shadow": "Shadow",
+            "radiant": "Radiant",
+            "piercing": "Piercing",
+            "healing": "Healing",
+            "phys_armor": "Physical Armor",
+            "mag_armor": "Magic Armor",
+            "t_phys_armor": "Temporary Physical Armor",
+            "t_mag_armor": "Temporary Magic Armor",
+            "none": "None",
+            "special": "Special"
+        },
+        "item": {
+            "rarity": {
+                "mundane": "Mundane",
+                "common": "Common",
+                "uncommon": "Uncommon",
+                "rare": "Rare",
+                "epic": "Epic",
+                "legendary": "Legendary",
+                "angelic": "Angelic"
+            },
+            "type": {
+                "armor": "Armor",
+                "weapon": "Weapon",
+                "offhand": "Offhand",
+                "consumable": "Consumable",
+                "rune": "Rune",
+                "loot": "Misc. Gear"
+            },
+            "subtype": {
+                "helmet": "Helmet",
+                "chest": "Chest Armor",
+                "gloves": "Gloves",
+                "leggings": "Leggings",
+                "boots": "Boots",
+                "amulet": "Amulet",
+                "ring": "Ring",
+                "belt": "Belt",
+                "onehanded": "Single-handed Weapon",
+                "twohanded": "Two-handed Weapon",
+                "melee": "Melee Weapon",
+                "ranged": "Ranged Weapon"
+            },
+            "armorType": {
+                "nospread": "Special Armor",
+                "mage": "Mage Armor",
+                "heavy": "Heavy Armor",
+                "light": "Light Armor",
+                "jewelry": "Jewelry"
+            }
         }
     }
 }
