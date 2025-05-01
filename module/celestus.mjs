@@ -910,7 +910,8 @@ Hooks.on("ready", () => {
         </a>
         `;
     $(damageControlLabel).on("click", "#roll-improvise-damage", game.celestus.improviseDamage);
-    document.getElementById("chat-controls").appendChild(damageControlLabel);
+    // TODO: Render Chat control button(s) in v13
+    // document.getElementsByClassName("chat-controls").appendChild(damageControlLabel);
 
     // allow middle click to lock in token hover ui
     $(document).on("mousedown", (ev) => {
@@ -943,10 +944,11 @@ Hooks.on("renderChatMessageHTML ", removeRollAuthor);
 Hooks.on("activateTemplateLayer", (layer) => { layer.zIndex = 400; })
 Hooks.on("deactivateTemplateLayer", (layer) => { layer.zIndex = CelestusTemplateLayer.layerOptions.zIndex; })
 
-Hooks.on("renderHotbar", renderHotbarOverlay);
+Hooks.on("renderHotbar", (application, html) => renderHotbarOverlay(html));
 Hooks.on("renderHotbar", (application, html, data) => {
+    html = $(html);
     // macro item hover
-    html.on('mouseover', '.macro', async (ev) => {
+    html.on('mouseover', '#action-bar li.slot', async (ev) => {
         let actor = canvas.tokens?.controlled?.[0]?.actor ?? game.user.character ?? _token?.actor ?? null;
         if ($('.item-hover').length) return;
         // get item from object
@@ -971,7 +973,7 @@ Hooks.on("renderHotbar", (application, html, data) => {
         };
         let msg = await foundry.applications.handlebars.renderTemplate(path, msgData);
         // do text enrichment
-        msg = await TextEditor.enrichHTML(
+        msg = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
             msg,
             {
                 // Only show secret blocks to owner
@@ -993,7 +995,7 @@ Hooks.on("renderHotbar", (application, html, data) => {
     });
 
     // item hover leave
-    html.on('mouseleave', '.macro', () => {
+    html.on('mouseleave', '#action-bar li.slot', () => {
         if ($(".item-hover").length) {
             $(".item-hover").remove();
             return;
@@ -1136,12 +1138,12 @@ function awaitElevationRuler(timeout) {
         if (CONFIG.elevationruler?.SPEED)
             resolve(true);
         else if (timeout && (Date.now() - start) >= timeout)
-            reject(new Error("CELESTUS: ElevationRuler not detected."));
+            reject(undefined);
         else
             setTimeout(waitRuler.bind(this, resolve, reject), 30);
     }
 }
-awaitElevationRuler(timeout).then(function () {
+awaitElevationRuler(timeout)?.then(function () {
     CONFIG.elevationruler.SPEED.CATEGORIES = [
         {
             name: "0 AP",

@@ -709,8 +709,10 @@ export function removeRollAuthor(message, html, messageData) {
 /**
  * render overlays over hotbat
  */
-export function renderHotbarOverlay(render = true) {
-    let actor = canvas.tokens?.controlled?.[0]?.actor ?? game.user.character ?? _token?.actor ?? null;
+export function renderHotbarOverlay(render = true, html = null) {
+    html ??= document.getElementById("hotbar");
+    html = $(html);
+    let actor = game?.canvas?.tokens?.controlled?.[0]?.actor ?? game?.user?.character ?? _token?.actor ?? null;
     // check for token/actor
     if (!actor) {
         return;
@@ -720,19 +722,20 @@ export function renderHotbarOverlay(render = true) {
     if (!render && !game.user.character) return;
     const skills = actor.system.allSkills;
     // find all active hotbar items
-    const active = $(".macro");
+    const active = $(html).find("#action-bar li.slot");
     active.each((i, e) => {
-        const skill = skills.find(i => i.name === game.macros?.get(e.dataset.macroId)?.name);
+        const macroId = game?.user?.hotbar[e.dataset.slot];
+        const skill = skills.find(i => i.name === game.macros?.get(macroId)?.name);
         if (skill) {
             const cooldown = skill.system.cooldown.value;
             if (cooldown > 0) {
-                $(e).append(`<div class=macro-overlay>${cooldown}</div>`);
+                $(`<div class=macro-overlay>${cooldown}</div>`).insertBefore($(e).find(".key"));
             }
             else if (cooldown < 0) {
-                $(e).append(`<div class=macro-overlay><i class="icon-sunrise"></i></div>`);
+                $(`<div class=macro-overlay><i class="icon-sunrise"></i></div>`).insertBefore($(e).find(".key"));
             }
             else if (skill.system.disabled) {
-                $(e).append(`<div class=macro-overlay></div>`);
+                $(`<div class=macro-overlay><i class="fa-solid fa-ban"></i></div>`).insertBefore($(e).find(".key"));
             }
         }
     });
