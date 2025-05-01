@@ -28,7 +28,7 @@ import { improviseDamage, rotateTokenTowards } from "./helpers.mjs"
  * @return {Promise}
  */
 const preloadHandlebarsTemplates = async function () {
-    return loadTemplates([
+    return foundry.applications.handlebars.loadTemplates([
         // Actor partials.
         'systems/celestus/templates/actor/parts/actor-abilities.hbs',
         'systems/celestus/templates/actor/parts/actor-features.hbs',
@@ -663,26 +663,26 @@ Hooks.on("init", () => {
     CONFIG.MeasuredTemplate.objectClass = CelestusMeasuredTemplate;
     CONFIG.MeasuredTemplate.documentClass = CelestusMeasuredTemplateDocument;
     // unregister old measured template sheet
-    DocumentSheetConfig.unregisterSheet(MeasuredTemplateDocument, 'core', MeasuredTemplateConfig);
-    DocumentSheetConfig.registerSheet(MeasuredTemplateDocument, 'celestus', CelestusMeasuredTemplateConfig, { makeDefault: true, });
+    foundry.applications.apps.DocumentSheetConfig.unregisterSheet(MeasuredTemplateDocument, 'core', foundry.applications.sheets.MeasuredTemplateConfig);
+    foundry.applications.apps.DocumentSheetConfig.registerSheet(MeasuredTemplateDocument, 'celestus', CelestusMeasuredTemplateConfig, { makeDefault: true, });
     CONFIG.Token.objectClass = CelestusToken;
 
     // set up sheets
-    Actors.unregisterSheet('core', ActorSheet);
-    Actors.registerSheet('celestus', CharacterSheet, {
+    foundry.documents.collections.Actors.unregisterSheet('core', foundry.appv1.sheets.ActorSheet);
+    foundry.documents.collections.Actors.registerSheet('celestus', CharacterSheet, {
         makeDefault: true,
         label: 'CELESTUS.SheetLabels.Actor',
         async: true,
     });
-    Items.unregisterSheet('core', ItemSheet);
-    Items.registerSheet('celestus', CelestusItemSheet, {
+    foundry.documents.collections.Items.unregisterSheet('core', foundry.appv1.sheets.ItemSheet);
+    foundry.documents.collections.Items.registerSheet('celestus', CelestusItemSheet, {
         makeDefault: true,
         label: 'CELESTUS.SheetLabels.Item',
         async: true,
     });
 
     // register active effect sheet
-    DocumentSheetConfig.registerSheet(CelestusEffect, "celestus", CelestusActiveEffectSheet,
+    foundry.applications.apps.DocumentSheetConfig.registerSheet(CelestusEffect, "celestus", CelestusActiveEffectSheet,
         {
             types: ["status", "base"],
             makeDefault: true,
@@ -934,10 +934,10 @@ Hooks.on("hotbarDrop", (bar, data, slot) => {
 });
 
 // append apply damage button to damage rolls for GM
-Hooks.on("renderChatMessage", addChatButtons);
-Hooks.on("renderChatMessage", renderDamageComponents);
+Hooks.on("renderChatMessageHTML ", addChatButtons);
+Hooks.on("renderChatMessageHTML ", renderDamageComponents);
 // remove author from roll chat messages
-Hooks.on("renderChatMessage", removeRollAuthor);
+Hooks.on("renderChatMessageHTML ", removeRollAuthor);
 
 // raise template layer when activated
 Hooks.on("activateTemplateLayer", (layer) => { layer.zIndex = 400; })
@@ -969,7 +969,7 @@ Hooks.on("renderHotbar", (application, html, data) => {
             config: CONFIG.CELESTUS,
             rollData: item.getRollData(),
         };
-        let msg = await renderTemplate(path, msgData);
+        let msg = await foundry.applications.handlebars.renderTemplate(path, msgData);
         // do text enrichment
         msg = await TextEditor.enrichHTML(
             msg,
@@ -977,7 +977,7 @@ Hooks.on("renderHotbar", (application, html, data) => {
                 // Only show secret blocks to owner
                 secrets: item.isOwner,
                 async: true,
-                // For Actors and Items
+                // For Actors and foundry.documents.collections.Items
                 rollData: item.getRollData()
             }
         );

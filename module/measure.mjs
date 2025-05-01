@@ -1,6 +1,6 @@
 import { closestPoint, polyCircleTest, polyLineTest, polyPointTest, polyPolyTest, rectToPoly, rotateTokenTowards } from "./helpers.mjs";
 
-export class CelestusMeasuredTemplate extends MeasuredTemplate {
+export class CelestusMeasuredTemplate extends foundry.canvas.placeables.MeasuredTemplate {
     /**
      * Create a CelestusMeasuredTemplate from a skill
      * @param {Item} item: item to create measured template from
@@ -936,7 +936,7 @@ export class CelestusMeasuredTemplateDocument extends MeasuredTemplateDocument {
 /**
  * @extends {TemplateLayer}
  */
-export class CelestusTemplateLayer extends TemplateLayer {
+export class CelestusTemplateLayer extends foundry.canvas.layers.TemplateLayer {
     /** @inheritdoc */
     static get layerOptions() {
         return foundry.utils.mergeObject(super.layerOptions, {

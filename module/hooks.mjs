@@ -288,10 +288,11 @@ export async function applyStatusHook(e) {
 /**
  * 
  * @param { ChatMessage } msg : chatmessage object for message being rendered (readonly)
- * @param { jQuery } html : jquery html data for chat
+ * @param { HTMLElement } html : HTML Element for chat message
  * @param { messageData } options 
  */
 export async function addChatButtons(msg, html, options) {
+    html = $(html);
     // if msg is an attack roll, change colors appropriately
     if (msg.system.isAttack) {
         // get roll toral (in case there are modifiers for some reason)
@@ -697,12 +698,12 @@ export async function spreadAura(token, changed, options, userId) {
 /**
  * 
  * @param {ChatMessage} message: The ChatMessage document being rendered
- * @param {jQuery} html: The pending HTML as a jQuery object
+ * @param {HTMLElement} html: The pending HTML as an HTML Element
  * @param {any} messageData 
  */
 export function removeRollAuthor(message, html, messageData) {
     if (message.system?.type !== "roll") return;
-    html.find("h4.message-sender").remove();
+    $(html).find("h4.message-sender").remove();
 }
 
 /**
@@ -832,10 +833,11 @@ export function rotateOnMove(token, changed, options) {
 /**
  * 
  * @param { ChatMessage } msg : chatmessage object for message being rendered (readonly)
- * @param { jQuery } html : jquery html data for chat
+ * @param { HTMLElement } html : HTML Element for chat message
  * @param { messageData } options 
  */
 export async function renderDamageComponents(msg, html, options) {
+    html = $(html);
     if (!msg.system.isDamage) return;
     const dmgInfo = itemizeDamage(msg);
     // render item description to html
@@ -847,7 +849,7 @@ export async function renderDamageComponents(msg, html, options) {
         originItem: msg.system.itemID,
         msgId: msg.uuid,
     }
-    let content = await renderTemplate(path, msgData);
+    let content = await foundry.applications.handlebars.renderTemplate(path, msgData);
     html.find(".dice-roll").after(content);
 }
 
@@ -855,7 +857,7 @@ export async function renderDamageComponents(msg, html, options) {
  * Renders action points and other resources in ui overlay
  */
 export async function renderResourcesUi() {
-    let actor = canvas.tokens?.controlled?.[0]?.actor ?? game.user.character ?? _token?.actor ?? null;
+    let actor = canvas.tokens?.controlled?.[0]?.actor ?? game.user?.character ?? _token?.actor ?? null;
 
     if (!actor) {
         document.getElementById("ui-resources").style.display = "none";
@@ -869,7 +871,7 @@ export async function renderResourcesUi() {
         portrait: actor.prototypeToken?.texture.src ?? actor.img,
         name: actor.prototypeToken?.name ?? actor.name
     }
-    let msg = await renderTemplate(path, msgData);
+    let msg = await foundry.applications.handlebars.renderTemplate(path, msgData);
 
     document.getElementById("ui-resources").style.display = "";
     document.getElementById("ui-resources").innerHTML = msg;
@@ -975,7 +977,7 @@ export async function renderTokenInfo(token, hovered, force) {
         resources: token.actor.system.resources,
         effects: token.actor.effects,
     }
-    let msg = await renderTemplate(path, msgData);
+    let msg = await foundry.applications.handlebars.renderTemplate(path, msgData);
 
     ui.style.display = "";
     ui.innerHTML = msg;
@@ -1060,7 +1062,7 @@ export async function renderBossDisplay(token) {
         spacerIndex: Math.floor(effects.length / 2),
         effectNeedsDummy: effects.length % 2 !== 0,
     }
-    let msg = await renderTemplate(path, msgData);
+    let msg = await foundry.applications.handlebars.renderTemplate(path, msgData);
     // set inner html
     ui.innerHTML = msg;
 }
@@ -1091,7 +1093,7 @@ export async function updateBossResources(actor) {
         spacerIndex: Math.floor(effects.length / 2),
         effectNeedsDummy: effects.length % 2 !== 0,
     }
-    let msg = await renderTemplate(path, msgData);
+    let msg = await foundry.applications.handlebars.renderTemplate(path, msgData);
     const effectList = $(ui).find("#boss-effects");
     if (effectList.html() !== msg) {
         effectList.fadeOut(500);

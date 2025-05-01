@@ -537,7 +537,7 @@ export class CelestusActor extends Actor {
             usedResources: useResources,
             rollData: skill.getRollData(),
         }
-        let msg = await renderTemplate(path, msgData);
+        let msg = await foundry.applications.handlebars.renderTemplate(path, msgData);
         // do text enrichment
         msg = await TextEditor.enrichHTML(
             msg,
@@ -925,7 +925,7 @@ export class CelestusTokenDocument extends TokenDocument {
     }
 }
 
-export class CelestusToken extends Token {
+export class CelestusToken extends foundry.canvas.placeables.Token {
 
     /** @override */
     _onCreate(data, options, userId) {

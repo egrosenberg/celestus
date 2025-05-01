@@ -154,7 +154,7 @@ export async function rollAbility(actor, ability) {
         ability: label,
         attributeSelect: !isAttribute,
     }
-    let msg = await renderTemplate(path, msgData);
+    let msg = await foundry.applications.handlebars.renderTemplate(path, msgData);
     new foundry.applications.api.DialogV2({
         window: { title: `${label} check` },
         content: msg,
@@ -283,7 +283,7 @@ export async function rollWeaponDamage(actor, damage, bonusDamage, statuses, isC
                 statuses: statusRolls,
                 actorId: actor.uuid,
             }
-            let msg = await renderTemplate(path, msgData);
+            let msg = await foundry.applications.handlebars.renderTemplate(path, msgData);
             // do text enrichment
             msg = await TextEditor.enrichHTML(
                 msg,

@@ -324,7 +324,7 @@ export class CelestusItem extends Item {
                 system: this.system,
                 config: CONFIG.CELESTUS,
             }
-            let msg = await renderTemplate(path, msgData);
+            let msg = await foundry.applications.handlebars.renderTemplate(path, msgData);
             // do text enrichment
             msg = await TextEditor.enrichHTML(
                 msg,

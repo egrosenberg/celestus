@@ -6,7 +6,7 @@ import { onManageActiveEffect } from "./hooks.mjs";
  * 
  * @extends { ActorSheet }
  */
-export class CharacterSheet extends ActorSheet {
+export class CharacterSheet extends foundry.appv1.sheets.ActorSheet {
     /** @override */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
@@ -140,7 +140,7 @@ export class CharacterSheet extends ActorSheet {
                 config: CONFIG.CELESTUS,
                 rollData: item.getRollData()
             };
-            let msg = await renderTemplate(path, msgData);
+            let msg = await foundry.applications.handlebars.renderTemplate(path, msgData);
             // do text enrichment
             msg = await TextEditor.enrichHTML(
                 msg,
@@ -237,7 +237,7 @@ export class CharacterSheet extends ActorSheet {
                     config: CONFIG.CELESTUS,
                     rollData: item.getRollData(),
                 };
-                let msg = await renderTemplate(path, msgData);
+                let msg = await foundry.applications.handlebars.renderTemplate(path, msgData);
                 // do text enrichment
                 msg = await TextEditor.enrichHTML(
                     msg,
@@ -434,7 +434,7 @@ export class CharacterSheet extends ActorSheet {
             }
             // close any other extra browsers
             $('.armor-browser').remove();
-            const msg = await renderTemplate("systems/celestus/templates/actor/parts/actor-armor-popup.hbs", {
+            const msg = await foundry.applications.handlebars.renderTemplate("systems/celestus/templates/actor/parts/actor-armor-popup.hbs", {
                 slot: $(ev.currentTarget).data('slot'),
                 armor: dataSet,
             });
@@ -605,7 +605,7 @@ export class CharacterSheet extends ActorSheet {
 /**
  * @extends { ItemSheet }
  */
-export class CelestusItemSheet extends ItemSheet {
+export class CelestusItemSheet extends foundry.appv1.sheets.ItemSheet {
     /** @override */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
@@ -995,7 +995,7 @@ export class CelestusItemSheet extends ItemSheet {
 /**
  * @extends { ActiveEffectConfig }
  */
-export class CelestusActiveEffectSheet extends ActiveEffectConfig {
+export class CelestusActiveEffectSheet extends foundry.applications.sheets.ActiveEffectConfig {
     /** @override */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
@@ -1158,7 +1158,7 @@ export class CelestusActiveEffectSheet extends ActiveEffectConfig {
 /**
  * @extends {MeasuredTemplateConfig}
  */
-export class CelestusMeasuredTemplateConfig extends MeasuredTemplateConfig {
+export class CelestusMeasuredTemplateConfig extends foundry.applications.sheets.MeasuredTemplateConfig {
     /** @override */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
