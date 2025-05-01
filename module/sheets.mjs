@@ -50,7 +50,7 @@ export class CharacterSheet extends foundry.appv1.sheets.ActorSheet {
         });
 
         // do text enrichment
-        context.enrichedDescription = await TextEditor.enrichHTML(
+        context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
             this.document.system.biography,
             {
                 // Only show secret blocks to owner
@@ -142,7 +142,7 @@ export class CharacterSheet extends foundry.appv1.sheets.ActorSheet {
             };
             let msg = await foundry.applications.handlebars.renderTemplate(path, msgData);
             // do text enrichment
-            msg = await TextEditor.enrichHTML(
+            msg = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
                 msg,
                 {
                     // Only show secret blocks to owner
@@ -717,7 +717,7 @@ export class CelestusItemSheet extends foundry.appv1.sheets.ItemSheet {
         //context.effects = prepareActiveEffectCategories(this.item.effects);
 
         // do text enrichment
-        context.enrichedDescription = await TextEditor.enrichHTML(
+        context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
             this.document.system.description,
             {
                 // Only show secret blocks to owner

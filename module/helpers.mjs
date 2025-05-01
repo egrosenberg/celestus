@@ -285,7 +285,7 @@ export async function rollWeaponDamage(actor, damage, bonusDamage, statuses, isC
             }
             let msg = await foundry.applications.handlebars.renderTemplate(path, msgData);
             // do text enrichment
-            msg = await TextEditor.enrichHTML(
+            msg = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
                 msg,
                 {
                     async: true,
