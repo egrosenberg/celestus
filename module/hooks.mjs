@@ -858,14 +858,19 @@ export async function renderDamageComponents(msg, html, options) {
 
 /**
  * Renders action points and other resources in ui overlay
+ * @param {Boolean} hide should the resources ui be forced to be hidden?
  */
-export async function renderResourcesUi() {
+export async function renderResourcesUi(hide = false) {
     let actor = canvas.tokens?.controlled?.[0]?.actor ?? game.user?.character ?? _token?.actor ?? null;
 
-    if (!actor) {
+    if (!actor || hide === true) {
         document.getElementById("ui-resources").style.display = "none";
+        $("#chat-notifications").animate({"margin-bottom": 0});
         return;
     }
+
+    // move chat up
+    $("#chat-notifications").animate({"margin-bottom": 145}, "200");
 
     const path = './systems/celestus/templates/resources-ui.hbs';
     const msgData = {
@@ -876,7 +881,6 @@ export async function renderResourcesUi() {
     }
     let msg = await foundry.applications.handlebars.renderTemplate(path, msgData);
 
-    document.getElementById("ui-resources").style.display = "";
     document.getElementById("ui-resources").innerHTML = msg;
     document.getElementById("ui-resources").dataset.actorId = actor.uuid;
 
@@ -907,6 +911,8 @@ export async function renderResourcesUi() {
             $(target).css("background-color", `#ff9999`);
         }
     });
+    // reveal resources ui
+    document.getElementById("ui-resources").style.display = "";
 }
 
 /**

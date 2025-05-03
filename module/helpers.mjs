@@ -80,7 +80,7 @@ export function calcMult(actor, type, ability, base, crit, flat = 0) {
         abilityBonus = (actor.system.attributes.level - 1) * CONFIG.CELESTUS.flatDamageScalar;
     }
     else if (ability !== "0") {
-        abilityBonus = actor.system.abilities[ability].mod;
+        abilityBonus = actor.system.abilities[ability]?.mod ?? 0;
     }
     const critBonus = crit ? actor.system.attributes.bonuses.crit_bonus.value : 1;
 

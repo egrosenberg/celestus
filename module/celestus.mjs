@@ -754,7 +754,7 @@ Hooks.on("init", () => {
     $(resourceUi).on('click', '.portrait-frame', async (ev) => {
         game.actors.get($(ev.currentTarget).data("actor-id"))?.sheet?.render(true);
     });
-    document.getElementById("ui-bottom").appendChild(resourceUi);
+    document.getElementById("ui-right-column-1").appendChild(resourceUi);
 
     renderResourcesUi();
 
@@ -934,11 +934,10 @@ Hooks.on("hotbarDrop", (bar, data, slot) => {
     return false;
 });
 
-// append apply damage button to damage rolls for GM
-Hooks.on("renderChatMessageHTML ", addChatButtons);
-Hooks.on("renderChatMessageHTML ", renderDamageComponents);
+Hooks.on("renderChatMessageHTML", addChatButtons);
+Hooks.on("renderChatMessageHTML", renderDamageComponents);
 // remove author from roll chat messages
-Hooks.on("renderChatMessageHTML ", removeRollAuthor);
+Hooks.on("renderChatMessageHTML", removeRollAuthor);
 
 // raise template layer when activated
 Hooks.on("activateTemplateLayer", (layer) => { layer.zIndex = 400; })
