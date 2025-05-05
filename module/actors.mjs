@@ -897,12 +897,17 @@ export class CelestusTokenDocument extends TokenDocument {
         const allowed = await super._preUpdateMovement(movement, operation);
         if (allowed === false) return false;
         // Check surface collisions
-        if (movement.destination && this.movementAction !== "blink") {
+        if (movement.destination) {
             // iterate through surfaces
             const origin = { x: movement.origin.x, y: movement.origin.y };
             const destination = { x: movement.destination.x, y: movement.destination.y };
             for (const template of canvas?.scene.templates) {
-                await template.object.spreadEffectsTo(this, origin, destination);
+                if (this.movementAction !== "blink") {
+                    await template.object.spreadEffectsTo(this, origin, destination);
+                }
+                else {
+                    await template.object.spreadEffectsTo(this, undefined, destination);
+                }
             }
         }
     }

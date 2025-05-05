@@ -593,16 +593,24 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables.Measured
         // check for intersection, if newPos is provided check test with line
         if (newPos) {
             const line = {
-                x1: oldPos.x ?? token.object.center.x,
-                y1: oldPos.y ?? token.object.center.y,
+                x1: oldPos?.x ?? token.object.center.x,
+                y1: oldPos?.y ?? token.object.center.y,
                 x2: newPos.x,
                 y2: newPos.y
             }
             intersects = this.testLine(line);
             standingOn = this.testPoint(newPos.x, newPos.y);
         }
+        else if (oldPos) {
+            const x = oldPos.x;
+            const y = oldPos.y;
+            intersects = this.testPoint(x, y);
+            standingOn = intersects;
+        }
         else {
-            intersects = this.testPoint(token.object.center.x, token.object.center.y);
+            const x = token.object.center.x;
+            const y = token.object.center.y;
+            intersects = this.testPoint(x, y);
             standingOn = intersects;
         }
 
