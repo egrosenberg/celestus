@@ -689,10 +689,6 @@ export async function spreadAura(token, changed, options, userId) {
     await token.object.spreadAuraFrom(tokenCoords);
     // spread from other tokens
     await token.object.spreadAuraTo(tokenCoords);
-    // check if token is inside a measuredTemplate
-    for (const t of canvas.scene.templates) {
-        await t.object.spreadEffectsTo(token, tokenCoords);
-    }
 }
 
 /**

@@ -891,6 +891,22 @@ export class CelestusActor extends Actor {
 }
 
 export class CelestusTokenDocument extends TokenDocument {
+
+    /** @override */
+    async _preUpdateMovement(movement, operation) {
+        const allowed = await super._preUpdateMovement(movement, operation);
+        if (allowed === false) return false;
+        // Check surface collisions
+        if (movement.destination && this.movementAction !== "blink") {
+            // iterate through surfaces
+            const origin = { x: movement.origin.x, y: movement.origin.y };
+            const destination = { x: movement.destination.x, y: movement.destination.y };
+            for (const template of canvas?.scene.templates) {
+                await template.object.spreadEffectsTo(this, origin, destination);
+            }
+        }
+    }
+
     /** @override */
     async _preUpdate(changed, options, user) {
         const allowed = await super._preUpdate(changed, options, user);

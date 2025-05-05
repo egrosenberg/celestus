@@ -803,7 +803,7 @@ Hooks.on("init", () => {
 
     // register keybindings
     game.keybindings.register("celestus", "showNotification", {
-        name: "Teleport controlled token",
+        name: "Teleport controlled token (Deprecated)",
         hint: "When pressed will teleport currently controlled token to wherever the cursor is.",
         editable: [
             {

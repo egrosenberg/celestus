@@ -578,10 +578,11 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables.Measured
 
     /**
      * Spread all effects if this has any to a token
-     * @param {Token} token to spread the effects to
+     * @param {TokenDocument} token to spread the effects to
      * @param {Integer, Integer} newPos new position of token
+     * @param {Integer, Integer} oldPos old position of token
      */
-    async spreadEffectsTo(token, newPos) {
+    async spreadEffectsTo(token, newPos = undefined, oldPos = undefined) {
         // check if this has auras to propagate
         if (!this.document.getFlag("celestus", "hasEffects") && !this.document.getFlag("celestus", "surfaceType")) return false;
         // ignore flying tokens
@@ -592,8 +593,8 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables.Measured
         // check for intersection, if newPos is provided check test with line
         if (newPos) {
             const line = {
-                x1: token.object.center.x,
-                y1: token.object.center.y,
+                x1: oldPos.x ?? token.object.center.x,
+                y1: oldPos.y ?? token.object.center.y,
                 x2: newPos.x,
                 y2: newPos.y
             }
