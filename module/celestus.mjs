@@ -1024,6 +1024,7 @@ Hooks.on("getSceneControlButtons", (controls) => {
         title: "Refresh Selected Tokens' Resources",
         toggle: false,
         visible: true,
+        button: true
     };
     controls.tokens.tools["boss"] = {
         icon: "fa-solid fa-dragon",
