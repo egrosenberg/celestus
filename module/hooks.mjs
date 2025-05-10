@@ -1271,3 +1271,17 @@ export function teleportTokenStart(token) {
     canvas.effects.addChild(CONFIG.CELESTUS.teleportCursor);
     teleportTicker();
 }
+
+/**
+ * Displays or removes the boss health bar
+ * @param {Event} event 
+ * @param {Boolean} active 
+ */
+export function toggleBossBar() {
+    if (game.celestus.bossId) {
+        deactivateBoss();
+    }
+    else {
+        activateBoss();
+    }
+}

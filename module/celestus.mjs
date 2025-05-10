@@ -1,6 +1,6 @@
 import { PlayerData, SkillData, ChatDataModel, ArmorData, EffectData, WeaponData, CelestusFeature, OffhandData, NpcData, ReferenceData, TokenData, ConsumableItem, RuneData, CelestusItemData } from "./dataModels.mjs"
 import { CelestusActor, CelestusToken, CelestusTokenDocument } from "./actors.mjs"
-import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc, teleportTokenStart, populateHotbar, applyDamageComponent, renderTokenInfo, renderBossDisplay, showBossDisplay, hideBossDisplay, updateBossResources, activateBoss, deactivateBoss } from "./hooks.mjs"
+import { addChatButtons, applyDamageHook, applyStatusHook, cleanupCombat, createCelestusMacro, drawTokenHover, drawTemplate, previewDamage, removeRollAuthor, renderHotbarOverlay, rollAttack, rollCrit, rollDamage, rollItemMacro, spreadAura, startCombat, triggerTurn, rotateOnMove, renderDamageComponents, renderResourcesUi, resourceInteractFp, resourceInteractAp, resourceInteractMisc, teleportTokenStart, populateHotbar, applyDamageComponent, renderTokenInfo, renderBossDisplay, showBossDisplay, hideBossDisplay, updateBossResources, activateBoss, deactivateBoss, toggleBossBar } from "./hooks.mjs"
 import { CelestusActiveEffectSheet, CelestusItemSheet, CelestusMeasuredTemplateConfig, CharacterSheet } from "./sheets.mjs"
 import { CelestusItem } from "./items.mjs"
 import { CelestusEffect } from "./effects.mjs"
@@ -786,15 +786,15 @@ Hooks.on("init", () => {
             // first hide token info
             $("#ui-token-hover").animate({ top: -220 }, 500, "swing");
             // unhide this
-            $(ev.currentTarget).css({ top: 25 });
+            $(ev.currentTarget).css({ top: 30 });
             $(ev.currentTarget).html('<i class="fa-solid fa-caret-up"></i>');
             $(bossInfo).animate({ top: 0 }, 500, "swing");
             bossInfo.classList.remove("up")
         }
         else {
-            $(ev.currentTarget).css({ top: 20 });
+            $(ev.currentTarget).css({ top: 25 });
             $(ev.currentTarget).html('<i class="fa-solid fa-caret-down"></i>');
-            $(bossInfo).animate({ top: -160 }, 500, "swing");
+            $(bossInfo).animate({ top: -165 }, 500, "swing");
             bossInfo.classList.add("up");
             // then reveal token info
             $("#ui-token-hover").animate({ top: -20 }, 500, "swing");
@@ -1015,32 +1015,25 @@ Hooks.on("renderHotbar", (application, html, data) => {
 });
 
 // Render refresh tokens button on scene controls
-Hooks.on("renderSceneControls", (application, html) => {
-    // create refresh tokens button
-    let refreshTokenButton = document.createElement("li");
-    refreshTokenButton.classList.add("control-tool");
-    refreshTokenButton.id = "refresh-selected-tokens";
-    refreshTokenButton.dataset.tooltip = "Refresh Selected Tokens' Resources";
-    refreshTokenButton.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i>';
-    $(html).on("click", "#refresh-selected-tokens", game.celestus.refreshSelected);
-    $(html).find("#tools-panel-token").append(refreshTokenButton);
-    if (game.user.isGM) {
-        let bossDisplayButton = document.createElement("li");
-        bossDisplayButton.classList.add("control-tool");
-        if (game.celestus.bossId) bossDisplayButton.classList.add("toggle");
-        bossDisplayButton.id = "boss-display-control";
-        bossDisplayButton.dataset.tooltip = "Activate / Deactivate boss";
-        bossDisplayButton.innerHTML = '<i class="fa-solid fa-dragon"></i>';
-        $(html).on("click", "#boss-display-control", () => {
-            if (game.celestus.bossId) {
-                deactivateBoss();
-            }
-            else {
-                activateBoss();
-            }
-        });
-        $(html).find("#tools-panel-token").append(bossDisplayButton);
-    }
+Hooks.on("getSceneControlButtons", (controls) => {
+    controls.tokens.tools["refresh"] = {
+        icon: "fa-solid fa-arrows-rotate",
+        name: "refresh",
+        onChange: game.celestus.refreshSelected,
+        order: 5,
+        title: "Refresh Selected Tokens' Resources",
+        toggle: false,
+        visible: true,
+    };
+    controls.tokens.tools["boss"] = {
+        icon: "fa-solid fa-dragon",
+        name: "boss",
+        onChange: toggleBossBar,
+        order: 6,
+        title: "Activate / Deactivate Boss",
+        toggle: true,
+        visible: game.user.isGM,
+    };
 });
 
 // hook damage preview on token select

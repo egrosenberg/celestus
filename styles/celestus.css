@@ -4,6 +4,12 @@
     margin-right: 0.2em;
 }
 
+/* Move the hotbar back to its old location*/
+#hotbar {
+    position: relative;
+    left: -300px;
+}
+
 .chat-message .message-header .message-sender {
     white-space: unset;
 }
@@ -857,6 +863,7 @@ input[type="color"]::-webkit-color-swatch {
 
 .celestus.actor.sheet .ability-roll:hover {
     text-shadow: 0px 0px 5px var(--color-warm-1);
+    color: white;
 }
 
 /* Items */
@@ -1136,6 +1143,10 @@ input[type="color"]::-webkit-color-swatch {
     margin-bottom: 10px;
     padding: 10px;
     border-bottom: solid thin var(--color-cool-3);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .celestus.item.sheet h2.item-type {
@@ -1146,6 +1157,11 @@ input[type="color"]::-webkit-color-swatch {
 .celestus.item.sheet h1.charname input {
     margin: 0px;
     outline: none;
+    border: none;
+}
+
+.celestus.item.sheet h1.charname input:is(:hover,:focus) {
+    box-shadow: 0 0 5px inset #0008;
 }
 
 .celestus.item.sheet .item-quick {
@@ -1992,7 +2008,7 @@ div#ui-resources {
     text-align: center;
     height: 20px;
     color: var(--color-dark-5);
-    top: 25px;
+    top: 30px;
     font-size: 30px;
 }
 
@@ -2002,7 +2018,7 @@ div#ui-resources {
 }
 
 .celestus.boss-display .name {
-    padding: 0px 10px 15px 10px;
+    padding: 0px 10px 20px 10px;
 }
 
 .celestus.boss-display .portrait-frame {
