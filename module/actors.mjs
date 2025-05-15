@@ -52,6 +52,16 @@ export class CelestusActor extends Actor {
             }
         }
 
+        // handle size changes
+        const size = changed.system?.size;
+        if (size) {
+            // update default token size
+            const dist = CONFIG.CELESTUS.size[size];
+            if (dist) {
+                this.prototypeToken.update({width: dist, height: dist});
+            }
+        }
+
         // handle setting npc stats from stat spread preset
         if (this.type === "npc") {
             const statSpread = changed.system?.spread;

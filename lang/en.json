@@ -240,6 +240,14 @@
                 "light": "Light Armor",
                 "jewelry": "Jewelry"
             }
+        },
+        "size": {
+            "tiny": "Tiny",
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large",
+            "huge": "Huge",
+            "gargantuan": "Gargantuan"
         }
     }
 }

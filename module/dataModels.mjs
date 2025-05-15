@@ -18,6 +18,7 @@ export class ActorData extends foundry.abstract.TypeDataModel {
             t: new StringField({ required: true, initial: "humanoid" }),
             pointerTint: new StringField({ required: true, default: "#fff" }),
             portraitBorder: new BooleanField({ required: true, initial: true }),
+            size: new StringField({required: true, initial: "medium"}),
             // configure resources
             resources: new SchemaField({
                 // configure health as a schema field

@@ -13,7 +13,16 @@
             <div class="header-fields">
                 <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
                 <div>
-                    <select class="npc-prefab-selector physical" name="system.t">
+                    <select class="npc-prefab-selector" name="system.size">
+                        {{#each config.size as |val size|}}
+                        <option value="{{size}}" {{ifThen (eq size ../system.size) "selected"}}>
+                            {{localize (concat "CELESTUS.size." size)}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div>
+                    <select class="npc-prefab-selector" name="system.t">
                         {{selectOptions config.creatureTypes selected=system.t}}
                     </select>
                 </div>

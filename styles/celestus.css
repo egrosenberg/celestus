@@ -543,9 +543,11 @@ input[type="color"]::-webkit-color-swatch {
     border-radius: 5px;
     padding: 5px;
     box-shadow: var(--shadow-inset);
-    background-image: url('../img/milky-texture.webp');
-    background-blend-mode: multiply;
-
+    background: var(--color-head-label-bg);
+    color: lightgray;
+    border: thin solid black;
+    margin-top: 0.5em;
+    box-shadow: 0px 0px 0.5em black;
 }
 
 /* resources */
