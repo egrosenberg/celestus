@@ -71,11 +71,12 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '12.331'
+  coreVersion: '13.341'
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736360801097
   modifiedTime: 1743704256493
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
+  exportSource: null
 _key: '!items!MwRkaudljJfj9z7m'
 

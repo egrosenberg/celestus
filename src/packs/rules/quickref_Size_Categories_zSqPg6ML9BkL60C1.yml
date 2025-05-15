@@ -1,0 +1,33 @@
+folder: pa9fsOd1f4K24GQ3
+name: Size Categories
+type: quickref
+_id: zSqPg6ML9BkL60C1
+img: icons/svg/upgrade.svg
+system:
+  description: >-
+    <table><tbody><tr><td><h3>Character Size</h3></td><td><h3>Occupied Cube
+    size</h3></td></tr><tr><td><p>Tiny</p></td><td><p>2.5
+    ft.</p></td></tr><tr><td><p>Small</p></td><td><p>5
+    ft.</p></td></tr><tr><td><p>Medium</p></td><td><p>5
+    ft.</p></td></tr><tr><td><p>Large</p></td><td><p>10
+    ft.</p></td></tr><tr><td><p>Huge</p></td><td><p>15
+    ft.</p></td></tr><tr><td><p>Gargantuan</p></td><td><p>20
+    ft.</p></td></tr></tbody></table>
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.341'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1747348460049
+  modifiedTime: 1747348642202
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!zSqPg6ML9BkL60C1'
+

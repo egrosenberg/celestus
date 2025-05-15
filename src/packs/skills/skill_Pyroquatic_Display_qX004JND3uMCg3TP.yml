@@ -1,0 +1,96 @@
+folder: U37QlqYPVlVbQTiW
+name: Pyroquatic Display
+type: skill
+_id: qX004JND3uMCg3TP
+img: icons/magic/fire/projectile-fireball-smoke-large-blue.webp
+system:
+  description: >-
+    <p>You summon a fantastic display of roaring flames and soothing waters in a
+    10-foot radius, 20-foot tall cylinder centered on a point you can see within
+    range. The flames sear any number of creatures you choose within the area,
+    dealing 100% Fire damage. The water comforts any number of creatures you
+    choose with the area, giving 75% Healing.</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 5
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 1
+    tidecaller: 1
+    stormseeker: 0
+    duneshaper: 0
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    lightbringer: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: fire
+      value: 1
+    - type: healing
+      value: 0.75
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: cylinder
+    size: 10
+    width: 5
+  range: 60
+  statusEffects: []
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: true
+  school: tidecaller
+  tier: 1
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.341'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1746583742854
+  modifiedTime: 1746661618100
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!qX004JND3uMCg3TP'
+

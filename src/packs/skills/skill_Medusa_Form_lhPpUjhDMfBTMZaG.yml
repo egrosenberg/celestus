@@ -98,12 +98,13 @@ effects:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '13.341'
       systemId: celestus
       systemVersion: 0.0.1
       createdTime: 1736208862167
       modifiedTime: 1736208960157
       lastModifiedBy: ZJKmiL4ZAI5FH4eV
+      exportSource: null
     _key: '!items.effects!lhPpUjhDMfBTMZaG.dlgckJvLClQLAgrj'
   - name: Petrifying Visage
     img: systems/celestus/svg/golem-head.svg
@@ -183,12 +184,13 @@ effects:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '13.341'
       systemId: celestus
       systemVersion: 0.0.1
       createdTime: 1736209627494
       modifiedTime: 1736551012408
       lastModifiedBy: ZJKmiL4ZAI5FH4eV
+      exportSource: null
     _key: '!items.effects!lhPpUjhDMfBTMZaG.T67BrQzfyHs2atqJ'
 sort: 0
 ownership:
@@ -198,11 +200,12 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '12.331'
+  coreVersion: '13.341'
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736206635740
   modifiedTime: 1736276186662
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
+  exportSource: null
 _key: '!items!lhPpUjhDMfBTMZaG'
 

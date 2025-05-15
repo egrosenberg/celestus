@@ -114,12 +114,13 @@ effects:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '13.341'
       systemId: celestus
       systemVersion: 0.0.1
       createdTime: 1739493235078
       modifiedTime: 1739493409953
       lastModifiedBy: ZJKmiL4ZAI5FH4eV
+      exportSource: null
     _key: '!items.effects!Zs6O4EroZje1qG8t.V8pxdx8MNzDM2f8N'
 sort: 0
 ownership:
@@ -129,11 +130,12 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '12.331'
+  coreVersion: '13.341'
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1739492888348
   modifiedTime: 1739493108524
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
+  exportSource: null
 _key: '!items!Zs6O4EroZje1qG8t'
 

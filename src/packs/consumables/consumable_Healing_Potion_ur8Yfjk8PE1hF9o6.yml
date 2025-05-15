@@ -16,7 +16,7 @@ system:
   statusEffects: []
   itemizeDamage: false
   hasStatuses: false
-  ap: 0
+  ap: 1
   rarity: Rare
 effects: []
 folder: null
@@ -24,12 +24,13 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '12.331'
+  coreVersion: '13.341'
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1745441179039
-  modifiedTime: 1745450415033
+  modifiedTime: 1745521761866
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
+  exportSource: null
 ownership:
   default: 0
   ZJKmiL4ZAI5FH4eV: 3

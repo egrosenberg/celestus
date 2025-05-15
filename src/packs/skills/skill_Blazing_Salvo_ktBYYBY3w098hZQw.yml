@@ -1,0 +1,99 @@
+folder: U37QlqYPVlVbQTiW
+name: Blazing Salvo
+type: skill
+_id: ktBYYBY3w098hZQw
+img: icons/magic/fire/projectile-fireball-smoke-orange.webp
+system:
+  description: >-
+    <p>Tearing the ground around you, you launch a mass of molten earth at a
+    point you can see within range. The molten rock erupts upon impact into a
+    5-foot radius sphere that leaves a pool of burning earth behind. Each
+    creature within the sphere takes 75% Fire damage and 50% Earth
+    damage.</p><p>★ Sets
+    @UUID[Compendium.celestus.rules.5WnOnUhH4LYfPLlZ]{Burning} (Resisted by
+    Magic Armor)</p>
+  ap: 2
+  fp: 0
+  cooldown:
+    value: 0
+    max: 4
+  components:
+    verbal: true
+    somatic: true
+    material: false
+    materialFull: ''
+  memorized: 'false'
+  type: magic
+  memSlots: 1
+  prereqs:
+    flamespeaker: 1
+    tidecaller: 0
+    stormseeker: 0
+    duneshaper: 1
+    voidcantor: 0
+    deathbringer: 0
+    shroudstalker: 0
+    lightbringer: 0
+    formshifter: 0
+    huntmaster: 0
+    warlord: 0
+    scoundrel: 0
+    lore: 0
+    nature: 0
+    influence: 0
+    religion: 0
+  damage:
+    - type: fire
+      value: 0.75
+    - type: earth
+      value: 0.5
+  ability: int
+  attack: false
+  targets:
+    count: 0
+    type: sphere
+    size: 5
+    width: 5
+  range: 60
+  statusEffects:
+    - burn
+  lifesteal: 0
+  weaponEfficiency: 1
+  overridesWeaponDamage: false
+  overridesWeaponType: false
+  overridesWeaponRange: false
+  itemizeDamage: false
+  school: flamespeaker
+  tier: 1
+  hasScript: false
+  scriptId: ''
+  aoeLinger: false
+  linger:
+    duration: 0
+    effects: false
+    targets: any
+    targetType: humanoid
+    clearOnLeave: true
+    lingerDuration: 0
+    surfaceType: none
+    children: []
+    texture: null
+  channelDuration: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZJKmiL4ZAI5FH4eV: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.341'
+  systemId: celestus
+  systemVersion: 0.0.1
+  createdTime: 1746584644216
+  modifiedTime: 1746585072910
+  lastModifiedBy: ZJKmiL4ZAI5FH4eV
+_key: '!items!ktBYYBY3w098hZQw'
+

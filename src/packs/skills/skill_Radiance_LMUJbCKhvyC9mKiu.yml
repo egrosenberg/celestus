@@ -111,12 +111,13 @@ effects:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '13.341'
       systemId: celestus
       systemVersion: 0.0.1
       createdTime: 1736038582314
       modifiedTime: 1744425159781
       lastModifiedBy: ZJKmiL4ZAI5FH4eV
+      exportSource: null
     _key: '!items.effects!LMUJbCKhvyC9mKiu.UXqLdEJ0X1LNdr9i'
   - name: Blinded by Radiance
     img: icons/svg/blind.svg
@@ -157,12 +158,13 @@ effects:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '13.341'
       systemId: celestus
       systemVersion: 0.0.1
       createdTime: 1736040029395
       modifiedTime: 1736551086643
       lastModifiedBy: ZJKmiL4ZAI5FH4eV
+      exportSource: null
     _key: '!items.effects!LMUJbCKhvyC9mKiu.Vf080gTfTeSiDP4s'
 sort: 100000
 ownership:
@@ -172,11 +174,12 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '12.331'
+  coreVersion: '13.341'
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1736038117897
   modifiedTime: 1744424991555
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
+  exportSource: null
 _key: '!items!LMUJbCKhvyC9mKiu'
 

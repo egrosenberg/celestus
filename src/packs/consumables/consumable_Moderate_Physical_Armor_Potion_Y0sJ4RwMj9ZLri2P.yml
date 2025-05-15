@@ -24,12 +24,13 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '12.331'
+  coreVersion: '13.341'
   systemId: celestus
   systemVersion: 0.0.1
   createdTime: 1742076900984
   modifiedTime: 1745450441891
   lastModifiedBy: ZJKmiL4ZAI5FH4eV
+  exportSource: null
 _id: Y0sJ4RwMj9ZLri2P
 sort: 1200000
 ownership:
