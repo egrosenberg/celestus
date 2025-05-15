@@ -217,6 +217,7 @@ export const surfaceTypes = {
     fog: {
         label: "Fog",
         color: "#cccccc",
+        duration: 2,
         schools: ["stormseeker"],
         damageCombines: {
             air: "electric_fog",
@@ -226,6 +227,7 @@ export const surfaceTypes = {
     electric_fog: {
         label: "Electric Fog",
         color: "#cccccc",
+        duration: 2,
         schools: ["stormseeker"],
         statuses: ["shock"],
         arrowheads: { name: "Electrified Arrowheads", damage: "air" },
