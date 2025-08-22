@@ -1,29 +1,28 @@
 {
-    "id": "celestus",
-    "title": "Celestus",
-    "description": "A TTRPG inspired by the gameplay of the Divinity Original Sin series.",
-    "version": "0.0.1",
-    "compatibility":
+  "id": "celestus",
+  "title": "Celestus",
+  "description": "A TTRPG inspired by the gameplay of the Divinity Original Sin series.",
+  "version": "0.0.1",
+  "compatibility": {
+    "minimum": 12,
+    "verified": 12
+  },
+  "authors": [
     {
-        "minimum": 12,
-        "verified": 12
-    },
-    "authors": 
-    [{
-        "name": "ethan",
-        "url": "https://github.com/egrosenberg/",
-        "email": "",
-        "discord": "krostorm"
-    }],
-    "esmodules": ["module/celestus.mjs"],
-    "styles": ["styles/celestus.css"],
-    "packs": [{}],
-    "socket": true,
-    "initiative": "1d20",
-    "grid":
-    {
-        "distance": 5,
-        "units": "ft"
-    },
-    "primaryTokenAttribute": "resources.hp"
+      "name": "ethan",
+      "url": "https://github.com/egrosenberg/",
+      "email": "",
+      "discord": "krostorm"
+    }
+  ],
+  "esmodules": ["module/celestus.mjs"],
+  "styles": ["styles/celestus.css"],
+  "packs": [{}],
+  "socket": true,
+  "initiative": "1d20",
+  "grid": {
+    "distance": 5,
+    "units": "ft"
+  },
+  "primaryTokenAttribute": "resources.hp"
 }

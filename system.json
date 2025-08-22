@@ -1,158 +1,141 @@
 {
-    "id": "celestus",
-    "title": "Celestus",
-    "description": "A TTRPG inspired by the gameplay of the Divinity Original Sin series.",
-    "version": "0.0.1",
-    "compatibility": {
-        "minimum": 13,
-        "verified": 13
+  "id": "celestus",
+  "title": "Celestus",
+  "description": "A TTRPG inspired by the gameplay of the Divinity Original Sin series.",
+  "version": "0.0.1",
+  "compatibility": {
+    "minimum": 13,
+    "verified": 13
+  },
+  "authors": [
+    {
+      "name": "ethan",
+      "url": "https://github.com/egrosenberg/",
+      "email": "",
+      "discord": "krostorm"
+    }
+  ],
+  "esmodules": ["module/celestus.mjs"],
+  "scripts": ["module/imports/slimselect.min.js"],
+  "styles": [
+    "styles/celestus.css",
+    "styles/glyphs.css",
+    "styles/slimselect.css"
+  ],
+  "packs": [
+    {
+      "name": "rules",
+      "label": "Celestus Rules",
+      "type": "Item",
+      "system": "celestus"
     },
-    "authors": [
-        {
-            "name": "ethan",
-            "url": "https://github.com/egrosenberg/",
-            "email": "",
-            "discord": "krostorm"
-        }
-    ],
-    "esmodules": [
-        "module/celestus.mjs"
-    ],
-    "scripts" :[
-        "module/imports/slimselect.min.js"
-    ],
-    "styles": [
-        "styles/celestus.css",
-        "styles/glyphs.css",
-        "styles/slimselect.css"
-    ],
-    "packs": [ {
-            "name": "rules",
-            "label": "Celestus Rules",
-            "type": "Item",
-            "system": "celestus"
-        }, {
-            "name": "skills",
-            "label": "Celestus Skills",
-            "type": "Item",
-            "system": "celestus"
-        }, {
-            "name": "backgrounds",
-            "label": "Celestus Backgrounds",
-            "type": "Item",
-            "system": "celestus"
-        }, {
-            "name": "professions",
-            "label": "Celestus Professions",
-            "type": "Item",
-            "system": "celestus"
-        }, {
-            "name": "talents",
-            "label": "Celestus Talents",
-            "type": "Item",
-            "system": "celestus"
-        }, {
-            "name": "ancestry",
-            "label": "Celestus Ancestries",
-            "type": "Item",
-            "system": "celestus"
-        }, {
-            "name": "gear",
-            "label": "Celestus Gear",
-            "type": "Item",
-            "system": "celestus"
-        }, {
-            "name": "consumables",
-            "label": "Celestus Consumables",
-            "type": "Item",
-            "system": "celestus"
-        }, {
-            "name": "npc",
-            "label": "Celestus NPCs",
-            "type": "Actor",
-            "system": "celestus"
-        }
-    ],
-    "packFolders": [],
-    "languages": [
-        {
-            "lang": "en",
-            "name": "English",
-            "path": "lang/en.json"
-        }
-    ],
-    "documentTypes": {
-        "Actor": {
-            "player": {
-                "htmlFields": [
-                    "biography"
-                ]
-            },
-            "npc": {
-                "htmlFields": [
-                    "biography"
-                ]
-            }
-        },
-        "Item": {
-            "skill": {
-                "htmlFields": [
-                    "description"
-                ]
-            },
-            "armor": {
-                "htmlFields": [
-                    "description"
-                ]
-            },
-            "weapon": {
-                "htmlFields": [
-                    "description"
-                ]
-            },
-            "feature": {
-                "htmlFields": [
-                    "description"
-                ]
-            },
-            "offhand": {
-                "htmlFields": [
-                    "description"
-                ]
-            },
-            "quickref": {
-                "htmlFields": [
-                    "description"
-                ]
-            },
-            "consumable": {
-                "htmlFields": [
-                    "description"
-                ]
-            },
-            "rune": {
-                "htmlFields": [
-                    "description"
-                ]
-            },
-            "loot": {
-                "htmlFields": [
-                    "description"
-                ]
-            }
-        },
-        "ActiveEffect": {
-            "status": {}
-        }
+    {
+      "name": "skills",
+      "label": "Celestus Skills",
+      "type": "Item",
+      "system": "celestus"
     },
-    "socket": true,
-    "initiative": "1d20",
-    "grid": {
-        "distance": 5,
-        "units": "ft"
+    {
+      "name": "backgrounds",
+      "label": "Celestus Backgrounds",
+      "type": "Item",
+      "system": "celestus"
     },
-    "primaryTokenAttribute": "resources.hp",
-    "url": "https://github.com/egrosenberg/celestus",
-    "manifest": "https://github.com/egrosenberg/celestus/releases/latest/download/system.json",
-    "download": "https://github.com/egrosenberg/celestus/releases/latest/download/celestus.zip"
+    {
+      "name": "professions",
+      "label": "Celestus Professions",
+      "type": "Item",
+      "system": "celestus"
+    },
+    {
+      "name": "talents",
+      "label": "Celestus Talents",
+      "type": "Item",
+      "system": "celestus"
+    },
+    {
+      "name": "ancestry",
+      "label": "Celestus Ancestries",
+      "type": "Item",
+      "system": "celestus"
+    },
+    {
+      "name": "gear",
+      "label": "Celestus Gear",
+      "type": "Item",
+      "system": "celestus"
+    },
+    {
+      "name": "consumables",
+      "label": "Celestus Consumables",
+      "type": "Item",
+      "system": "celestus"
+    },
+    {
+      "name": "npc",
+      "label": "Celestus NPCs",
+      "type": "Actor",
+      "system": "celestus"
+    }
+  ],
+  "packFolders": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "documentTypes": {
+    "Actor": {
+      "player": {
+        "htmlFields": ["biography"]
+      },
+      "npc": {
+        "htmlFields": ["biography"]
+      }
+    },
+    "Item": {
+      "skill": {
+        "htmlFields": ["description"]
+      },
+      "armor": {
+        "htmlFields": ["description"]
+      },
+      "weapon": {
+        "htmlFields": ["description"]
+      },
+      "feature": {
+        "htmlFields": ["description"]
+      },
+      "offhand": {
+        "htmlFields": ["description"]
+      },
+      "quickref": {
+        "htmlFields": ["description"]
+      },
+      "consumable": {
+        "htmlFields": ["description"]
+      },
+      "rune": {
+        "htmlFields": ["description"]
+      },
+      "loot": {
+        "htmlFields": ["description"]
+      }
+    },
+    "ActiveEffect": {
+      "status": {}
+    }
+  },
+  "socket": true,
+  "initiative": "1d20",
+  "grid": {
+    "distance": 5,
+    "units": "ft"
+  },
+  "primaryTokenAttribute": "resources.hp",
+  "url": "https://github.com/egrosenberg/celestus",
+  "manifest": "https://github.com/egrosenberg/celestus/releases/latest/download/system.json",
+  "download": "https://github.com/egrosenberg/celestus/releases/latest/download/celestus.zip"
 }
