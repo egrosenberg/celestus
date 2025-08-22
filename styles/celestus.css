@@ -1,2320 +1,2531 @@
 [class*="icon-"] {
-    top: 0.15em;
-    position: relative;
-    margin-right: 0.2em;
+  top: 0.15em;
+  position: relative;
+  margin-right: 0.2em;
 }
 
 /* Move the hotbar back to its old location*/
 #hotbar {
-    position: relative;
-    left: -300px;
+  position: relative;
+  left: -300px;
 }
 
 .chat-message .message-header .message-sender {
-    white-space: unset;
+  white-space: unset;
 }
 
 .chat-message button.apply-damage {
-    position: relative;
-    margin: 0;
-    line-height: 24px;
-    text-align: center;
-    border: 1px solid var(--color-border-light-2);
-    border-radius: 3px;
-    box-shadow: 0 0 2px #FFF inset;
-    word-break: break-all;
-    flex: 0;
+  position: relative;
+  margin: 0;
+  line-height: 24px;
+  text-align: center;
+  border: 1px solid var(--color-border-light-2);
+  border-radius: 3px;
+  box-shadow: 0 0 2px #fff inset;
+  word-break: break-all;
+  flex: 0;
 }
 
 .chat-message button.apply-damage:hover {
-    box-shadow: 0px 0px 5px var(--color-shadow-primary);
-    color: black;
+  box-shadow: 0px 0px 5px var(--color-shadow-primary);
+  color: black;
 }
 
 .chat-message button.apply-damage-mult {
-    position: relative;
-    margin: 0;
-    line-height: 24px;
-    text-align: center;
-    border: 1px solid var(--color-border-light-2);
-    border-radius: 3px;
-    box-shadow: 0 0 2px #FFF inset;
-    font-weight: bold;
-    flex: 1;
+  position: relative;
+  margin: 0;
+  line-height: 24px;
+  text-align: center;
+  border: 1px solid var(--color-border-light-2);
+  border-radius: 3px;
+  box-shadow: 0 0 2px #fff inset;
+  font-weight: bold;
+  flex: 1;
 }
 
 .chat-message button.apply-damage-mult:hover {
-    box-shadow: 0px 0px 5px var(--color-shadow-primary);
+  box-shadow: 0px 0px 5px var(--color-shadow-primary);
 }
 
 .chat-message button.apply-damage.number {
-    font-size: var(--font-size-20);
+  font-size: var(--font-size-20);
 }
 
 .celestus {
-    --color-physical-bg: rgb(179, 192, 204);
-    --color-fire-bg: rgb(219, 139, 112);
-    --color-water-bg: rgb(134, 192, 223);
-    --color-air-bg: rgb(156, 134, 223);
-    --color-earth-bg: rgb(219, 166, 112);
-    --color-poison-bg: rgb(201, 223, 134);
-    --color-psychic-bg: rgb(223, 134, 223);
-    --color-piercing-bg: rgb(223, 134, 134);
-    --color-shadow-bg: rgb(144, 161, 213);
-    --color-radiant-bg: rgb(255, 237, 132);
-    --color-healing-bg: rgb(146, 226, 152);
-    --color-phys_armor-bg: rgb(235, 204, 173);
-    --color-mag_armor-bg: rgb(134, 223, 223);
+  --color-physical-bg: rgb(179, 192, 204);
+  --color-fire-bg: rgb(219, 139, 112);
+  --color-water-bg: rgb(134, 192, 223);
+  --color-air-bg: rgb(156, 134, 223);
+  --color-earth-bg: rgb(219, 166, 112);
+  --color-poison-bg: rgb(201, 223, 134);
+  --color-psychic-bg: rgb(223, 134, 223);
+  --color-piercing-bg: rgb(223, 134, 134);
+  --color-shadow-bg: rgb(144, 161, 213);
+  --color-radiant-bg: rgb(255, 237, 132);
+  --color-healing-bg: rgb(146, 226, 152);
+  --color-phys_armor-bg: rgb(235, 204, 173);
+  --color-mag_armor-bg: rgb(134, 223, 223);
 
-    --color-physical-dark-bg: rgb(17, 18, 19);
-    --color-fire-dark-bg: rgb(107, 0, 0);
-    --color-water-dark-bg: rgb(0, 53, 82);
-    --color-air-dark-bg: rgb(63, 36, 143);
-    --color-earth-dark-bg: rgb(94, 69, 46);
-    --color-poison-dark-bg: rgb(116, 150, 16);
-    --color-psychic-dark-bg: rgb(121, 0, 121);
-    --color-piercing-dark-bg: rgb(138, 32, 55);
-    --color-shadow-dark-bg: rgb(34, 42, 68);
-    --color-radiant-dark-bg: rgb(188, 159, 0);
-    --color-healing-dark-bg: rgb(51, 175, 61);
-    --color-phys_armor-dark-bg: rgb(46, 24, 1);
-    --color-mag_armor-dark-bg: rgb(0, 100, 100);
+  --color-physical-dark-bg: rgb(17, 18, 19);
+  --color-fire-dark-bg: rgb(107, 0, 0);
+  --color-water-dark-bg: rgb(0, 53, 82);
+  --color-air-dark-bg: rgb(63, 36, 143);
+  --color-earth-dark-bg: rgb(94, 69, 46);
+  --color-poison-dark-bg: rgb(116, 150, 16);
+  --color-psychic-dark-bg: rgb(121, 0, 121);
+  --color-piercing-dark-bg: rgb(138, 32, 55);
+  --color-shadow-dark-bg: rgb(34, 42, 68);
+  --color-radiant-dark-bg: rgb(188, 159, 0);
+  --color-healing-dark-bg: rgb(51, 175, 61);
+  --color-phys_armor-dark-bg: rgb(46, 24, 1);
+  --color-mag_armor-dark-bg: rgb(0, 100, 100);
 
-    --color-cream-50: rgba(250, 246, 239, 0.5);
-    --color-tan: rgba(255, 231, 195);
+  --color-cream-50: rgba(250, 246, 239, 0.5);
+  --color-tan: rgba(255, 231, 195);
 
-    --color-head-label-bg: #252830;
-    /*rgba(255, 255, 255, 0.719);*/
+  --color-head-label-bg: #252830;
+  /*rgba(255, 255, 255, 0.719);*/
 
-    --color-border-dark-warm: #725151;
-    --color-border-dark-cool: #515a72;
+  --color-border-dark-warm: #725151;
+  --color-border-dark-cool: #515a72;
 
-    --color-token-ui-dark: #221e1f;
+  --color-token-ui-dark: #221e1f;
 
-    --shadow-bevel: inset 0.1em 0.1em 0.1em 0 rgba(255, 255, 255, 0.3), inset -0.1em -0.1em 0.1em 0 rgba(0, 0, 0, 0.3);
-    --shadow-inset: inset 0.2em 0.2em 0.2em 0 rgba(0, 0, 0, 0.3), inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.3);
+  --shadow-bevel: inset 0.1em 0.1em 0.1em 0 rgba(255, 255, 255, 0.3),
+    inset -0.1em -0.1em 0.1em 0 rgba(0, 0, 0, 0.3);
+  --shadow-inset: inset 0.2em 0.2em 0.2em 0 rgba(0, 0, 0, 0.3),
+    inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.3);
 
-    --text-outline-1: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  --text-outline-1: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 /* colors for elements */
 .celestus .physical {
-    background-color: var(--color-physical-bg);
+  background-color: var(--color-physical-bg);
 }
 
 .celestus .fire {
-    background-color: var(--color-fire-bg);
+  background-color: var(--color-fire-bg);
 }
 
 .celestus .water {
-    background-color: var(--color-water-bg);
+  background-color: var(--color-water-bg);
 }
 
 .celestus .air {
-    background-color: var(--color-air-bg);
+  background-color: var(--color-air-bg);
 }
 
 .celestus .earth {
-    background-color: var(--color-earth-bg);
+  background-color: var(--color-earth-bg);
 }
 
 .celestus .poison {
-    background-color: var(--color-poison-bg);
+  background-color: var(--color-poison-bg);
 }
 
 .celestus .psychic {
-    background-color: var(--color-psychic-bg);
+  background-color: var(--color-psychic-bg);
 }
 
 .celestus .piercing {
-    background-color: var(--color-piercing-bg);
+  background-color: var(--color-piercing-bg);
 }
 
 .celestus .shadow {
-    background-color: var(--color-shadow-bg);
+  background-color: var(--color-shadow-bg);
 }
 
 .celestus .radiant {
-    background-color: var(--color-radiant-bg);
+  background-color: var(--color-radiant-bg);
 }
 
 .celestus .healing {
-    background-color: var(--color-healing-bg);
+  background-color: var(--color-healing-bg);
 }
 
 .celestus .phys_armor {
-    background-color: var(--color-phys_armor-bg);
+  background-color: var(--color-phys_armor-bg);
 }
 
 .celestus .mag_armor {
-    background-color: var(--color-mag_armor-bg);
+  background-color: var(--color-mag_armor-bg);
 }
 
 .celestus .physical-dark {
-    background-color: var(--color-physical-dark-bg);
+  background-color: var(--color-physical-dark-bg);
 }
 
 .celestus .fire-dark {
-    background-color: var(--color-fire-dark-bg);
+  background-color: var(--color-fire-dark-bg);
 }
 
 .celestus .water-dark {
-    background-color: var(--color-water-dark-bg);
+  background-color: var(--color-water-dark-bg);
 }
 
 .celestus .air-dark {
-    background-color: var(--color-air-dark-bg);
+  background-color: var(--color-air-dark-bg);
 }
 
 .celestus .earth-dark {
-    background-color: var(--color-earth-dark-bg);
+  background-color: var(--color-earth-dark-bg);
 }
 
 .celestus .poison-dark {
-    background-color: var(--color-poison-dark-bg);
+  background-color: var(--color-poison-dark-bg);
 }
 
 .celestus .psychic-dark {
-    background-color: var(--color-psychic-dark-bg);
+  background-color: var(--color-psychic-dark-bg);
 }
 
 .celestus .piercing-dark {
-    background-color: var(--color-piercing-dark-bg);
+  background-color: var(--color-piercing-dark-bg);
 }
 
 .celestus .shadow-dark {
-    background-color: var(--color-shadow-dark-light);
+  background-color: var(--color-shadow-dark-light);
 }
 
 .celestus .radiant-dark {
-    background-color: var(--color-radiant-dark-bg);
+  background-color: var(--color-radiant-dark-bg);
 }
 
 .celestus .healing-dark {
-    background-color: var(--color-healing-dark-bg);
+  background-color: var(--color-healing-dark-bg);
 }
 
 .celestus .phys_armor-dark {
-    background-color: var(--color-phys_armor-dark-bg);
+  background-color: var(--color-phys_armor-dark-bg);
 }
 
 .celestus .mag_armor-dark {
-    background-color: var(--color-mag_armor-dark-bg);
+  background-color: var(--color-mag_armor-dark-bg);
 }
 
 .celestus img {
-    background-color: black;
-    background: radial-gradient(circle, rgba(131, 0, 0, 1) 0%, rgba(55, 0, 0, 1) 0%, rgba(19, 0, 0, 1) 100%);
+  background-color: black;
+  background: radial-gradient(
+    circle,
+    rgba(131, 0, 0, 1) 0%,
+    rgba(55, 0, 0, 1) 0%,
+    rgba(19, 0, 0, 1) 100%
+  );
 }
 
 .celestus .item-control.disabled {
-    cursor: default;
-    opacity: 75%;
+  cursor: default;
+  opacity: 75%;
 }
 
 .celestus .item-control.disabled:hover {
-    text-shadow: none;
+  text-shadow: none;
 }
 
 button:disabled {
-    cursor: default;
-    opacity: 75%;
+  cursor: default;
+  opacity: 75%;
 }
 
 .celestus label {
-    position: relative;
+  position: relative;
 }
 
 /* remove border from color swatch*/
 ::-webkit-color-swatch,
 ::-moz-color-swatch {
-    border-color: transparent;
+  border-color: transparent;
 }
 
 input[type="color"] {
-    -webkit-appearance: none;
-    appearance: inherit;
-    border: none;
+  -webkit-appearance: none;
+  appearance: inherit;
+  border: none;
 }
 
 input[type="color"]::-webkit-color-swatch-wrapper {
-    padding: 0;
+  padding: 0;
 }
 
 input[type="color"]::-webkit-color-swatch {
-    border: none;
+  border: none;
 }
 
-.celestus input[type=color] {
-    padding: 0px;
-    border: medium solid var(--color-warm-3);
-    border-radius: 0.5em;
-    cursor: pointer;
+.celestus input[type="color"] {
+  padding: 0px;
+  border: medium solid var(--color-warm-3);
+  border-radius: 0.5em;
+  cursor: pointer;
 }
 
 /* Collapsible Content */
 .celestus .collapsible-container {
-    width: 100%;
-    margin-bottom: 10px;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .celestus .collapsible-header {
-    cursor: pointer;
-    color: white;
-    background-color: var(--color-warm-3);
-    padding: 5px;
-    font-size: var(--font-size-18);
+  cursor: pointer;
+  color: white;
+  background-color: var(--color-warm-3);
+  padding: 5px;
+  font-size: var(--font-size-18);
 }
 
 .celestus .collapsible-header:hover {
-    text-shadow: 0 0 3px white;
+  text-shadow: 0 0 3px white;
 }
 
 .celestus .collapsible-content {
-    display: none;
-    padding: 5px;
-    border-radius: 0px 0px 5px 5px;
-    box-shadow: var(--shadow-inset);
-    background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  padding: 5px;
+  border-radius: 0px 0px 5px 5px;
+  box-shadow: var(--shadow-inset);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* Flex things */
 .celestus :is(.flexrow .flexlarge, .flexcol, .flexlarge) {
-    flex: 2;
+  flex: 2;
 }
 
 /* styling for sheets */
 .celestus .window-content {
-    padding: 0;
+  padding: 0;
 }
 
 .celestus.sheet .attribute-section .item-controls {
-    flex: 0 0 auto;
-    text-align: right;
-    min-width: 90px;
+  flex: 0 0 auto;
+  text-align: right;
+  min-width: 90px;
 }
 
 .celestus.sheet .ability-mod {
-    padding: 3px;
-    text-align: left;
+  padding: 3px;
+  text-align: left;
 }
 
 /* styling for character sheets */
 .celestus.actor.sheet input {
-    box-shadow: none;
-    border: none;
+  box-shadow: none;
+  border: none;
 }
 
 .celestus.actor.sheet input:focus {
-    box-shadow: 0px 0px 5px var(--color-dark-2);
+  box-shadow: 0px 0px 5px var(--color-dark-2);
 }
 
 .celestus.sheet .editor {
-    margin: 5px;
-    padding: 10px;
-    border: var(--color-warm-3) solid thin;
-    border-radius: 10px;
-    box-shadow: var(--shadow-inset);
-    min-height: 200px;
-    background: rgba(226, 214, 198, 0.747);
-    color: black;
+  margin: 5px;
+  padding: 10px;
+  border: var(--color-warm-3) solid thin;
+  border-radius: 10px;
+  box-shadow: var(--shadow-inset);
+  min-height: 450px;
+  background: rgba(226, 214, 198, 0.747);
+  color: black;
 }
 
 .celestus.actor.sheet .sheet-inner {
-    flex-direction: row;
-    display: flex;
-    margin: 0px;
-    padding: 0px;
-    height: 100%;
-    background: rgb(47, 14, 14);
-    background: linear-gradient(135deg, rgba(47, 14, 14, 1) 0%, rgba(15, 15, 15, 1) 100%);
-    background-attachment: fixed;
+  flex-direction: row;
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  background: rgb(47, 14, 14);
+  background: linear-gradient(
+    135deg,
+    rgba(47, 14, 14, 1) 0%,
+    rgba(15, 15, 15, 1) 100%
+  );
+  background-attachment: fixed;
 }
 
 .celestus.actor.sheet * {
-    scrollbar-color: var(--color-scrollbar) rgba(0, 0, 0, 0);
+  scrollbar-color: var(--color-scrollbar) rgba(0, 0, 0, 0);
 }
 
 .celestus.actor.sheet .sheet-main {
-    position: static;
-    display: inline-block;
-    overflow: scroll;
-    overflow-x: hidden;
-    flex: 1;
-    height: 100%;
-    color: lightgray;
+  position: static;
+  display: inline-block;
+  overflow: scroll;
+  overflow-x: hidden;
+  flex: 1;
+  height: 100%;
+  color: lightgray;
 }
 
 .celestus.actor.sheet a.inline-roll {
-    background-color: var(--color-dark-2);
+  background-color: var(--color-dark-2);
 }
 
 .celestus.actor.sheet nav.sheet-tabs {
-    border: none;
-    background-color: none;
-    display: flex;
-    flex-direction: row;
-    margin: 0;
-    padding-top: 0.5em;
-    width: 50%;
-    position: absolute;
-    bottom: calc(100% - 30px);
+  border: none;
+  background-color: none;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding-top: 0.5em;
+  width: 50%;
+  position: absolute;
+  bottom: calc(100% - 30px);
 }
 
-
 .celestus.actor.sheet nav.sheet-tabs .item {
-    flex: 1;
-    background: rgb(20, 6, 6);
-    border-radius: 1.5em 1.5em 0px 0px;
-    opacity: 80%;
-    color: lightgray;
+  flex: 1;
+  background: rgb(20, 6, 6);
+  border-radius: 1.5em 1.5em 0px 0px;
+  opacity: 80%;
+  color: lightgray;
 }
 
 .celestus.actor.sheet nav.sheet-tabs .item.active {
-    opacity: 100%;
-    background: rgb(47, 14, 14);
-    background: linear-gradient(135deg, rgba(47, 14, 14, 1) 0%, rgba(15, 15, 15, 1) 100%);
-    background-attachment: fixed;
-    color: white;
+  opacity: 100%;
+  background: rgb(47, 14, 14);
+  background: linear-gradient(
+    135deg,
+    rgba(47, 14, 14, 1) 0%,
+    rgba(15, 15, 15, 1) 100%
+  );
+  background-attachment: fixed;
+  color: white;
 }
 
 .celestus.actor.sheet nav.sheet-tabs .item:hover {
-    background: rgb(47, 14, 14);
-    background: linear-gradient(135deg, rgba(47, 14, 14, 1) 0%, rgba(15, 15, 15, 1) 100%);
-    background-attachment: fixed;
+  background: rgb(47, 14, 14);
+  background: linear-gradient(
+    135deg,
+    rgba(47, 14, 14, 1) 0%,
+    rgba(15, 15, 15, 1) 100%
+  );
+  background-attachment: fixed;
 }
 
 .celestus.actor.sheet .sheet-body {
-    background: rgb(47, 14, 14);
-    background: linear-gradient(135deg, rgba(47, 14, 14, 1) 0%, rgba(15, 15, 15, 1) 100%);
-    background-attachment: fixed;
-    padding: 10px;
-    min-height: 100%;
+  background: rgb(47, 14, 14);
+  background: linear-gradient(
+    135deg,
+    rgba(47, 14, 14, 1) 0%,
+    rgba(15, 15, 15, 1) 100%
+  );
+  background-attachment: fixed;
+  padding: 10px;
+  min-height: 100%;
 }
 
 .celestus.actor.sheet .sheet-header {
-    display: inline-block;
-    padding: 1em 0.5em 0.5em calc(0.5em + 5px);
-    margin: 0px;
-    flex: 0 0 calc(275px + 1em);
-    border-right: rgb(255, 179, 0) thick ridge;
-    overflow-y: scroll;
-    position: static;
-    height: 100%;
-    text-align: center;
-    background: rgb(0, 47, 64);
-    background: linear-gradient(0deg, rgba(0, 47, 64, 1) 0%, rgba(8, 9, 13, 1) 94%);
-    color: lightgray;
+  display: inline-block;
+  padding: 1em 0.5em 0.5em calc(0.5em + 5px);
+  margin: 0px;
+  flex: 0 0 calc(275px + 1em);
+  border-right: rgb(255, 179, 0) thick ridge;
+  overflow-y: scroll;
+  position: static;
+  height: 100%;
+  text-align: center;
+  background: rgb(0, 47, 64);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 47, 64, 1) 0%,
+    rgba(8, 9, 13, 1) 94%
+  );
+  color: lightgray;
 }
 
 .celestus.actor.sheet .sheet-header :is(.level, .head-section) {
-    margin-top: 0.5em;
-    box-shadow: 0px 0px 0.5em black;
+  margin-top: 0.5em;
+  box-shadow: 0px 0px 0.5em black;
 }
 
 .celestus.actor.sheet .sheet-header h1 {
-    color: white;
-    text-shadow: var(--text-outline-1);
-    text-align: left;
-    font-family: var(--font-h1);
-    font-size: var(--font-size-36);
+  color: white;
+  text-shadow: var(--text-outline-1);
+  text-align: left;
+  font-family: var(--font-h1);
+  font-size: var(--font-size-36);
 }
 
 .celestus.actor.sheet .sheet-header h2 {
-    text-align: left;
-    color: lightgray;
-    background-color: #143c5d;
-    border: none;
-    margin-bottom: 0;
-    padding: 0.3em;
+  text-align: left;
+  color: lightgray;
+  background-color: #143c5d;
+  border: none;
+  margin-bottom: 0;
+  padding: 0.3em;
 }
 
 .celestus.actor.sheet .sheet-header .head-section {
-    margin-top: 0.5em;
-    border-radius: 0.7em;
+  margin-top: 0.5em;
+  border-radius: 0.7em;
 }
 
-.celestus.actor.sheet .sheet-header .head-section> :first-child {
-    border-radius: 0.5em 0.5em 0 0;
+.celestus.actor.sheet .sheet-header .head-section > :first-child {
+  border-radius: 0.5em 0.5em 0 0;
 }
 
-.celestus.actor.sheet .sheet-header .head-section> :last-child {
-    border-radius: 0 0 0.5em 0.5em;
+.celestus.actor.sheet .sheet-header .head-section > :last-child {
+  border-radius: 0 0 0.5em 0.5em;
 }
 
 /* actor portrait */
 .celestus.actor.sheet .portrait {
-    padding: 0px;
-    display: inline-block;
-    position: relative;
-    width: 250px;
-    height: 250px;
+  padding: 0px;
+  display: inline-block;
+  position: relative;
+  width: 250px;
+  height: 250px;
 }
 
 .celestus.actor.sheet .portrait .portrait-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 250px;
-    pointer-events: none;
-    background: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 250px;
+  pointer-events: none;
+  background: none;
 }
 
 .celestus.actor.sheet .portrait .appearance-edit {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background: none;
-    z-index: 2;
-    color: white;
-    font-size: var(--font-size-18);
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: none;
+  z-index: 2;
+  color: white;
+  font-size: var(--font-size-18);
 }
 
 .celestus.actor.sheet .profile-img {
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
-    border-style: none;
-    background: rgb(255, 179, 0);
-    background: radial-gradient(circle, rgba(255, 179, 0, 1) 0%, rgba(121, 9, 9, 1) 55%, rgba(36, 0, 0, 1) 100%);
-    -webkit-filter: drop-shadow(1px 1px 5px #000);
-    filter: drop-shadow(1px 1px 5px #000);
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-style: none;
+  background: rgb(255, 179, 0);
+  background: radial-gradient(
+    circle,
+    rgba(255, 179, 0, 1) 0%,
+    rgba(121, 9, 9, 1) 55%,
+    rgba(36, 0, 0, 1) 100%
+  );
+  -webkit-filter: drop-shadow(1px 1px 5px #000);
+  filter: drop-shadow(1px 1px 5px #000);
 }
 
 .celestus.actor.sheet .character-attributes {
-    text-align: center;
-    display: block;
+  text-align: center;
+  display: block;
 }
 
 .celestus.actor.sheet .portrait-input {
-    flex: 0 0 100px;
+  flex: 0 0 100px;
 }
 
 .celestus.actor.sheet .portrait-label {
-    display: inline-block;
-    color: white;
-    font-weight: bold;
-    font-size: var(--font-size-16);
-    flex-shrink: 0;
+  display: inline-block;
+  color: white;
+  font-weight: bold;
+  font-size: var(--font-size-16);
+  flex-shrink: 0;
 }
 
 .celestus.actor.sheet .level {
-    background: var(--color-head-label-bg);
-    border-radius: 10px;
-    display: inline-block;
-    padding: 6px;
-    margin: 0.3em;
-    flex: 1;
-    width: auto;
+  background: var(--color-head-label-bg);
+  border-radius: 10px;
+  display: inline-block;
+  padding: 6px;
+  margin: 0.3em;
+  flex: 1;
+  width: auto;
 }
 
 .celestus.actor.sheet .level input {
-    width: 25px;
-    margin-top: -4px;
-    margin-bottom: -4px;
-    text-align: center;
-    color: lightgray;
+  width: 25px;
+  margin-top: -4px;
+  margin-bottom: -4px;
+  text-align: center;
+  color: lightgray;
 }
 
 .celestus.actor.sheet .level input:focus {
-    color: white;
+  color: white;
 }
 
 .celestus.actor.sheet .sheet-header input[type="number"] {
-    color: lightgray;
+  color: lightgray;
 }
 
 .celestus.actor.sheet .sheet-header input[type="number"]:is(:focus, :hover) {
-    color: white;
-    box-shadow: 0px 0px 5px var(--color-warm-2);
+  color: white;
+  box-shadow: 0px 0px 5px var(--color-warm-2);
 }
 
 .celestus.actor.sheet .input-slim {
-    width: 25px;
-    height: 20px;
-    text-align: center;
+  width: 25px;
+  height: 20px;
+  text-align: center;
 }
 
 .celestus.actor.sheet .npc-prefab-selector {
-    display: flex;
-    width: 90%;
-    margin: auto;
-    border-radius: 5px;
-    padding: 5px;
-    box-shadow: var(--shadow-inset);
-    background: var(--color-head-label-bg);
-    color: lightgray;
-    border: thin solid black;
-    margin-top: 0.5em;
-    box-shadow: 0px 0px 0.5em black;
+  display: flex;
+  width: 90%;
+  margin: auto;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: var(--shadow-inset);
+  background: var(--color-head-label-bg);
+  color: lightgray;
+  border: thin solid black;
+  margin-top: 0.5em;
+  box-shadow: 0px 0px 0.5em black;
 }
 
 /* resources */
 .celestus.actor.sheet .resources.grid {
-    display: flex;
-    padding: 0px;
+  display: flex;
+  padding: 0px;
 }
 
 .celestus.actor.sheet .resource {
-    background: var(--color-head-label-bg);
-    display: inline-block;
-    padding: 0.1em;
-    flex: 1;
+  background: var(--color-head-label-bg);
+  display: inline-block;
+  padding: 0.1em;
+  flex: 1;
 }
 
 .celestus.actor.sheet label.resource-label {
-    font-size: var(--font-size-16);
-    font-weight: bold;
+  font-size: var(--font-size-16);
+  font-weight: bold;
 }
 
 .celestus.actor.sheet .sheet-header label.resource-label.single {
-    width: 100%;
+  width: 100%;
 }
 
 .celestus.actor.sheet .sheet-header .resource-block {
-    background-color: var(--color-head-label-bg);
-    padding: 0.3em;
+  background-color: var(--color-head-label-bg);
+  padding: 0.3em;
 }
 
-.celestus.actor.sheet .sheet-header .resource-block> :not(:last-child) {
-    border-bottom: thin solid var(--color-border-dark-cool);
+.celestus.actor.sheet .sheet-header .resource-block > :not(:last-child) {
+  border-bottom: thin solid var(--color-border-dark-cool);
 }
 
 .celestus.actor.sheet .resource-value {
-    border-style: solid;
-    border-width: thin;
-    border-radius: 5px;
-    border-color: black;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 5px;
+  border-color: black;
 
-    display: inline-flex;
-    padding: 5px;
+  display: inline-flex;
+  padding: 5px;
 
-    font-size: var(--font-size-16);
-    text-align: center;
-    color: white;
-    text-shadow: var(--text-outline-1);
+  font-size: var(--font-size-16);
+  text-align: center;
+  color: white;
+  text-shadow: var(--text-outline-1);
 
-    box-shadow: var(--shadow-inset);
-    background-image: url('../img/milky-texture.webp');
-    background-blend-mode: multiply;
+  box-shadow: var(--shadow-inset);
+  background-image: url("../img/milky-texture.webp");
+  background-blend-mode: multiply;
 
-    width: 100%;
+  width: 100%;
 }
 
 .celestus.actor.sheet .resource-value input {
-    text-align: right;
-    margin: -3px 0;
-    background-color: rgba(0, 0, 0, 0);
-    padding: 0px;
-    border-style: none;
-    box-sizing: border-box;
-    flex: 1;
-    color: white;
-    text-shadow: var(--text-outline-1);
+  text-align: right;
+  margin: -3px 0;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0px;
+  border-style: none;
+  box-sizing: border-box;
+  flex: 1;
+  color: white;
+  text-shadow: var(--text-outline-1);
 }
 
 .celestus.actor.sheet .resource-value .total {
-    flex: 2;
-    text-align: left;
+  flex: 2;
+  text-align: left;
 }
 
 /* stats */
 .celestus.actor.sheet .stats-grid {
-    background: var(--color-head-label-bg);
-    font-size: var(--font-size-16);
-    margin: 0;
-    padding: 5px;
-    border-radius: 10px;
+  background: var(--color-head-label-bg);
+  font-size: var(--font-size-16);
+  margin: 0;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .celestus.actor.sheet .stats-grid label {
-    text-align: right;
-    margin-right: 10px;
-    flex: 0 0 50px;
+  text-align: right;
+  margin-right: 10px;
+  flex: 0 0 50px;
 }
 
 .celestus.actor.sheet .stats-grid input {
-    flex: 0 0 25px;
-    text-align: center;
-    margin: 0px;
-    background: inherit;
-    color: lightgray;
+  flex: 0 0 25px;
+  text-align: center;
+  margin: 0px;
+  background: inherit;
+  color: lightgray;
 }
 
 .celestus.actor.sheet .stats-grid input:focus {
-    color: white;
+  color: white;
 }
 
 .celestus.actor.sheet .stats-grid div {
-    display: flex;
-    align-items: baseline;
+  display: flex;
+  align-items: baseline;
 }
 
 .celestus.actor.sheet .sheet-header .charname input {
-    color: white;
+  color: white;
 }
 
 .celestus.actor.sheet .resist {
-    font-size: var(--font-size-18);
-    padding: 3px;
-    text-align: right;
+  font-size: var(--font-size-18);
+  padding: 3px;
+  text-align: right;
 }
 
 .celestus.actor.sheet .weapon-damage-minmax {
-    font-weight: bold;
-    font-size: var(--font-size-18);
-    padding: 3px;
-    text-align: right;
-    flex: 2;
-    color: black;
+  font-weight: bold;
+  font-size: var(--font-size-18);
+  padding: 3px;
+  text-align: right;
+  flex: 2;
+  color: black;
 }
 
 .celestus.actor.sheet .weapon-damage-avg {
-    font-weight: bold;
-    font-size: var(--font-size-18);
-    padding: 3px;
-    text-align: left;
-    color: black;
+  font-weight: bold;
+  font-size: var(--font-size-18);
+  padding: 3px;
+  text-align: left;
+  color: black;
 }
 
 .celestus.actor.sheet .weapon-damage-symbol {
-    font-weight: bold;
-    font-size: var(--font-size-18);
-    padding: 3px;
-    flex: none;
-    color: black;
+  font-weight: bold;
+  font-size: var(--font-size-18);
+  padding: 3px;
+  flex: none;
+  color: black;
 }
 
 .celestus.actor.sheet .actor-resistance {
-    color: black;
+  color: black;
 }
 
 .celestus.actor.sheet .actor-status-immune {
-    min-height: 28px;
+  min-height: 28px;
 }
 
 .celestus.actor.sheet .status-icon {
-    width: 25px;
-    height: 25px;
-    border: none;
-    padding: 0px;
-    background: none;
-    filter: invert(1);
+  width: 25px;
+  height: 25px;
+  border: none;
+  padding: 0px;
+  background: none;
+  filter: invert(1);
 }
 
 /* abilities */
 .celestus.actor.sheet .sheet-header .abilities {
-    padding: 0.2em;
-    background: var(--color-head-label-bg);
-    border-radius: 0.3em;
+  padding: 0.2em;
+  background: var(--color-head-label-bg);
+  border-radius: 0.3em;
 }
 
 .celestus.actor.sheet .sheet-header .abilities .flexrow {
-    border: thin var(--color-border-dark-cool) solid;
-    border-width: 0px 0px 1px 0px;
-    padding: 2px 2px 0px 2px;
-    font-size: var(--font-size-16);
-    margin: 0px;
+  border: thin var(--color-border-dark-cool) solid;
+  border-width: 0px 0px 1px 0px;
+  padding: 2px 2px 0px 2px;
+  font-size: var(--font-size-16);
+  margin: 0px;
 }
 
 .celestus.actor.sheet .sheet-header .abilities .flexrow:last-child {
-    border-width: 0;
+  border-width: 0;
 }
 
 .celestus.actor.sheet .abilities .flexrow {
-    border: rgba(255, 255, 255, 0.1) thin solid;
-    margin-bottom: -1px;
+  border: rgba(255, 255, 255, 0.1) thin solid;
+  margin-bottom: -1px;
 }
 
 .celestus.actor.sheet .abilities {
-    padding: 3px;
+  padding: 3px;
 }
 
 .celestus.actor.sheet :is(.abilities, .ability) label {
-    padding: 3px;
-    text-align: left;
+  padding: 3px;
+  text-align: left;
 }
 
 .celestus.actor.sheet .abilities .maxwidth-label {
-    flex: 0 1 180px;
+  flex: 0 1 180px;
 }
 
 .celestus.actor.sheet .abilities input {
-    flex: 0 0 25px;
-    text-align: center;
-    margin: 0px;
-    background: inherit;
-    color: white;
+  flex: 0 0 25px;
+  text-align: center;
+  margin: 0px;
+  background: inherit;
+  color: white;
 }
 
 .celestus.actor.sheet .abilities input:focus {
-    box-shadow: 0.;
+  box-shadow: 0;
 }
 
 .celestus.actor.sheet .pale {
-    background-color: var(--color-head-label-bg);
+  background-color: var(--color-head-label-bg);
 }
 
 .celestus.actor.sheet .math {
-    flex: 0 1 125px;
-    padding: 3px;
-    font-size: var(--font-size-16);
-    text-align: left;
-    background: inherit;
+  flex: 0 1 125px;
+  padding: 3px;
+  font-size: var(--font-size-16);
+  text-align: left;
+  background: inherit;
 }
 
 .celestus.actor.sheet .control.refresh {
-    font-size: var(--font-size-24);
-    color: rgb(255, 179, 0);
-    position: relative;
-    top: 8px;
-    aspect-ratio: 1 / 1;
+  font-size: var(--font-size-24);
+  color: rgb(255, 179, 0);
+  position: relative;
+  top: 8px;
+  aspect-ratio: 1 / 1;
 }
 
 /* skills */
 .celestus.actor.sheet .skill-frame {
-    position: relative;
-    border: 2px tan ridge;
-    height: 84px;
+  position: relative;
+  border: 2px tan ridge;
+  height: 84px;
 }
 
 .celestus.actor.sheet .skill-frame .item-image img {
-    width: 80px;
-    height: 80px;
-    border: none;
+  width: 80px;
+  height: 80px;
+  border: none;
 }
 
 .celestus.actor.sheet .skill-frame .mem {
-    content: url(../svg/brain.svg);
-    pointer-events: none;
-    opacity: 50%;
-    background: none;
+  content: url(../svg/brain.svg);
+  pointer-events: none;
+  opacity: 50%;
+  background: none;
 }
 
 .celestus.actor.sheet .skill-frame .item-overlay {
-    position: absolute;
-    bottom: 3px;
-    left: 3px;
-    width: 80px;
-    pointer-events: none;
-    color: white;
-    text-shadow: var(--text-outline-1);
-    font-size: 20px;
+  position: absolute;
+  bottom: 3px;
+  left: 3px;
+  width: 80px;
+  pointer-events: none;
+  color: white;
+  text-shadow: var(--text-outline-1);
+  font-size: 20px;
 }
 
-
 .celestus.actor.sheet .item.skill .skill-frame .item-overlay i {
-    position: relative;
-    top: 3px;
+  position: relative;
+  top: 3px;
 }
 
 .celestus.actor.sheet .item.skill {
-    border: var(--color-cool-3) solid thin;
-    background-color: var(--color-dark-2);
-    display: inline-block;
-    padding: 5px;
+  border: var(--color-cool-3) solid thin;
+  background-color: var(--color-dark-2);
+  display: inline-block;
+  padding: 5px;
 }
 
 .celestus.actor.sheet .item-controls {
-    flex: 0 0 130px;
-    text-align: right;
+  flex: 0 0 130px;
+  text-align: right;
 }
 
 .celestus.actor.sheet .item.skill .skill-cost {
-    height: 40px;
+  height: 40px;
 }
 
 .celestus.actor.sheet .item.skill .item-controls {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .celestus.actor.sheet .item-overlay.active {
-    height: 80px;
-    width: 80px;
-    left: 0px;
-    top: 0px;
-    background-image: url(../svg/stopwatch.svg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-blend-mode: overlay;
-    background-color: rgba(0, 0, 0, 0.5);
-    font-size: var(--font-size-36);
-    text-align: center;
-    line-height: 80px;
+  height: 80px;
+  width: 80px;
+  left: 0px;
+  top: 0px;
+  background-image: url(../svg/stopwatch.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: overlay;
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: var(--font-size-36);
+  text-align: center;
+  line-height: 80px;
 }
 
 .celestus .ap-icon {
-    color: green;
-    text-shadow: var(--text-outline-1);
-    margin-right: 2px;
+  color: green;
+  text-shadow: var(--text-outline-1);
+  margin-right: 2px;
 }
 
 .celestus .fp-icon {
-    color: gold;
-    text-shadow: var(--text-outline-1);
-    margin-right: 2px;
+  color: gold;
+  text-shadow: var(--text-outline-1);
+  margin-right: 2px;
 }
 
 /* Skill Rolls */
 .celestus.actor.sheet .ability-roll {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .celestus.actor.sheet .ability-roll:hover {
-    text-shadow: 0px 0px 5px var(--color-warm-1);
-    color: white;
+  text-shadow: 0px 0px 5px var(--color-warm-1);
+  color: white;
 }
 
 /* Items */
 .celestus.actor.sheet .item-section {
-    border-radius: 5px;
-    margin: 0 0.5em 1em 0.5em;
-    box-shadow: 0px 0px 0.5em black;
+  border-radius: 5px;
+  margin: 0 0.5em 1em 0.5em;
+  box-shadow: 0px 0px 0.5em black;
 }
 
 .celestus.actor.sheet .items-list {
-    background-color: #252830;
-    padding: 0.5em;
-    margin: 0px;
-    border-radius: 0px 0px 5px 5px;
+  background-color: #252830;
+  padding: 0.5em;
+  margin: 0px;
+  border-radius: 0px 0px 5px 5px;
 }
 
 .celestus.actor.sheet .items-list .item.flexrow {
-    border: thin var(--color-border-dark-cool) solid;
-    border-width: 0px 0px 1px 0px;
-    padding: 5px 5px 0px 5px;
-    font-size: var(--font-size-16);
+  border: thin var(--color-border-dark-cool) solid;
+  border-width: 0px 0px 1px 0px;
+  padding: 5px 5px 0px 5px;
+  font-size: var(--font-size-16);
 }
 
 .celestus.actor.sheet .items-list .item.flexrow:hover {
-    text-shadow: 0px 0px 0.5em var(--color-warm-2);
+  text-shadow: 0px 0px 0.5em var(--color-warm-2);
 }
 
 .celestus.actor.sheet .items-list .item.flexrow:last-child {
-    border-width: 0;
+  border-width: 0;
 }
 
 .celestus.actor.sheet .item.flexrow.items-header {
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-radius: 5px 5px 0px 0px;
-    box-shadow: none;
-    padding: 0.5em;
-    background-color: var(--color-warm-3);
-    font-size: var(--font-size-18);
-    gap: 10px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 5px 5px 0px 0px;
+  box-shadow: none;
+  padding: 0.5em;
+  background-color: var(--color-warm-3);
+  font-size: var(--font-size-18);
+  gap: 10px;
 }
 
 .celestus.actor.sheet .item-name {
-    height: 30px;
-    flex: 3;
-    display: flex;
-    flex-direction: row;
-    gap: 0.3em;
+  height: 30px;
+  flex: 3;
+  display: flex;
+  flex-direction: row;
+  gap: 0.3em;
 }
 
 .celestus.actor.sheet .rune-slots {
-    font-size: 0.5em;
-    position: relative;
-    display: inline-flex;
-    flex-direction: row;
-    gap: 0.2em;
-    align-items: center;
-    margin-bottom: 1em;
+  font-size: 0.5em;
+  position: relative;
+  display: inline-flex;
+  flex-direction: row;
+  gap: 0.2em;
+  align-items: center;
+  margin-bottom: 1em;
 }
 
 .celestus.actor.sheet .effect-section .item-name {
-    height: 30px;
-    flex: 2;
+  height: 30px;
+  flex: 2;
 }
 
 .celestus.actor.sheet .item-quant-control.part {
-    padding: 3px;
+  padding: 3px;
 }
 
 .celestus.actor.sheet .item-count {
-    color: lightgray;
-    box-shadow: none;
-    border: none;
+  color: lightgray;
+  box-shadow: none;
+  border: none;
 }
 
 .celestus.actor.sheet .item-count:hover:focus {
-    box-shadow: 0px 0px 5px var(--color-warm-2);
+  box-shadow: 0px 0px 5px var(--color-warm-2);
 }
 
 .celestus.actor.sheet .item-name h4 {
-    display: inline;
-    vertical-align: top;
+  display: inline;
+  vertical-align: top;
 }
 
 .celestus.actor.sheet .item-formula {
-    text-align: center;
-    display: flex;
-    flex-direction: row;
-    text-align: center;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
 }
 
-.celestus.actor.sheet .item-formula>* {
-    flex: 1;
+.celestus.actor.sheet .item-formula > * {
+  flex: 1;
 }
 
 .celestus.actor.sheet .item-formula .divider {
-    flex: 0 0 auto;
-    min-width: 20px;
+  flex: 0 0 auto;
+  min-width: 20px;
 }
 
 .celestus.actor.sheet .item-formula .part:first-child {
-    text-align: right;
+  text-align: right;
 }
 
 .celestus.actor.sheet .item-formula .part:last-child {
-    text-align: left;
+  text-align: left;
 }
 
 .celestus.actor.sheet .item-image {
-    display: inline;
+  display: inline;
 }
 
 .celestus.actor.sheet .item-image:hover {
-    opacity: 50%;
+  opacity: 50%;
 }
 
 .celestus.actor.sheet .item-image img {
-    border: 2px tan ridge;
+  border: 2px tan ridge;
 }
 
 /* Currency */
 .celestus.actor.sheet .currency-section {
-    border-radius: 5px;
-    display: flex;
-    flex-direction: row;
-    gap: 1em;
-    margin: 0.5em 0.5em 1em 0.5em;
-    -webkit-filter: drop-shadow(1px 1px 5px #000);
-    filter: drop-shadow(1px 1px 5px #000);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  margin: 0.5em 0.5em 1em 0.5em;
+  -webkit-filter: drop-shadow(1px 1px 5px #000);
+  filter: drop-shadow(1px 1px 5px #000);
 }
 
 .celestus.actor.sheet .currency-type {
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    width: 100px;
-    padding: 5px;
-    background-color: var(--color-head-label-bg);
-    border-radius: 5px;
-    padding-left: 15px;
-    margin-left: 7.5px;
-    margin-top: 7.5px;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 100px;
+  padding: 5px;
+  background-color: var(--color-head-label-bg);
+  border-radius: 5px;
+  padding-left: 15px;
+  margin-left: 7.5px;
+  margin-top: 7.5px;
 }
 
 .celestus.actor.sheet .currency-input {
-    flex: 1;
-    color: lightgray;
-    text-align: right;
+  flex: 1;
+  color: lightgray;
+  text-align: right;
 }
 
 .celestus.actor.sheet .currency-section i {
-    -webkit-filter: drop-shadow(1px 1px 5px #000);
-    filter: drop-shadow(1px 1px 5px #000);
+  -webkit-filter: drop-shadow(1px 1px 5px #000);
+  filter: drop-shadow(1px 1px 5px #000);
 }
 
 .celestus.actor.sheet i.currency {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    background-size: contain;
-    top: 0;
-    left: -7.5px;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-size: contain;
+  top: 0;
+  left: -7.5px;
 }
 
 .celestus i.gp {
-    background-image: url("/systems/celestus/svg/gold-coin-icon.svg");
+  background-image: url("/systems/celestus/svg/gold-coin-icon.svg");
 }
 
 .celestus i.sp {
-    background-image: url("/systems/celestus/svg/silver-coin-icon.svg");
+  background-image: url("/systems/celestus/svg/silver-coin-icon.svg");
 }
 
 .celestus i.cp {
-    background-image: url("/systems/celestus/svg/copper-coin-icon.svg");
+  background-image: url("/systems/celestus/svg/copper-coin-icon.svg");
 }
 
 /* Armor sockets preview */
 .celestus.actor.sheet .armor-section {
-    border-bottom: rgb(255, 179, 0) thick ridge;
-    padding: 1.5em;
-    margin-bottom: 1em;
-    display: flex;
-    flex-direction: row;
-    gap: 2em;
-    flex-wrap: wrap;
+  border-bottom: rgb(255, 179, 0) thick ridge;
+  padding: 1.5em;
+  margin-bottom: 1em;
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  flex-wrap: wrap;
 }
 
 .celestus.actor.sheet .armor-socket {
-    flex: 0 0 auto;
-    background-color: rgb(20, 0, 0);
-    box-shadow: 0px 0px 20px rgb(131, 0, 0);
+  flex: 0 0 auto;
+  background-color: rgb(20, 0, 0);
+  box-shadow: 0px 0px 20px rgb(131, 0, 0);
 }
 
 .celestus.actor.sheet .armor-socket-label {
-    color: white;
-    text-shadow: var(--text-outline-1);
-    padding: 2px;
+  color: white;
+  text-shadow: var(--text-outline-1);
+  padding: 2px;
 }
 
 .celestus.actor.sheet .armor-socket-icon {
-    width: 65px;
-    height: 65px;
-    background: rgb(131, 0, 0);
-    background: radial-gradient(circle, rgba(131, 0, 0, 1) 0%, rgba(55, 0, 0, 1) 0%, rgba(19, 0, 0, 1) 100%);
+  width: 65px;
+  height: 65px;
+  background: rgb(131, 0, 0);
+  background: radial-gradient(
+    circle,
+    rgba(131, 0, 0, 1) 0%,
+    rgba(55, 0, 0, 1) 0%,
+    rgba(19, 0, 0, 1) 100%
+  );
 }
 
 /* armor browser */
 .celestus.actor.sheet .armor-browser {
-    width: 200px;
-    position: fixed;
-    background-color: var(--color-warm-3);
-    padding: 6px;
-    border-radius: 6px;
-    border: thin black solid;
+  width: 200px;
+  position: fixed;
+  background-color: var(--color-warm-3);
+  padding: 6px;
+  border-radius: 6px;
+  border: thin black solid;
 }
 
 /* Item hover */
 .item-hover {
-    width: 270px;
-    position: fixed;
-    border-radius: 10px;
-    padding: 10px;
+  width: 270px;
+  position: fixed;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 /* Effects */
 .celestus .effect-image {
-    width: 24px;
-    height: 24px;
-    display: inline;
-    border: 2px tan ridge;
+  width: 24px;
+  height: 24px;
+  display: inline;
+  border: 2px tan ridge;
 }
 
 .celestus h3.effect-name {
-    background-color: darkred;
-    color: white;
-    padding: 10px;
+  background-color: darkred;
+  color: white;
+  padding: 10px;
 }
 
 .celestus .effect-name {
-    display: inline;
-    vertical-align: top;
+  display: inline;
+  vertical-align: top;
 }
 
 .celestus .items-header {
-    border: none;
+  border: none;
 }
 
 .celestus .item.effect.flexrow {
-    border: thin var(--color-border-dark-cool) solid;
-    border-width: 0px 0px 1px 0px;
-    padding: 5px 5px 0px 5px;
-    font-size: var(--font-size-16);
+  border: thin var(--color-border-dark-cool) solid;
+  border-width: 0px 0px 1px 0px;
+  padding: 5px 5px 0px 5px;
+  font-size: var(--font-size-16);
 }
 
 .celestus.actor.sheet .effect-controls {
-    flex: 0 0 130px;
-    text-align: right;
+  flex: 0 0 130px;
+  text-align: right;
 }
 
 .celestus .effect-section {
-    border: thin darkgray solid;
+  border: thin darkgray solid;
 }
 
 /* Item Sheet */
 .celestus.item.sheet {
-    display: flex;
-    flex-wrap: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 .celestus.item.sheet .profile-img {
-    width: 100px;
-    height: 100px;
+  width: 100px;
+  height: 100px;
 }
 
 .celestus.item.sheet .sheet-header {
-    margin-bottom: 10px;
-    padding: 10px;
-    border-bottom: solid thin var(--color-cool-3);
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: solid thin var(--color-cool-3);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .celestus.item.sheet h2.item-type {
-    margin: 0px;
-    border-bottom: none;
+  margin: 0px;
+  border-bottom: none;
 }
 
 .celestus.item.sheet h1.charname input {
-    margin: 0px;
-    outline: none;
-    border: none;
+  margin: 0px;
+  outline: none;
+  border: none;
 }
 
-.celestus.item.sheet h1.charname input:is(:hover,:focus) {
-    box-shadow: 0 0 5px inset #0008;
+.celestus.item.sheet h1.charname input:is(:hover, :focus) {
+  box-shadow: 0 0 5px inset #0008;
 }
 
 .celestus.item.sheet .item-quick {
-    flex: 0 0 150px;
-    align-content: top;
-    margin-right: 6px;
-    margin-top: -10px;
-    padding: 5px;
-    padding-top: 10px;
-    border-right: solid var(--color-cool-3) thin;
-    height: 100%
+  flex: 0 0 150px;
+  align-content: top;
+  margin-right: 6px;
+  margin-top: -10px;
+  padding: 5px;
+  padding-top: 10px;
+  border-right: solid var(--color-cool-3) thin;
+  height: 100%;
 }
 
 .celestus.item.sheet .quick-reference {
-    border: thin var(--color-warm-3) solid;
-    border-radius: 6px;
-    font-size: var(--font-size-14);
-    padding: 3px;
-    margin-right: 10px;
-    background-color: var(--color-cream-50);
-    box-shadow: var(--shadow-bevel);
-    position: relative;
+  border: thin var(--color-warm-3) solid;
+  border-radius: 6px;
+  font-size: var(--font-size-14);
+  padding: 3px;
+  margin-right: 10px;
+  background-color: var(--color-cream-50);
+  box-shadow: var(--shadow-bevel);
+  position: relative;
 }
 
 .celestus.item.sheet .attribute-section {
-    padding: 3px;
+  padding: 3px;
 }
 
 .celestus.item.sheet .attribute label {
-    display: inline-block;
-    width: 140px;
-    padding: 3px;
+  display: inline-block;
+  width: 140px;
+  padding: 3px;
 }
 
 .celestus.item.sheet .attribute input {
-    width: 40px;
-    text-align: center;
-    margin: 0px;
-    background: inherit;
+  width: 40px;
+  text-align: center;
+  margin: 0px;
+  background: inherit;
 }
 
 .celestus.item.sheet .attribute {
-    display: inline-block;
-    padding: 0.2em;
-    margin: 0.2em;
-    border: thin solid black;
+  display: inline-block;
+  padding: 0.2em;
+  margin: 0.2em;
+  border: thin solid black;
 }
 
 .celestus.item.sheet .general.attribute {
-    background-color: var(--color-cream-50);
+  background-color: var(--color-cream-50);
 }
 
 .celestus.item.sheet .damage-header {
-    border-bottom: thin solid var(--color-warm-3);
+  border-bottom: thin solid var(--color-warm-3);
 }
 
 .celestus .shuffle {
-    flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 
 .celestus.item.sheet .form-group {
-    align-items: start;
+  align-items: start;
 }
 
 .celestus.item.sheet .item-detail {
-    margin-bottom: 5px;
-    gap: 3px;
+  margin-bottom: 5px;
+  gap: 3px;
 }
 
 .celestus.item.sheet .detail-input {
-    flex: 0 0 3em;
-    height: auto;
-    padding: 0px 3px;
+  flex: 0 0 3em;
+  height: auto;
+  padding: 0px 3px;
 }
 
 .celestus.item.sheet .damage-type-selector {
-    width: 100%;
+  width: 100%;
 }
 
 /* roll chat message */
 .message-metadata {
-    z-index: 1;
+  z-index: 1;
 }
 
 .dice-flavor {
-    border: thin solid var(--color-warm-1);
-    box-shadow: var(--shadow-bevel);
-    background-color: rgba(255, 231, 195, 0.5);
-    padding: 0.4em;
+  border: thin solid var(--color-warm-1);
+  box-shadow: var(--shadow-bevel);
+  background-color: rgba(255, 231, 195, 0.5);
+  padding: 0.4em;
 }
 
 .dice-flavor.no-resources {
-    border: thin solid var(--color-cool-3);
-    box-shadow: var(--shadow-bevel);
-    background-color: rgba(195, 255, 225, 0.5);
-    padding: 0.4em;
+  border: thin solid var(--color-cool-3);
+  box-shadow: var(--shadow-bevel);
+  background-color: rgba(195, 255, 225, 0.5);
+  padding: 0.4em;
 }
 
 .celestus.roll.description .message-header {
-    margin-top: -1.25em;
-    margin-bottom: 0.3em;
+  margin-top: -1.25em;
+  margin-bottom: 0.3em;
 }
 
 .celestus.roll.description .summary {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.3em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.3em;
 }
 
 .celestus.roll.description .roll-icon {
-    width: 35px;
-    height: 35px;
-    display: inline;
+  width: 35px;
+  height: 35px;
+  display: inline;
 }
 
 .celestus.roll.description .name-stacked {
-    vertical-align: top;
-    padding-right: 0.5rem;
+  vertical-align: top;
+  padding-right: 0.5rem;
 }
 
 .celestus.roll.description .title {
-    font-size: var(--font-size-18);
-    font-weight: bold;
+  font-size: var(--font-size-18);
+  font-weight: bold;
 }
 
 .celestus.roll.description .actor-img {
-    width: 45px;
-    height: 45px;
-    display: inline;
-    background: none;
-    border: none;
+  width: 45px;
+  height: 45px;
+  display: inline;
+  background: none;
+  border: none;
 }
 
 .celestus.roll.description .speaker-info {
-    vertical-align: top;
-    display: inline-block;
+  vertical-align: top;
+  display: inline-block;
 }
 
 .celestus.roll.description .author {
-    color: black;
-    font-size: var(--font-size-20);
-    font-weight: bold;
+  color: black;
+  font-size: var(--font-size-20);
+  font-weight: bold;
 }
 
 .celestus.roll.description .author {
-    font-size: var(--font-size-16);
+  font-size: var(--font-size-16);
 }
 
 .celestus.roll.description .roll-tags {
-    margin-top: 0.6em;
-    margin-bottom: 0.6em;
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
 }
 
 .dice-total i.attack-indicator {
-    opacity: 60%;
+  opacity: 60%;
 }
 
 .roll-tag {
-    display: inline-block;
-    background-color: var(--color-warm-3);
-    color: white;
-    border-radius: 6px;
-    font-size: var(--font-size-14);
-    padding: 0.2em 0.4em;
-    margin: 0.1em;
-    text-shadow: -1px -1px 0 #0001, 1px -1px 0 #0001, -1px 1px 0 #0001, 1px 1px 0 #0001;
+  display: inline-block;
+  background-color: var(--color-warm-3);
+  color: white;
+  border-radius: 6px;
+  font-size: var(--font-size-14);
+  padding: 0.2em 0.4em;
+  margin: 0.1em;
+  text-shadow: -1px -1px 0 #0001, 1px -1px 0 #0001, -1px 1px 0 #0001,
+    1px 1px 0 #0001;
 }
 
 /* weapon status rolls */
 .celestus.roll.status .status {
-    color: white;
-    font-weight: bold;
-    line-height: 24px;
-    font-size: var(--font-size-16);
-    padding-top: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 0px;
-    background-color: var(--color-cool-4);
-    border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  line-height: 24px;
+  font-size: var(--font-size-16);
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 0px;
+  background-color: var(--color-cool-4);
+  border-radius: 5px;
 }
 
 .celestus.roll.status .status.success:hover {
-    cursor: pointer;
-    background-color: var(--color-cool-5);
+  cursor: pointer;
+  background-color: var(--color-cool-5);
 }
 
 .celestus.roll.status .roll {
-    position: relative;
-    min-width: 24px;
-    line-height: 24px;
-    float: left;
-    margin-right: 5px;
-    background-image: url("../svg/d6-grey.svg");
-    background-repeat: no-repeat;
-    background-size: 24px 24px;
-    font-size: var(--font-size-16);
-    color: #000;
-    font-weight: bold;
-    text-align: center;
+  position: relative;
+  min-width: 24px;
+  line-height: 24px;
+  float: left;
+  margin-right: 5px;
+  background-image: url("../svg/d6-grey.svg");
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  font-size: var(--font-size-16);
+  color: #000;
+  font-weight: bold;
+  text-align: center;
 }
 
 .celestus.roll.status .roll.failure {
-    color: #aa0200;
-    filter: sepia(0.5) hue-rotate(-60deg);
+  color: #aa0200;
+  filter: sepia(0.5) hue-rotate(-60deg);
 }
 
 .celestus.roll.status .roll.success {
-    color: #18520b;
-    filter: sepia(0.5) hue-rotate(60deg);
+  color: #18520b;
+  filter: sepia(0.5) hue-rotate(60deg);
 }
 
 .celestus.roll.status .roll.result {
-    background-image: url("../svg/d10-grey.svg");
+  background-image: url("../svg/d10-grey.svg");
 }
 
 .celestus.roll.status .status-label {
-    float: left;
-    position: relative;
-    margin-left: 5px;
-    margin-right: 5px;
+  float: left;
+  position: relative;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .celestus.roll.status .status-icon {
-    width: 24px;
-    height: 24px;
-    border: none;
-    background: none;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
 }
 
 /* Damage breakdown */
 .damage-breakdown {
-    list-style-type: none;
-    width: 100%;
-    padding: 0px;
+  list-style-type: none;
+  width: 100%;
+  padding: 0px;
 }
 
 .damage-component {
-    margin-top: -1px;
-    border: 1px black solid;
-    width: 100%;
-    color: black;
-    font-weight: bold;
-    font-size: var(--font-size-16);
-    padding: 3px;
-    display: flex;
-    flex-direction: row;
-    gap: 3px;
+  margin-top: -1px;
+  border: 1px black solid;
+  width: 100%;
+  color: black;
+  font-weight: bold;
+  font-size: var(--font-size-16);
+  padding: 3px;
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
 }
 
 .damage-component .damage-mults {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
 .damage-component .damage-mult {
-    cursor: pointer;
-    flex: 0 0 50px;
-    padding: 0px;
-    display: none;
-    height: auto;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    line-height: 100%;
-    box-shadow: 0px 0px 1px black;
-    min-height: auto;
+  cursor: pointer;
+  flex: 0 0 50px;
+  padding: 0px;
+  display: none;
+  height: auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  line-height: 100%;
+  box-shadow: 0px 0px 1px black;
+  min-height: auto;
 }
 
 .damage-component .damage-mult:hover {
-    color: unset;
+  color: unset;
 }
 
 .damage-component:hover .damage-mult {
-    display: flex;
+  display: flex;
 }
 
-
 .damage-component .damage-mult:hover {
-    box-shadow: 0px 0px 3px black;
+  box-shadow: 0px 0px 3px black;
 }
 
 .dice-roll .dice-formula {
-    overflow-y: auto;
-    max-height: 60px;
-    line-height: 20px;
+  overflow-y: auto;
+  max-height: 60px;
+  line-height: 20px;
 }
 
 /* Macro Bar */
 /* Make slots relative */
 #action-bar li.slot {
-    position: relative;
+  position: relative;
 }
 
 .macro-overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    top: 0;
-    pointer-events: none;
-    color: white;
-    text-shadow: var(--text-outline-1);
-    font-size: 30px;
-    line-height: 48px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  pointer-events: none;
+  color: white;
+  text-shadow: var(--text-outline-1);
+  font-size: 30px;
+  line-height: 48px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* resources overlay */
 div#ui-resources {
-    display: block;
+  display: block;
 }
 
 /* make right-column relative so we can use absolute positioning for resources */
 #ui-right-column-1 {
-    position: relative;
+  position: relative;
 }
 
 .celestus.resources-ui {
-    position: absolute;
-    right: -48px;
-    bottom: 20px;
-    pointer-events: all;
-    text-align: center;
-    --outline: drop-shadow(1px 1px 0px #000) drop-shadow(-1px 1px 0px #000) drop-shadow(-1px -1px 0px #000) drop-shadow(1px -1px 0px #000);
-    -webkit-filter: var(--outline) drop-shadow(1px 1px 5px #000);
-    filter: var(--outline) drop-shadow(1px 1px 5px #000);
+  position: absolute;
+  right: -48px;
+  bottom: 20px;
+  pointer-events: all;
+  text-align: center;
+  --outline: drop-shadow(1px 1px 0px #000) drop-shadow(-1px 1px 0px #000)
+    drop-shadow(-1px -1px 0px #000) drop-shadow(1px -1px 0px #000);
+  -webkit-filter: var(--outline) drop-shadow(1px 1px 5px #000);
+  filter: var(--outline) drop-shadow(1px 1px 5px #000);
 }
 
 .celestus.resources-ui .relative-frame {
-    position: relative;
-    padding-right: 38px;
+  position: relative;
+  padding-right: 38px;
 }
 
 .celestus.resources-ui .portrait-frame {
-    cursor: pointer;
-    position: absolute;
-    width: calc(78px + 10px);
-    height: 78px;
-    padding: 1.5px;
-    padding-left: calc(1.5px + 10px);
-    left: calc(100% - 75px - 3px - 10px - 3px);
-    top: calc(100% - 75px - 3px);
-    pointer-events: all;
-    border-radius: 0% 50% 50% 0;
-    margin-bottom: -75px;
-    background-image: url(../img/rock-texture-tile.jpg);
-    background-repeat: repeat;
-    background-size: auto;
-    background-attachment: fixed;
+  cursor: pointer;
+  position: absolute;
+  width: calc(78px + 10px);
+  height: 78px;
+  padding: 1.5px;
+  padding-left: calc(1.5px + 10px);
+  left: calc(100% - 75px - 3px - 10px - 3px);
+  top: calc(100% - 75px - 3px);
+  pointer-events: all;
+  border-radius: 0% 50% 50% 0;
+  margin-bottom: -75px;
+  background-image: url(../img/rock-texture-tile.jpg);
+  background-repeat: repeat;
+  background-size: auto;
+  background-attachment: fixed;
 }
 
 .celestus.resources-ui .actor-img {
-    width: 75px;
-    height: 75px;
-    clip-path: circle(calc(75px / 2) at center);
-    border-radius: 37.5px;
+  width: 75px;
+  height: 75px;
+  clip-path: circle(calc(75px / 2) at center);
+  border-radius: 37.5px;
 }
 
 .celestus.resources-ui .actor-img-overlay {
-    z-index: 10;
-    width: 75px;
-    height: 75px;
-    border: none;
-    position: absolute;
-    background: url('/systems/celestus/img/token-info-portrait-frame.webp');
-    background-size: contain;
+  z-index: 10;
+  width: 75px;
+  height: 75px;
+  border: none;
+  position: absolute;
+  background: url("/systems/celestus/img/token-info-portrait-frame.webp");
+  background-size: contain;
 }
 
 .celestus.resources-ui .resources.grid {
-    display: flex;
-    padding: 0px;
+  display: flex;
+  padding: 0px;
 }
 
 .celestus.resources-ui .action-resources {
-    margin-bottom: -10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin-bottom: -10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .celestus.resources-ui .action-resources .resource {
-    border-radius: 10px 10px 0px 0px;
-    padding: 0px 10px;
-    background-attachment: fixed;
-    display: block;
-    width: fit-content;
-    margin: 0px;
-    background-image: url(../img/rock-texture-tile.jpg);
-    background-repeat: repeat;
-    background-size: auto;
+  border-radius: 10px 10px 0px 0px;
+  padding: 0px 10px;
+  background-attachment: fixed;
+  display: block;
+  width: fit-content;
+  margin: 0px;
+  background-image: url(../img/rock-texture-tile.jpg);
+  background-repeat: repeat;
+  background-size: auto;
 }
 
-.celestus.resources-ui .action-resources .resource :is(.action-point, .focus-point) {
-    margin-top: -20px;
-    padding-bottom: 10px;
+.celestus.resources-ui
+  .action-resources
+  .resource
+  :is(.action-point, .focus-point) {
+  margin-top: -20px;
+  padding-bottom: 10px;
 }
 
 .celestus.resources-ui .resource {
-    border-radius: 10px;
-    display: inline-block;
-    flex: 1;
+  border-radius: 10px;
+  display: inline-block;
+  flex: 1;
 }
 
 .celestus.resources-ui label.resource-label {
-    font-size: var(--font-size-16);
-    font-weight: bold;
-    color: white;
+  font-size: var(--font-size-16);
+  font-weight: bold;
+  color: white;
 }
 
 .celestus.resources-ui label.resource-label.single {
-    width: 100%;
+  width: 100%;
 }
 
 .celestus.resources-ui .resources-ui-vital {
-    padding: 10px;
-    padding-right: calc(10px + 20px);
-    background-color: #00000088;
-    border-radius: 10px 0px 10px 10px;
-    width: 450px;
-    margin: 3px;
-    background-image: url(../img/rock-texture-tile.jpg);
-    background-repeat: repeat;
-    background-size: auto;
-    background-attachment: fixed;
-    clip-path: polygon(90.222% 50%, 90.222% 50%, 90.285% 43.591%, 90.469% 37.391%, 90.768% 31.438%, 91.174% 25.772%, 91.681% 20.433%, 92.281% 15.458%, 92.969% 10.889%, 93.738% 6.763%, 94.58% 3.12%, 95.489% 0%, 0% 0%, 0% 100%, 95.489% 100%, 95.489% 100%, 94.58% 96.88%, 93.738% 93.237%, 92.969% 89.111%, 92.281% 84.542%, 91.681% 79.567%, 91.174% 74.228%, 90.768% 68.562%, 90.469% 62.609%, 90.285% 56.409%, 90.222% 50%);
+  padding: 10px;
+  padding-right: calc(10px + 20px);
+  background-color: #00000088;
+  border-radius: 10px 0px 10px 10px;
+  width: 450px;
+  margin: 3px;
+  background-image: url(../img/rock-texture-tile.jpg);
+  background-repeat: repeat;
+  background-size: auto;
+  background-attachment: fixed;
+  clip-path: polygon(
+    90.222% 50%,
+    90.222% 50%,
+    90.285% 43.591%,
+    90.469% 37.391%,
+    90.768% 31.438%,
+    91.174% 25.772%,
+    91.681% 20.433%,
+    92.281% 15.458%,
+    92.969% 10.889%,
+    93.738% 6.763%,
+    94.58% 3.12%,
+    95.489% 0%,
+    0% 0%,
+    0% 100%,
+    95.489% 100%,
+    95.489% 100%,
+    94.58% 96.88%,
+    93.738% 93.237%,
+    92.969% 89.111%,
+    92.281% 84.542%,
+    91.681% 79.567%,
+    91.174% 74.228%,
+    90.768% 68.562%,
+    90.469% 62.609%,
+    90.285% 56.409%,
+    90.222% 50%
+  );
 }
 
 .celestus.resources-ui .resource-value {
-    border-style: solid;
-    border-width: thin;
-    border-radius: 5px;
-    border-color: black;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 5px;
+  border-color: black;
 
-    display: flex;
-    text-align: center;
-    padding: 5px 20px;
-    white-space: nowrap;
+  display: flex;
+  text-align: center;
+  padding: 5px 20px;
+  white-space: nowrap;
 
-    font-size: var(--font-size-14);
-    text-align: center;
-    color: white;
-    text-shadow: var(--text-outline-1);
+  font-size: var(--font-size-14);
+  text-align: center;
+  color: white;
+  text-shadow: var(--text-outline-1);
 
-    box-shadow: var(--shadow-inset);
-    background-image: url('../img/milky-texture.webp');
-    background-blend-mode: multiply;
+  box-shadow: var(--shadow-inset);
+  background-image: url("../img/milky-texture.webp");
+  background-blend-mode: multiply;
 
-    width: 100%;
+  width: 100%;
 }
 
 .celestus.resources-ui .resources-ui-vital :is(.mag_armor, .hp) {
-    border-radius: 5px 0px 5px 0px;
-    filter: drop-shadow(inset 2px 0px 0px #000);
+  border-radius: 5px 0px 5px 0px;
+  filter: drop-shadow(inset 2px 0px 0px #000);
 }
 
 .celestus.resources-ui .resource-input {
-    width: 100px;
-    font-size: var(--font-size-14);
-    text-align: center;
-    color: white;
-    text-shadow: var(--text-outline-1);
-    display: inline;
-    outline: none;
-    padding: 0;
-    border: none;
-    height: auto;
-    width: 50%;
-    text-align: right;
-    line-height: unset;
-    background: none;
+  width: 100px;
+  font-size: var(--font-size-14);
+  text-align: center;
+  color: white;
+  text-shadow: var(--text-outline-1);
+  display: inline;
+  outline: none;
+  padding: 0;
+  border: none;
+  height: auto;
+  width: 50%;
+  text-align: right;
+  line-height: unset;
+  background: none;
 }
 
 /* Action Point Icons */
 .action-point,
 .focus-point {
-    text-shadow: none;
+  text-shadow: none;
 }
 
 .action-point:hover,
 .focus-point:hover {
-    text-shadow: inherit;
+  text-shadow: inherit;
 }
 
 .action-point.full {
-    background: rgb(226, 244, 0);
-    background: url('../img/milky-texture.webp'), radial-gradient(circle at 60% 30%, rgb(148, 201, 2) 0%, rgba(46, 77, 0, 1) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1px rgb(0, 0, 0);
-    background-clip: text;
-    background-blend-mode: multiply, normal;
-    background-size: cover;
-    margin: 2px;
+  background: rgb(226, 244, 0);
+  background: url("../img/milky-texture.webp"),
+    radial-gradient(
+      circle at 60% 30%,
+      rgb(148, 201, 2) 0%,
+      rgba(46, 77, 0, 1) 100%
+    );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgb(0, 0, 0);
+  background-clip: text;
+  background-blend-mode: multiply, normal;
+  background-size: cover;
+  margin: 2px;
 }
 
 .action-point.full:hover {
-    -webkit-text-fill-color: rgb(148, 201, 2);
+  -webkit-text-fill-color: rgb(148, 201, 2);
 }
 
 .action-point.empty {
-    background: rgb(27, 27, 27);
-    background: radial-gradient(circle, rgb(107, 107, 107) 0%, rgb(20, 20, 20) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1px rgb(0, 0, 0);
-    background-clip: text;
-    margin: 2px;
+  background: rgb(27, 27, 27);
+  background: radial-gradient(
+    circle,
+    rgb(107, 107, 107) 0%,
+    rgb(20, 20, 20) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgb(0, 0, 0);
+  background-clip: text;
+  margin: 2px;
 }
 
 .action-point.empty:hover,
 .focus-point.empty:hover {
-    -webkit-text-fill-color: rgb(107, 107, 107);
+  -webkit-text-fill-color: rgb(107, 107, 107);
 }
 
 .action-point.small {
-    font-size: var(--font-size-18);
+  font-size: var(--font-size-18);
 }
 
 .action-point.large {
-    font-size: var(--font-size-24);
+  font-size: var(--font-size-24);
 }
 
 .focus-point.full {
-    background: rgb(244, 228, 0);
-    background: url('../img/milky-texture.webp'), radial-gradient(circle at 60% 30%, rgb(255, 238, 0) 0%, rgb(145, 41, 0) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1px rgb(0, 0, 0);
-    background-clip: text;
-    background-blend-mode: multiply, normal;
-    margin: 2px;
+  background: rgb(244, 228, 0);
+  background: url("../img/milky-texture.webp"),
+    radial-gradient(
+      circle at 60% 30%,
+      rgb(255, 238, 0) 0%,
+      rgb(145, 41, 0) 100%
+    );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgb(0, 0, 0);
+  background-clip: text;
+  background-blend-mode: multiply, normal;
+  margin: 2px;
 }
 
 .focus-point.full:hover {
-    -webkit-text-fill-color: rgb(255, 238, 0);
+  -webkit-text-fill-color: rgb(255, 238, 0);
 }
 
 .focus-point.empty {
-    background: rgb(27, 27, 27);
-    background: radial-gradient(circle, rgb(107, 107, 107) 0%, rgb(20, 20, 20) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1px rgb(0, 0, 0);
-    background-clip: text;
-    margin: 2px;
+  background: rgb(27, 27, 27);
+  background: radial-gradient(
+    circle,
+    rgb(107, 107, 107) 0%,
+    rgb(20, 20, 20) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgb(0, 0, 0);
+  background-clip: text;
+  margin: 2px;
 }
 
 .focus-point.small {
-    font-size: var(--font-size-18);
+  font-size: var(--font-size-18);
 }
 
 .focus-point.large {
-    font-size: var(--font-size-24);
+  font-size: var(--font-size-24);
 }
 
 /* Token Info on hover */
 .celestus.token-info {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: -20px;
-    margin-inline: auto;
-    width: 800px;
-    height: 200px;
-    padding: calc((200px - 75px)/2) 95px calc((200px - 75px)/2) 105px;
-    z-index: calc(var(--z-index-ui) + 1);
-    text-align: center;
-    pointer-events: none;
-    -webkit-filter: drop-shadow(1px 1px 5px #000);
-    filter: drop-shadow(1px 1px 5px #000);
-    background-image: url('../img/token-info-background.webp');
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: 0 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -20px;
+  margin-inline: auto;
+  width: 800px;
+  height: 200px;
+  padding: calc((200px - 75px) / 2) 95px calc((200px - 75px) / 2) 105px;
+  z-index: calc(var(--z-index-ui) + 1);
+  text-align: center;
+  pointer-events: none;
+  -webkit-filter: drop-shadow(1px 1px 5px #000);
+  filter: drop-shadow(1px 1px 5px #000);
+  background-image: url("../img/token-info-background.webp");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 0 0;
 }
 
 .celestus.token-info .token-info-content {
-    position: relative;
+  position: relative;
 }
 
 .celestus.token-info .close-info {
-    pointer-events: all;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    font-size: var(--font-size-16);
-    color: white;
-    text-shadow: var(--text-outline-1);
-    z-index: 50;
+  pointer-events: all;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  font-size: var(--font-size-16);
+  color: white;
+  text-shadow: var(--text-outline-1);
+  z-index: 50;
 }
 
 .celestus.token-info .close-info:hover {
-    text-shadow: var(--text-outline-1), 0 0 10px var(--color-warm-3);
-    cursor: pointer;
+  text-shadow: var(--text-outline-1), 0 0 10px var(--color-warm-3);
+  cursor: pointer;
 }
 
 .celestus.token-info .token-header {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .celestus.token-info .portrait-frame {
-    position: relative;
-    width: 75px;
-    height: 75px;
-    padding: 0px;
-    left: calc(100% - 75px);
-    pointer-events: all;
+  position: relative;
+  width: 75px;
+  height: 75px;
+  padding: 0px;
+  left: calc(100% - 75px);
+  pointer-events: all;
 }
 
 .celestus.token-info .actor-img {
-    width: 75px;
-    height: 75px;
-    clip-path: circle(50px at center);
-    border-radius: 37.5px;
+  width: 75px;
+  height: 75px;
+  clip-path: circle(50px at center);
+  border-radius: 37.5px;
 }
 
 .celestus.token-info .actor-img-overlay {
-    z-index: 10;
-    width: 75px;
-    height: 75px;
-    border: none;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: url('/systems/celestus/img/token-info-portrait-frame.webp');
-    background-size: contain;
+  z-index: 10;
+  width: 75px;
+  height: 75px;
+  border: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: url("/systems/celestus/img/token-info-portrait-frame.webp");
+  background-size: contain;
 }
 
 .celestus.token-info .token-name {
-    vertical-align: top;
-    display: flex;
-    flex-direction: row;
-    color: white;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    text-align: left;
-    text-shadow: var(--text-outline-1);
-    gap: 10px;
+  vertical-align: top;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  text-align: left;
+  text-shadow: var(--text-outline-1);
+  gap: 10px;
 }
 
 .celestus.token-info .token-name .name {
-    font-size: var(--font-size-24);
-    font-weight: bold;
-    text-shadow: var(--text-outline-1);
-    font-family: var(--font-h1);
+  font-size: var(--font-size-24);
+  font-weight: bold;
+  text-shadow: var(--text-outline-1);
+  font-family: var(--font-h1);
 }
 
 .celestus.token-info .token-name .type {
-    font-size: var(--font-size-18);
-    font-family: var(--font-h2);
-    color: lightgray;
-    margin-top: -5px;
+  font-size: var(--font-size-18);
+  font-family: var(--font-h2);
+  color: lightgray;
+  margin-top: -5px;
 }
 
 .celestus.token-info .resources {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 0px 0px;
-    grid-template-areas:
-        "phys-armor mag-armor buffer"
-        "hp hp hp";
-    width: auto;
-    margin-top: -40px;
-    margin-right: calc(75px/2);
-    pointer-events: all;
-    padding-right: 15px;
-    clip-path: polygon(92.166% 6.25%, 92.166% 6.25%, 92.166% 5.643%, 92.166% 5.024%, 92.166% 4.396%, 92.167% 3.762%, 92.168% 3.125%, 92.17% 2.488%, 92.172% 1.854%, 92.175% 1.226%, 92.179% 0.607%, 92.184% 0%, 0% 0%, 0% 100%, 96.313% 100%, 96.313% 100%, 95.597% 94.095%, 94.934% 87.226%, 94.328% 79.467%, 93.786% 70.888%, 93.313% 61.563%, 92.914% 51.562%, 92.595% 40.959%, 92.36% 29.824%, 92.215% 18.231%, 92.166% 6.25%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "phys-armor mag-armor buffer"
+    "hp hp hp";
+  width: auto;
+  margin-top: -40px;
+  margin-right: calc(75px / 2);
+  pointer-events: all;
+  padding-right: 15px;
+  clip-path: polygon(
+    92.166% 6.25%,
+    92.166% 6.25%,
+    92.166% 5.643%,
+    92.166% 5.024%,
+    92.166% 4.396%,
+    92.167% 3.762%,
+    92.168% 3.125%,
+    92.17% 2.488%,
+    92.172% 1.854%,
+    92.175% 1.226%,
+    92.179% 0.607%,
+    92.184% 0%,
+    0% 0%,
+    0% 100%,
+    96.313% 100%,
+    96.313% 100%,
+    95.597% 94.095%,
+    94.934% 87.226%,
+    94.328% 79.467%,
+    93.786% 70.888%,
+    93.313% 61.563%,
+    92.914% 51.562%,
+    92.595% 40.959%,
+    92.36% 29.824%,
+    92.215% 18.231%,
+    92.166% 6.25%
+  );
 }
 
 .celestus.token-info .resources .resource {
-    border-style: solid;
-    border-width: thin;
-    border-radius: 5px;
-    border-color: black;
-    display: block;
-    text-align: center;
-    padding: 2px;
-    white-space: nowrap;
-    font-size: var(--font-size-14);
-    text-align: center;
-    font-weight: bold;
-    text-shadow: none;
-    color: white;
-    text-shadow: var(--text-outline-1);
-    box-shadow: var(--shadow-inset);
-    background-image: url('../img/milky-texture.webp');
-    background-blend-mode: multiply;
-    width: 100%;
-    height: 20px;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 5px;
+  border-color: black;
+  display: block;
+  text-align: center;
+  padding: 2px;
+  white-space: nowrap;
+  font-size: var(--font-size-14);
+  text-align: center;
+  font-weight: bold;
+  text-shadow: none;
+  color: white;
+  text-shadow: var(--text-outline-1);
+  box-shadow: var(--shadow-inset);
+  background-image: url("../img/milky-texture.webp");
+  background-blend-mode: multiply;
+  width: 100%;
+  height: 20px;
 }
 
 .celestus.token-info .mag-armor {
-    grid-area: mag-armor;
-    border-radius: 5px 0px 5px 0px;
+  grid-area: mag-armor;
+  border-radius: 5px 0px 5px 0px;
 }
 
 .celestus.token-info .buffer {
-    grid-area: buffer;
-    width: calc(75px/2 - 15px);
+  grid-area: buffer;
+  width: calc(75px / 2 - 15px);
 }
 
 .celestus.token-info .phys-armor {
-    grid-area: phys-armor;
+  grid-area: phys-armor;
 }
 
 .celestus.token-info .hp {
-    grid-area: hp;
+  grid-area: hp;
 }
 
 .celestus.token-info .effects {
-    list-style-type: none;
-    width: 300px;
-    padding: 0px;
-    margin-top: 20px;
+  list-style-type: none;
+  width: 300px;
+  padding: 0px;
+  margin-top: 20px;
 }
 
 .celestus.token-info .effect {
-    margin-top: -1px;
-    border: 1px black solid;
-    width: 100%;
-    color: black;
-    font-weight: bold;
-    font-size: var(--font-size-16);
-    padding: 3px;
-    border-radius: 5px;
-    background-color: rgba(43, 41, 37, 0.5);
-    display: flex;
-    pointer-events: none;
+  margin-top: -1px;
+  border: 1px black solid;
+  width: 100%;
+  color: black;
+  font-weight: bold;
+  font-size: var(--font-size-16);
+  padding: 3px;
+  border-radius: 5px;
+  background-color: rgba(43, 41, 37, 0.5);
+  display: flex;
+  pointer-events: none;
 }
 
 .celestus.token-info .effect-label {
-    margin-left: 5px;
-    margin-right: 5px;
-    display: flex;
-    justify-content: space-between;
-    text-shadow: var(--text-outline-1);
-    color: white;
+  margin-left: 5px;
+  margin-right: 5px;
+  display: flex;
+  justify-content: space-between;
+  text-shadow: var(--text-outline-1);
+  color: white;
 }
 
 .celestus.token-info .effect-icon {
-    width: 20px;
-    height: 20px;
-    flex: 0;
-    border: none;
-    background: none;
-    margin-bottom: 0px;
+  width: 20px;
+  height: 20px;
+  flex: 0;
+  border: none;
+  background: none;
+  margin-bottom: 0px;
 }
 
 .celestus.token-info .effect-duration {
-    width: 20px;
-    height: 20px;
-    background-image: url(../svg/stopwatch.svg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    text-align: center;
-    background-blend-mode: overlay;
-    line-height: 20px;
+  width: 20px;
+  height: 20px;
+  background-image: url(../svg/stopwatch.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  background-blend-mode: overlay;
+  line-height: 20px;
 }
-
 
 /* Boss Bar / Display */
 .celestus.boss-display {
-    pointer-events: none;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    margin-inline: auto;
-    width: 1000px;
-    height: 150px;
-    padding: 0;
-    z-index: calc(var(--z-index-ui) + 10);
-    text-align: center;
-    -webkit-filter: drop-shadow(1px 1px 5px #000);
-    filter: drop-shadow(1px 1px 5px #000);
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: 0 0;
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin-inline: auto;
+  width: 1000px;
+  height: 150px;
+  padding: 0;
+  z-index: calc(var(--z-index-ui) + 10);
+  text-align: center;
+  -webkit-filter: drop-shadow(1px 1px 5px #000);
+  filter: drop-shadow(1px 1px 5px #000);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 0 0;
 }
 
 .celestus.boss-display .inner-relative {
-    width: 100%;
-    height: 100%;
-    position: relative;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .celestus.boss-display .inner-absolute {
-    position: absolute;
-    top: -200px;
+  position: absolute;
+  top: -200px;
 }
 
 .celestus.boss-display .name-container {
-    pointer-events: none;
-    position: absolute;
-    top: 131px;
-    width: 100%;
-    text-align: center;
-    font-family: var(--font-h1);
-    font-size: var(--font-size-32);
-    color: white;
-    text-shadow: var(--text-outline-1);
-    filter: drop-shadow(0 0 5px #000);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  pointer-events: none;
+  position: absolute;
+  top: 131px;
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-h1);
+  font-size: var(--font-size-32);
+  color: white;
+  text-shadow: var(--text-outline-1);
+  filter: drop-shadow(0 0 5px #000);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .celestus.boss-display .name-tab {
-    width: auto;
-    height: auto;
-    position: relative;
+  width: auto;
+  height: auto;
+  position: relative;
 }
 
 .celestus.boss-display .name-tab .hide-button {
-    display: none;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: -10;
-    left: 0;
-    background-color: var(--color-token-ui-dark);
-    z-index: -1;
-    border-radius: 0px 0px 5px 5px;
-    border: thin solid gold;
-    border-top: none;
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: -10;
+  left: 0;
+  background-color: var(--color-token-ui-dark);
+  z-index: -1;
+  border-radius: 0px 0px 5px 5px;
+  border: thin solid gold;
+  border-top: none;
 }
 
 .celestus.boss-display .name-tab .hide-button .hide-symbol {
-    pointer-events: all;
-    cursor: pointer;
-    width: 100%;
-    position: absolute;
-    text-align: center;
-    height: 20px;
-    color: var(--color-dark-5);
-    top: 30px;
-    font-size: 30px;
+  pointer-events: all;
+  cursor: pointer;
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  height: 20px;
+  color: var(--color-dark-5);
+  top: 30px;
+  font-size: 30px;
 }
 
 .celestus.boss-display .name-tab .hide-button .hide-symbol:hover {
-    color: gold;
-    text-shadow: 0 0 5px goldenrod;
+  color: gold;
+  text-shadow: 0 0 5px goldenrod;
 }
 
 .celestus.boss-display .name {
-    padding: 0px 10px 20px 10px;
+  padding: 0px 10px 20px 10px;
 }
 
 .celestus.boss-display .portrait-frame {
-    position: absolute;
-    width: 75px;
-    height: 75px;
-    padding: 0px;
-    pointer-events: all;
-    left: calc(499px - (75px / 2));
-    top: calc(60px - (75px / 2));
-    filter: drop-shadow(0 0 2px var(--color-token-ui-dark));
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  padding: 0px;
+  pointer-events: all;
+  left: calc(499px - (75px / 2));
+  top: calc(60px - (75px / 2));
+  filter: drop-shadow(0 0 2px var(--color-token-ui-dark));
 }
 
 .celestus.boss-display .actor-img {
-    width: 75px;
-    height: 75px;
-    clip-path: circle(50% at center);
+  width: 75px;
+  height: 75px;
+  clip-path: circle(50% at center);
 }
 
 .celestus.boss-display .actor-img-overlay {
-    z-index: 10;
-    width: 75px;
-    height: 75px;
-    border: none;
-    position: absolute;
-    background: url(../img/boss-display/portrait-frame.webp);
-    background-size: contain;
+  z-index: 10;
+  width: 75px;
+  height: 75px;
+  border: none;
+  position: absolute;
+  background: url(../img/boss-display/portrait-frame.webp);
+  background-size: contain;
 }
 
 .celestus.boss-display .resource-wing {
-    position: absolute;
-    background-size: auto;
-    background-repeat: none;
-    background-position: center center;
-
+  position: absolute;
+  background-size: auto;
+  background-repeat: none;
+  background-position: center center;
 }
 
 .celestus.boss-display .resource-wing.phys-armor {
-    background-image: url(../img/boss-display/phys-armor-wing.webp);
-    width: 370px;
-    height: 44px;
-    left: calc(289px - (370px / 2));
-    top: calc(74px - (44px / 2));
+  background-image: url(../img/boss-display/phys-armor-wing.webp);
+  width: 370px;
+  height: 44px;
+  left: calc(289px - (370px / 2));
+  top: calc(74px - (44px / 2));
 }
 
 .celestus.boss-display .resource-wing.mag-armor {
-    background-image: url(../img/boss-display/mag-armor-wing.webp);
-    width: 370px;
-    height: 44px;
-    left: calc(710px - (370px / 2));
-    top: calc(74px - (44px / 2));
+  background-image: url(../img/boss-display/mag-armor-wing.webp);
+  width: 370px;
+  height: 44px;
+  left: calc(710px - (370px / 2));
+  top: calc(74px - (44px / 2));
 }
 
 .celestus.boss-display .resource-wing.health {
-    background-image: url(../img/boss-display/health-wings.webp);
-    width: 874px;
-    height: 44px;
-    left: calc(500px - (874px / 2));
-    top: calc(109px - (44px / 2));
+  background-image: url(../img/boss-display/health-wings.webp);
+  width: 874px;
+  height: 44px;
+  left: calc(500px - (874px / 2));
+  top: calc(109px - (44px / 2));
 }
 
 .celestus.boss-display .digits {
-    position: absolute;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 15;
-    color: white;
-    text-shadow: var(--text-outline-1);
-    font-weight: bold;
-    font-size: var(--font-size-14);
-    padding-top: calc(22px - (var(--font-size-14) / 2));
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 15;
+  color: white;
+  text-shadow: var(--text-outline-1);
+  font-weight: bold;
+  font-size: var(--font-size-14);
+  padding-top: calc(22px - (var(--font-size-14) / 2));
 }
 
 .celestus.boss-display .digits#phys_armor-value {
-    width: 370px;
-    height: 44px;
-    left: calc(289px - (370px / 2));
-    top: calc(74px - (44px / 2));
+  width: 370px;
+  height: 44px;
+  left: calc(289px - (370px / 2));
+  top: calc(74px - (44px / 2));
 }
 
 .celestus.boss-display .digits#mag_armor-value {
-    width: 370px;
-    height: 44px;
-    left: calc(710px - (370px / 2));
-    top: calc(74px - (44px / 2));
+  width: 370px;
+  height: 44px;
+  left: calc(710px - (370px / 2));
+  top: calc(74px - (44px / 2));
 }
 
 .celestus.boss-display .digits#hp-value {
-    width: 874px;
-    height: 44px;
-    left: calc(500px - (874px / 2));
-    top: calc(109px - (44px / 2));
+  width: 874px;
+  height: 44px;
+  left: calc(500px - (874px / 2));
+  top: calc(109px - (44px / 2));
 }
 
 .celestus.boss-display .resource-container {
-    position: absolute;
-    height: 20px;
-    filter: drop-shadow(0px 0px 1px black);
-    z-index: 1;
+  position: absolute;
+  height: 20px;
+  filter: drop-shadow(0px 0px 1px black);
+  z-index: 1;
 }
 
 .celestus.boss-display .resource-container .background {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background-color: black;
-    opacity: 25%;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: black;
+  opacity: 25%;
 }
 
 .celestus.boss-display .resource-container .trailer {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 5;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
 }
 
 .celestus.boss-display .resource-container .foreground {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 10;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
 }
 
 .celestus.boss-display .resource-container .overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 13;
-    background-image: url(../img/boss-display/Grunge_D.webp);
-    background-repeat: repeat;
-    opacity: 15%;
-    background-size: 100px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 13;
+  background-image: url(../img/boss-display/Grunge_D.webp);
+  background-repeat: repeat;
+  opacity: 15%;
+  background-size: 100px;
 }
 
 .celestus.boss-display .resource-container#hp {
-    width: 854.2px;
-    height: 20px;
-    clip-path: polygon(0.468% 100%, 0.468% 100%, 0.425% 97.052%, 0.376% 92.912%, 0.321% 87.441%, 0.265% 80.496%, 0.208% 71.938%, 0.153% 61.624%, 0.103% 49.415%, 0.059% 35.168%, 0.024% 18.744%, 0% 0%, 47.003% 0%, 47.003% 0%, 47.277% 7.004%, 47.559% 13.308%, 47.847% 18.905%, 48.141% 23.784%, 48.44% 27.938%, 48.744% 31.356%, 49.053% 34.031%, 49.366% 35.952%, 49.682% 37.112%, 50% 37.5%, 50% 37.5%, 50.319% 37.112%, 50.635% 35.952%, 50.949% 34.031%, 51.259% 31.356%, 51.564% 27.938%, 51.864% 23.784%, 52.159% 18.905%, 52.446% 13.308%, 52.726% 7.004%, 52.997% 0%, 100% 0%, 100% 0%, 99.976% 18.744%, 99.941% 35.168%, 99.897% 49.415%, 99.847% 61.624%, 99.792% 71.938%, 99.735% 80.496%, 99.679% 87.441%, 99.624% 92.912%, 99.575% 97.052%, 99.532% 100%, 0.468% 100%);
-    left: calc(500px - (854.2px / 2));
-    top: calc(111.2px - 10px);
+  width: 854.2px;
+  height: 20px;
+  clip-path: polygon(
+    0.468% 100%,
+    0.468% 100%,
+    0.425% 97.052%,
+    0.376% 92.912%,
+    0.321% 87.441%,
+    0.265% 80.496%,
+    0.208% 71.938%,
+    0.153% 61.624%,
+    0.103% 49.415%,
+    0.059% 35.168%,
+    0.024% 18.744%,
+    0% 0%,
+    47.003% 0%,
+    47.003% 0%,
+    47.277% 7.004%,
+    47.559% 13.308%,
+    47.847% 18.905%,
+    48.141% 23.784%,
+    48.44% 27.938%,
+    48.744% 31.356%,
+    49.053% 34.031%,
+    49.366% 35.952%,
+    49.682% 37.112%,
+    50% 37.5%,
+    50% 37.5%,
+    50.319% 37.112%,
+    50.635% 35.952%,
+    50.949% 34.031%,
+    51.259% 31.356%,
+    51.564% 27.938%,
+    51.864% 23.784%,
+    52.159% 18.905%,
+    52.446% 13.308%,
+    52.726% 7.004%,
+    52.997% 0%,
+    100% 0%,
+    100% 0%,
+    99.976% 18.744%,
+    99.941% 35.168%,
+    99.897% 49.415%,
+    99.847% 61.624%,
+    99.792% 71.938%,
+    99.735% 80.496%,
+    99.679% 87.441%,
+    99.624% 92.912%,
+    99.575% 97.052%,
+    99.532% 100%,
+    0.468% 100%
+  );
+  left: calc(500px - (854.2px / 2));
+  top: calc(111.2px - 10px);
 }
 
 .celestus.boss-display .resource-container#hp .trailer {
-    background-color: var(--color-piercing-bg);
+  background-color: var(--color-piercing-bg);
 }
 
 .celestus.boss-display .resource-container#hp .foreground {
-    background-color: var(--color-healing-bg);
+  background-color: var(--color-healing-bg);
 }
 
 .celestus.boss-display .resource-container#hp .background {
-    background-color: var(--color-healing-dark-bg);
+  background-color: var(--color-healing-dark-bg);
 }
 
 .celestus.boss-display .resource-container#hp .digits {
-    top: 5px;
+  top: 5px;
 }
 
 .celestus.boss-display .resource-container#phys_armor {
-    width: 344.5px;
-    height: 20px;
-    clip-path: polygon(1.161% 100%, 1.161% 100%, 1.055% 97.052%, 0.932% 92.912%, 0.797% 87.441%, 0.656% 80.496%, 0.515% 71.938%, 0.379% 61.624%, 0.254% 49.415%, 0.146% 35.168%, 0.059% 18.744%, 0% 0%, 98.026% 0%, 98.026% 0%, 98.102% 10.617%, 98.206% 21.152%, 98.339% 31.586%, 98.499% 41.896%, 98.687% 52.063%, 98.9% 62.064%, 99.138% 71.88%, 99.402% 81.488%, 99.689% 90.869%, 100% 100%, 1.161% 100%);
-    left: calc(287.3px - (344.5px / 2));
-    top: calc(76.2px - 10px);
+  width: 344.5px;
+  height: 20px;
+  clip-path: polygon(
+    1.161% 100%,
+    1.161% 100%,
+    1.055% 97.052%,
+    0.932% 92.912%,
+    0.797% 87.441%,
+    0.656% 80.496%,
+    0.515% 71.938%,
+    0.379% 61.624%,
+    0.254% 49.415%,
+    0.146% 35.168%,
+    0.059% 18.744%,
+    0% 0%,
+    98.026% 0%,
+    98.026% 0%,
+    98.102% 10.617%,
+    98.206% 21.152%,
+    98.339% 31.586%,
+    98.499% 41.896%,
+    98.687% 52.063%,
+    98.9% 62.064%,
+    99.138% 71.88%,
+    99.402% 81.488%,
+    99.689% 90.869%,
+    100% 100%,
+    1.161% 100%
+  );
+  left: calc(287.3px - (344.5px / 2));
+  top: calc(76.2px - 10px);
 }
 
 .celestus.boss-display .resource-container#phys_armor .trailer {
-    background-color: var(--color-phys_armor-dark-bg);
+  background-color: var(--color-phys_armor-dark-bg);
 }
 
 .celestus.boss-display .resource-container#phys_armor .foreground {
-    background-color: var(--color-phys_armor-bg);
+  background-color: var(--color-phys_armor-bg);
 }
 
 .celestus.boss-display .resource-container#phys_armor .background {
-    background-color: var(--color-phys_armor-dark-bg);
+  background-color: var(--color-phys_armor-dark-bg);
 }
 
 .celestus.boss-display .resource-container#mag_armor {
-    width: 344.5px;
-    height: 20px;
-    clip-path: polygon(0% 100%, 0% 100%, 0.318% 90.869%, 0.609% 81.488%, 0.874% 71.88%, 1.113% 62.064%, 1.324% 52.063%, 1.509% 41.896%, 1.666% 31.586%, 1.796% 21.152%, 1.899% 10.617%, 1.974% 0%, 100% 0%, 100% 0%, 99.941% 18.744%, 99.854% 35.168%, 99.746% 49.415%, 99.621% 61.624%, 99.485% 71.938%, 99.344% 80.496%, 99.203% 87.441%, 99.068% 92.912%, 98.945% 97.052%, 98.839% 100%, 0% 100%);
-    left: calc(712.6px - (344.5px / 2));
-    top: calc(76.2px - 10px);
+  width: 344.5px;
+  height: 20px;
+  clip-path: polygon(
+    0% 100%,
+    0% 100%,
+    0.318% 90.869%,
+    0.609% 81.488%,
+    0.874% 71.88%,
+    1.113% 62.064%,
+    1.324% 52.063%,
+    1.509% 41.896%,
+    1.666% 31.586%,
+    1.796% 21.152%,
+    1.899% 10.617%,
+    1.974% 0%,
+    100% 0%,
+    100% 0%,
+    99.941% 18.744%,
+    99.854% 35.168%,
+    99.746% 49.415%,
+    99.621% 61.624%,
+    99.485% 71.938%,
+    99.344% 80.496%,
+    99.203% 87.441%,
+    99.068% 92.912%,
+    98.945% 97.052%,
+    98.839% 100%,
+    0% 100%
+  );
+  left: calc(712.6px - (344.5px / 2));
+  top: calc(76.2px - 10px);
 }
 
 .celestus.boss-display .resource-container#mag_armor .trailer {
-    background-color: var(--color-mag_armor-dark-bg);
+  background-color: var(--color-mag_armor-dark-bg);
 }
 
 .celestus.boss-display .resource-container#mag_armor .foreground {
-    background-color: var(--color-mag_armor-bg);
+  background-color: var(--color-mag_armor-bg);
 }
 
 .celestus.boss-display .resource-container#mag_armor .background {
-    background-color: var(--color-mag_armor-dark-bg);
+  background-color: var(--color-mag_armor-dark-bg);
 }
 
 .celestus.boss-display .effects {
-    position: absolute;
-    list-style-type: none;
-    padding: 0px;
-    left: 122px;
-    top: -200px;
-    width: calc(100% - (122px) * 2);
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-    z-index: 40;
-    justify-content: center;
+  position: absolute;
+  list-style-type: none;
+  padding: 0px;
+  left: 122px;
+  top: -200px;
+  width: calc(100% - (122px) * 2);
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  z-index: 40;
+  justify-content: center;
 }
 
 .celestus.boss-display .effects .spacer {
-    opacity: 0;
-    flex: 0 0 75px;
+  opacity: 0;
+  flex: 0 0 75px;
 }
 
 .celestus.boss-display .effects .effect.dummy {
-    opacity: 0;
-    pointer-events: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .celestus.boss-display .effect {
-    border: 1px black solid;
-    color: black;
-    font-weight: bold;
-    font-size: var(--font-size-16);
-    border-radius: 5px;
-    background-color: rgba(43, 41, 37, 0.5);
-    pointer-events: all;
+  border: 1px black solid;
+  color: black;
+  font-weight: bold;
+  font-size: var(--font-size-16);
+  border-radius: 5px;
+  background-color: rgba(43, 41, 37, 0.5);
+  pointer-events: all;
 }
 
 .celestus.boss-display .effect-icon {
-    width: 25px;
-    height: 25px;
-    flex: 0;
-    border: none;
-    background: none;
-    margin-bottom: 0px;
+  width: 25px;
+  height: 25px;
+  flex: 0;
+  border: none;
+  background: none;
+  margin-bottom: 0px;
 }
 
 #tooltip.boss-effect-tooltip {
-    display: flex;
-    flex-direction: row;
-    width: 150px;
-    padding: 5px;
-    display: flex;
-    justify-content: space-between;
-    color: white;
-    text-shadow: var(--text-outline-1);
+  display: flex;
+  flex-direction: row;
+  width: 150px;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  text-shadow: var(--text-outline-1);
 }
 
 #tooltip.boss-effect-tooltip .effect-duration {
-    width: 20px;
-    height: 20px;
-    background-image: url(../img/boss-display/effect-stopwatch.webp);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    text-align: center;
-    background-blend-mode: overlay;
-    line-height: 20px;
-    text-shadow: 0 0 5px #000;
+  width: 20px;
+  height: 20px;
+  background-image: url(../img/boss-display/effect-stopwatch.webp);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  background-blend-mode: overlay;
+  line-height: 20px;
+  text-shadow: 0 0 5px #000;
 }
 
 /* Generic Stone UI elements */
 
 .stone-ui {
-    background-image: url(../img/rock-texture-tile.jpg);
-    background-repeat: repeat;
-    background-size: auto;
-    color: white;
-    box-shadow: var(--shadow-inset);
-    border: medium solid black;
-    text-shadow: 0px 0px 4px rgb(0, 0, 0);
-    background-attachment: fixed;
+  background-image: url(../img/rock-texture-tile.jpg);
+  background-repeat: repeat;
+  background-size: auto;
+  color: white;
+  box-shadow: var(--shadow-inset);
+  border: medium solid black;
+  text-shadow: 0px 0px 4px rgb(0, 0, 0);
+  background-attachment: fixed;
 }
 
 .stone-ui :is(h1, h2, h3, h4, h5, h6) {
-    text-shadow: var(--text-outline-1);
+  text-shadow: var(--text-outline-1);
 }
 
 .stone-ui,
 .celestus.actor.sheet .content-link {
-    background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .stone-ui .inline-roll {
-    background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.6);
 }
