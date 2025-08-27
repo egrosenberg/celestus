@@ -37,7 +37,7 @@ export async function rollAttack(e) {
   // verify targets amount
   if (targets.size < 1) {
     return ui.notifications.warn(
-      "ERROR: Please select at least one target to attack.",
+      "ERROR: Please select at least one target to attack."
     );
   }
 
@@ -103,7 +103,7 @@ export async function rollCrit(e) {
   let r = new Roll(
     "1d100",
     {},
-    { flavor: `${actor.name} rolls for Brutal Spellcraft` },
+    { flavor: `${actor.name} rolls for Brutal Spellcraft` }
   );
   r.toMessage({
     speaker: { alias: actor.name },
@@ -172,7 +172,7 @@ export async function rollDamage(e) {
         isCrit,
         weaponScalar,
         overrideDamageType,
-        situational,
+        situational
       );
     }
   } else if (item.type === "consumable") {
@@ -227,7 +227,7 @@ export async function applyDamageHook(e) {
         term.amount * multiplier,
         term.type,
         origin,
-        { lifesteal: lifesteal },
+        { lifesteal: lifesteal }
       );
     }
   }
@@ -284,7 +284,7 @@ export async function applyStatusHook(e) {
   const selected = canvas.tokens.controlled;
   if (selected.size < 1) {
     return ui.notifications.warn(
-      "ERROR: must select an actor to apply statuses to",
+      "ERROR: must select an actor to apply statuses to"
     );
   }
 
@@ -368,7 +368,7 @@ export async function addChatButtons(msg, html, options) {
                 <b>Hit:</b> ${msg.getFlag("celestus", "hitThreshold").toFixed(0)},
                 <b>Crit:</b> ${msg.getFlag("celestus", "critThreshold").toFixed(0)}
             </div>
-        `,
+        `
     );
   }
   // if message is a skill usage, add attack / damage buttons for owners
@@ -386,26 +386,26 @@ export async function addChatButtons(msg, html, options) {
     // add attack button if there is an attack
     if (msg.system.skill.hasAttack) {
       html.append(
-        `<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="attack" ${disabled}>Roll Attack</button>`,
+        `<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="attack" ${disabled}>Roll Attack</button>`
       );
     } else if (
       actor.getFlag("celestus", "brutalspells") &&
       skill.system.damage.length > 0
     ) {
       html.append(
-        `<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="roll-crit" ${disabled}>Brutal Spellcraft</button>`,
+        `<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="roll-crit" ${disabled}>Brutal Spellcraft</button>`
       );
     }
     // add damage button if there is a damage roll
     if (msg.system.skill.hasDamage) {
       html.append(
-        `<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="damage" ${disabled}>Roll Damage</button>`,
+        `<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="damage" ${disabled}>Roll Damage</button>`
       );
     }
     // apply effects
     if (skill.effects.size > 0 || skill.system.statusEffects?.length > 0) {
       html.append(
-        `<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="apply-status" ${disabled}>Apply Statuses</button>`,
+        `<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="apply-status" ${disabled}>Apply Statuses</button>`
       );
     }
     // draw template
@@ -413,13 +413,13 @@ export async function addChatButtons(msg, html, options) {
       CONFIG.CELESTUS.targetTypes[skill.system.targets.type]?.options;
     if (targetOptions && targetOptions.find((o) => o === "size")) {
       html.append(
-        `<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="draw-template" ${disabled}>Draw Template</button>`,
+        `<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="draw-template" ${disabled}>Draw Template</button>`
       );
     }
     // execute script
     if (skill.system.hasScript && game.user.isGM) {
       html.append(
-        `<button data-skill-id="${skill.system.scriptId}" data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="execute-skill" ${disabled}>Execute Skill</button>`,
+        `<button data-skill-id="${skill.system.scriptId}" data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="execute-skill" ${disabled}>Execute Skill</button>`
       );
       html.on("click", ".execute-skill", (ev) => {
         executeSkillScript(actor, skill);
@@ -440,7 +440,7 @@ export async function addChatButtons(msg, html, options) {
     // add damage button if there is a damage roll
     if (item.system.hasDamage) {
       html.append(
-        `<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="damage" ${disabled}>Roll Formula</button>`,
+        `<button data-item-uuid="${msg.system.itemID}" data-actor-uuid="${msg.system.actorID}" class="damage" ${disabled}>Roll Formula</button>`
       );
     }
   }
@@ -456,11 +456,11 @@ export async function addChatButtons(msg, html, options) {
     dieTotal.html(dieTotal.html() + ` (${label})`);
     if (CONFIG.CELESTUS.damageTypes[msg.system.damageType]) {
       dieTotal.append(
-        `<i class=${CONFIG.CELESTUS.damageTypes[msg.system.damageType].glyph}></i>`,
+        `<i class=${CONFIG.CELESTUS.damageTypes[msg.system.damageType].glyph}></i>`
       );
       dieTotal.css(
         "background-color",
-        CONFIG.CELESTUS.damageTypes[msg.system.damageType].color,
+        CONFIG.CELESTUS.damageTypes[msg.system.damageType].color
       );
     }
     let dmgTotal = 0;
@@ -468,7 +468,7 @@ export async function addChatButtons(msg, html, options) {
       dmgTotal += roll.total;
     }
     html.append(
-      `<button data-origin-actor="${msg.system.actorID}" data-message-id="${msg.uuid}" data-origin-item="${msg.system.itemID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\" ${disabled}">Apply Damage</button>`,
+      `<button data-origin-actor="${msg.system.actorID}" data-message-id="${msg.uuid}" data-origin-item="${msg.system.itemID}" data-damage-total="${dmgTotal}" data-damage-type="${msg.system.damageType}" class=\"apply-damage\" ${disabled}">Apply Damage</button>`
     );
     html.append(`
             <div class=flexrow>
@@ -544,7 +544,7 @@ export async function createCelestusMacro(data, slot) {
   // only let player create macro for an owned item
   if (!data.uuid.includes("Actor.") && !data.uuid.includes("Token.")) {
     return ui.notifications.warn(
-      "Error: cannot create macro for unowned item.",
+      "Error: cannot create macro for unowned item."
     );
   }
   // find item
@@ -554,7 +554,7 @@ export async function createCelestusMacro(data, slot) {
   const command = `game.celestus.rollItemMacro("${item.name}")`;
   // check if macro already exists
   let macro = game.macros.find(
-    (m) => m.name === item.name && m.command === command,
+    (m) => m.name === item.name && m.command === command
   );
   if (!macro) {
     macro = await Macro.create({
@@ -582,14 +582,14 @@ export function rollItemMacro(name) {
     null;
   if (!actor) {
     return ui.notifications.warn(
-      "CELESTUS | Please select a token before executing a macro",
+      "CELESTUS | Please select a token before executing a macro"
     );
   }
   // find item on controlled actor
   const item = actor.items.find((i) => i.name === name);
   if (!item) {
     return ui.notifications.warn(
-      `CELESTUS | Could not find item named ${name} on controlled actor`,
+      `CELESTUS | Could not find item named ${name} on controlled actor`
     );
   }
   item.roll();
@@ -615,7 +615,7 @@ export async function populateHotbar(actor) {
   // clear user's hotbar
   await game.user.update(
     { hotbar: {} },
-    { diff: false, recursive: false, noHook: true },
+    { diff: false, recursive: false, noHook: true }
   );
   // get actor
   actor =
@@ -630,12 +630,12 @@ export async function populateHotbar(actor) {
   let skills;
   if (actor.type === "player") {
     skills = actor.items.filter(
-      (i) => i.type === "skill" && i.system.memorized === "always",
+      (i) => i.type === "skill" && i.system.memorized === "always"
     );
     skills = skills.concat(
       actor.items.filter(
-        (i) => i.type === "skill" && i.system.memorized === "true",
-      ),
+        (i) => i.type === "skill" && i.system.memorized === "true"
+      )
     );
   } else {
     skills = actor.items.filter((i) => i.type === "skill");
@@ -735,7 +735,7 @@ export async function triggerTurn(combat, prior, current) {
           await template.setFlag(
             "celestus",
             "lingerDuration",
-            CONFIG.CELESTUS.surfaceTypes[onEnd].duration,
+            CONFIG.CELESTUS.surfaceTypes[onEnd].duration
           );
           await template.setFlag("celestus", "surfaceType", onEnd);
         } else {
@@ -800,7 +800,7 @@ export function cleanupCombat(document, options, userId) {
  * @param {Object} changed: changed values
  */
 export async function spreadAura(token, changed, options, userId) {
-  if (!game.users.activeGM.isSelf) return;
+  if (!game.users.activeGM?.isSelf) return;
   if (!(changed.x && changed.y)) return;
   // get new coords as an object
   const tokenCoords = {
@@ -848,21 +848,21 @@ export function renderHotbarOverlay(render = true, html = null) {
   active.each((i, e) => {
     const macroId = game?.user?.hotbar[e.dataset.slot];
     const skill = skills.find(
-      (i) => i.name === game.macros?.get(macroId)?.name,
+      (i) => i.name === game.macros?.get(macroId)?.name
     );
     if (skill) {
       const cooldown = skill.system.cooldown.value;
       if (cooldown > 0) {
         $(`<div class=macro-overlay>${cooldown}</div>`).insertBefore(
-          $(e).find(".key"),
+          $(e).find(".key")
         );
       } else if (cooldown < 0) {
         $(
-          `<div class=macro-overlay><i class="icon-sunrise"></i></div>`,
+          `<div class=macro-overlay><i class="icon-sunrise"></i></div>`
         ).insertBefore($(e).find(".key"));
       } else if (skill.system.disabled) {
         $(
-          `<div class=macro-overlay><i class="fa-solid fa-ban"></i></div>`,
+          `<div class=macro-overlay><i class="fa-solid fa-ban"></i></div>`
         ).insertBefore($(e).find(".key"));
       }
     }
@@ -978,7 +978,7 @@ export async function renderDamageComponents(msg, html, options) {
   };
   let content = await foundry.applications.handlebars.renderTemplate(
     path,
-    msgData,
+    msgData
   );
   html.find(".dice-roll").after(content);
 }
@@ -1055,7 +1055,7 @@ export async function renderResourcesUi(hide = false) {
  */
 export async function resourceInteractAp(ev) {
   const actor = await fromUuid(
-    $(ev.currentTarget).parents(".resources-ui").attr("data-actor-id"),
+    $(ev.currentTarget).parents(".resources-ui").attr("data-actor-id")
   );
   if (!actor)
     return console.warn("CELESTUS | Could not find actor to update AP");
@@ -1074,7 +1074,7 @@ export async function resourceInteractAp(ev) {
  */
 export async function resourceInteractFp(ev) {
   const actor = await fromUuid(
-    $(ev.currentTarget).parents(".resources-ui").attr("data-actor-id"),
+    $(ev.currentTarget).parents(".resources-ui").attr("data-actor-id")
   );
   if (!actor)
     return console.warn("CELESTUS | Could not find actor to update FP");
@@ -1093,7 +1093,7 @@ export async function resourceInteractFp(ev) {
  */
 export async function resourceInteractMisc(ev) {
   const actor = await fromUuid(
-    $(ev.currentTarget).parents(".resources-ui").attr("data-actor-id"),
+    $(ev.currentTarget).parents(".resources-ui").attr("data-actor-id")
   );
   if (!actor)
     return console.warn("CELESTUS | Could not find actor to update resource");
@@ -1177,7 +1177,7 @@ export async function activateBoss() {
   const token = canvas.tokens.controlled[0];
   if (!token) {
     return ui.notifications.warn(
-      "CELESTUS | You must select a token in order to turn it into a boss",
+      "CELESTUS | You must select a token in order to turn it into a boss"
     );
   }
   game.socket.emit("system.celestus", {
@@ -1209,7 +1209,7 @@ export async function renderBossDisplay(token) {
   if (!token) return;
   const effects = token.actor.effects.filter(
     (effect) =>
-      (effect.isTemporary || effect.system.aura.has) && !effect.disabled,
+      (effect.isTemporary || effect.system.aura.has) && !effect.disabled
   );
   const resources = token.actor.system.resources;
   // render handlebars template
@@ -1258,7 +1258,7 @@ export async function updateBossResources(actor) {
 
   const effects = actor.effects.filter(
     (effect) =>
-      (effect.isTemporary || effect.system.aura.has) && !effect.disabled,
+      (effect.isTemporary || effect.system.aura.has) && !effect.disabled
   );
   const path = "systems/celestus/templates/boss-display-effects.hbs";
   const msgData = {
@@ -1368,7 +1368,7 @@ async function teleportTokenConfirm(ev) {
 function teleportTokenCursor(ev) {
   // get canvas position
   const center = ev.data.getLocalPosition(
-    canvas.getLayerByEmbeddedName("Token"),
+    canvas.getLayerByEmbeddedName("Token")
   );
   // update teleport cursor position
   const snapped = canvas.grid.getSnappedPoint(center, {
@@ -1426,12 +1426,12 @@ export function teleportTokenStart(token) {
       CONFIG.CELESTUS.teleportTargetId = t.id;
     } else {
       return ui.notifications.warn(
-        "CELESTUS | Please select a token to teleport",
+        "CELESTUS | Please select a token to teleport"
       );
     }
   }
   ui.notifications.notify(
-    "CELESTUS | Starting teleport operation, left click to confirm",
+    "CELESTUS | Starting teleport operation, left click to confirm"
   );
   teleporting = true;
   // turn on event listeners

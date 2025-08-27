@@ -108,7 +108,7 @@ export class CelestusEffect extends ActiveEffect {
   /** @override */
   async _onUpdate(changed, options, userId) {
     const allowed = await super._onUpdate(changed, options, userId);
-    if (allowed === false || !game.users.activeGM.isSelf || this.refreshing)
+    if (allowed === false || !game.users.activeGM?.isSelf || this.refreshing)
       return false;
     this.refreshing = true;
     // cleanup and then re-spread aura
@@ -131,7 +131,7 @@ export class CelestusEffect extends ActiveEffect {
     // call super
     super._onCreate(data, options, userid);
     // only proceed if active gm
-    if (!game.users.activeGM.isSelf) return;
+    if (!game.users.activeGM?.isSelf) return;
     await this.update({
       "system.ownedItems": options.system?.ownedItems ?? [],
     });
@@ -150,7 +150,7 @@ export class CelestusEffect extends ActiveEffect {
   /** @override */
   _onDelete(options, userId) {
     // only proceed if active gm
-    if (!game.users.activeGM.isSelf) return;
+    if (!game.users.activeGM?.isSelf) return;
     if (this.system?.ownedItems) {
       // remove all items granted by this skill
       for (const id of this.system.ownedItems) {
@@ -174,7 +174,7 @@ export class CelestusEffect extends ActiveEffect {
    * @returns {Promise}
    */
   async cleanupAura() {
-    if (!game.users.activeGM.isSelf) return;
+    if (!game.users.activeGM?.isSelf) return;
     if (
       !this.system?.aura?.has ||
       this.system.aura.lingerDuration !== 0 ||

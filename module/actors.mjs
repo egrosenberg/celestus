@@ -40,7 +40,7 @@ export class CelestusActor extends Actor {
             if (this.getFlag("celestus", "undying")) {
               val.offset = Math.max(
                 val.offset,
-                1 - this.system.resources.hp.max,
+                1 - this.system.resources.hp.max
               );
             }
             val.percent = val.flat / this.system.resources.hp.max;
@@ -60,7 +60,7 @@ export class CelestusActor extends Actor {
               this,
               str,
               CONFIG.CELESTUS.damageCol[key][diff > 0 ? "gain" : "lose"],
-              broadcast,
+              broadcast
             );
           }
         }
@@ -178,7 +178,7 @@ export class CelestusActor extends Actor {
     documents,
     data,
     options,
-    userId,
+    userId
   ) {
     super._onCreateDescendantDocuments(
       parent,
@@ -186,7 +186,7 @@ export class CelestusActor extends Actor {
       documents,
       data,
       options,
-      userId,
+      userId
     );
     if (
       document.getElementById("ui-token-hover").dataset.actorId === this.uuid
@@ -206,7 +206,7 @@ export class CelestusActor extends Actor {
     documents,
     changes,
     options,
-    userId,
+    userId
   ) {
     super._onUpdateDescendantDocuments(
       parent,
@@ -214,7 +214,7 @@ export class CelestusActor extends Actor {
       documents,
       changes,
       options,
-      userId,
+      userId
     );
     if (
       document.getElementById("ui-token-hover").dataset.actorId === this.uuid
@@ -234,7 +234,7 @@ export class CelestusActor extends Actor {
     documents,
     ids,
     options,
-    userId,
+    userId
   ) {
     super._onDeleteDescendantDocuments(
       parent,
@@ -242,7 +242,7 @@ export class CelestusActor extends Actor {
       documents,
       ids,
       options,
-      userId,
+      userId
     );
     if (
       document.getElementById("ui-token-hover").dataset.actorId === this.uuid
@@ -543,7 +543,7 @@ export class CelestusActor extends Actor {
         await origin.update({
           "system.resources.ap.value": Math.min(
             ap,
-            origin.system.resources.ap.max,
+            origin.system.resources.ap.max
           ),
         });
         await origin.setFlag("celestus", "executedThisTurn", true);
@@ -593,18 +593,18 @@ export class CelestusActor extends Actor {
           ? damage
           : -damage;
       const armorHeal = Math.floor(
-        healAmount * CONFIG.CELESTUS.renewingArmorScale,
+        healAmount * CONFIG.CELESTUS.renewingArmorScale
       );
       if (armorHeal > 0) {
         const oldPhys = this.system.resources.phys_armor.flat;
         const oldMag = this.system.resources.mag_armor.flat;
         const newPhys = Math.min(
           oldPhys + armorHeal,
-          this.system.resources.phys_armor.max,
+          this.system.resources.phys_armor.max
         );
         const newMag = Math.min(
           oldMag + armorHeal,
-          this.system.resources.mag_armor.max,
+          this.system.resources.mag_armor.max
         );
         await this.update({ "system.resources.phys_armor.flat": newPhys });
         await this.update({ "system.resources.mag_armor.flat": newMag });
@@ -644,7 +644,7 @@ export class CelestusActor extends Actor {
       if (typeof useResources !== "boolean") return;
       if (useResources && error) {
         return ui.notifications.info(
-          `CELESTUS | Skill not used because ${skill.system.disabled}`,
+          `CELESTUS | Skill not used because ${skill.system.disabled}`
         );
       }
     }
@@ -694,7 +694,7 @@ export class CelestusActor extends Actor {
     };
     let msg = await foundry.applications.handlebars.renderTemplate(
       path,
-      msgData,
+      msgData
     );
     // do text enrichment
     msg = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
@@ -705,7 +705,7 @@ export class CelestusActor extends Actor {
         async: true,
         // For Actors and Items
         rollData: skill.getRollData(),
-      },
+      }
     );
     await ChatMessage.create({
       content: msg,
@@ -828,7 +828,7 @@ export class CelestusActor extends Actor {
       this.update({
         "system.resources.ap.value": Math.max(
           0,
-          this.system.resources.ap.value - CONFIG.CELESTUS.equipApCost,
+          this.system.resources.ap.value - CONFIG.CELESTUS.equipApCost
         ),
       });
     }
@@ -840,7 +840,7 @@ export class CelestusActor extends Actor {
   async setWeaponSkill() {
     // delete old skill
     const oldSkill = this.items.find(
-      (i) => i.flags.celestus?.weaponSkill === true,
+      (i) => i.flags.celestus?.weaponSkill === true
     );
     if (oldSkill) {
       await oldSkill.delete();
@@ -886,7 +886,7 @@ export class CelestusActor extends Actor {
         }
       } else {
         console.warn(
-          "CELESTUS | Could not find weapon skill for equipped right hand.",
+          "CELESTUS | Could not find weapon skill for equipped right hand."
         );
       }
     }
@@ -977,7 +977,7 @@ export class CelestusActor extends Actor {
           // base damage roll corresponding to actor level
           const base = CONFIG.CELESTUS.baseDamage.formula[level].replace(
             "none",
-            type,
+            type
           );
 
           const mult = calcMult(origin, type, attr, part.value, false, 0);
@@ -1080,9 +1080,8 @@ export class CelestusActor extends Actor {
 
 export class CelestusTokenDocument extends TokenDocument {
   /** @override */
-  async _preUpdateMovement(movement, operation) {
-    const allowed = await super._preUpdateMovement(movement, operation);
-    if (allowed === false) return false;
+  async _onUpdateMovement(movement) {
+    if (!game.users.activeGM?.isSelf) return;
     // Check surface collisions
     if (movement.destination) {
       // iterate through surfaces
@@ -1092,6 +1091,7 @@ export class CelestusTokenDocument extends TokenDocument {
         y: movement.destination.y,
       };
       for (const template of canvas?.scene.templates) {
+        if (this.movementAction === "fly") continue;
         if (this.movementAction !== "blink") {
           await template.object.spreadEffectsTo(this, origin, destination);
         } else {
@@ -1118,7 +1118,7 @@ export class CelestusTokenDocument extends TokenDocument {
   _onUpdate(changed, options, userId) {
     super._onUpdate(changed, options, userId);
     // only spread aura as GM
-    if (!game.users.activeGM.isSelf) return;
+    if (!game.users.activeGM?.isSelf) return;
     this.object.spreadAuraFrom();
   }
 
@@ -1127,7 +1127,7 @@ export class CelestusTokenDocument extends TokenDocument {
     const allowed = super._preDelete(options, user);
     if (allowed === false) return;
     // only cleanup aura as GM
-    if (!game.users.activeGM.isSelf) return;
+    if (!game.users.activeGM?.isSelf) return;
     // cleanup auras
     for (const effect of this.actor.effects) {
       effect.cleanupAura();
@@ -1167,7 +1167,7 @@ export class CelestusToken extends foundry.canvas.placeables.Token {
 
     if (this.actor.system.pointerTint) {
       this.pointerPixi.tint = Number(
-        "0x" + this.actor.system.pointerTint.substring(1),
+        "0x" + this.actor.system.pointerTint.substring(1)
       );
     } else {
       this.pointerPixi.tint = 0xffffff;
@@ -1246,7 +1246,7 @@ export class CelestusToken extends foundry.canvas.placeables.Token {
    */
   async spreadAuraFrom(newPosition = null) {
     // only run if user is GM
-    if (!game.users.activeGM.isSelf) return;
+    if (!game.users.activeGM?.isSelf) return;
     const tokenCoords = newPosition || { x: this.x, y: this.y };
     const token = this.document;
     // ignore if token is downed or if hidden
@@ -1258,7 +1258,7 @@ export class CelestusToken extends foundry.canvas.placeables.Token {
     this._isSpreadingFrom = true;
     // get token effects with auras
     const effects = token.actor.effects.filter(
-      (e) => e.type === "status" && e.system.aura.has,
+      (e) => e.type === "status" && e.system.aura.has
     );
     // iterate through effects to spread aura
     for (const effect of effects) {
@@ -1300,7 +1300,7 @@ export class CelestusToken extends foundry.canvas.placeables.Token {
         if (validTarget) {
           // check if effect is already there
           const old = target.actor.effects.filter((e) =>
-            effect.system.aura.children.find((id) => id === e.uuid),
+            effect.system.aura.children.find((id) => id === e.uuid)
           );
           if (old.length > 0) {
             for (const e of old) {
@@ -1326,7 +1326,7 @@ export class CelestusToken extends foundry.canvas.placeables.Token {
             }
             const [child] = await target.actor.createEmbeddedDocuments(
               effect.documentName,
-              [childData],
+              [childData]
             );
             // record new created child
             let children = effect.system.aura.children;
@@ -1335,7 +1335,7 @@ export class CelestusToken extends foundry.canvas.placeables.Token {
           }
         } else if (effect.system.aura.lingerDuration === 0) {
           const lingering = target.actor.effects.filter((e) =>
-            effect.system.aura.children.find((id) => id === e.uuid),
+            effect.system.aura.children.find((id) => id === e.uuid)
           );
           for (const e of lingering) {
             await e.delete();
@@ -1352,7 +1352,7 @@ export class CelestusToken extends foundry.canvas.placeables.Token {
    */
   async spreadAuraTo(newPosition = null) {
     // only run if user is active GM token
-    if (!game.users.activeGM.isSelf) return;
+    if (!game.users.activeGM?.isSelf) return;
     const tokenCoords = newPosition || { x: this.x, y: this.y };
     const token = this.document;
     // iterate through all tokens
@@ -1366,7 +1366,7 @@ export class CelestusToken extends foundry.canvas.placeables.Token {
       }
       // check all effects on token
       const effects = origin.actor.effects.filter(
-        (e) => e.type === "status" && e.system.aura.has,
+        (e) => e.type === "status" && e.system.aura.has
       );
       // iterate through effects
       for (const effect of effects) {
@@ -1411,7 +1411,7 @@ export class CelestusToken extends foundry.canvas.placeables.Token {
         if (validTarget) {
           // check if effect is already there
           const old = token.actor.effects.filter((e) =>
-            effect.system.aura.children.find((id) => id === e.uuid),
+            effect.system.aura.children.find((id) => id === e.uuid)
           );
           if (old.length > 0) {
             for (const e of old) {
@@ -1429,7 +1429,7 @@ export class CelestusToken extends foundry.canvas.placeables.Token {
             });
             const [child] = await token.actor.createEmbeddedDocuments(
               effect.documentName,
-              [childData],
+              [childData]
             );
             // set child duration based on parent linger duration
             if (effect.system.aura.lingerDuration === 0) {
@@ -1447,7 +1447,7 @@ export class CelestusToken extends foundry.canvas.placeables.Token {
         } else if (effect.system.aura.lingerDuration === 0) {
           // erase any lingering copies
           const lingering = token.actor.effects.filter((e) =>
-            effect.system.aura.children.find((id) => id === e.uuid),
+            effect.system.aura.children.find((id) => id === e.uuid)
           );
           for (const e of lingering) {
             await e.delete();
