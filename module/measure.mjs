@@ -1,3 +1,4 @@
+import { SkillData } from "./dataModels.mjs";
 import {
   closestPoint,
   polyCircleTest,
@@ -31,6 +32,124 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables
     if (CONFIG.CELESTUS.activeMeasuredTemplatePreview) {
       CONFIG.CELESTUS.activeMeasuredTemplatePreview.drawPreview(item);
     }
+  }
+
+  /**
+   * Function for activeGM to call when a template is placed from a skill
+   * @param {SkillData} skill
+   * @param {MeasuredTemplate} template
+   */
+  static async onPlaceSkill(skill, template) {
+    // check if allowed
+    if (!game.users.activeGM?.isSelf) return;
+
+    // rotate "caster" towards template origin
+    const tokens = skill.actor?.getActiveTokens();
+    for (const token of tokens) {
+      rotateTokenTowards(token, {
+        x: template.x,
+        y: template.y,
+      });
+    }
+    // set flags
+    await template?.setFlag(
+      "celestus",
+      "surfaceType",
+      skill.system.linger.surfaceType
+    );
+    await template?.setFlag("celestus", "origin", skill.actor.uuid);
+    await template?.setFlag("celestus", "temporary", true);
+    // set custom skill linger texture
+    if (skill.system.aoeLinger && skill.system.linger.texture) {
+      await template.update({ texture: skill.system.linger.texture });
+    }
+    // add any special linger effects from skill
+    if (skill.system.linger.effects) {
+      await template.setFlag("celestus", "hasEffects", true);
+      await template.setFlag("celestus", "skillId", skill.uuid);
+    }
+    // set surface duration from aoe linger
+    if (skill.system.aoeLinger && game.combat) {
+      await template?.setFlag("celestus", "linger", true);
+      await template?.setFlag(
+        "celestus",
+        "lingerStartRound",
+        game.combat.current.round
+      );
+      await template?.setFlag(
+        "celestus",
+        "lingerStartTurn",
+        game.combat.current.turn
+      );
+      await template?.setFlag(
+        "celestus",
+        "lingerDuration",
+        skill.system.linger.duration
+      );
+    } else {
+      // not in combat / no linger, just clear at next turn
+      await template?.setFlag("celestus", "clearThis", true);
+    }
+
+    // wait until shape exists, then propagate effects
+    async function checkShape() {
+      if (!template?.object.shape) {
+        window.setTimeout(checkShape, 100);
+      } else {
+        await template?.testAll({ tokens: true, canDelete: true });
+        // attempt to interact via this skill's damage
+        if (skill.system.damage.length > 0) {
+          for (const t of template.parent.templates) {
+            if (t.id === template.id) continue;
+            let surfaceData =
+              CONFIG.CELESTUS.surfaceTypes[
+                t.getFlag("celestus", "surfaceType")
+              ];
+            if (!surfaceData) continue;
+
+            // attempt to combine with damage types of this skill until there are no matches
+            let cont = true;
+            let intersects = false;
+            let intersectChecked = false;
+            const timeout = 10;
+            let count = 0;
+            while (cont && count < timeout) {
+              cont = false;
+              for (const damage of skill.system.damage) {
+                const match = surfaceData.damageCombines?.[damage.type];
+                if (match) {
+                  // check for intersection if not checked
+                  if (!intersectChecked) {
+                    intersects = template.object.testTemplate(t.object);
+                    intersectChecked = true;
+                    // if no intersection, this template is useless
+                    if (intersects === false) {
+                      cont = false;
+                      break;
+                    }
+                  }
+                  await t.combineDamage(damage.type);
+                  await t.setFlag("celestus", "origin", skill.actor.uuid);
+                  // update surfaceData
+                  surfaceData =
+                    CONFIG.CELESTUS.surfaceTypes[
+                      t.getFlag("celestus", "surfaceType")
+                    ];
+                  count++;
+                  cont = true;
+                  break;
+                }
+              }
+            }
+            // spread effects from changed template if it changed
+            if (count > 0) {
+              await t.testAll({ tokens: true, templates: true });
+            }
+          }
+        }
+      }
+    }
+    await checkShape();
   }
 
   /**
@@ -136,107 +255,20 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables
       this.document.updateSource(dest);
       const [template] = await canvas.scene?.createEmbeddedDocuments(
         "MeasuredTemplate",
-        [this.document.toObject()],
+        [this.document.toObject()]
       );
       if (skill) {
-        const tokens = skill.actor?.getActiveTokens();
-        for (const token of tokens) {
-          rotateTokenTowards(token, { x: this.document.x, y: this.document.y });
-        }
-        await template?.setFlag(
-          "celestus",
-          "surfaceType",
-          skill.system.linger.surfaceType,
-        );
-        await template?.setFlag("celestus", "origin", skill.actor.uuid);
-        await template?.setFlag("celestus", "temporary", true);
-        if (skill.system.aoeLinger && skill.system.linger.texture) {
-          await template.update({ texture: skill.system.linger.texture });
-        }
-        if (skill.system.linger.effects) {
-          await template.setFlag("celestus", "hasEffects", true);
-          await template.setFlag("celestus", "skillId", skill.uuid);
-        }
-        if (skill.system.aoeLinger && game.combat) {
-          await template?.setFlag("celestus", "linger", true);
-          await template?.setFlag(
-            "celestus",
-            "lingerStartRound",
-            game.combat.current.round,
-          );
-          await template?.setFlag(
-            "celestus",
-            "lingerStartTurn",
-            game.combat.current.turn,
-          );
-          await template?.setFlag(
-            "celestus",
-            "lingerDuration",
-            skill.system.linger.duration,
-          );
+        if (game.users.activeGM?.isSelf) {
+          await CelestusMeasuredTemplate.onPlaceSkill(skill, template);
         } else {
-          await template?.setFlag("celestus", "clearThis", true);
+          game.socket.emit("system.celestus", {
+            type: "onPlaceSkill",
+            data: {
+              skillId: skill.uuid,
+              templateId: template.uuid,
+            },
+          });
         }
-
-        // wait until shape exists, then propagate effects
-        async function checkShape() {
-          if (!template?.object.shape) {
-            window.setTimeout(checkShape, 100);
-          } else {
-            await template?.testAll({ tokens: true, canDelete: true });
-            // attempt to interact via this skill's damage
-            if (skill.system.damage.length > 0) {
-              for (const t of template.parent.templates) {
-                if (t.id === template.id) continue;
-                let surfaceData =
-                  CONFIG.CELESTUS.surfaceTypes[
-                    t.getFlag("celestus", "surfaceType")
-                  ];
-                if (!surfaceData) continue;
-
-                // attempt to combine with damage types of this skill until there are no matches
-                let cont = true;
-                let intersects = false;
-                let intersectChecked = false;
-                const timeout = 10;
-                let count = 0;
-                while (cont && count < timeout) {
-                  cont = false;
-                  for (const damage of skill.system.damage) {
-                    const match = surfaceData.damageCombines?.[damage.type];
-                    if (match) {
-                      // check for intersection if not checked
-                      if (!intersectChecked) {
-                        intersects = template.object.testTemplate(t.object);
-                        intersectChecked = true;
-                        // if no intersection, this template is useless
-                        if (intersects === false) {
-                          cont = false;
-                          break;
-                        }
-                      }
-                      await t.combineDamage(damage.type);
-                      await t.setFlag("celestus", "origin", skill.actor.uuid);
-                      // update surfaceData
-                      surfaceData =
-                        CONFIG.CELESTUS.surfaceTypes[
-                          t.getFlag("celestus", "surfaceType")
-                        ];
-                      count++;
-                      cont = true;
-                      break;
-                    }
-                  }
-                }
-                // spread effects from changed template if it changed
-                if (count > 0) {
-                  await t.testAll({ tokens: true, templates: true });
-                }
-              }
-            }
-          }
-        }
-        await checkShape();
       }
     };
 
@@ -354,7 +386,7 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables
       };
       const closest = closestPoint(center, line);
       const dist = Math.sqrt(
-        (closest.x - center.x) ** 2 + (closest.y - center.y) ** 2,
+        (closest.x - center.x) ** 2 + (closest.y - center.y) ** 2
       );
       return dist <= shape.radius;
     }
@@ -397,7 +429,7 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables
     // two circles
     if (shape.type === 2 && testShape.type === 2) {
       const dist = Math.sqrt(
-        (this.x - testTemplate.x) ** 2 + (this.y - testTemplate.y) ** 2,
+        (this.x - testTemplate.x) ** 2 + (this.y - testTemplate.y) ** 2
       );
 
       if (dist <= shape.radius - testShape.radius) {
@@ -463,7 +495,7 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables
           testShape.x,
           testShape.y,
           testShape.width,
-          testShape.height,
+          testShape.height
         );
       }
 
@@ -669,7 +701,7 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables
       if (standingOn) {
         const standingId = token.actor.getFlag("celestus", "surfaceId");
         const cSurface = this.scene?.templates.find(
-          (t) => t.uuid === standingId,
+          (t) => t.uuid === standingId
         );
         const thisStartRound =
           this.document.getFlag("celestus", "lingerStartRound") ?? 0;
@@ -681,7 +713,7 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables
         if (cSurface) {
           const testStartRound = cSurface.getFlag(
             "celestus",
-            "lingerStartRound",
+            "lingerStartRound"
           );
           const testStartTurn = cSurface.getFlag("celestus", "lingerStartTurn");
           setThis = thisStartRound > testStartRound;
@@ -693,7 +725,7 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables
           await token.actor.setFlag(
             "celestus",
             "surfaceId",
-            this.document.uuid,
+            this.document.uuid
           );
         }
       } else if (
@@ -752,7 +784,7 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables
         let childEffects = this.document.getFlag("celestus", "childEffects");
         if (!childEffects) childEffects = [];
         const old = token.actor.effects.filter((e) =>
-          childEffects.find((id) => id === e.uuid),
+          childEffects.find((id) => id === e.uuid)
         );
         if (old.length > 0) {
           for (const e of old) {
@@ -783,7 +815,7 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables
               }
               const [child] = await token.actor.createEmbeddedDocuments(
                 effect.documentName,
-                [childData],
+                [childData]
               );
               let children = this.document.getFlag("celestus", "childEffects");
               if (!children) children = [];
@@ -801,20 +833,20 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables
               }
               const [child] = await token.actor.createEmbeddedDocuments(
                 statusEffect.documentName,
-                [statusEffect],
+                [statusEffect]
               );
 
               if (child) {
                 let children = this.document.getFlag(
                   "celestus",
-                  "childEffects",
+                  "childEffects"
                 );
                 if (!children) children = [];
                 children.push(child.uuid);
                 await this.document.setFlag(
                   "celestus",
                   "childEffects",
-                  children,
+                  children
                 );
               }
             }
@@ -830,20 +862,20 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables
               statusEffect.updateSource({ "flags.celestus.parentId": this.id });
               const [child] = await token.actor.createEmbeddedDocuments(
                 statusEffect.documentName,
-                [statusEffect],
+                [statusEffect]
               );
 
               if (child) {
                 let children = this.document.getFlag(
                   "celestus",
-                  "childEffects",
+                  "childEffects"
                 );
                 if (!children) children = [];
                 children.push(child.uuid);
                 await this.document.setFlag(
                   "celestus",
                   "childEffects",
-                  children,
+                  children
                 );
               }
             }
@@ -854,7 +886,7 @@ export class CelestusMeasuredTemplate extends foundry.canvas.placeables
       if (!standingOn) {
         // handle lingering effects
         const lingering = token.actor.effects.filter(
-          (e) => e.flags?.celestus?.parentId === this.id,
+          (e) => e.flags?.celestus?.parentId === this.id
         );
         // reduce lingering duration (only if skill exists)
         if (skill) {
@@ -957,7 +989,7 @@ export class CelestusMeasuredTemplateDocument extends MeasuredTemplateDocument {
         // update duration
         if (this.getFlag("celestus", "temporary") && config.duration) {
           const combat = game.combats.find(
-            (c) => !c.scene || c.scene.uuid === this.parent.uuid,
+            (c) => !c.scene || c.scene.uuid === this.parent.uuid
           );
           // if there is a valid combat for this surface and its temporary, update duration
           if (combat) {
@@ -1022,7 +1054,7 @@ export class CelestusMeasuredTemplateDocument extends MeasuredTemplateDocument {
       for (const t of this.parent?.templates) {
         const spread = await this.object.combineSurface(
           t.object,
-          options.canDelete,
+          options.canDelete
         );
         if (spread === false) return false;
       }

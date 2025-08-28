@@ -3,19 +3,19 @@ import {
   renderBossDisplay,
   showBossDisplay,
 } from "./hooks.mjs";
+import { CelestusMeasuredTemplate } from "./measure.mjs";
 
 export function registerSocketHandlers() {
   game.socket.on("system.celestus", ({ type, data }) => {
     switch (type) {
       case "canvasPopupText":
-        canvasPopup(data);
-        break;
+        return canvasPopup(data);
       case "activateBoss":
-        activateBoss(data);
-        break;
+        return activateBoss(data);
       case "deactivateBoss":
-        deactivateBoss(data);
-        break;
+        return deactivateBoss(data);
+      case "onPlaceSkill":
+        return onPlaceSkill(data);
       default:
         throw new Error("Unknown type");
     }
@@ -31,7 +31,7 @@ export function handleSocket(type, data) {
   if (type === "canvasPopupText") {
     if (!data.position || !data.text || !data.distance) {
       return console.warn(
-        "CELESTUS | canvasPopupText message missing actor, text, or distance",
+        "CELESTUS | canvasPopupText message missing actor, text, or distance"
       );
     }
     const color = data.color ?? "#fff";
@@ -60,13 +60,13 @@ function canvasPopup({ position, text, distance, color }) {
 }
 /**
  * Renders boss display
- * @param {String} id of ttoken to turn into boss
+ * @param {string} id of token to turn into boss
  */
 async function activateBoss({ id }) {
   const token = canvas.tokens.get(id);
   if (!token)
     return console.error(
-      `CELESTUS | Unable to find token with ID ${id} in canvas`,
+      `CELESTUS | Unable to find token with ID ${id} in canvas`
     );
   await renderBossDisplay(token);
   await showBossDisplay();
@@ -76,4 +76,18 @@ async function activateBoss({ id }) {
  */
 async function deactivateBoss() {
   await hideBossDisplay();
+}
+/**
+ * Triggers GM logic when a skill's template is place
+ * @param {string} skillId
+ * @param {string} templateId
+ */
+async function onPlaceSkill({ skillId, templateId }) {
+  const skill = await fromUuid(skillId);
+  const template = await fromUuid(templateId);
+  if (!skill || !template)
+    return console.error(
+      `CELESTUS | Unable to find skill ${skillId} and/or template ${templateId}`
+    );
+  await CelestusMeasuredTemplate.onPlaceSkill(skill, template);
 }
