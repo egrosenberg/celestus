@@ -91,13 +91,15 @@
 
   --color-token-ui-dark: #221e1f;
 
-  --shadow-bevel: inset 0.1em 0.1em 0.1em 0 rgba(255, 255, 255, 0.3),
+  --shadow-bevel:
+    inset 0.1em 0.1em 0.1em 0 rgba(255, 255, 255, 0.3),
     inset -0.1em -0.1em 0.1em 0 rgba(0, 0, 0, 0.3);
-  --shadow-inset: inset 0.2em 0.2em 0.2em 0 rgba(0, 0, 0, 0.3),
+  --shadow-inset:
+    inset 0.2em 0.2em 0.2em 0 rgba(0, 0, 0, 0.3),
     inset -0.2em -0.2em 0.2em 0 rgba(0, 0, 0, 0.3);
 
-  --text-outline-1: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
+  --text-outline-1:
+    -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 /* colors for elements */
@@ -809,6 +811,9 @@ input[type="color"]::-webkit-color-swatch {
   position: relative;
   border: 2px tan ridge;
   height: 84px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
 .celestus.actor.sheet .skill-frame .item-image img {
@@ -1122,9 +1127,12 @@ input[type="color"]::-webkit-color-swatch {
 /* Item hover */
 .item-hover {
   width: 270px;
-  position: fixed;
+  position: absolute;
   border-radius: 10px;
   padding: 10px;
+  top: 10px;
+  right: 0;
+  z-index: var(--z-index-app);
 }
 
 /* Effects */
@@ -1366,7 +1374,10 @@ input[type="color"]::-webkit-color-swatch {
   font-size: var(--font-size-14);
   padding: 0.2em 0.4em;
   margin: 0.1em;
-  text-shadow: -1px -1px 0 #0001, 1px -1px 0 #0001, -1px 1px 0 #0001,
+  text-shadow:
+    -1px -1px 0 #0001,
+    1px -1px 0 #0001,
+    -1px 1px 0 #0001,
     1px 1px 0 #0001;
 }
 
@@ -1724,7 +1735,8 @@ div#ui-resources {
 
 .action-point.full {
   background: rgb(226, 244, 0);
-  background: url("../img/milky-texture.webp"),
+  background:
+    url("../img/milky-texture.webp"),
     radial-gradient(
       circle at 60% 30%,
       rgb(148, 201, 2) 0%,
@@ -1772,7 +1784,8 @@ div#ui-resources {
 
 .focus-point.full {
   background: rgb(244, 228, 0);
-  background: url("../img/milky-texture.webp"),
+  background:
+    url("../img/milky-texture.webp"),
     radial-gradient(
       circle at 60% 30%,
       rgb(255, 238, 0) 0%,
@@ -1849,7 +1862,9 @@ div#ui-resources {
 }
 
 .celestus.token-info .close-info:hover {
-  text-shadow: var(--text-outline-1), 0 0 10px var(--color-warm-3);
+  text-shadow:
+    var(--text-outline-1),
+    0 0 10px var(--color-warm-3);
   cursor: pointer;
 }
 

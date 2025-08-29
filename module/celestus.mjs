@@ -80,6 +80,7 @@ import itemSocketJson from "./data/item-sockets.mjs";
 import { scripts } from "./resources/skill-scripts.mjs";
 import { surfaceTypes } from "./data/surface-types.mjs";
 import { improviseDamage, rotateTokenTowards } from "./helpers.mjs";
+import { waitForItemHover } from "./util/waitForItemHover.mjs";
 
 // import * as itemSocketSpreadJson from './data/item-socket-spreads.json' with { type: "json" };
 // import * as itemArmorPlugsJson from './data/item-armor-plugs.json' with { type: "json" };
@@ -1345,74 +1346,80 @@ Hooks.on("renderHotbar", (application, html) => renderHotbarOverlay(html));
 Hooks.on("renderHotbar", (application, html, data) => {
   html = $(html);
   // macro item hover
-  html.on("mouseover", "#action-bar li.slot", async (ev) => {
-    let actor =
-      canvas.tokens?.controlled?.[0]?.actor ??
-      game.user.character ??
-      _token?.actor ??
-      null;
-    if ($(".item-hover").length) return;
-    // get item from object
-    let item = actor?.items.find(
-      (i) =>
-        i.name === game.macros?.get($(ev.currentTarget).data("macroId"))?.name
-    );
-    if (!item) {
-      const id = game.packs
-        .get("celestus.skills")
-        .index.find(
-          (i) =>
-            i.name ===
-            game.macros?.get($(ev.currentTarget).data("macroId"))?.name
-        )?.uuid;
-      if (id) {
-        item = await fromUuid(id);
-      }
-      if (!item) return;
-    }
-    // render item description to html
-    const path = `./systems/celestus/templates/rolls/item-parts/${item.type}-description.hbs`;
-    let msgData = {
-      name: item.name,
-      flavor: item.system.description,
-      portrait: item.img,
-      item: item,
-      system: item.system,
-      config: CONFIG.CELESTUS,
-      rollData: item.getRollData(),
-    };
-    let msg = await foundry.applications.handlebars.renderTemplate(
-      path,
-      msgData
-    );
-    // do text enrichment
-    msg = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-      msg,
-      {
-        // Only show secret blocks to owner
-        secrets: item.isOwner,
-        async: true,
-        // For Actors and foundry.documents.collections.Items
-        rollData: item.getRollData(),
-      }
-    );
-    // add item description to document
-    const div = $(msg);
-    div.addClass("item-hover");
-    div.addClass("stone-ui");
-    div.removeClass("dice-flavor");
-    const uiPosition = $("#ui-middle").offset();
-    div.css("left", uiPosition.left + $("#ui-middle").width() - 270 - 10);
-    div.css("top", uiPosition.top + 10);
-    $("#ui-middle").append(div);
-  });
+  const timeout = 450;
+  $("#action-bar li.slot").each(function () {
+    let hoverTimer;
+    let ref = null;
+    $(this).on("mouseenter", async (ev) => {
+      hoverTimer = setTimeout(async function () {
+        await waitForItemHover();
+        let actor =
+          canvas.tokens?.controlled?.[0]?.actor ??
+          game.user.character ??
+          _token?.actor ??
+          null;
+        if ($(".item-hover").length) return;
 
-  // item hover leave
-  html.on("mouseleave", "#action-bar li.slot", () => {
-    if ($(".item-hover").length) {
-      $(".item-hover").remove();
-      return;
-    }
+        const slot = $(ev.currentTarget).data("slot");
+        const macro = game.user.getHotbarMacros(Math.ceil(slot / 10))[
+          (slot - 1) % 10
+        ]?.macro;
+
+        // get item from object
+        let item = actor?.items.find((i) => i.name === macro?.name);
+        if (!item) {
+          const id = game.packs
+            .get("celestus.skills")
+            .index.find((i) => i.name === macro?.name)?.uuid;
+          if (id) {
+            item = await fromUuid(id);
+          }
+          if (!item) return;
+        }
+        // render item description to html
+        const path = `./systems/celestus/templates/rolls/item-parts/${item.type}-description.hbs`;
+        let msgData = {
+          name: item.name,
+          flavor: item.system.description,
+          portrait: item.img,
+          item: item,
+          system: item.system,
+          config: CONFIG.CELESTUS,
+          rollData: item.getRollData(),
+        };
+        let msg = await foundry.applications.handlebars.renderTemplate(
+          path,
+          msgData
+        );
+        // do text enrichment
+        msg =
+          await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+            msg,
+            {
+              // Only show secret blocks to owner
+              secrets: item.isOwner,
+              async: true,
+              // For Actors and foundry.documents.collections.Items
+              rollData: item.getRollData(),
+            }
+          );
+        // add item description to document
+        const div = $(msg);
+        div.addClass("item-hover");
+        div.addClass("stone-ui");
+        div.removeClass("dice-flavor");
+        $("#ui-right-column-1").append(div);
+        ref = div;
+      }, timeout);
+    });
+
+    $(this).on("mouseleave", async () => {
+      clearInterval(hoverTimer);
+      await new Promise((r) => setTimeout(() => r(true), timeout));
+      if (ref) {
+        ref.remove();
+      }
+    });
   });
 
   // add populate macros button

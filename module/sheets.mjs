@@ -5,6 +5,7 @@ import {
   updateWithMath,
 } from "./helpers.mjs";
 import { onManageActiveEffect } from "./hooks.mjs";
+import { waitForItemHover } from "./util/waitForItemHover.mjs";
 
 /**
  * Extends the basic ActorSheet with system specific functions
@@ -70,7 +71,7 @@ export class CharacterSheet extends foundry.appv1.sheets.ActorSheet {
           async: true,
           // For Actors and Items
           rollData: this.document.getRollData(),
-        },
+        }
       );
 
     return context;
@@ -138,54 +139,63 @@ export class CharacterSheet extends foundry.appv1.sheets.ActorSheet {
     });
 
     // item hover
-    html.on("mouseover", ".item", async (ev) => {
-      if ($(".item-hover").length) return;
-      // get item from object
-      const item = this.actor.items.get($(ev.currentTarget).data("item-id"));
-      if (!item) return;
-      // render item description to html
-      const path = `./systems/celestus/templates/rolls/item-parts/${item.type}-description.hbs`;
-      let msgData = {
-        name: item.name,
-        flavor: item.system.description,
-        portrait: item.img,
-        item: item,
-        system: item.system,
-        config: CONFIG.CELESTUS,
-        rollData: item.getRollData(),
-      };
-      let msg = await foundry.applications.handlebars.renderTemplate(
-        path,
-        msgData,
-      );
-      // do text enrichment
-      msg = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-        msg,
-        {
-          // Only show secret blocks to owner
-          secrets: item.isOwner,
-          async: true,
-          // For Actors and Items
-          rollData: item.getRollData(),
-        },
-      );
-      // add item description to document
-      const div = $(msg);
-      div.addClass("item-hover");
-      div.addClass("stone-ui");
-      const uiPosition = $("#ui-middle").offset();
-      div.css("left", uiPosition.left + $("#ui-middle").width() - 270);
-      div.css("top", uiPosition.top);
-      const popup = $(html).append(div);
-    });
+    const timeout = 450;
+    const actor = this.actor;
+    $(html)
+      .find(".item")
+      .each(function () {
+        let hoverTimer;
+        let ref = null;
+        $(this).on("mouseenter", async (ev) => {
+          hoverTimer = setTimeout(async function () {
+            await waitForItemHover();
+            // get item from object
+            const item = actor.items.get($(ev.currentTarget).data("item-id"));
+            if (!item) return;
+            // render item description to html
+            const path = `./systems/celestus/templates/rolls/item-parts/${item.type}-description.hbs`;
+            let msgData = {
+              name: item.name,
+              flavor: item.system.description,
+              portrait: item.img,
+              item: item,
+              system: item.system,
+              config: CONFIG.CELESTUS,
+              rollData: item.getRollData(),
+            };
+            let msg = await foundry.applications.handlebars.renderTemplate(
+              path,
+              msgData
+            );
+            // do text enrichment
+            msg =
+              await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+                msg,
+                {
+                  // Only show secret blocks to owner
+                  secrets: item.isOwner,
+                  async: true,
+                  // For Actors and Items
+                  rollData: item.getRollData(),
+                }
+              );
+            // add item description to document
+            const div = $(msg);
+            div.addClass("item-hover");
+            div.addClass("stone-ui");
+            $("#ui-right-column-1").append(div);
+            ref = div;
+          }, timeout);
 
-    // item hover leave
-    html.on("mouseleave", ".item", () => {
-      if ($(".item-hover").length) {
-        $(".item-hover").remove();
-        return;
-      }
-    });
+          $(this).on("mouseleave", async () => {
+            clearInterval(hoverTimer);
+            await new Promise((r) => setTimeout(() => r(true), timeout));
+            if (ref) {
+              ref.remove();
+            }
+          });
+        });
+      });
 
     // -------------------------------------------------------------
     // Everything below here is only needed if the sheet is editable
@@ -259,7 +269,7 @@ export class CharacterSheet extends foundry.appv1.sheets.ActorSheet {
         };
         let msg = await foundry.applications.handlebars.renderTemplate(
           path,
-          msgData,
+          msgData
         );
         // do text enrichment
         msg = await TextEditor.enrichHTML(msg, {
@@ -361,7 +371,7 @@ export class CharacterSheet extends foundry.appv1.sheets.ActorSheet {
       await updateWithMath(
         this.actor,
         "system.currency." + currency,
-        $(ev.currentTarget).val(),
+        $(ev.currentTarget).val()
       );
     });
 
@@ -372,7 +382,7 @@ export class CharacterSheet extends foundry.appv1.sheets.ActorSheet {
       await updateWithMath(
         this.actor,
         $(ev.currentTarget).attr("name"),
-        $(ev.currentTarget).val(),
+        $(ev.currentTarget).val()
       );
     });
 
@@ -387,7 +397,7 @@ export class CharacterSheet extends foundry.appv1.sheets.ActorSheet {
       if (slot.startsWith("ring")) {
         this.actor.equip(
           $(ev.currentTarget).data("itemId"),
-          parseInt(slot[slot.length - 1]),
+          parseInt(slot[slot.length - 1])
         );
       } else if (slot === "right") {
         this.actor.equip($(ev.currentTarget).data("itemId"), 2);
@@ -424,7 +434,7 @@ export class CharacterSheet extends foundry.appv1.sheets.ActorSheet {
           this.actor.system.attributes.memory.total
         ) {
           return ui.notifications.warn(
-            `Actor doesn't have enough free memory slots. (needed: ${item.system.memSlots}. free: ${this.actor.system.attributes.memory.total - this.actor.system.attributes.memory.spent})`,
+            `Actor doesn't have enough free memory slots. (needed: ${item.system.memSlots}. free: ${this.actor.system.attributes.memory.total - this.actor.system.attributes.memory.spent})`
           );
         }
         // check ability prereqs
@@ -432,7 +442,7 @@ export class CharacterSheet extends foundry.appv1.sheets.ActorSheet {
           for (let [key, prereq] of item.system.civilPrereqs) {
             if ((this.actor.system.civil[key]?.value ?? -1) < prereq) {
               return ui.notifications.warn(
-                `Actor is missing prerequisite civil ability level (${key}: ${prereq})`,
+                `Actor is missing prerequisite civil ability level (${key}: ${prereq})`
               );
             }
           }
@@ -441,7 +451,7 @@ export class CharacterSheet extends foundry.appv1.sheets.ActorSheet {
           for (let [key, prereq] of item.system.combatPrereqs) {
             if ((this.actor.system.combat[key]?.value ?? -1) < prereq) {
               return ui.notifications.warn(
-                `Actor is missing prerequisite combat ability level (${key}: ${prereq})`,
+                `Actor is missing prerequisite combat ability level (${key}: ${prereq})`
               );
             }
           }
@@ -477,7 +487,7 @@ export class CharacterSheet extends foundry.appv1.sheets.ActorSheet {
         {
           slot: $(ev.currentTarget).data("slot"),
           armor: dataSet,
-        },
+        }
       );
       const div = $(msg);
       div.css("left", $(ev.currentTarget).offset().left + 65);
@@ -506,7 +516,7 @@ export class CharacterSheet extends foundry.appv1.sheets.ActorSheet {
         }
       } else if ($(ev.currentTarget).data("effectId")) {
         const effect = this.actor.effects.get(
-          $(ev.currentTarget).data("effectId"),
+          $(ev.currentTarget).data("effectId")
         );
         if (effect) {
           effect.sheet.render(true);
@@ -543,7 +553,7 @@ export class CharacterSheet extends foundry.appv1.sheets.ActorSheet {
       else console.error("CELESTUS | ERROR: skill not found");
     } else {
       const item = this.actor.items.get(
-        $(element).parents(".item").data("item-id"),
+        $(element).parents(".item").data("item-id")
       );
       if (item) item.roll();
       else console.error("CELESTUS | ERROR: item not found");
@@ -715,7 +725,7 @@ export class CelestusItemSheet extends foundry.appv1.sheets.ItemSheet {
       (s) =>
         (s.id === this.document.system.rarity ||
           s.parent === this.document.system.rarity) &&
-        s.minLvl <= this.document.system.level,
+        s.minLvl <= this.document.system.level
     );
     for (const spread of potentialSpreads) {
       generation.validSpreads[spread.id] =
@@ -746,7 +756,7 @@ export class CelestusItemSheet extends foundry.appv1.sheets.ItemSheet {
             matchIfPresent(s.weaponStyle, weaponStyle) &&
             matchIfPresent(s.twoHanded, this.document.system.twoHanded) &&
             matchIfPresent(s.primaryStat, this.document.system.ability) &&
-            s.minLvl <= this.document.system.level,
+            s.minLvl <= this.document.system.level
         );
         if (sockets.length > 0) {
           generation.validSockets[i] = {};
@@ -776,7 +786,7 @@ export class CelestusItemSheet extends foundry.appv1.sheets.ItemSheet {
           async: true,
           // For Actors and Items
           rollData: this.document.getRollData(),
-        },
+        }
       );
 
     // runes stuff
@@ -789,7 +799,7 @@ export class CelestusItemSheet extends foundry.appv1.sheets.ItemSheet {
         none: "No Rune",
       };
       const actorRunes = this.item.parent.items.filter(
-        (i) => i.type === "rune",
+        (i) => i.type === "rune"
       );
       for (const rune of actorRunes) {
         context.runes[rune.id] =
@@ -831,7 +841,7 @@ export class CelestusItemSheet extends foundry.appv1.sheets.ItemSheet {
               $(this).prop("disabled", true);
               $(this).attr(
                 "data-tooltip",
-                "Property is currently modified by a rune.",
+                "Property is currently modified by a rune."
               );
             }
           }
@@ -1250,7 +1260,7 @@ export class CelestusMeasuredTemplateConfig extends foundry.applications.sheets
         await this.document.setFlag(
           "celestus",
           flag,
-          $(ev.currentTarget).val(),
+          $(ev.currentTarget).val()
         );
       }
     });
