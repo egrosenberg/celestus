@@ -715,7 +715,7 @@ export class CelestusActor extends Actor {
         isSkill: true,
         itemID: skill.uuid,
         skill: {
-          hasAttack: skill.system.hasAttack,
+          hasAttack: skill.system.attack,
           hasDamage:
             skill.system.damage?.length > 0 || skill.system.type === "weapon",
         },
