@@ -1292,6 +1292,14 @@ input[type="color"]::-webkit-color-swatch {
   z-index: 1;
 }
 
+.chat-message .message-content:has(.celestus.roll.description) {
+  overflow: visible;
+}
+.chat-message:has(.celestus.roll.description) .whisper-to {
+  margin-top: -1.25rem;
+  margin-bottom: 1.25rem;
+}
+
 .dice-flavor {
   border: thin solid var(--color-warm-1);
   box-shadow: var(--shadow-bevel);
