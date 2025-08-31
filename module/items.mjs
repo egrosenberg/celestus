@@ -47,7 +47,7 @@ export class CelestusItem extends Item {
             ActiveEffect.applyField(
               model,
               changeData,
-              model.schema.getField(key),
+              model.schema.getField(key)
             );
           }
         }
@@ -103,7 +103,7 @@ export class CelestusItem extends Item {
           }
           const [newEffect] = await this.parent?.createEmbeddedDocuments(
             "ActiveEffect",
-            [effectData],
+            [effectData]
           );
           if (newEffect) {
             let grantedIds = this.system.ownedEffects;
@@ -176,7 +176,7 @@ export class CelestusItem extends Item {
           socketSpread = newRarity;
         }
         const spread = CONFIG.CELESTUS.itemSocketSpreads.find(
-          (s) => s.id === socketSpread,
+          (s) => s.id === socketSpread
         );
         if (spread) {
           let socketTypes = [];
@@ -194,7 +194,7 @@ export class CelestusItem extends Item {
           if (!socketID) continue;
           // fetch socket info
           const socket = CONFIG.CELESTUS.itemSockets.find(
-            (s) => s.id == socketID,
+            (s) => s.id == socketID
           );
           if (socket) {
             newPlugs.push(socket.plug);
@@ -356,7 +356,7 @@ export class CelestusItem extends Item {
       };
       let msg = await foundry.applications.handlebars.renderTemplate(
         path,
-        msgData,
+        msgData
       );
       // do text enrichment
       msg = await TextEditor.enrichHTML(msg, {
@@ -434,14 +434,14 @@ export class CelestusItem extends Item {
                 });
               } else {
                 return ui.notifications.info(
-                  `CELESTUS | Item not used because quantity less than 1`,
+                  `CELESTUS | Item not used because quantity less than 1`
                 );
               }
             }
             if (useResources) {
               if (error) {
                 return ui.notifications.info(
-                  `CELESTUS | Item not used because not enough action points`,
+                  `CELESTUS | Item not used because not enough action points`
                 );
               } else {
                 await this.parent.update({
@@ -451,11 +451,15 @@ export class CelestusItem extends Item {
               }
             }
             // create chat message
-            await ChatMessage.create(chatMessageData);
+            await ChatMessage.create(
+              ChatMessage.applyRollMode(chatMessageData, "roll")
+            );
           },
         }).render({ force: true });
       } else {
-        await ChatMessage.create(chatMessageData);
+        await ChatMessage.create(
+          ChatMessage.applyRollMode(chatMessageData, "roll")
+        );
       }
     }
   }
@@ -469,7 +473,7 @@ export class CelestusItem extends Item {
     const validSpreads = CONFIG.CELESTUS.itemSocketSpreads.filter(
       (s) =>
         (s.id === this.system.rarity || s.parent === this.system.rarity) &&
-        s.minLvl <= this.system.level,
+        s.minLvl <= this.system.level
     );
     // if no valid spreads, ignore
     if (validSpreads.length === 0) return;
@@ -530,7 +534,7 @@ export class CelestusItem extends Item {
         matchIfPresent(s.weaponStyle, weaponStyle) &&
         matchIfPresent(s.twoHanded, this.system.twoHanded) &&
         matchIfPresent(s.primaryStat, this.system.ability) &&
-        s.minLvl <= this.system.level,
+        s.minLvl <= this.system.level
     );
     // if no valid sockets, ignore
     if (validSockets.length === 0) return;

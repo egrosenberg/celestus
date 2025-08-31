@@ -707,16 +707,22 @@ export class CelestusActor extends Actor {
         rollData: skill.getRollData(),
       }
     );
-    await ChatMessage.create({
+    const chatData = {
       content: msg,
-      "system.type": "roll",
-      "system.actorID": this.uuid,
-      "system.isSkill": true,
-      "system.itemID": skill.uuid,
-      "system.skill.hasAttack": skill.system.attack,
-      "system.skill.hasDamage":
-        skill.system.damage?.length > 0 || skill.system.type === "weapon",
-    });
+      system: {
+        type: "roll",
+        actorID: this.uuid,
+        isSkill: true,
+        itemID: skill.uuid,
+        skill: {
+          hasAttack: skill.system.hasAttack,
+          hasDamage:
+            skill.system.damage?.length > 0 || skill.system.type === "weapon",
+        },
+      },
+    };
+    console.log(ChatMessage.applyRollMode(chatData, "roll"));
+    await ChatMessage.create(ChatMessage.applyRollMode(chatData, "roll"));
 
     if (useResources) {
       // civil skills set cd to -1
