@@ -116,7 +116,7 @@ export function canvasPopupText(
   actor,
   text,
   color = "#ffffff",
-  broadcast = false,
+  broadcast = false
 ) {
   const tokens = actor?.getActiveTokens(true);
   for (let t of tokens) {
@@ -287,7 +287,7 @@ export async function rollWeaponDamage(
   isCrit,
   scalar,
   typeOverride,
-  situational,
+  situational
 ) {
   const type = damage[0].type;
 
@@ -302,7 +302,7 @@ export async function rollWeaponDamage(
         const roll = new Roll("1d100");
         await roll.evaluate();
         const statusEffect = CONFIG.statusEffects.find(
-          (s) => s.id === status.id,
+          (s) => s.id === status.id
         );
         statusRolls.push({
           name: statusEffect.name,
@@ -321,14 +321,14 @@ export async function rollWeaponDamage(
       };
       let msg = await foundry.applications.handlebars.renderTemplate(
         path,
-        msgData,
+        msgData
       );
       // do text enrichment
       msg = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
         msg,
         {
           async: true,
-        },
+        }
       );
       await ChatMessage.create({
         speaker: { alias: `${actor.name} - Weapon Statuses` },
@@ -345,7 +345,7 @@ export async function rollWeaponDamage(
     scalar,
     typeOverride,
     isCrit,
-    situational,
+    situational
   ).roll;
   const r = new Roll(formula);
   await r.toMessage({
@@ -370,7 +370,7 @@ export function calcWeaponDamage(
   scalar,
   typeOverride,
   isCrit = false,
-  situational = 1,
+  situational = 1
 ) {
   if (!actor) return;
   scalar ??= 1;
@@ -400,7 +400,7 @@ export function calcWeaponDamage(
       "none",
       scalar,
       isCrit,
-      abilityBonus,
+      abilityBonus
     );
     const dType = typeOverride || rider.type;
     const baseFormula = riderBase.replace("none", dType);
@@ -433,7 +433,7 @@ export function calcWeaponDamage(
       formula +=
         `floor((${isCrit ? damage[0].crit : damage[0].roll})*${scalar}*${situational})[${type}]`.replace(
           "none",
-          type,
+          type
         );
       if (!types[type]) {
         types[type] = {
@@ -455,7 +455,7 @@ export function calcWeaponDamage(
           formula +=
             ` + floor((${isCrit ? element.crit : element.roll})*${scalar}*${situational})[${elementType}]`.replace(
               "none",
-              elementType,
+              elementType
             );
           if (!types[elementType]) {
             types[elementType] = {
@@ -465,13 +465,13 @@ export function calcWeaponDamage(
             };
           }
           types[elementType].min += Math.floor(
-            element.min * scalar * situational,
+            element.min * scalar * situational
           );
           types[elementType].max += Math.floor(
-            element.max * scalar * situational,
+            element.max * scalar * situational
           );
           types[elementType].avg += Math.floor(
-            element.avg * scalar * situational,
+            element.avg * scalar * situational
           );
           total.min += Math.floor(element.min * scalar * situational);
           total.max += Math.floor(element.max * scalar * situational);
@@ -499,7 +499,7 @@ export function calcWeaponDamage(
       formula +=
         `floor((${isCrit ? damage[0].crit : damage[0].roll})*${scalar}*${situational})[${dType1}]`.replace(
           "none",
-          dType1,
+          dType1
         );
       if (!types[dType1]) {
         types[dType1] = {
@@ -521,7 +521,7 @@ export function calcWeaponDamage(
           formula +=
             ` + floor((${isCrit ? element.crit : element.roll})*${scalar}*${situational})[${elementType}]`.replace(
               "none",
-              elementType,
+              elementType
             );
           if (!types[elementType]) {
             types[elementType] = {
@@ -531,13 +531,13 @@ export function calcWeaponDamage(
             };
           }
           types[elementType].min += Math.floor(
-            element.min * scalar * situational,
+            element.min * scalar * situational
           );
           types[elementType].max += Math.floor(
-            element.max * scalar * situational,
+            element.max * scalar * situational
           );
           types[elementType].avg += Math.floor(
-            element.avg * scalar * situational,
+            element.avg * scalar * situational
           );
           total.min += Math.floor(element.min * scalar * situational);
           total.max += Math.floor(element.max * scalar * situational);
@@ -564,7 +564,7 @@ export function calcWeaponDamage(
       formula +=
         ` + floor((${isCrit ? damage[1].crit : damage[1].roll})*${scalar * CONFIG.CELESTUS.dualwieldMult}*${situational})[${dType2}]`.replace(
           "none",
-          dType2,
+          dType2
         );
       if (!types[dType2]) {
         types[dType2] = {
@@ -574,22 +574,22 @@ export function calcWeaponDamage(
         };
       }
       types[dType2].min += Math.floor(
-        damage[1].min * scalar * situational * CONFIG.CELESTUS.dualwieldMult,
+        damage[1].min * scalar * situational * CONFIG.CELESTUS.dualwieldMult
       );
       types[dType2].max += Math.floor(
-        damage[1].max * scalar * situational * CONFIG.CELESTUS.dualwieldMult,
+        damage[1].max * scalar * situational * CONFIG.CELESTUS.dualwieldMult
       );
       types[dType2].avg += Math.floor(
-        damage[1].avg * scalar * situational * CONFIG.CELESTUS.dualwieldMult,
+        damage[1].avg * scalar * situational * CONFIG.CELESTUS.dualwieldMult
       );
       total.min += Math.floor(
-        damage[1].min * scalar * situational * CONFIG.CELESTUS.dualwieldMult,
+        damage[1].min * scalar * situational * CONFIG.CELESTUS.dualwieldMult
       );
       total.max += Math.floor(
-        damage[1].max * scalar * situational * CONFIG.CELESTUS.dualwieldMult,
+        damage[1].max * scalar * situational * CONFIG.CELESTUS.dualwieldMult
       );
       total.avg += Math.floor(
-        damage[1].avg * scalar * situational * CONFIG.CELESTUS.dualwieldMult,
+        damage[1].avg * scalar * situational * CONFIG.CELESTUS.dualwieldMult
       );
       // roll any bonus damage types
       if (bonusDamage[1]) {
@@ -598,7 +598,7 @@ export function calcWeaponDamage(
           formula +=
             ` + floor((${isCrit ? element.crit : element.roll})*${scalar * CONFIG.CELESTUS.dualwieldMult}*${situational})[${elementType}]`.replace(
               "none",
-              elementType,
+              elementType
             );
           if (!types[elementType]) {
             types[elementType] = {
@@ -608,13 +608,13 @@ export function calcWeaponDamage(
             };
           }
           types[elementType].min += Math.floor(
-            element.min * scalar * situational,
+            element.min * scalar * situational
           );
           types[elementType].max += Math.floor(
-            element.max * scalar * situational,
+            element.max * scalar * situational
           );
           types[elementType].avg += Math.floor(
-            element.avg * scalar * situational,
+            element.avg * scalar * situational
           );
           total.min += Math.floor(element.min * scalar * situational);
           total.max += Math.floor(element.max * scalar * situational);
@@ -697,7 +697,7 @@ export async function executeSkillScript(origin, skill) {
     selected.length > skill.system.targets.count
   ) {
     return ui.notifications.warn(
-      `CELESTUS | Error: please select ${skill.system.targets.count} targets`,
+      `CELESTUS | Error: please select ${skill.system.targets.count} targets`
     );
   }
   // prompt for confirmation
@@ -712,7 +712,7 @@ export async function executeSkillScript(origin, skill) {
   // attempt to find script and execute it
   if (!CONFIG.CELESTUS.scripts[skill.system.scriptId]) {
     return ui.notifications.warn(
-      `CELESTUS | Error: could not find script with id "${skill.system.scriptId}"`,
+      `CELESTUS | Error: could not find script with id "${skill.system.scriptId}"`
     );
   }
   CONFIG.CELESTUS.scripts[skill.system.scriptId](origin, selected);
@@ -725,8 +725,9 @@ export async function executeSkillScript(origin, skill) {
  */
 export async function rotateTokenTowards(token, point) {
   if (!point.x || !point.y) return;
-  const distX = point.x - token.x;
-  const distY = point.y - token.y;
+  const scale = token.scene.grid.size;
+  const distX = point.x - (token.x + (token.document.width * scale) / 2);
+  const distY = point.y - (token.y + (token.document.height * scale) / 2);
   const newAngle = Math.atan(distY / distX) + (distX > 0 ? Math.PI : 0);
 
   await token.document.setFlag("celestus", "rotation", newAngle - Math.PI / 2);
@@ -1023,7 +1024,7 @@ export function polyCircleTest(points, center, radius) {
 
     // test if point is inside circle
     const dist = Math.sqrt(
-      (points[i * 2] - center.x) ** 2 + (points[i * 2 + 1] - center.y) ** 2,
+      (points[i * 2] - center.x) ** 2 + (points[i * 2 + 1] - center.y) ** 2
     );
     if (dist <= radius) pointsInCircle++;
 
@@ -1109,7 +1110,7 @@ export function calculate(calculation) {
   var parts = calculation.match(
     // digits |operators|whitespace
 
-    /(?:\-?[\d\.]+)|[-\+\*\/]|\s+/g,
+    /(?:\-?[\d\.]+)|[-\+\*\/]|\s+/g
   );
 
   //test if everything was matched
