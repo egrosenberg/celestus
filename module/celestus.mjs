@@ -1269,6 +1269,7 @@ Hooks.on("init", () => {
 });
 
 Hooks.on("ready", () => {
+  $(document).on("click", ".item-hover", (ev) => $(ev.currentTarget).remove());
   $(document).on("click", ".attack", rollAttack);
   $(document).on("click", ".roll-crit", rollCrit);
   $(document).on("click", ".damage", rollDamage);
