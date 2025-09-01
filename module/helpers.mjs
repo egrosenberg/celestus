@@ -721,14 +721,24 @@ export async function executeSkillScript(origin, skill) {
 /**
  * Rotates token to point towards a point on the canvas
  * @param {Token} token
- * @param {Int,Int} point {x,y} values for point to rotate towards
+ * @param {x: number, y: number, center?: true} options
  */
-export async function rotateTokenTowards(token, point) {
-  if (!point.x || !point.y) return;
+export async function rotateTokenTowards(token, options) {
+  if (!options.x || !options.y) return;
   const scale = token.scene.grid.size;
-  const distX = point.x - (token.x + (token.document.width * scale) / 2);
-  const distY = point.y - (token.y + (token.document.height * scale) / 2);
-  const newAngle = Math.atan(distY / distX) + (distX > 0 ? Math.PI : 0);
+  let y = token.y;
+  let x = token.x;
+  if (options.center !== false) {
+    x = token.x + (token.document.width * scale) / 2;
+    y = token.y + (token.document.height * scale) / 2;
+  }
+  const distX = options.x - x;
+  const distY = options.y - y;
+  let newAngle = Math.atan(distY / distX) + (distX > 0 ? Math.PI : 0);
+
+  if (distX === 0) {
+    newAngle = distY > 0 ? Math.PI * 1.5 : Math.PI * 0.5;
+  }
 
   await token.document.setFlag("celestus", "rotation", newAngle - Math.PI / 2);
   token.drawPointer();

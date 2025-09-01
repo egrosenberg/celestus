@@ -953,7 +953,11 @@ export function drawTokenHover(token, hovered) {
 export function rotateOnMove(token, changed, options) {
   // if token moved, rotate towards position
   if (changed.x && changed.y) {
-    rotateTokenTowards(token.object, { x: changed.x, y: changed.y });
+    rotateTokenTowards(token.object, {
+      x: changed.x,
+      y: changed.y,
+      center: false,
+    });
   }
 }
 
