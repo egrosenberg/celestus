@@ -1005,20 +1005,20 @@ Hooks.on("init", () => {
   foundry.applications.apps.DocumentSheetConfig.unregisterSheet(
     MeasuredTemplateDocument,
     "core",
-    foundry.applications.sheets.MeasuredTemplateConfig
+    foundry.applications.sheets.MeasuredTemplateConfig,
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     MeasuredTemplateDocument,
     "celestus",
     CelestusMeasuredTemplateConfig,
-    { makeDefault: true }
+    { makeDefault: true },
   );
   CONFIG.Token.objectClass = CelestusToken;
 
   // set up sheets
   foundry.documents.collections.Actors.unregisterSheet(
     "core",
-    foundry.appv1.sheets.ActorSheet
+    foundry.appv1.sheets.ActorSheet,
   );
   foundry.documents.collections.Actors.registerSheet(
     "celestus",
@@ -1027,11 +1027,11 @@ Hooks.on("init", () => {
       makeDefault: true,
       label: "CELESTUS.SheetLabels.Actor",
       async: true,
-    }
+    },
   );
   foundry.documents.collections.Items.unregisterSheet(
     "core",
-    foundry.appv1.sheets.ItemSheet
+    foundry.appv1.sheets.ItemSheet,
   );
   foundry.documents.collections.Items.registerSheet(
     "celestus",
@@ -1040,7 +1040,7 @@ Hooks.on("init", () => {
       makeDefault: true,
       label: "CELESTUS.SheetLabels.Item",
       async: true,
-    }
+    },
   );
 
   // register active effect sheet
@@ -1053,7 +1053,7 @@ Hooks.on("init", () => {
       makeDefault: true,
       canBeDefault: true,
       label: "CELESTUS.SheetLabels.activeEffect",
-    }
+    },
   );
 
   // set up resource attributes as trackable
@@ -1087,17 +1087,17 @@ Hooks.on("init", () => {
   CONFIG.CELESTUS.reachOverlay = new PIXI.Graphics();
   //backstab overlay
   CONFIG.CELESTUS.backstabOverlayTexture = PIXI.Texture.from(
-    "systems/celestus/svg/backstab-overlay.svg"
+    "systems/celestus/svg/backstab-overlay.svg",
   );
   CONFIG.CELESTUS.backstabOverlaySprite = new PIXI.Sprite(
-    CONFIG.CELESTUS.backstabOverlayTexture
+    CONFIG.CELESTUS.backstabOverlayTexture,
   );
   // backstab area
   CONFIG.CELESTUS.backstabAreaTexture = PIXI.Texture.from(
-    "systems/celestus/svg/backstab-area.svg"
+    "systems/celestus/svg/backstab-area.svg",
   );
   CONFIG.CELESTUS.backstabAreaSprite = new PIXI.Sprite(
-    CONFIG.CELESTUS.backstabAreaTexture
+    CONFIG.CELESTUS.backstabAreaTexture,
   );
   CONFIG.CELESTUS.backstabAreaSprite.tint = 0x0000ff;
   CONFIG.CELESTUS.backstabAreaSprite.alpha = 0.4;
@@ -1106,14 +1106,14 @@ Hooks.on("init", () => {
   CONFIG.CELESTUS.backstabAreaSprite.anchor.y = 0.5;
   // directional pointer texture
   CONFIG.CELESTUS.pointerTexture = PIXI.Texture.from(
-    "systems/celestus/svg/direction-pointer.svg"
+    "systems/celestus/svg/direction-pointer.svg",
   );
   // teleport cursor follower
   CONFIG.CELESTUS.teleportCursorTexture = PIXI.Texture.from(
-    "systems/celestus/svg/teleport-cursor.svg"
+    "systems/celestus/svg/teleport-cursor.svg",
   );
   CONFIG.CELESTUS.teleportCursor = new PIXI.Sprite(
-    CONFIG.CELESTUS.teleportCursorTexture
+    CONFIG.CELESTUS.teleportCursorTexture,
   );
   CONFIG.CELESTUS.teleportCursor.alpha = 0.5;
   CONFIG.CELESTUS.teleportCursor.zIndex = 20;
@@ -1258,7 +1258,7 @@ Hooks.on("init", () => {
   });
   CONFIG.CELESTUS.broadcastPopups = game.settings.get(
     "celestus",
-    "broadcastPopups"
+    "broadcastPopups",
   );
 
   // set up websocket handling
@@ -1277,7 +1277,7 @@ Hooks.on("ready", () => {
   $(document).on(
     "click",
     ".damage-component .damage-mult",
-    applyDamageComponent
+    applyDamageComponent,
   );
   $(document).on("click", ".apply-status", applyStatusHook);
   $(document).on("click", ".draw-template", drawTemplate);
@@ -1305,7 +1305,7 @@ Hooks.on("ready", () => {
   $(damageControlLabel).on(
     "click",
     "#roll-improvise-damage",
-    game.celestus.improviseDamage
+    game.celestus.improviseDamage,
   );
   // TODO: Render Chat control button(s) in v13
   // document.getElementsByClassName("chat-controls").appendChild(damageControlLabel);
@@ -1390,7 +1390,7 @@ Hooks.on("renderHotbar", (application, html, data) => {
         };
         let msg = await foundry.applications.handlebars.renderTemplate(
           path,
-          msgData
+          msgData,
         );
         // do text enrichment
         msg =
@@ -1402,7 +1402,7 @@ Hooks.on("renderHotbar", (application, html, data) => {
               async: true,
               // For Actors and foundry.documents.collections.Items
               rollData: item.getRollData(),
-            }
+            },
           );
         // add item description to document
         const div = $(msg);
@@ -1600,7 +1600,7 @@ awaitElevationRuler(timeout)?.then(function () {
   CONFIG.elevationruler.SPEED.maximumCategoryDistance = function (
     token,
     speedCategory,
-    tokenSpeed
+    tokenSpeed,
   ) {
     tokenSpeed ??= SPEED.tokenSpeed(token);
     const mult = speedCategory?.multiplier ?? Number.POSITIVE_INFINITY;
