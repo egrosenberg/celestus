@@ -2,7 +2,7 @@
   "id": "celestus",
   "title": "Celestus",
   "description": "A TTRPG inspired by the gameplay of the Divinity Original Sin series.",
-  "version": "0.0.2",
+  "version": "0.1.2",
   "compatibility": {
     "minimum": 13,
     "verified": 13
